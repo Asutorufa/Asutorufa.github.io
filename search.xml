@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[三蛋空间自建贴吧云签到]]></title>
     <url>%2F2017%2F10%2F08%2F%E4%B8%89%E8%9B%8B%E7%A9%BA%E9%97%B4%E8%87%AA%E5%BB%BA%E8%B4%B4%E5%90%A7%E4%BA%91%E7%AD%BE%E5%88%B0%2F</url>
-    <content type="text"><![CDATA[这是我自建的贴吧云签到:http://dmly.tk之后为教程 注册免费空间首先你得注册一个三蛋空间的账号,三蛋空间注册网址:三蛋空间 创建网站注册完成之后点击这里 添加一个空模版,如图 写上名字和密码,点击create ftp下载SmartFTP Client或者其他你熟悉的ftp上传工具,这里百度就行了进入三蛋空间的管理网站,点击这里,如图 把这里的信息填入SmartFTP Client中 然后点ok 上传贴吧云签到源码github地址:Tieba-Cloud-Sign点击这里下载zip并解压 将解压得到的所有文件拖入ftp上的publie_html文件夹中 创建数据库然后进入三蛋空间创建数据库三蛋空间会自动给你的数据库名字前加上数字,所以之后在贴吧安装中要注意 安装之后进入你的网站,然后安装就行了. 创建cron job安装完成后就要吧do.php加入cron,否则是不会自动签到的,按图中的步骤进行]]></content>
+    <content type="text"><![CDATA[这是我自建的贴吧云签到:http://dmly.tk之后为教程 注册免费空间首先你得注册一个三蛋空间的账号,三蛋空间注册网址:三蛋空间 创建网站注册完成之后点击这里 添加一个空模版,如图 写上名字和密码,点击create ftp下载SmartFTP Client或者其他你熟悉的ftp上传工具,这里百度就行了进入三蛋空间的管理网站,点击这里,如图 把这里的信息填入SmartFTP Client中 然后点ok 上传贴吧云签到源码github地址:Tieba-Cloud-Sign点击这里下载zip并解压 将解压得到的所有文件拖入ftp上的public_html文件夹中 创建数据库然后进入三蛋空间创建数据库三蛋空间会自动给你的数据库名字前加上数字,所以之后在贴吧安装中要注意 安装之后进入你的网站,然后安装就行了. 创建cron job安装完成后就要把do.php加入cron,否则是不会自动签到的,按图中的步骤进行]]></content>
       <categories>
         <category>建站</category>
       </categories>
