@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[更改绑定手机号]]></title>
+    <url>%2F2017%2F10%2F08%2F%E6%9B%B4%E6%94%B9%E7%BB%91%E5%AE%9A%E6%89%8B%E6%9C%BA%E5%8F%B7%2F</url>
+    <content type="text"><![CDATA[绑定手机号：微信，网易云，淘宝原手机号及证件，支付宝，google银行卡，贴吧，酷安，微博需要原手机号，bilibili（需要原手机号)微软,欢喜云，京东（原手机号及银行卡，非我的实名认证）天猫，银行卡，steam，小冰，yy(需要原手机号)]]></content>
+      <categories>
+        <category>日常生活</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+        <tag>日常</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[C输出字符串的ASCII码]]></title>
+    <url>%2F2017%2F10%2F08%2F%E7%BC%96%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[123456789101112#include &lt;stdio.h&gt;int main()&#123;char str[]=”This is a string!”;int i=0;while(str[i]!=’\0′)&#123;printf(“%c=%d\n”,str[i],str[i]);i++;&#125;printf(“%c=%d\n”,str[i],str[i]);&#125;]]></content>
+      <categories>
+        <category>program</category>
+      </categories>
+      <tags>
+        <tag>program</tag>
+        <tag>c语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2017%2F10%2F07%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+</search>
