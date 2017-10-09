@@ -1,109 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-    
-    <entry>
-      <title><![CDATA[三蛋空间自建贴吧云签到]]></title>
-      <url>/2017/10/08/%E4%B8%89%E8%9B%8B%E7%A9%BA%E9%97%B4%E8%87%AA%E5%BB%BA%E8%B4%B4%E5%90%A7%E4%BA%91%E7%AD%BE%E5%88%B0/</url>
-      <content type="html"><![CDATA[<p>这是我自建的贴吧云签到:<a href="http://dmly.tk" target="_blank" rel="external">http://dmly.tk</a><br>之后为教程</p>
-<h2 id="注册免费空间"><a href="#注册免费空间" class="headerlink" title="注册免费空间"></a>注册免费空间</h2><p>首先你得注册一个三蛋空间的账号,三蛋空间注册网址:<a href="https://www.000webhost.com/members/website/list" target="_blank" rel="external">三蛋空间</a><a id="more"></a></p>
-<h2 id="创建网站"><a href="#创建网站" class="headerlink" title="创建网站"></a>创建网站</h2><p>注册完成之后点击这里 添加一个空模版,如图</p>
-<p><img src="http://oxgldbgt4.bkt.clouddn.com/%E6%B3%A8%E5%86%8C.png" alt=""></p>
-<p>写上名字和密码,点击create</p>
-<p><img src="http://oxgldbgt4.bkt.clouddn.com/%E5%90%8D%E5%AD%97.png" alt=""></p>
-<h2 id="ftp"><a href="#ftp" class="headerlink" title="ftp"></a>ftp</h2><p>下载SmartFTP Client或者其他你熟悉的ftp上传工具,这里百度就行了<br>进入三蛋空间的管理网站,点击这里,如图</p>
-<p><img src="http://oxgldbgt4.bkt.clouddn.com/detile.png" alt=""><br><img src="http://oxgldbgt4.bkt.clouddn.com/%5D%60$%603%29%284TGPPR%5DZDA8@60W8.png" alt=""></p>
-<p>把这里的信息填入SmartFTP Client中</p>
-<p><img src="http://oxgldbgt4.bkt.clouddn.com/NS0ID6B9@2EIS4%25%7D%7B%60KLQQ7.png" alt=""><br>然后点ok</p>
-<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>贴吧云签到源码github地址:<a href="https://github.com/MoeNetwork/Tieba-Cloud-Sign" target="_blank" rel="external">Tieba-Cloud-Sign</a><br>点击这里下载zip并解压</p>
-<p><img src="http://oxgldbgt4.bkt.clouddn.com/GA%5D3BI8Q77U8J%7DTW2%25PD%5D4L.png" alt=""></p>
-<p>将解压得到的所有文件拖入ftp上的public_html文件夹中</p>
-<p><img src="http://oxgldbgt4.bkt.clouddn.com/LR%7D$$65~BX37S2%29I%7DL%60Y309.png" alt=""></p>
-<h2 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h2><p>然后进入三蛋空间创建数据库<br>三蛋空间会自动给你的数据库名字前加上数字,所以之后在贴吧安装中要注意</p>
-<p><img src="http://oxgldbgt4.bkt.clouddn.com/4%25JP1V7TEKX4IE0~1UUQN%5DU.png" alt=""></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>之后进入你的网站,然后安装就行了.</p>
-<h2 id="创建cron-job"><a href="#创建cron-job" class="headerlink" title="创建cron job"></a>创建cron job</h2><p>安装完成后就要把do.php加入cron,否则是不会自动签到的,按图中的步骤进行<br><img src="http://oxgldbgt4.bkt.clouddn.com/P5LC1%7B%7D%7BQ%7B1_QCZ0%5DE@L0WO.png" alt=""></p>
-]]></content>
-      
-        <categories>
-            
-            <category> 建站 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> 建站 </tag>
-            
-            <tag> 免费 </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[更改绑定手机号]]></title>
-      <url>/2017/10/08/%E6%9B%B4%E6%94%B9%E7%BB%91%E5%AE%9A%E6%89%8B%E6%9C%BA%E5%8F%B7/</url>
-      <content type="html"><![CDATA[<p>绑定手机号：微信，网易云，淘宝原手机号及证件，支付宝，google<br>银行卡，贴吧，酷安，微博需要原手机号，bilibili（需要原手机号)<a id="more"></a><br>微软,欢喜云，京东（原手机号及银行卡，非我的实名认证）<br>天猫，银行卡，steam，小冰，yy(需要原手机号)<br><img src="http://oxgldbgt4.bkt.clouddn.com/%E6%8D%95%E8%8E%B72.PNG" alt=""></p>
-]]></content>
-      
-        <categories>
-            
-            <category> 日常生活 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> 生活 </tag>
-            
-            <tag> 日常 </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[C输出字符串的ASCII码]]></title>
-      <url>/2017/10/08/%E7%BC%96%E7%A8%8B/</url>
-      <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include &lt;stdio.h&gt;</span></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">char str[]=”This is a string!”;</div><div class="line">int i=0;</div><div class="line"><span class="keyword">while</span>(str[i]!=’\0′)</div><div class="line">&#123;</div><div class="line"><span class="built_in">printf</span>(“%c=%d\n”,str[i],str[i]);</div><div class="line">i++;</div><div class="line">&#125;</div><div class="line"><span class="built_in">printf</span>(“%c=%d\n”,str[i],str[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
-      
-        <categories>
-            
-            <category> program </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> program </tag>
-            
-            <tag> c语言 </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Hello World]]></title>
-      <url>/2017/10/07/hello-world/</url>
-      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.<br><a id="more"></a></p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-      
-        
-    </entry>
-    
-  
-  
+<search>
+  <entry>
+    <title><![CDATA[三蛋空间自建贴吧云签到]]></title>
+    <url>%2F2017%2F10%2F08%2F%E4%B8%89%E8%9B%8B%E7%A9%BA%E9%97%B4%E8%87%AA%E5%BB%BA%E8%B4%B4%E5%90%A7%E4%BA%91%E7%AD%BE%E5%88%B0%2F</url>
+    <content type="text"><![CDATA[–这是我自建的贴吧云签到:http://dmly.tk之后为教程 注册免费空间首先你得注册一个三蛋空间的账号,三蛋空间注册网址:三蛋空间 创建网站注册完成之后点击这里 添加一个空模版,如图 写上名字和密码,点击create ftp下载SmartFTP Client或者其他你熟悉的ftp上传工具,这里百度就行了进入三蛋空间的管理网站,点击这里,如图 把这里的信息填入SmartFTP Client中 然后点ok 上传贴吧云签到源码github地址:Tieba-Cloud-Sign点击这里下载zip并解压 将解压得到的所有文件拖入ftp上的public_html文件夹中 创建数据库然后进入三蛋空间创建数据库三蛋空间会自动给你的数据库名字前加上数字,所以之后在贴吧安装中要注意 安装之后进入你的网站,然后安装就行了. 创建cron job安装完成后就要把do.php加入cron,否则是不会自动签到的,按图中的步骤进行]]></content>
+      <categories>
+        <category>建站</category>
+      </categories>
+      <tags>
+        <tag>建站</tag>
+        <tag>免费</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[更改绑定手机号]]></title>
+    <url>%2F2017%2F10%2F08%2F%E6%9B%B4%E6%94%B9%E7%BB%91%E5%AE%9A%E6%89%8B%E6%9C%BA%E5%8F%B7%2F</url>
+    <content type="text"><![CDATA[绑定手机号：微信，网易云，淘宝原手机号及证件，支付宝，google银行卡，贴吧，酷安，微博需要原手机号，bilibili（需要原手机号)微软,欢喜云，京东（原手机号及银行卡，非我的实名认证）天猫，银行卡，steam，小冰，yy(需要原手机号)]]></content>
+      <categories>
+        <category>日常生活</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+        <tag>日常</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[C输出字符串的ASCII码]]></title>
+    <url>%2F2017%2F10%2F08%2F%E7%BC%96%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[123456789101112#include &lt;stdio.h&gt;int main()&#123;char str[]=”This is a string!”;int i=0;while(str[i]!=’\0′)&#123;printf(“%c=%d\n”,str[i],str[i]);i++;&#125;printf(“%c=%d\n”,str[i],str[i]);&#125;]]></content>
+      <categories>
+        <category>program</category>
+      </categories>
+      <tags>
+        <tag>program</tag>
+        <tag>c语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2017%2F10%2F07%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
 </search>
