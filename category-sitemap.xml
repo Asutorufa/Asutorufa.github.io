@@ -7,13 +7,6 @@
     </url>
 
     <url>
-        <loc>https://mundanedefoliation.github.io/categories/program/</loc>
-        <lastmod>2017-10-08T04:26:21.347Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://mundanedefoliation.github.io/categories/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/</loc>
         <lastmod>2017-10-08T05:23:04.310Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -36,7 +29,14 @@
 
     <url>
         <loc>https://mundanedefoliation.github.io/categories/%E6%95%B0%E5%AD%A6/</loc>
-        <lastmod>2017-10-09T10:04:28.214Z</lastmod>
+        <lastmod>2017-10-09T10:08:23.641Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://mundanedefoliation.github.io/categories/%E7%BC%96%E7%A8%8B/</loc>
+        <lastmod>2017-10-10T05:11:34.551Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
