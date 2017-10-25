@@ -1,0 +1,3 @@
+https://mundanedefoliation.github.io/ https://defoliation.coding.me/2017/10/24/利用char按字节打印指针/
+https://mundanedefoliation.github.io/ https://defoliation.coding.me/2017/10/10/c语言中格式化字符的应用/
+https://mundanedefoliation.github.io/ https://defoliation.coding.me/2017/10/09/常用等价无穷小的一般形式/
