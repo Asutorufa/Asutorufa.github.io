@@ -1,3 +1,8 @@
 https://mundanedefoliation.github.io/利用char按字节打印指针/
 https://mundanedefoliation.github.io/c语言中格式化字符的应用/
 https://mundanedefoliation.github.io/常用等价无穷小的一般形式/
+https://mundanedefoliation.github.io/课程表-练习用MD用/
+https://mundanedefoliation.github.io/三蛋空间自建贴吧云签到/
+https://mundanedefoliation.github.io/更改绑定手机号/
+https://mundanedefoliation.github.io/编程/
+https://mundanedefoliation.github.io/hello-world/
