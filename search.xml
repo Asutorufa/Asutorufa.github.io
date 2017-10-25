@@ -4,7 +4,7 @@
     
     <entry>
       <title><![CDATA[c语言利用char指针变量将int按字节打印地址]]></title>
-      <url>/title/</url>
+      <url>/%E5%88%A9%E7%94%A8char%E6%8C%89%E5%AD%97%E8%8A%82%E6%89%93%E5%8D%B0%E6%8C%87%E9%92%88/</url>
       <content type="html"><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>而char的大小刚好为一个字节,是我们想要的东西.<br>这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int a=-65;</div><div class="line">char *b=(char *)&amp;a;</div><div class="line">printf(&quot;%p\n%p\n%p\n%p\n&quot;,a,a+1,a+2,a+3);</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int a=-65;</div><div class="line">char *b=(char *)&amp;a;</div><div class="line">printf(&quot;%02x\n%02x\n%02x\n%02x\n&quot;,*(unsigned char*)a,*(unsigned char*)(a+1),*(unsigned char*)(a+2),*(unsigned char*)(a+3));</div></pre></td></tr></table></figure></p>
@@ -31,7 +31,7 @@
     
     <entry>
       <title><![CDATA[c语言中格式化字符的应用]]></title>
-      <url>/title/</url>
+      <url>/c%E8%AF%AD%E8%A8%80%E4%B8%AD%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E7%9A%84%E5%BA%94%E7%94%A8/</url>
       <content type="html"><![CDATA[<h2 id="格式化规定符"><a href="#格式化规定符" class="headerlink" title="格式化规定符"></a>格式化规定符</h2><p>符号 作用<br>%d 十进制有符号整数<br>%u 十进制无符号整数<br>%f 浮点数<br>%s 字符串<br>%c 单个字符<br>%p 指针的值<br>%e 指数形式的浮点数<br>%x, %X 无符号以十六进制表示的整数<a id="more"></a><br>%0 无符号以八进制表示的整数<br>%g 自动选择合适的表示法</p>
 <p>说明:<br>(1). 可以在”%”和字母之间插进数字表示最大场宽。<br>例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>(2). 可以在”%”和字母之间加小写字母l, 表示输出的是长型数。<br>例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>(3). 可以控制输出左对齐或右对齐, 即在”%”和字母之间加入一个”-“ 号可说明输出为左对齐, 否则为右对齐。<br>例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
 <h2 id="一些特殊规定字符"><a href="#一些特殊规定字符" class="headerlink" title="一些特殊规定字符"></a>一些特殊规定字符</h2><p>字符 作用<br>/n   换行<br>/f   清屏并换页<br>/r   回车<br>/t   Tab符<br>/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
@@ -56,7 +56,7 @@
     
     <entry>
       <title><![CDATA[常用等价无穷小的一般形式]]></title>
-      <url>/title/</url>
+      <url>/%E5%B8%B8%E7%94%A8%E7%AD%89%E4%BB%B7%E6%97%A0%E7%A9%B7%E5%B0%8F%E7%9A%84%E4%B8%80%E8%88%AC%E5%BD%A2%E5%BC%8F/</url>
       <content type="html"><![CDATA[<p>当$\lim_{φ(x)\to0}$时,<br>$\sin φ(x)$~$φ(x)$<br>$arc\sin φ(x)$~$φ(x)$<br>$\tanφ(x)$~$φ(x)$<br>$arc\tanφ(x)$~$φ(x)$<br>$\ln(1+φ(x))$~$φ(x)$<br>$e^{φ(x)}-1$~$φ(x)$<br>$a^{φ(x)}-1$~$φ(x)\ln a$<br>$\sqrt[n]{1+φ(x)}-1$~$\frac{1}{n}φ(x)$<br>$(1+φ(x))^{\mu-1}$~$\muφ(x)$<br>$1-\cosφ(x)$~$\frac{(φ(x))^2}{2}$</p>
 ]]></content>
       
@@ -79,7 +79,7 @@
     
     <entry>
       <title><![CDATA[课程表[练习MD用]]]></title>
-      <url>/title/</url>
+      <url>/%E8%AF%BE%E7%A8%8B%E8%A1%A8-%E7%BB%83%E4%B9%A0%E7%94%A8MD%E7%94%A8/</url>
       <content type="html"><![CDATA[<table>
 <thead>
 <tr>
@@ -155,7 +155,7 @@
     
     <entry>
       <title><![CDATA[三蛋空间自建贴吧云签到]]></title>
-      <url>/title/</url>
+      <url>/%E4%B8%89%E8%9B%8B%E7%A9%BA%E9%97%B4%E8%87%AA%E5%BB%BA%E8%B4%B4%E5%90%A7%E4%BA%91%E7%AD%BE%E5%88%B0/</url>
       <content type="html"><![CDATA[<h2 id="–"><a href="#–" class="headerlink" title="–"></a>–</h2><p>这是我自建的贴吧云签到:<a href="http://dmly.tk" target="_blank" rel="external">http://dmly.tk</a><br>之后为教程</p>
 <h3 id="注册免费空间"><a href="#注册免费空间" class="headerlink" title="注册免费空间"></a>注册免费空间</h3><p>首先你得注册一个三蛋空间的账号,三蛋空间注册网址:<a href="https://www.000webhost.com/members/website/list" target="_blank" rel="external">三蛋空间</a><a id="more"></a></p>
 <h3 id="创建网站"><a href="#创建网站" class="headerlink" title="创建网站"></a>创建网站</h3><p>注册完成之后点击这里 添加一个空模版,如图</p>
@@ -195,7 +195,7 @@
     
     <entry>
       <title><![CDATA[更改绑定手机号]]></title>
-      <url>/title/</url>
+      <url>/%E6%9B%B4%E6%94%B9%E7%BB%91%E5%AE%9A%E6%89%8B%E6%9C%BA%E5%8F%B7/</url>
       <content type="html"><![CDATA[<p>绑定手机号：微信，网易云，淘宝原手机号及证件，支付宝，google<br>银行卡，贴吧，酷安，微博需要原手机号，bilibili（需要原手机号)<a id="more"></a><br>微软,欢喜云，京东（原手机号及银行卡，非我的实名认证）<br>天猫，银行卡，steam，小冰，yy(需要原手机号)<br><img src="http://oxgldbgt4.bkt.clouddn.com/%E6%8D%95%E8%8E%B72.PNG" alt=""></p>
 ]]></content>
       
@@ -218,7 +218,7 @@
     
     <entry>
       <title><![CDATA[C输出字符串的ASCII码]]></title>
-      <url>/title/</url>
+      <url>/%E7%BC%96%E7%A8%8B/</url>
       <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include &lt;stdio.h&gt;</span></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">char str[]=”This is a string!”;</div><div class="line">int i=0;</div><div class="line"><span class="keyword">while</span>(str[i]!=’\0′)</div><div class="line">&#123;</div><div class="line"><span class="built_in">printf</span>(“%c=%d\n”,str[i],str[i]);</div><div class="line">i++;</div><div class="line">&#125;</div><div class="line"><span class="built_in">printf</span>(“%c=%d\n”,str[i],str[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
       
         <categories>
@@ -240,7 +240,7 @@
     
     <entry>
       <title><![CDATA[Hello World]]></title>
-      <url>/title/</url>
+      <url>/hello-world/</url>
       <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.<br><a id="more"></a></p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
