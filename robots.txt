@@ -1,4 +1,3 @@
-# hexo robots.txt
 User-agent: *
 Allow: /
 Allow: /archives/
@@ -8,5 +7,5 @@ Disallow: /css/
 Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
-Sitemap: http://mundanedefoliation.github.io/sitemap.xml
-Sitemap: http://mundanedefoliation.github.io/baidusitemap.xml
+Sitemap: https://mundanedefoliation.github.io/sitemap.xml
+Sitemap: https://mundanedefoliation.github.io/baidusitemap.xml
