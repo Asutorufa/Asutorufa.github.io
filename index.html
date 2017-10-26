@@ -216,16 +216,6 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
             
@@ -394,7 +384,7 @@
 
       
         
-          <p>题目是盗来的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">猴子吃桃问题。猴子第一天摘下若干个桃子，当即吃了一半，还不过瘾，又多吃了一个。</div><div class="line">第二天早上又将剩下的桃子吃掉一半，又多吃了一个。以后每天早上都吃了前一天剩下的一半零一个。</div><div class="line">到第n天早上想再吃时，见只剩下一个桃子了。求第一天共摘了多少桃子。</div><div class="line">例如：</div><div class="line">输入：3</div><div class="line">输出：10</div><div class="line">输入：10</div><div class="line">输出：1534</div></pre></td></tr></table></figure></p>
+          <p>题目是盗来的<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">猴子吃桃问题。猴子第一天摘下若干个桃子，当即吃了一半，还不过瘾，又多吃了一个。</div><div class="line">第二天早上又将剩下的桃子吃掉一半，又多吃了一个。以后每天早上都吃了前一天剩下的一半零一个。</div><div class="line">到第n天早上想再吃时，见只剩下一个桃子了。求第一天共摘了多少桃子。</div><div class="line">例如：</div><div class="line">输入：<span class="number">3</span></div><div class="line">输出：<span class="number">10</span></div><div class="line">输入：<span class="number">10</span></div><div class="line">输出：<span class="number">1534</span></div></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/java和c-简单的递归调用/#more" rel="contents">
@@ -540,7 +530,7 @@
 
       
         
-          <p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>而char的大小刚好为一个字节,是我们想要的东西.<br>这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int a=-65;</div><div class="line">char *b=(char *)&amp;a;</div><div class="line">printf(&quot;%p\n%p\n%p\n%p\n&quot;,a,a+1,a+2,a+3);</div></pre></td></tr></table></figure></p>
+          <p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>而char的大小刚好为一个字节,是我们想要的东西.<br>这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>代码如下<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int a=<span class="number">-65</span>;</div><div class="line">char *b=(char *)&amp;a;</div><div class="line">printf(<span class="string">"%p<span class="subst">\n</span>%p<span class="subst">\n</span>%p<span class="subst">\n</span>%p<span class="subst">\n</span>"</span>,a,a+<span class="number">1</span>,a+<span class="number">2</span>,a+<span class="number">3</span>);</div></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/利用char按字节打印指针/#more" rel="contents">
@@ -1666,7 +1656,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/">
+                <a href="/archives">
               
                   <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>

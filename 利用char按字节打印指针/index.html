@@ -71,19 +71,19 @@
 
 
 
-<meta name="description" content="因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.而char的大小刚好为一个字节,是我们想要的东西.这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.代码如下123int a=-65;char *b=(char *)&amp;amp;a;printf(&amp;quot;%p\n">
+<meta name="description" content="因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.而char的大小刚好为一个字节,是我们想要的东西.这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.代码如下123int a=-65;char *b=(char *)&amp;amp;a;printf(&quot;%p\n%p\n%">
 <meta name="keywords" content="编程,c语言">
 <meta property="og:type" content="article">
 <meta property="og:title" content="c语言利用char指针变量将int按字节打印地址">
 <meta property="og:url" content="https://mundanedefoliation.github.io/利用char按字节打印指针/index.html">
 <meta property="og:site_name" content="Defoliation的幻想乡">
-<meta property="og:description" content="因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.而char的大小刚好为一个字节,是我们想要的东西.这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.代码如下123int a=-65;char *b=(char *)&amp;amp;a;printf(&amp;quot;%p\n">
+<meta property="og:description" content="因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.而char的大小刚好为一个字节,是我们想要的东西.这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.代码如下123int a=-65;char *b=(char *)&amp;amp;a;printf(&quot;%p\n%p\n%">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://oxgldbgt4.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png">
 <meta property="og:updated_time" content="2017-10-24T15:06:52.209Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="c语言利用char指针变量将int按字节打印地址">
-<meta name="twitter:description" content="因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.而char的大小刚好为一个字节,是我们想要的东西.这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.代码如下123int a=-65;char *b=(char *)&amp;amp;a;printf(&amp;quot;%p\n">
+<meta name="twitter:description" content="因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.而char的大小刚好为一个字节,是我们想要的东西.这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.代码如下123int a=-65;char *b=(char *)&amp;amp;a;printf(&quot;%p\n%p\n%">
 <meta name="twitter:image" content="http://oxgldbgt4.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png">
 
 
@@ -215,16 +215,6 @@
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
             分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
           </a>
         </li>
       
@@ -394,10 +384,10 @@
       
 
       
-        <p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>而char的大小刚好为一个字节,是我们想要的东西.<br>这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int a=-65;</div><div class="line">char *b=(char *)&amp;a;</div><div class="line">printf(&quot;%p\n%p\n%p\n%p\n&quot;,a,a+1,a+2,a+3);</div></pre></td></tr></table></figure></p>
+        <p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>而char的大小刚好为一个字节,是我们想要的东西.<br>这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>代码如下<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int a=<span class="number">-65</span>;</div><div class="line">char *b=(char *)&amp;a;</div><div class="line">printf(<span class="string">"%p<span class="subst">\n</span>%p<span class="subst">\n</span>%p<span class="subst">\n</span>%p<span class="subst">\n</span>"</span>,a,a+<span class="number">1</span>,a+<span class="number">2</span>,a+<span class="number">3</span>);</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
-<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int a=-65;</div><div class="line">char *b=(char *)&amp;a;</div><div class="line">printf(&quot;%02x\n%02x\n%02x\n%02x\n&quot;,*(unsigned char*)a,*(unsigned char*)(a+1),*(unsigned char*)(a+2),*(unsigned char*)(a+3));</div></pre></td></tr></table></figure></p>
-<p>两者结合一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int a=-65;</div><div class="line">char *b=(char *)&amp;a;</div><div class="line">printf(&quot;%p %02x\n%p %02x\n%p %02x\n%p %02x\n&quot;,a,*(unsigned char*)a,a+1,*(unsigned char*)(a+1),a+2,*(unsigned char*)(a+2),a+3,*(unsigned char*)(a+3));</div></pre></td></tr></table></figure></p>
+<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a=<span class="number">-65</span>;</div><div class="line"><span class="keyword">char</span> *b=(<span class="keyword">char</span> *)&amp;a;</div><div class="line"><span class="built_in">printf</span>(<span class="string">"%02x\n%02x\n%02x\n%02x\n"</span>,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)a,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">1</span>),*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">2</span>),*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">3</span>));</div></pre></td></tr></table></figure></p>
+<p>两者结合一下<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a=<span class="number">-65</span>;</div><div class="line"><span class="keyword">char</span> *b=(<span class="keyword">char</span> *)&amp;a;</div><div class="line"><span class="built_in">printf</span>(<span class="string">"%p %02x\n%p %02x\n%p %02x\n%p %02x\n"</span>,a,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)a,a+<span class="number">1</span>,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">1</span>),a+<span class="number">2</span>,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">2</span>),a+<span class="number">3</span>,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">3</span>));</div></pre></td></tr></table></figure></p>
 <p>输出内容如图<br><img src="http://oxgldbgt4.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png" alt=""><br><strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
 
       
@@ -509,7 +499,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/">
+                <a href="/archives">
               
                   <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
