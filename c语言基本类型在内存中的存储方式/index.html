@@ -58,7 +58,7 @@
 
 
 
-  <meta name="keywords" content="编程,c语言," />
+  <meta name="keywords" content="c语言,编程," />
 
 
 
@@ -69,18 +69,18 @@
 
 
 
-<meta name="description" content="1.整数整数在内存中是以补码的形式存储对于正整数:原码=反码=补码对于负整数:原码即为原码          反码=原码符号为不变,其余取反(注:第一位为符号位)          补码=反码+1 2.浮点数float|符号位 | +  |指数位  | +|尾数位||:—–:|:–:|:—–:|:-:|:—:| | ↑    |     |↑         ||↑   ||第一位 ||    |">
-<meta name="keywords" content="编程,c语言">
+<meta name="description" content="浮点数float   符号位 + 指数位 + 尾数位     ↑  ↑  ↑   第一位  8位  23位">
+<meta name="keywords" content="c语言,编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="c语言基本类型在内存中的存储方式">
 <meta property="og:url" content="https://mundanedefoliation.github.io/c语言基本类型在内存中的存储方式/index.html">
 <meta property="og:site_name" content="Defoliation的幻想乡">
-<meta property="og:description" content="1.整数整数在内存中是以补码的形式存储对于正整数:原码=反码=补码对于负整数:原码即为原码          反码=原码符号为不变,其余取反(注:第一位为符号位)          补码=反码+1 2.浮点数float|符号位 | +  |指数位  | +|尾数位||:—–:|:–:|:—–:|:-:|:—:| | ↑    |     |↑         ||↑   ||第一位 ||    |">
+<meta property="og:description" content="浮点数float   符号位 + 指数位 + 尾数位     ↑  ↑  ↑   第一位  8位  23位">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-30T07:47:06.979Z">
+<meta property="og:updated_time" content="2017-10-30T07:56:23.689Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="c语言基本类型在内存中的存储方式">
-<meta name="twitter:description" content="1.整数整数在内存中是以补码的形式存储对于正整数:原码=反码=补码对于负整数:原码即为原码          反码=原码符号为不变,其余取反(注:第一位为符号位)          补码=反码+1 2.浮点数float|符号位 | +  |指数位  | +|尾数位||:—–:|:–:|:—–:|:-:|:—:| | ↑    |     |↑         ||↑   ||第一位 ||    |">
+<meta name="twitter:description" content="浮点数float   符号位 + 指数位 + 尾数位     ↑  ↑  ↑   第一位  8位  23位">
 
 
 
@@ -380,9 +380,64 @@
       
 
       
-        <p>1.整数<br>整数在内存中是以补码的形式存储<br>对于正整数:原码=反码=补码<br>对于负整数:原码即为原码<br>          反码=原码符号为不变,其余取反(注:第一位为符号位)<br>          补码=反码+1</p>
-<p>2.浮点数<br>float<br>|符号位 | +  |指数位  | +|尾数位|<br>|:—–:|:–:|:—–:|:-:|:—:|<br> | ↑    |     |↑         ||↑   |<br>|第一位 ||    | 8位   |   || 23位|</p>
-<p>double<br>|符号位 | +  |指数位  | +|尾数位|<br>|:—–:|:-:|:—–:|:-:|:—-:|<br> | ↑    |     |↑         ||↑   |<br>|第一位 ||    | 11位   |   || 52位|</p>
+        <h2 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h2><h3 id="float"><a href="#float" class="headerlink" title="float"></a>float</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">符号位</th>
+<th style="text-align:center">+</th>
+<th style="text-align:center">指数位</th>
+<th style="text-align:center">+</th>
+<th style="text-align:center">尾数位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">↑</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↑</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↑</td>
+</tr>
+<tr>
+<td style="text-align:center">第一位</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">8位</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">23位</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<h3 id="double"><a href="#double" class="headerlink" title="double"></a>double</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">符号位</th>
+<th style="text-align:center">+</th>
+<th style="text-align:center">指数位</th>
+<th style="text-align:center">+</th>
+<th style="text-align:center">尾数位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">↑</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↑</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↑</td>
+</tr>
+<tr>
+<td style="text-align:center">第一位</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">11位</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">52位</td>
+</tr>
+</tbody>
+</table>
+<h2 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h2><p>整数在内存中是以补码的形式存储</p>
+<h3 id="正整数"><a href="#正整数" class="headerlink" title="正整数"></a>正整数</h3><p>原码=反码=补码</p>
+<h3 id="负整数"><a href="#负整数" class="headerlink" title="负整数"></a>负整数</h3><p>原码即为原码<br>反码=原码符号为不变,其余取反(注:第一位为符号位)<br>补码=反码+1</p>
 
       
     </div>
@@ -400,9 +455,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/编程/" rel="tag"># 编程</a>
-          
             <a href="/tags/c语言/" rel="tag"># c语言</a>
+          
+            <a href="/tags/编程/" rel="tag"># 编程</a>
           
         </div>
       
@@ -477,8 +532,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -608,6 +672,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#浮点数"><span class="nav-number">1.</span> <span class="nav-text">浮点数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#float"><span class="nav-number">1.1.</span> <span class="nav-text">float</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#double"><span class="nav-number">1.2.</span> <span class="nav-text">double</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整数"><span class="nav-number">2.</span> <span class="nav-text">整数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正整数"><span class="nav-number">2.1.</span> <span class="nav-text">正整数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负整数"><span class="nav-number">2.2.</span> <span class="nav-text">负整数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
