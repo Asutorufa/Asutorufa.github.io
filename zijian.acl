@@ -1,6 +1,6 @@
 #**********************************************************************
-# 11.03
-# 2017年11月3日11:37:47
+# 11.11
+# 2017年11月11日14:59:01
 # 转载需要注明版权和来源
 #
 # 屏蔽常用网站、视频、手机rom广告&运营商劫持广告&数据跟踪&开屏广告
@@ -498,7 +498,7 @@
 (^|\.)vv\.play\.aiseet\.atianqi\.com$
 
 # Youku & Tudou
-(^|\.)(actives|atm|dmapp|guanggaoad|hz|iyes|l|lstat|lvip|msg|mobilemsg|myes|pl|passport-log|stat|tdrec|wan|ykatr|ykrec|ykrectab)\.youku\.com$
+(^|\.)(actives|atm|dmapp|guanggaoad|hz|iyes|l|lstat|lvip|msg|mobilemsg|myes|passport-log|stat|tdrec|wan|ykatr|ykrec|ykrectab)\.youku\.com$
 (^|\.)(adcontrol|adplay|goods|iwstat|nstat|stat|stats)\.tudou\.com$
 (^|\.)(ad|gamex)\.mobile\.youku\.com$
 (^|\.)(dev-push|push|sdk)\.m\.youku\.com$
@@ -617,7 +617,6 @@
 (^|\.)hosting\.miarroba\.info$
 (^|\.)iadsdk\.apple\.com$
 (^|\.)image\.gentags\.com$
-(^|\.)js-agent\.newrelic\.com$
 (^|\.)lm\.admin5\.com$
 (^|\.)log\.outbrain\.com$
 (^|\.)m\.12306media\.com$
@@ -669,7 +668,6 @@
 (^|\.)adbana\.com$
 (^|\.)adbxb\.com$
 (^|\.)adchina\.com$
-(^|\.)adcolony\.com$
 (^|\.)adcome\.cn$
 (^|\.)ader\.mobi$
 (^|\.)adform\.net$
@@ -737,7 +735,6 @@
 (^|\.)bugtags\.com$
 (^|\.)buysellads\.com$
 (^|\.)c0563\.com$
-(^|\.)casalemedia\.com$
 (^|\.)cdnmaster\.com$
 (^|\.)chance-ad\.com$
 (^|\.)chanet\.com\.cn$
@@ -775,12 +772,9 @@
 (^|\.)dxpmedia\.com$
 (^|\.)edigitalsurvey\.com$
 (^|\.)eduancm\.com$
-(^|\.)effectivemeasure\.com$
 (^|\.)emarbox\.com$
 (^|\.)exosrv\.com$
 (^|\.)fancyapi\.com$
-(^|\.)fastapi\.net$
-(^|\.)fastclick\.net$
 (^|\.)feixin2\.com$
 (^|\.)flashtalking\.com$
 (^|\.)fraudmetrix.cn
@@ -913,7 +907,6 @@
 (^|\.)social-touch\.com$
 (^|\.)somecoding\.com$
 (^|\.)sponsorpay\.com$
-(^|\.)statcounter\.com$
 (^|\.)stg8\.com$
 (^|\.)switchadhub\.com$
 (^|\.)sycbbs\.com$
@@ -988,7 +981,6 @@
 (^|\.)ysjwj\.com$
 (^|\.)yunjiasu\.com$
 (^|\.)zampdsp\.com$
-(^|\.)zedo\.com$
 (^|\.)zhidian3g\.cn$
 (^|\.)zhiziyun\.com$
 (^|\.)zqzxz\.com$
@@ -998,6 +990,8 @@
 (^|\.)ad-stir\.com$
 (^|\.)ad4game\.com$
 (^|\.)adcloud\.jp$
+(^|\.)adcolony\.com$
+(^|\.)addthis\.com$
 (^|\.)adfurikun\.jp$
 (^|\.)adinall\.com$
 (^|\.)adk2x\.com$
@@ -1007,21 +1001,44 @@
 (^|\.)adriver\.ru$
 (^|\.)adroll\.com$
 (^|\.)adsymptotic\.com$
+(^|\.)airpush\.com$
 (^|\.)am15\.net$
+(^|\.)amobee\.com$
+(^|\.)beintoo\.com$
 (^|\.)bepolite\.eu$
+(^|\.)bidvertiser\.com$
+(^|\.)casalemedia\.com$
+(^|\.)channeladvisor\.com$
 (^|\.)criteo\.com$
+(^|\.)csbew\.com$
 (^|\.)directrev\.com$
 (^|\.)dumedia\.ru$
+(^|\.)effectivemeasure\.com$
 (^|\.)exoclick\.com$
+(^|\.)fastapi\.net$
+(^|\.)fastclick\.net$
 (^|\.)flurry\.com$
+(^|\.)gosquared\.com$
 (^|\.)gtags\.net$
+(^|\.)heyzap\.com$
+(^|\.)histats\.com$
+(^|\.)hitslink\.com$
+(^|\.)hot-mob\.com$
+(^|\.)hyperpromote\.com$
 (^|\.)i-mobile\.co\.jp$
 (^|\.)imrworldwide\.com$
 (^|\.)inmobi\.com$
 (^|\.)jizzads\.com$
 (^|\.)juicyads\.com$
+(^|\.)leadbolt\.net$
+(^|\.)leadboltads\.net$
+(^|\.)leadboltapps\.net$
+(^|\.)leadboltmobile\.net$
 (^|\.)marketgid\.com$
+(^|\.)marketo\.com$
+(^|\.)mdotm\.com$
 (^|\.)mgid\.com$
+(^|\.)millennialmedia\.com$
 (^|\.)mobadme\.jp$
 (^|\.)mobfox\.com$
 (^|\.)mobilityware\.com$
@@ -1031,15 +1048,25 @@
 (^|\.)netshelter\.net$
 (^|\.)nexage\.com$
 (^|\.)plista\.com$
+(^|\.)propellerads\.com$
 (^|\.)quantserve\.com$
 (^|\.)revdepo\.com$
+(^|\.)rubiconproject\.com$
 (^|\.)sape\.ru$
 (^|\.)scorecardresearch\.com$
+(^|\.)segment\.com$
+(^|\.)serving-sys\.com$
+(^|\.)sharethis\.com$
 (^|\.)smartadserver\.com$
+(^|\.)startappexchange\.com$
+(^|\.)statcounter\.com$
+(^|\.)tapjoy\.com$
 (^|\.)tapjoyads\.com$
+(^|\.)turn\.com$
 (^|\.)viglink\.com$
 (^|\.)yadro\.ru$
 (^|\.)yengo\.com$
+(^|\.)zedo\.com$
 
 # 垃圾网站
 (^|\.)appget\.cn$
@@ -1267,6 +1294,7 @@
 (^|\.)bdimg\.com$
 (^|\.)bdstatic\.com$
 (^|\.)bilibili\.com$
+(^|\.)bilibili\.cn$
 (^|\.)bilibili\.tv$
 (^|\.)bing\.com$
 (^|\.)biqudu\.com$
@@ -7191,20 +7219,8 @@
 91.108.4.0/22
 91.108.56.0/22
 
-[Adblock Plus 2.0]
-! Checksum: URi+DX5xF4qnNUex6bokTA
-! Title: Diablo AdFilters （增强隐私防护）
-! Expires: 12 hours
-! Version: 201711060730
-! Last Modified: 2017年11月06日 07:30
-! Homepage: http://adf.ming92.cf
-!
-! 本规则合并自EasylistChina、EasylistLite、CJX'sAnnoyance、
-! EasyPrivacy、Fanboy's Enhanced Tracking List
-! 并补充了贴吧过滤规则，感谢各位大大的分享！
-! 如有任何疑问、意见或建议，请反馈至：HalfLife吧
-!
-! Images & Scripts
+
+# Images & Scripts
 */widget/spage_game_tab/$domain=tieba.baidu.com
 ||xiu8.com/live/$domain=tieba.baidu.com
 ||share.baidu.com/static/js/
@@ -7220,7 +7236,7 @@
 ||bdstatic.com/tb/img/firework_
 ||bdstatic.com/tb/static-common/js/pic_share/logger.js
 ||bdstatic.com/tb/static-pb/img/voice_ad.gif
-! iTieba & Homepage
+# iTieba & Homepage
 jump.bdimg.com,tieba.baidu.com###adide_platform
 jump.bdimg.com,tieba.baidu.com###media_item
 jump.bdimg.com,tieba.baidu.com###spage_game_tab_wrapper
@@ -7230,7 +7246,7 @@ jump.bdimg.com,tieba.baidu.com##.ihome_aside_section[j-mygift]
 jump.bdimg.com,tieba.baidu.com##.ihome_game_group
 jump.bdimg.com,tieba.baidu.com##.member_rank
 jump.bdimg.com,tieba.baidu.com##.userinfo_scores
-! Top Right
+# Top Right
 jump.bdimg.com,tieba.baidu.com##.fMember_cnt
 jump.bdimg.com,tieba.baidu.com##.split
 jump.bdimg.com,tieba.baidu.com##.u_app
@@ -7247,7 +7263,7 @@ jump.bdimg.com,tieba.baidu.com##.u_mytbmall
 jump.bdimg.com,tieba.baidu.com##.u_xiu8
 jump.bdimg.com,tieba.baidu.com##.u_wallet
 jump.bdimg.com,tieba.baidu.com##.ui_bubble_down
-! Top
+# Top
 jump.bdimg.com,tieba.baidu.com###local_board
 jump.bdimg.com,tieba.baidu.com###j_navtab_wanle
 jump.bdimg.com,tieba.baidu.com###j_navtab_game
@@ -7258,7 +7274,7 @@ jump.bdimg.com,tieba.baidu.com##.star_nav_ico_activity
 jump.bdimg.com,tieba.baidu.com##.star_nav_ico_deal
 jump.bdimg.com,tieba.baidu.com##.star_nav_ico_group
 jump.bdimg.com,tieba.baidu.com##.star_nav_ico_tuan
-! Sides
+# Sides
 jump.bdimg.com,tieba.baidu.com###aside_ad
 jump.bdimg.com,tieba.baidu.com###aside_ad_wrapper
 jump.bdimg.com,tieba.baidu.com###novel-ranking
@@ -7275,7 +7291,7 @@ jump.bdimg.com,tieba.baidu.com##.tbui_fbar_bazhu
 jump.bdimg.com,tieba.baidu.com##.tbui_fbar_props
 jump.bdimg.com,tieba.baidu.com##.tieba_notice
 jump.bdimg.com,tieba.baidu.com##.user_score
-! Central
+# Central
 jump.bdimg.com,tieba.baidu.com###top_activity
 jump.bdimg.com,tieba.baidu.com##.achievement_medal_wrapper
 jump.bdimg.com,tieba.baidu.com##.card_userinfo_honor
@@ -7296,7 +7312,7 @@ jump.bdimg.com,tieba.baidu.com##.sofa_front_list_wrap
 jump.bdimg.com,tieba.baidu.com##.share_btn_wrapper
 jump.bdimg.com,tieba.baidu.com##.thread_recommend_ps
 jump.bdimg.com,tieba.baidu.com##.user_card_vip_tips
-! Bottom
+# Bottom
 jump.bdimg.com,tieba.baidu.com###bdshare
 jump.bdimg.com,tieba.baidu.com###guide_fc
 jump.bdimg.com,tieba.baidu.com###xiu8_follow_warn
@@ -7305,7 +7321,7 @@ jump.bdimg.com,tieba.baidu.com##.edui-btn-medal
 jump.bdimg.com,tieba.baidu.com##.edui-btn-paypost
 jump.bdimg.com,tieba.baidu.com##.j_surveillance
 jump.bdimg.com,tieba.baidu.com##.showBar
-! Mobile
+# Mobile
 ||tieba.baidu.com/mo/q/appSpecialThread
 tieba.baidu.com##.client_ghost_icon
 tieba.baidu.com##.daoliu_sign_in_show
@@ -7316,8 +7332,8 @@ tieba.baidu.com##.light_top_ext_area
 tieba.baidu.com##.j_click_stats, .j_click_stats+*
 tieba.baidu.com##.more_btn_package
 tieba.baidu.com##.tuijian-wrap
-! EasyList China
-!-----------------------General advert blocking filters-----------------------!
+# EasyList China
+#-----------------------General advert blocking filters-----------------------#
 -880-80-4.jpg
 -HollandOne_GIF2.gif
 .cc/js/ads/
@@ -7651,7 +7667,7 @@ _xiuno_com_ad/
 |http://*/s.js?sp=*&r=$third-party
 |http://ad.
 |http://gg.$third-party,domain=~guagua.cn
-!------------------------General element hiding rules-------------------------!
+#------------------------General element hiding rules-------------------------#
 ###MsnDialog.ad
 ###MyMoveAd
 ###QQ_Full
@@ -7912,7 +7928,7 @@ _xiuno_com_ad/
 ##img[src$="/47650fdad90b35b07d9339b792713f7e.gif"] ~ span[class^="f"] > span > a[onmouseover="this.style.background='#DEF5CD';"]:first-child:last-child
 ##script + #rbbox
 ##script + .sptable[cellpadding="5"]
-!----------------------------------Ads-Union----------------------------------!
+#----------------------------------Ads-Union----------------------------------#
 .8ox.cn^
 ||hxgccl.cn^
 .cn/show?id=$script,third-party
@@ -9613,7 +9629,7 @@ ubmcmm.baidustatic.com
 ||zytwq.net^$third-party
 ||zzbaowen.com^
 ||zzrcz.com^
-!------------------------------------Popups-----------------------------------!
+#------------------------------------Popups-----------------------------------#
 .189.gd^*.html?p=$popup,third-party
 .com/?aff=$popup,third-party
 .com/?Intr=$popup,third-party
@@ -9685,7 +9701,7 @@ ubmcmm.baidustatic.com
 ||xldytt.com^$popup,domain=henbt.com
 ||xmds.opd2c.com^$popup,domain=tsdm.me|tsdm.net|tsdm.tw
 ||yy18.info^*thanks$popup
-!----------------------Specific advert blocking filters-----------------------!
+#----------------------Specific advert blocking filters-----------------------#
 .543evv.com/js/config.js
 .adsame.libaclub.com^
 .com/562723/$domain=banyungong.org
@@ -14278,7 +14294,7 @@ mg*.6park.com/img/$image
 ||100ksw.com/inc/doc-
 ||lancdn.com/ptm/
 ||cmm.xmfish.com^
-!------------------------Specific element hiding rules------------------------!
+#------------------------Specific element hiding rules------------------------#
 gpcxw.com###AA2
 landiannews.com##.NOTICE
 7654.com##.layer_bottom_img
@@ -19013,7 +19029,7 @@ cartomad.com,cartoonmad.com##tr:nth-child(n+5) > td > table[width="732"]
 5184.com##ul[class^="i_gg"]
 hexieba.com##ul[style="list-style-type: none;"]:first-child:last-child
 firefoxchina.cn##ul[track-key="adv_links"]
-!---------------------------------CSS Whitelist-------------------------------!
+#---------------------------------CSS Whitelist-------------------------------#
 the-sun.on.cc#@##ContentAd1
 greedio.com#@##adBox
 gohome.com.hk#@##adFrame
@@ -19140,7 +19156,7 @@ gamer.com.tw#@#a[href^="http://bs.serving-sys.com/"]
 gamer.com.tw#@#a[href^="https://ad.doubleclick.net/"]
 brandsales.58.com#@#div[id^="ad_"]
 gohome.com.hk,m.gamer.com.tw#@#div[id^="div-gpt-ad"]
-!---------------------------------URL Whitelist-------------------------------!
+#---------------------------------URL Whitelist-------------------------------#
 @@&adurl=http://$domain=360bifen.cc|360bifen.com
 @@.adserver.$domain=litv.tv
 @@.com/adv/$domain=my.ctrip.com
@@ -20384,7 +20400,7 @@ ck101.com,datehub.co,gamer.com.tw#@#.text_ads
 ##.heg > .partner-list
 ##a[href^="/astat.php?a="]
 $webrtc,domain=btdb.to
-!-----------------------------Malware Domains rules---------------------------!
+#-----------------------------Malware Domains rules---------------------------#
 ||146.148.85.61^
 ||akamaihd.net^*/gsd.html?d=
 ||akamaihd.net^*/sid.html?p=
@@ -20392,7 +20408,7 @@ $webrtc,domain=btdb.to
 ||hdapp1003-a.akamaihd.net^
 ||hdapp1008-a.akamaihd.net^
 ||hdsrc-a.akamaihd.net^
-!----------------------Fixed Fanboy's Social Blocking List--------------------!
+#----------------------Fixed Fanboy's Social Blocking List--------------------#
 eastday.com#@##leftShare
 zhidao.baidu.com#@#.share-area
 baidu.com#@#.share-line
@@ -20401,7 +20417,7 @@ dj92cc.com,tingqq.com#@#.share_list
 @@||bdstatic.com/po/??*,*,*,
 @@||bdstatic.com^*/share_
 @@||xnimg.cn^*/nx/ugc/share/js/hotlist.js
-!-------------------------------Fixed EasyPrivacy-----------------------------!
+#-------------------------------Fixed EasyPrivacy-----------------------------#
 @@.google-analytics.com%2Fanalytics.js$domain=free.com.tw|kobe.ga
 @@/analytics.php?$domain=xcar.com.cn
 @@/hitCount.$script,domain=on.cc
@@ -20463,7 +20479,7 @@ dj92cc.com,tingqq.com#@#.share_list
 @@||youku.com/cms/player/userinfo/
 @@||youku.com/cms/playlog/get?
 ||hjfile.cn/analytics/site/TrackEvent.js
-! EasyList Lite
+# EasyList Lite
 /ajs.php?
 /adsystem/*
 /ads/ads.
@@ -20903,8 +20919,8 @@ _ad.php?
 /common/ad_
 _300_250.
 .com/ads_
-! CJX's Annoyance List
-!--------------------------General blocking filters---------------------------!
+# CJX's Annoyance List
+#--------------------------General blocking filters---------------------------#
 =Ad_ZPlusGoods&
 /source/plugin/yw_alertlogin/*
 -bobo_recommend_
@@ -20918,7 +20934,7 @@ _300_250.
 /3dmgamegzh.png
 /znds/dbsc98060.gif
 /to8to_pc/chunks/slide_and_popup_
-!------------------------General element hiding rules-------------------------!
+#------------------------General element hiding rules-------------------------#
 ###b_login
 ###windlocation
 ###qrcodeWrap
@@ -20929,7 +20945,7 @@ _300_250.
 ###appIn
 ###upprev_box
 ###appqrcode
-!-----------------------------Union&third-party-------------------------------!
+#-----------------------------Union&third-party-------------------------------#
 ||live800.com^$third-party
 ||meiqia.com^$third-party
 ||knet.cn^$third-party
@@ -20951,9 +20967,9 @@ _300_250.
 ||soperson.com^$third-party
 ||bobo.com^$third-party
 ||cir-smart.baidu.com^
-!---------------------------Popups--------------------------------------------!
-!--------------------------Specific blocking filters--------------------------!
-/^https?:\/\/(?!www[0-9]?)[0-9a-z-]+\.m\.[0-9a-z-]{4,}\.(?:com|cn|cc|net)(?:\/[0-9]{1,7}){1,4}(?:\.html|\.xhtml|\.html\?ts=[0-9]+)?$/$script,~third-party,xmlhttprequest
+#---------------------------Popups--------------------------------------------#
+#--------------------------Specific blocking filters--------------------------#
+/^https?:\/\/(?#www[0-9]?)[0-9a-z-]+\.m\.[0-9a-z-]{4,}\.(?:com|cn|cc|net)(?:\/[0-9]{1,7}){1,4}(?:\.html|\.xhtml|\.html\?ts=[0-9]+)?$/$script,~third-party,xmlhttprequest
 /^https?:\/\/(?!www[0-9]?)[0-9a-z-]+\.[0-9a-z-]{5,}\.(?:com|cn|cc|net)(?:\/[0-9]{1,7}){1,4}(?:\.html|\.xhtml|\.html\?ts=[0-9]+)?$/$script,third-party,xmlhttprequest
 ||igo.cn/liuxue/js/slideBar
 ||eastmoney.com/js/news_fixed_
@@ -21150,7 +21166,7 @@ _300_250.
 ||dangbei.net/img/db/downdangbei.gif
 ||ltn.com.tw/Upload/Module/2/118/1117360.gif
 ||wingontravel.com/Static/headerfooter/Content/js/masterpage.
-!------------------------Specific element hiding rules------------------------!
+#------------------------Specific element hiding rules------------------------#
 w3cschool.cn##.widget-main
 baidu.com##.download-app-parent
 autohome.com.cn###packetsWrap
@@ -21633,11 +21649,11 @@ blog.163.com###r_m163news
 blog.163.com###topbar_gachaArea
 blog.163.com###topbar_lofterDldArea
 blog.163.com###topbar_yxpArea
-!---------------------------------CSS Whitelist-------------------------------!
-!---------------------------------URL Whitelist-------------------------------!
+#---------------------------------CSS Whitelist-------------------------------#
+#---------------------------------URL Whitelist-------------------------------#
 @@||fm.ipinyou.$domain=ipinyou.com.cn
 @@||fm.p0y.cn^$domain=ipinyou.com.cn
-!--------------------------------Tracking Systems-----------------------------!
+#--------------------------------Tracking Systems-----------------------------#
 /analytics.js$domain=qunar.com
 /cv/*&uuid=$object-subrequest
 /js/soku-analytics.js
@@ -21894,59 +21910,59 @@ blog.163.com###topbar_yxpArea
 ||msg.71.am^
 ||google.*/gen_204?$~xmlhttprequest
 ||stadig.ifeng.com^
-!---------------------------------微博首页------------------------------------!
-!---首页顶部:提示【微博热点：神最右，爆料，找节操...总有一款适合你，点击使用！】
+#---------------------------------微博首页------------------------------------#
+#---首页顶部:提示【微博热点：神最右，爆料，找节操...总有一款适合你，点击使用！】
 weibo.com###v6_pl_content_hometip
-!---首页右侧:【好友关注动态】
+#---首页右侧:【好友关注动态】
 weibo.com###v6_pl_rightmod_attfeed
-!---首页左侧好友圈>>【公告栏】
+#---首页左侧好友圈>>【公告栏】
 weibo.com###v6_pl_rightmod_noticeboard
-!---首页右侧:【会员专区/明星势力】
+#---首页右侧:【会员专区/明星势力】
 weibo.com###v6_trustPagelet_recom_member
-!---首页右侧用户名下的【亚洲新歌榜】
+#---首页右侧用户名下的【亚洲新歌榜】
 weibo.com###v6_pl_rightmod_rank
-!---首页顶部【游戏】
+#---首页顶部【游戏】
 weibo.com##.S_txt1[nm="game"]
-!---首页底部之【微博精彩等】
+#---首页底部之【微博精彩等】
 weibo.com##.WB_footer > .footer_link
-!---首页底部之【备案】
+#---首页底部之【备案】
 weibo.com##.WB_footer > .other_link
-!---首页中上:微博发布框上的【有什么新鲜事告诉大家?】
+#---首页中上:微博发布框上的【有什么新鲜事告诉大家?】
 weibo.com##.send_weibo > .title_area
 weibo.com##.W_tips.tips_warn
-!---首页右下:【新闻"快讯】
+#---首页右下:【新闻"快讯】
 weibo.com##.WBIM_news
-!---首页右侧用户名下的【新版微博使用指南】
+#---首页右侧用户名下的【新版微博使用指南】
 weibo.com###v6_pl_rightmod_updatev6
-!---首页右侧下拉时的卡片
+#---首页右侧下拉时的卡片
 weibo.com##.WB_main_r > DIV[style^="position: fixed;"]
-!--首页左侧【抢红包】
+#--首页左侧【抢红包】
 weibo.com##.PCD_event_red2014
-!--首页右侧【红包】
+#--首页右侧【红包】
 weibo.com###v6_pl_rightmod_hongbaoentrance
-!-------------------------------微博二级页面----------------------------------!
-!---首页左侧我的消息>>【微博意见反馈】
+#-------------------------------微博二级页面----------------------------------#
+#---首页左侧我的消息>>【微博意见反馈】
 weibo.com###v6_pl_rightmod_feedback
-!---首页左侧我的消息>>【消息箱-使用小帮助】
+#---首页左侧我的消息>>【消息箱-使用小帮助】
 weibo.com###v6_pl_rightmod_helpat
-!---首页左侧我的消息>>评论>>【消息箱-使用小帮助】
+#---首页左侧我的消息>>评论>>【消息箱-使用小帮助】
 weibo.com###v6_pl_rightmod_helpcomment
-!---首页左侧我的消息>>赞>>【消息箱-使用小帮助】
+#---首页左侧我的消息>>赞>>【消息箱-使用小帮助】
 weibo.com###v6_pl_rightmod_helplike
-!---首页左侧我的消息>>未关注人私信>>【消息箱-使用小帮助】
+#---首页左侧我的消息>>未关注人私信>>【消息箱-使用小帮助】
 weibo.com###v6_pl_rightmod_helpnotebox
-!---首页左侧我的消息>>群通知>>【群使用使用小帮助】
+#---首页左侧我的消息>>群通知>>【群使用使用小帮助】
 weibo.com###v6_pl_rightmod_helpgroupchatnotice
-!---首页左侧收藏>>【导出收藏夹至有道云笔记】
+#---首页左侧收藏>>【导出收藏夹至有道云笔记】
 weibo.com###v6_pl_rightmod_favyoudao
-!---首页左侧收藏>>【收藏使用小帮助】
+#---首页左侧收藏>>【收藏使用小帮助】
 weibo.com###v6_pl_rightmod_helpfav
-!---首页顶部发现>>右侧【微博发现】
+#---首页顶部发现>>右侧【微博发现】
 weibo.com###Pl_Core_P7MultiPicPlay__7
-!-------------------------------微博评论页面----------------------------------!
-!---【相关推荐】
+#-------------------------------微博评论页面----------------------------------#
+#---【相关推荐】
 weibo.com##.apps_PCD_reco_detail_right
-! EasyPrivacy
+# EasyPrivacy
 &ctxId=*&pubId=*&objId=
 &event=view&
 &http_referer=$script
@@ -25528,7 +25544,7 @@ _mongo_stats/
 ://ivw.*/get?referrer=
 ://top.*/count/cnt.php?
 ://top.*/hit/
-!-----------------Third-party tracking domains-----------------!
+#-----------------Third-party tracking domains-----------------#
 ||0emm.com^$third-party
 ||0tracker.com^$third-party
 ||1-cl0ud.com^$third-party
@@ -27816,7 +27832,7 @@ _mongo_stats/
 ||sugarcurtain.com^$third-party
 ||ticklesign.com^$third-party
 ||truthfulturn.com^$third-party
-!-----------------International third-party tracking domains-----------------!
+#-----------------International third-party tracking domains-----------------#
 ||123-counter.de^$third-party
 ||12mnkys.com^$third-party
 ||193.197.158.209^$third-party,domain=~statistik.lubw.baden-wuerttemberg.de.ip
@@ -28586,7 +28602,7 @@ _mongo_stats/
 ||uapoisk.net^$third-party
 ||weblog.com.ua^$third-party
 ||gostats.vn^$third-party
-!-----------------Third-party tracking services-----------------!
+#-----------------Third-party tracking services-----------------#
 |http://l2.io/ip.js$third-party
 ||10.122.129.149^$third-party,domain=~search-news-cn.ip
 ||101apps.com/tracker.ashx?
@@ -30513,7 +30529,7 @@ _mongo_stats/
 ||zoomtv.me^*?pixel=
 ||zoover.co.uk/tracking/
 ||zope.net^*/ghs_wa.js
-!-----------------International third-party tracking services-----------------!
+#-----------------International third-party tracking services-----------------#
 ||78.46.19.203^$third-party,domain=~sprueche-zitate.net.ip
 ||adc-srv.net/retargeting.php
 ||adm24.de/hp_counter/$third-party
@@ -31132,7 +31148,7 @@ _mongo_stats/
 ||mgz.com.ua/counter.php?
 ||top.zp.ua/counter/
 ||analytics.mecloud.vn^
-!-----------------Individual tracking systems-----------------!
+#-----------------Individual tracking systems-----------------#
 /fam/view.php?$domain=cnet.com
 /viewtrack/track?$domain=hulu.com
 |blob:$image,domain=jpost.com
@@ -33503,7 +33519,7 @@ _mongo_stats/
 ||wt-eu02.net^$domain=stern.de
 ||wt-safetag.com^$domain=stern.de
 ||xplosion.de^$domain=spiegel.de|stern.de
-!-----------------International individual tracking systems-----------------!
+#-----------------International individual tracking systems-----------------#
 ||4players.de^*/foreplaypixel.js
 ||85.237.86.50/stat/$domain=bluray-disc.de
 ||ab-in-den-urlaub.de/resources/cjs/?f=/resources/cjs/tracking/
@@ -34334,7 +34350,7 @@ _mongo_stats/
 ||google-analytics.com/analytics.js$domain=notebookcheck.com
 ||ioam.de/?$domain=notebookcheck.com
 ||ioam.de/tx.io?$domain=notebookcheck.com
-!-----------------------Whitelists to fix broken sites------------------------!
+#-----------------------Whitelists to fix broken sites------------------------#
 @@/cdn-cgi/pe/bag2?*geoiplookup$xmlhttprequest,domain=orain.org
 @@/cdn-cgi/pe/bag2?*google-analytics.com%2Fanalytics.js$domain=amypink.de|biznews.com|cryptospot.me|dailycaller.com|droid-life.com|forwardprogressives.com|fpif.org|fullpotentialma.com|geekzone.co.nz|goldsday.com|hoyentec.com|imageupload.co.uk|is-arquitectura.es|lazygamer.net|lingholic.com|mmanews.com|nehandaradio.com|nmac.to|orain.org|tvunblock.com|unilad.co.uk|xrussianteens.com|youngcons.com
 @@/cdn-cgi/pe/bag2?*googleadservices.com$domain=droid-life.com
@@ -35102,7 +35118,7 @@ _mongo_stats/
 @@||walmart.com/b/ss/$image
 @@||heatmap.it^$domain=heatmap.me
 @@||google.*/analytics/js/$~third-party
-!----------------Whitelists to fix broken international sites-----------------!
+#----------------Whitelists to fix broken international sites-----------------#
 @@||a.visualrevenue.com/vrs.js$domain=t-online.de
 @@||a.wikia-beacon.com/__track/view?v=v1&c=*&lc=de&lid=62&x=devroniplag&y=$script,domain=vroniplag.wikia.com
 @@||ad.de.doubleclick.net/imp;$object-subrequest,domain=rtl-now.rtl.de|rtl2now.rtl2.de|rtlnitronow.de|superrtlnow.de|voxnow.de
