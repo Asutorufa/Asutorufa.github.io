@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[让win10的UWP应用走代理]]></title>
+    <url>%2F%E8%AE%A9win10%E7%9A%84UWP%E5%BA%94%E7%94%A8%E8%B5%B0%E4%BB%A3%E7%90%86%2F</url>
+    <content type="text"><![CDATA[原因因为uwp应用的特殊性,即使使用proxifier和proxycap这种应用者无法让其走代理 1.SSTAP这个应用是创建虚拟网卡,让windows全局走代理.但其有弊端就是有一些国内的网站也会走代理,比如BILIBILI.虽然可以自己写规则但实在是麻烦无比. 2.fiddler利用fiddler的winconfig实现uwp应用走代理把要走代理的应用勾上但这不是全局代理,只能让uwp应用走代理]]></content>
+      <categories>
+        <category>使用技巧</category>
+      </categories>
+      <tags>
+        <tag>技巧</tag>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[c语言数组输出的另一种方法]]></title>
     <url>%2Fc%E8%AF%AD%E8%A8%80%E6%95%B0%E7%BB%84%E8%BE%93%E5%87%BA%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%2F</url>
     <content type="text"><![CDATA[今天看到这样一种写法,原文链接:一个有趣的C语言程序 123456789#include &lt;stdio.h&gt; int main()&#123; int a = 1; int x[5]=&#123;1,2,3,4,5&#125;; printf("%d",a[x]); return 0;&#125; 1output: 2 int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].所以就是x[1]对应的值：2 由此我又想到了二位数组123456789#include &lt;stdio.h&gt; int main()&#123; int a = 1; int x[2][2]=&#123;&#123;1,2&#125;,&#123;3,4&#125;&#125;; printf("%d",a[a[x]]); return 0;&#125; 1output: 4 感觉好神奇,而且在之前不知道在哪看到c语言的数组其实就是指针的合集,而且最近要用链表,更觉得链表和数组差不多.]]></content>
