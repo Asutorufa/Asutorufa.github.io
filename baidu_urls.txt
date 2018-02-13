@@ -1,3 +1,0 @@
-https://mundanedefoliation.github.io/让win10的UWP应用走代理/
-https://mundanedefoliation.github.io/c语言数组输出的另一种方法/
-https://mundanedefoliation.github.io/利用结构体让函数返回多个值/
