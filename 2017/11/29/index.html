@@ -58,7 +58,7 @@
 
 
 
-  <meta name="keywords" content="c语言,编程," />
+  <meta name="keywords" content="c语言,编程,c++," />
 
 
 
@@ -69,20 +69,18 @@
 
 
 
-<meta name="description" content="因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.而char的大小刚好为一个字节,是我们想要的东西.这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.代码如下123int a=-65;char *b=(char *)&amp;amp;a;printf(&quot;%p\n%p\n%">
-<meta name="keywords" content="c语言,编程">
+<meta name="description" content="c语言123456789101112131415161718192021222324#include &quot;stdio.h&quot;typedef struct test //建立结构体&amp;#123;	int a;	int b;	int c;&amp;#125;T;T testt(int aa,int bb,int cc) //建立函数&amp;#123;	T aaa;	aaa.a=aa*bb;	aaa.b=aa*cc;	aa">
+<meta name="keywords" content="c语言,编程,c++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="c语言利用char指针变量将int按字节打印地址">
-<meta property="og:url" content="https://Asutorufa.github.io/利用char按字节打印指针/index.html">
+<meta property="og:title" content="利用结构体让函数返回多个值">
+<meta property="og:url" content="https://Asutorufa.github.io/2017/11/29/index.html">
 <meta property="og:site_name" content="アストルフォの幻想郷">
-<meta property="og:description" content="因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.而char的大小刚好为一个字节,是我们想要的东西.这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.代码如下123int a=-65;char *b=(char *)&amp;amp;a;printf(&quot;%p\n%p\n%">
+<meta property="og:description" content="c语言123456789101112131415161718192021222324#include &quot;stdio.h&quot;typedef struct test //建立结构体&amp;#123;	int a;	int b;	int c;&amp;#125;T;T testt(int aa,int bb,int cc) //建立函数&amp;#123;	T aaa;	aaa.a=aa*bb;	aaa.b=aa*cc;	aa">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oxgldbgt4.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png">
-<meta property="og:updated_time" content="2017-12-10T03:23:37.728Z">
+<meta property="og:updated_time" content="2017-12-10T03:25:56.020Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="c语言利用char指针变量将int按字节打印地址">
-<meta name="twitter:description" content="因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.而char的大小刚好为一个字节,是我们想要的东西.这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.代码如下123int a=-65;char *b=(char *)&amp;amp;a;printf(&quot;%p\n%p\n%">
-<meta name="twitter:image" content="http://oxgldbgt4.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png">
+<meta name="twitter:title" content="利用结构体让函数返回多个值">
+<meta name="twitter:description" content="c语言123456789101112131415161718192021222324#include &quot;stdio.h&quot;typedef struct test //建立结构体&amp;#123;	int a;	int b;	int c;&amp;#125;T;T testt(int aa,int bb,int cc) //建立函数&amp;#123;	T aaa;	aaa.a=aa*bb;	aaa.b=aa*cc;	aa">
 
 
 
@@ -112,7 +110,7 @@
 
 
 
-  <link rel="canonical" href="https://Asutorufa.github.io/利用char按字节打印指针/"/>
+  <link rel="canonical" href="https://Asutorufa.github.io/2017/11/29/"/>
 
 
 
@@ -123,7 +121,7 @@
   if(host == "defoliation.coding.me")
       window.location.href = window.location.href.replace(/defoliation.coding.me/,"mundanedefoliation.github.io")
 </script>
-  <title>c语言利用char指针变量将int按字节打印地址 | アストルフォの幻想郷</title>
+  <title>利用结构体让函数返回多个值 | アストルフォの幻想郷</title>
   
 
 
@@ -293,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/利用char按字节打印指针/">
+    <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/2017/11/29/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="アストルフォ">
@@ -310,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">c语言利用char指针变量将int按字节打印地址</h1>
+          <h1 class="post-title" itemprop="name headline">利用结构体让函数返回多个值</h1>
         
 
         <div class="post-meta">
@@ -322,8 +320,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-24T22:27:37+08:00">
-                2017-10-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-29T14:39:27+08:00">
+                2017-11-29
               </time>
             
 
@@ -363,8 +361,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/利用char按字节打印指针/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/利用char按字节打印指针/" itemprop="commentsCount"></span>
+                <a href="/2017/11/29/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/11/29/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -392,11 +390,9 @@
       
 
       
-        <p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>而char的大小刚好为一个字节,是我们想要的东西.<br>这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>代码如下<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int a=<span class="number">-65</span>;</div><div class="line">char *b=(char *)&amp;a;</div><div class="line">printf(<span class="string">"%p<span class="subst">\n</span>%p<span class="subst">\n</span>%p<span class="subst">\n</span>%p<span class="subst">\n</span>"</span>,a,a+<span class="number">1</span>,a+<span class="number">2</span>,a+<span class="number">3</span>);</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a=<span class="number">-65</span>;</div><div class="line"><span class="keyword">char</span> *b=(<span class="keyword">char</span> *)&amp;a;</div><div class="line"><span class="built_in">printf</span>(<span class="string">"%02x\n%02x\n%02x\n%02x\n"</span>,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)a,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">1</span>),*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">2</span>),*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">3</span>));</div></pre></td></tr></table></figure></p>
-<p>两者结合一下<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a=<span class="number">-65</span>;</div><div class="line"><span class="keyword">char</span> *b=(<span class="keyword">char</span> *)&amp;a;</div><div class="line"><span class="built_in">printf</span>(<span class="string">"%p %02x\n%p %02x\n%p %02x\n%p %02x\n"</span>,a,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)a,a+<span class="number">1</span>,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">1</span>),a+<span class="number">2</span>,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">2</span>),a+<span class="number">3</span>,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">3</span>));</div></pre></td></tr></table></figure></p>
-<p>输出内容如图<br><img src="http://oxgldbgt4.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png" alt=""><br><strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
+        <h2 id="c语言"><a href="#c语言" class="headerlink" title="c语言"></a>c语言</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdio.h"</span></span></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">test</span> //建立结构体</span></div><div class="line"><span class="class">&#123;</span></div><div class="line">	<span class="keyword">int</span> a;</div><div class="line">	<span class="keyword">int</span> b;</div><div class="line">	<span class="keyword">int</span> c;</div><div class="line">&#125;T;</div><div class="line"></div><div class="line"><span class="function">T <span class="title">testt</span><span class="params">(<span class="keyword">int</span> aa,<span class="keyword">int</span> bb,<span class="keyword">int</span> cc)</span> <span class="comment">//建立函数</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">	T aaa;</div><div class="line">	aaa.a=aa*bb;</div><div class="line">	aaa.b=aa*cc;</div><div class="line">	aaa.c=bb*cc;</div><div class="line">	<span class="keyword">return</span> aaa; <span class="comment">//返回结构</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">	T b=testt(<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>);</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"%d %d %d \n"</span>,b.a,b.b,b.c);</div><div class="line">	T *f=&amp;b;</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"%d %d %d"</span>,f-&gt;a,f-&gt;b,f-&gt;c);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><a id="more"></a>
+<figure class="highlight zephir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include "iostream"</span></div><div class="line">typedef struct sss <span class="comment">//建立结构体</span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> a;</div><div class="line">	<span class="keyword">int</span> b;</div><div class="line">	<span class="keyword">int</span> c;</div><div class="line">&#125;S;</div><div class="line"></div><div class="line">S s(<span class="keyword">double</span> a,<span class="keyword">double</span> b,<span class="keyword">double</span> c) 建立函数</div><div class="line">&#123;</div><div class="line">	S d;</div><div class="line">	d.a=a*a;</div><div class="line">	d.b=b*b;</div><div class="line">	d.c=c*c;</div><div class="line">	<span class="keyword">return</span> d;<span class="comment">//返回结构体</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">int</span> main()</div><div class="line">&#123;</div><div class="line">	S z=s(<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</div><div class="line">	std::cout&lt;&lt;z.a</div><div class="line">	         &lt;&lt;std::endl</div><div class="line">	         &lt;&lt;z.b</div><div class="line">	         &lt;&lt;std::endl</div><div class="line">	         &lt;&lt;z.c</div><div class="line">	         &lt;&lt;std::endl;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -418,6 +414,8 @@
           
             <a href="/tags/编程/" rel="tag"># 编程</a>
           
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
         </div>
       
 
@@ -429,8 +427,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/c语言中格式化字符的应用/" rel="next" title="c语言中格式化字符的应用">
-                <i class="fa fa-chevron-left"></i> c语言中格式化字符的应用
+              <a href="/2017/10/30/" rel="next" title="c语言基本类型在内存中的存储方式">
+                <i class="fa fa-chevron-left"></i> c语言基本类型在内存中的存储方式
               </a>
             
           </div>
@@ -439,8 +437,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/java和c-简单的递归调用/" rel="prev" title="java和c++简单的递归调用">
-                java和c++简单的递归调用 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/12/10/" rel="prev" title="c语言数组输出的另一种方法">
+                c语言数组输出的另一种方法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -502,8 +500,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -633,6 +640,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#c语言"><span class="nav-number">1.</span> <span class="nav-text">c语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C"><span class="nav-number">2.</span> <span class="nav-text">C++</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
