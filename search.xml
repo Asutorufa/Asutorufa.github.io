@@ -1,155 +1,452 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title><![CDATA[让win10的UWP应用走代理]]></title>
-    <url>%2Fposts%2Fd22ffdb6%2F</url>
-    <content type="text"><![CDATA[原因因为uwp应用的特殊性,即使使用proxifier和proxycap这种应用者无法让其走代理 1.SSTAP这个应用是创建虚拟网卡,让windows全局走代理.但其有弊端就是有一些国内的网站也会走代理,比如BILIBILI.虽然可以自己写规则但实在是麻烦无比. 2.fiddler利用fiddler的winconfig实现uwp应用走代理把要走代理的应用勾上但这不是全局代理,只能让uwp应用走代理]]></content>
-      <categories>
-        <category>使用技巧</category>
-      </categories>
-      <tags>
-        <tag>技巧</tag>
-        <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[c语言数组输出的另一种方法]]></title>
-    <url>%2Fposts%2F854ed6ec%2F</url>
-    <content type="text"><![CDATA[今天看到这样一种写法,原文链接:一个有趣的C语言程序 123456789#include &lt;stdio.h&gt; int main()&#123; int a = 1; int x[5]=&#123;1,2,3,4,5&#125;; printf("%d",a[x]); return 0;&#125; 1output: 2 int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].所以就是x[1]对应的值：2 由此我又想到了二位数组123456789#include &lt;stdio.h&gt; int main()&#123; int a = 1; int x[2][2]=&#123;&#123;1,2&#125;,&#123;3,4&#125;&#125;; printf("%d",a[a[x]]); return 0;&#125; 1output: 4 感觉好神奇,而且在之前不知道在哪看到c语言的数组其实就是指针的合集,而且最近要用链表,更觉得链表和数组差不多.]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>c语言</tag>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[利用结构体让函数返回多个值]]></title>
-    <url>%2Fposts%2Fc69434f1%2F</url>
-    <content type="text"><![CDATA[c语言123456789101112131415161718192021222324#include "stdio.h"typedef struct test //建立结构体&#123; int a; int b; int c;&#125;T;T testt(int aa,int bb,int cc) //建立函数&#123; T aaa; aaa.a=aa*bb; aaa.b=aa*cc; aaa.c=bb*cc; return aaa; //返回结构&#125;int main()&#123; T b=testt(4,5,6); printf("%d %d %d \n",b.a,b.b,b.c); T *f=&amp;b; printf("%d %d %d",f-&gt;a,f-&gt;b,f-&gt;c);&#125; C++ 123456789101112131415161718192021222324252627#include "iostream"typedef struct sss //建立结构体&#123; int a; int b; int c;&#125;S;S s(double a,double b,double c) 建立函数&#123; S d; d.a=a*a; d.b=b*b; d.c=c*c; return d;//返回结构体&#125;int main()&#123; S z=s(3,4,5); std::cout&lt;&lt;z.a &lt;&lt;std::endl &lt;&lt;z.b &lt;&lt;std::endl &lt;&lt;z.c &lt;&lt;std::endl;&#125;]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>c语言</tag>
-        <tag>编程</tag>
-        <tag>c++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[c语言基本类型在内存中的存储方式]]></title>
-    <url>%2Fposts%2Fe404489%2F</url>
-    <content type="text"><![CDATA[浮点数float 符号位 + 指数位 + 尾数位 ↑ ↑ ↑ 第一位 8位 23位 double 符号位 + 指数位 + 尾数位 ↑ ↑ ↑ 第一位 11位 52位 整数整数在内存中是以补码的形式存储 正整数原码=反码=补码 负整数原码即为原码反码=原码符号为不变,其余取反(注:第一位为符号位)补码=反码+1]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>c语言</tag>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[java和c++简单的递归调用]]></title>
-    <url>%2Fposts%2F5eb800c7%2F</url>
-    <content type="text"><![CDATA[题目是盗来的12345678猴子吃桃问题。猴子第一天摘下若干个桃子，当即吃了一半，还不过瘾，又多吃了一个。第二天早上又将剩下的桃子吃掉一半，又多吃了一个。以后每天早上都吃了前一天剩下的一半零一个。到第n天早上想再吃时，见只剩下一个桃子了。求第一天共摘了多少桃子。例如：输入：3输出：10输入：10输出：1534 C++:12345678910111213141516171819202122232425#include "iostream"using namespace std;long long d(int);int main(int argc, char const *argv[])&#123; int a; cin&gt;&gt;a; cout&lt;&lt;d(a)&lt;&lt;endl; return 0;&#125;long long d(int a)&#123; long long e; if(a==1) &#123; e=1; &#125; else if(a&gt;1) &#123; e=(d(a-1)+1)*2; &#125; return e;&#125; java:12345678910111213141516171819202122232425import java.util.*;public class dgcs&#123; public static void main(String[] args) &#123; Scanner in=new Scanner(System.in); int a=in.nextInt(); System.out.println(f(a)); &#125; public static long f(int a) &#123; long e; if(a==1) &#123; e=1; &#125; else &#123; e=(f(a-1)+1)*2; &#125; return e; &#125;&#125;]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>编程</tag>
-        <tag>c++</tag>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[c语言利用char指针变量将int按字节打印地址]]></title>
-    <url>%2Fposts%2F43cb2931%2F</url>
-    <content type="text"><![CDATA[因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.而char的大小刚好为一个字节,是我们想要的东西.这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.代码如下123int a=-65;char *b=(char *)&amp;a;printf("%p\n%p\n%p\n%p\n",a,a+1,a+2,a+3); 如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.123int a=-65;char *b=(char *)&amp;a;printf("%02x\n%02x\n%02x\n%02x\n",*(unsigned char*)a,*(unsigned char*)(a+1),*(unsigned char*)(a+2),*(unsigned char*)(a+3)); 两者结合一下123int a=-65;char *b=(char *)&amp;a;printf("%p %02x\n%p %02x\n%p %02x\n%p %02x\n",a,*(unsigned char*)a,a+1,*(unsigned char*)(a+1),a+2,*(unsigned char*)(a+2),a+3,*(unsigned char*)(a+3)); 输出内容如图有任何错误请邮箱联系我指出我的错误,万分感谢]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>c语言</tag>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[c语言中格式化字符的应用]]></title>
-    <url>%2Fposts%2Fb6b4601%2F</url>
-    <content type="text"><![CDATA[格式化规定符符号 作用%d 十进制有符号整数%u 十进制无符号整数%f 浮点数%s 字符串%c 单个字符%p 指针的值%e 指数形式的浮点数%x, %X 无符号以十六进制表示的整数%0 无符号以八进制表示的整数%g 自动选择合适的表示法 说明:(1). 可以在”%”和字母之间插进数字表示最大场宽。例如: %3d 表示输出3位整型数, 不够3位右对齐。%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。另外, 若想在输出值前加一些0, 就应在场宽项前加个0。例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。(2). 可以在”%”和字母之间加小写字母l, 表示输出的是长型数。例如: %ld 表示输出long整数,%lf 表示输出double浮点数(3). 可以控制输出左对齐或右对齐, 即在”%”和字母之间加入一个”-“ 号可说明输出为左对齐, 否则为右对齐。例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐. 一些特殊规定字符字符 作用/n 换行/f 清屏并换页/r 回车/t Tab符/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>c语言</tag>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[常用等价无穷小的一般形式]]></title>
-    <url>%2Fposts%2F10bb899d%2F</url>
-    <content type="text"><![CDATA[当$\lim_{φ(x)\to0}$时,$\sin φ(x)$~$φ(x)$$arc\sin φ(x)$~$φ(x)$$\tanφ(x)$~$φ(x)$$arc\tanφ(x)$~$φ(x)$$\ln(1+φ(x))$~$φ(x)$$e^{φ(x)}-1$~$φ(x)$$a^{φ(x)}-1$~$φ(x)\ln a$$\sqrt[n]{1+φ(x)}-1$~$\frac{1}{n}φ(x)$$(1+φ(x))^{\mu-1}$~$\muφ(x)$$1-\cosφ(x)$~$\frac{(φ(x))^2}{2}$]]></content>
-      <categories>
-        <category>数学</category>
-      </categories>
-      <tags>
-        <tag>数学</tag>
-        <tag>公式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[课程表[练习MD用]]]></title>
-    <url>%2Fposts%2Faf9757c5%2F</url>
-    <content type="text"><![CDATA[星期一 星期二 星期三 星期四 星期五 08:00-09:50 高等数学 B402 程序设计基础 B507 高等数学 B429 程序设计基础 B507 10:10-12:00 体育 大学英语 B509 14:00-15:50 大学英语 听力楼-2-304 高等数学 B402 16:10-18:00 大学心理健康 B211 19:00—— 中国近代史 B429 形势与政策 B429]]></content>
-      <categories>
-        <category>练习</category>
-      </categories>
-      <tags>
-        <tag>练习</tag>
-        <tag>学生</tag>
-        <tag>markdown</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[三蛋空间自建贴吧云签到]]></title>
-    <url>%2Fposts%2F8a291f21%2F</url>
-    <content type="text"><![CDATA[–这是我自建的贴吧云签到:http://dmly.tkopenshift自建贴吧签到(openshift有点繁琐但是稳定,后期出教程):http://tieba-tieba.193b.starter-ca-central-1.openshiftapps.com之后为教程 注册免费空间首先你得注册一个三蛋空间的账号,三蛋空间注册网址:三蛋空间 创建网站注册完成之后点击这里 添加一个空模版,如图 写上名字和密码,点击create ftp下载SmartFTP Client或者其他你熟悉的ftp上传工具,这里百度就行了进入三蛋空间的管理网站,点击这里,如图 把这里的信息填入SmartFTP Client中 然后点ok 上传贴吧云签到源码github地址:Tieba-Cloud-Sign点击这里下载zip并解压 将解压得到的所有文件拖入ftp上的public_html文件夹中 创建数据库然后进入三蛋空间创建数据库三蛋空间会自动给你的数据库名字前加上数字,所以之后在贴吧安装中要注意 安装之后进入你的网站,然后安装就行了. 创建cron job安装完成后就要把do.php加入cron,否则是不会自动签到的,按图中的步骤进行]]></content>
-      <categories>
-        <category>建站</category>
-      </categories>
-      <tags>
-        <tag>建站</tag>
-        <tag>免费</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[更改绑定手机号]]></title>
-    <url>%2Fposts%2F3fee5f2%2F</url>
-    <content type="text"><![CDATA[绑定手机号：微信，网易云，淘宝原手机号及证件，支付宝，google银行卡，贴吧，酷安，微博需要原手机号，bilibili（需要原手机号)微软,欢喜云，京东（原手机号及银行卡，非我的实名认证）天猫，银行卡，steam，小冰，yy(需要原手机号)]]></content>
-      <categories>
-        <category>日常生活</category>
-      </categories>
-      <tags>
-        <tag>生活</tag>
-        <tag>日常</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[C输出字符串的ASCII码]]></title>
-    <url>%2Fposts%2Fundefined%2F</url>
-    <content type="text"><![CDATA[123456789101112#include &lt;stdio.h&gt;int main()&#123;char str[]=”This is a string!”;int i=0;while(str[i]!=’\0′)&#123;printf(“%c=%d\n”,str[i],str[i]);i++;&#125;printf(“%c=%d\n”,str[i],str[i]);&#125;]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>c语言</tag>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2Fposts%2F4a17b156%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
-  </entry>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[让win10的UWP应用走代理]]></title>
+      <url>/posts/d22ffdb6/</url>
+      <content type="html"><![CDATA[<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>因为uwp应用的特殊性,即使使用proxifier和proxycap这种应用者无法让其走代理</p>
+<h2 id="1-SSTAP"><a href="#1-SSTAP" class="headerlink" title="1.SSTAP"></a>1.SSTAP</h2><p>这个应用是创建虚拟网卡,让windows全局走代理.但其有弊端就是有一些国内的网站也会走代理,比如BILIBILI.虽然可以自己写规则但实在是麻烦无比.<a id="more"></a></p>
+<h2 id="2-fiddler"><a href="#2-fiddler" class="headerlink" title="2.fiddler"></a>2.fiddler</h2><p>利用fiddler的winconfig实现uwp应用走代理<br><img src="http://oxgldbgt4.bkt.clouddn.com/WK%290~%29WR%29N79$KZ4HZZTDQ2.png" alt=""><br>把要走代理的应用勾上<br><img src="http://oxgldbgt4.bkt.clouddn.com/KT3%28H@%60C63P@2KH_X7C@QDI.png" alt=""><br>但这不是全局代理,只能让uwp应用走代理</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 使用技巧 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 技巧 </tag>
+            
+            <tag> windows </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[c语言数组输出的另一种方法]]></title>
+      <url>/posts/854ed6ec/</url>
+      <content type="html"><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173" target="_blank" rel="external">一个有趣的C语言程序</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">int</span> a = <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> x[<span class="number">5</span>]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>,a[x]);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">output:</span> <span class="number">2</span></div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>所以就是x[1]对应的值：2</p>
+<p>由此我又想到了二位数组<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">int</span> a = <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> x[<span class="number">2</span>][<span class="number">2</span>]=&#123;&#123;<span class="number">1</span>,<span class="number">2</span>&#125;,&#123;<span class="number">3</span>,<span class="number">4</span>&#125;&#125;;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>,a[a[x]]);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">output:</span> <span class="number">4</span></div></pre></td></tr></table></figure>
+<p>感觉好神奇,而且在之前不知道在哪看到<strong>c语言的数组其实就是指针的合集</strong>,而且最近要用链表,更觉得链表和数组差不多.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> c语言 </tag>
+            
+            <tag> 编程 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[利用结构体让函数返回多个值]]></title>
+      <url>/posts/c69434f1/</url>
+      <content type="html"><![CDATA[<h2 id="c语言"><a href="#c语言" class="headerlink" title="c语言"></a>c语言</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdio.h"</span></span></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">test</span> //建立结构体</span></div><div class="line"><span class="class">&#123;</span></div><div class="line">	<span class="keyword">int</span> a;</div><div class="line">	<span class="keyword">int</span> b;</div><div class="line">	<span class="keyword">int</span> c;</div><div class="line">&#125;T;</div><div class="line"></div><div class="line"><span class="function">T <span class="title">testt</span><span class="params">(<span class="keyword">int</span> aa,<span class="keyword">int</span> bb,<span class="keyword">int</span> cc)</span> <span class="comment">//建立函数</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">	T aaa;</div><div class="line">	aaa.a=aa*bb;</div><div class="line">	aaa.b=aa*cc;</div><div class="line">	aaa.c=bb*cc;</div><div class="line">	<span class="keyword">return</span> aaa; <span class="comment">//返回结构</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">	T b=testt(<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>);</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"%d %d %d \n"</span>,b.a,b.b,b.c);</div><div class="line">	T *f=&amp;b;</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"%d %d %d"</span>,f-&gt;a,f-&gt;b,f-&gt;c);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><a id="more"></a>
+<figure class="highlight zephir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include "iostream"</span></div><div class="line">typedef struct sss <span class="comment">//建立结构体</span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> a;</div><div class="line">	<span class="keyword">int</span> b;</div><div class="line">	<span class="keyword">int</span> c;</div><div class="line">&#125;S;</div><div class="line"></div><div class="line">S s(<span class="keyword">double</span> a,<span class="keyword">double</span> b,<span class="keyword">double</span> c) 建立函数</div><div class="line">&#123;</div><div class="line">	S d;</div><div class="line">	d.a=a*a;</div><div class="line">	d.b=b*b;</div><div class="line">	d.c=c*c;</div><div class="line">	<span class="keyword">return</span> d;<span class="comment">//返回结构体</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">int</span> main()</div><div class="line">&#123;</div><div class="line">	S z=s(<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</div><div class="line">	std::cout&lt;&lt;z.a</div><div class="line">	         &lt;&lt;std::endl</div><div class="line">	         &lt;&lt;z.b</div><div class="line">	         &lt;&lt;std::endl</div><div class="line">	         &lt;&lt;z.c</div><div class="line">	         &lt;&lt;std::endl;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> c语言 </tag>
+            
+            <tag> 编程 </tag>
+            
+            <tag> c++ </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[c语言基本类型在内存中的存储方式]]></title>
+      <url>/posts/e404489/</url>
+      <content type="html"><![CDATA[<h2 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h2><h3 id="float"><a href="#float" class="headerlink" title="float"></a>float</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">符号位</th>
+<th style="text-align:center">+</th>
+<th style="text-align:center">指数位</th>
+<th style="text-align:center">+</th>
+<th style="text-align:center">尾数位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">↑</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↑</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↑</td>
+</tr>
+<tr>
+<td style="text-align:center">第一位</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">8位</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">23位</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<h3 id="double"><a href="#double" class="headerlink" title="double"></a>double</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">符号位</th>
+<th style="text-align:center">+</th>
+<th style="text-align:center">指数位</th>
+<th style="text-align:center">+</th>
+<th style="text-align:center">尾数位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">↑</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↑</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↑</td>
+</tr>
+<tr>
+<td style="text-align:center">第一位</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">11位</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">52位</td>
+</tr>
+</tbody>
+</table>
+<h2 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h2><p>整数在内存中是以补码的形式存储</p>
+<h3 id="正整数"><a href="#正整数" class="headerlink" title="正整数"></a>正整数</h3><p>原码=反码=补码</p>
+<h3 id="负整数"><a href="#负整数" class="headerlink" title="负整数"></a>负整数</h3><p>原码即为原码<br>反码=原码符号为不变,其余取反(注:第一位为符号位)<br>补码=反码+1</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> c语言 </tag>
+            
+            <tag> 编程 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[java和c++简单的递归调用]]></title>
+      <url>/posts/5eb800c7/</url>
+      <content type="html"><![CDATA[<p>题目是盗来的<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">猴子吃桃问题。猴子第一天摘下若干个桃子，当即吃了一半，还不过瘾，又多吃了一个。</div><div class="line">第二天早上又将剩下的桃子吃掉一半，又多吃了一个。以后每天早上都吃了前一天剩下的一半零一个。</div><div class="line">到第n天早上想再吃时，见只剩下一个桃子了。求第一天共摘了多少桃子。</div><div class="line">例如：</div><div class="line">输入：<span class="number">3</span></div><div class="line">输出：<span class="number">10</span></div><div class="line">输入：<span class="number">10</span></div><div class="line">输出：<span class="number">1534</span></div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>C++:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"iostream"</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">d</span><span class="params">(<span class="keyword">int</span>)</span></span>;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">	<span class="keyword">int</span> a;</div><div class="line">	<span class="built_in">cin</span>&gt;&gt;a;</div><div class="line">	<span class="built_in">cout</span>&lt;&lt;d(a)&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">d</span><span class="params">(<span class="keyword">int</span> a)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">	<span class="keyword">long</span> <span class="keyword">long</span> e;</div><div class="line">	<span class="keyword">if</span>(a==<span class="number">1</span>)</div><div class="line">	&#123;</div><div class="line">		e=<span class="number">1</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(a&gt;<span class="number">1</span>)</div><div class="line">	&#123;</div><div class="line">		e=(d(a<span class="number">-1</span>)+<span class="number">1</span>)*<span class="number">2</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> e;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>java:<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">import java.util.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">dgcs</span></div><div class="line">&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>)</span></div><div class="line"><span class="function">	</span>&#123;</div><div class="line">		Scanner <span class="keyword">in</span>=<span class="keyword">new</span> Scanner(System.<span class="keyword">in</span>);</div><div class="line">		<span class="keyword">int</span> a=<span class="keyword">in</span>.nextInt();</div><div class="line">		System.<span class="keyword">out</span>.println(f(a));		</div><div class="line">		&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">f</span>(<span class="params"><span class="keyword">int</span> a</span>)</span></div><div class="line"><span class="function">	</span>&#123;</div><div class="line">		<span class="keyword">long</span> e;</div><div class="line">		<span class="keyword">if</span>(a==<span class="number">1</span>)</div><div class="line">			&#123;</div><div class="line">				e=<span class="number">1</span>;</div><div class="line">			&#125;</div><div class="line">		<span class="keyword">else</span></div><div class="line">		&#123;</div><div class="line">			e=(f(a<span class="number">-1</span>)+<span class="number">1</span>)*<span class="number">2</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> e;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 编程 </tag>
+            
+            <tag> c++ </tag>
+            
+            <tag> java </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[c语言利用char指针变量将int按字节打印地址]]></title>
+      <url>/posts/43cb2931/</url>
+      <content type="html"><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>而char的大小刚好为一个字节,是我们想要的东西.<br>这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>代码如下<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int a=<span class="number">-65</span>;</div><div class="line">char *b=(char *)&amp;a;</div><div class="line">printf(<span class="string">"%p<span class="subst">\n</span>%p<span class="subst">\n</span>%p<span class="subst">\n</span>%p<span class="subst">\n</span>"</span>,a,a+<span class="number">1</span>,a+<span class="number">2</span>,a+<span class="number">3</span>);</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a=<span class="number">-65</span>;</div><div class="line"><span class="keyword">char</span> *b=(<span class="keyword">char</span> *)&amp;a;</div><div class="line"><span class="built_in">printf</span>(<span class="string">"%02x\n%02x\n%02x\n%02x\n"</span>,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)a,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">1</span>),*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">2</span>),*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">3</span>));</div></pre></td></tr></table></figure></p>
+<p>两者结合一下<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a=<span class="number">-65</span>;</div><div class="line"><span class="keyword">char</span> *b=(<span class="keyword">char</span> *)&amp;a;</div><div class="line"><span class="built_in">printf</span>(<span class="string">"%p %02x\n%p %02x\n%p %02x\n%p %02x\n"</span>,a,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)a,a+<span class="number">1</span>,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">1</span>),a+<span class="number">2</span>,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">2</span>),a+<span class="number">3</span>,*(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)(a+<span class="number">3</span>));</div></pre></td></tr></table></figure></p>
+<p>输出内容如图<br><img src="http://oxgldbgt4.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png" alt=""><br><strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> c语言 </tag>
+            
+            <tag> 编程 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[c语言中格式化字符的应用]]></title>
+      <url>/posts/b6b4601/</url>
+      <content type="html"><![CDATA[<h2 id="格式化规定符"><a href="#格式化规定符" class="headerlink" title="格式化规定符"></a>格式化规定符</h2><p>符号 作用<br>%d 十进制有符号整数<br>%u 十进制无符号整数<br>%f 浮点数<br>%s 字符串<br>%c 单个字符<br>%p 指针的值<br>%e 指数形式的浮点数<br>%x, %X 无符号以十六进制表示的整数<a id="more"></a><br>%0 无符号以八进制表示的整数<br>%g 自动选择合适的表示法</p>
+<p>说明:<br>(1). 可以在”%”和字母之间插进数字表示最大场宽。<br>例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>(2). 可以在”%”和字母之间加小写字母l, 表示输出的是长型数。<br>例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>(3). 可以控制输出左对齐或右对齐, 即在”%”和字母之间加入一个”-“ 号可说明输出为左对齐, 否则为右对齐。<br>例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
+<h2 id="一些特殊规定字符"><a href="#一些特殊规定字符" class="headerlink" title="一些特殊规定字符"></a>一些特殊规定字符</h2><p>字符 作用<br>/n   换行<br>/f   清屏并换页<br>/r   回车<br>/t   Tab符<br>/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 编程 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> c语言 </tag>
+            
+            <tag> 编程 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[常用等价无穷小的一般形式]]></title>
+      <url>/posts/10bb899d/</url>
+      <content type="html"><![CDATA[<p>当$\lim_{φ(x)\to0}$时,<br>$\sin φ(x)$~$φ(x)$<br>$arc\sin φ(x)$~$φ(x)$<br>$\tanφ(x)$~$φ(x)$<br>$arc\tanφ(x)$~$φ(x)$<br>$\ln(1+φ(x))$~$φ(x)$<br>$e^{φ(x)}-1$~$φ(x)$<br>$a^{φ(x)}-1$~$φ(x)\ln a$<br>$\sqrt[n]{1+φ(x)}-1$~$\frac{1}{n}φ(x)$<br>$(1+φ(x))^{\mu-1}$~$\muφ(x)$<br>$1-\cosφ(x)$~$\frac{(φ(x))^2}{2}$</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 数学 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 数学 </tag>
+            
+            <tag> 公式 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[课程表[练习MD用]]]></title>
+      <url>/posts/af9757c5/</url>
+      <content type="html"><![CDATA[<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">星期一</th>
+<th style="text-align:center">星期二</th>
+<th style="text-align:center">星期三</th>
+<th style="text-align:center">星期四</th>
+<th style="text-align:center">星期五</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">08:00-09:50</td>
+<td style="text-align:center">高等数学 B402</td>
+<td style="text-align:center">程序设计基础 B507</td>
+<td style="text-align:center">高等数学 B429</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">程序设计基础 B507</td>
+</tr>
+<tr>
+<td style="text-align:center">10:10-12:00</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">体育</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">大学英语 B509</td>
+</tr>
+<tr>
+<td style="text-align:center">14:00-15:50</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">大学英语 听力楼-2-304</td>
+<td style="text-align:center">高等数学 B402</td>
+</tr>
+<tr>
+<td style="text-align:center">16:10-18:00</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">大学心理健康 B211</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">19:00——</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">中国近代史 B429</td>
+<td style="text-align:center">形势与政策 B429</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      
+        <categories>
+            
+            <category> 练习 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 练习 </tag>
+            
+            <tag> 学生 </tag>
+            
+            <tag> markdown </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[三蛋空间自建贴吧云签到]]></title>
+      <url>/posts/8a291f21/</url>
+      <content type="html"><![CDATA[<h2 id="–"><a href="#–" class="headerlink" title="–"></a>–</h2><p>这是我自建的贴吧云签到:<a href="http://dmly.tk" target="_blank" rel="external">http://dmly.tk</a><br>openshift自建贴吧签到(openshift有点繁琐但是稳定,后期出教程):<a href="http://tieba-tieba.193b.starter-ca-central-1.openshiftapps.com" target="_blank" rel="external">http://tieba-tieba.193b.starter-ca-central-1.openshiftapps.com</a><br>之后为教程</p>
+<h3 id="注册免费空间"><a href="#注册免费空间" class="headerlink" title="注册免费空间"></a>注册免费空间</h3><p>首先你得注册一个三蛋空间的账号,三蛋空间注册网址:<a href="https://www.000webhost.com/members/website/list" target="_blank" rel="external">三蛋空间</a><a id="more"></a></p>
+<h3 id="创建网站"><a href="#创建网站" class="headerlink" title="创建网站"></a>创建网站</h3><p>注册完成之后点击这里 添加一个空模版,如图</p>
+<p><img src="http://oxgldbgt4.bkt.clouddn.com/%E6%B3%A8%E5%86%8C.png" alt=""></p>
+<p>写上名字和密码,点击create</p>
+<p><img src="http://oxgldbgt4.bkt.clouddn.com/%E5%90%8D%E5%AD%97.png" alt=""></p>
+<h3 id="ftp"><a href="#ftp" class="headerlink" title="ftp"></a>ftp</h3><p>下载SmartFTP Client或者其他你熟悉的ftp上传工具,这里百度就行了<br>进入三蛋空间的管理网站,点击这里,如图</p>
+<p><img src="http://oxgldbgt4.bkt.clouddn.com/detile.png" alt=""><br><img src="http://oxgldbgt4.bkt.clouddn.com/%5D%60$%603%29%284TGPPR%5DZDA8@60W8.png" alt=""></p>
+<p>把这里的信息填入SmartFTP Client中</p>
+<p><img src="http://oxgldbgt4.bkt.clouddn.com/NS0ID6B9@2EIS4%25%7D%7B%60KLQQ7.png" alt=""><br>然后点ok</p>
+<h3 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h3><p>贴吧云签到源码github地址:<a href="https://github.com/MoeNetwork/Tieba-Cloud-Sign" target="_blank" rel="external">Tieba-Cloud-Sign</a><br>点击这里下载zip并解压</p>
+<p><img src="http://oxgldbgt4.bkt.clouddn.com/GA%5D3BI8Q77U8J%7DTW2%25PD%5D4L.png" alt=""></p>
+<p>将解压得到的所有文件拖入ftp上的public_html文件夹中</p>
+<p><img src="http://oxgldbgt4.bkt.clouddn.com/LR%7D$$65~BX37S2%29I%7DL%60Y309.png" alt=""></p>
+<h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><p>然后进入三蛋空间创建数据库<br>三蛋空间会自动给你的数据库名字前加上数字,所以之后在贴吧安装中要注意</p>
+<p><img src="http://oxgldbgt4.bkt.clouddn.com/4%25JP1V7TEKX4IE0~1UUQN%5DU.png" alt=""></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>之后进入你的网站,然后安装就行了.</p>
+<h3 id="创建cron-job"><a href="#创建cron-job" class="headerlink" title="创建cron job"></a>创建cron job</h3><p>安装完成后就要把do.php加入cron,否则是不会自动签到的,按图中的步骤进行<br><img src="http://oxgldbgt4.bkt.clouddn.com/P5LC1%7B%7D%7BQ%7B1_QCZ0%5DE@L0WO.png" alt=""></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 建站 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 建站 </tag>
+            
+            <tag> 免费 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[更改绑定手机号]]></title>
+      <url>/posts/3fee5f2/</url>
+      <content type="html"><![CDATA[<p>绑定手机号：微信，网易云，淘宝原手机号及证件，支付宝，google<br>银行卡，贴吧，酷安，微博需要原手机号，bilibili（需要原手机号)<a id="more"></a><br>微软,欢喜云，京东（原手机号及银行卡，非我的实名认证）<br>天猫，银行卡，steam，小冰，yy(需要原手机号)<br><img src="http://oxgldbgt4.bkt.clouddn.com/%E6%8D%95%E8%8E%B72.PNG" alt=""></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 日常生活 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 生活 </tag>
+            
+            <tag> 日常 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[C输出字符串的ASCII码]]></title>
+      <url>/posts/undefined/</url>
+      <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include &lt;stdio.h&gt;</span></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">char str[]=”This is a string!”;</div><div class="line">int i=0;</div><div class="line"><span class="keyword">while</span>(str[i]!=’\0′)</div><div class="line">&#123;</div><div class="line"><span class="built_in">printf</span>(“%c=%d\n”,str[i],str[i]);</div><div class="line">i++;</div><div class="line">&#125;</div><div class="line"><span class="built_in">printf</span>(“%c=%d\n”,str[i],str[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
+      
+        <categories>
+            
+            <category> 编程 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> c语言 </tag>
+            
+            <tag> 编程 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hello World]]></title>
+      <url>/posts/4a17b156/</url>
+      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.<br><a id="more"></a></p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+  
+  
 </search>
