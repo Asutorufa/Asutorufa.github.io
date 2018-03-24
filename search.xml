@@ -3,12 +3,13 @@
   <entry>
     <title><![CDATA[JavaScript对字符串操作]]></title>
     <url>%2Fposts%2F86cfa6a%2F</url>
-    <content type="text"><![CDATA[123456789101112131415161718192021222324252627&lt;body&gt; &lt;p id="test"&gt;test&lt;/p&gt; &lt;script type="text/javascript"&gt; var name='aaaa'; var age='bbbb'; var change='Hello javascript'; var message=`hello,$&#123;name&#125;,$&#123;age&#125;, `+name+age;//将多个字符串写成一句话 var length=message.length;//获取字符串长度 var upper=message.toUpperCase();//把字符串全部变成大写 var lower=message.toLowerCase();//把字符串全部变成小写 var search=message.indexOf('aaaa');//搜索字符串位置 var substr=message.substring(9, 15);//返回区间内字符串 document.write(`被改变的文字:$&#123;message&#125;`); x=document.getElementById("test"); //查找元素 x.innerHTML="Hello JavaScript"; //改变内容 &lt;/script&gt;&lt;/body&gt; 原文字 //alert(‘Hello, world’); var name=’aaaa’; var age=’bbbb’; var change=’Hello javascript’; var message=hello,${name},${age},+name+age; var length=message.length;//获取字符串长度 var upper=message.toUpperCase();//把字符串全部变成大写 var lower=message.toLowerCase();//把字符串全部变成小写 var search=message.indexOf(‘aaaa’);//搜索字符串位置 var substr=message.substring(9, 15);//返回区间内字符串 document.write(被改变的文字:${message}); x=document.getElementById(“test”); //查找元素 //x.innerHTML=”Hello JavaScript”; //改变内容 alertdocumentchangelengthtoUpperCasetoLowerCasesearchsubstring独立段落标题(加粗)]]></content>
+    <content type="text"><![CDATA[1234var name='aaaa';var age='bbbb';var change='Hello javascript';var message=`hello,$&#123;name&#125;,$&#123;age&#125;,`+name+age;//将多个字符串写成一句话 1var length=message.length;//获取字符串长度 1var upper=message.toUpperCase();//把字符串全部变成大写 1var lower=message.toLowerCase();//把字符串全部变成小写 1var search=message.indexOf('aaaa');//搜索字符串位置 1var substr=message.substring(9, 15);//返回区间内字符串 12x=document.getElementById("test"); //查找元素x.innerHTML="Hello JavaScript"; //改变内容]]></content>
       <categories>
-        <category>--JavaScript</category>
+        <category>JavaScript</category>
       </categories>
       <tags>
-        <tag>--JavaScript --前端</tag>
+        <tag>JavaScript</tag>
+        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
