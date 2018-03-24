@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[JavaScript对字符串操作]]></title>
+    <url>%2Fposts%2F86cfa6a%2F</url>
+    <content type="text"><![CDATA[123456789101112131415161718192021222324252627&lt;body&gt; &lt;p id="test"&gt;test&lt;/p&gt; &lt;script type="text/javascript"&gt; var name='aaaa'; var age='bbbb'; var change='Hello javascript'; var message=`hello,$&#123;name&#125;,$&#123;age&#125;, `+name+age;//将多个字符串写成一句话 var length=message.length;//获取字符串长度 var upper=message.toUpperCase();//把字符串全部变成大写 var lower=message.toLowerCase();//把字符串全部变成小写 var search=message.indexOf('aaaa');//搜索字符串位置 var substr=message.substring(9, 15);//返回区间内字符串 document.write(`被改变的文字:$&#123;message&#125;`); x=document.getElementById("test"); //查找元素 x.innerHTML="Hello JavaScript"; //改变内容 &lt;/script&gt;&lt;/body&gt; 原文字 //alert(‘Hello, world’); var name=’aaaa’; var age=’bbbb’; var change=’Hello javascript’; var message=hello,${name},${age},+name+age; var length=message.length;//获取字符串长度 var upper=message.toUpperCase();//把字符串全部变成大写 var lower=message.toLowerCase();//把字符串全部变成小写 var search=message.indexOf(‘aaaa’);//搜索字符串位置 var substr=message.substring(9, 15);//返回区间内字符串 document.write(被改变的文字:${message}); x=document.getElementById(“test”); //查找元素 //x.innerHTML=”Hello JavaScript”; //改变内容 alertdocumentchangelengthtoUpperCasetoLowerCasesearchsubstring独立段落标题(加粗)]]></content>
+      <categories>
+        <category>--JavaScript</category>
+      </categories>
+      <tags>
+        <tag>--JavaScript --前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[让win10的UWP应用走代理]]></title>
     <url>%2Fposts%2Fd22ffdb6%2F</url>
     <content type="text"><![CDATA[原因因为uwp应用的特殊性,即使使用proxifier和proxycap这种应用者无法让其走代理 1.SSTAP这个应用是创建虚拟网卡,让windows全局走代理.但其有弊端就是有一些国内的网站也会走代理,比如BILIBILI.虽然可以自己写规则但实在是麻烦无比. 2.fiddler利用fiddler的winconfig实现uwp应用走代理把要走代理的应用勾上但这不是全局代理,只能让uwp应用走代理]]></content>
