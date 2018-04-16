@@ -13,6 +13,11 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2Fposts%2F4a17b156%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[让win10的UWP应用走代理]]></title>
     <url>%2Fposts%2Fd22ffdb6%2F</url>
     <content type="text"><![CDATA[原因因为uwp应用的特殊性,即使使用proxifier和proxycap这种应用者无法让其走代理 1.SSTAP这个应用是创建虚拟网卡,让windows全局走代理.但其有弊端就是有一些国内的网站也会走代理,比如BILIBILI.虽然可以自己写规则但实在是麻烦无比. 2.fiddler利用fiddler的winconfig实现uwp应用走代理把要走代理的应用勾上但这不是全局代理,只能让uwp应用走代理]]></content>
@@ -158,10 +163,5 @@
         <tag>c语言</tag>
         <tag>编程</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2Fposts%2F4a17b156%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
   </entry>
 </search>
