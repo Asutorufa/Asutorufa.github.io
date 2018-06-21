@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[関西弁コレクション]]></title>
+    <url>%2Fposts%2Fa4241e7%2F</url>
+    <content type="text"><![CDATA[##ほんま 【本真】（ 名 ・形動 ）本当である・こと（さま）。真実。主に関西地方で用いる。 「 －の話やで」 「 －に驚いたわ」 ##しゃあない【方言】 ;大阪话。没办法、没辙了。（大阪弁で「しかたない」の意味である。） ##アカン感叹词不行，不可以。（（「埒らち明かぬ」の略。多く関西で使う）うまくいかない。だめだ。不可である。） ##アホやん跟冒失娘（ドジっ娘）类似，关西方言 注:冒失娘（ドジっ娘），萌属性之一。此属性以女性为主，若是男性可用较中性的“ドジっ子”。日文“どじ”或“どぢ”是指人或事的出错和失误。“ドジっ娘”就是指经常弄翻物件、行事笨拙、“大错不出，小错不断”，总是搞出呆呆笨笨事情的少女。中文意译的“冒失”，是指做事有漏失，而不是为人鲁莽无礼的意思。どじっ应该不写成汉字参考自维基百科]]></content>
+      <categories>
+        <category>日语</category>
+      </categories>
+      <tags>
+        <tag>日语</tag>
+        <tag>関西弁</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[JavaScript对字符串操作]]></title>
     <url>%2Fposts%2F86cfa6a%2F</url>
     <content type="text"><![CDATA[1234var name='aaaa';var age='bbbb';var change='Hello javascript';var message=`hello,$&#123;name&#125;,$&#123;age&#125;,`+name+age;//将多个字符串写成一句话 1var length=message.length;//获取字符串长度 1var upper=message.toUpperCase();//把字符串全部变成大写 1var lower=message.toLowerCase();//把字符串全部变成小写 1var search=message.indexOf('aaaa');//搜索字符串位置 1var substr=message.substring(9, 15);//返回区间内字符串 12x=document.getElementById("test"); //查找元素x.innerHTML="Hello JavaScript"; //改变内容]]></content>
@@ -11,11 +23,6 @@
         <tag>JavaScript</tag>
         <tag>前端</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2Fposts%2F4a17b156%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
   </entry>
   <entry>
     <title><![CDATA[让win10的UWP应用走代理]]></title>
@@ -163,5 +170,10 @@
         <tag>c语言</tag>
         <tag>编程</tag>
       </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2Fposts%2F4a17b156%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
   </entry>
 </search>
