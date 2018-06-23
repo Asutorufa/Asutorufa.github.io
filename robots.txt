@@ -7,5 +7,5 @@ Disallow: /css/
 Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
-Sitemap: https://mundanedefoliation.github.io/sitemap.xml
-Sitemap: https://mundanedefoliation.github.io/baidusitemap.xml
+Sitemap: https://asutorufa.io/sitemap.xml
+Sitemap: https://asutorufa.github.io/baidusitemap.xml
