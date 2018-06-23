@@ -189,7 +189,7 @@ body {
   font-size: 14px;
   line-height: 2;
   color: #555;
-  background: #fff0f5;
+  background: #8cc4dc;
 }
 @media (max-width: 767px) {
   body {
@@ -1099,7 +1099,7 @@ pre .javascript .function {
 }
 .headband {
   height: 0px;
-  background: #fff0f5;
+  background: #8cc4dc;
 }
 .site-meta {
   margin: 0;
@@ -1817,7 +1817,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff372e;
+  background: #ff90df;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2621,7 +2621,7 @@ pre .javascript .function {
 .header {
   position: relative;
   margin: 0 auto;
-  width: 75%;
+  width: 83%;
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .header {
@@ -2681,7 +2681,7 @@ pre .javascript .function {
   }
 }
 .container .main-inner {
-  width: 75%;
+  width: 83%;
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .container .main-inner {
@@ -2723,7 +2723,7 @@ pre .javascript .function {
   float: left;
   margin-top: 300px;
   width: 240px;
-  background: #fff0f5;
+  background: #8cc4dc;
   box-shadow: none;
 }
 @media (min-width: 768px) and (max-width: 991px) {
@@ -2740,7 +2740,7 @@ pre .javascript .function {
   display: none;
 }
 .footer-inner {
-  width: 75%;
+  width: 83%;
   padding-left: 260px;
 }
 @media (min-width: 768px) and (max-width: 991px) {
@@ -2776,7 +2776,7 @@ pre .javascript .function {
 .site-meta {
   padding: 20px 0;
   color: #fff;
-  background: #fff0f5;
+  background: #8cc4dc;
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .site-meta {
@@ -3084,15 +3084,15 @@ pre .javascript .function {
 }
 .post-body h1 {
   font-size: 1.6em;
-  border-bottom: 1px solid #fff0f5;
+  border-bottom: 1px solid #8cc4dc;
 }
 .post-body h2 {
   font-size: 1.45em;
-  border-bottom: 1px solid #fff0f5;
+  border-bottom: 1px solid #8cc4dc;
 }
 .post-body h3 {
   font-size: 1.3em;
-  border-bottom: 1px dotted #fff0f5;
+  border-bottom: 1px dotted #8cc4dc;
 }
 .post-body h4 {
   font-size: 1.2em;
