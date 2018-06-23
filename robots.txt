@@ -8,4 +8,3 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 Sitemap: https://asutorufa.io/sitemap.xml
-Sitemap: https://asutorufa.github.io/baidusitemap.xml
