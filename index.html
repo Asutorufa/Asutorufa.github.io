@@ -382,21 +382,16 @@
 
       
         
-          
-            <h2 id="首先使用rfkill查看你的wifi设备是否被停用"><a href="#首先使用rfkill查看你的wifi设备是否被停用" class="headerlink" title="首先使用rfkill查看你的wifi设备是否被停用"></a>首先使用rfkill查看你的wifi设备是否被停用</h2><p>使用命令<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rfkill <span class="built_in">list</span></span><br></pre></td></tr></table></figure></p>
+          <h2 id="首先使用rfkill查看你的wifi设备是否被停用"><a href="#首先使用rfkill查看你的wifi设备是否被停用" class="headerlink" title="首先使用rfkill查看你的wifi设备是否被停用"></a>首先使用rfkill查看你的wifi设备是否被停用</h2><p>使用命令<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rfkill <span class="built_in">list</span></span><br></pre></td></tr></table></figure></p>
 <p>获得设备列表，每个都包含与之关联的索引号，从 0 开始<br>查看设备是否被停用，要启用被停用的设备，请运行：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rfkill unblock <span class="tag">&lt;<span class="name">索引号</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>要启用所有设备，请运行：<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rfkill unblock <span class="keyword">all</span></span><br></pre></td></tr></table></figure></p>
-<p>您可以使用这个索引号让 rfkill 停使或者使用某个设备，例如：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">rfkill</span> <span class="keyword">block </span><span class="number">0</span></span><br></pre></td></tr></table></figure></p>
-<p>您还可以使用 rfkill 阻断某一类设备，或者所有启用了RFKill的设备。例如：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">rfkill</span> <span class="keyword">block </span>wifi</span><br></pre></td></tr></table></figure></p>
-<p>停用系统中的所有Wi-Fi设备</p>
-<h2 id="启用无线网卡"><a href="#启用无线网卡" class="headerlink" title="启用无线网卡"></a>启用无线网卡</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ifconfig</span> wlan0 up</span><br></pre></td></tr></table></figure>
-<h2 id="使用iwconfig命令搜索无线网"><a href="#使用iwconfig命令搜索无线网" class="headerlink" title="使用iwconfig命令搜索无线网"></a>使用iwconfig命令搜索无线网</h2><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwlist wlan0 <span class="built_in">scan</span></span><br></pre></td></tr></table></figure>
-<p>记下essid<br>连接无密码的无线网<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">iwconfig</span> wlan0 essid essidname</span><br></pre></td></tr></table></figure></p>
-<p>其中essidname是搜索到的无线网essid<br>连接有密码的无线网<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwconfig wlan0 essid essidname key <span class="tag">&lt;<span class="name">密码</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>通过dhcp获取IP<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">dhclient</span> wlan0</span><br></pre></td></tr></table></figure></p>
-<p>或<br><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dhcpcd wla<span class="symbol">n0</span></span><br></pre></td></tr></table></figure></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/posts/fb6d8628/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2467,7 +2462,15 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":0.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"superSample":4,"width":37.5,"height":75,"position":"right","hOffset":0,"vOffset":0},"mobile":{"show":true,"scale":0.3},"react":{"opacityDefault":1,"opacityOnHover":0.7}});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("MathJax config");
 </script>
@@ -2484,15 +2487,7 @@
 <script type="text/javascript" src="custom_mathjax_source">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-  
-
-
-  
-
-  
-
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":0.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"superSample":4,"width":37.5,"height":75,"position":"right","hOffset":0,"vOffset":0},"mobile":{"show":true,"scale":0.3},"react":{"opacityDefault":1,"opacityOnHover":0.7}});</script></body>
+<!-- hexo-inject:end --></body>
  <script>
  (function(){
     var bp = document.createElement('script');
