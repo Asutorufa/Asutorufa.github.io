@@ -69,18 +69,18 @@
 
 
 
-<meta name="description" content="偶尔发现snap会自动升级core且不删除旧版，在’/snap/core’会发现好几个版本的文件夹。使用 1sudo snap remove core --revision xxx 删除某个版本的core，其他软件也能用哦。 参考：How to unmount and possibly delete old Ubuntu Core snap">
+<meta name="description" content="偶尔发现snap会自动升级core且不删除旧版，在’/snap/core’会发现好几个版本的文件夹。使用 1sudo snap remove core --revision xxx 删除某个版本的core，xxx是软件的rev，使用 1snap list 可以查看软件的rev，其他软件也能用这个方法删除旧的版本哦。 参考：How to unmount and possibly delete old">
 <meta name="keywords" content="linux,snap">
 <meta property="og:type" content="article">
 <meta property="og:title" content="snap删除旧的core(snap删除其他版本的软件)">
 <meta property="og:url" content="https://Asutorufa.github.io/posts/b6b8953/index.html">
 <meta property="og:site_name" content="アストルフォの幻想郷">
-<meta property="og:description" content="偶尔发现snap会自动升级core且不删除旧版，在’/snap/core’会发现好几个版本的文件夹。使用 1sudo snap remove core --revision xxx 删除某个版本的core，其他软件也能用哦。 参考：How to unmount and possibly delete old Ubuntu Core snap">
+<meta property="og:description" content="偶尔发现snap会自动升级core且不删除旧版，在’/snap/core’会发现好几个版本的文件夹。使用 1sudo snap remove core --revision xxx 删除某个版本的core，xxx是软件的rev，使用 1snap list 可以查看软件的rev，其他软件也能用这个方法删除旧的版本哦。 参考：How to unmount and possibly delete old">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-28T05:48:58.959Z">
+<meta property="og:updated_time" content="2018-06-28T05:55:03.186Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="snap删除旧的core(snap删除其他版本的软件)">
-<meta name="twitter:description" content="偶尔发现snap会自动升级core且不删除旧版，在’/snap/core’会发现好几个版本的文件夹。使用 1sudo snap remove core --revision xxx 删除某个版本的core，其他软件也能用哦。 参考：How to unmount and possibly delete old Ubuntu Core snap">
+<meta name="twitter:description" content="偶尔发现snap会自动升级core且不删除旧版，在’/snap/core’会发现好几个版本的文件夹。使用 1sudo snap remove core --revision xxx 删除某个版本的core，xxx是软件的rev，使用 1snap list 可以查看软件的rev，其他软件也能用这个方法删除旧的版本哦。 参考：How to unmount and possibly delete old">
 
 
 
@@ -390,7 +390,9 @@
       
         <p>偶尔发现snap会自动升级core且不删除旧版，在’/snap/core’<br>会发现好几个版本的文件夹。<br>使用</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo snap <span class="built_in">remove</span> core <span class="comment">--revision xxx</span></span><br></pre></td></tr></table></figure>
-<p>删除某个版本的core，其他软件也能用哦。</p>
+<p>删除某个版本的core，xxx是软件的rev，使用</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">snap <span class="built_in">list</span></span><br></pre></td></tr></table></figure>
+<p>可以查看软件的rev，其他软件也能用这个方法删除旧的版本哦。</p>
 <p>参考：<a href="https://askubuntu.com/questions/828859/how-to-unmount-and-possibly-delete-old-ubuntu-core-snap" target="_blank" rel="noopener">How to unmount and possibly delete old Ubuntu Core snap</a></p>
 
       
