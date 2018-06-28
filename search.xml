@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[snap删除旧的core(snap删除其他版本的软件)]]></title>
+    <url>%2Fposts%2Fb6b8953%2F</url>
+    <content type="text"><![CDATA[偶尔发现snap会自动升级core且不删除旧版，在’/snap/core’会发现好几个版本的文件夹。使用 1sudo snap remove core --revision xxx 删除某个版本的core，其他软件也能用哦。 参考：How to unmount and possibly delete old Ubuntu Core snap]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>snap</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[ubuntu终端下连接wifi]]></title>
     <url>%2Fposts%2Ffb6d8628%2F</url>
     <content type="text"><![CDATA[首先使用rfkill查看你的wifi设备是否被停用使用命令1rfkill list 获得设备列表，每个都包含与之关联的索引号，从 0 开始查看设备是否被停用，要启用被停用的设备，请运行：1rfkill unblock &lt;索引号&gt; 要启用所有设备，请运行：1rfkill unblock all 您可以使用这个索引号让 rfkill 停使或者使用某个设备，例如：1rfkill block 0 您还可以使用 rfkill 阻断某一类设备，或者所有启用了RFKill的设备。例如：1rfkill block wifi 停用系统中的所有Wi-Fi设备 启用无线网卡1ifconfig wlan0 up 使用iwconfig命令搜索无线网1iwlist wlan0 scan 记下essid连接无密码的无线网1iwconfig wlan0 essid essidname 其中essidname是搜索到的无线网essid连接有密码的无线网1iwconfig wlan0 essid essidname key &lt;密码&gt; 补充通过dhcp获取IP1dhclient wlan0 或1dhcpcd wlan0]]></content>
