@@ -286,6 +286,195 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/77d15527/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="アストルフォ">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="アストルフォの幻想郷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/77d15527/" itemprop="url">python使用lxml分析网页</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T14:47:51+08:00">
+                2018-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>首先得引入lxml</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#xpath为</span></span><br><span class="line"><span class="title">frome</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="meta">#cssselector为</span></span><br><span class="line"><span class="keyword">import</span> lxml.html</span><br><span class="line"><span class="meta">#cssselector使用起来简单但功能比xpath少</span></span><br></pre></td></tr></table></figure>
+<p>cssselector<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tree = lxml<span class="selector-class">.html</span><span class="selector-class">.fromstring</span>(<span class="string">'你获取的网页源代码文件或变量'</span>)</span><br><span class="line">css = tree.cssselect(<span class="string">'要选择的内容'</span>)</span><br><span class="line">#例如tree.cssselect(<span class="string">'div.word-info &gt; div.pronounces &gt; span.word-audio'</span>)</span><br><span class="line">#选择器选择的结果为list</span><br><span class="line">css.text_content()</span><br><span class="line">#表示选择的内容</span><br><span class="line">css<span class="selector-class">.attrib</span>[<span class="string">'要表示的标签属性'</span>]</span><br><span class="line">#如css<span class="selector-class">.attrb</span>[<span class="string">'class'</span>]表示的就是所选择内容的class属性</span><br></pre></td></tr></table></figure></p>
+<p><strong>如果选择的内容换行符太多可以使用split表示成list去除</strong></p>
+<table>
+<thead>
+<tr>
+<th>说明</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>选择所有标签</td>
+<td>*</td>
+</tr>
+<tr>
+<td>选择<a>标签</a></td>
+<td>a</td>
+</tr>
+<tr>
+<td>选择所有class=”link”的标签</td>
+<td>.link</td>
+</tr>
+<tr>
+<td>选择class=”link”的<a>标签</a></td>
+<td>a.link</td>
+</tr>
+<tr>
+<td>选择id=”home”的<a>标签</a></td>
+<td>a#home</td>
+</tr>
+<tr>
+<td>选择父元素为<a>标签的所有<span>标签</span></a></td>
+<td>a &gt; span</td>
+</tr>
+<tr>
+<td>选择<a>标签内部的所有<span>标签</span></a></td>
+<td>a span</td>
+</tr>
+<tr>
+<td>选择title属性为”Home”的所有<a>标签</a></td>
+<td>a[title=Home]</td>
+</tr>
+</tbody>
+</table>
+<p>xpath<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">selector</span>=etree.HTML(<span class="string">'你获取的网页源代码文件或变量'</span>)</span><br><span class="line"><span class="attr">css</span> = selector.xpath(<span class="string">'要选择的内容'</span>)</span><br><span class="line"><span class="comment">#xpath可直接表示</span></span><br><span class="line"><span class="comment">#xpath可选择并表示属性</span></span><br></pre></td></tr></table></figure></p>
+<p><em>xpath由于内容太多,可以直接参考官方文档</em></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/cee10602/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1575,153 +1764,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/c69434f1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="アストルフォ">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="アストルフォの幻想郷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/c69434f1/" itemprop="url">利用结构体让函数返回多个值</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-29T14:39:27+08:00">
-                2017-11-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程/" itemprop="url" rel="index">
-                    <span itemprop="name">编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="c语言"><a href="#c语言" class="headerlink" title="c语言"></a>c语言</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdio.h"</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">test</span> //建立结构体</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> a;</span><br><span class="line">	<span class="keyword">int</span> b;</span><br><span class="line">	<span class="keyword">int</span> c;</span><br><span class="line">&#125;T;</span><br><span class="line"></span><br><span class="line"><span class="function">T <span class="title">testt</span><span class="params">(<span class="keyword">int</span> aa,<span class="keyword">int</span> bb,<span class="keyword">int</span> cc)</span> <span class="comment">//建立函数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	T aaa;</span><br><span class="line">	aaa.a=aa*bb;</span><br><span class="line">	aaa.b=aa*cc;</span><br><span class="line">	aaa.c=bb*cc;</span><br><span class="line">	<span class="keyword">return</span> aaa; <span class="comment">//返回结构</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	T b=testt(<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d %d %d \n"</span>,b.a,b.b,b.c);</span><br><span class="line">	T *f=&amp;b;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d %d %d"</span>,f-&gt;a,f-&gt;b,f-&gt;c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/c69434f1/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1778,7 +1820,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1800,7 +1842,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
