@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[linux下intel&AMD双显卡切换]]></title>
     <url>%2Fposts%2F3b8b96de%2F</url>
-    <content type="text"><![CDATA[使用 12```xrandr --listproviders 输出类似以下内容 123Providers: number : 2Provider 0: id: 0x6b cap: 0x9, Source Output, Sink Offload crtcs: 3 outputs: 7 associated providers: 1 name:modesettingProvider 1: id: 0x41 cap: 0x6, Sink Output, Source Offload crtcs: 2 outputs: 0 associated providers: 1 name:OLAND @ pci:0000:01:00.0 To be able to render GPU-intensive applications by the more powerful discrete card use 1xrandr --setprovideroffloadsink 1 0 或者 1xrandr --setprovideroffloadsink 0x41 0x6b 使用DRI_PRIME为某个应用选择使用哪一张显卡,使用glxinfo可以查看正在使用的显卡 12DRI_PRIME=0 glxinfo | grep "OpenGL renderer"DRI_PRIME=1 glxinfo | grep "OpenGL renderer" 如为steam启用独显 DRI_PRIME=1 steam 参考资料: 1.Intel/AMD Hybrid graphics Ubuntu 18.04 2.PRIME (简体中文) )]]></content>
+    <content type="text"><![CDATA[使用 12```xrandr --listproviders 输出类似以下内容 123Providers: number : 2Provider 0: id: 0x6b cap: 0x9, Source Output, Sink Offload crtcs: 3 outputs: 7 associated providers: 1 name:modesettingProvider 1: id: 0x41 cap: 0x6, Sink Output, Source Offload crtcs: 2 outputs: 0 associated providers: 1 name:OLAND @ pci:0000:01:00.0 To be able to render GPU-intensive applications by the more powerful discrete card use 1xrandr --setprovideroffloadsink 1 0 或者 1xrandr --setprovideroffloadsink 0x41 0x6b 使用DRI_PRIME为某个应用选择使用哪一张显卡,使用glxinfo可以查看正在使用的显卡 12DRI_PRIME=0 glxinfo | grep "OpenGL renderer"DRI_PRIME=1 glxinfo | grep "OpenGL renderer" 如为steam启用独显 DRI_PRIME=1 steam 参考资料: 1.Intel/AMD Hybrid graphics Ubuntu 18.04 2.PRIME (简体中文)]]></content>
       <categories>
         <category>linux</category>
       </categories>
