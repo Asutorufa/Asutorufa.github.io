@@ -378,18 +378,20 @@
 
       
         
-          
-            <p>使用<strong>xrandr</strong>显示可支持的显卡</p>
-<figure class="highlight plain"><figcaption><span>--listproviders```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">输出类似以下内容</span><br></pre></td></tr></table></figure>
-<p>Providers: number : 2<br>Provider 0: id: 0x6b cap: 0x9, Source Output, Sink Offload crtcs: 3 outputs: 7 associated providers: 1 name:modesetting<br>Provider 1: id: 0x41 cap: 0x6, Sink Output, Source Offload crtcs: 2 outputs: 0 associated providers: 1 name:OLAND @ pci:0000:01:00.0<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">To</span> be able <span class="keyword">to</span> render GPU<span class="params">-intensive</span> applications <span class="keyword">by</span> the more powerful discrete card use</span><br></pre></td></tr></table></figure></p>
-<p>xrandr –setprovideroffloadsink 1 0<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">或者<span class="comment">&lt;!--more--&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>xrandr –setprovideroffloadsink 0x41 0x6b<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">使用DRI_PRIME为某个应用选择使用哪一张显卡,使用glxinfo可以查看正在使用的显卡</span><br></pre></td></tr></table></figure></p>
-<p>DRI_PRIME=0 glxinfo | grep “OpenGL renderer”<br>DRI_PRIME=1 glxinfo | grep “OpenGL renderer”<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如为steam启用独显</span><br><span class="line"></span><br><span class="line">```DRI_PRIME=<span class="number">1</span> steam</span><br></pre></td></tr></table></figure></p>
-<p>参考资料:</p>
-<p>1.<a href="https://askubuntu.com/questions/1038271/intel-amd-hybrid-graphics-ubuntu-18-04" target="_blank" rel="noopener">Intel/AMD Hybrid graphics Ubuntu 18.04</a></p>
-<p>2.<a href="https://wiki.archlinux.org/index.php/PRIME" target="_blank" rel="noopener">PRIME (简体中文)</a></p>
-
-          
+          <p>使用<strong>xrandr</strong>显示可支持的显卡</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xrandr <span class="comment">--listproviders</span></span><br></pre></td></tr></table></figure>
+<p>输出类似以下内容</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Providers:</span> <span class="string">number :</span> <span class="number">2</span></span><br><span class="line">Provider <span class="number">0</span>: <span class="string">id:</span> <span class="number">0x6b</span> <span class="string">cap:</span> <span class="number">0x9</span>, Source Output, Sink Offload <span class="string">crtcs:</span> <span class="number">3</span> <span class="string">outputs:</span> <span class="number">7</span> associated <span class="string">providers:</span> <span class="number">1</span> <span class="string">name:</span>modesetting</span><br><span class="line">Provider <span class="number">1</span>: <span class="string">id:</span> <span class="number">0x41</span> <span class="string">cap:</span> <span class="number">0x6</span>, Sink Output, Source Offload <span class="string">crtcs:</span> <span class="number">2</span> <span class="string">outputs:</span> <span class="number">0</span> associated <span class="string">providers:</span> <span class="number">1</span> <span class="string">name:</span>OLAND @ <span class="string">pci:</span><span class="number">0000</span>:<span class="number">01</span>:<span class="number">00.0</span></span><br></pre></td></tr></table></figure>
+<p>To be able to render GPU-intensive applications by the more powerful discrete card use</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xrandr --setprovideroffloadsink <span class="number">1</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>或者
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/posts/3b8b96de/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2400,7 +2402,15 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":20,"height":28,"superSample":5,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.3},"react":{"opacityDefault":1,"opacityOnHover":1}});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("MathJax config");
 </script>
@@ -2417,13 +2427,5 @@
 <script type="text/javascript" src="">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-  
-
-
-  
-
-  
-
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":20,"height":28,"superSample":5,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.3},"react":{"opacityDefault":1,"opacityOnHover":1}});</script></body>
+<!-- hexo-inject:end --></body>
 </html>
