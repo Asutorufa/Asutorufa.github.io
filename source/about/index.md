@@ -5,4 +5,4 @@ type: about
 ---
 有问题可以在下面留言或向我的发邮件
 [__我的邮箱__](https://Asutorufa.github.io/email/)
-![](http://oxgldbgt4.bkt.clouddn.com/60141148_p0.png)
+![](http://blog-1254450445.cossgp.myqcloud.com/60141148_p0.png)
