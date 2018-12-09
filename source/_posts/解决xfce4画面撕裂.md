@@ -253,7 +253,7 @@ compton
 ```
 ### 后台运行
 ```
-### compton -b
+compton -b
 ```
 ### 开机自启动
 修改~/.xprofile文件
