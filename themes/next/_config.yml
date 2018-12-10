@@ -120,18 +120,18 @@ scheme: Gemini
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 social:
   GitHub: https://github.com/Asutorufa || github
-  E-Mail: https://Asutorufa.github.io/email/ || envelope
-  #Google+: https://plus.google.com/u/0/111733780534154201618 || google
-  #Twitter: https://twitter.com/Asutorufa || twitter
-  #FB Page: https://www.facebook.com/fancheng.luoye?ref=bookmarks || facebook
-  #Weibo: http://weibo.com/u/3291895670 || weibo
-  #VK Group: https://vk.com/yourname || vk
-  #StackOverflow: https://stackoverflow.com/yourname || stack-overflow
-  #YouTube: https://www.youtube.com/channel/UCTDSpISdcgx8WyAuKKwdnvw?view_as=subscriber || youtube
-  #Instagram: https://www.instagram.com/asutorufa || instagram
-  #Bilibili: https://space.bilibili.com/8360402/#!/ || television
-  #Niconico: http://www.nicovideo.jp/user/58054887 || video-camera
-  #Skype: skype:yourname?call|chat || skype
+  E-Mail: /email/ || envelope
+#  Google+: https:// || google
+#  Twitter: https:// || twitter
+#  FB Page: https:// || facebook
+#  Weibo: http:// || weibo
+#  VK Group: https://vk.com/yourname || vk
+#  StackOverflow: https://stackoverflow.com/yourname || stack-overflow
+#  YouTube: https:// || youtube
+#  Instagram: https:// || instagram
+#  Bilibili: https:// || television
+#  Niconico: http:// || video-camera
+#  Skype: skype:yourname?call|chat || skype
 
 social_icons:
   enable: true
@@ -144,7 +144,7 @@ links_title: others
 #links_layout: block
 links_layout: inline
 links:
-  邮箱: https://Asutorufa.github.io/email/
+  邮箱: /email/
 #贴吧云签到(数据库凉了): http://tieba-tieba.193b.starter-ca-central-1.openshiftapps.com
 #YouTube镜像站: http://youtubephp-tieba.193b.starter-ca-central-1.openshiftapps.com
   Telegram频道: https://t.me/jyonanasai
