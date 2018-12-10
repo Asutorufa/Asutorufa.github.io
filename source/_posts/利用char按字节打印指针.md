@@ -32,5 +32,5 @@ char *b=(char *)&a;
 printf("%p %02x\n%p %02x\n%p %02x\n%p %02x\n",a,*(unsigned char*)a,a+1,*(unsigned char*)(a+1),a+2,*(unsigned char*)(a+2),a+3,*(unsigned char*)(a+3));
 ```
 输出内容如图
-![](http://oxgldbgt4.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png)
+![](http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png)
 __有任何错误请邮箱联系我指出我的错误,万分感谢__
