@@ -86,11 +86,11 @@ deploy:
 
 # Admin
 #admin:
-    #name: Asutorufa
-    #password: wtt1319946726//
-    #secret: hey hexo
-    #expire: 60*1
-    # cors: http://localhost:3000
+#    name: Asutorufa
+#    password: 
+#    secret: hey hexo
+#    expire: 60*1
+#     cors: http://localhost:3000
 
 #站内搜索
 search:
