@@ -69,18 +69,18 @@
 
 
 
-<meta name="description" content="对于Android M或更高版本，使用：12setprop ro.product.locale xx-XXsetprop persist.sys.locale xx-XX XX是语言XX是国家改为日语为:xx=ja XX=JP   其他安卓版本:123setprop persist.sys.language xxsetprop persist.sys.country XXsetprop ctl.r">
+<meta name="description" content="对于Android M或更高版本，使用：12setprop ro.product.locale xx-XXsetprop persist.sys.locale xx-XX xx是语言XX是国家改为日语为:xx=ja XX=JP   其他安卓版本:123setprop persist.sys.language xxsetprop persist.sys.country XXsetprop ctl.r">
 <meta name="keywords" content="android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="安卓通过shell更改语言">
 <meta property="og:url" content="https://Asutorufa.github.io/posts/f7f814df/index.html">
 <meta property="og:site_name" content="アストルフォの幻想郷">
-<meta property="og:description" content="对于Android M或更高版本，使用：12setprop ro.product.locale xx-XXsetprop persist.sys.locale xx-XX XX是语言XX是国家改为日语为:xx=ja XX=JP   其他安卓版本:123setprop persist.sys.language xxsetprop persist.sys.country XXsetprop ctl.r">
+<meta property="og:description" content="对于Android M或更高版本，使用：12setprop ro.product.locale xx-XXsetprop persist.sys.locale xx-XX xx是语言XX是国家改为日语为:xx=ja XX=JP   其他安卓版本:123setprop persist.sys.language xxsetprop persist.sys.country XXsetprop ctl.r">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-23T11:41:10.339Z">
+<meta property="og:updated_time" content="2019-01-23T11:47:01.336Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安卓通过shell更改语言">
-<meta name="twitter:description" content="对于Android M或更高版本，使用：12setprop ro.product.locale xx-XXsetprop persist.sys.locale xx-XX XX是语言XX是国家改为日语为:xx=ja XX=JP   其他安卓版本:123setprop persist.sys.language xxsetprop persist.sys.country XXsetprop ctl.r">
+<meta name="twitter:description" content="对于Android M或更高版本，使用：12setprop ro.product.locale xx-XXsetprop persist.sys.locale xx-XX xx是语言XX是国家改为日语为:xx=ja XX=JP   其他安卓版本:123setprop persist.sys.language xxsetprop persist.sys.country XXsetprop ctl.r">
 
 
 
@@ -330,7 +330,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-23T19:41:10+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-23T19:47:01+08:00">
                 2019-01-23
               </time>
             
@@ -387,9 +387,9 @@
 
       
         <p>对于Android M或更高版本，使用：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setprop ro<span class="selector-class">.product</span><span class="selector-class">.locale</span> xx-XX</span><br><span class="line">setprop persist<span class="selector-class">.sys</span><span class="selector-class">.locale</span> xx-XX</span><br></pre></td></tr></table></figure></p>
-<p>XX是语言<br>XX是国家<br>改为日语为:xx=ja XX=JP  </p>
+<p>xx是语言<br>XX是国家<br>改为日语为:xx=ja XX=JP  </p>
 <p>其他安卓版本:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setprop persist<span class="selector-class">.sys</span><span class="selector-class">.language</span> xx</span><br><span class="line">setprop persist<span class="selector-class">.sys</span><span class="selector-class">.country</span> XX</span><br><span class="line">setprop ctl<span class="selector-class">.restart</span> zygote</span><br></pre></td></tr></table></figure></p>
-<p>XX是语言<br>XX是国家  <a id="more"></a><br>Zygote进程运行时, 会初始化Dalvik虚拟机, 并运行它. Android的应用程序是由Java编写的, 它们不能直接运行在Linux上, 只能运行在Dalvik虚拟机中. 并且, 每个应用程序都运行在各自的虚拟机中, 应用程序每次运行都要重新初始化并启动虚拟机, 这个过程会消耗相当长时间, 是拖慢应用程序的原因之一. 因此, 在Android中, 应用程序运行前, 通过Zygote进程共享已运行的虚拟机的代码与内存信息, 缩短应用程序运行所耗费的时间. 也就是说, Zygote进程会事先将应用程序要使用的Android Framework中的类与资源加载到内存中, 并组织形成所用资源的链接信息. 这样, 新运行的Android应用程序在使用所需资源时不必每次形成资源的链接信息, 这样就大大提升了程序的运行时间.   </p>
+<p>xx是语言<br>XX是国家  <a id="more"></a><br>Zygote进程运行时, 会初始化Dalvik虚拟机, 并运行它. Android的应用程序是由Java编写的, 它们不能直接运行在Linux上, 只能运行在Dalvik虚拟机中. 并且, 每个应用程序都运行在各自的虚拟机中, 应用程序每次运行都要重新初始化并启动虚拟机, 这个过程会消耗相当长时间, 是拖慢应用程序的原因之一. 因此, 在Android中, 应用程序运行前, 通过Zygote进程共享已运行的虚拟机的代码与内存信息, 缩短应用程序运行所耗费的时间. 也就是说, Zygote进程会事先将应用程序要使用的Android Framework中的类与资源加载到内存中, 并组织形成所用资源的链接信息. 这样, 新运行的Android应用程序在使用所需资源时不必每次形成资源的链接信息, 这样就大大提升了程序的运行时间.   </p>
 <p>参考:<br>1.<a href="http://bbs.bugcode.cn/t/16729" target="_blank" rel="noopener">通过ADB更改设备语言</a><br>2.<a href="https://www.jianshu.com/p/3dbe46439359" target="_blank" rel="noopener">初识Zygote进程</a></p>
 
       
@@ -1116,7 +1116,15 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":20,"height":28,"superSample":5,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.3},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false,"tagMode":false});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("MathJax config");
 </script>
@@ -1133,13 +1141,5 @@
 <script type="text/javascript" src="">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-  
-
-
-  
-
-  
-
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":20,"height":28,"superSample":5,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.3},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false,"tagMode":false});</script></body>
+<!-- hexo-inject:end --></body>
 </html>
