@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[安卓通过adb添加电池用户白名单]]></title>
+    <url>%2Fposts%2F1e63e0e%2F</url>
+    <content type="text"><![CDATA[安卓6.0引入了doze来节省电量,但某些国产ui(如锤子)阉割了这个菜单,可通过adb添加 添加应用到白名单：1adb shell dumpsys deviceidle whitelist +&lt;package&gt; 如:1adb shell dumpsys deviceidle whitelist +com.google.android.gms 删除白名单(把加号改成减号): 1adb shell dumpsys deviceidle whitelist -&lt;package&gt; 查看doze状态：1adb shell dumpsys deviceidle 获取完整的帮助菜单:1adb shell dumpsys deviceidle -h 1234567891011121314151617181920212223242526272829303132Device idle controller (deviceidle) commands: help Print this help text. step [light|deep] Immediately step to next state, without waiting for alarm. force-idle [light|deep] Force directly into idle mode, regardless of other device state. force-inactive Force to be inactive, ready to freely step idle states. unforce Resume normal functioning after force-idle or force-inactive. get [light|deep|force|screen|charging|network] Retrieve the current given state. disable [light|deep|all] Completely disable device idle mode. enable [light|deep|all] Re-enable device idle mode after it had previously been disabled. enabled [light|deep|all] Print 1 if device idle mode is currently enabled, else 0. whitelist Print currently whitelisted apps. whitelist [package ...] Add (prefix with +) or remove (prefix with -) packages. except-idle-whitelist [package ...|reset] Prefix the package with '+' to add it to whitelist or '=' to check if it is already whitelisted [reset] will reset the whitelist to it's original state Note that unlike &lt;whitelist&gt; cmd, changes made using this won't be persisted across boots tempwhitelist Print packages that are temporarily whitelisted. tempwhitelist [-u USER] [-d DURATION] [package ..] Temporarily place packages in whitelist for DURATION milliseconds. If no DURATION is specified, 10 seconds is used]]></content>
+      <categories>
+        <category>android</category>
+      </categories>
+      <tags>
+        <tag>android</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[安卓使用dalvikvm运行java(termux运行java)]]></title>
     <url>%2Fposts%2F8b98169e%2F</url>
     <content type="text"><![CDATA[一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些 安装所需工具termux上安装 ecj 和 dx就可以了1apt install ecj dx 编译为class文件1ecj XXX.java 编译成dex文件1dx --dex --output=XXX.dex XXX.class 使用dalvikvm运行1dalvikvm -cp XXX.dex XXX 参考: 使用 dalvikvm 执行一个运行于命令行的 Hello World]]></content>
