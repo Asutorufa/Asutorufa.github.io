@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[安卓使用dalvikvm运行java(termux运行java)]]></title>
+    <url>%2Fposts%2F8b98169e%2F</url>
+    <content type="text"><![CDATA[一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些 安装所需工具termux上安装 ecj 和 dx就可以了1apt install ecj dx 编译为class文件1ecj XXX.java 编译成dex文件1dx --dex --output=XXX.dex XXX.class 使用dalvikvm运行1dalvikvm -cp XXX.dex XXX 参考: 使用 dalvikvm 执行一个运行于命令行的 Hello World]]></content>
+      <categories>
+        <category>android</category>
+      </categories>
+      <tags>
+        <tag>android</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[用CIDR表示网段]]></title>
     <url>%2Fposts%2Fe2b25bb8%2F</url>
-    <content type="text"><![CDATA[我们知道一般CIDR(无类别域间路由)网段的表示为:192.168.0.0/24这种形式 IP地址首先我们得知道ip地址是如何来的ipv4的地址是用32位二进制数表示的如: 255.255.255.0 -&gt; 11111111.11111111.11111111.00000000 网络掩码「网络掩码」又叫「子网掩码」、「地址掩码」、「子網路遮罩」（subnet mask），它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。 –维基百科 &lt;!–more&gt; 顾名思义,网络掩码就是用来屏蔽ip地址中的一些 192.168.0.0/24中的24就是网络掩码 ,24表示网络掩码的前24位为1所以 24 -&gt; 11111111.11111111.11111111.00000000 -&gt; 255.255.255.0255.255.255.0就是网络掩码 CIDR网络地址的计算方法为ip地址与网络掩码进行’与’运算 ,也就是说这个ip地址的前24位是不变的所以192.168.0.0/24表示的网段为192.168.0.0 - 192.168.0.255]]></content>
+    <content type="text"><![CDATA[我们知道一般CIDR(无类别域间路由)网段的表示为:192.168.0.0/24这种形式 IP地址首先我们得知道ip地址是如何来的ipv4的地址是用32位二进制数表示的如: 255.255.255.0 -&gt; 11111111.11111111.11111111.00000000 网络掩码「网络掩码」又叫「子网掩码」、「地址掩码」、「子網路遮罩」（subnet mask），它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。 –维基百科顾名思义,网络掩码就是用来屏蔽ip地址中的一些 192.168.0.0/24中的24就是网络掩码 ,24表示网络掩码的前24位为1所以 24 -&gt; 11111111.11111111.11111111.00000000 -&gt; 255.255.255.0255.255.255.0就是网络掩码 CIDR网络地址的计算方法为ip地址与网络掩码进行’与’运算 ,也就是说这个ip地址的前24位是不变的所以192.168.0.0/24表示的网段为192.168.0.0 - 192.168.0.255]]></content>
       <categories>
         <category>网络</category>
       </categories>
