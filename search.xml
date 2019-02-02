@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[用CIDR表示网段]]></title>
+    <url>%2Fposts%2Fe2b25bb8%2F</url>
+    <content type="text"><![CDATA[我们知道一般CIDR(无类别域间路由)网段的表示为:192.168.0.0/24这种形式 IP地址首先我们得知道ip地址是如何来的ipv4的地址是用32位二进制数表示的如: 255.255.255.0 -&gt; 11111111.11111111.11111111.00000000 网络掩码「网络掩码」又叫「子网掩码」、「地址掩码」、「子網路遮罩」（subnet mask），它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。 –维基百科 &lt;!–more&gt; 顾名思义,网络掩码就是用来屏蔽ip地址中的一些 192.168.0.0/24中的24就是网络掩码 ,24表示网络掩码的前24位为1所以 24 -&gt; 11111111.11111111.11111111.00000000 -&gt; 255.255.255.0255.255.255.0就是网络掩码 CIDR网络地址的计算方法为ip地址与网络掩码进行’与’运算 ,也就是说这个ip地址的前24位是不变的所以192.168.0.0/24表示的网段为192.168.0.0 - 192.168.0.255]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>IP</tag>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[android dumpsys tool]]></title>
     <url>%2Fposts%2F25303996%2F</url>
     <content type="text"><![CDATA[查看dumpsys所有的子命令:1dumpsys | grep "DUMP OF SERVICE" output:12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849DUMP OF SERVICE SurfaceFlinger:DUMP OF SERVICE accessibility:DUMP OF SERVICE account:DUMP OF SERVICE activity:DUMP OF SERVICE alarm:DUMP OF SERVICE appwidget:DUMP OF SERVICE audio:DUMP OF SERVICE backup:DUMP OF SERVICE battery:DUMP OF SERVICE batteryinfo:DUMP OF SERVICE clipboard:DUMP OF SERVICE connectivity:DUMP OF SERVICE content:DUMP OF SERVICE cpuinfo:DUMP OF SERVICE device_policy:DUMP OF SERVICE devicestoragemonitor:DUMP OF SERVICE diskstats:DUMP OF SERVICE dropbox:DUMP OF SERVICE entropy:DUMP OF SERVICE hardware:DUMP OF SERVICE input_method:DUMP OF SERVICE iphonesubinfo:DUMP OF SERVICE isms:DUMP OF SERVICE location:DUMP OF SERVICE media.audio_flinger:DUMP OF SERVICE media.audio_policy:DUMP OF SERVICE media.player:DUMP OF SERVICE meminfo:DUMP OF SERVICE mount:DUMP OF SERVICE netstat:DUMP OF SERVICE network_management:DUMP OF SERVICE notification:DUMP OF SERVICE package:DUMP OF SERVICE permission:DUMP OF SERVICE phone:DUMP OF SERVICE power:DUMP OF SERVICE reboot:DUMP OF SERVICE screenshot:DUMP OF SERVICE search:DUMP OF SERVICE sensor:DUMP OF SERVICE simphonebook:DUMP OF SERVICE statusbar:DUMP OF SERVICE telephony.registry:DUMP OF SERVICE throttle:DUMP OF SERVICE usagestats:DUMP OF SERVICE vibrator:DUMP OF SERVICE wallpaper:DUMP OF SERVICE wifi:DUMP OF SERVICE window: eg:1.得到电池的所有信息1adb shell dumpsys battery 2.得到wifi的所有信息1adb shell dumpsys wifi 3.得到cpu的所有信息1adb shell dumpsys cpuinfo 4.得到总的存储情况1adb shell dumpsys meminfo 5.得到某应用的存储情况1adb shell dumpsys meminfo 'your apps package name' 6.得到所有的服务列表1adb shell service list 7.得到所有的账户列表1adb shell dumpsys account 8.获得某子命令的帮助信息1adb shell dumpsys account -h 参考:What’s the Android ADB shell “dumpsys” tool and what are its benefits?]]></content>
