@@ -58,7 +58,7 @@
 
 
 
-  <meta name="keywords" content="科技,生活">
+  <meta name="keywords" content="scoks5,计算机网络,">
 
 
 
@@ -69,16 +69,18 @@
 
 
 
-<meta name="description" content="a personal website">
-<meta property="og:type" content="website">
-<meta property="og:title" content="アストルフォの幻想郷">
-<meta property="og:url" content="https://Asutorufa.github.io/archives/page/2/index.html">
+<meta name="description" content="socks5运行流程如下:  本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。  先进行TCP连接golang实现(这里的地址我是本地socks5服务端)12345conn,err := net.Dial(&quot;tcp&quot;,&quot;127.0.0.1:1080&quot;)if">
+<meta name="keywords" content="scoks5,计算机网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="golang实现socks5代理连接">
+<meta property="og:url" content="https://Asutorufa.github.io/posts/c7816edc/index.html">
 <meta property="og:site_name" content="アストルフォの幻想郷">
-<meta property="og:description" content="a personal website">
+<meta property="og:description" content="socks5运行流程如下:  本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。  先进行TCP连接golang实现(这里的地址我是本地socks5服务端)12345conn,err := net.Dial(&quot;tcp&quot;,&quot;127.0.0.1:1080&quot;)if">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-06T12:25:54.122Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="アストルフォの幻想郷">
-<meta name="twitter:description" content="a personal website">
+<meta name="twitter:title" content="golang实现socks5代理连接">
+<meta name="twitter:description" content="socks5运行流程如下:  本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。  先进行TCP连接golang实现(这里的地址我是本地socks5服务端)12345conn,err := net.Dial(&quot;tcp&quot;,&quot;127.0.0.1:1080&quot;)if">
 
 
 
@@ -108,14 +110,14 @@
 
 
 
-  <link rel="canonical" href="https://Asutorufa.github.io/archives/page/2/">
+  <link rel="canonical" href="https://Asutorufa.github.io/posts/c7816edc/">
 
 
 
 
 
 
-  <title>归档 | アストルフォの幻想郷</title>
+  <title>golang实现socks5代理连接 | アストルフォの幻想郷</title>
   
 
 
@@ -143,7 +145,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-archive">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -269,396 +271,266 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      <span class="archive-page-counter">
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/c7816edc/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="アストルフォ">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="アストルフォの幻想郷">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">golang实现socks5代理连接</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-06T20:02:47+08:00">
+                2019-03-06
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-06T20:25:54+08:00">
+                2019-03-06
+              </time>
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 27 篇日志。 继续努力。
-      </span>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/posts/b6b8953/" itemprop="url">
-              
-                <span itemprop="name">snap删除旧的core(snap删除其他版本的软件)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-06-28T13:43:41+08:00" content="2018-06-28">
-          06-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/posts/fb6d8628/" itemprop="url">
-              
-                <span itemprop="name">ubuntu终端下连接wifi</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-06-23T12:24:10+08:00" content="2018-06-23">
-          06-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/posts/6683eff9/" itemprop="url">
-              
-                <span itemprop="name">暗影精灵更改efi启动顺序</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-06-23T11:43:40+08:00" content="2018-06-23">
-          06-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/posts/a4241e7/" itemprop="url">
-              
-                <span itemprop="name">関西弁コレクション</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-06-21T09:42:02+08:00" content="2018-06-21">
-          06-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/posts/86cfa6a/" itemprop="url">
-              
-                <span itemprop="name">JavaScript对字符串操作</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-03-24T23:17:58+08:00" content="2018-03-24">
-          03-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/posts/d22ffdb6/" itemprop="url">
-              
-                <span itemprop="name">让win10的UWP应用走代理</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-02-08T15:09:16+08:00" content="2018-02-08">
-          02-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2017">2017</h1>
-          </div>
-        
-        
+            
+          
 
-        
+          
+          
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/posts/854ed6ec/" itemprop="url">
-              
-                <span itemprop="name">c语言数组输出的另一种方法</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2017-12-10T10:39:54+08:00" content="2017-12-10">
-          12-10
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/posts/c69434f1/" itemprop="url">
-              
-                <span itemprop="name">利用结构体让函数返回多个值</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2017-11-29T14:39:27+08:00" content="2017-11-29">
-          11-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/posts/e404489/" itemprop="url">
-              
-                <span itemprop="name">c语言基本类型在内存中的存储方式</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2017-10-30T15:27:46+08:00" content="2017-10-30">
-          10-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p>socks5运行流程如下:</p>
+<ul>
+<li>本机和代理服务端协商和建立连接；</li>
+<li>本机告诉代理服务端目标服务的地址；</li>
+<li>代理服务端去连接目标服务，成功后告诉本机；</li>
+<li>本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。</li>
+</ul>
+<h1 id="先进行TCP连接"><a href="#先进行TCP连接" class="headerlink" title="先进行TCP连接"></a>先进行TCP连接</h1><p>golang实现(<em>这里的地址我是本地socks5服务端</em>)<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conn,<span class="keyword">err</span> := <span class="keyword">net</span>.Dial(<span class="string">"tcp"</span>,<span class="string">"127.0.0.1:1080"</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">err</span> != nil&#123;</span><br><span class="line">	fmt.Println(<span class="keyword">err</span>)</span><br><span class="line">	<span class="built_in">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="向socks5服务端发送验证"><a href="#向socks5服务端发送验证" class="headerlink" title="向socks5服务端发送验证"></a>向socks5服务端发送验证</h1><p>验证字段:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">VER</th>
+<th style="text-align:center">NMETHODS</th>
+<th style="text-align:center">METHODS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1字节</td>
+<td style="text-align:center">1字节</td>
+<td style="text-align:center">1-255字节</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>VER是SOCKS版本，这里应该是0x05； <a id="more"></a> </li>
+<li>NMETHODS是METHODS部分的长度；  </li>
+<li>METHODS是客户端支持的认证方式列表，每个方法占1字节。当前的定义是：  <ul>
+<li>0x00 不需要认证</li>
+<li>0x01 GSSAPI</li>
+<li>0x02 用户名、密码认证</li>
+<li>0x03 - 0x7F由IANA分配（保留）</li>
+<li>0x80 - 0xFE为私人方法保留</li>
+<li>0xFF 无可接受的方法</li>
+</ul>
+</li>
+</ul>
+<p>golang实现代码:<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">_,err = conn.<span class="keyword">Write</span>([]<span class="keyword">byte</span>&#123;<span class="number">5</span>,<span class="number">1</span>,<span class="number">0</span>&#125;)</span><br><span class="line">var b [<span class="number">2</span>]<span class="keyword">byte</span></span><br><span class="line">status,err := conn.<span class="keyword">Read</span>(b[:])</span><br><span class="line"><span class="keyword">if</span> err!=nil&#123;</span><br><span class="line">	fmt.<span class="keyword">Println</span>(err)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">fmt.<span class="keyword">Println</span>(b)</span><br><span class="line">fmt.<span class="keyword">Println</span>(status)</span><br></pre></td></tr></table></figure></p>
+<h1 id="向socks5服务端发送请求"><a href="#向socks5服务端发送请求" class="headerlink" title="向socks5服务端发送请求"></a>向socks5服务端发送请求</h1><p>请求字段: </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">VER</th>
+<th style="text-align:center">CMD</th>
+<th style="text-align:center">RSV</th>
+<th style="text-align:center">ATYP</th>
+<th style="text-align:center">DST.ADDR</th>
+<th style="text-align:center">DST.PORT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1字节</td>
+<td style="text-align:center">1字节</td>
+<td style="text-align:center">0x00</td>
+<td style="text-align:center">1字节</td>
+<td style="text-align:center">动态</td>
+<td style="text-align:center">2字节</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>VER是SOCKS版本，这里应该是0x05；</li>
+<li>CMD是SOCK的命令码<ul>
+<li>0x01表示CONNECT请求</li>
+<li>0x02表示BIND请求</li>
+<li>0x03表示UDP转发</li>
+</ul>
+</li>
+<li>RSV 0x00，保留</li>
+<li>ATYP DST.ADDR类型<ul>
+<li>0x01 IPv4地址，DST.ADDR部分4字节长度</li>
+<li>0x03 域名，DST.ADDR部分第一个字节为域名长度，DST.ADDR剩余的内容为域名，没有\0结尾。</li>
+<li>0x04 IPv6地址，16个字节长度。</li>
+</ul>
+</li>
+<li>DST.ADDR 目的地址</li>
+<li>DST.PORT 网络字节序表示的目的端口</li>
+</ul>
+<p>golang实现代码<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">domain := <span class="string">"www.google.com"</span></span><br><span class="line">before := []<span class="keyword">byte</span>&#123;<span class="number">5</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="keyword">byte</span>(<span class="built_in">len</span>(domain))&#125;</span><br><span class="line">de := []<span class="keyword">byte</span>(domain)</span><br><span class="line">port := []<span class="keyword">byte</span>&#123;<span class="number">0x1</span>,<span class="number">0xbb</span>&#125;</span><br><span class="line">head_temp := <span class="built_in">append</span>(before,de...)</span><br><span class="line">head := <span class="built_in">append</span>(head_temp,port...)</span><br><span class="line"></span><br><span class="line">fmt.Println(head)</span><br><span class="line"></span><br><span class="line">_,err = conn.Write(head)</span><br><span class="line"><span class="keyword">if</span> err!=<span class="literal">nil</span>&#123;</span><br><span class="line">	fmt.Println(err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c [<span class="number">10</span>]<span class="keyword">byte</span></span><br><span class="line">status_2,err := conn.Read(c[:])</span><br><span class="line"><span class="keyword">if</span> err!=<span class="literal">nil</span>&#123;</span><br><span class="line">	fmt.Println(err)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(status_2)</span><br><span class="line">fmt.Println(c)</span><br></pre></td></tr></table></figure></p>
+<h1 id="进行数据转发"><a href="#进行数据转发" class="headerlink" title="进行数据转发"></a>进行数据转发</h1><p>golang实现代码(<em>不太熟悉各种请求这里随便弄了一个</em>)<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">_,err = conn.Write(<span class="string">[]</span>byte(<span class="string">"<span class="keyword">GET</span> /generate_204/ HTTP/2.0\r\n"</span>))</span><br><span class="line">if err!=nil&#123;</span><br><span class="line">	fmt.Println(err)</span><br><span class="line">	return</span><br><span class="line">&#125;</span><br><span class="line">var d <span class="string">[1024]</span>byte</span><br><span class="line"></span><br><span class="line">temp := time.Now()</span><br><span class="line"></span><br><span class="line">status_3,err := conn.Read(d<span class="string">[:]</span>)</span><br><span class="line">	</span><br><span class="line">deply := time.Since(temp)</span><br><span class="line">fmt.Println(deply)</span><br><span class="line"></span><br><span class="line">fmt.Println(status_3)</span><br><span class="line">fmt.Println(string(d<span class="string">[:]</span>))</span><br></pre></td></tr></table></figure></p>
+<h1 id="关闭TCP连接"><a href="#关闭TCP连接" class="headerlink" title="关闭TCP连接"></a>关闭TCP连接</h1><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conn.<span class="keyword">Close</span>()</span><br></pre></td></tr></table></figure>
+<h1 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h1><p><a href="https://en.wikipedia.org/wiki/SOCKS" target="_blank" rel="noopener">SOCKS(维基百科)</a><br><a href="https://my.oschina.net/997155658/blog/1563154" target="_blank" rel="noopener">SOCKS5 协议介绍</a>  </p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/posts/5eb800c7/" itemprop="url">
-              
-                <span itemprop="name">java和c++简单的递归调用</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2017-10-26T08:50:16+08:00" content="2017-10-26">
-          10-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/scoks5/" rel="tag"># scoks5</a>
+          
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/1e63e0e/" rel="next" title="安卓通过adb添加电池用户白名单">
+                <i class="fa fa-chevron-left"></i> 安卓通过adb添加电池用户白名单
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/3/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -666,6 +538,13 @@
 
 
           
+
+  
+      <div id="gitalk-container"></div>
+
+  
+
+
 
         </div>
         
@@ -688,8 +567,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -789,6 +677,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#先进行TCP连接"><span class="nav-number">1.</span> <span class="nav-text">先进行TCP连接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向socks5服务端发送验证"><span class="nav-number">2.</span> <span class="nav-text">向socks5服务端发送验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向socks5服务端发送请求"><span class="nav-number">3.</span> <span class="nav-text">向socks5服务端发送请求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进行数据转发"><span class="nav-number">4.</span> <span class="nav-text">进行数据转发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关闭TCP连接"><span class="nav-number">5.</span> <span class="nav-text">关闭TCP连接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考来源"><span class="nav-number">6.</span> <span class="nav-text">参考来源</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -908,6 +812,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
@@ -948,6 +856,21 @@
 
 
 
+
+  <link rel="stylesheet" href="/lib/gitalk/gitalk.css">
+  <script src="/lib/gitalk/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: 'c800a9b9d97b6bef0dfe',
+          clientSecret: 'cb3b257598e1a7b9910007c148a33f0054864ef7',
+          repo: 'Asutorufa.github.io',
+          owner: 'Asutorufa',
+          admin: ['Asutorufa'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
 
 
