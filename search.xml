@@ -158,7 +158,7 @@
   <entry>
     <title><![CDATA[暗影精灵更改efi启动顺序]]></title>
     <url>%2Fposts%2F6683eff9%2F</url>
-    <content type="text"><![CDATA[暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说 首先从ubuntu进入/boot/efi/EFI备份windwos的启动文件（切记一定要备份，否则只能从pe重新建立windwos启动项）1cp -arf Microsoft win10 将ubuntu的grubx64.efi替换掉EFI/Microsoft/Boot/bootmgfw.efi文件 1cp -arf ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi 这样替换之后grub就接管了系统的启动 然后将/boot/grub/grub.cfg中关于windows的启动段复制到/etc/grub.d/40_custom中将chainloader /EFI/Micorosoft/Boot/bootmgfw.efi改为chainloader /EFI/win10/Boot/bootmgfw.efi就是把中间那个改为你备份的文件夹，可以改一改前面的启动名称最后执行update-grub来更新启动项 但是windwos有大更新的时候会把更改的覆盖掉，再来一遍就好了参考文章暗影精灵2pro安装win10+ubuntu16.10双系统]]></content>
+    <content type="text"><![CDATA[最新版bios已经可以调整启动顺序了(图在最下面) 暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说 首先从ubuntu进入/boot/efi/EFI备份windwos的启动文件（切记一定要备份，否则只能从pe重新建立windwos启动项）1cp -arf Microsoft win10 将ubuntu的grubx64.efi替换掉EFI/Microsoft/Boot/bootmgfw.efi文件 1cp -arf ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi 这样替换之后grub就接管了系统的启动 然后将/boot/grub/grub.cfg中关于windows的启动段复制到/etc/grub.d/40_custom中将chainloader /EFI/Micorosoft/Boot/bootmgfw.efi改为chainloader /EFI/win10/Boot/bootmgfw.efi就是把中间那个改为你备份的文件夹，可以改一改前面的启动名称最后执行update-grub来更新启动项 但是windwos有大更新的时候会把更改的覆盖掉，再来一遍就好了参考文章暗影精灵2pro安装win10+ubuntu16.10双系统]]></content>
       <categories>
         <category>计算机</category>
       </categories>
