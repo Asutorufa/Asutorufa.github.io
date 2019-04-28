@@ -9,7 +9,10 @@ categories:
 abbrlink: 6683eff9
 date: 2018-06-23 11:43:40
 ---
+--2019-04-22 更新--  
+**最新版bios已经可以调整启动顺序了([图在最下面](#jump))**  
 
+-------- 之 前 -------  
 暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说
 
 首先从ubuntu进入/boot/efi/EFI
@@ -31,4 +34,7 @@ cp -arf ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi
 最后执行update-grub来更新启动项
 
 但是windwos有大更新的时候会把更改的覆盖掉，再来一遍就好了
+
+<span id = "jump">![](http://blog-1254450445.cossgp.myqcloud.com/efi.jpg)</span>
+
 参考文章[暗影精灵2pro安装win10+ubuntu16.10双系统](https://blog.csdn.net/zyix_0712/article/details/69675748)
