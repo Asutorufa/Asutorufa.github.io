@@ -331,7 +331,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-06-09T10:43:42+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-09T12:46:42+08:00">
                 2019-06-09
               </time>
             
@@ -388,7 +388,7 @@
 
       
         
-          <h2 id="系统的进程机制"><a href="#系统的进程机制" class="headerlink" title="系统的进程机制"></a>系统的进程机制</h2><h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">linux下的进程机制,当父进程被杀死之后,子进程就被系统接管</span><br><span class="line"></span><br><span class="line">-父进程 -&gt; system管理 </span><br><span class="line"> -子进程 -&gt; 父进程管理 </span><br><span class="line"></span><br><span class="line">当父进程被杀死之后</span><br><span class="line"></span><br><span class="line">-父进程 -&gt; 被杀死      </span><br><span class="line"> -子进程 -&gt; system管理 </span><br><span class="line"></span><br><span class="line">如果子进程被杀死,而且父进程没有处理子进程的善后工作,那么子进程就会变成僵尸进程</span><br><span class="line"></span><br><span class="line">-父进程 -&gt; system管理       </span><br><span class="line"> -子进程(被杀死) -&gt; 僵尸进程</span><br></pre></td></tr></table></figure>
+          <h2 id="系统的进程机制"><a href="#系统的进程机制" class="headerlink" title="系统的进程机制"></a>系统的进程机制</h2><h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">linux下的进程机制,当父进程被杀死之后,子进程就被系统接管</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程 -&gt; 父进程管理</span><br><span class="line"></span><br><span class="line">当父进程被杀死之后</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; 被杀死</span><br><span class="line">|--子进程 -&gt; system管理</span><br><span class="line"></span><br><span class="line">如果子进程被杀死,而且父进程没有处理子进程的善后工作,那么子进程就会变成僵尸进程</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程(被杀死) -&gt; 僵尸进程</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/posts/89c4c907/#more" rel="contents">
@@ -2552,7 +2552,15 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":20,"height":28,"superSample":5,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.3},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false,"tagMode":false});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("MathJax config");
 </script>
@@ -2569,13 +2577,5 @@
 <script type="text/javascript" src="">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-  
-
-
-  
-
-  
-
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":20,"height":28,"superSample":5,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.3},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false,"tagMode":false});</script></body>
+<!-- hexo-inject:end --></body>
 </html>
