@@ -18,7 +18,7 @@ override: false
 
 # For example, you put your favicons into `hexo-site/source/images` directory.
 # Then need to rename & redefine they on any other names, otherwise icons from Next will rewrite your custom icons in Hexo.
-favicon: 
+favicon:
   #small: /images/favicon-16x16-next.png
   #medium: /images/favicon-32x32-next.png
   #apple_touch_icon: /images/apple-touch-icon-next.png
@@ -144,12 +144,12 @@ links_title: others
 #links_layout: block
 links_layout: inline
 links:
-  邮箱: /email/
-#贴吧云签到(数据库凉了): http://tieba-tieba.193b.starter-ca-central-1.openshiftapps.com
-#YouTube镜像站: http://youtubephp-tieba.193b.starter-ca-central-1.openshiftapps.com
-  Telegram频道: https://t.me/jyonanasai
+  #邮箱: /email/
+  #贴吧云签到(数据库凉了): http://tieba-tieba.193b.starter-ca-central-1.openshiftapps.com
+  #YouTube镜像站: http://youtubephp-tieba.193b.starter-ca-central-1.openshiftapps.com
+  #Telegram频道: https://t.me/jyonanasai
   友链:做一个有追求的人: http://spaceack.com/
-  
+
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.gif
 # in site  directory(source/uploads): /uploads/avatar.gif
@@ -248,7 +248,7 @@ post_wordcount:
 
 # Declare license on posts
 post_copyright:
-  enable: false
+  enable: true
   license: CC BY-NC-SA 3.0
   license_url: https://creativecommons.org/licenses/by-nc-sa/3.0/
 
@@ -451,14 +451,14 @@ gitalk:
 #           Evernote,Friendfeed,Vkontakte,Odnoklassniki,Mailru
 needmoreshare2:
   enable: false
-  postbottom: 
+  postbottom:
     enable: false
     options:
       iconStyle: box
       boxForm: horizontal
       position: bottomCenter
       networks: Weibo,Wechat,Douban,QQZone,Twitter,Facebook
-  float: 
+  float:
     enable: false
     options:
       iconStyle: box
