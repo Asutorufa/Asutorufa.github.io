@@ -148,17 +148,3 @@ live2d:
   react:
     opacityDefault: 1
     opacityOnHover: 1
-#AMP
-#generator_amp:
-#  templateDir:  amp-template
-#  assetDistDir: amp-dist
-#  logo:
-#    path:   sample/logo.png
-#    width:  500 #600
-#    height: 500 #60
-#  substituteTitleImage: 
-#    path:   sample/logo.png
-#    width:  500 #1024
-#    height: 500 #800
-#  warningLog: false   # To display warning, please set true.
-#  validateAMP: false  # To AMP HTML validate automatically, please set true.
