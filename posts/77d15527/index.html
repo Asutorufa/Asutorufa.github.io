@@ -4,7 +4,7 @@
 
 
 <html class="theme-next gemini" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,18 +69,18 @@
 
 
 
-<meta name="description" content="首先得引入lxml 12345#xpath为frome lxml import etree#cssselector为import lxml.html#cssselector使用起来简单但功能比xpath少 cssselector12345678910111213tree = lxml.html.fromstring(&apos;你获取的网页源代码文件或变量&apos;)css = tree.cssselect(&apos;要选">
+<meta name="description" content="首先得引入lxml 12345#xpath为frome lxml import etree#cssselector为import lxml.html#cssselector使用起来简单但功能比xpath少  cssselector 12345678910111213tree = lxml.html.fromstring(&apos;你获取的网页源代码文件或变量&apos;)css = tree.cssselect(&apos;">
 <meta name="keywords" content="编程,python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python使用lxml分析网页">
 <meta property="og:url" content="https://Asutorufa.github.io/posts/77d15527/index.html">
 <meta property="og:site_name" content="アストルフォの幻想郷">
-<meta property="og:description" content="首先得引入lxml 12345#xpath为frome lxml import etree#cssselector为import lxml.html#cssselector使用起来简单但功能比xpath少 cssselector12345678910111213tree = lxml.html.fromstring(&apos;你获取的网页源代码文件或变量&apos;)css = tree.cssselect(&apos;要选">
+<meta property="og:description" content="首先得引入lxml 12345#xpath为frome lxml import etree#cssselector为import lxml.html#cssselector使用起来简单但功能比xpath少  cssselector 12345678910111213tree = lxml.html.fromstring(&apos;你获取的网页源代码文件或变量&apos;)css = tree.cssselect(&apos;">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-08-07T07:26:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python使用lxml分析网页">
-<meta name="twitter:description" content="首先得引入lxml 12345#xpath为frome lxml import etree#cssselector为import lxml.html#cssselector使用起来简单但功能比xpath少 cssselector12345678910111213tree = lxml.html.fromstring(&apos;你获取的网页源代码文件或变量&apos;)css = tree.cssselect(&apos;要选">
+<meta name="twitter:description" content="首先得引入lxml 12345#xpath为frome lxml import etree#cssselector为import lxml.html#cssselector使用起来简单但功能比xpath少  cssselector 12345678910111213tree = lxml.html.fromstring(&apos;你获取的网页源代码文件或变量&apos;)css = tree.cssselect(&apos;">
 
 
 
@@ -138,7 +138,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -148,7 +148,7 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -280,20 +280,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/77d15527/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="アストルフォ">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="アストルフォの幻想郷">
     </span>
 
@@ -348,7 +348,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/python/" itemprop="url" rel="index">
                     <span itemprop="name">python</span>
                   </a>
@@ -388,7 +388,10 @@
       
         <p>首先得引入lxml</p>
 <figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#xpath为</span></span><br><span class="line"><span class="title">frome</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="meta">#cssselector为</span></span><br><span class="line"><span class="keyword">import</span> lxml.html</span><br><span class="line"><span class="meta">#cssselector使用起来简单但功能比xpath少</span></span><br></pre></td></tr></table></figure>
-<p>cssselector<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">tree = lxml<span class="selector-class">.html</span><span class="selector-class">.fromstring</span>(<span class="string">'你获取的网页源代码文件或变量'</span>)</span><br><span class="line">css = tree.cssselect(<span class="string">'要选择的内容'</span>)</span><br><span class="line"></span><br><span class="line">#例如tree.cssselect(<span class="string">'div.word-info &gt; div.pronounces &gt; span.word-audio'</span>)</span><br><span class="line">#选择器选择的结果为list</span><br><span class="line"></span><br><span class="line">css.text_content()</span><br><span class="line"></span><br><span class="line">#表示选择的内容</span><br><span class="line"></span><br><span class="line">css<span class="selector-class">.attrib</span>[<span class="string">'要表示的标签属性'</span>]</span><br><span class="line"></span><br><span class="line">#如css<span class="selector-class">.attrb</span>[<span class="string">'class'</span>]表示的就是所选择内容的class属性</span><br></pre></td></tr></table></figure></p>
+
+<p>cssselector</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">tree = lxml<span class="selector-class">.html</span><span class="selector-class">.fromstring</span>(<span class="string">'你获取的网页源代码文件或变量'</span>)</span><br><span class="line">css = tree.cssselect(<span class="string">'要选择的内容'</span>)</span><br><span class="line"></span><br><span class="line">#例如tree.cssselect(<span class="string">'div.word-info &gt; div.pronounces &gt; span.word-audio'</span>)</span><br><span class="line">#选择器选择的结果为list</span><br><span class="line"></span><br><span class="line">css.text_content()</span><br><span class="line"></span><br><span class="line">#表示选择的内容</span><br><span class="line"></span><br><span class="line">css<span class="selector-class">.attrib</span>[<span class="string">'要表示的标签属性'</span>]</span><br><span class="line"></span><br><span class="line">#如css<span class="selector-class">.attrb</span>[<span class="string">'class'</span>]表示的就是所选择内容的class属性</span><br></pre></td></tr></table></figure>
+
 <a id="more"></a>
 <p><strong>如果选择的内容换行符太多可以使用split表示成list去除</strong></p>
 <table>
@@ -398,13 +401,12 @@
 <th>例子</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>选择所有标签</td>
 <td>*</td>
 </tr>
 <tr>
-<td>选择&lt;a>标签</td>
+<td>选择&lt;a&gt;标签</td>
 <td>a</td>
 </tr>
 <tr>
@@ -412,28 +414,29 @@
 <td>.link</td>
 </tr>
 <tr>
-<td>选择class=”link”的&lt;a>标签</td>
+<td>选择class=”link”的&lt;a&gt;标签</td>
 <td>a.link</td>
 </tr>
 <tr>
-<td>选择id=”home”的&lt;a>标签</td>
+<td>选择id=”home”的&lt;a&gt;标签</td>
 <td>a#home</td>
 </tr>
 <tr>
-<td>选择父元素为&lt;a>标签的所有&lt;span>标签</td>
+<td>选择父元素为&lt;a&gt;标签的所有&lt;span&gt;标签</td>
 <td>a &gt; span</td>
 </tr>
 <tr>
-<td>选择&lt;a>标签内部的所有&lt;span>标签</td>
+<td>选择&lt;a&gt;标签内部的所有&lt;span&gt;标签</td>
 <td>a span</td>
 </tr>
 <tr>
-<td>选择title属性为”Home”的所有&lt;a>标签</td>
+<td>选择title属性为”Home”的所有&lt;a&gt;标签</td>
 <td>a[title=Home]</td>
 </tr>
-</tbody>
-</table>
-<p>xpath<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">selector</span>=etree.HTML(<span class="string">'你获取的网页源代码文件或变量'</span>)</span><br><span class="line"><span class="attr">css</span> = selector.xpath(<span class="string">'要选择的内容'</span>)</span><br><span class="line"><span class="comment">#xpath可直接表示</span></span><br><span class="line"><span class="comment">#xpath可选择并表示属性</span></span><br></pre></td></tr></table></figure></p>
+</tbody></table>
+<p>xpath</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">selector</span>=etree.HTML(<span class="string">'你获取的网页源代码文件或变量'</span>)</span><br><span class="line"><span class="attr">css</span> = selector.xpath(<span class="string">'要选择的内容'</span>)</span><br><span class="line"><span class="comment">#xpath可直接表示</span></span><br><span class="line"><span class="comment">#xpath可选择并表示属性</span></span><br></pre></td></tr></table></figure>
+
 <p><em>xpath由于内容太多,可以直接参考官方文档</em></p>
 
       
@@ -539,7 +542,7 @@
 
       <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="アストルフォ">
             
@@ -554,7 +557,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -576,7 +579,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1174,7 +1177,7 @@
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":20,"height":28,"superSample":5,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.3},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false,"tagMode":false});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":20,"height":28,"superSample":5,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.3},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false,"tagMode":false});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("MathJax config");
 </script>

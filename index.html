@@ -4,7 +4,7 @@
 
 
 <html class="theme-next gemini" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -136,7 +136,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -147,7 +147,7 @@
   page-home">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -279,20 +279,185 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/3cb4313e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="アストルフォ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="アストルフォの幻想郷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/3cb4313e/" itemprop="url">CIDR网络匹配</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-02T18:55:15+08:00">
+                2019-08-02
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-02T19:34:54+08:00">
+                2019-08-02
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="CIDR"><a href="#CIDR" class="headerlink" title="CIDR"></a>CIDR</h2><p>我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功.  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">假设有一个cidr为128.0.0.1/24</span><br><span class="line">转换为二进制 1000 0000.0000 0000.0000 0000.0000 0001/24</span><br><span class="line">可以知道要匹配ip的前24为与cidr的前24(1000 0000.0000 0000.0000 0000)位相同则匹配成功</span><br><span class="line">假设有一个ip 128.0.0.128 二进制为 1000 0000.0000 0000.0000 0000.1000 0000</span><br><span class="line">可以看到前24位与cidr相同 则匹配成功</span><br></pre></td></tr></table></figure>
+
+<h2 id="前缀树"><a href="#前缀树" class="headerlink" title="前缀树"></a>前缀树</h2><p>通过上述规则 我们可以使用前缀树实现CIDR对ip的匹配 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">        root</span><br><span class="line">       /    \</span><br><span class="line">      0     1</span><br><span class="line">     / \   / \</span><br><span class="line">    0   1 0   1</span><br><span class="line">   /</span><br><span class="line">当ip匹配到此处,此处已无任何子树,且是某一cidr的末尾时则匹配成功</span><br><span class="line">若此处节点为null(golang为nil)且不是某一cidr的末尾时则匹配失败</span><br></pre></td></tr></table></figure>
+
+<p>trie树类似上述结构</p>
+<p>trie树节点 我们可以这样写
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/posts/3cb4313e/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/89c4c907/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="アストルフォ">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="アストルフォの幻想郷">
     </span>
 
@@ -349,7 +514,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/golang/" itemprop="url" rel="index">
                     <span itemprop="name">golang</span>
                   </a>
@@ -437,20 +602,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/a99a60b1/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="アストルフォ">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="アストルフォの幻想郷">
     </span>
 
@@ -507,7 +672,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/efi/" itemprop="url" rel="index">
                     <span itemprop="name">efi</span>
                   </a>
@@ -548,9 +713,15 @@
         
           
             <p>创建efi分区:  </p>
-<p>创建efi分区要设置boot flag,而不是纯FAT32文件系统<br>使用gdisk<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gdisk <span class="regexp">/dev/</span>sd**</span><br><span class="line">这里要注意后面输入分区系统编号 要选择EFI分区,目前efi分区编号是 ef00</span><br></pre></td></tr></table></figure></p>
-<p>使用parted<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">parted /dev/sd**</span><br><span class="line">(parted) <span class="keyword">set</span> <span class="number">1</span> boot <span class="keyword">on</span></span><br></pre></td></tr></table></figure></p>
-<p>之后再格式化为fat32<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs<span class="selector-class">.vfat</span> -F <span class="number">32</span> /dev/sd**</span><br></pre></td></tr></table></figure></p>
+<p>创建efi分区要设置boot flag,而不是纯FAT32文件系统<br>使用gdisk</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gdisk <span class="regexp">/dev/</span>sd**</span><br><span class="line">这里要注意后面输入分区系统编号 要选择EFI分区,目前efi分区编号是 ef00</span><br></pre></td></tr></table></figure>
+
+<p>使用parted</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">parted /dev/sd**</span><br><span class="line">(parted) <span class="keyword">set</span> <span class="number">1</span> boot <span class="keyword">on</span></span><br></pre></td></tr></table></figure>
+
+<p>之后再格式化为fat32</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs<span class="selector-class">.vfat</span> -F <span class="number">32</span> /dev/sd**</span><br></pre></td></tr></table></figure>
+
 <p>uefi 会查看所有 fat 分区，看看里面有没有 efi 引导文件,然后只要是 FAT32 文件系统就行,所以可以把 windows 或 ubuntu 的 iso 直接解压到一个 fat 分区（比如 fat 的 u 盘或移动硬盘）然后引导<br><strong>有些UEFI系统只会识别 efi分区下的EFI/boot文件夹内的efi文件,有的甚至只会识别EFI/boot/bootx64.efi</strong></p>
 
           
@@ -595,20 +766,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/64e69c3e/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="アストルフォ">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="アストルフォの幻想郷">
     </span>
 
@@ -665,7 +836,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/深度学习/" itemprop="url" rel="index">
                     <span itemprop="name">深度学习</span>
                   </a>
@@ -768,20 +939,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/c7816edc/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="アストルフォ">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="アストルフォの幻想郷">
     </span>
 
@@ -838,7 +1009,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/计算机网络/" itemprop="url" rel="index">
                     <span itemprop="name">计算机网络</span>
                   </a>
@@ -884,24 +1055,24 @@
 <li>代理服务端去连接目标服务，成功后告诉本机；</li>
 <li>本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。</li>
 </ul>
-<h1 id="先进行TCP连接"><a href="#先进行TCP连接" class="headerlink" title="先进行TCP连接"></a>先进行TCP连接</h1><p>golang实现(<em>这里的地址我是本地socks5服务端</em>)<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conn,<span class="keyword">err</span> := <span class="keyword">net</span>.Dial(<span class="string">"tcp"</span>,<span class="string">"127.0.0.1:1080"</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">err</span> != nil&#123;</span><br><span class="line">	fmt.Println(<span class="keyword">err</span>)</span><br><span class="line">	<span class="built_in">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="先进行TCP连接"><a href="#先进行TCP连接" class="headerlink" title="先进行TCP连接"></a>先进行TCP连接</h1><p>golang实现(<em>这里的地址我是本地socks5服务端</em>)</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conn,<span class="keyword">err</span> := <span class="keyword">net</span>.Dial(<span class="string">"tcp"</span>,<span class="string">"127.0.0.1:1080"</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">err</span> != nil&#123;</span><br><span class="line">	fmt.Println(<span class="keyword">err</span>)</span><br><span class="line">	<span class="built_in">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h1 id="向socks5服务端发送验证"><a href="#向socks5服务端发送验证" class="headerlink" title="向socks5服务端发送验证"></a>向socks5服务端发送验证</h1><p>验证字段:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">VER</th>
-<th style="text-align:center">NMETHODS</th>
-<th style="text-align:center">METHODS</th>
+<th align="center">VER</th>
+<th align="center">NMETHODS</th>
+<th align="center">METHODS</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:center">1字节</td>
-<td style="text-align:center">1字节</td>
-<td style="text-align:center">1-255字节</td>
+<tbody><tr>
+<td align="center">1字节</td>
+<td align="center">1字节</td>
+<td align="center">1-255字节</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <ul>
 <li>VER是SOCKS版本，这里应该是0x05；
           <!--noindex-->
@@ -952,20 +1123,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/1e63e0e/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="アストルフォ">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="アストルフォの幻想郷">
     </span>
 
@@ -1022,7 +1193,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/android/" itemprop="url" rel="index">
                     <span itemprop="name">android</span>
                   </a>
@@ -1062,8 +1233,12 @@
       
         
           <p>安卓6.0引入了doze来节省电量,但某些国产ui(如锤子)阉割了这个菜单,可通过adb添加  </p>
-<p>添加应用到白名单：<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb <span class="keyword">shell</span><span class="bash"> dumpsys deviceidle whitelist +&lt;package&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>如:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell dumpsys deviceidle whitelist +com<span class="selector-class">.google</span><span class="selector-class">.android</span><span class="selector-class">.gms</span></span><br></pre></td></tr></table></figure></p>
+<p>添加应用到白名单：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb <span class="keyword">shell</span><span class="bash"> dumpsys deviceidle whitelist +&lt;package&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell dumpsys deviceidle whitelist +com<span class="selector-class">.google</span><span class="selector-class">.android</span><span class="selector-class">.gms</span></span><br></pre></td></tr></table></figure>
+
 <p>删除白名单(把加号改成减号):
           <!--noindex-->
           <div class="post-button text-center">
@@ -1113,20 +1288,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/8b98169e/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="アストルフォ">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="アストルフォの幻想郷">
     </span>
 
@@ -1183,7 +1358,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/android/" itemprop="url" rel="index">
                     <span itemprop="name">android</span>
                   </a>
@@ -1223,7 +1398,9 @@
       
         
           <p>一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件<br>发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些  </p>
-<h2 id="安装所需工具"><a href="#安装所需工具" class="headerlink" title="安装所需工具"></a>安装所需工具</h2><p>termux上安装 ecj 和 dx就可以了<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt <span class="keyword">install</span> ecj dx</span><br></pre></td></tr></table></figure></p>
+<h2 id="安装所需工具"><a href="#安装所需工具" class="headerlink" title="安装所需工具"></a>安装所需工具</h2><p>termux上安装 ecj 和 dx就可以了</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt <span class="keyword">install</span> ecj dx</span><br></pre></td></tr></table></figure>
+
 <h2 id="编译为class文件"><a href="#编译为class文件" class="headerlink" title="编译为class文件"></a>编译为class文件</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ecj</span> <span class="selector-tag">XXX</span><span class="selector-class">.java</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1273,20 +1450,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/e2b25bb8/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="アストルフォ">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="アストルフォの幻想郷">
     </span>
 
@@ -1343,7 +1520,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/网络/" itemprop="url" rel="index">
                     <span itemprop="name">网络</span>
                   </a>
@@ -1434,20 +1611,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/25303996/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="アストルフォ">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="アストルフォの幻想郷">
     </span>
 
@@ -1504,7 +1681,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/android/" itemprop="url" rel="index">
                     <span itemprop="name">android</span>
                   </a>
@@ -1543,8 +1720,11 @@
 
       
         
-          <p>查看dumpsys所有的子命令:<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dumpsys <span class="string">| grep "</span>DUMP OF SERVICE<span class="string">"</span></span><br></pre></td></tr></table></figure></p>
-<p>output:<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">DUMP OF<span class="built_in"> SERVICE </span>SurfaceFlinger:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>accessibility:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>account:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>activity:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>alarm:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>appwidget:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>audio:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>backup:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>battery:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>batteryinfo:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>clipboard:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>connectivity:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>content:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>cpuinfo:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>device_policy:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>devicestoragemonitor:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>diskstats:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>dropbox:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>entropy:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>hardware:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>input_method:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>iphonesubinfo:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>isms:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>location:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>media.audio_flinger:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>media.audio_policy:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>media.player:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>meminfo:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>mount:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>netstat:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>network_management:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>notification:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>package:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>permission:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>phone:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>power:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>reboot:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>screenshot:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>search:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>sensor:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>simphonebook:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>statusbar:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>telephony.registry:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>throttle:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>usagestats:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>vibrator:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>wallpaper:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>wifi:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>window:</span><br></pre></td></tr></table></figure></p>
+          <p>查看dumpsys所有的子命令:</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dumpsys <span class="string">| grep "</span>DUMP OF SERVICE<span class="string">"</span></span><br></pre></td></tr></table></figure>
+
+<p>output:</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">DUMP OF<span class="built_in"> SERVICE </span>SurfaceFlinger:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>accessibility:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>account:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>activity:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>alarm:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>appwidget:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>audio:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>backup:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>battery:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>batteryinfo:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>clipboard:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>connectivity:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>content:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>cpuinfo:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>device_policy:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>devicestoragemonitor:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>diskstats:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>dropbox:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>entropy:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>hardware:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>input_method:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>iphonesubinfo:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>isms:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>location:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>media.audio_flinger:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>media.audio_policy:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>media.player:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>meminfo:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>mount:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>netstat:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>network_management:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>notification:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>package:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>permission:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>phone:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>power:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>reboot:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>screenshot:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>search:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>sensor:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>simphonebook:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>statusbar:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>telephony.registry:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>throttle:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>usagestats:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>vibrator:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>wallpaper:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>wifi:</span><br><span class="line">DUMP OF<span class="built_in"> SERVICE </span>window:</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/posts/25303996/#more" rel="contents">
@@ -1593,20 +1773,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/f7f814df/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="アストルフォ">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="アストルフォの幻想郷">
     </span>
 
@@ -1663,7 +1843,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/android/" itemprop="url" rel="index">
                     <span itemprop="name">android</span>
                   </a>
@@ -1702,9 +1882,13 @@
 
       
         
-          <p>对于Android M或更高版本，使用：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setprop ro<span class="selector-class">.product</span><span class="selector-class">.locale</span> xx-XX</span><br><span class="line">setprop persist<span class="selector-class">.sys</span><span class="selector-class">.locale</span> xx-XX</span><br></pre></td></tr></table></figure></p>
+          <p>对于Android M或更高版本，使用：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setprop ro<span class="selector-class">.product</span><span class="selector-class">.locale</span> xx-XX</span><br><span class="line">setprop persist<span class="selector-class">.sys</span><span class="selector-class">.locale</span> xx-XX</span><br></pre></td></tr></table></figure>
+
 <p>xx是语言<br>XX是国家<br>改为日语为:xx=ja XX=JP  </p>
-<p>其他安卓版本:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setprop persist<span class="selector-class">.sys</span><span class="selector-class">.language</span> xx</span><br><span class="line">setprop persist<span class="selector-class">.sys</span><span class="selector-class">.country</span> XX</span><br><span class="line">setprop ctl<span class="selector-class">.restart</span> zygote</span><br></pre></td></tr></table></figure></p>
+<p>其他安卓版本:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setprop persist<span class="selector-class">.sys</span><span class="selector-class">.language</span> xx</span><br><span class="line">setprop persist<span class="selector-class">.sys</span><span class="selector-class">.country</span> XX</span><br><span class="line">setprop ctl<span class="selector-class">.restart</span> zygote</span><br></pre></td></tr></table></figure>
+
 <p>xx是语言<br>XX是国家
           <!--noindex-->
           <div class="post-button text-center">
@@ -1746,170 +1930,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/38868ade/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="アストルフォ">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="アストルフォの幻想郷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/38868ade/" itemprop="url">解决xfce4画面撕裂</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-09T00:04:38+08:00">
-                2018-12-09
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-10T19:48:03+08:00">
-                2018-12-10
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="安装compton"><a href="#安装compton" class="headerlink" title="安装compton"></a>安装compton</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt <span class="keyword">install</span> compton</span><br></pre></td></tr></table></figure>
-<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>compton的配置文件在~/.config/compton.conf<br>因为有些窗口的阴影有时候会变的很奇怪,大概你有可能需要修改一下,附上我的:
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/38868ade/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1944,7 +1969,7 @@
 
       <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="アストルフォ">
             
@@ -1959,7 +1984,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1981,7 +2006,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2560,7 +2585,7 @@
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":20,"height":28,"superSample":5,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.3},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false,"tagMode":false});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":20,"height":28,"superSample":5,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.3},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false,"tagMode":false});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("MathJax config");
 </script>

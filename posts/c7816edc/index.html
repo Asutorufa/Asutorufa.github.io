@@ -4,7 +4,7 @@
 
 
 <html class="theme-next gemini" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -58,7 +58,7 @@
 
 
 
-  <meta name="keywords" content="scoks5,计算机网络,">
+  <meta name="keywords" content="计算机网络,scoks5,">
 
 
 
@@ -69,18 +69,18 @@
 
 
 
-<meta name="description" content="socks5运行流程如下:  本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。  先进行TCP连接golang实现(这里的地址我是本地socks5服务端)12345conn,err := net.Dial(&quot;tcp&quot;,&quot;127.0.0.1:1080&quot;)if">
-<meta name="keywords" content="scoks5,计算机网络">
+<meta name="description" content="socks5运行流程如下:  本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。  先进行TCP连接golang实现(这里的地址我是本地socks5服务端) 12345conn,err := net.Dial(&quot;tcp&quot;,&quot;127.0.0.1:1080&quot;)i">
+<meta name="keywords" content="计算机网络,scoks5">
 <meta property="og:type" content="article">
 <meta property="og:title" content="golang实现socks5代理连接">
 <meta property="og:url" content="https://Asutorufa.github.io/posts/c7816edc/index.html">
 <meta property="og:site_name" content="アストルフォの幻想郷">
-<meta property="og:description" content="socks5运行流程如下:  本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。  先进行TCP连接golang实现(这里的地址我是本地socks5服务端)12345conn,err := net.Dial(&quot;tcp&quot;,&quot;127.0.0.1:1080&quot;)if">
+<meta property="og:description" content="socks5运行流程如下:  本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。  先进行TCP连接golang实现(这里的地址我是本地socks5服务端) 12345conn,err := net.Dial(&quot;tcp&quot;,&quot;127.0.0.1:1080&quot;)i">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-03-06T12:25:54.122Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="golang实现socks5代理连接">
-<meta name="twitter:description" content="socks5运行流程如下:  本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。  先进行TCP连接golang实现(这里的地址我是本地socks5服务端)12345conn,err := net.Dial(&quot;tcp&quot;,&quot;127.0.0.1:1080&quot;)if">
+<meta name="twitter:description" content="socks5运行流程如下:  本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。  先进行TCP连接golang实现(这里的地址我是本地socks5服务端) 12345conn,err := net.Dial(&quot;tcp&quot;,&quot;127.0.0.1:1080&quot;)i">
 
 
 
@@ -138,7 +138,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -148,7 +148,7 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -280,20 +280,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/c7816edc/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="アストルフォ">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="アストルフォの幻想郷">
     </span>
 
@@ -348,7 +348,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/计算机网络/" itemprop="url" rel="index">
                     <span itemprop="name">计算机网络</span>
                   </a>
@@ -393,24 +393,24 @@
 <li>代理服务端去连接目标服务，成功后告诉本机；</li>
 <li>本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。</li>
 </ul>
-<h1 id="先进行TCP连接"><a href="#先进行TCP连接" class="headerlink" title="先进行TCP连接"></a>先进行TCP连接</h1><p>golang实现(<em>这里的地址我是本地socks5服务端</em>)<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conn,<span class="keyword">err</span> := <span class="keyword">net</span>.Dial(<span class="string">"tcp"</span>,<span class="string">"127.0.0.1:1080"</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">err</span> != nil&#123;</span><br><span class="line">	fmt.Println(<span class="keyword">err</span>)</span><br><span class="line">	<span class="built_in">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="先进行TCP连接"><a href="#先进行TCP连接" class="headerlink" title="先进行TCP连接"></a>先进行TCP连接</h1><p>golang实现(<em>这里的地址我是本地socks5服务端</em>)</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conn,<span class="keyword">err</span> := <span class="keyword">net</span>.Dial(<span class="string">"tcp"</span>,<span class="string">"127.0.0.1:1080"</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">err</span> != nil&#123;</span><br><span class="line">	fmt.Println(<span class="keyword">err</span>)</span><br><span class="line">	<span class="built_in">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h1 id="向socks5服务端发送验证"><a href="#向socks5服务端发送验证" class="headerlink" title="向socks5服务端发送验证"></a>向socks5服务端发送验证</h1><p>验证字段:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">VER</th>
-<th style="text-align:center">NMETHODS</th>
-<th style="text-align:center">METHODS</th>
+<th align="center">VER</th>
+<th align="center">NMETHODS</th>
+<th align="center">METHODS</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:center">1字节</td>
-<td style="text-align:center">1字节</td>
-<td style="text-align:center">1-255字节</td>
+<tbody><tr>
+<td align="center">1字节</td>
+<td align="center">1字节</td>
+<td align="center">1-255字节</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <ul>
 <li>VER是SOCKS版本，这里应该是0x05； <a id="more"></a> </li>
 <li>NMETHODS是METHODS部分的长度；  </li>
@@ -424,51 +424,134 @@
 </ul>
 </li>
 </ul>
-<p>golang实现代码:<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">_,err = conn.<span class="keyword">Write</span>([]<span class="keyword">byte</span>&#123;<span class="number">5</span>,<span class="number">1</span>,<span class="number">0</span>&#125;)</span><br><span class="line">var b [<span class="number">2</span>]<span class="keyword">byte</span></span><br><span class="line">status,err := conn.<span class="keyword">Read</span>(b[:])</span><br><span class="line"><span class="keyword">if</span> err!=nil&#123;</span><br><span class="line">	fmt.<span class="keyword">Println</span>(err)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">fmt.<span class="keyword">Println</span>(b)</span><br><span class="line">fmt.<span class="keyword">Println</span>(status)</span><br></pre></td></tr></table></figure></p>
+<p>golang实现代码:  </p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">_,err = conn.<span class="keyword">Write</span>([]<span class="keyword">byte</span>&#123;<span class="number">5</span>,<span class="number">1</span>,<span class="number">0</span>&#125;)</span><br><span class="line">var b [<span class="number">2</span>]<span class="keyword">byte</span></span><br><span class="line">status,err := conn.<span class="keyword">Read</span>(b[:])</span><br><span class="line"><span class="keyword">if</span> err!=nil&#123;</span><br><span class="line">	fmt.<span class="keyword">Println</span>(err)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">fmt.<span class="keyword">Println</span>(b)</span><br><span class="line">fmt.<span class="keyword">Println</span>(status)</span><br></pre></td></tr></table></figure>
+
 <h1 id="向socks5服务端发送请求"><a href="#向socks5服务端发送请求" class="headerlink" title="向socks5服务端发送请求"></a>向socks5服务端发送请求</h1><p>请求字段: </p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">VER</th>
-<th style="text-align:center">CMD</th>
-<th style="text-align:center">RSV</th>
-<th style="text-align:center">ATYP</th>
-<th style="text-align:center">DST.ADDR</th>
-<th style="text-align:center">DST.PORT</th>
+<th align="center">VER</th>
+<th align="center">CMD</th>
+<th align="center">RSV</th>
+<th align="center">ATYP</th>
+<th align="center">DST.ADDR</th>
+<th align="center">DST.PORT</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:center">1字节</td>
-<td style="text-align:center">1字节</td>
-<td style="text-align:center">0x00</td>
-<td style="text-align:center">1字节</td>
-<td style="text-align:center">动态</td>
-<td style="text-align:center">2字节</td>
+<tbody><tr>
+<td align="center">1字节</td>
+<td align="center">1字节</td>
+<td align="center">0x00</td>
+<td align="center">1字节</td>
+<td align="center">动态</td>
+<td align="center">2字节</td>
 </tr>
-</tbody>
-</table>
-<ul>
-<li>VER是SOCKS版本，这里应该是0x05；</li>
-<li>CMD是SOCK的命令码<ul>
-<li>0x01表示CONNECT请求</li>
-<li>0x02表示BIND请求</li>
-<li>0x03表示UDP转发</li>
-</ul>
-</li>
-<li>RSV 0x00，保留</li>
-<li>ATYP DST.ADDR类型<ul>
-<li>0x01 IPv4地址，DST.ADDR部分4字节长度</li>
-<li>0x03 域名，DST.ADDR部分第一个字节为域名长度，DST.ADDR剩余的内容为域名，没有\0结尾。</li>
-<li>0x04 IPv6地址，16个字节长度。</li>
-</ul>
-</li>
-<li>DST.ADDR 目的地址</li>
-<li>DST.PORT 网络字节序表示的目的端口</li>
-</ul>
-<p>golang实现代码<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">domain := <span class="string">"www.google.com"</span></span><br><span class="line">before := []<span class="keyword">byte</span>&#123;<span class="number">5</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="keyword">byte</span>(<span class="built_in">len</span>(domain))&#125;</span><br><span class="line">de := []<span class="keyword">byte</span>(domain)</span><br><span class="line">port := []<span class="keyword">byte</span>&#123;<span class="number">0x1</span>,<span class="number">0xbb</span>&#125;</span><br><span class="line">head_temp := <span class="built_in">append</span>(before,de...)</span><br><span class="line">head := <span class="built_in">append</span>(head_temp,port...)</span><br><span class="line"></span><br><span class="line">fmt.Println(head)</span><br><span class="line"></span><br><span class="line">_,err = conn.Write(head)</span><br><span class="line"><span class="keyword">if</span> err!=<span class="literal">nil</span>&#123;</span><br><span class="line">	fmt.Println(err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c [<span class="number">10</span>]<span class="keyword">byte</span></span><br><span class="line">status_2,err := conn.Read(c[:])</span><br><span class="line"><span class="keyword">if</span> err!=<span class="literal">nil</span>&#123;</span><br><span class="line">	fmt.Println(err)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(status_2)</span><br><span class="line">fmt.Println(c)</span><br></pre></td></tr></table></figure></p>
-<h1 id="进行数据转发"><a href="#进行数据转发" class="headerlink" title="进行数据转发"></a>进行数据转发</h1><p>golang实现代码(<em>不太熟悉各种请求这里随便弄了一个</em>)<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">_,err = conn.Write(<span class="string">[]</span>byte(<span class="string">"<span class="keyword">GET</span> /generate_204/ HTTP/2.0\r\n"</span>))</span><br><span class="line">if err!=nil&#123;</span><br><span class="line">	fmt.Println(err)</span><br><span class="line">	return</span><br><span class="line">&#125;</span><br><span class="line">var d <span class="string">[1024]</span>byte</span><br><span class="line"></span><br><span class="line">temp := time.Now()</span><br><span class="line"></span><br><span class="line">status_3,err := conn.Read(d<span class="string">[:]</span>)</span><br><span class="line">	</span><br><span class="line">deply := time.Since(temp)</span><br><span class="line">fmt.Println(deply)</span><br><span class="line"></span><br><span class="line">fmt.Println(status_3)</span><br><span class="line">fmt.Println(string(d<span class="string">[:]</span>))</span><br></pre></td></tr></table></figure></p>
+<tr>
+<td align="center">- VER是SOCKS版本，这里应该是0x05；</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- CMD是SOCK的命令码</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- 0x01表示CONNECT请求</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- 0x02表示BIND请求</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- 0x03表示UDP转发</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- RSV 0x00，保留</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- ATYP DST.ADDR类型</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- 0x01 IPv4地址，DST.ADDR部分4字节长度</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- 0x03 域名，DST.ADDR部分第一个字节为域名长度，DST.ADDR剩余的内容为域名，没有\0结尾。</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- 0x04 IPv6地址，16个字节长度。</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- DST.ADDR 目的地址</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- DST.PORT 网络字节序表示的目的端口</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p>golang实现代码</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">domain := <span class="string">"www.google.com"</span></span><br><span class="line">before := []<span class="keyword">byte</span>&#123;<span class="number">5</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="keyword">byte</span>(<span class="built_in">len</span>(domain))&#125;</span><br><span class="line">de := []<span class="keyword">byte</span>(domain)</span><br><span class="line">port := []<span class="keyword">byte</span>&#123;<span class="number">0x1</span>,<span class="number">0xbb</span>&#125;</span><br><span class="line">head_temp := <span class="built_in">append</span>(before,de...)</span><br><span class="line">head := <span class="built_in">append</span>(head_temp,port...)</span><br><span class="line"></span><br><span class="line">fmt.Println(head)</span><br><span class="line"></span><br><span class="line">_,err = conn.Write(head)</span><br><span class="line"><span class="keyword">if</span> err!=<span class="literal">nil</span>&#123;</span><br><span class="line">	fmt.Println(err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c [<span class="number">10</span>]<span class="keyword">byte</span></span><br><span class="line">status_2,err := conn.Read(c[:])</span><br><span class="line"><span class="keyword">if</span> err!=<span class="literal">nil</span>&#123;</span><br><span class="line">	fmt.Println(err)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(status_2)</span><br><span class="line">fmt.Println(c)</span><br></pre></td></tr></table></figure>
+
+<h1 id="进行数据转发"><a href="#进行数据转发" class="headerlink" title="进行数据转发"></a>进行数据转发</h1><p>golang实现代码(<em>不太熟悉各种请求这里随便弄了一个</em>)</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">_,err = conn.Write(<span class="string">[]</span>byte(<span class="string">"<span class="keyword">GET</span> /generate_204/ HTTP/2.0\r\n"</span>))</span><br><span class="line">if err!=nil&#123;</span><br><span class="line">	fmt.Println(err)</span><br><span class="line">	return</span><br><span class="line">&#125;</span><br><span class="line">var d <span class="string">[1024]</span>byte</span><br><span class="line"></span><br><span class="line">temp := time.Now()</span><br><span class="line"></span><br><span class="line">status_3,err := conn.Read(d<span class="string">[:]</span>)</span><br><span class="line">	</span><br><span class="line">deply := time.Since(temp)</span><br><span class="line">fmt.Println(deply)</span><br><span class="line"></span><br><span class="line">fmt.Println(status_3)</span><br><span class="line">fmt.Println(string(d<span class="string">[:]</span>))</span><br></pre></td></tr></table></figure>
+
 <h1 id="关闭TCP连接"><a href="#关闭TCP连接" class="headerlink" title="关闭TCP连接"></a>关闭TCP连接</h1><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conn.<span class="keyword">Close</span>()</span><br></pre></td></tr></table></figure>
+
 <h1 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h1><p><a href="https://en.wikipedia.org/wiki/SOCKS" target="_blank" rel="noopener">SOCKS(维基百科)</a><br><a href="https://my.oschina.net/997155658/blog/1563154" target="_blank" rel="noopener">SOCKS5 协议介绍</a>  </p>
 
       
@@ -487,9 +570,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/scoks5/" rel="tag"># scoks5</a>
-          
             <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+            <a href="/tags/scoks5/" rel="tag"># scoks5</a>
           
         </div>
       
@@ -583,7 +666,7 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="アストルフォ">
             
@@ -598,7 +681,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -620,7 +703,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1234,7 +1317,7 @@
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":20,"height":28,"superSample":5,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.3},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false,"tagMode":false});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1.5,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":20,"height":28,"superSample":5,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.3},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false,"tagMode":false});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("MathJax config");
 </script>
