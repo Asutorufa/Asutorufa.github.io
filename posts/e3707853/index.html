@@ -77,7 +77,7 @@
 <meta property="og:site_name" content="アストルフォの幻想郷">
 <meta property="og:description" content="详细安装教程请参考arch wiki Installation guide (简体中文),此处只记录安装后遇到的问题. grub更新菜单   1grub-mkconfig -o /boot/grub/grub.cfg  安装os-prober让grub检测到其他系统并自动创建引导 1pacman -S os-prober  使用system-boot(就是直接使用linux内核引导系统,不再需要g">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-02T16:31:17.512Z">
+<meta property="og:updated_time" content="2019-08-05T07:19:10.072Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="archlinux安装记录">
 <meta name="twitter:description" content="详细安装教程请参考arch wiki Installation guide (简体中文),此处只记录安装后遇到的问题. grub更新菜单   1grub-mkconfig -o /boot/grub/grub.cfg  安装os-prober让grub检测到其他系统并自动创建引导 1pacman -S os-prober  使用system-boot(就是直接使用linux内核引导系统,不再需要g">
@@ -330,8 +330,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-03T00:31:17+08:00">
-                2019-08-03
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-05T15:19:10+08:00">
+                2019-08-05
               </time>
             
           </span>
@@ -410,8 +410,12 @@
 <p>最后设置wheel组的用户能用sudo获取root权限:  </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">visudo</span><br><span class="line">    #找到这样的一行,把前面的#去掉:</span><br><span class="line">    #%wheel ALL=(ALL) ALL</span><br><span class="line">按ESC键，输入x!回车就可以保存并退出</span><br></pre></td></tr></table></figure>
 
+<p>来源: <a href="https://www.jianshu.com/p/6eaf642a94ed" target="_blank" rel="noopener">用户添加</a></p>
 <p>启用dhcp自动获取网络地址,不然开机无法自动联网</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable dhcpcd.service</span><br><span class="line">—以下已包含dhcp的功能,下面两条命令包括上面那个的功能—</span><br><span class="line">pacman -s networkmanager</span><br><span class="line">systemctl enable NetworkManager</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable dhcpcd.service</span><br></pre></td></tr></table></figure>
+
+<p>—以下已包含dhcp的功能,下面两条命令包括上面那个的功能—</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -s networkmanager</span><br><span class="line">systemctl enable NetworkManager</span><br></pre></td></tr></table></figure>
 
 <p>安装一个图形界面,比如kde</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -S plasma-desktop</span><br><span class="line">systemctl start sddm.service</span><br></pre></td></tr></table></figure>
@@ -419,7 +423,32 @@
 <p>安装一个终端,不然进入图形界面只能进tty输入命令</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S konsole</span><br></pre></td></tr></table></figure>
 
-<p>来源:<br><a href="https://www.jianshu.com/p/6eaf642a94ed" target="_blank" rel="noopener">用户添加</a></p>
+<p>蓝牙耳机可能载入模块失败</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pactl load-module module-bluetooth-discover</span><br><span class="line">Failure: Module initialization failed</span><br></pre></td></tr></table></figure>
+
+<p>临时解决方法:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pactl unload-module  module-bluetooth-discover</span><br><span class="line">pactl   load-module  module-bluetooth-discover</span><br></pre></td></tr></table></figure>
+
+<p>长期解决方法:</p>
+<p>Edit the file:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/pulse/default.pa</span><br></pre></td></tr></table></figure>
+
+<p>and comment out (with an # at the beginning of the line) the following line:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">load-module module-bluetooth-discover</span></span><br></pre></td></tr></table></figure>
+
+<p>now edit the file:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/start-pulseaudio-x11</span><br></pre></td></tr></table></figure>
+
+<p>and after the lines:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if [ x”$SESSION_MANAGER” != x ] ; then</span><br><span class="line">     /usr/bin/pactl load-module module-x11-xsmp “display=$DISPLAY session_manager=$SESSION_MANAGER” &gt; /dev/null</span><br><span class="line"> fi</span><br></pre></td></tr></table></figure>
+
+<p>add the following line:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/pactl load-module module-bluetooth-discover</span><br></pre></td></tr></table></figure>
+
+<p>This way the Pulse audio’s Bluetooth modules will not be downloaded at boot time but after x11 is started.<br>来自:<a href="https://askubuntu.com/questions/689281/pulseaudio-can-not-load-bluetooth-module" target="_blank" rel="noopener">PulseAudio can not load bluetooth module</a>  </p>
+<p>有些字体可能看不见,比如 𫔭 𪠸 :</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">安装 ttf-hanazono ttf-ume(mincho) 字体</span></span><br><span class="line">pacman -S ttf-hanazono ttf-ume</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -1159,15 +1188,7 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  
-
-
-  
-
-  
-
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":125,"height":175,"superSample":2,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.7},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false,"tagMode":false});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("MathJax config");
 </script>
@@ -1184,5 +1205,13 @@
 <script type="text/javascript" src="">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end --></body>
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":125,"height":175,"superSample":2,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.7},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false,"tagMode":false});</script></body>
 </html>
