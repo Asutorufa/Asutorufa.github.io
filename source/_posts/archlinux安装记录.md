@@ -146,3 +146,6 @@ This way the Pulse audio’s Bluetooth modules will not be downloaded at boot ti
 #安装 ttf-hanazono ttf-ume(mincho) 字体
 pacman -S ttf-hanazono ttf-ume
 ```
+
+解决DNS污染问题:  
+安装dnscrypt-proxy 具体方法参见arch wiki [dnscrypt-proxy](https://wiki.archlinux.org/index.php/Dnscrypt-proxy)
