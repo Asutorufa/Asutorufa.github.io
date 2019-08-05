@@ -61,11 +61,17 @@ visudo
 按ESC键，输入x!回车就可以保存并退出
 ```
 
+来源: [用户添加](https://www.jianshu.com/p/6eaf642a94ed)
+
 启用dhcp自动获取网络地址,不然开机无法自动联网
 
 ```shell
 systemctl enable dhcpcd.service
+```
+
 —以下已包含dhcp的功能,下面两条命令包括上面那个的功能—
+
+```shell
 pacman -s networkmanager
 systemctl enable NetworkManager  
 ```
@@ -81,7 +87,62 @@ systemctl start sddm.service
 
 ```shell
 pacman -S konsole
-````
+```
 
-来源:  
-[用户添加](https://www.jianshu.com/p/6eaf642a94ed)
+蓝牙耳机可能载入模块失败
+
+```shell
+pactl load-module module-bluetooth-discover
+Failure: Module initialization failed
+```
+
+临时解决方法:
+
+```shell
+pactl unload-module  module-bluetooth-discover
+pactl   load-module  module-bluetooth-discover
+```
+
+长期解决方法:
+
+Edit the file:
+
+```shell
+/etc/pulse/default.pa
+```
+
+and comment out (with an # at the beginning of the line) the following line:
+
+```shell
+#load-module module-bluetooth-discover
+```
+
+now edit the file:
+
+```shell
+/usr/bin/start-pulseaudio-x11
+```
+
+and after the lines:
+
+```shell
+   if [ x”$SESSION_MANAGER” != x ] ; then
+        /usr/bin/pactl load-module module-x11-xsmp “display=$DISPLAY session_manager=$SESSION_MANAGER” > /dev/null
+    fi
+```
+
+add the following line:
+
+```shell
+    /usr/bin/pactl load-module module-bluetooth-discover
+```
+
+This way the Pulse audio’s Bluetooth modules will not be downloaded at boot time but after x11 is started.  
+来自:[PulseAudio can not load bluetooth module](https://askubuntu.com/questions/689281/pulseaudio-can-not-load-bluetooth-module)  
+
+有些字体可能看不见,比如 𫔭 𪠸 :
+
+```shell
+#安装 ttf-hanazono ttf-ume(mincho) 字体
+pacman -S ttf-hanazono ttf-ume
+```
