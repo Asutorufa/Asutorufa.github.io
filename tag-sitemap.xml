@@ -3,35 +3,49 @@
 
 
     <url>
+        <loc>https://Asutorufa.github.io/tags/linux/</loc>
+        <lastmod>2019-08-06T04:33:47.919Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://Asutorufa.github.io/tags/efi/</loc>
+        <lastmod>2019-08-06T04:33:47.919Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://Asutorufa.github.io/tags/archlinux/</loc>
+        <lastmod>2019-08-06T04:33:47.919Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://Asutorufa.github.io/tags/golang/</loc>
-        <lastmod>2019-08-02T11:34:54.079Z</lastmod>
+        <lastmod>2019-08-02T16:28:50.273Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://Asutorufa.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
-        <lastmod>2019-08-02T11:34:54.079Z</lastmod>
+        <lastmod>2019-08-02T16:28:50.273Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://Asutorufa.github.io/tags/CIDR/</loc>
-        <lastmod>2019-08-02T11:34:54.079Z</lastmod>
+        <lastmod>2019-08-02T16:28:50.273Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://Asutorufa.github.io/tags/windows/</loc>
-        <lastmod>2019-06-09T04:46:42.412Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://Asutorufa.github.io/tags/linux/</loc>
         <lastmod>2019-06-09T04:46:42.412Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -46,13 +60,6 @@
 
     <url>
         <loc>https://Asutorufa.github.io/tags/uefi/</loc>
-        <lastmod>2019-04-28T09:17:52.264Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://Asutorufa.github.io/tags/efi/</loc>
         <lastmod>2019-04-28T09:17:52.264Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -248,6 +255,20 @@
     </url>
 
     <url>
+        <loc>https://Asutorufa.github.io/tags/%E5%85%AC%E5%BC%8F/</loc>
+        <lastmod>2018-02-13T07:46:28.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://Asutorufa.github.io/tags/%E6%95%B0%E5%AD%A6/</loc>
+        <lastmod>2018-02-13T07:46:28.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://Asutorufa.github.io/tags/markdown/</loc>
         <lastmod>2018-02-13T07:46:28.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -263,20 +284,6 @@
 
     <url>
         <loc>https://Asutorufa.github.io/tags/%E7%BB%83%E4%B9%A0/</loc>
-        <lastmod>2018-02-13T07:46:28.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://Asutorufa.github.io/tags/%E5%85%AC%E5%BC%8F/</loc>
-        <lastmod>2018-02-13T07:46:28.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://Asutorufa.github.io/tags/%E6%95%B0%E5%AD%A6/</loc>
         <lastmod>2018-02-13T07:46:28.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
