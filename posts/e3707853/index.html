@@ -77,7 +77,7 @@
 <meta property="og:site_name" content="アストルフォの幻想郷">
 <meta property="og:description" content="详细安装教程请参考arch wiki Installation guide (简体中文),此处只记录安装后遇到的问题. grub更新菜单   1grub-mkconfig -o /boot/grub/grub.cfg  安装os-prober让grub检测到其他系统并自动创建引导 1pacman -S os-prober  使用system-boot(就是直接使用linux内核引导系统,不再需要g">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-06T04:33:47.919Z">
+<meta property="og:updated_time" content="2019-08-08T01:34:17.082Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="archlinux安装记录">
 <meta name="twitter:description" content="详细安装教程请参考arch wiki Installation guide (简体中文),此处只记录安装后遇到的问题. grub更新菜单   1grub-mkconfig -o /boot/grub/grub.cfg  安装os-prober让grub检测到其他系统并自动创建引导 1pacman -S os-prober  使用system-boot(就是直接使用linux内核引导系统,不再需要g">
@@ -330,8 +330,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-06T12:33:47+08:00">
-                2019-08-06
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-08T09:34:17+08:00">
+                2019-08-08
               </time>
             
           </span>
@@ -450,9 +450,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">安装 ttf-hanazono ttf-ume(mincho) 字体</span></span><br><span class="line">pacman -S ttf-hanazono ttf-ume</span><br></pre></td></tr></table></figure>
 
 <p>解决DNS污染问题:<br>安装dnscrypt-proxy 具体方法参见arch wiki <a href="https://wiki.archlinux.org/index.php/Dnscrypt-proxy" target="_blank" rel="noopener">dnscrypt-proxy</a></p>
-<p>已知问题:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kde discover 无法使用pacman backend</span><br><span class="line">discover 使用了 packagekit  使用 pkcon 需要root权限,按理来说packagekit会自动获取root且无需输入密码,但discover无法获取root已无法已root用户运行,问题未知,放弃解决</span><br><span class="line">解决方法:</span><br><span class="line">卸载discover packagekit packagekit-qt5</span><br><span class="line">新安装的话 索性不装就行了</span><br></pre></td></tr></table></figure>
-
+<p>arch 使用pyhon-dlib会提示<figure class="highlight plain"><figcaption><span>symbol: cblas_dtrsm```  </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">使用aur或archlinuxcn中的openblas-lapack-git代替pacman源中的cblas,貌似源中的cblas版本太低  </span><br><span class="line"></span><br><span class="line">已知问题:</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">kde discover 无法使用pacman backend</span><br><span class="line">discover 使用了 packagekit  使用 pkcon 需要root权限,按理来说packagekit会自动获取root且无需输入密码,但discover无法获取root已无法已root用户运行,问题未知,放弃解决</span><br><span class="line">解决方法:</span><br><span class="line">卸载discover packagekit packagekit-qt5</span><br><span class="line">新安装的话 索性不装就行了</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
