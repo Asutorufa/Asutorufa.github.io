@@ -149,3 +149,16 @@ pacman -S ttf-hanazono ttf-ume
 
 解决DNS污染问题:  
 安装dnscrypt-proxy 具体方法参见arch wiki [dnscrypt-proxy](https://wiki.archlinux.org/index.php/Dnscrypt-proxy)
+
+arch 使用pyhon-dlib会提示```Undefined symbol: cblas_dtrsm```  
+使用aur或archlinuxcn中的openblas-lapack-git代替pacman源中的cblas,貌似源中的cblas版本太低  
+
+已知问题:
+
+```shell
+kde discover 无法使用pacman backend
+discover 使用了 packagekit  使用 pkcon 需要root权限,按理来说packagekit会自动获取root且无需输入密码,但discover无法获取root已无法已root用户运行,问题未知,放弃解决
+解决方法:
+卸载discover packagekit packagekit-qt5
+新安装的话 索性不装就行了
+```
