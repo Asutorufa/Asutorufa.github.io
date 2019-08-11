@@ -74,6 +74,8 @@ systemctl enable dhcpcd.service
 ```shell
 pacman -s networkmanager
 systemctl enable NetworkManager  
+# 启动这个后开机有个NetworkManager-wait-online会占用大概6s的时间,嫌慢的可以屏蔽
+systemctl mask NetworkManager-wait-online
 ```
 
 安装一个图形界面,比如kde
@@ -150,7 +152,7 @@ pacman -S ttf-hanazono ttf-ume
 解决DNS污染问题:  
 安装dnscrypt-proxy 具体方法参见arch wiki [dnscrypt-proxy](https://wiki.archlinux.org/index.php/Dnscrypt-proxy)
 
-arch 使用pyhon-dlib会提示```Undefined symbol: cblas_dtrsm```  
+arch 使用pyhon-dlib会提示`Undefined symbol: cblas_dtrsm`  
 使用aur或archlinuxcn中的openblas-lapack-git代替pacman源中的cblas,貌似源中的cblas版本太低  
 
 已知问题:
