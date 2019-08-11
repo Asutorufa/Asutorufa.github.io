@@ -331,8 +331,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-08T09:34:17+08:00">
-                2019-08-08
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-11T18:49:22+08:00">
+                2019-08-11
               </time>
             
           </span>
@@ -396,7 +396,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S os-prober</span><br></pre></td></tr></table></figure>
 
 <p>使用system-boot(就是直接使用linux内核引导系统,不再需要grub,如果有多系统不推荐,会把efi分区搞得很乱):</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -S efibootmgr dosfstools</span><br><span class="line"><span class="meta">#</span><span class="bash"> 此处注意:此处要把efi分区挂载为/boot,而非平常的/boot/efi</span></span><br><span class="line">bootctl install --path=/boot</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -S efibootmgr dosfstools</span><br><span class="line"><span class="meta">#</span> 此处注意:此处要把efi分区挂载为/boot,而非平常的/boot/efi</span><br><span class="line">bootctl install --path=/boot</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/posts/e3707853/#more" rel="contents">
