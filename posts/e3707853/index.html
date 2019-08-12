@@ -77,7 +77,7 @@
 <meta property="og:site_name" content="アストルフォの幻想郷">
 <meta property="og:description" content="详细安装教程请参考arch wiki Installation guide (简体中文),此处只记录安装后遇到的问题. grub更新菜单   1grub-mkconfig -o /boot/grub/grub.cfg  安装os-prober让grub检测到其他系统并自动创建引导 1pacman -S os-prober  使用system-boot(就是直接使用linux内核引导系统,不再需要g">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-12T04:23:37.686Z">
+<meta property="og:updated_time" content="2019-08-12T09:01:59.639Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="archlinux安装记录">
 <meta name="twitter:description" content="详细安装教程请参考arch wiki Installation guide (简体中文),此处只记录安装后遇到的问题. grub更新菜单   1grub-mkconfig -o /boot/grub/grub.cfg  安装os-prober让grub检测到其他系统并自动创建引导 1pacman -S os-prober  使用system-boot(就是直接使用linux内核引导系统,不再需要g">
@@ -330,7 +330,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-12T12:23:37+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-12T17:01:59+08:00">
                 2019-08-12
               </time>
             
@@ -450,7 +450,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">安装 ttf-hanazono ttf-ume(mincho) 字体</span></span><br><span class="line">pacman -S ttf-hanazono ttf-ume</span><br></pre></td></tr></table></figure>
 
 <p>不要使用noto和思源黑体的亚洲字体整合包,因为会优先使用日语字体,造成中文大小不一,尽量下载思源黑体的分开的字体包,然后在<code>~/.config/fontconfig/fonts.conf</code>中将中文的思源黑体设置为第一个,具体设置参考<a href="https://wiki.archlinux.org/index.php/Font_configuration" target="_blank" rel="noopener">Font_configuration</a>  </p>
-<p>解决DNS污染问题:<br>安装dnscrypt-proxy 具体方法参见arch wiki <a href="https://wiki.archlinux.org/index.php/Dnscrypt-proxy" target="_blank" rel="noopener">dnscrypt-proxy</a></p>
+<p>解决DNS污染问题:<br>安装dnscrypt-proxy 具体方法参见arch wiki <a href="https://wiki.archlinux.org/index.php/Dnscrypt-proxy" target="_blank" rel="noopener">dnscrypt-proxy</a>,使用<a href="https://github.com/felixonmars/dnsmasq-china-list" target="_blank" rel="noopener">dnsmasq-china-list</a>排除中国域名  </p>
 <p>arch 使用pyhon-dlib会提示<code>Undefined symbol: cblas_dtrsm</code><br>使用aur或archlinuxcn中的openblas-lapack-git代替pacman源中的cblas,貌似源中的cblas版本太低  </p>
 <p>自动清除pacman的缓存:<br>创建<code>/usr/share/libalpm/hooks/clean-pacman-cache.hook</code></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[Trigger]</span><br><span class="line">Operation = Remove</span><br><span class="line">Operation = Install</span><br><span class="line">Operation = Upgrade</span><br><span class="line">Type = Package</span><br><span class="line">Target = *</span><br><span class="line"></span><br><span class="line">[Action]</span><br><span class="line">Description = Cleaning up old packages...</span><br><span class="line">When = PostTransaction</span><br><span class="line">Exec = /usr/bin/paccache -rvk3</span><br></pre></td></tr></table></figure>
@@ -1198,7 +1198,15 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":125,"height":175,"superSample":2,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.7},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false,"tagMode":false});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("MathJax config");
 </script>
@@ -1215,13 +1223,5 @@
 <script type="text/javascript" src="">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-  
-
-
-  
-
-  
-
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":125,"height":175,"superSample":2,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.7},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false,"tagMode":false});</script></body>
+<!-- hexo-inject:end --></body>
 </html>
