@@ -154,7 +154,7 @@ pacman -S ttf-hanazono ttf-ume
 不要使用noto和思源黑体的亚洲字体整合包,因为会优先使用日语字体,造成中文大小不一,尽量下载思源黑体的分开的字体包,然后在`~/.config/fontconfig/fonts.conf`中将中文的思源黑体设置为第一个,具体设置参考[Font_configuration](https://wiki.archlinux.org/index.php/Font_configuration)  
 
 解决DNS污染问题:  
-安装dnscrypt-proxy 具体方法参见arch wiki [dnscrypt-proxy](https://wiki.archlinux.org/index.php/Dnscrypt-proxy)
+安装dnscrypt-proxy 具体方法参见arch wiki [dnscrypt-proxy](https://wiki.archlinux.org/index.php/Dnscrypt-proxy),使用[dnsmasq-china-list](https://github.com/felixonmars/dnsmasq-china-list)排除中国域名  
 
 arch 使用pyhon-dlib会提示`Undefined symbol: cblas_dtrsm`  
 使用aur或archlinuxcn中的openblas-lapack-git代替pacman源中的cblas,貌似源中的cblas版本太低  
@@ -177,7 +177,15 @@ Exec = /usr/bin/paccache -rvk3
 ```
 
 ext4分区优化:  
-有备用电源或者笔记本可以关闭ext4的barriers具体方法参考[Ext4#Turning_barriers_off](https://wiki.archlinux.org/index.php/Ext4#Turning_barriers_off)  
+
+`有备用电源或者笔记本可以关闭ext4的barriers具体方法参考`[Ext4#Turning_barriers_off](https://wiki.archlinux.org/index.php/Ext4#Turning_barriers_off)  
+
+deadbeef-git 打开提示`plugin cdda.so not found or failed to load`  
+解决方法: 安装 libcddb libcdio
+
+```shell
+pacman -S libcddb libcdio
+```
 
 已知问题:
 
