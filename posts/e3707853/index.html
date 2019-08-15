@@ -58,7 +58,7 @@
 
 
 
-  <meta name="keywords" content="linux,archlinux,efi,">
+  <meta name="keywords" content="archlinux,efi,linux,">
 
 
 
@@ -70,7 +70,7 @@
 
 
 <meta name="description" content="详细安装教程请参考arch wiki Installation guide (简体中文),此处只记录安装后遇到的问题. grub更新菜单   1grub-mkconfig -o /boot/grub/grub.cfg  安装os-prober让grub检测到其他系统并自动创建引导 1pacman -S os-prober  使用system-boot(就是直接使用linux内核引导系统,不再需要g">
-<meta name="keywords" content="linux,archlinux,efi">
+<meta name="keywords" content="archlinux,efi,linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="archlinux安装记录">
 <meta property="og:url" content="https://Asutorufa.github.io/posts/e3707853/index.html">
@@ -394,7 +394,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S os-prober</span><br></pre></td></tr></table></figure>
 
 <p>使用system-boot(就是直接使用linux内核引导系统,不再需要grub,如果有多系统不推荐,会把efi分区搞得很乱):</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -S efibootmgr dosfstools</span><br><span class="line"><span class="meta">#</span> 此处注意:此处要把efi分区挂载为/boot,而非平常的/boot/efi</span><br><span class="line">bootctl install --path=/boot</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -S efibootmgr dosfstools</span><br><span class="line"><span class="meta">#</span><span class="bash"> 此处注意:此处要把efi分区挂载为/boot,而非平常的/boot/efi</span></span><br><span class="line">bootctl install --path=/boot</span><br></pre></td></tr></table></figure>
 
 <a id="more"></a>
 <p><strong>关于efi的部分可以看我的另一贴.</strong></p>
@@ -414,7 +414,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable dhcpcd.service</span><br></pre></td></tr></table></figure>
 
 <p>如果只使用有线网络 可以使用<a href="https://wiki.archlinux.org/index.php/Systemd-networkd" target="_blank" rel="noopener">Systemd-networkd</a><br>——以下已包含dhcp的功能,下面两条命令包括上面那个的功能——</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pacman -s networkmanager</span><br><span class="line">systemctl enable NetworkManager  </span><br><span class="line"><span class="meta">#</span> 启动这个后开机有个NetworkManager-wait-online会占用大概6s的时间,嫌慢的可以屏蔽</span><br><span class="line">systemctl mask NetworkManager-wait-online</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pacman -s networkmanager</span><br><span class="line">systemctl enable NetworkManager  </span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动这个后开机有个NetworkManager-wait-online会占用大概6s的时间,嫌慢的可以屏蔽</span></span><br><span class="line">systemctl mask NetworkManager-wait-online</span><br></pre></td></tr></table></figure>
 
 <p>安装一个图形界面,比如kde</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -S plasma-desktop</span><br><span class="line">systemctl start sddm.service</span><br></pre></td></tr></table></figure>
@@ -434,7 +434,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/pulse/default.pa</span><br></pre></td></tr></table></figure>
 
 <p>and comment out (with an # at the beginning of the line) the following line:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>load-module module-bluetooth-discover</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">load-module module-bluetooth-discover</span></span><br></pre></td></tr></table></figure>
 
 <p>now edit the file:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/start-pulseaudio-x11</span><br></pre></td></tr></table></figure>
@@ -448,7 +448,7 @@
 <p>This way the Pulse audio’s Bluetooth modules will not be downloaded at boot time but after x11 is started.  </p>
 <hr>
 <p>字体优化:<br>有些字体可能看不见,比如 𫔭 𪠸 :</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>安装 ttf-hanazono ttf-ume(mincho) 字体</span><br><span class="line">pacman -S ttf-hanazono ttf-ume</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">安装 ttf-hanazono ttf-ume(mincho) 字体</span></span><br><span class="line">pacman -S ttf-hanazono ttf-ume</span><br></pre></td></tr></table></figure>
 
 <p>不要使用noto和思源黑体的亚洲字体整合包,因为会优先使用日语字体,造成中文大小不一,尽量下载思源黑体的分开的字体包,然后在<code>~/.config/fontconfig/fonts.conf</code>中将中文的思源黑体设置为第一个,具体设置参考<a href="https://wiki.archlinux.org/index.php/Font_configuration" target="_blank" rel="noopener">Font_configuration</a>  </p>
 <hr>
@@ -515,11 +515,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag"># linux</a>
-          
             <a href="/tags/archlinux/" rel="tag"># archlinux</a>
           
             <a href="/tags/efi/" rel="tag"># efi</a>
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
           
         </div>
       
@@ -615,7 +615,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -626,7 +626,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -637,7 +637,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1219,7 +1219,15 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":125,"height":175,"superSample":2,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.7},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false,"tagMode":false});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("MathJax config");
 </script>
@@ -1236,13 +1244,5 @@
 <script type="text/javascript" src="">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-  
-
-
-  
-
-  
-
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"width":125,"height":175,"superSample":2,"position":"right","hOffset":25,"vOffset":0},"mobile":{"show":true,"scale":0.7},"react":{"opacityDefault":1,"opacityOnHover":1},"log":false,"tagMode":false});</script></body>
+<!-- hexo-inject:end --></body>
 </html>
