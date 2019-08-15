@@ -39,7 +39,7 @@ arch 安装应用后 应用菜单不刷新怎么办(这个正常情况是不会�
 kbuildsycoca5 --noincremental
 ```
 
-新增用户:
+新增用户<sup><a href='#1'>[1]</a></sup>:  
 首先添加一个用户，并把它加到wheel组  
 
 ```shell
@@ -60,8 +60,6 @@ visudo
     #%wheel ALL=(ALL) ALL
 按ESC键，输入x!回车就可以保存并退出
 ```
-
-来源: [用户添加](https://www.jianshu.com/p/6eaf642a94ed)
 
 启用dhcp自动获取网络地址,不然开机无法自动联网
 
@@ -92,6 +90,7 @@ systemctl start sddm.service
 pacman -S konsole
 ```
 
+***
 蓝牙耳机可能载入模块失败
 
 ```shell
@@ -106,7 +105,7 @@ pactl unload-module  module-bluetooth-discover
 pactl   load-module  module-bluetooth-discover
 ```
 
-长期解决方法:
+长期解决方法<sup><a href='#2'>[2]</a></sup>:
 
 Edit the file:
 
@@ -141,8 +140,7 @@ add the following line:
 ```
 
 This way the Pulse audio’s Bluetooth modules will not be downloaded at boot time but after x11 is started.  
-来自:[PulseAudio can not load bluetooth module](https://askubuntu.com/questions/689281/pulseaudio-can-not-load-bluetooth-module)  
-
+***
 字体优化:  
 有些字体可能看不见,比如 𫔭 𪠸 :
 
@@ -152,13 +150,13 @@ pacman -S ttf-hanazono ttf-ume
 ```
 
 不要使用noto和思源黑体的亚洲字体整合包,因为会优先使用日语字体,造成中文大小不一,尽量下载思源黑体的分开的字体包,然后在`~/.config/fontconfig/fonts.conf`中将中文的思源黑体设置为第一个,具体设置参考[Font_configuration](https://wiki.archlinux.org/index.php/Font_configuration)  
-
+***
 解决DNS污染问题:  
 安装dnscrypt-proxy 具体方法参见arch wiki [dnscrypt-proxy](https://wiki.archlinux.org/index.php/Dnscrypt-proxy),使用[dnsmasq-china-list](https://github.com/felixonmars/dnsmasq-china-list)排除中国域名  
-
+***
 arch 使用pyhon-dlib会提示`Undefined symbol: cblas_dtrsm`  
 使用aur或archlinuxcn中的openblas-lapack-git代替pacman源中的cblas,貌似源中的cblas版本太低  
-
+***
 自动清除pacman的缓存:  
 创建`/usr/share/libalpm/hooks/clean-pacman-cache.hook`
 
@@ -176,10 +174,12 @@ When = PostTransaction
 Exec = /usr/bin/paccache -rvk3
 ```
 
+***
 ext4分区优化:  
 
 `有备用电源或者笔记本可以关闭ext4的barriers具体方法参考`[Ext4#Turning_barriers_off](https://wiki.archlinux.org/index.php/Ext4#Turning_barriers_off)  
 
+***
 deadbeef-git 打开提示`plugin cdda.so not found or failed to load`  
 解决方法: 安装 libcddb libcdio
 
@@ -187,12 +187,22 @@ deadbeef-git 打开提示`plugin cdda.so not found or failed to load`
 pacman -S libcddb libcdio
 ```
 
-已知问题:
+***
+使用anime4k会提示缺少openCL库,安装ocl-icd
 
 ```shell
-kde discover 无法使用pacman backend
-discover 使用了 packagekit  使用 pkcon 需要root权限,按理来说packagekit会自动获取root且无需输入密码,但discover无法获取root已无法已root用户运行,问题未知,放弃解决
-解决方法:
-卸载discover packagekit packagekit-qt5
-新安装的话 索性不装就行了
+pacman -S ocl-icd
 ```
+
+***
+已知问题:
+
+kde discover 无法使用pacman backend  
+discover 使用了 packagekit,使用 pkcon 需要root权限,按理来说packagekit会自动获取root且无需输入密码,但discover无法获取root已无法已root用户运行,问题未知,放弃解决  
+解决方法:  
+卸载discover packagekit packagekit-qt5  
+新安装的话 索性不装就行了  
+
+***
+>1. 此方法参考自 <a id='1'>[用户添加](https://www.jianshu.com/p/6eaf642a94ed)</a>
+>2. 此方法参考自 <a id='2'>[PulseAudio can not load bluetooth module](https://askubuntu.com/questions/689281/pulseaudio-can-not-load-bluetooth-module)</a>
