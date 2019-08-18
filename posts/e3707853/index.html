@@ -77,7 +77,7 @@
 <meta property="og:site_name" content="アストルフォの幻想郷">
 <meta property="og:description" content="详细安装教程请参考arch wiki Installation guide (简体中文),此处只记录安装后遇到的问题. grub更新菜单   1grub-mkconfig -o /boot/grub/grub.cfg  安装os-prober让grub检测到其他系统并自动创建引导 1pacman -S os-prober  使用system-boot(就是直接使用linux内核引导系统,不再需要g">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-18T03:54:37.789Z">
+<meta property="og:updated_time" content="2019-08-18T11:35:39.914Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="archlinux安装记录">
 <meta name="twitter:description" content="详细安装教程请参考arch wiki Installation guide (简体中文),此处只记录安装后遇到的问题. grub更新菜单   1grub-mkconfig -o /boot/grub/grub.cfg  安装os-prober让grub检测到其他系统并自动创建引导 1pacman -S os-prober  使用system-boot(就是直接使用linux内核引导系统,不再需要g">
@@ -330,7 +330,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-18T11:54:37+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-18T19:35:39+08:00">
                 2019-08-18
               </time>
             
@@ -401,6 +401,7 @@
 <p>arch 安装应用后 应用菜单不刷新怎么办(这个正常情况是不会遇到的,只是刚装完有些功能不完整会这样,我就遇到了):  </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kbuildsycoca5 --noincremental</span><br></pre></td></tr></table></figure>
 
+<hr>
 <p>新增用户<sup><a href="#1">[1]</a></sup>:<br>首先添加一个用户，并把它加到wheel组  </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -m -G wheel -s /bin/bash  [用户名]</span><br></pre></td></tr></table></figure>
 
@@ -410,14 +411,19 @@
 <p>最后设置wheel组的用户能用sudo获取root权限:  </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">visudo</span><br><span class="line">    #找到这样的一行,把前面的#去掉:</span><br><span class="line">    #%wheel ALL=(ALL) ALL</span><br><span class="line">按ESC键，输入x!回车就可以保存并退出</span><br></pre></td></tr></table></figure>
 
+<hr>
 <p>启用dhcp自动获取网络地址,不然开机无法自动联网</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable dhcpcd.service</span><br></pre></td></tr></table></figure>
 
 <p>如果只使用有线网络 可以使用<a href="https://wiki.archlinux.org/index.php/Systemd-networkd" target="_blank" rel="noopener">Systemd-networkd</a><br>——以下已包含dhcp的功能,下面两条命令包括上面那个的功能——</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pacman -s networkmanager</span><br><span class="line">systemctl enable NetworkManager  </span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动这个后开机有个NetworkManager-wait-online会占用大概6s的时间,嫌慢的可以屏蔽</span></span><br><span class="line">systemctl mask NetworkManager-wait-online</span><br></pre></td></tr></table></figure>
 
+<hr>
 <p>安装一个图形界面,比如kde</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -S plasma-desktop</span><br><span class="line">systemctl start sddm.service</span><br></pre></td></tr></table></figure>
+
+<p>一些gtk应用的plasma panel托盘图标模糊且右键菜单比较奇怪<br>解决方法: 安装libappindicator-gtk3 libappindicator-gtk2</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S libappindicator-gtk3 libappindicator-gtk2</span><br></pre></td></tr></table></figure>
 
 <p>安装一个终端,不然进入图形界面只能进tty输入命令</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S konsole</span><br></pre></td></tr></table></figure>
