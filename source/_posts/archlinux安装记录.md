@@ -195,6 +195,43 @@ pacman -S ocl-icd
 ```
 
 ***
+开启powertop的自动优化节省电量:
+
+```shell
+#安装powertop
+pacman -S powertop
+#开机自动启用
+vim /etc/systemd/system/powertop.service
+#填入以下内容
+[Unit]
+Description=Powertop tunings
+
+[Service]
+ExecStart=/usr/bin/powertop --auto-tune && echo 'on' > '/sys/bus/usb/devices/1-1/power/control' && echo 'on' > '/sys/bus/usb/devices/1-4/power/control' && echo 'on' > '/sys/bus/usb/devices/usb1/power/control' && echo 'on' > '/sys/bus/usb/devices/usb2/power/control' && echo 'on' > '/sys/bus/usb/devices/1-7/power/control'
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target
+# 启用
+systemctl enable powertop.service
+```
+
+除了第一句,其他命令是禁用usb的休眠,不然鼠标用起来很难受(**注意:每个电脑的命令都不同,请自行用powertop查看相应的命令**)
+
+```shell
+# Autosuspend for USB device USB Optical Mouse [PixArt]
+echo 'on' > '/sys/bus/usb/devices/1-1/power/control';
+# Autosuspend for USB device HP Wide Vision HD [Generic]
+echo 'on' > '/sys/bus/usb/devices/1-4/power/control';
+# Autosuspend for USB device xHCI Host Controller [usb1]
+echo 'on' > '/sys/bus/usb/devices/usb1/power/control';
+# Autosuspend for USB device xHCI Host Controller [usb2]
+echo 'on' > '/sys/bus/usb/devices/usb2/power/control';
+# Autosuspend for unknown USB device 1-7 (8087:0a2a)
+echo 'on' > '/sys/bus/usb/devices/1-7/power/control';
+```
+
+***
 已知问题:
 
 kde discover 无法使用pacman backend  
