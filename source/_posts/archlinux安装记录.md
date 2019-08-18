@@ -39,6 +39,7 @@ arch 安装应用后 应用菜单不刷新怎么办(这个正常情况是不会�
 kbuildsycoca5 --noincremental
 ```
 
+***
 新增用户<sup><a href='#1'>[1]</a></sup>:  
 首先添加一个用户，并把它加到wheel组  
 
@@ -61,6 +62,7 @@ visudo
 按ESC键，输入x!回车就可以保存并退出
 ```
 
+***
 启用dhcp自动获取网络地址,不然开机无法自动联网
 
 ```shell
@@ -77,11 +79,19 @@ systemctl enable NetworkManager
 systemctl mask NetworkManager-wait-online
 ```
 
+***
 安装一个图形界面,比如kde
 
 ```shell
 pacman -S plasma-desktop
 systemctl start sddm.service  
+```
+
+一些gtk应用的plasma panel托盘图标模糊且右键菜单比较奇怪  
+解决方法: 安装libappindicator-gtk3 libappindicator-gtk2
+
+```shell
+pacman -S libappindicator-gtk3 libappindicator-gtk2
 ```
 
 安装一个终端,不然进入图形界面只能进tty输入命令
