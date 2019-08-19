@@ -217,7 +217,7 @@ vim /etc/systemd/system/powertop.service
 Description=Powertop tunings
 
 [Service]
-ExecStart=/usr/bin/powertop --auto-tune && echo 'on' > '/sys/bus/usb/devices/1-1/power/control' && echo 'on' > '/sys/bus/usb/devices/1-4/power/control' && echo 'on' > '/sys/bus/usb/devices/usb1/power/control' && echo 'on' > '/sys/bus/usb/devices/usb2/power/control' && echo 'on' > '/sys/bus/usb/devices/1-7/power/control'
+ExecStart=/usr/bin/powertop --auto-tune && echo 'on' | tee '/sys/bus/usb/devices/1-1/power/control' && echo 'on' | tee '/sys/bus/usb/devices/1-4/power/control' && echo 'on' | tee '/sys/bus/usb/devices/usb1/power/control' && echo 'on' | tee '/sys/bus/usb/devices/usb2/power/control' && echo 'on' | tee '/sys/bus/usb/devices/1-7/power/control'
 RemainAfterExit=true
 
 [Install]
