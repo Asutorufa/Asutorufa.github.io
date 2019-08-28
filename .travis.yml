@@ -32,7 +32,7 @@ script:
 # 设置 git push 别名，邮箱。替换真实 token 到 _config.yml 文件中，然后 deploy 部署
 after_script:
   - git config user.name "Asutorufa"
-  - git config user.email "mundanedefoliation@gmail.com"
+  - git config user.email "16442314+Asutorufa@users.noreply.github.com "
   - git clone https://github.com/Asutorufa/Asutorufa.github.io.git .deploy_git # 解决 commit 清空问题
   - cd .deploy_git
   - git checkout master
