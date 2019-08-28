@@ -7,7 +7,10 @@ title: アストルフォの幻想郷
 subtitle: Talk is cheap,Show me the code.
 description: アンドロイドです。
 author: アストルフォ
-language: zh-Hans #zh-CN
+language: 
+- zh-Hans #zh-CN
+- en
+- ja
 timezone: Asia/Shanghai
 
 # URL
@@ -79,8 +82,8 @@ theme: next
 deploy:
 - type: git
   repo: #repository:
-   github: git@github.com:Asutorufa/Asutorufa.github.io.git
-   coding: git@git.coding.net:defoliation/defoliation.git
+   github: https://github.com/Asutorufa/Asutorufa.github.io.git
+   #coding: git@git.coding.net:defoliation/defoliation.git
   branch: master
 #- type: baidu_url_submitter
 
