@@ -82,7 +82,7 @@ theme: next
 deploy:
 - type: git
   repo: #repository:
-   github: https://github.com/Asutorufa/Asutorufa.github.io.git
+   github: https://gh_token@github.com/Asutorufa/Asutorufa.github.io.git
    #coding: git@git.coding.net:defoliation/defoliation.git
   branch: master
 #- type: baidu_url_submitter
