@@ -217,7 +217,7 @@ vim /etc/systemd/system/powertop.service
 Description=Powertop tunings
 
 [Service]
-ExecStart=/usr/bin/powertop --auto-tune && echo 'on' | tee '/sys/bus/usb/devices/1-1/power/control' && echo 'on' | tee '/sys/bus/usb/devices/1-4/power/control' && echo 'on' | tee '/sys/bus/usb/devices/usb1/power/control' && echo 'on' | tee '/sys/bus/usb/devices/usb2/power/control' && echo 'on' | tee '/sys/bus/usb/devices/1-7/power/control'
+ExecStart=/usr/bin/powertop --auto-tune && echo 'on'
 RemainAfterExit=true
 
 [Install]
@@ -226,7 +226,7 @@ WantedBy=multi-user.target
 systemctl enable powertop.service
 ```
 
-除了第一句,其他命令是禁用usb的休眠,不然鼠标用起来很难受(**注意:每个电脑的命令都不同,请自行用powertop查看相应的命令**)
+以下shell是禁用usb的休眠,不然鼠标用起来很难受(**注意:每个电脑的命令都不同,请自行用powertop查看相应的命令**)
 
 ```shell
 # Autosuspend for USB device USB Optical Mouse [PixArt]
@@ -242,6 +242,13 @@ echo 'on' > '/sys/bus/usb/devices/1-7/power/control';
 ```
 
 ***
+rider 需要安装moon(.net framework/.net core)
+
+```shell
+pacman -S moon
+```
+
+***
 已知问题:
 
 kde discover 无法使用pacman backend  
@@ -251,5 +258,7 @@ discover 使用了 packagekit,使用 pkcon 需要root权限,按理来说packagek
 新安装的话 索性不装就行了  
 
 ***
+
 >1. 此方法参考自 <a id='1'>[用户添加](https://www.jianshu.com/p/6eaf642a94ed)</a>
->2. 此方法参考自 <a id='2'>[PulseAudio can not load bluetooth module](https://askubuntu.com/questions/689281/pulseaudio-can-not-load-bluetooth-module)</a>
+>2. 此方法参考自 <a id='2'>[PulseAudio can not load bluetooth module](https://askubuntu.com/questions/689281/pulseaudio-can-not-load-bluetooth-module)
+</a>
