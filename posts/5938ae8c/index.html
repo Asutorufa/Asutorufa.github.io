@@ -58,7 +58,7 @@
 
 
 
-  <meta name="keywords" content="android,java,">
+  <meta name="keywords" content="nodejs,">
 
 
 
@@ -69,18 +69,18 @@
 
 
 
-<meta name="description" content="一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些   安装所需工具termux上安装 ecj 和 dx就可以了 1apt install ecj dx  编译为class文件1ecj XXX.java">
-<meta name="keywords" content="android,java">
+<meta name="description" content="研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then. 1234567891011async">
+<meta name="keywords" content="nodejs">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安卓使用dalvikvm运行java(termux运行java)">
-<meta property="og:url" content="https://Asutorufa.github.io/posts/8b98169e/index.html">
+<meta property="og:title" content="nodejs异步回调函数">
+<meta property="og:url" content="https://Asutorufa.github.io/posts/5938ae8c/index.html">
 <meta property="og:site_name" content="アストルフォの幻想郷">
-<meta property="og:description" content="一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些   安装所需工具termux上安装 ecj 和 dx就可以了 1apt install ecj dx  编译为class文件1ecj XXX.java">
+<meta property="og:description" content="研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then. 1234567891011async">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-30T14:56:42.096Z">
+<meta property="og:updated_time" content="2019-08-30T14:56:42.092Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="安卓使用dalvikvm运行java(termux运行java)">
-<meta name="twitter:description" content="一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些   安装所需工具termux上安装 ecj 和 dx就可以了 1apt install ecj dx  编译为class文件1ecj XXX.java">
+<meta name="twitter:title" content="nodejs异步回调函数">
+<meta name="twitter:description" content="研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then. 1234567891011async">
 
 
 
@@ -110,14 +110,14 @@
 
 
 
-  <link rel="canonical" href="https://Asutorufa.github.io/posts/8b98169e/">
+  <link rel="canonical" href="https://Asutorufa.github.io/posts/5938ae8c/">
 
 
 
 
 
 
-  <title>安卓使用dalvikvm运行java(termux运行java) | アストルフォの幻想郷</title>
+  <title>nodejs异步回调函数 | アストルフォの幻想郷</title>
   
 
 
@@ -285,7 +285,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/8b98169e/">
+    <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/5938ae8c/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="アストルフォ">
@@ -302,7 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">安卓使用dalvikvm运行java(termux运行java)</h1>
+          <h1 class="post-title" itemprop="name headline">nodejs异步回调函数</h1>
         
 
         <div class="post-meta">
@@ -314,8 +314,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-02T23:02:35+08:00">
-                2019-02-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-30T22:45:20+08:00">
+                2019-08-30
               </time>
             
 
@@ -349,8 +349,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
+                  <a href="/categories/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
                   </a>
                 </span>
 
@@ -386,18 +386,9 @@
       
 
       
-        <p>一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件<br>发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些  </p>
-<h2 id="安装所需工具"><a href="#安装所需工具" class="headerlink" title="安装所需工具"></a>安装所需工具</h2><p>termux上安装 ecj 和 dx就可以了</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt <span class="keyword">install</span> ecj dx</span><br></pre></td></tr></table></figure>
+        <p>研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.<br>如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">        resolve(<span class="string">"test"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">test2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">await</span> test())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test2()</span><br></pre></td></tr></table></figure>
 
-<h2 id="编译为class文件"><a href="#编译为class文件" class="headerlink" title="编译为class文件"></a>编译为class文件</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ecj</span> <span class="selector-tag">XXX</span><span class="selector-class">.java</span></span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<h2 id="编译成dex文件"><a href="#编译成dex文件" class="headerlink" title="编译成dex文件"></a>编译成dex文件</h2><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">dx</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">dex</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">output=XXX</span><span class="string">.</span><span class="comment">dex</span> <span class="comment">XXX</span><span class="string">.</span><span class="comment">class</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="使用dalvikvm运行"><a href="#使用dalvikvm运行" class="headerlink" title="使用dalvikvm运行"></a>使用dalvikvm运行</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dalvikvm -cp XXX<span class="selector-class">.dex</span> XXX</span><br></pre></td></tr></table></figure>
-
-<p>参考: <a href="https://bbs.pediy.com/thread-184592.htm" target="_blank" rel="noopener">使用 dalvikvm 执行一个运行于命令行的 Hello World</a></p>
 
       
     </div>
@@ -418,7 +409,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://Asutorufa.github.io/posts/8b98169e/" title="安卓使用dalvikvm运行java(termux运行java)">https://Asutorufa.github.io/posts/8b98169e/</a>
+    <a href="https://Asutorufa.github.io/posts/5938ae8c/" title="nodejs异步回调函数">https://Asutorufa.github.io/posts/5938ae8c/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -433,9 +424,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/android/" rel="tag"># android</a>
-          
-            <a href="/tags/java/" rel="tag"># java</a>
+            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
           
         </div>
       
@@ -448,8 +437,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/e2b25bb8/" rel="next" title="用CIDR表示网段">
-                <i class="fa fa-chevron-left"></i> 用CIDR表示网段
+              <a href="/posts/e3707853/" rel="next" title="archlinux安装记录">
+                <i class="fa fa-chevron-left"></i> archlinux安装记录
               </a>
             
           </div>
@@ -457,10 +446,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/1e63e0e/" rel="prev" title="安卓通过adb添加电池用户白名单">
-                安卓通过adb添加电池用户白名单 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -517,17 +502,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -619,22 +595,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装所需工具"><span class="nav-number">1.</span> <span class="nav-text">安装所需工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译为class文件"><span class="nav-number">2.</span> <span class="nav-text">编译为class文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译成dex文件"><span class="nav-number">3.</span> <span class="nav-text">编译成dex文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用dalvikvm运行"><span class="nav-number">4.</span> <span class="nav-text">使用dalvikvm运行</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

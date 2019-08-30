@@ -77,7 +77,7 @@
 <meta property="og:site_name" content="アストルフォの幻想郷">
 <meta property="og:description" content="详细安装教程请参考arch wiki Installation guide (简体中文),此处只记录安装后遇到的问题. grub更新菜单   1grub-mkconfig -o /boot/grub/grub.cfg  安装os-prober让grub检测到其他系统并自动创建引导 1pacman -S os-prober  使用system-boot(就是直接使用linux内核引导系统,不再需要g">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-28T11:47:58.670Z">
+<meta property="og:updated_time" content="2019-08-30T14:56:42.092Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="archlinux安装记录">
 <meta name="twitter:description" content="详细安装教程请参考arch wiki Installation guide (简体中文),此处只记录安装后遇到的问题. grub更新菜单   1grub-mkconfig -o /boot/grub/grub.cfg  安装os-prober让grub检测到其他系统并自动创建引导 1pacman -S os-prober  使用system-boot(就是直接使用linux内核引导系统,不再需要g">
@@ -330,8 +330,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-28T19:47:58+08:00">
-                2019-08-28
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-30T22:56:42+08:00">
+                2019-08-30
               </time>
             
           </span>
@@ -478,10 +478,14 @@
 
 <hr>
 <p>开启powertop的自动优化节省电量:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">安装powertop</span></span><br><span class="line">pacman -S powertop</span><br><span class="line"><span class="meta">#</span><span class="bash">开机自动启用</span></span><br><span class="line">vim /etc/systemd/system/powertop.service</span><br><span class="line"><span class="meta">#</span><span class="bash">填入以下内容</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=Powertop tunings</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/bin/powertop --auto-tune &amp;&amp; echo 'on' | tee '/sys/bus/usb/devices/1-1/power/control' &amp;&amp; echo 'on' | tee '/sys/bus/usb/devices/1-4/power/control' &amp;&amp; echo 'on' | tee '/sys/bus/usb/devices/usb1/power/control' &amp;&amp; echo 'on' | tee '/sys/bus/usb/devices/usb2/power/control' &amp;&amp; echo 'on' | tee '/sys/bus/usb/devices/1-7/power/control'</span><br><span class="line">RemainAfterExit=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"><span class="meta">#</span><span class="bash"> 启用</span></span><br><span class="line">systemctl enable powertop.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">安装powertop</span></span><br><span class="line">pacman -S powertop</span><br><span class="line"><span class="meta">#</span><span class="bash">开机自动启用</span></span><br><span class="line">vim /etc/systemd/system/powertop.service</span><br><span class="line"><span class="meta">#</span><span class="bash">填入以下内容</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=Powertop tunings</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/bin/powertop --auto-tune &amp;&amp; echo 'on'</span><br><span class="line">RemainAfterExit=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"><span class="meta">#</span><span class="bash"> 启用</span></span><br><span class="line">systemctl enable powertop.service</span><br></pre></td></tr></table></figure>
 
-<p>除了第一句,其他命令是禁用usb的休眠,不然鼠标用起来很难受(<strong>注意:每个电脑的命令都不同,请自行用powertop查看相应的命令</strong>)</p>
+<p>以下shell是禁用usb的休眠,不然鼠标用起来很难受(<strong>注意:每个电脑的命令都不同,请自行用powertop查看相应的命令</strong>)</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Autosuspend <span class="keyword">for</span> USB device USB Optical Mouse [PixArt]</span></span><br><span class="line">echo 'on' &gt; '/sys/bus/usb/devices/1-1/power/control';</span><br><span class="line"><span class="meta">#</span><span class="bash"> Autosuspend <span class="keyword">for</span> USB device HP Wide Vision HD [Generic]</span></span><br><span class="line">echo 'on' &gt; '/sys/bus/usb/devices/1-4/power/control';</span><br><span class="line"><span class="meta">#</span><span class="bash"> Autosuspend <span class="keyword">for</span> USB device xHCI Host Controller [usb1]</span></span><br><span class="line">echo 'on' &gt; '/sys/bus/usb/devices/usb1/power/control';</span><br><span class="line"><span class="meta">#</span><span class="bash"> Autosuspend <span class="keyword">for</span> USB device xHCI Host Controller [usb2]</span></span><br><span class="line">echo 'on' &gt; '/sys/bus/usb/devices/usb2/power/control';</span><br><span class="line"><span class="meta">#</span><span class="bash"> Autosuspend <span class="keyword">for</span> unknown USB device 1-7 (8087:0a2a)</span></span><br><span class="line">echo 'on' &gt; '/sys/bus/usb/devices/1-7/power/control';</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>rider 需要安装moon(.net framework/.net core)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S moon</span><br></pre></td></tr></table></figure>
 
 <hr>
 <p>已知问题:</p>
@@ -554,6 +558,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/5938ae8c/" rel="prev" title="nodejs异步回调函数">
+                nodejs异步回调函数 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -628,7 +636,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -639,7 +647,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -650,7 +658,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
