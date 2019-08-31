@@ -249,6 +249,14 @@ pacman -S moon
 ```
 
 ***
+
+编译汇编语言 需要安装nasm
+
+```shell
+pacman -S nasm
+```
+
+***
 已知问题:
 
 kde discover 无法使用pacman backend  
