@@ -101,6 +101,45 @@ pacman -S konsole
 ```
 
 ***
+无法检测到蓝牙适配器:
+安装`bluez`,`bluez-utils`
+
+```shell
+pacman -S bluez bluez-utils
+```
+
+首先确定内核的蓝牙模块已载入
+
+```shell
+modinfo btusb
+```
+
+如果没有的话就是没载入,手动载入:
+
+```shell
+modprobe btusb
+```
+
+开启bluetooth服务
+
+```shell
+systemctl start bluetooth
+# 开机自启
+systemctl enable bluetooth
+```
+
+开机后自动启动:  
+修改 `/etc/bluetooth/main.conf`
+
+```conf
+[Policy]
+# 这一句的注释删除 并将false改成true
+AutoEnable=true
+```
+
+已知问题:
+有时候会崩溃,且无法找到蓝牙适配器,使用`dmesg`查看错误日志.
+***
 蓝牙耳机可能载入模块失败
 
 ```shell
@@ -257,6 +296,7 @@ pacman -S nasm
 ```
 
 ***
+
 已知问题:
 
 kde discover 无法使用pacman backend  
