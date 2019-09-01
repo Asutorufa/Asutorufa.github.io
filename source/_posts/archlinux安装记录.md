@@ -40,7 +40,7 @@ kbuildsycoca5 --noincremental
 ```
 
 ***
-新增用户<sup><a href='#1'>[1]</a></sup>:  
+新增用户<sup><a href='#1'><font color=red>[1]</font></a></sup>:  
 首先添加一个用户，并把它加到wheel组  
 
 ```shell
@@ -154,7 +154,7 @@ pactl unload-module  module-bluetooth-discover
 pactl   load-module  module-bluetooth-discover
 ```
 
-长期解决方法<sup><a href='#2'>[2]</a></sup>:
+长期解决方法<sup><a href='#2'><font color=red>[2]</font></a></sup>:
 
 Edit the file:
 
