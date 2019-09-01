@@ -284,6 +284,170 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/4f95e9f6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="アストルフォ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="アストルフォの幻想郷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/4f95e9f6/" itemprop="url">汇编语言学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T13:57:00+08:00">
+                2019-09-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T15:55:36+08:00">
+                2019-09-01
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/assembly/" itemprop="url" rel="index">
+                    <span itemprop="name">assembly</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>最近想了解一下c是如何编译为汇编语言的<br>首先写了一个相当简单的c</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdio.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> c = a + b;</span><br><span class="line">    <span class="keyword">int</span> d = <span class="number">3</span> + <span class="number">4</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d"</span>,c,d);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>gcc -S</code>编译为汇编语言:</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">	.file</span>	<span class="string">"hello.c"</span></span><br><span class="line"><span class="meta">	.text</span></span><br><span class="line"><span class="meta">	.section</span>	.rodata</span><br><span class="line"><span class="symbol">.LC0:</span></span><br><span class="line"><span class="meta">	.string</span>	<span class="string">"%d %d"</span></span><br><span class="line"><span class="meta">	.text</span></span><br><span class="line"><span class="meta">	.globl</span>	main</span><br><span class="line"><span class="meta">	.type</span>	main, @function</span><br><span class="line"><span class="symbol">main:</span></span><br><span class="line"><span class="symbol">.LFB0:</span></span><br><span class="line"><span class="meta">	.cfi_startproc</span></span><br><span class="line">	pushq	%rbp</span><br><span class="line"><span class="meta">	.cfi_def_cfa_offset</span> <span class="number">16</span></span><br><span class="line"><span class="meta">	.cfi_offset</span> <span class="number">6</span>, -<span class="number">16</span></span><br><span class="line">	<span class="keyword">movq</span>	%rsp, %rbp</span><br><span class="line"><span class="meta">	.cfi_def_cfa_register</span> <span class="number">6</span></span><br><span class="line">	subq	<span class="number">$16</span>, %rsp</span><br><span class="line">	movl	<span class="number">$1</span>, -<span class="number">16</span>(%rbp)</span><br><span class="line">	movl	<span class="number">$2</span>, -<span class="number">12</span>(%rbp)</span><br><span class="line">	movl	-<span class="number">16</span>(%rbp), %edx</span><br><span class="line">	movl	-<span class="number">12</span>(%rbp), %eax</span><br><span class="line">	addl	%edx, %eax</span><br><span class="line">	movl	%eax, -<span class="number">8</span>(%rbp)</span><br><span class="line">	movl	<span class="number">$7</span>, -<span class="number">4</span>(%rbp)</span><br><span class="line">	movl	-<span class="number">4</span>(%rbp), %edx</span><br><span class="line">	movl	-<span class="number">8</span>(%rbp), %eax</span><br><span class="line">	movl	%eax, %esi</span><br><span class="line">	leaq	.LC0(%rip), %rdi</span><br><span class="line">	movl	<span class="number">$0</span>, %eax</span><br><span class="line">	<span class="keyword">call</span>	printf@PLT</span><br><span class="line">	movl	<span class="number">$0</span>, %eax</span><br><span class="line">	<span class="keyword">leave</span></span><br><span class="line"><span class="meta">	.cfi_def_cfa</span> <span class="number">7</span>, <span class="number">8</span></span><br><span class="line">	<span class="keyword">ret</span></span><br><span class="line"><span class="meta">	.cfi_endproc</span></span><br><span class="line"><span class="symbol">.LFE0:</span></span><br><span class="line"><span class="meta">	.size</span>	main, .-main</span><br><span class="line"><span class="meta">	.ident</span>	<span class="string">"GCC: (GNU) 9.1.0"</span></span><br><span class="line"><span class="meta">	.section</span>	.note.GNU-stack,<span class="string">""</span>,@progbits</span><br></pre></td></tr></table></figure>
+
+<p>以”点”做为前缀的指令都是用来指导汇编器的命令。<br>精简一下差不多这样:
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/posts/4f95e9f6/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/5938ae8c/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -331,7 +495,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T11:03:42+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T15:55:36+08:00">
                 2019-09-01
               </time>
             
@@ -487,7 +651,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T11:03:42+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T15:55:36+08:00">
                 2019-09-01
               </time>
             
@@ -653,7 +817,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T11:03:42+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T15:55:36+08:00">
                 2019-09-01
               </time>
             
@@ -818,7 +982,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T11:03:42+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T15:55:36+08:00">
                 2019-09-01
               </time>
             
@@ -976,7 +1140,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T11:03:42+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T15:55:36+08:00">
                 2019-09-01
               </time>
             
@@ -1140,7 +1304,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T11:03:42+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T15:55:36+08:00">
                 2019-09-01
               </time>
             
@@ -1313,7 +1477,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T11:03:42+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T15:55:36+08:00">
                 2019-09-01
               </time>
             
@@ -1497,7 +1661,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T11:03:42+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T15:55:36+08:00">
                 2019-09-01
               </time>
             
@@ -1662,7 +1826,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T11:03:42+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T15:55:36+08:00">
                 2019-09-01
               </time>
             
@@ -1764,167 +1928,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/e2b25bb8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="アストルフォ">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="アストルフォの幻想郷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/e2b25bb8/" itemprop="url">用CIDR表示网段</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-02T22:34:07+08:00">
-                2019-02-02
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T11:03:42+08:00">
-                2019-09-01
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络/" itemprop="url" rel="index">
-                    <span itemprop="name">网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>我们知道一般CIDR(无类别域间路由)网段的表示为:<strong>192.168.0.0/24</strong>这种形式</p>
-<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><p>首先我们得知道ip地址是如何来的<br>ipv4的地址是用32位二进制数表示的<br>如: 255.255.255.0 -&gt; 11111111.11111111.11111111.00000000</p>
-<h2 id="网络前缀"><a href="#网络前缀" class="headerlink" title="网络前缀"></a>网络前缀</h2><p><strong>192.168.0.0/24</strong>中的24就是网络前缀,网络前缀可转化为网络掩码,24表示网络掩码的前24位为1 </p>
-<h2 id="网络掩码"><a href="#网络掩码" class="headerlink" title="网络掩码"></a>网络掩码</h2><p>「网络掩码」又叫「子网掩码」、「地址掩码」、「子網路遮罩」（subnet mask），它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。      –维基百科
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/e2b25bb8/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1979,7 +1982,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1990,7 +1993,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2001,7 +2004,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
