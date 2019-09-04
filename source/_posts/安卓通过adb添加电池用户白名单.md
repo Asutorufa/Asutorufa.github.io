@@ -6,6 +6,7 @@ categories:
   - android
 abbrlink: 1e63e0e
 date: 2019-02-02 23:15:29
+updated: 2019-02-02 23:15:29
 ---
 安卓6.0引入了doze来节省电量,但某些国产ui(如锤子)阉割了这个菜单,可通过adb添加  
 

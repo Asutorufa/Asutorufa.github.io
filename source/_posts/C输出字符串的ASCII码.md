@@ -1,12 +1,13 @@
 ---
-layout: pahe
 title: C输出字符串的ASCII码
-date: 2017-10-08 09:38:24
-categories: 
+categories:
   - 编程
 tags:
-  - c语言 
+  - c语言
   - 编程
+abbrlink: 1cf9e3fb
+date: 2017-10-08 09:38:24
+updated: 2017-10-08 09:38:24
 ---
 ``` bash
 #include <stdio.h>

@@ -7,6 +7,7 @@ categories:
   - linux
 abbrlink: b6b8953
 date: 2018-06-28 13:43:41
+updated: 2018-06-28 13:43:41
 ---
 偶尔发现snap会自动升级core且不删除旧版，在'/snap/core'
 会发现好几个版本的文件夹。

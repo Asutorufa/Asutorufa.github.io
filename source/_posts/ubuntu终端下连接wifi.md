@@ -6,6 +6,7 @@ categories:
   - linux
 abbrlink: fb6d8628
 date: 2018-06-23 12:24:10
+updated: 2018-06-23 12:24:10
 ---
 
 ## 首先使用rfkill查看你的wifi设备是否被停用

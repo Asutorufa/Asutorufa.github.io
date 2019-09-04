@@ -7,6 +7,7 @@ categories:
   - android
 abbrlink: 8b98169e
 date: 2019-02-02 23:02:35
+updated: 2019-02-02 23:02:35
 ---
 一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件  
 发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些  

@@ -8,6 +8,7 @@ categories:
   - linux
 abbrlink: 3b8b96de
 date: 2018-09-08 19:02:47
+updated: 2018-09-08 19:02:47
 ---
 
 使用**xrandr**显示可支持的显卡
