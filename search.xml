@@ -391,7 +391,7 @@
   </entry>
   <entry>
     <title><![CDATA[C输出字符串的ASCII码]]></title>
-    <url>%2Fposts%2Fundefined%2F</url>
+    <url>%2Fposts%2F1cf9e3fb%2F</url>
     <content type="text"><![CDATA[123456789101112#include &lt;stdio.h&gt;int main()&#123;char str[]=”This is a string!”;int i=0;while(str[i]!=’\0′)&#123;printf(“%c=%d\n”,str[i],str[i]);i++;&#125;printf(“%c=%d\n”,str[i],str[i]);&#125;]]></content>
       <categories>
         <category>编程</category>
