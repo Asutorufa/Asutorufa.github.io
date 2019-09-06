@@ -298,6 +298,14 @@ pacman -S nasm
 
 ***
 
+chrome/chromium 即使已经设置为默认浏览器也会提示设置为默认浏览器:  
+解决方法:
+
+>What has worked for me is go to `Settings -> Applications -> File Associations` and there, filter with `html`. Then for the entries `xhtml+xml` and `html`, you can move `Google Chrome` to the first position of the preference order.<a href="#3"><sup><font color=red>[3]</font></sup></a>  
+
+个人测试 只要把`xhtml+xml`的默认开启最高优先级应用设置为chromium/chrome就行了
+
+***
 已知问题:
 
 kde discover 无法使用pacman backend  
@@ -311,3 +319,4 @@ discover 使用了 packagekit,使用 pkcon 需要root权限,按理来说packagek
 >1. 此方法参考自 <a id='1'>[用户添加](https://www.jianshu.com/p/6eaf642a94ed)</a>
 >2. 此方法参考自 <a id='2'>[PulseAudio can not load bluetooth module](https://askubuntu.com/questions/689281/pulseaudio-can-not-load-bluetooth-module)
 </a>
+>3. 此方法来自 <a id="3">[Plasma wont set Chromium as default browser](https://bbs.archlinux.org/viewtopic.php?id=198432)</a>
