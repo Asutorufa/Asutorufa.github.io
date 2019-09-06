@@ -77,7 +77,7 @@
 <meta property="og:site_name" content="アストルフォの幻想郷">
 <meta property="og:description" content="详细安装教程请参考arch wiki Installation guide (简体中文),此处只记录安装后遇到的问题. grub更新菜单   1grub-mkconfig -o /boot/grub/grub.cfg  安装os-prober让grub检测到其他系统并自动创建引导 1pacman -S os-prober  使用system-boot(就是直接使用linux内核引导系统,不再需要g">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-30T16:18:40.000Z">
+<meta property="og:updated_time" content="2019-09-05T16:21:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="archlinux安装记录">
 <meta name="twitter:description" content="详细安装教程请参考arch wiki Installation guide (简体中文),此处只记录安装后遇到的问题. grub更新菜单   1grub-mkconfig -o /boot/grub/grub.cfg  安装os-prober让grub检测到其他系统并自动创建引导 1pacman -S os-prober  使用system-boot(就是直接使用linux内核引导系统,不再需要g">
@@ -330,8 +330,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-31T00:18:40+08:00">
-                2019-08-31
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-06T00:21:27+08:00">
+                2019-09-06
               </time>
             
           </span>
@@ -509,6 +509,12 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S nasm</span><br></pre></td></tr></table></figure>
 
 <hr>
+<p>chrome/chromium 即使已经设置为默认浏览器也会提示设置为默认浏览器:<br>解决方法:</p>
+<blockquote>
+<p>What has worked for me is go to <code>Settings -&gt; Applications -&gt; File Associations</code> and there, filter with <code>html</code>. Then for the entries <code>xhtml+xml</code> and <code>html</code>, you can move <code>Google Chrome</code> to the first position of the preference order.<a href="#3"><sup><font color="red">[3]</font></sup></a>  </p>
+</blockquote>
+<p>个人测试 只要把<code>xhtml+xml</code>的默认开启最高优先级应用设置为chromium/chrome就行了</p>
+<hr>
 <p>已知问题:</p>
 <p>kde discover 无法使用pacman backend<br>discover 使用了 packagekit,使用 pkcon 需要root权限,按理来说packagekit会自动获取root且无需输入密码,但discover无法获取root已无法已root用户运行,问题未知,放弃解决<br>解决方法:<br>卸载discover packagekit packagekit-qt5<br>新安装的话 索性不装就行了  </p>
 <hr>
@@ -516,6 +522,7 @@
 <ol>
 <li>此方法参考自 <a id="1"><a href="https://www.jianshu.com/p/6eaf642a94ed" target="_blank" rel="noopener">用户添加</a></a></li>
 <li>此方法参考自 <a id="2"><a href="https://askubuntu.com/questions/689281/pulseaudio-can-not-load-bluetooth-module" target="_blank" rel="noopener">PulseAudio can not load bluetooth module</a></a></li>
+<li>此方法来自 <a id="3"><a href="https://bbs.archlinux.org/viewtopic.php?id=198432" target="_blank" rel="noopener">Plasma wont set Chromium as default browser</a></a></li>
 </ol>
 </blockquote>
 
