@@ -508,6 +508,22 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S xsp</span><br></pre></td></tr></table></figure>
 
 <hr>
+<p>vscode 开发<code>asp.net</code>:<br>安装 moon dotnet</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S moon dotnet-sdk</span><br></pre></td></tr></table></figure>
+
+<p>dotnet 安装 dotnet-dev-certs 生成证书:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet tool install --global dotnet-dev-certs</span><br></pre></td></tr></table></figure>
+
+<p>export要加入.bashrc 或者每次开始前执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH="$PATH:/home/[user]/.dotnet/tools"</span><br></pre></td></tr></table></figure>
+
+<p>生成证书</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet dev-certs https</span><br></pre></td></tr></table></figure>
+
+<p>如果想卸载</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet tool uninstall --global dotnet-dev-certs</span><br></pre></td></tr></table></figure>
+
+<hr>
 <p>编译汇编语言 需要安装nasm</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S nasm</span><br></pre></td></tr></table></figure>
 
