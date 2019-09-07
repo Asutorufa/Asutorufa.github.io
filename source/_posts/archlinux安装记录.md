@@ -288,6 +288,12 @@ rider 需要安装moon(.net framework/.net core)
 pacman -S moon
 ```
 
+服务端需要mono-xsp,使用aur安装:
+
+```shell
+yay -S xsp
+```
+
 ***
 
 编译汇编语言 需要安装nasm
