@@ -296,6 +296,38 @@ yay -S xsp
 
 ***
 
+vscode 开发`asp.net`:  
+安装 moon dotnet
+
+```shell
+pacman -S moon dotnet-sdk
+```
+
+dotnet 安装 dotnet-dev-certs 生成证书:
+
+```shell
+dotnet tool install --global dotnet-dev-certs
+```
+
+export要加入.bashrc 或者每次开始前执行
+
+```shell
+export PATH="$PATH:/home/[user]/.dotnet/tools"
+```
+
+生成证书
+
+```shell
+dotnet dev-certs https
+```
+
+如果想卸载
+
+```shell
+dotnet tool uninstall --global dotnet-dev-certs
+```
+
+***
 编译汇编语言 需要安装nasm
 
 ```shell
