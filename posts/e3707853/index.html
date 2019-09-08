@@ -422,6 +422,9 @@
 <p>安装一个图形界面,比如kde</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -S plasma-desktop</span><br><span class="line">systemctl start sddm.service</span><br></pre></td></tr></table></figure>
 
+<p>缩略图生成<br>若要在桌面和 Dolphin 内为媒体或文档文件生成缩略图，安装 <code>kdegraphics-thumbnailers</code>，<code>ffmpegthumbs</code>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S kdegraphics-thumbnailers ffmpegthumbs</span><br></pre></td></tr></table></figure>
+
 <p>一些gtk应用的plasma panel托盘图标模糊且右键菜单比较奇怪<br>解决方法: 安装libappindicator-gtk3 libappindicator-gtk2</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S libappindicator-gtk3 libappindicator-gtk2</span><br></pre></td></tr></table></figure>
 
