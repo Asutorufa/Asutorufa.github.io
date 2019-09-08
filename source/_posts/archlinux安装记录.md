@@ -88,6 +88,13 @@ pacman -S plasma-desktop
 systemctl start sddm.service  
 ```
 
+缩略图生成  
+若要在桌面和 Dolphin 内为媒体或文档文件生成缩略图，安装 `kdegraphics-thumbnailers`，`ffmpegthumbs`。
+
+```shell
+pacman -S kdegraphics-thumbnailers ffmpegthumbs
+```
+
 一些gtk应用的plasma panel托盘图标模糊且右键菜单比较奇怪  
 解决方法: 安装libappindicator-gtk3 libappindicator-gtk2
 
