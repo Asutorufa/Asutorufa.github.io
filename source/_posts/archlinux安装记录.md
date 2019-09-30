@@ -351,6 +351,16 @@ chrome/chromium 即使已经设置为默认浏览器也会提示设置为默认�
 个人测试 只要把`xhtml+xml`的默认开启最高优先级应用设置为chromium/chrome就行了
 
 ***
+
+archLinux进行openGl的开发  
+安装glfw-x11 glad-c-git
+
+```shell
+yay -S glfw-x11 glad-c-git
+```
+
+顺便推荐一个glsl的教程: [LearnOpenGL CN](https://learnopengl-cn.github.io/)
+***
 已知问题:
 
 kde discover 无法使用pacman backend  
