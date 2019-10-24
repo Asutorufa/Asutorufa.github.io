@@ -400,6 +400,16 @@ cd './mysql-test' ; perl mysql-test-run.pl
 ```
 
 ***
+使用redash:  
+安装`docker-compose`(此处可改docker的root目录,建议谷歌), 手动安装时需要临时使用`pwgen`生成密钥,安装完成后可卸载.  
+安装时参考ubuntu的安装脚本 稍微改改就行了
+
+```shell
+pacman -S docker-compose pwgen
+pacman -Rs pwgen
+```
+
+***
 已知问题:
 
 kde discover 无法使用pacman backend  
