@@ -561,6 +561,10 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">You can start the MariaDB daemon with:</span><br><span class="line">cd '.' ; ./bin/mysqld_safe --datadir='./data'</span><br><span class="line"></span><br><span class="line">You can test the MariaDB daemon with mysql-test-run.pl</span><br><span class="line">cd './mysql-test' ; perl mysql-test-run.pl</span><br></pre></td></tr></table></figure>
 
 <hr>
+<p>使用redash:<br>安装<code>docker-compose</code>(此处可改docker的root目录,建议谷歌), 手动安装时需要临时使用<code>pwgen</code>生成密钥,安装完成后可卸载.<br>安装时参考ubuntu的安装脚本 稍微改改就行了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -S docker-compose pwgen</span><br><span class="line">pacman -Rs pwgen</span><br></pre></td></tr></table></figure>
+
+<hr>
 <p>已知问题:</p>
 <p>kde discover 无法使用pacman backend<br>discover 使用了 packagekit,使用 pkcon 需要root权限,按理来说packagekit会自动获取root且无需输入密码,但discover无法获取root已无法已root用户运行,问题未知,放弃解决<br>解决方法:<br>卸载discover packagekit packagekit-qt5<br>新安装的话 索性不装就行了  </p>
 <hr>
