@@ -117,7 +117,7 @@ sitemap:
 #   path: baidu_urls.txt ## 文本文档的地址， 新链接会保存在此文本文档里
 
 math:
-  engine: 'mathjax' #'mathjax' # or 'katex'
+  engine: 'katex' #'mathjax' # or 'katex'
   mathjax: 
 #src: custom_mathjax_source
     config:
