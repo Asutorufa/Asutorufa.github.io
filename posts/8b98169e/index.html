@@ -388,14 +388,14 @@
       
         <p>一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件<br>发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些  </p>
 <h2 id="安装所需工具"><a href="#安装所需工具" class="headerlink" title="安装所需工具"></a>安装所需工具</h2><p>termux上安装 ecj 和 dx就可以了</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt <span class="keyword">install</span> ecj dx</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install ecj dx</span><br></pre></td></tr></table></figure>
 
-<h2 id="编译为class文件"><a href="#编译为class文件" class="headerlink" title="编译为class文件"></a>编译为class文件</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ecj</span> <span class="selector-tag">XXX</span><span class="selector-class">.java</span></span><br></pre></td></tr></table></figure>
+<h2 id="编译为class文件"><a href="#编译为class文件" class="headerlink" title="编译为class文件"></a>编译为class文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ecj XXX.java</span><br></pre></td></tr></table></figure>
 
 <a id="more"></a>
-<h2 id="编译成dex文件"><a href="#编译成dex文件" class="headerlink" title="编译成dex文件"></a>编译成dex文件</h2><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">dx</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">dex</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">output=XXX</span><span class="string">.</span><span class="comment">dex</span> <span class="comment">XXX</span><span class="string">.</span><span class="comment">class</span></span><br></pre></td></tr></table></figure>
+<h2 id="编译成dex文件"><a href="#编译成dex文件" class="headerlink" title="编译成dex文件"></a>编译成dex文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dx --dex --output=XXX.dex XXX.class</span><br></pre></td></tr></table></figure>
 
-<h2 id="使用dalvikvm运行"><a href="#使用dalvikvm运行" class="headerlink" title="使用dalvikvm运行"></a>使用dalvikvm运行</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dalvikvm -cp XXX<span class="selector-class">.dex</span> XXX</span><br></pre></td></tr></table></figure>
+<h2 id="使用dalvikvm运行"><a href="#使用dalvikvm运行" class="headerlink" title="使用dalvikvm运行"></a>使用dalvikvm运行</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dalvikvm -cp XXX.dex XXX</span><br></pre></td></tr></table></figure>
 
 <p>参考: <a href="https://bbs.pediy.com/thread-184592.htm" target="_blank" rel="noopener">使用 dalvikvm 执行一个运行于命令行的 Hello World</a></p>
 
@@ -544,7 +544,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

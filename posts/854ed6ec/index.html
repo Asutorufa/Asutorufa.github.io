@@ -69,18 +69,18 @@
 
 
 
-<meta name="description" content="今天看到这样一种写法,原文链接:一个有趣的C语言程序 123456789#include &amp;lt;stdio.h&amp;gt; int main()&amp;#123;    int a = 1;    int x[5]=&amp;#123;1,2,3,4,5&amp;#125;;    printf(&quot;%d&quot;,a[x]);    return 0;&amp;#125;  1output: 2">
+<meta name="description" content="今天看到这样一种写法,原文链接:一个有趣的C语言程序 123456789#include &amp;lt;stdio.h&amp;gt; int main()&amp;#123;    int a = 1;    int x[5]=&amp;#123;1,2,3,4,5&amp;#125;;    printf(&amp;quot;%d&amp;quot;,a[x]);    return 0;&amp;#125;  1output: 2">
 <meta name="keywords" content="c语言,编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="c语言数组输出的另一种方法">
 <meta property="og:url" content="https://Asutorufa.github.io/posts/854ed6ec/index.html">
 <meta property="og:site_name" content="アストルフォの幻想郷">
-<meta property="og:description" content="今天看到这样一种写法,原文链接:一个有趣的C语言程序 123456789#include &amp;lt;stdio.h&amp;gt; int main()&amp;#123;    int a = 1;    int x[5]=&amp;#123;1,2,3,4,5&amp;#125;;    printf(&quot;%d&quot;,a[x]);    return 0;&amp;#125;  1output: 2">
+<meta property="og:description" content="今天看到这样一种写法,原文链接:一个有趣的C语言程序 123456789#include &amp;lt;stdio.h&amp;gt; int main()&amp;#123;    int a = 1;    int x[5]=&amp;#123;1,2,3,4,5&amp;#125;;    printf(&amp;quot;%d&amp;quot;,a[x]);    return 0;&amp;#125;  1output: 2">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-12-10T02:39:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="c语言数组输出的另一种方法">
-<meta name="twitter:description" content="今天看到这样一种写法,原文链接:一个有趣的C语言程序 123456789#include &amp;lt;stdio.h&amp;gt; int main()&amp;#123;    int a = 1;    int x[5]=&amp;#123;1,2,3,4,5&amp;#125;;    printf(&quot;%d&quot;,a[x]);    return 0;&amp;#125;  1output: 2">
+<meta name="twitter:description" content="今天看到这样一种写法,原文链接:一个有趣的C语言程序 123456789#include &amp;lt;stdio.h&amp;gt; int main()&amp;#123;    int a = 1;    int x[5]=&amp;#123;1,2,3,4,5&amp;#125;;    printf(&amp;quot;%d&amp;quot;,a[x]);    return 0;&amp;#125;  1output: 2">
 
 
 
@@ -387,16 +387,16 @@
 
       
         <p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173" target="_blank" rel="noopener">一个有趣的C语言程序</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> x[<span class="number">5</span>]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>,a[x]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a = 1;</span><br><span class="line">    int x[5]=&#123;1,2,3,4,5&#125;;</span><br><span class="line">    printf(&quot;%d&quot;,a[x]);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">output:</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">output: 2</span><br></pre></td></tr></table></figure>
 
 <a id="more"></a>
 <p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>所以就是x[1]对应的值：2</p>
 <p>由此我又想到了二位数组</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> x[<span class="number">2</span>][<span class="number">2</span>]=&#123;&#123;<span class="number">1</span>,<span class="number">2</span>&#125;,&#123;<span class="number">3</span>,<span class="number">4</span>&#125;&#125;;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>,a[a[x]]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a = 1;</span><br><span class="line">    int x[2][2]=&#123;&#123;1,2&#125;,&#123;3,4&#125;&#125;;</span><br><span class="line">    printf(&quot;%d&quot;,a[a[x]]);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">output:</span> <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">output: 4</span><br></pre></td></tr></table></figure>
 
 <p>感觉好神奇,而且在之前不知道在哪看到<strong>c语言的数组其实就是指针的合集</strong>,而且最近要用链表,更觉得链表和数组差不多.</p>
 
@@ -536,7 +536,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

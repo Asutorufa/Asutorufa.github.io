@@ -388,7 +388,7 @@
 
       
         
-          <h2 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h2><h3 id="提取特征量"><a href="#提取特征量" class="headerlink" title="提取特征量"></a>提取特征量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">         +------------+</span><br><span class="line">-------&gt; |人能想到的算法 | --------&gt; 答案</span><br><span class="line">         +------------+</span><br><span class="line"></span><br><span class="line">         +------------+</span><br><span class="line">         |人想到的特征量 |           +------------------+</span><br><span class="line">-------&gt; |            | --------&gt; |机器学习(svm,knn..) | --------&gt; 答案</span><br><span class="line">         |(SIF,HGD...)|           +------------------+</span><br><span class="line">         +------------+</span><br><span class="line"></span><br><span class="line">         +---------------+</span><br><span class="line">         |神经网络(深度学习)|</span><br><span class="line">-------&gt; | 特征量也由计算机 | --------&gt; 答案</span><br><span class="line">         |    自动寻找    |</span><br><span class="line">         +---------------+</span><br></pre></td></tr></table></figure>
+          <h2 id="一-预处理"><a href="#一-预处理" class="headerlink" title="一.预处理"></a>一.预处理</h2><h3 id="提取特征量"><a href="#提取特征量" class="headerlink" title="提取特征量"></a>提取特征量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">         +------------+</span><br><span class="line"><span class="meta">-------&gt;</span> |人能想到的算法 | --------&gt; 答案</span><br><span class="line">         +------------+</span><br><span class="line"></span><br><span class="line">         +------------------------+           +------------------+</span><br><span class="line"><span class="meta">-------&gt;</span> |人想到的特征量(SIF,HGD...)| --------&gt; |机器学习(svm,knn..) | --------&gt; 答案</span><br><span class="line">         +------------------------+           +------------------+</span><br><span class="line"></span><br><span class="line">         +---------------+</span><br><span class="line">         |神经网络(深度学习)|</span><br><span class="line"><span class="meta">-------&gt;</span> | 特征量也是由计算 | --------&gt; 答案</span><br><span class="line">         |   机自动寻找    |</span><br><span class="line">         +---------------+</span><br></pre></td></tr></table></figure>
 
 <h3 id="Hyper-Parameter"><a href="#Hyper-Parameter" class="headerlink" title="Hyper-Parameter"></a>Hyper-Parameter</h3><ol>
 <li>设定超参数的范围</li>
@@ -889,7 +889,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S os-prober</span><br></pre></td></tr></table></figure>
 
 <p>使用system-boot(就是直接使用linux内核引导系统,不再需要grub,如果有多系统不推荐,会把efi分区搞得很乱):</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -S efibootmgr dosfstools</span><br><span class="line"><span class="meta">#</span><span class="bash"> 此处注意:此处要把efi分区挂载为/boot,而非平常的/boot/efi</span></span><br><span class="line">bootctl install --path=/boot</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -S efibootmgr dosfstools</span><br><span class="line"><span class="meta">#</span> 此处注意:此处要把efi分区挂载为/boot,而非平常的/boot/efi</span><br><span class="line">bootctl install --path=/boot</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/posts/e3707853/#more" rel="contents">
@@ -962,7 +962,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/3cb4313e/" itemprop="url">CIDR网络匹配</a></h1>
+                <a class="post-title-link" href="/posts/3cb4313e/" itemprop="url">CIDR匹配 域名匹配</a></h1>
         
 
         <div class="post-meta">
@@ -990,8 +990,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-02T18:55:15+08:00">
-                2019-08-02
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-10T18:55:15+08:00">
+                2019-11-10
               </time>
             
           </span>
@@ -1047,11 +1047,17 @@
 
       
         
-          <h2 id="CIDR"><a href="#CIDR" class="headerlink" title="CIDR"></a>CIDR</h2><p>我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功.  </p>
+          <p>完整实现代码:<br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/cidrmatch/trie/trie.go" target="_blank" rel="noopener">CIDR</a>  <a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/cidrmatch/cidrmatch.go" target="_blank" rel="noopener">IP转换为二进制</a><br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/domainmatch/domainmatcher.go" target="_blank" rel="noopener">域名</a>  </p>
+<h2 id="CIDR"><a href="#CIDR" class="headerlink" title="CIDR"></a>CIDR</h2><p>我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功.  </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">假设有一个cidr为128.0.0.1/24</span><br><span class="line">转换为二进制 1000 0000.0000 0000.0000 0000.0000 0001/24</span><br><span class="line">可以知道要匹配ip的前24为与cidr的前24(1000 0000.0000 0000.0000 0000)位相同则匹配成功</span><br><span class="line">假设有一个ip 128.0.0.128 二进制为 1000 0000.0000 0000.0000 0000.1000 0000</span><br><span class="line">可以看到前24位与cidr相同 则匹配成功</span><br></pre></td></tr></table></figure>
 
+<h2 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h2><p>域名就比较简单了,直接按点分割就行了</p>
 <h2 id="前缀树"><a href="#前缀树" class="headerlink" title="前缀树"></a>前缀树</h2><p>通过上述规则 我们可以使用前缀树实现CIDR对ip的匹配 </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">        root</span><br><span class="line">       /    \</span><br><span class="line">      0     1</span><br><span class="line">     / \   / \</span><br><span class="line">    0   1 0   1</span><br><span class="line">   /</span><br><span class="line">当ip匹配到此处,此处已无任何子树,且是某一cidr的末尾时则匹配成功</span><br><span class="line">若此处节点为null(golang为nil)且不是某一cidr的末尾时则匹配失败</span><br></pre></td></tr></table></figure>
+
+
+<p>域名的前缀树相同,只不过域名不再是只有0和1,而且在匹配的时候还需要跳过前面的那些前缀.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">        +---------+</span><br><span class="line">        |  root   |</span><br><span class="line">        +---------+</span><br><span class="line">       /     /      \</span><br><span class="line">facebook   google   twitter  ...</span><br><span class="line">  /        /   \       \</span><br><span class="line">com      com   mail    com   ...</span><br><span class="line">                \</span><br><span class="line">               com</span><br><span class="line">               </span><br><span class="line">在对域名匹配时</span><br><span class="line">如对 www.play.google.com匹配:</span><br><span class="line">    没有www  跳过</span><br><span class="line">    没有play 跳过</span><br><span class="line">    有google 继续</span><br><span class="line">    有com 且 域名已为最后一个节点 -&gt; 判断trie中是否为最后的一个子树 -&gt; 是 -&gt; 匹配成功</span><br></pre></td></tr></table></figure>
 
 <p>trie树类似上述结构</p>
 <p>trie树节点 我们可以这样写
@@ -1373,13 +1379,13 @@
           
             <p>创建efi分区:  </p>
 <p>创建efi分区要设置boot flag,而不是纯FAT32文件系统<br>使用gdisk</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gdisk <span class="regexp">/dev/</span>sd**</span><br><span class="line">这里要注意后面输入分区系统编号 要选择EFI分区,目前efi分区编号是 ef00</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gdisk /dev/sd**</span><br><span class="line">这里要注意后面输入分区系统编号 要选择EFI分区,目前efi分区编号是 ef00</span><br></pre></td></tr></table></figure>
 
 <p>使用parted</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">parted /dev/sd**</span><br><span class="line">(parted) <span class="keyword">set</span> <span class="number">1</span> boot <span class="keyword">on</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">parted /dev/sd**</span><br><span class="line">(parted) set 1 boot on</span><br></pre></td></tr></table></figure>
 
 <p>之后再格式化为fat32</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs<span class="selector-class">.vfat</span> -F <span class="number">32</span> /dev/sd**</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.vfat -F 32 /dev/sd**</span><br></pre></td></tr></table></figure>
 
 <p>uefi 会查看所有 fat 分区，看看里面有没有 efi 引导文件,然后只要是 FAT32 文件系统就行,所以可以把 windows 或 ubuntu 的 iso 直接解压到一个 fat 分区（比如 fat 的 u 盘或移动硬盘）然后引导<br><strong>有些UEFI系统只会识别 efi分区下的EFI/boot文件夹内的efi文件,有的甚至只会识别EFI/boot/bootx64.efi</strong></p>
 
@@ -1622,7 +1628,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/posts/c7816edc/" itemprop="url">golang实现socks5代理连接</a></h1>
+                <a class="post-title-link" href="/posts/c7816edc/" itemprop="url">golang socks5/http proxy</a></h1>
         
 
         <div class="post-meta">
@@ -1650,8 +1656,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-06T20:02:47+08:00">
-                2019-03-06
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-10T00:00:00+08:00">
+                2019-11-10
               </time>
             
           </span>
@@ -1707,7 +1713,9 @@
 
       
         
-          <p>socks5运行流程如下:</p>
+          <p>完整实现代码:<br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/socks5client/socks5Client.go" target="_blank" rel="noopener">socks5 client</a><br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/socks5Server/socks5server.go" target="_blank" rel="noopener">socks5 server</a><br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/httpserver/httpserver.go" target="_blank" rel="noopener">http server</a>  </p>
+<p>此处已socks5client为例,大致流程都相同,只是协议不同:  </p>
+<p>socks5client运行流程如下:</p>
 <ul>
 <li>本机和代理服务端协商和建立连接；</li>
 <li>本机告诉代理服务端目标服务的地址；</li>
@@ -1715,7 +1723,7 @@
 <li>本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。</li>
 </ul>
 <h2 id="先进行TCP连接"><a href="#先进行TCP连接" class="headerlink" title="先进行TCP连接"></a>先进行TCP连接</h2><p>golang实现(<em>这里的地址我是本地socks5服务端</em>)</p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conn,err := net.Dial(<span class="string">"tcp"</span>,<span class="string">"127.0.0.1:1080"</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span>&#123;</span><br><span class="line"> fmt.Println(err)</span><br><span class="line"> <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conn,err := net.Dial(<span class="string">"tcp"</span>,<span class="string">"127.0.0.1:1080"</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span>&#123;</span><br><span class="line">    fmt.Println(err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="向socks5服务端发送验证"><a href="#向socks5服务端发送验证" class="headerlink" title="向socks5服务端发送验证"></a>向socks5服务端发送验证</h2><p>验证字段:</p>
 <table>
@@ -1893,10 +1901,10 @@
         
           <p>安卓6.0引入了doze来节省电量,但某些国产ui(如锤子)阉割了这个菜单,可通过adb添加  </p>
 <p>添加应用到白名单：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb <span class="keyword">shell</span><span class="bash"> dumpsys deviceidle whitelist +&lt;package&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell dumpsys deviceidle whitelist +&lt;package&gt;</span><br></pre></td></tr></table></figure>
 
 <p>如:</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell dumpsys deviceidle whitelist +com<span class="selector-class">.google</span><span class="selector-class">.android</span><span class="selector-class">.gms</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell dumpsys deviceidle whitelist +com.google.android.gms</span><br></pre></td></tr></table></figure>
 
 <p>删除白名单(把加号改成减号):
           <!--noindex-->
@@ -1993,7 +2001,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

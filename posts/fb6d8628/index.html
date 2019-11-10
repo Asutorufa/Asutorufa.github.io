@@ -387,37 +387,37 @@
 
       
         <h2 id="首先使用rfkill查看你的wifi设备是否被停用"><a href="#首先使用rfkill查看你的wifi设备是否被停用" class="headerlink" title="首先使用rfkill查看你的wifi设备是否被停用"></a>首先使用rfkill查看你的wifi设备是否被停用</h2><p>使用命令</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rfkill <span class="built_in">list</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rfkill list</span><br></pre></td></tr></table></figure>
 
 <p>获得设备列表，每个都包含与之关联的索引号，从 0 开始<br>查看设备是否被停用，要启用被停用的设备，请运行：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rfkill unblock <span class="tag">&lt;<span class="name">索引号</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rfkill unblock &lt;索引号&gt;</span><br></pre></td></tr></table></figure>
 
 <p>要启用所有设备，请运行：</p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rfkill unblock <span class="keyword">all</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rfkill unblock all</span><br></pre></td></tr></table></figure>
 
 <a id="more"></a>
 <p>您可以使用这个索引号让 rfkill 停使或者使用某个设备，例如：</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">rfkill</span> <span class="keyword">block </span><span class="number">0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rfkill block 0</span><br></pre></td></tr></table></figure>
 
 <p>您还可以使用 rfkill 阻断某一类设备，或者所有启用了RFKill的设备。例如：</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">rfkill</span> <span class="keyword">block </span>wifi</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rfkill block wifi</span><br></pre></td></tr></table></figure>
 
 <p>停用系统中的所有Wi-Fi设备</p>
-<h2 id="启用无线网卡"><a href="#启用无线网卡" class="headerlink" title="启用无线网卡"></a>启用无线网卡</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ifconfig</span> wlan0 up</span><br></pre></td></tr></table></figure>
+<h2 id="启用无线网卡"><a href="#启用无线网卡" class="headerlink" title="启用无线网卡"></a>启用无线网卡</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig wlan0 up</span><br></pre></td></tr></table></figure>
 
-<h2 id="使用iwconfig命令搜索无线网"><a href="#使用iwconfig命令搜索无线网" class="headerlink" title="使用iwconfig命令搜索无线网"></a>使用iwconfig命令搜索无线网</h2><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwlist wlan0 <span class="built_in">scan</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用iwconfig命令搜索无线网"><a href="#使用iwconfig命令搜索无线网" class="headerlink" title="使用iwconfig命令搜索无线网"></a>使用iwconfig命令搜索无线网</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwlist wlan0 scan</span><br></pre></td></tr></table></figure>
 
 <p>记下essid<br>连接无密码的无线网</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">iwconfig</span> wlan0 essid essidname</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwconfig wlan0 essid essidname</span><br></pre></td></tr></table></figure>
 
 <p>其中essidname是搜索到的无线网essid<br>连接有密码的无线网 </p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwconfig wlan0 essid essidname key <span class="tag">&lt;<span class="name">密码</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwconfig wlan0 essid essidname key &lt;密码&gt;</span><br></pre></td></tr></table></figure>
 
 <h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>通过dhcp获取IP</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">dhclient</span> wlan0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dhclient wlan0</span><br></pre></td></tr></table></figure>
 
 <p>或</p>
-<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dhcpcd wla<span class="symbol">n0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dhcpcd wlan0</span><br></pre></td></tr></table></figure>
 
 
       
@@ -563,7 +563,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -69,18 +69,18 @@
 
 
 
-<meta name="description" content="CIDR我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功.   12345假设有一个cidr为128.0.0.1/24转换为二进制 1000 0000.0000 0000.0000 0000.0000 0001/24可以知道要匹配ip的前24为与cidr的前24(1000 0000.0000 0000.0000 0000)位相同则匹配成功假设有一">
+<meta name="description" content="完整实现代码:CIDR  IP转换为二进制域名   CIDR我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功.   12345假设有一个cidr为128.0.0.1/24转换为二进制 1000 0000.0000 0000.0000 0000.0000 0001/24可以知道要匹配ip的前24为与cidr的前24(1000 0000.0000 0">
 <meta name="keywords" content="CIDR,计算机网络,golang">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CIDR网络匹配">
+<meta property="og:title" content="CIDR匹配 域名匹配">
 <meta property="og:url" content="https://Asutorufa.github.io/posts/3cb4313e/index.html">
 <meta property="og:site_name" content="アストルフォの幻想郷">
-<meta property="og:description" content="CIDR我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功.   12345假设有一个cidr为128.0.0.1/24转换为二进制 1000 0000.0000 0000.0000 0000.0000 0001/24可以知道要匹配ip的前24为与cidr的前24(1000 0000.0000 0000.0000 0000)位相同则匹配成功假设有一">
+<meta property="og:description" content="完整实现代码:CIDR  IP转换为二进制域名   CIDR我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功.   12345假设有一个cidr为128.0.0.1/24转换为二进制 1000 0000.0000 0000.0000 0000.0000 0001/24可以知道要匹配ip的前24为与cidr的前24(1000 0000.0000 0">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-02T10:55:15.000Z">
+<meta property="og:updated_time" content="2019-11-10T10:55:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CIDR网络匹配">
-<meta name="twitter:description" content="CIDR我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功.   12345假设有一个cidr为128.0.0.1/24转换为二进制 1000 0000.0000 0000.0000 0000.0000 0001/24可以知道要匹配ip的前24为与cidr的前24(1000 0000.0000 0000.0000 0000)位相同则匹配成功假设有一">
+<meta name="twitter:title" content="CIDR匹配 域名匹配">
+<meta name="twitter:description" content="完整实现代码:CIDR  IP转换为二进制域名   CIDR我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功.   12345假设有一个cidr为128.0.0.1/24转换为二进制 1000 0000.0000 0000.0000 0000.0000 0001/24可以知道要匹配ip的前24为与cidr的前24(1000 0000.0000 0">
 
 
 
@@ -117,7 +117,7 @@
 
 
 
-  <title>CIDR网络匹配 | アストルフォの幻想郷</title>
+  <title>CIDR匹配 域名匹配 | アストルフォの幻想郷</title>
   
 
 
@@ -302,7 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CIDR网络匹配</h1>
+          <h1 class="post-title" itemprop="name headline">CIDR匹配 域名匹配</h1>
         
 
         <div class="post-meta">
@@ -330,8 +330,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-02T18:55:15+08:00">
-                2019-08-02
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-10T18:55:15+08:00">
+                2019-11-10
               </time>
             
           </span>
@@ -386,14 +386,21 @@
       
 
       
-        <h2 id="CIDR"><a href="#CIDR" class="headerlink" title="CIDR"></a>CIDR</h2><p>我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功.  </p>
+        <p>完整实现代码:<br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/cidrmatch/trie/trie.go" target="_blank" rel="noopener">CIDR</a>  <a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/cidrmatch/cidrmatch.go" target="_blank" rel="noopener">IP转换为二进制</a><br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/domainmatch/domainmatcher.go" target="_blank" rel="noopener">域名</a>  </p>
+<h2 id="CIDR"><a href="#CIDR" class="headerlink" title="CIDR"></a>CIDR</h2><p>我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功.  </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">假设有一个cidr为128.0.0.1/24</span><br><span class="line">转换为二进制 1000 0000.0000 0000.0000 0000.0000 0001/24</span><br><span class="line">可以知道要匹配ip的前24为与cidr的前24(1000 0000.0000 0000.0000 0000)位相同则匹配成功</span><br><span class="line">假设有一个ip 128.0.0.128 二进制为 1000 0000.0000 0000.0000 0000.1000 0000</span><br><span class="line">可以看到前24位与cidr相同 则匹配成功</span><br></pre></td></tr></table></figure>
 
+<h2 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h2><p>域名就比较简单了,直接按点分割就行了</p>
 <h2 id="前缀树"><a href="#前缀树" class="headerlink" title="前缀树"></a>前缀树</h2><p>通过上述规则 我们可以使用前缀树实现CIDR对ip的匹配 </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">        root</span><br><span class="line">       /    \</span><br><span class="line">      0     1</span><br><span class="line">     / \   / \</span><br><span class="line">    0   1 0   1</span><br><span class="line">   /</span><br><span class="line">当ip匹配到此处,此处已无任何子树,且是某一cidr的末尾时则匹配成功</span><br><span class="line">若此处节点为null(golang为nil)且不是某一cidr的末尾时则匹配失败</span><br></pre></td></tr></table></figure>
 
+
+<p>域名的前缀树相同,只不过域名不再是只有0和1,而且在匹配的时候还需要跳过前面的那些前缀.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">        +---------+</span><br><span class="line">        |  root   |</span><br><span class="line">        +---------+</span><br><span class="line">       /     /      \</span><br><span class="line">facebook   google   twitter  ...</span><br><span class="line">  /        /   \       \</span><br><span class="line">com      com   mail    com   ...</span><br><span class="line">                \</span><br><span class="line">               com</span><br><span class="line">               </span><br><span class="line">在对域名匹配时</span><br><span class="line">如对 www.play.google.com匹配:</span><br><span class="line">    没有www  跳过</span><br><span class="line">    没有play 跳过</span><br><span class="line">    有google 继续</span><br><span class="line">    有com 且 域名已为最后一个节点 -&gt; 判断trie中是否为最后的一个子树 -&gt; 是 -&gt; 匹配成功</span><br></pre></td></tr></table></figure>
+
 <p>trie树类似上述结构</p>
 <p>trie树节点 我们可以这样写<a id="more"></a><br>+node<br>|- bool(判断是否匹配成功,是否是某一cidr的末尾)<br>|- left(左树代表0)<br>|- right(右树代表1)  </p>
+<p>域名的这样写<br>+node<br>|- bool<br>|- domainNode<br>|- next</p>
 <h2 id="使用golang实现"><a href="#使用golang实现" class="headerlink" title="使用golang实现"></a>使用golang实现</h2><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> node <span class="keyword">struct</span> &#123;</span><br><span class="line"> isLast <span class="keyword">bool</span></span><br><span class="line">    left   *node</span><br><span class="line">    right  *node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> TrieTree <span class="keyword">struct</span> &#123;</span><br><span class="line">    root *node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewTrieTree</span><span class="params">()</span> *<span class="title">TrieTree</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;TrieTree&#123;</span><br><span class="line">		root: &amp;node&#123;&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>对每一个CIDR的插入<br>注意: 此处传入的CIDR为CIDR前mask位的二进制形式</p>
@@ -402,7 +409,6 @@
 <p>对ip的匹配<br>注意: 此处传入的ip为ip的二进制形式</p>
 <figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(trie *TrieTree)</span> <span class="title">Search</span><span class="params">(str <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">	nodeTemp := trie.root</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(str); i++ &#123;</span><br><span class="line">		<span class="keyword">if</span> str[i] == <span class="number">49</span> &#123;</span><br><span class="line">			nodeTemp = nodeTemp.right</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> str[i] == <span class="number">48</span> &#123;</span><br><span class="line">			nodeTemp = nodeTemp.left</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> nodeTemp == <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> nodeTemp.isLast == <span class="literal">true</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>如果需要知道ip如何转换为二进制,可以联系我</p>
 
       
     </div>
@@ -423,7 +429,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://Asutorufa.github.io/posts/3cb4313e/" title="CIDR网络匹配">https://Asutorufa.github.io/posts/3cb4313e/</a>
+    <a href="https://Asutorufa.github.io/posts/3cb4313e/" title="CIDR匹配 域名匹配">https://Asutorufa.github.io/posts/3cb4313e/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -551,7 +557,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -636,7 +642,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CIDR"><span class="nav-number">1.</span> <span class="nav-text">CIDR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前缀树"><span class="nav-number">2.</span> <span class="nav-text">前缀树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用golang实现"><span class="nav-number">3.</span> <span class="nav-text">使用golang实现</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CIDR"><span class="nav-number">1.</span> <span class="nav-text">CIDR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域名"><span class="nav-number">2.</span> <span class="nav-text">域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前缀树"><span class="nav-number">3.</span> <span class="nav-text">前缀树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用golang实现"><span class="nav-number">4.</span> <span class="nav-text">使用golang实现</span></a></li></ol></div>
             
 
           </div>

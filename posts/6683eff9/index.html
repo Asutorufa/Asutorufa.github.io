@@ -391,10 +391,10 @@
         <p>–2019-04-22 更新–<br><strong>最新版bios已经可以调整启动顺序了(<a href="#jump">图在最下面</a>)</strong>  </p>
 <p>——– 之 前 ——-<br>暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说</p>
 <p>首先从ubuntu进入/boot/efi/EFI<br><strong>备份windwos的启动文件</strong>（<strong>切记一定要备份，否则只能从pe重新建立windwos启动项</strong>）</p>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cp</span> -arf Microsoft win10</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -arf Microsoft win10</span><br></pre></td></tr></table></figure>
 
 <p>将ubuntu的grubx64.efi替换掉EFI/Microsoft/Boot/bootmgfw.efi文件 <a id="more"></a></p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -arf ubuntu/grubx64<span class="selector-class">.efi</span> Microsoft/Boot/bootmgfw.efi</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -arf ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi</span><br></pre></td></tr></table></figure>
 
 <p>这样替换之后grub就接管了系统的启动</p>
 <p>然后将/boot/grub/grub.cfg中关于windows的启动段复制到/etc/grub.d/40_custom中<br>将<strong>chainloader /EFI/Micorosoft/Boot/bootmgfw.efi</strong><br>改为<br><strong>chainloader /EFI/win10/Boot/bootmgfw.efi</strong><br>就是把中间那个改为你备份的文件夹，可以改一改前面的启动名称<br>最后执行update-grub来更新启动项</p>
@@ -540,7 +540,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

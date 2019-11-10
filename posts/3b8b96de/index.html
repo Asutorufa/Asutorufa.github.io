@@ -387,22 +387,22 @@
 
       
         <p>使用<strong>xrandr</strong>显示可支持的显卡</p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xrandr <span class="comment">--listproviders</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xrandr --listproviders</span><br></pre></td></tr></table></figure>
 
 <p>输出类似以下内容</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Providers:</span> <span class="string">number :</span> <span class="number">2</span></span><br><span class="line">Provider <span class="number">0</span>: <span class="string">id:</span> <span class="number">0x6b</span> <span class="string">cap:</span> <span class="number">0x9</span>, Source Output, Sink Offload <span class="string">crtcs:</span> <span class="number">3</span> <span class="string">outputs:</span> <span class="number">7</span> associated <span class="string">providers:</span> <span class="number">1</span> <span class="string">name:</span>modesetting</span><br><span class="line">Provider <span class="number">1</span>: <span class="string">id:</span> <span class="number">0x41</span> <span class="string">cap:</span> <span class="number">0x6</span>, Sink Output, Source Offload <span class="string">crtcs:</span> <span class="number">2</span> <span class="string">outputs:</span> <span class="number">0</span> associated <span class="string">providers:</span> <span class="number">1</span> <span class="string">name:</span>OLAND @ <span class="string">pci:</span><span class="number">0000</span>:<span class="number">01</span>:<span class="number">00.0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Providers: number : 2</span><br><span class="line">Provider 0: id: 0x6b cap: 0x9, Source Output, Sink Offload crtcs: 3 outputs: 7 associated providers: 1 name:modesetting</span><br><span class="line">Provider 1: id: 0x41 cap: 0x6, Sink Output, Source Offload crtcs: 2 outputs: 0 associated providers: 1 name:OLAND @ pci:0000:01:00.0</span><br></pre></td></tr></table></figure>
 
 <p>To be able to render GPU-intensive applications by the more powerful discrete card use</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xrandr --setprovideroffloadsink <span class="number">1</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xrandr --setprovideroffloadsink 1 0</span><br></pre></td></tr></table></figure>
 
 <p>或者<a id="more"></a></p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xrandr --setprovideroffloadsink <span class="number">0x41</span> <span class="number">0x6b</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xrandr --setprovideroffloadsink 0x41 0x6b</span><br></pre></td></tr></table></figure>
 
 <p>使用DRI_PRIME为某个应用选择使用哪一张显卡,使用glxinfo可以查看正在使用的显卡</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">DRI_PRIME</span>=<span class="number">0</span> glxinfo | grep <span class="string">"OpenGL renderer"</span></span><br><span class="line"><span class="attr">DRI_PRIME</span>=<span class="number">1</span> glxinfo | grep <span class="string">"OpenGL renderer"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DRI_PRIME=0 glxinfo | grep &quot;OpenGL renderer&quot;</span><br><span class="line">DRI_PRIME=1 glxinfo | grep &quot;OpenGL renderer&quot;</span><br></pre></td></tr></table></figure>
 
 <p>如为steam启用独显</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">DRI_PRIME</span>=<span class="number">1</span> steam</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DRI_PRIME=1 steam</span><br></pre></td></tr></table></figure>
 
 <p>参考资料:</p>
 <p>1.<a href="https://askubuntu.com/questions/1038271/intel-amd-hybrid-graphics-ubuntu-18-04" target="_blank" rel="noopener">Intel/AMD Hybrid graphics Ubuntu 18.04</a></p>
@@ -546,7 +546,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

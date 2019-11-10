@@ -69,18 +69,18 @@
 
 
 
-<meta name="description" content="socks5运行流程如下:  本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。  先进行TCP连接golang实现(这里的地址我是本地socks5服务端) 12345conn,err := net.Dial(&quot;tcp&quot;,&quot;127.0.0.1:1080&quot;)i">
+<meta name="description" content="完整实现代码:socks5 clientsocks5 serverhttp server   此处已socks5client为例,大致流程都相同,只是协议不同:   socks5client运行流程如下:  本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。">
 <meta name="keywords" content="计算机网络,socks5">
 <meta property="og:type" content="article">
-<meta property="og:title" content="golang实现socks5代理连接">
+<meta property="og:title" content="golang socks5&#x2F;http proxy">
 <meta property="og:url" content="https://Asutorufa.github.io/posts/c7816edc/index.html">
 <meta property="og:site_name" content="アストルフォの幻想郷">
-<meta property="og:description" content="socks5运行流程如下:  本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。  先进行TCP连接golang实现(这里的地址我是本地socks5服务端) 12345conn,err := net.Dial(&quot;tcp&quot;,&quot;127.0.0.1:1080&quot;)i">
+<meta property="og:description" content="完整实现代码:socks5 clientsocks5 serverhttp server   此处已socks5client为例,大致流程都相同,只是协议不同:   socks5client运行流程如下:  本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-06T12:02:47.000Z">
+<meta property="og:updated_time" content="2019-11-09T16:00:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="golang实现socks5代理连接">
-<meta name="twitter:description" content="socks5运行流程如下:  本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。  先进行TCP连接golang实现(这里的地址我是本地socks5服务端) 12345conn,err := net.Dial(&quot;tcp&quot;,&quot;127.0.0.1:1080&quot;)i">
+<meta name="twitter:title" content="golang socks5&#x2F;http proxy">
+<meta name="twitter:description" content="完整实现代码:socks5 clientsocks5 serverhttp server   此处已socks5client为例,大致流程都相同,只是协议不同:   socks5client运行流程如下:  本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。">
 
 
 
@@ -117,7 +117,7 @@
 
 
 
-  <title>golang实现socks5代理连接 | アストルフォの幻想郷</title>
+  <title>golang socks5/http proxy | アストルフォの幻想郷</title>
   
 
 
@@ -302,7 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">golang实现socks5代理连接</h1>
+          <h1 class="post-title" itemprop="name headline">golang socks5/http proxy</h1>
         
 
         <div class="post-meta">
@@ -330,8 +330,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-06T20:02:47+08:00">
-                2019-03-06
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-10T00:00:00+08:00">
+                2019-11-10
               </time>
             
           </span>
@@ -386,7 +386,9 @@
       
 
       
-        <p>socks5运行流程如下:</p>
+        <p>完整实现代码:<br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/socks5client/socks5Client.go" target="_blank" rel="noopener">socks5 client</a><br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/socks5Server/socks5server.go" target="_blank" rel="noopener">socks5 server</a><br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/httpserver/httpserver.go" target="_blank" rel="noopener">http server</a>  </p>
+<p>此处已socks5client为例,大致流程都相同,只是协议不同:  </p>
+<p>socks5client运行流程如下:</p>
 <ul>
 <li>本机和代理服务端协商和建立连接；</li>
 <li>本机告诉代理服务端目标服务的地址；</li>
@@ -394,7 +396,7 @@
 <li>本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。</li>
 </ul>
 <h2 id="先进行TCP连接"><a href="#先进行TCP连接" class="headerlink" title="先进行TCP连接"></a>先进行TCP连接</h2><p>golang实现(<em>这里的地址我是本地socks5服务端</em>)</p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conn,err := net.Dial(<span class="string">"tcp"</span>,<span class="string">"127.0.0.1:1080"</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span>&#123;</span><br><span class="line"> fmt.Println(err)</span><br><span class="line"> <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conn,err := net.Dial(<span class="string">"tcp"</span>,<span class="string">"127.0.0.1:1080"</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span>&#123;</span><br><span class="line">    fmt.Println(err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="向socks5服务端发送验证"><a href="#向socks5服务端发送验证" class="headerlink" title="向socks5服务端发送验证"></a>向socks5服务端发送验证</h2><p>验证字段:</p>
 <table>
@@ -425,7 +427,7 @@
 </li>
 </ul>
 <p>golang实现代码:  </p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">_,err = conn.Write([]<span class="keyword">byte</span>&#123;<span class="number">5</span>,<span class="number">1</span>,<span class="number">0</span>&#125;)</span><br><span class="line"><span class="keyword">var</span> b [<span class="number">2</span>]<span class="keyword">byte</span></span><br><span class="line">status,err := conn.Read(b[:])</span><br><span class="line"><span class="keyword">if</span> err!=<span class="literal">nil</span>&#123;</span><br><span class="line"> fmt.Println(err)</span><br><span class="line"> <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(b)</span><br><span class="line">fmt.Println(status)</span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">sendData := []<span class="keyword">byte</span>&#123;<span class="number">0x05</span>, <span class="number">0x01</span>, <span class="number">0x00</span>&#125;</span><br><span class="line"><span class="keyword">if</span> _, err := conn.Write(sendData); err != <span class="literal">nil</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> err</span><br><span class="line">&#125;</span><br><span class="line">getData := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">3</span>)</span><br><span class="line"><span class="keyword">if</span> _, err = conn.Read(getData[:]); err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> err</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> getData[<span class="number">0</span>] != <span class="number">0x05</span> || getData[<span class="number">1</span>] == <span class="number">0xFF</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> errors.New(<span class="string">"socks5 first handshake failed!"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> getData[<span class="number">1</span>] == <span class="number">0x02</span> &#123;</span><br><span class="line">    sendData := <span class="built_in">append</span>(</span><br><span class="line">        <span class="built_in">append</span>(</span><br><span class="line">            <span class="built_in">append</span>(</span><br><span class="line">                []<span class="keyword">byte</span>&#123;<span class="number">0x01</span>, <span class="keyword">byte</span>(<span class="built_in">len</span>(socks5client.Username))&#125;,</span><br><span class="line">                []<span class="keyword">byte</span>(socks5client.Username)...),</span><br><span class="line">            <span class="keyword">byte</span>(<span class="built_in">len</span>(socks5client.Password))),</span><br><span class="line">        []<span class="keyword">byte</span>(socks5client.Password)...)</span><br><span class="line">    _, _ = conn.Write(sendData)</span><br><span class="line">    getData := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">if</span> _, err = conn.Read(getData[:]); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> getData[<span class="number">1</span>] == <span class="number">0x01</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> errors.New(<span class="string">"username or password not correct,socks5 handshake failed!"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="向socks5服务端发送请求"><a href="#向socks5服务端发送请求" class="headerlink" title="向socks5服务端发送请求"></a>向socks5服务端发送请求</h2><p>请求字段:</p>
 <table>
@@ -467,10 +469,10 @@
 <li>DST.PORT 网络字节序表示的目的端口</li>
 </ul>
 <p>golang实现代码</p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">domain := <span class="string">"www.google.com"</span></span><br><span class="line">before := []<span class="keyword">byte</span>&#123;<span class="number">5</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="keyword">byte</span>(<span class="built_in">len</span>(domain))&#125;</span><br><span class="line">de := []<span class="keyword">byte</span>(domain)</span><br><span class="line">port := []<span class="keyword">byte</span>&#123;<span class="number">0x1</span>,<span class="number">0xbb</span>&#125;</span><br><span class="line">head_temp := <span class="built_in">append</span>(before,de...)</span><br><span class="line">head := <span class="built_in">append</span>(head_temp,port...)</span><br><span class="line"></span><br><span class="line">fmt.Println(head)</span><br><span class="line"></span><br><span class="line">_,err = conn.Write(head)</span><br><span class="line"><span class="keyword">if</span> err!=<span class="literal">nil</span>&#123;</span><br><span class="line"> fmt.Println(err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c [<span class="number">10</span>]<span class="keyword">byte</span></span><br><span class="line">status_2,err := conn.Read(c[:])</span><br><span class="line"><span class="keyword">if</span> err!=<span class="literal">nil</span>&#123;</span><br><span class="line"> fmt.Println(err)</span><br><span class="line"> <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(status_2)</span><br><span class="line">fmt.Println(c)</span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 此处为向 www.google.com:443 发送请求</span></span><br><span class="line">domain := <span class="string">"www.google.com"</span></span><br><span class="line">serverPort := <span class="number">443</span></span><br><span class="line">sendData = <span class="built_in">append</span>(</span><br><span class="line">    <span class="built_in">append</span>(</span><br><span class="line">        []<span class="keyword">byte</span>&#123;<span class="number">0x5</span>, <span class="number">0x01</span>, <span class="number">0x00</span>, <span class="number">0x03</span>, <span class="keyword">byte</span>(<span class="built_in">len</span>(domain))&#125;,</span><br><span class="line">        []<span class="keyword">byte</span>(domain)...), <span class="keyword">byte</span>(serverPort&gt;&gt;<span class="number">8</span>),</span><br><span class="line">    <span class="keyword">byte</span>(serverPort&amp;<span class="number">255</span>))</span><br><span class="line"><span class="keyword">if</span> _,err = conn.Write(sendData); err!=<span class="literal">nil</span>&#123;</span><br><span class="line">    fmt.Println(err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">getData := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">1024</span>)</span><br><span class="line"><span class="keyword">if</span> _, err = conn.Read(getData[:]); err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> err</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> getData[<span class="number">0</span>] != <span class="number">0x05</span> || getData[<span class="number">1</span>] != <span class="number">0x00</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> errors.New(<span class="string">"socks5 second handshake failed!"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="进行数据转发"><a href="#进行数据转发" class="headerlink" title="进行数据转发"></a>进行数据转发</h2><p>golang实现代码(<em>不太熟悉各种请求这里随便弄了一个</em>)</p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">_,err = conn.Write([]<span class="keyword">byte</span>(<span class="string">"GET /generate_204/ HTTP/2.0\r\n"</span>))</span><br><span class="line"><span class="keyword">if</span> err!=<span class="literal">nil</span>&#123;</span><br><span class="line"> fmt.Println(err)</span><br><span class="line"> <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> d [<span class="number">1024</span>]<span class="keyword">byte</span></span><br><span class="line"></span><br><span class="line">temp := time.Now()</span><br><span class="line"></span><br><span class="line">status_3,err := conn.Read(d[:])</span><br><span class="line"></span><br><span class="line">deply := time.Since(temp)</span><br><span class="line">fmt.Println(deply)</span><br><span class="line"></span><br><span class="line">fmt.Println(status_3)</span><br><span class="line">fmt.Println(<span class="keyword">string</span>(d[:]))</span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> _,err = conn.Write([]<span class="keyword">byte</span>(<span class="string">"GET /generate_204/ HTTP/2.0\r\n"</span>)); err!=<span class="literal">nil</span>&#123;</span><br><span class="line">    fmt.Println(err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="关闭TCP连接"><a href="#关闭TCP连接" class="headerlink" title="关闭TCP连接"></a>关闭TCP连接</h2><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conn.Close()</span><br></pre></td></tr></table></figure>
 
@@ -495,7 +497,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://Asutorufa.github.io/posts/c7816edc/" title="golang实现socks5代理连接">https://Asutorufa.github.io/posts/c7816edc/</a>
+    <a href="https://Asutorufa.github.io/posts/c7816edc/" title="golang socks5/http proxy">https://Asutorufa.github.io/posts/c7816edc/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -621,7 +623,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
