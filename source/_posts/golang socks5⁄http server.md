@@ -1,5 +1,5 @@
 ---
-title: golang实现socks5代理连接
+title: golang socks5/http proxy
 tags:
   - socks5
   - 计算机网络
@@ -7,9 +7,16 @@ categories:
   - 计算机网络
 abbrlink: c7816edc
 date: 2019-03-06 20:02:47
-updated: 2019-03-06 20:02:47
+updated: 2019-11-10 00:00:00
 ---
-socks5运行流程如下:
+完整实现代码:  
+[socks5 client](https://github.com/Asutorufa/SsrMicroClient/blob/master/net/socks5client/socks5Client.go)   
+[socks5 server](https://github.com/Asutorufa/SsrMicroClient/blob/master/net/socks5Server/socks5server.go)  
+[http server](https://github.com/Asutorufa/SsrMicroClient/blob/master/net/httpserver/httpserver.go)  
+
+此处已socks5client为例,大致流程都相同,只是协议不同:  
+
+socks5client运行流程如下:
 
 - 本机和代理服务端协商和建立连接；
 - 本机告诉代理服务端目标服务的地址；
@@ -23,8 +30,8 @@ golang实现(_这里的地址我是本地socks5服务端_)
 ```golang
 conn,err := net.Dial("tcp","127.0.0.1:1080")
 if err != nil{
- fmt.Println(err)
- return
+    fmt.Println(err)
+    return
 }
 ```
 
@@ -49,15 +56,34 @@ if err != nil{
 golang实现代码:  
 
 ```golang
-_,err = conn.Write([]byte{5,1,0})
-var b [2]byte
-status,err := conn.Read(b[:])
-if err!=nil{
- fmt.Println(err)
- return
+sendData := []byte{0x05, 0x01, 0x00}
+if _, err := conn.Write(sendData); err != nil{
+    return err
 }
-fmt.Println(b)
-fmt.Println(status)
+getData := make([]byte, 3)
+if _, err = conn.Read(getData[:]); err != nil {
+    return err
+}
+if getData[0] != 0x05 || getData[1] == 0xFF {
+    return errors.New("socks5 first handshake failed!")
+}
+if getData[1] == 0x02 {
+    sendData := append(
+        append(
+            append(
+                []byte{0x01, byte(len(socks5client.Username))},
+                []byte(socks5client.Username)...),
+            byte(len(socks5client.Password))),
+        []byte(socks5client.Password)...)
+    _, _ = conn.Write(sendData)
+    getData := make([]byte, 3)
+    if _, err = conn.Read(getData[:]); err != nil {
+        return err
+    }
+    if getData[1] == 0x01 {
+        return errors.New("username or password not correct,socks5 handshake failed!")
+    }
+}
 ```
 
 ## 向socks5服务端发送请求
@@ -84,29 +110,25 @@ fmt.Println(status)
 golang实现代码
 
 ```golang
+// 此处为向 www.google.com:443 发送请求
 domain := "www.google.com"
-before := []byte{5,1,0,3,byte(len(domain))}
-de := []byte(domain)
-port := []byte{0x1,0xbb}
-head_temp := append(before,de...)
-head := append(head_temp,port...)
-
-fmt.Println(head)
-
-_,err = conn.Write(head)
-if err!=nil{
- fmt.Println(err)
+serverPort := 443
+sendData = append(
+    append(
+        []byte{0x5, 0x01, 0x00, 0x03, byte(len(domain))},
+        []byte(domain)...), byte(serverPort>>8),
+    byte(serverPort&255))
+if _,err = conn.Write(sendData); err!=nil{
+    fmt.Println(err)
     return
 }
-
-var c [10]byte
-status_2,err := conn.Read(c[:])
-if err!=nil{
- fmt.Println(err)
- return
+getData := make([]byte, 1024)
+if _, err = conn.Read(getData[:]); err != nil {
+    return err
 }
-fmt.Println(status_2)
-fmt.Println(c)
+if getData[0] != 0x05 || getData[1] != 0x00 {
+    return errors.New("socks5 second handshake failed!")
+}
 ```
 
 ## 进行数据转发
@@ -114,22 +136,10 @@ fmt.Println(c)
 golang实现代码(_不太熟悉各种请求这里随便弄了一个_)
 
 ```golang
-_,err = conn.Write([]byte("GET /generate_204/ HTTP/2.0\r\n"))
-if err!=nil{
- fmt.Println(err)
- return
+if _,err = conn.Write([]byte("GET /generate_204/ HTTP/2.0\r\n")); err!=nil{
+    fmt.Println(err)
+    return
 }
-var d [1024]byte
-
-temp := time.Now()
-
-status_3,err := conn.Read(d[:])
-
-deply := time.Since(temp)
-fmt.Println(deply)
-
-fmt.Println(status_3)
-fmt.Println(string(d[:]))
 ```
 
 ## 关闭TCP连接

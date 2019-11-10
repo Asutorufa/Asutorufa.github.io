@@ -1,5 +1,5 @@
 ---
-title: CIDR网络匹配
+title: CIDR匹配 域名匹配
 tags:
   - CIDR
   - 计算机网络
@@ -8,12 +8,17 @@ categories:
   - 计算机网络
 abbrlink: 3cb4313e
 date: 2019-08-02 18:55:15
-updated: 2019-08-02 18:55:15
+updated: 2019-11-10 18:55:15
 ---
+
+完整实现代码:  
+[CIDR](https://github.com/Asutorufa/SsrMicroClient/blob/master/net/cidrmatch/trie/trie.go)  [IP转换为二进制](https://github.com/Asutorufa/SsrMicroClient/blob/master/net/cidrmatch/cidrmatch.go)  
+[域名](https://github.com/Asutorufa/SsrMicroClient/blob/master/net/domainmatch/domainmatcher.go)  
 
 ## CIDR
 
 我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功.  
+
 ```shell
 假设有一个cidr为128.0.0.1/24
 转换为二进制 1000 0000.0000 0000.0000 0000.0000 0001/24
@@ -22,11 +27,15 @@ updated: 2019-08-02 18:55:15
 可以看到前24位与cidr相同 则匹配成功
 ```
 
+## 域名
+
+域名就比较简单了,直接按点分割就行了
+
 ## 前缀树
 
 通过上述规则 我们可以使用前缀树实现CIDR对ip的匹配 
 
-```shell
+```trie
             root
            /    \
           0     1
@@ -36,6 +45,27 @@ updated: 2019-08-02 18:55:15
     当ip匹配到此处,此处已无任何子树,且是某一cidr的末尾时则匹配成功
     若此处节点为null(golang为nil)且不是某一cidr的末尾时则匹配失败
 ```
+  
+域名的前缀树相同,只不过域名不再是只有0和1,而且在匹配的时候还需要跳过前面的那些前缀.
+
+```trie
+        +---------+
+        |  root   |
+        +---------+
+       /     /      \
+facebook   google   twitter  ...
+  /        /   \       \
+com      com   mail    com   ...
+                \
+               com
+               
+在对域名匹配时
+如对 www.play.google.com匹配:
+    没有www  跳过
+    没有play 跳过
+    有google 继续
+    有com 且 域名已为最后一个节点 -> 判断trie中是否为最后的一个子树 -> 是 -> 匹配成功
+```
 
 trie树类似上述结构
 
@@ -44,6 +74,12 @@ trie树节点 我们可以这样写<!--more-->
 |- bool(判断是否匹配成功,是否是某一cidr的末尾)  
 |- left(左树代表0)  
 |- right(右树代表1)  
+
+域名的这样写  
++node  
+|- bool
+|- domainNode
+|- next
 
 ## 使用golang实现
 
@@ -116,5 +152,3 @@ func (trie *TrieTree) Search(str string) bool {
 	return false
 }
 ```
-
-如果需要知道ip如何转换为二进制,可以联系我
