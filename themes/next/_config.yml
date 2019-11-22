@@ -89,6 +89,7 @@ menu:
   categories: /categories/ || th
   #archives: /archives/ || archive
   about: /about/ || user
+  friends: /friends/ || users
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
@@ -148,7 +149,9 @@ links:
   #贴吧云签到(数据库凉了): http://tieba-tieba.193b.starter-ca-central-1.openshiftapps.com
   #YouTube镜像站: http://youtubephp-tieba.193b.starter-ca-central-1.openshiftapps.com
   #Telegram频道: https://t.me/jyonanasai
-  友链:做一个有追求的人: http://spaceack.com/
+  #友链: /friends/
+  #做一个有追求的人: http://spaceack.com/
+  #千玄洞: https://zjukuny.github.io
 
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.gif
