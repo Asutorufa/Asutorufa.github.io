@@ -146,12 +146,6 @@ links_title: others
 links_layout: inline
 links:
   #邮箱: /email/
-  #贴吧云签到(数据库凉了): http://tieba-tieba.193b.starter-ca-central-1.openshiftapps.com
-  #YouTube镜像站: http://youtubephp-tieba.193b.starter-ca-central-1.openshiftapps.com
-  #Telegram频道: https://t.me/jyonanasai
-  #友链: /friends/
-  #做一个有追求的人: http://spaceack.com/
-  #千玄洞: https://zjukuny.github.io
 
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.gif
@@ -733,7 +727,7 @@ vendors:
 
   # Internal version: 1.9.7
   # See: https://github.com/tuupola/jquery_lazyload
-  lazyload: true
+  lazyload:
 
   # Internal version: 1.2.1
   # See: http://VelocityJS.org

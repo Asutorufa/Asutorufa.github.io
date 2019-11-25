@@ -410,6 +410,20 @@ pacman -Rs pwgen
 ```
 
 ***
+遇到以下问题:
+
+```shell
+Possibly missing firmware for module: aic94xx
+ Possibly missing firmware for module: wd719x
+```
+
+直接使用aur中提供的驱动:
+
+```shell
+ yay -S aic94xx-firmware wd719x-firmware
+```
+
+***
 已知问题:
 
 kde discover 无法使用pacman backend  
