@@ -582,6 +582,10 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S aic94xx-firmware wd719x-firmware</span><br></pre></td></tr></table></figure>
 
 <hr>
+<p>为<code>kde spellChecker</code>添加字典:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S hunspell-en_US</span><br></pre></td></tr></table></figure>
+
+<hr>
 <p>已知问题:</p>
 <p>kde discover 无法使用pacman backend<br>discover 使用了 packagekit,使用 pkcon 需要root权限,按理来说packagekit会自动获取root且无需输入密码,但discover无法获取root已无法已root用户运行,问题未知,放弃解决<br>解决方法:<br>卸载discover packagekit packagekit-qt5<br>新安装的话 索性不装就行了  </p>
 <hr>
