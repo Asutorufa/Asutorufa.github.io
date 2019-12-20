@@ -424,6 +424,13 @@ Possibly missing firmware for module: aic94xx
 ```
 
 ***
+为`kde spellChecker`添加字典:
+
+```shell
+sudo pacman -S hunspell-en_US
+```
+
+***
 已知问题:
 
 kde discover 无法使用pacman backend  
