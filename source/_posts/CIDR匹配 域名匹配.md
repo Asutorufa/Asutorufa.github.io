@@ -2,10 +2,9 @@
 title: CIDR匹配 域名匹配
 tags:
   - CIDR
-  - 计算机网络
   - golang
 categories:
-  - 计算机网络
+  - Network
 abbrlink: 3cb4313e
 date: 2019-08-02 18:55:15
 updated: 2019-11-10 18:55:15

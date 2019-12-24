@@ -1,10 +1,9 @@
 ---
 title: c语言基本类型在内存中的存储方式
 tags:
-  - c语言
-  - 编程
+  - C
 categories:
-  - 编程
+  - Program
 abbrlink: e404489
 date: 2017-10-30 15:27:46
 updated: 2017-10-30 15:27:46

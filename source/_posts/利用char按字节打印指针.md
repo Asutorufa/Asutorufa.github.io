@@ -1,10 +1,9 @@
 ---
 title: c语言利用char指针变量将int按字节打印地址
 tags:
-  - 编程
-  - c语言
+  - C
 categories:
-  - 编程
+  - Program
 abbrlink: 43cb2931
 date: 2017-10-24 22:27:37
 updated: 2017-10-24 22:27:37

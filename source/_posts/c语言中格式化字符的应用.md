@@ -1,10 +1,9 @@
 ---
 title: c语言中格式化字符的应用
 tags:
-  - c语言
-  - 编程
+  - C
 categories:
-  - 编程
+  - Program
 abbrlink: b6b4601
 date: 2017-10-10 13:03:15
 updated: 2017-10-10 13:03:15

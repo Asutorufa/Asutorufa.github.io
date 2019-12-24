@@ -1,10 +1,9 @@
 ---
 title: c语言数组输出的另一种方法
 categories:
-  - 编程
+  - Program
 tags:
-  - c语言
-  - 编程
+  - C
 abbrlink: 854ed6ec
 date: 2017-12-10 10:39:54
 updated: 2017-12-10 10:39:54

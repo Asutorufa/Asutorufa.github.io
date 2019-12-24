@@ -2,9 +2,9 @@
 title: 用CIDR表示网段
 tags:
   - IP
-  - 网络
+  - CIDR
 categories:
-  - 网络
+  - Network
 abbrlink: e2b25bb8
 date: 2019-02-02 22:34:07
 updated: 2019-02-02 22:34:07

@@ -4,7 +4,7 @@ tags:
   - HTTP
   - proxy
 categories:
-  - HTTP
+  - Network
 abbrlink: d91b7c06
 date: 2019-12-23 23:37:32
 updated: 2019-12-23 23:37:32

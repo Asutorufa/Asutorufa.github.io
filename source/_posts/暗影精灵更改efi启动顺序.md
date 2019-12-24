@@ -3,9 +3,8 @@ title: 暗影精灵更改efi启动顺序
 tags:
   - EFI
   - BIOS
-  - 计算机
 categories:
-  - 计算机
+  - Computer
 abbrlink: 6683eff9
 date: 2018-06-23 11:43:40
 updated: 2018-06-23 11:43:40
