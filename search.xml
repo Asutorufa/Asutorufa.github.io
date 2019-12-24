@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[http Keep-Alive]]></title>
-    <url>%2Fposts%2Fd91b7c06%2F</url>
-    <content type="text"><![CDATA[http keep-alivehttp头部Connection: Keep-Alive代表连接请求保持长连接如果是http代理,必须处理Proxy-Connection: Keep-Alive为Connection: Keep-Alive,如果代理没有实现Keep-Alive就不变或者将Connection设为close. 优点:减少握手次数,如下图(图来源文章最下面) 判断一次连接的传输结束使用消息首部字段Conent-LengthConent-Length表示实体内容长度，客户端（服务器）可以根据这个值来判断数据是否接收完成。 使用Transfer-Encoding: chunkedchunk编码将数据分成一块一块的发生。Chunked编码将使用若干个Chunk串连而成，由一个标明长度为0的chunk标示结束。 参考: 【図解】TCP Keep-Alive/http Keep-Aliveの仕組みと違い ～Client/Serverの挙動とメリット,設定～ HTTP头部详解 HTTP协议的Keep-Alive 模式]]></content>
+    <title></title>
+    <url>/posts/0/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>http Keep-Alive</title>
+    <url>/posts/d91b7c06/</url>
+    <content><![CDATA[<h2 id="http-keep-alive"><a href="#http-keep-alive" class="headerlink" title="http keep-alive"></a>http keep-alive</h2><p>http头部<code>Connection: Keep-Alive</code>代表连接请求保持长连接<br><strong>如果是http代理,必须处理<code>Proxy-Connection: Keep-Alive</code>为<code>Connection: Keep-Alive</code>,如果代理没有实现<code>Keep-Alive</code>就不变或者将Connection设为close.</strong>  </p>
+<p>优点:减少握手次数,如下图(图来源文章最下面)<br><img src="https://milestone-of-se.nesuke.com/wp-content/uploads/2018/12/http-keepalive-2v2.png" alt="keep-alive"></p>
+<a id="more"></a>
+<h2 id="判断一次连接的传输结束"><a href="#判断一次连接的传输结束" class="headerlink" title="判断一次连接的传输结束"></a>判断一次连接的传输结束</h2><h3 id="使用消息首部字段Conent-Length"><a href="#使用消息首部字段Conent-Length" class="headerlink" title="使用消息首部字段Conent-Length"></a>使用消息首部字段<code>Conent-Length</code></h3><p><code>Conent-Length</code>表示实体内容长度，客户端（服务器）可以根据这个值来判断数据是否接收完成。</p>
+<h3 id="使用Transfer-Encoding-chunked"><a href="#使用Transfer-Encoding-chunked" class="headerlink" title="使用Transfer-Encoding: chunked"></a>使用<code>Transfer-Encoding: chunked</code></h3><p>chunk编码将数据分成一块一块的发生。Chunked编码将使用若干个Chunk串连而成，由一个标明长度为0的chunk标示结束。</p>
+<hr>
+<p>参考:</p>
+<ul>
+<li><a href="https://www.google.com/amp/s/milestone-of-se.nesuke.com/nw-basic/as-nw-engineer/keepalive-tcp-http/%3Famp=1" target="_blank" rel="noopener">【図解】TCP Keep-Alive/http Keep-Aliveの仕組みと違い ～Client/Serverの挙動とメリット,設定～</a>  </li>
+<li><a href="https://www.cnblogs.com/skynet/archive/2010/12/11/1903347.html#!comments" target="_blank" rel="noopener">HTTP头部详解</a>  </li>
+<li><a href="https://www.jianshu.com/p/49551bda6619" target="_blank" rel="noopener">HTTP协议的Keep-Alive 模式</a></li>
+</ul>
+]]></content>
       <categories>
-        <category>HTTP</category>
+        <category>Network</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -13,22 +30,133 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[深度学习]]></title>
-    <url>%2Fposts%2F33115a55%2F</url>
-    <content type="text"><![CDATA[如果以下的表格及图像出现格式问题,请将你的浏览器中文字体的等宽字体设置好 一.预处理提取特征量12345678910111213 +--------------+-------&gt; |人能想到的算法| --------&gt; 答案 +--------------+ +--------------------------+ +-------------------+-------&gt; |人想到的特征量(SIF,HGD...)| --------&gt; |机器学习(svm,knn..)| --------&gt; 答案 +--------------------------+ +-------------------+ +------------------+ |神经网络(深度学习)|-------&gt; | 特征量也是由计算 | --------&gt; 答案 | 机自动寻找 | +------------------+ Hyper-Parameter 设定超参数的范围 从设定的超参数的范围中随机采样 使用步骤1中采样到的超参数的值进行学习,通过验证数据,评估识别精度(要将epoch设置得很小) 重复步骤1和步骤2,根据他们的识别精度的结果缩小超参数的范围 超参数优化参考:贝叶斯最优化 权重权重的初始值:不应该设置为0/1(设置为0或1,可能造成梯度消失),应选择随机生成初始值 其他权重初始值: He初始值 输出层输出层的神经数量需要根据待解决的问题来决定,如:对于分类问题,输出层的神经元数量一般设定为类别的数量. 二.激活函数激活函数用来决定如何来激活(处理)输入的信号.如:感知器$ a = b + w_1x_1 + w_2x_2 $ 1234567+-----+----------+|x1 x2|输入的信号|+-----+----------+| b | 偏置 |+-----+----------+|w1 w2| 权重 |+-----+----------+ 123456789 b +--------------------+ 1----&gt; | | | +---+ h() +---+ | w1 | | a | ----&gt; | y | |x1----&gt; | +---+ +---+ | | | w2 | |x2----&gt; | | +--------------------+ sigmoid函数$ h(x) = \frac{1}{1+exp(-1)} $ 阶越函数在数学中，如果实数域上的某个函数可以用半开区间上的指示函数的有限次线性组合来表示，那么这个函数就是阶跃函数，或者叫赫维赛德函数。换一种不太正式的说法就是，阶跃函数是有限段分段常数函数的组合。 ReLV(Rectified Linear Vnit)函数$f(x)=\begin{cases}x&amp; \text{x &gt; 0}\0&amp; \text{x &lt;= 0}\end{cases}$由于hexo渲染器的问题,此处公式本来应该为两行,如下: 123 +- x (x&gt;0)f(x) = | +- 0 (x&lt;=0) 三.损失函数表示神经网络性能的”恶劣程度”的指标,及当前的升级网络对监督数据在多大程度上不拟合,在多大程度上不一致. 均方误差$E = \frac{1}{2} \sum_k (y_k - t_k)^2 $$k$: 数据的维度$y_k$: 神经网络的输出$t_k$: 监督数据 交叉熵误差$E = - \sum_k t_k \log y_k $$k$: 数据的维度$y_k$: 神经网络的输出$t_k$: 监督数据 四.网络层sigmoid层$ y = \frac{1}{1+exp(-1)} $ Affine层(仿射变换)仿射变换包括一次线性变换和一次平移变换,分别对应神经网络的加权和运算与加偏置运算 Convolutional Neural Network(卷积神经网络,CNN)卷积层12345678910 滤波器(相当于权重) 偏置+---+---+---+---+| 1 | 2 | 3 | 0 | +---+---+---++---+---+---+---+ | 2 | 0 | 1 | +---+---+ +---+---+| 0 | 1 | 2 | 3 | +---+---+---+ |15 | 16| +---+ |18 | 19|+---+---+---+---+ ⨀ | 0 | 1 | 2 | ----&gt; +---+---+ + | 3 | ---&gt; +---+---+| 3 | 0 | 1 | 2 | +---+---+---+ | 6 | 15| +---+ | 9 | 18|+---+---+---+---+ | 1 | 0 | 2 | +---+---+ +---+---+| 2 | 4 | 0 | 1 | +---+---+---++---+---+---+---+ $O_H = \frac{H+2P-F_H}{S} + 1$$O_W = \frac{W+2P-F_W}{S} + 1$输出大小: $O_H,O_W$滤波器大小: $F_H,F_W$填充大小: $P$ , 调整输出大小为相同大小的矩阵步幅: $S$ , 应用滤波器的间隔 池化层(缩小高长方向上的空间的运算,提高鲁棒性)如:max池 12345678910 Max池+---+---+---+---+| 1 | 2 | 1 | 0 |+---+---+---+---+ +---+---+| 0 | 1 | 2 | 3 | Max | 2 | 3 |+---+---+---+---+ -------&gt; +---+---+| 3 | 0 | 1 | 2 | | 4 | 2 |+---+---+---+---+ +---+---+| 2 | 4 | 0 | 1 |+---+---+---+---+ 全连接层全连接层就是一般的激活函数,在tensorflow也是Dense,放在卷积层和池化层之后进行数据的处理 CNN代表网络LeNet激活函数: sigmoid池化方法: 子采样 AlexNet激活函数: ReLV局部正规化 LRN(Local Response Normalization)并使用Dropout 五.优化函数梯度下降法 导数: 使用数值微分近似替代导数 偏导数: 与导数相同 梯度: 由全部变量的偏导数汇总而成的向量称为梯度,方向向量变化最快的地方,方向向量的导数. 如:$ (\frac{\gamma_f}{\gamma_{x_0}},\frac{\gamma_f}{\gamma_{x_1}}) $ 负梯度方向: 是梯度法中变量更新的方向,梯度指示的方向是各点处的函数值减少量最多的方向. 步骤 mini-batch 计算梯度: 求出各个权重参数的梯度 更新参数: 将权重沿梯度方向进行微小更新 重复: 重复步骤1,2,3 BGD(批量梯度下降法)是梯度下降法的其中一种 SGD(随机梯度下降法)是梯度下降法的其中一种随机梯度下降是通过每个样本来迭代更新一次，对比上面的批量梯度下降，迭代一次需要用到所有训练样本 M-BGD(min-batch 小批量梯度下降法)min-batch: 在所有数据中,随机选取一部分数据 Momentum$ v \leftarrow \alpha{v} - \eta{\frac{\gamma_L}{\gamma_W}} $$ W \leftarrow W + v $$W$: 权重$\frac{\gamma_L}{\gamma_W}$: 损失函数关于W的梯度$\eta$: 学习率$v$: 速度 AdaGrad为参数的每个元素适当的调整学习率learning rate decay:学习率衰减的方法,一开始”多”学,然后逐渐少学$h \leftarrow h + \frac{\gamma_L}{\gamma_W} \bigodot \frac{\gamma_L}{\gamma_W}$$W \leftarrow W - \eta{\frac{1}{\sqrt h}}{\frac{\gamma_L}{\gamma_W}}$$\bigodot$: 表示对立矩阵元素的乘法$W$: 权重参数$\frac{\gamma_L}{\gamma_W}$: 损失函数关于W的梯度$\eta$: 学习率 Adam(融合AdaGrad和Momentum)具体内容请查看原论文 抑制过拟合softMax层softMax层是把输入值正规化后再输出 12345678910 +---+5.3 --&gt; | s | --&gt; 0.0080.3 --&gt; | o | --&gt; 0.0000510.1--&gt; | f | --&gt; 0.991 . | t | . . | m | . . | a | . . | x | .0.01--&gt; | | --&gt; 0.00004 +---+ batch normalization(批量正则化)正则化$\mu_B \leftarrow {\frac{1}{m}}{\sum_{i=1}^m}{x_i}$$\sigma^2_B \leftarrow {\frac{1}{m}}{\sum_{i=1}^m}{(x_i-\mu_B)^2}$$\hat{x}_i \leftarrow \frac{x_i-\mu_B}{\sqrt {\sigma^2_B + \varepsilon}}$$\mu_B$: 均值$\sigma^2_B$: 方差进行缩放和平移: $y_i \leftarrow \gamma \hat{x}_i + \beta$ ($\gamma$和$\beta$为参数,初值为1和0) 正则化步骤: 权值衰减(抑制过拟合): 为损失函数加上${\frac{1}{2}}{\lambda}{W^2}$ ($\lambda$:控制正则化强度的超参数 W:权重) Dropout:在学习过程中随机删除神经元的方法 六.整个训练过程 初始化 网络初始化 优化器初始化 mini-batch 计算梯度 -&gt; 更新梯度 -&gt; 优化梯度 获取损失函数]]></content>
+    <title>深度学习</title>
+    <url>/posts/33115a55/</url>
+    <content><![CDATA[<p><strong>如果以下的表格及图像出现格式问题,请将你的浏览器中文字体的等宽字体设置好</strong></p>
+<h2 id="一-预处理"><a href="#一-预处理" class="headerlink" title="一.预处理"></a>一.预处理</h2><h3 id="提取特征量"><a href="#提取特征量" class="headerlink" title="提取特征量"></a>提取特征量</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">         +--------------+</span><br><span class="line"><span class="meta">-------&gt;</span><span class="bash"> |人能想到的算法| --------&gt; 答案</span></span><br><span class="line">         +--------------+</span><br><span class="line"></span><br><span class="line">         +--------------------------+           +-------------------+</span><br><span class="line"><span class="meta">-------&gt;</span><span class="bash"> |人想到的特征量(SIF,HGD...)| --------&gt; |机器学习(svm,knn..)| --------&gt; 答案</span></span><br><span class="line">         +--------------------------+           +-------------------+</span><br><span class="line"></span><br><span class="line">         +------------------+</span><br><span class="line">         |神经网络(深度学习)|</span><br><span class="line"><span class="meta">-------&gt;</span><span class="bash"> | 特征量也是由计算 | --------&gt; 答案</span></span><br><span class="line">         |     机自动寻找   |</span><br><span class="line">         +------------------+</span><br></pre></td></tr></table></figure>
+
+<h3 id="Hyper-Parameter"><a href="#Hyper-Parameter" class="headerlink" title="Hyper-Parameter"></a>Hyper-Parameter</h3><ol>
+<li>设定超参数的范围</li>
+<li>从设定的超参数的范围中随机采样</li>
+<li>使用步骤1中采样到的超参数的值进行学习,通过验证数据,评估识别精度(要将epoch设置得很小)</li>
+<li>重复步骤1和步骤2,根据他们的识别精度的结果缩小超参数的范围</li>
+</ol>
+<blockquote>
+<p>超参数优化参考:贝叶斯最优化</p>
+</blockquote>
+<h4 id="权重"><a href="#权重" class="headerlink" title="权重"></a>权重</h4><p>权重的初始值:不应该设置为0/1(设置为0或1,可能造成梯度消失),应选择随机生成初始值  </p>
+<blockquote>
+<p>其他权重初始值: He初始值</p>
+</blockquote>
+<h4 id="输出层"><a href="#输出层" class="headerlink" title="输出层"></a>输出层</h4><p>输出层的神经数量需要根据待解决的问题来决定,如:对于分类问题,输出层的神经元数量一般设定为类别的数量.<a id="more"></a></p>
+<h2 id="二-激活函数"><a href="#二-激活函数" class="headerlink" title="二.激活函数"></a>二.激活函数</h2><p>激活函数用来决定如何来激活(处理)输入的信号.<br>如:<br>感知器<br>$ a = b + w_1x_1 + w_2x_2 $</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">+-----+----------+</span><br><span class="line">|x1 x2|输入的信号|</span><br><span class="line">+-----+----------+</span><br><span class="line">|  b  |   偏置   |</span><br><span class="line">+-----+----------+</span><br><span class="line">|w1 w2|   权重   |</span><br><span class="line">+-----+----------+</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">    b   +--------------------+</span><br><span class="line"><span class="meta"> 1----&gt;</span><span class="bash"> |                    |</span></span><br><span class="line">        | +---+  h()  +---+  |</span><br><span class="line">   w1   | | a | ----&gt; | y |  |</span><br><span class="line"><span class="meta">x1----&gt;</span><span class="bash"> | +---+       +---+  |</span></span><br><span class="line">        |                    |</span><br><span class="line">   w2   |                    |</span><br><span class="line"><span class="meta">x2----&gt;</span><span class="bash"> |                    |</span></span><br><span class="line">        +--------------------+</span><br></pre></td></tr></table></figure>
+
+<h3 id="sigmoid函数"><a href="#sigmoid函数" class="headerlink" title="sigmoid函数"></a>sigmoid函数</h3><p>$ h(x) = \frac{1}{1+exp(-1)} $</p>
+<h3 id="阶越函数"><a href="#阶越函数" class="headerlink" title="阶越函数"></a>阶越函数</h3><p>在数学中，如果实数域上的某个函数可以用半开区间上的指示函数的有限次线性组合来表示，那么这个函数就是阶跃函数，或者叫赫维赛德函数。换一种不太正式的说法就是，阶跃函数是有限段分段常数函数的组合。</p>
+<h3 id="ReLV-Rectified-Linear-Vnit-函数"><a href="#ReLV-Rectified-Linear-Vnit-函数" class="headerlink" title="ReLV(Rectified Linear Vnit)函数"></a>ReLV(Rectified Linear Vnit)函数</h3><p>$f(x)=<br>\begin{cases}<br>x&amp; \text{x &gt; 0}\<br>0&amp; \text{x &lt;= 0}<br>\end{cases}$<br>由于hexo渲染器的问题,此处公式本来应该为两行,如下:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">        +- x (x&gt;0)</span><br><span class="line">f(x) =  |</span><br><span class="line">        +- 0 (x&lt;=0)</span><br></pre></td></tr></table></figure>
+
+<h2 id="三-损失函数"><a href="#三-损失函数" class="headerlink" title="三.损失函数"></a>三.损失函数</h2><p>表示神经网络性能的”恶劣程度”的指标,及当前的升级网络对监督数据在多大程度上不拟合,在多大程度上不一致.</p>
+<h3 id="均方误差"><a href="#均方误差" class="headerlink" title="均方误差"></a>均方误差</h3><p>$E = \frac{1}{2} \sum_k (y_k - t_k)^2 $<br>$k$: 数据的维度<br>$y_k$: 神经网络的输出<br>$t_k$: 监督数据</p>
+<h3 id="交叉熵误差"><a href="#交叉熵误差" class="headerlink" title="交叉熵误差"></a>交叉熵误差</h3><p>$E = - \sum_k t_k \log y_k $<br>$k$: 数据的维度<br>$y_k$: 神经网络的输出<br>$t_k$: 监督数据</p>
+<h2 id="四-网络层"><a href="#四-网络层" class="headerlink" title="四.网络层"></a>四.网络层</h2><h3 id="sigmoid层"><a href="#sigmoid层" class="headerlink" title="sigmoid层"></a>sigmoid层</h3><p>$ y = \frac{1}{1+exp(-1)} $</p>
+<h3 id="Affine层-仿射变换"><a href="#Affine层-仿射变换" class="headerlink" title="Affine层(仿射变换)"></a>Affine层(仿射变换)</h3><p>仿射变换包括一次线性变换和一次平移变换,分别对应神经网络的加权和运算与加偏置运算</p>
+<h3 id="Convolutional-Neural-Network-卷积神经网络-CNN"><a href="#Convolutional-Neural-Network-卷积神经网络-CNN" class="headerlink" title="Convolutional Neural Network(卷积神经网络,CNN)"></a>Convolutional Neural Network(卷积神经网络,CNN)</h3><h4 id="卷积层"><a href="#卷积层" class="headerlink" title="卷积层"></a>卷积层</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">                       滤波器(相当于权重)                     偏置</span><br><span class="line">+---+---+---+---+</span><br><span class="line">| 1 | 2 | 3 | 0 |       +---+---+---+</span><br><span class="line">+---+---+---+---+       | 2 | 0 | 1 |         +---+---+                 +---+---+</span><br><span class="line">| 0 | 1 | 2 | 3 |       +---+---+---+         |15 | 16|    +---+        |18 | 19|</span><br><span class="line">+---+---+---+---+   ⨀   | 0 | 1 | 2 |  ----&gt;  +---+---+  + | 3 |   ---&gt; +---+---+</span><br><span class="line">| 3 | 0 | 1 | 2 |       +---+---+---+         | 6 | 15|    +---+        | 9 | 18|</span><br><span class="line">+---+---+---+---+       | 1 | 0 | 2 |         +---+---+                 +---+---+</span><br><span class="line">| 2 | 4 | 0 | 1 |       +---+---+---+</span><br><span class="line">+---+---+---+---+</span><br></pre></td></tr></table></figure>
+
+<p>$O_H = \frac{H+2P-F_H}{S} + 1$<br>$O_W = \frac{W+2P-F_W}{S} + 1$<br>输出大小: $O_H,O_W$<br>滤波器大小: $F_H,F_W$<br>填充大小: $P$ , 调整输出大小为相同大小的矩阵<br>步幅: $S$ , 应用滤波器的间隔  </p>
+<h4 id="池化层-缩小高长方向上的空间的运算-提高鲁棒性"><a href="#池化层-缩小高长方向上的空间的运算-提高鲁棒性" class="headerlink" title="池化层(缩小高长方向上的空间的运算,提高鲁棒性)"></a>池化层(缩小高长方向上的空间的运算,提高鲁棒性)</h4><p>如:max池</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">                  Max池</span><br><span class="line">+---+---+---+---+</span><br><span class="line">| 1 | 2 | 1 | 0 |</span><br><span class="line">+---+---+---+---+             +---+---+</span><br><span class="line">| 0 | 1 | 2 | 3 |     Max     | 2 | 3 |</span><br><span class="line">+---+---+---+---+  -------&gt;   +---+---+</span><br><span class="line">| 3 | 0 | 1 | 2 |             | 4 | 2 |</span><br><span class="line">+---+---+---+---+             +---+---+</span><br><span class="line">| 2 | 4 | 0 | 1 |</span><br><span class="line">+---+---+---+---+</span><br></pre></td></tr></table></figure>
+
+<h4 id="全连接层"><a href="#全连接层" class="headerlink" title="全连接层"></a>全连接层</h4><p>全连接层就是一般的激活函数,在tensorflow也是Dense,放在卷积层和池化层之后进行数据的处理</p>
+<h4 id="CNN代表网络"><a href="#CNN代表网络" class="headerlink" title="CNN代表网络"></a>CNN代表网络</h4><h5 id="LeNet"><a href="#LeNet" class="headerlink" title="LeNet"></a>LeNet</h5><p>激活函数: sigmoid<br>池化方法: 子采样  </p>
+<h5 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h5><p>激活函数: ReLV<br>局部正规化 LRN(Local Response Normalization)并使用Dropout  </p>
+<h2 id="五-优化函数"><a href="#五-优化函数" class="headerlink" title="五.优化函数"></a>五.优化函数</h2><h3 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h3><ul>
+<li>导数: 使用数值微分近似替代导数</li>
+<li>偏导数: 与导数相同</li>
+<li>梯度: 由全部变量的偏导数汇总而成的向量称为梯度,方向向量变化最快的地方,方向向量的导数.<br>  如:$ (\frac{\gamma_f}{\gamma_{x_0}},\frac{\gamma_f}{\gamma_{x_1}}) $</li>
+<li>负梯度方向: 是梯度法中变量更新的方向,梯度指示的方向是各点处的函数值减少量最多的方向.</li>
+<li>步骤<ol>
+<li>mini-batch</li>
+<li>计算梯度: 求出各个权重参数的梯度</li>
+<li>更新参数: 将权重沿梯度方向进行微小更新</li>
+<li>重复: 重复步骤1,2,3</li>
+</ol>
+</li>
+</ul>
+<h4 id="BGD-批量梯度下降法"><a href="#BGD-批量梯度下降法" class="headerlink" title="BGD(批量梯度下降法)"></a>BGD(批量梯度下降法)</h4><p>是梯度下降法的其中一种</p>
+<h4 id="SGD-随机梯度下降法"><a href="#SGD-随机梯度下降法" class="headerlink" title="SGD(随机梯度下降法)"></a>SGD(随机梯度下降法)</h4><p>是梯度下降法的其中一种<br>随机梯度下降是通过每个样本来迭代更新一次，对比上面的批量梯度下降，迭代一次需要用到所有训练样本</p>
+<h4 id="M-BGD-min-batch-小批量梯度下降法"><a href="#M-BGD-min-batch-小批量梯度下降法" class="headerlink" title="M-BGD(min-batch 小批量梯度下降法)"></a>M-BGD(min-batch 小批量梯度下降法)</h4><p>min-batch: 在所有数据中,随机选取一部分数据</p>
+<h3 id="Momentum"><a href="#Momentum" class="headerlink" title="Momentum"></a>Momentum</h3><p>$ v \leftarrow \alpha{v} - \eta{\frac{\gamma_L}{\gamma_W}} $<br>$ W \leftarrow W + v $<br>$W$: 权重<br>$\frac{\gamma_L}{\gamma_W}$: 损失函数关于W的梯度<br>$\eta$: 学习率<br>$v$: 速度</p>
+<h3 id="AdaGrad"><a href="#AdaGrad" class="headerlink" title="AdaGrad"></a>AdaGrad</h3><p>为参数的每个元素适当的调整学习率<br>learning rate decay:学习率衰减的方法,一开始”多”学,然后逐渐少学<br>$h \leftarrow h + \frac{\gamma_L}{\gamma_W} \bigodot \frac{\gamma_L}{\gamma_W}$<br>$W \leftarrow W - \eta{\frac{1}{\sqrt h}}{\frac{\gamma_L}{\gamma_W}}$<br>$\bigodot$: 表示对立矩阵元素的乘法<br>$W$: 权重参数<br>$\frac{\gamma_L}{\gamma_W}$: 损失函数关于W的梯度<br>$\eta$: 学习率  </p>
+<h3 id="Adam-融合AdaGrad和Momentum"><a href="#Adam-融合AdaGrad和Momentum" class="headerlink" title="Adam(融合AdaGrad和Momentum)"></a>Adam(融合AdaGrad和Momentum)</h3><p>具体内容请查看原论文</p>
+<h3 id="抑制过拟合"><a href="#抑制过拟合" class="headerlink" title="抑制过拟合"></a>抑制过拟合</h3><h3 id="softMax层"><a href="#softMax层" class="headerlink" title="softMax层"></a>softMax层</h3><p>softMax层是把输入值正规化后再输出</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">        +---+</span><br><span class="line">5.3 --&gt; | s | --&gt; 0.008</span><br><span class="line">0.3 --&gt; | o | --&gt; 0.00005</span><br><span class="line">10.1--&gt; | f | --&gt; 0.991</span><br><span class="line">   .    | t |  .</span><br><span class="line">   .    | m |  .</span><br><span class="line">   .    | a |  .</span><br><span class="line">   .    | x |  .</span><br><span class="line">0.01--&gt; |   | --&gt; 0.00004</span><br><span class="line">        +---+</span><br></pre></td></tr></table></figure>
+
+<h4 id="batch-normalization-批量正则化"><a href="#batch-normalization-批量正则化" class="headerlink" title="batch normalization(批量正则化)"></a>batch normalization(批量正则化)</h4><h5 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h5><p>$\mu_B \leftarrow {\frac{1}{m}}{\sum_{i=1}^m}{x_i}$<br>$\sigma^2_B \leftarrow {\frac{1}{m}}{\sum_{i=1}^m}{(x_i-\mu_B)^2}$<br>$\hat{x}_i \leftarrow \frac{x_i-\mu_B}{\sqrt {\sigma^2_B + \varepsilon}}$<br>$\mu_B$: 均值<br>$\sigma^2_B$: 方差<br>进行缩放和平移: $y_i \leftarrow \gamma \hat{x}_i + \beta$ ($\gamma$和$\beta$为参数,初值为1和0)</p>
+<p>正则化步骤:</p>
+<ol>
+<li>权值衰减(抑制过拟合): 为损失函数加上${\frac{1}{2}}{\lambda}{W^2}$ ($\lambda$:控制正则化强度的超参数 W:权重)  </li>
+<li>Dropout:在学习过程中随机删除神经元的方法</li>
+</ol>
+<h2 id="六-整个训练过程"><a href="#六-整个训练过程" class="headerlink" title="六.整个训练过程"></a>六.整个训练过程</h2><ol>
+<li>初始化<ul>
+<li>网络初始化</li>
+<li>优化器初始化</li>
+</ul>
+</li>
+<li>mini-batch</li>
+<li>计算梯度 -&gt; 更新梯度 -&gt; 优化梯度</li>
+<li>获取损失函数</li>
+</ol>
+]]></content>
       <categories>
-        <category>深度学习</category>
+        <category>Machine Learning</category>
       </categories>
       <tags>
-        <tag>深度学习</tag>
-        <tag>机器学习</tag>
-        <tag>人工智能</tag>
+        <tag>Deep Learning</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[汇编语言学习]]></title>
-    <url>%2Fposts%2F4f95e9f6%2F</url>
-    <content type="text"><![CDATA[最近想了解一下c是如何编译为汇编语言的首先写了一个相当简单的c 12345678910#include "stdio.h"int main()&#123; int a = 1; int b = 2; int c = a + b; int d = 3 + 4; printf("%d %d",c,d); return 0;&#125; 使用gcc -S编译为汇编语言: 123456789101112131415161718192021222324252627282930313233343536373839 .file "hello.c" .text .section .rodata.LC0: .string "%d %d" .text .globl main .type main, @functionmain:.LFB0: .cfi_startproc pushq %rbp .cfi_def_cfa_offset 16 .cfi_offset 6, -16 movq %rsp, %rbp .cfi_def_cfa_register 6 subq $16, %rsp movl $1, -16(%rbp) movl $2, -12(%rbp) movl -16(%rbp), %edx movl -12(%rbp), %eax addl %edx, %eax movl %eax, -8(%rbp) movl $7, -4(%rbp) movl -4(%rbp), %edx movl -8(%rbp), %eax movl %eax, %esi leaq .LC0(%rip), %rdi movl $0, %eax call printf@PLT movl $0, %eax leave .cfi_def_cfa 7, 8 ret .cfi_endproc.LFE0: .size main, .-main .ident "GCC: (GNU) 9.1.0" .section .note.GNU-stack,"",@progbits 以”点”做为前缀的指令都是用来指导汇编器的命令。精简一下差不多这样: 12345678910111213141516171819202122232425.LC0: .string "%d %d" .text .globl main .type main, @functionmain: pushq %rbp movq %rsp, %rbp movl $1, -16(%rbp) movl $2, -12(%rbp) movl -16(%rbp), %edx movl -12(%rbp), %eax addl %edx, %eax movl %eax, -8(%rbp) movl $7, -4(%rbp) movl -4(%rbp), %edx movl -8(%rbp), %eax movl %eax, %esi leaq .LC0(%rip), %rdi movl $0, %eax call printf@PLT movl $0, %eax leave ret 首先了解一下几个寄存器[1] %rbp 是栈帧指针，用于标识当前栈帧的起始位置 %rsp 是堆栈指针寄存器，通常会指向栈顶位置，堆栈的 pop 和push 操作就是通过改变 %rsp 的值即移动堆栈指针的位置来实现的。 %eax 是”累加器”(accumulator), 它是很多加法乘法指令的缺省寄存器。 %edx 则总是被用来放整数除法产生的余数。 %rip 指令地址寄存器，用来存储 CPU 即将要执行的指令地址。每次 CPU 执行完相应的汇编指令之后，rip 寄存器的值就会自行累加；rip 无法直接赋值，call, ret, jmp 等指令可以修改 rip。 %rdi，%rsi，%rdx，%rcx，%r8，%r9 用作函数参数，依次对应第1参数，第2参数。 ESI/EDI 分别叫做”源/目标索引寄存器”(source/destination index),因为在很多字符串操作指令中, DS:ESI指向源串,而ES:EDI指向目标串. 123pushq %rbpmovq %rsp, %rbp确认栈 movl $1, -16(%rbp) 把1移入寄存器rbq中-16是地址起始位置movl $2, -12(%rbp) 跟上面相同movl -16(%rbp), %edx 把-16(%rbp)移入寄存器edx中,上面可知就是把1移入edx中movl -12(%rbp), %eax 跟上面类似 不过这次用的是寄存器eaxaddl %edx, %eax 把edx和eax中的内容相加,并存入edx中movl %eax, -8(%rbp) 把eax中的内容存入rbq中位置为-8movl $7, -4(%rbp) 把7存入rbq位置为-4,对应c代码为int d = 3 + 4,由此可知编译器在编译时其实是会进行相应优化的.LC0(%rip)は、printfが使うアドレス、前もってprintfで使用する書式を設定している(就是说设置printf使用的地址,并提前设置格式)[2]call printf@PLT 调用printf leave 离开printfret:结束当前函数 接下来我们可以简单的实战一下:给gcc开启O3级别的优化: 1gcc -O3 -S 生成的汇编码: 12345678910111213141516171819202122232425262728 .file "hello.c" .text .section .rodata.str1.1,"aMS",@progbits,1.LC0: .string "%d %d" .section .text.startup,"ax",@progbits .p2align 4 .globl main .type main, @functionmain:.LFB11: .cfi_startproc subq $8, %rsp .cfi_def_cfa_offset 16 movl $7, %edx movl $3, %esi xorl %eax, %eax leaq .LC0(%rip), %rdi call printf@PLT xorl %eax, %eax addq $8, %rsp .cfi_def_cfa_offset 8 ret .cfi_endproc.LFE11: .size main, .-main .ident "GCC: (GNU) 9.1.0" .section .note.GNU-stack,"",@progbits 从以上汇编代码中我们可以发现,优化之后的汇编代码将最后相加的值给了内存,而不像之前那样先占用两个内存空间然后再相加. [1] x86-64 下函数调用及栈帧原理[2] アセンブラ学習log_1]]></content>
+    <title>汇编语言学习</title>
+    <url>/posts/4f95e9f6/</url>
+    <content><![CDATA[<p>最近想了解一下c是如何编译为汇编语言的<br>首先写了一个相当简单的c</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdio.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> c = a + b;</span><br><span class="line">    <span class="keyword">int</span> d = <span class="number">3</span> + <span class="number">4</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d"</span>,c,d);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>gcc -S</code>编译为汇编语言:</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="meta">	.file</span>	<span class="string">"hello.c"</span></span><br><span class="line"><span class="meta">	.text</span></span><br><span class="line"><span class="meta">	.section</span>	.rodata</span><br><span class="line"><span class="symbol">.LC0:</span></span><br><span class="line"><span class="meta">	.string</span>	<span class="string">"%d %d"</span></span><br><span class="line"><span class="meta">	.text</span></span><br><span class="line"><span class="meta">	.globl</span>	main</span><br><span class="line"><span class="meta">	.type</span>	main, @function</span><br><span class="line"><span class="symbol">main:</span></span><br><span class="line"><span class="symbol">.LFB0:</span></span><br><span class="line"><span class="meta">	.cfi_startproc</span></span><br><span class="line">	pushq	%rbp</span><br><span class="line"><span class="meta">	.cfi_def_cfa_offset</span> <span class="number">16</span></span><br><span class="line"><span class="meta">	.cfi_offset</span> <span class="number">6</span>, -<span class="number">16</span></span><br><span class="line">	<span class="keyword">movq</span>	%rsp, %rbp</span><br><span class="line"><span class="meta">	.cfi_def_cfa_register</span> <span class="number">6</span></span><br><span class="line">	subq	<span class="number">$16</span>, %rsp</span><br><span class="line">	movl	<span class="number">$1</span>, -<span class="number">16</span>(%rbp)</span><br><span class="line">	movl	<span class="number">$2</span>, -<span class="number">12</span>(%rbp)</span><br><span class="line">	movl	-<span class="number">16</span>(%rbp), %edx</span><br><span class="line">	movl	-<span class="number">12</span>(%rbp), %eax</span><br><span class="line">	addl	%edx, %eax</span><br><span class="line">	movl	%eax, -<span class="number">8</span>(%rbp)</span><br><span class="line">	movl	<span class="number">$7</span>, -<span class="number">4</span>(%rbp)</span><br><span class="line">	movl	-<span class="number">4</span>(%rbp), %edx</span><br><span class="line">	movl	-<span class="number">8</span>(%rbp), %eax</span><br><span class="line">	movl	%eax, %esi</span><br><span class="line">	leaq	.LC0(%rip), %rdi</span><br><span class="line">	movl	<span class="number">$0</span>, %eax</span><br><span class="line">	<span class="keyword">call</span>	printf@PLT</span><br><span class="line">	movl	<span class="number">$0</span>, %eax</span><br><span class="line">	<span class="keyword">leave</span></span><br><span class="line"><span class="meta">	.cfi_def_cfa</span> <span class="number">7</span>, <span class="number">8</span></span><br><span class="line">	<span class="keyword">ret</span></span><br><span class="line"><span class="meta">	.cfi_endproc</span></span><br><span class="line"><span class="symbol">.LFE0:</span></span><br><span class="line"><span class="meta">	.size</span>	main, .-main</span><br><span class="line"><span class="meta">	.ident</span>	<span class="string">"GCC: (GNU) 9.1.0"</span></span><br><span class="line"><span class="meta">	.section</span>	.note<span class="number">.</span>GNU-stack,<span class="string">""</span>,@progbits</span><br></pre></td></tr></table></figure>
+
+<p>以”点”做为前缀的指令都是用来指导汇编器的命令。<br>精简一下差不多这样:<a id="more"></a></p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">.LC0:</span></span><br><span class="line"><span class="meta"> .string</span>	<span class="string">"%d %d"</span></span><br><span class="line"><span class="meta"> .text</span></span><br><span class="line"><span class="meta"> .globl</span>	main</span><br><span class="line"><span class="meta"> .type</span>	main, @function</span><br><span class="line"></span><br><span class="line"><span class="symbol">main:</span></span><br><span class="line"> pushq	%rbp</span><br><span class="line"> <span class="keyword">movq</span>	%rsp, %rbp</span><br><span class="line"> movl	<span class="number">$1</span>, -<span class="number">16</span>(%rbp)</span><br><span class="line"> movl	<span class="number">$2</span>, -<span class="number">12</span>(%rbp)</span><br><span class="line"> movl	-<span class="number">16</span>(%rbp), %edx</span><br><span class="line"> movl	-<span class="number">12</span>(%rbp), %eax</span><br><span class="line"> addl	%edx, %eax</span><br><span class="line"> movl	%eax, -<span class="number">8</span>(%rbp)</span><br><span class="line"> movl	<span class="number">$7</span>, -<span class="number">4</span>(%rbp)</span><br><span class="line"> movl	-<span class="number">4</span>(%rbp), %edx</span><br><span class="line"> movl	-<span class="number">8</span>(%rbp), %eax</span><br><span class="line"> movl	%eax, %esi</span><br><span class="line"> leaq	.LC0(%rip), %rdi</span><br><span class="line"> movl	<span class="number">$0</span>, %eax</span><br><span class="line"> <span class="keyword">call</span>	printf@PLT</span><br><span class="line"> movl	<span class="number">$0</span>, %eax</span><br><span class="line"> <span class="keyword">leave</span></span><br><span class="line"> <span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
+
+<p>首先了解一下几个寄存器<sup><a href="#1"><font color="red">[1]</font></a></sup></p>
+<ul>
+<li>%rbp 是栈帧指针，用于标识当前栈帧的起始位置</li>
+<li>%rsp 是堆栈指针寄存器，通常会指向栈顶位置，堆栈的 pop 和push 操作就是通过改变 %rsp 的值即移动堆栈指针的位置来实现的。</li>
+<li>%eax 是”累加器”(accumulator), 它是很多加法乘法指令的缺省寄存器。</li>
+<li>%edx 则总是被用来放整数除法产生的余数。</li>
+<li>%rip 指令地址寄存器，用来存储 CPU 即将要执行的指令地址。每次 CPU 执行完相应的汇编指令之后，rip 寄存器的值就会自行累加；rip 无法直接赋值，call, ret, jmp 等指令可以修改 rip。</li>
+<li>%rdi，%rsi，%rdx，%rcx，%r8，%r9 用作函数参数，依次对应第1参数，第2参数。</li>
+<li>ESI/EDI 分别叫做”源/目标索引寄存器”(source/destination index),因为在很多字符串操作指令中, DS:ESI指向源串,而ES:EDI指向目标串.</li>
+</ul>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line">pushq	%rbp</span><br><span class="line"><span class="keyword">movq</span>	%rsp, %rbp</span><br><span class="line">确认栈</span><br></pre></td></tr></table></figure>
+
+<p><code>movl    $1, -16(%rbp)</code> 把1移入寄存器rbq中-16是地址起始位置<br><code>movl    $2, -12(%rbp)</code> 跟上面相同<br><code>movl    -16(%rbp), %edx</code> 把<code>-16(%rbp)</code>移入寄存器edx中,上面可知就是把1移入edx中<br><code>movl    -12(%rbp), %eax</code> 跟上面类似 不过这次用的是寄存器eax<br><code>addl    %edx, %eax</code> 把edx和eax中的内容相加,并存入edx中<br><code>movl    %eax, -8(%rbp)</code> 把eax中的内容存入rbq中位置为-8<br><code>movl    $7, -4(%rbp)</code> 把7存入rbq位置为-4,对应c代码为<code>int d = 3 + 4</code>,由此可知编译器在编译时其实是会进行相应优化的<br><code>.LC0(%rip)</code>は、printfが使うアドレス、前もってprintfで使用する書式を設定している(就是说设置printf使用的地址,并提前设置格式)<sup><a href="#2"><font color="red">[2]</font></a></sup><br><code>call    printf@PLT</code> 调用printf<br> <code>leave</code> 离开printf<br><code>ret</code>:结束当前函数</p>
+<hr>
+<p>接下来我们可以简单的实战一下:<br>给gcc开启O3级别的优化:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gcc -O3 -S</span><br></pre></td></tr></table></figure>
+
+<p>生成的汇编码:</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="meta">	.file</span>	<span class="string">"hello.c"</span></span><br><span class="line"><span class="meta">	.text</span></span><br><span class="line"><span class="meta">	.section</span>	.rodata<span class="number">.</span>str1<span class="number">.1</span>,<span class="string">"aMS"</span>,@progbits,<span class="number">1</span></span><br><span class="line"><span class="symbol">.LC0:</span></span><br><span class="line"><span class="meta">	.string</span>	<span class="string">"%d %d"</span></span><br><span class="line"><span class="meta">	.section</span>	.text<span class="number">.</span>startup,<span class="string">"ax"</span>,@progbits</span><br><span class="line"><span class="meta">	.p2align</span> <span class="number">4</span></span><br><span class="line"><span class="meta">	.globl</span>	main</span><br><span class="line"><span class="meta">	.type</span>	main, @function</span><br><span class="line"><span class="symbol">main:</span></span><br><span class="line"><span class="symbol">.LFB11:</span></span><br><span class="line"><span class="meta">	.cfi_startproc</span></span><br><span class="line">	subq	<span class="number">$8</span>, %rsp</span><br><span class="line"><span class="meta">	.cfi_def_cfa_offset</span> <span class="number">16</span></span><br><span class="line">	movl	<span class="number">$7</span>, %edx</span><br><span class="line">	movl	<span class="number">$3</span>, %esi</span><br><span class="line">	xorl	%eax, %eax</span><br><span class="line">	leaq	.LC0(%rip), %rdi</span><br><span class="line">	<span class="keyword">call</span>	printf@PLT</span><br><span class="line">	xorl	%eax, %eax</span><br><span class="line">	addq	<span class="number">$8</span>, %rsp</span><br><span class="line"><span class="meta">	.cfi_def_cfa_offset</span> <span class="number">8</span></span><br><span class="line">	<span class="keyword">ret</span></span><br><span class="line"><span class="meta">	.cfi_endproc</span></span><br><span class="line"><span class="symbol">.LFE11:</span></span><br><span class="line"><span class="meta">	.size</span>	main, .-main</span><br><span class="line"><span class="meta">	.ident</span>	<span class="string">"GCC: (GNU) 9.1.0"</span></span><br><span class="line"><span class="meta">	.section</span>	.note<span class="number">.</span>GNU-stack,<span class="string">""</span>,@progbits</span><br></pre></td></tr></table></figure>
+
+<p>从以上汇编代码中我们可以发现,优化之后的汇编代码将最后相加的值给了内存,而不像之前那样先占用两个内存空间然后再相加.</p>
+<hr>
+<blockquote>
+<p>[1] <a id="1"><a href="https://zhuanlan.zhihu.com/p/27339191" target="_blank" rel="noopener">x86-64 下函数调用及栈帧原理</a></a><br>[2] <a id="2"><a href="https://qiita.com/diggy-mo/items/fe56f6ea357e5928a8ca" target="_blank" rel="noopener">アセンブラ学習log_1</a></a></p>
+</blockquote>
+]]></content>
       <categories>
         <category>assembly</category>
       </categories>
@@ -38,9 +166,12 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[nodejs异步回调函数]]></title>
-    <url>%2Fposts%2F5938ae8c%2F</url>
-    <content type="text"><![CDATA[研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then. 1234567891011async function test() &#123; return await new Promise(function (resolve, reject) &#123; resolve("test") &#125;) &#125;async function test2()&#123; console.log(await test())&#125;test2()]]></content>
+    <title>nodejs异步回调函数</title>
+    <url>/posts/5938ae8c/</url>
+    <content><![CDATA[<p>研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.<br>如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">        resolve(<span class="string">"test"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">test2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">await</span> test())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test2()</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
         <category>nodejs</category>
       </categories>
@@ -49,9 +180,216 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[archlinux安装记录]]></title>
-    <url>%2Fposts%2Fe3707853%2F</url>
-    <content type="text"><![CDATA[详细安装教程请参考arch wiki Installation guide (简体中文),此处只记录安装后遇到的问题. grub更新菜单 1grub-mkconfig -o /boot/grub/grub.cfg 安装os-prober让grub检测到其他系统并自动创建引导 1pacman -S os-prober 使用system-boot(就是直接使用linux内核引导系统,不再需要grub,如果有多系统不推荐,会把efi分区搞得很乱): 123pacman -S efibootmgr dosfstools# 此处注意:此处要把efi分区挂载为/boot,而非平常的/boot/efibootctl install --path=/boot 关于efi的部分可以看我的另一贴. arch 安装应用后 应用菜单不刷新怎么办(这个正常情况是不会遇到的,只是刚装完有些功能不完整会这样,我就遇到了): 1kbuildsycoca5 --noincremental 新增用户[1]:首先添加一个用户，并把它加到wheel组 1useradd -m -G wheel -s /bin/bash [用户名] 然后为这个用户设置密码 1passwd [用户名] 最后设置wheel组的用户能用sudo获取root权限: 1234visudo #找到这样的一行,把前面的#去掉: #%wheel ALL=(ALL) ALL按ESC键，输入x!回车就可以保存并退出 启用dhcp自动获取网络地址,不然开机无法自动联网 1systemctl enable dhcpcd.service 如果只使用有线网络 可以使用Systemd-networkd——以下已包含dhcp的功能,下面两条命令包括上面那个的功能—— 1234pacman -s networkmanagersystemctl enable NetworkManager # 启动这个后开机有个NetworkManager-wait-online会占用大概6s的时间,嫌慢的可以屏蔽systemctl mask NetworkManager-wait-online 安装一个图形界面,比如kde 12pacman -S plasma-desktopsystemctl start sddm.service 缩略图生成若要在桌面和 Dolphin 内为媒体或文档文件生成缩略图，安装 kdegraphics-thumbnailers，ffmpegthumbs。 1pacman -S kdegraphics-thumbnailers ffmpegthumbs 一些gtk应用的plasma panel托盘图标模糊且右键菜单比较奇怪解决方法: 安装libappindicator-gtk3 libappindicator-gtk2 1pacman -S libappindicator-gtk3 libappindicator-gtk2 安装一个终端,不然进入图形界面只能进tty输入命令 1pacman -S konsole 无法检测到蓝牙适配器:安装bluez,bluez-utils 1pacman -S bluez bluez-utils 首先确定内核的蓝牙模块已载入 1modinfo btusb 如果没有的话就是没载入,手动载入: 1modprobe btusb 开启bluetooth服务 123systemctl start bluetooth# 开机自启systemctl enable bluetooth 开机后自动启动:修改 /etc/bluetooth/main.conf 123[Policy]# 这一句的注释删除 并将false改成trueAutoEnable=true 已知问题:有时候会崩溃,且无法找到蓝牙适配器,使用dmesg查看错误日志. 蓝牙耳机可能载入模块失败 12pactl load-module module-bluetooth-discoverFailure: Module initialization failed 临时解决方法: 12pactl unload-module module-bluetooth-discoverpactl load-module module-bluetooth-discover 长期解决方法[2]: Edit the file: 1/etc/pulse/default.pa and comment out (with an # at the beginning of the line) the following line: 1#load-module module-bluetooth-discover now edit the file: 1/usr/bin/start-pulseaudio-x11 and after the lines: 123if [ x”$SESSION_MANAGER” != x ] ; then /usr/bin/pactl load-module module-x11-xsmp “display=$DISPLAY session_manager=$SESSION_MANAGER” &gt; /dev/null fi add the following line: 1/usr/bin/pactl load-module module-bluetooth-discover This way the Pulse audio’s Bluetooth modules will not be downloaded at boot time but after x11 is started. 字体优化:有些字体可能看不见,比如 𫔭 𪠸 : 12#安装 ttf-hanazono ttf-ume(mincho) 字体pacman -S ttf-hanazono ttf-ume 不要使用noto和思源黑体的亚洲字体整合包,因为会优先使用日语字体,造成中文大小不一,尽量下载思源黑体的分开的字体包,然后在~/.config/fontconfig/fonts.conf中将中文的思源黑体设置为第一个,具体设置参考Font_configuration 解决DNS污染问题:安装dnscrypt-proxy 具体方法参见arch wiki dnscrypt-proxy,使用dnsmasq-china-list排除中国域名 arch 使用pyhon-dlib会提示Undefined symbol: cblas_dtrsm使用aur或archlinuxcn中的openblas-lapack-git代替pacman源中的cblas,貌似源中的cblas版本太低 自动清除pacman的缓存:创建/usr/share/libalpm/hooks/clean-pacman-cache.hook 1234567891011[Trigger]Operation = RemoveOperation = InstallOperation = UpgradeType = PackageTarget = *[Action]Description = Cleaning up old packages...When = PostTransactionExec = /usr/bin/paccache -rvk3 ext4分区优化: 有备用电源或者笔记本可以关闭ext4的barriers具体方法参考Ext4#Turning_barriers_off deadbeef-git 打开提示plugin cdda.so not found or failed to load解决方法: 安装 libcddb libcdio 1pacman -S libcddb libcdio 使用anime4k会提示缺少openCL库,安装ocl-icd 1pacman -S ocl-icd 开启powertop的自动优化节省电量: 12345678910111213141516#安装powertoppacman -S powertop#开机自动启用vim /etc/systemd/system/powertop.service#填入以下内容[Unit]Description=Powertop tunings[Service]ExecStart=/usr/bin/powertop --auto-tune &amp;&amp; echo 'on'RemainAfterExit=true[Install]WantedBy=multi-user.target# 启用systemctl enable powertop.service 以下shell是禁用usb的休眠,不然鼠标用起来很难受(注意:每个电脑的命令都不同,请自行用powertop查看相应的命令) 12345678910# Autosuspend for USB device USB Optical Mouse [PixArt]echo 'on' &gt; '/sys/bus/usb/devices/1-1/power/control';# Autosuspend for USB device HP Wide Vision HD [Generic]echo 'on' &gt; '/sys/bus/usb/devices/1-4/power/control';# Autosuspend for USB device xHCI Host Controller [usb1]echo 'on' &gt; '/sys/bus/usb/devices/usb1/power/control';# Autosuspend for USB device xHCI Host Controller [usb2]echo 'on' &gt; '/sys/bus/usb/devices/usb2/power/control';# Autosuspend for unknown USB device 1-7 (8087:0a2a)echo 'on' &gt; '/sys/bus/usb/devices/1-7/power/control'; rider 需要安装moon(.net framework/.net core) 1pacman -S moon 服务端需要mono-xsp,使用aur安装: 1yay -S xsp vscode 开发asp.net:安装 moon dotnet 1pacman -S moon dotnet-sdk dotnet 安装 dotnet-dev-certs 生成证书: 1dotnet tool install --global dotnet-dev-certs export要加入.bashrc 或者每次开始前执行 1export PATH="$PATH:/home/[user]/.dotnet/tools" 生成证书 1dotnet dev-certs https 如果想卸载 1dotnet tool uninstall --global dotnet-dev-certs 编译汇编语言 需要安装nasm 1pacman -S nasm chrome/chromium 即使已经设置为默认浏览器也会提示设置为默认浏览器:解决方法: What has worked for me is go to Settings -&gt; Applications -&gt; File Associations and there, filter with html. Then for the entries xhtml+xml and html, you can move Google Chrome to the first position of the preference order.[3] 个人测试 只要把xhtml+xml的默认开启最高优先级应用设置为chromium/chrome就行了 archLinux进行openGl的开发安装glfw-x11 glad-c-git 1yay -S glfw-x11 glad-c-git open GL导入现有模型时需要安装assimp: 1pacman -S assimp 顺便推荐一个glsl的教程: LearnOpenGL CN python使用tkinter需要安装tk库: 1pacman -S tk kde设置三指手势: 1pacman -S gebaar xdotool 手动安装mariadb:运行mariadb/scripts/mariadb-install-db 设置路径(提示失败 路径更改成功): 1./mysqld --datadir="./data" --langdir="./mysql/share" --basedir="./data/base" 最后 12345You can start the MariaDB daemon with:cd '.' ; ./bin/mysqld_safe --datadir='./data'You can test the MariaDB daemon with mysql-test-run.plcd './mysql-test' ; perl mysql-test-run.pl 使用redash:安装docker-compose(此处可改docker的root目录,建议谷歌), 手动安装时需要临时使用pwgen生成密钥,安装完成后可卸载.安装时参考ubuntu的安装脚本 稍微改改就行了 12pacman -S docker-compose pwgenpacman -Rs pwgen 遇到以下问题: 12Possibly missing firmware for module: aic94xx Possibly missing firmware for module: wd719x 直接使用aur中提供的驱动: 1yay -S aic94xx-firmware wd719x-firmware 为kde spellChecker添加字典: 1sudo pacman -S hunspell-en_US wine-wechat 数据文件: 12==&gt; WeChat data will be put into ~/.local/lib/wine-wechat when needed.==&gt; run 'wechat --config' if you want to adjust DPI settings. wine-wechat 运行要保证当前运行环境变量为中文,否则无法显示中文字体,即使wine装了中文字体: 1LC_ALL=zh_CN.UTF-8 wechat 已知问题: kde discover 无法使用pacman backenddiscover 使用了 packagekit,使用 pkcon 需要root权限,按理来说packagekit会自动获取root且无需输入密码,但discover无法获取root已无法已root用户运行,问题未知,放弃解决解决方法:卸载discover packagekit packagekit-qt5新安装的话 索性不装就行了 此方法参考自 用户添加 此方法参考自 PulseAudio can not load bluetooth module 此方法来自 Plasma wont set Chromium as default browser]]></content>
+    <title>archlinux安装记录</title>
+    <url>/posts/e3707853/</url>
+    <content><![CDATA[<p>详细安装教程请参考arch wiki <a href="https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)" target="_blank" rel="noopener">Installation guide (简体中文)</a>,此处只记录安装后遇到的问题.</p>
+<p>grub更新菜单  </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
+
+<p>安装os-prober让grub检测到其他系统并自动创建引导</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S os-prober</span><br></pre></td></tr></table></figure>
+
+<p>使用system-boot(就是直接使用linux内核引导系统,不再需要grub,如果有多系统不推荐,会把efi分区搞得很乱):</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S efibootmgr dosfstools</span><br><span class="line"><span class="meta">#</span><span class="bash"> 此处注意:此处要把efi分区挂载为/boot,而非平常的/boot/efi</span></span><br><span class="line">bootctl install --path=/boot</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p><strong>关于efi的部分可以看我的另一贴.</strong></p>
+<p>arch 安装应用后 应用菜单不刷新怎么办(这个正常情况是不会遇到的,只是刚装完有些功能不完整会这样,我就遇到了):  </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kbuildsycoca5 --noincremental</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>新增用户<sup><a href="#1"><font color="red">[1]</font></a></sup>:<br>首先添加一个用户，并把它加到wheel组  </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">useradd -m -G wheel -s /bin/bash  [用户名]</span><br></pre></td></tr></table></figure>
+
+<p>然后为这个用户设置密码  </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">passwd [用户名]</span><br></pre></td></tr></table></figure>
+
+<p>最后设置wheel组的用户能用sudo获取root权限:  </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">visudo</span><br><span class="line">    #找到这样的一行,把前面的#去掉:</span><br><span class="line">    #%wheel ALL=(ALL) ALL</span><br><span class="line">按ESC键，输入x!回车就可以保存并退出</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>启用dhcp自动获取网络地址,不然开机无法自动联网</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable dhcpcd.service</span><br></pre></td></tr></table></figure>
+
+<p>如果只使用有线网络 可以使用<a href="https://wiki.archlinux.org/index.php/Systemd-networkd" target="_blank" rel="noopener">Systemd-networkd</a><br>——以下已包含dhcp的功能,下面两条命令包括上面那个的功能——</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -s networkmanager</span><br><span class="line">systemctl enable NetworkManager  </span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动这个后开机有个NetworkManager-wait-online会占用大概6s的时间,嫌慢的可以屏蔽</span></span><br><span class="line">systemctl mask NetworkManager-wait-online</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>安装一个图形界面,比如kde</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S plasma-desktop</span><br><span class="line">systemctl start sddm.service</span><br></pre></td></tr></table></figure>
+
+<p>缩略图生成<br>若要在桌面和 Dolphin 内为媒体或文档文件生成缩略图，安装 <code>kdegraphics-thumbnailers</code>，<code>ffmpegthumbs</code>。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S kdegraphics-thumbnailers ffmpegthumbs</span><br></pre></td></tr></table></figure>
+
+<p>一些gtk应用的plasma panel托盘图标模糊且右键菜单比较奇怪<br>解决方法: 安装libappindicator-gtk3 libappindicator-gtk2</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S libappindicator-gtk3 libappindicator-gtk2</span><br></pre></td></tr></table></figure>
+
+<p>安装一个终端,不然进入图形界面只能进tty输入命令</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S konsole</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>无法检测到蓝牙适配器:<br>安装<code>bluez</code>,<code>bluez-utils</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S bluez bluez-utils</span><br></pre></td></tr></table></figure>
+
+<p>首先确定内核的蓝牙模块已载入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">modinfo btusb</span><br></pre></td></tr></table></figure>
+
+<p>如果没有的话就是没载入,手动载入:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">modprobe btusb</span><br></pre></td></tr></table></figure>
+
+<p>开启bluetooth服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start bluetooth</span><br><span class="line"><span class="meta">#</span><span class="bash"> 开机自启</span></span><br><span class="line">systemctl enable bluetooth</span><br></pre></td></tr></table></figure>
+
+<p>开机后自动启动:<br>修改 <code>/etc/bluetooth/main.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Policy]</span><br><span class="line"># 这一句的注释删除 并将false改成true</span><br><span class="line">AutoEnable=true</span><br></pre></td></tr></table></figure>
+
+<p>已知问题:<br>有时候会崩溃,且无法找到蓝牙适配器,使用<code>dmesg</code>查看错误日志.</p>
+<hr>
+<p>蓝牙耳机可能载入模块失败</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pactl load-module module-bluetooth-discover</span><br><span class="line">Failure: Module initialization failed</span><br></pre></td></tr></table></figure>
+
+<p>临时解决方法:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pactl unload-module  module-bluetooth-discover</span><br><span class="line">pactl   load-module  module-bluetooth-discover</span><br></pre></td></tr></table></figure>
+
+<p>长期解决方法<sup><a href="#2"><font color="red">[2]</font></a></sup>:</p>
+<p>Edit the file:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/etc/pulse/default.pa</span><br></pre></td></tr></table></figure>
+
+<p>and comment out (with an # at the beginning of the line) the following line:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">load-module module-bluetooth-discover</span></span><br></pre></td></tr></table></figure>
+
+<p>now edit the file:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/usr/bin/start-pulseaudio-x11</span><br></pre></td></tr></table></figure>
+
+<p>and after the lines:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">if [ x”$SESSION_MANAGER” != x ] ; then</span><br><span class="line">     /usr/bin/pactl load-module module-x11-xsmp “display=$DISPLAY session_manager=$SESSION_MANAGER” &gt; /dev/null</span><br><span class="line"> fi</span><br></pre></td></tr></table></figure>
+
+<p>add the following line:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/usr/bin/pactl load-module module-bluetooth-discover</span><br></pre></td></tr></table></figure>
+
+<p>This way the Pulse audio’s Bluetooth modules will not be downloaded at boot time but after x11 is started.  </p>
+<hr>
+<p>字体优化:<br>有些字体可能看不见,比如 𫔭 𪠸 :</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">安装 ttf-hanazono ttf-ume(mincho) 字体</span></span><br><span class="line">pacman -S ttf-hanazono ttf-ume</span><br></pre></td></tr></table></figure>
+
+<p>不要使用noto和思源黑体的亚洲字体整合包,因为会优先使用日语字体,造成中文大小不一,尽量下载思源黑体的分开的字体包,然后在<code>~/.config/fontconfig/fonts.conf</code>中将中文的思源黑体设置为第一个,具体设置参考<a href="https://wiki.archlinux.org/index.php/Font_configuration" target="_blank" rel="noopener">Font_configuration</a>  </p>
+<hr>
+<p>解决DNS污染问题:<br>安装dnscrypt-proxy 具体方法参见arch wiki <a href="https://wiki.archlinux.org/index.php/Dnscrypt-proxy" target="_blank" rel="noopener">dnscrypt-proxy</a>,使用<a href="https://github.com/felixonmars/dnsmasq-china-list" target="_blank" rel="noopener">dnsmasq-china-list</a>排除中国域名  </p>
+<hr>
+<p>arch 使用pyhon-dlib会提示<code>Undefined symbol: cblas_dtrsm</code><br>使用aur或archlinuxcn中的openblas-lapack-git代替pacman源中的cblas,貌似源中的cblas版本太低  </p>
+<hr>
+<p>自动清除pacman的缓存:<br>创建<code>/usr/share/libalpm/hooks/clean-pacman-cache.hook</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Trigger]</span><br><span class="line">Operation = Remove</span><br><span class="line">Operation = Install</span><br><span class="line">Operation = Upgrade</span><br><span class="line">Type = Package</span><br><span class="line">Target = *</span><br><span class="line"></span><br><span class="line">[Action]</span><br><span class="line">Description = Cleaning up old packages...</span><br><span class="line">When = PostTransaction</span><br><span class="line">Exec = /usr/bin/paccache -rvk3</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>ext4分区优化:  </p>
+<p><code>有备用电源或者笔记本可以关闭ext4的barriers具体方法参考</code><a href="https://wiki.archlinux.org/index.php/Ext4#Turning_barriers_off" target="_blank" rel="noopener">Ext4#Turning_barriers_off</a>  </p>
+<hr>
+<p>deadbeef-git 打开提示<code>plugin cdda.so not found or failed to load</code><br>解决方法: 安装 libcddb libcdio</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S libcddb libcdio</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>使用anime4k会提示缺少openCL库,安装ocl-icd</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S ocl-icd</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>开启powertop的自动优化节省电量:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">安装powertop</span></span><br><span class="line">pacman -S powertop</span><br><span class="line"><span class="meta">#</span><span class="bash">开机自动启用</span></span><br><span class="line">vim /etc/systemd/system/powertop.service</span><br><span class="line"><span class="meta">#</span><span class="bash">填入以下内容</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=Powertop tunings</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/bin/powertop --auto-tune &amp;&amp; echo 'on'</span><br><span class="line">RemainAfterExit=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"><span class="meta">#</span><span class="bash"> 启用</span></span><br><span class="line">systemctl enable powertop.service</span><br></pre></td></tr></table></figure>
+
+<p>以下shell是禁用usb的休眠,不然鼠标用起来很难受(<strong>注意:每个电脑的命令都不同,请自行用powertop查看相应的命令</strong>)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Autosuspend <span class="keyword">for</span> USB device USB Optical Mouse [PixArt]</span></span><br><span class="line">echo 'on' &gt; '/sys/bus/usb/devices/1-1/power/control';</span><br><span class="line"><span class="meta">#</span><span class="bash"> Autosuspend <span class="keyword">for</span> USB device HP Wide Vision HD [Generic]</span></span><br><span class="line">echo 'on' &gt; '/sys/bus/usb/devices/1-4/power/control';</span><br><span class="line"><span class="meta">#</span><span class="bash"> Autosuspend <span class="keyword">for</span> USB device xHCI Host Controller [usb1]</span></span><br><span class="line">echo 'on' &gt; '/sys/bus/usb/devices/usb1/power/control';</span><br><span class="line"><span class="meta">#</span><span class="bash"> Autosuspend <span class="keyword">for</span> USB device xHCI Host Controller [usb2]</span></span><br><span class="line">echo 'on' &gt; '/sys/bus/usb/devices/usb2/power/control';</span><br><span class="line"><span class="meta">#</span><span class="bash"> Autosuspend <span class="keyword">for</span> unknown USB device 1-7 (8087:0a2a)</span></span><br><span class="line">echo 'on' &gt; '/sys/bus/usb/devices/1-7/power/control';</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>rider 需要安装moon(.net framework/.net core)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S moon</span><br></pre></td></tr></table></figure>
+
+<p>服务端需要mono-xsp,使用aur安装:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yay -S xsp</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>vscode 开发<code>asp.net</code>:<br>安装 moon dotnet</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S moon dotnet-sdk</span><br></pre></td></tr></table></figure>
+
+<p>dotnet 安装 dotnet-dev-certs 生成证书:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dotnet tool install --global dotnet-dev-certs</span><br></pre></td></tr></table></figure>
+
+<p>export要加入.bashrc 或者每次开始前执行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export PATH="$PATH:/home/[user]/.dotnet/tools"</span><br></pre></td></tr></table></figure>
+
+<p>生成证书</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dotnet dev-certs https</span><br></pre></td></tr></table></figure>
+
+<p>如果想卸载</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dotnet tool uninstall --global dotnet-dev-certs</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>编译汇编语言 需要安装nasm</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S nasm</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>chrome/chromium 即使已经设置为默认浏览器也会提示设置为默认浏览器:<br>解决方法:</p>
+<blockquote>
+<p>What has worked for me is go to <code>Settings -&gt; Applications -&gt; File Associations</code> and there, filter with <code>html</code>. Then for the entries <code>xhtml+xml</code> and <code>html</code>, you can move <code>Google Chrome</code> to the first position of the preference order.<a href="#3"><sup><font color="red">[3]</font></sup></a>  </p>
+</blockquote>
+<p>个人测试 只要把<code>xhtml+xml</code>的默认开启最高优先级应用设置为chromium/chrome就行了</p>
+<hr>
+<p>archLinux进行openGl的开发<br>安装glfw-x11 glad-c-git</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yay -S glfw-x11 glad-c-git</span><br></pre></td></tr></table></figure>
+
+<p>open GL导入现有模型时需要安装assimp:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S assimp</span><br></pre></td></tr></table></figure>
+
+<p>顺便推荐一个glsl的教程: <a href="https://learnopengl-cn.github.io/" target="_blank" rel="noopener">LearnOpenGL CN</a></p>
+<hr>
+<p>python使用tkinter需要安装tk库:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S tk</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>kde设置三指手势:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S gebaar xdotool</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>手动安装mariadb:<br>运行<code>mariadb/scripts/mariadb-install-db</code></p>
+<p>设置路径(提示失败 路径更改成功):</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mysqld --datadir="./data" --langdir="./mysql/share" --basedir="./data/base"</span><br></pre></td></tr></table></figure>
+
+<p>最后</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">You can start the MariaDB daemon with:</span><br><span class="line">cd '.' ; ./bin/mysqld_safe --datadir='./data'</span><br><span class="line"></span><br><span class="line">You can test the MariaDB daemon with mysql-test-run.pl</span><br><span class="line">cd './mysql-test' ; perl mysql-test-run.pl</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>使用redash:<br>安装<code>docker-compose</code>(此处可改docker的root目录,建议谷歌), 手动安装时需要临时使用<code>pwgen</code>生成密钥,安装完成后可卸载.<br>安装时参考ubuntu的安装脚本 稍微改改就行了</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S docker-compose pwgen</span><br><span class="line">pacman -Rs pwgen</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>遇到以下问题:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Possibly missing firmware for module: aic94xx</span><br><span class="line"> Possibly missing firmware for module: wd719x</span><br></pre></td></tr></table></figure>
+
+<p>直接使用aur中提供的驱动:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yay -S aic94xx-firmware wd719x-firmware</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>为<code>kde spellChecker</code>添加字典:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo pacman -S hunspell-en_US</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>wine-wechat 数据文件:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">==&gt; WeChat data will be put into ~/.local/lib/wine-wechat when needed.</span><br><span class="line">==&gt; run 'wechat --config' if you want to adjust DPI settings.</span><br></pre></td></tr></table></figure>
+
+<p>wine-wechat 运行要保证当前运行环境变量为中文,否则无法显示中文字体,即使wine装了中文字体:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">LC_ALL=zh_CN.UTF-8 wechat</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>已知问题:</p>
+<p>kde discover 无法使用pacman backend<br>discover 使用了 packagekit,使用 pkcon 需要root权限,按理来说packagekit会自动获取root且无需输入密码,但discover无法获取root已无法已root用户运行,问题未知,放弃解决<br>解决方法:<br>卸载discover packagekit packagekit-qt5<br>新安装的话 索性不装就行了  </p>
+<hr>
+<blockquote>
+<ol>
+<li>此方法参考自 <a id="1"><a href="https://www.jianshu.com/p/6eaf642a94ed" target="_blank" rel="noopener">用户添加</a></a></li>
+<li>此方法参考自 <a id="2"><a href="https://askubuntu.com/questions/689281/pulseaudio-can-not-load-bluetooth-module" target="_blank" rel="noopener">PulseAudio can not load bluetooth module</a></a></li>
+<li>此方法来自 <a id="3"><a href="https://bbs.archlinux.org/viewtopic.php?id=198432" target="_blank" rel="noopener">Plasma wont set Chromium as default browser</a></a></li>
+</ol>
+</blockquote>
+]]></content>
       <categories>
         <category>linux</category>
       </categories>
@@ -62,22 +400,55 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[CIDR匹配 域名匹配]]></title>
-    <url>%2Fposts%2F3cb4313e%2F</url>
-    <content type="text"><![CDATA[完整实现代码:CIDR IP转换为二进制域名 CIDR我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功. 12345假设有一个cidr为128.0.0.1/24转换为二进制 1000 0000.0000 0000.0000 0000.0000 0001/24可以知道要匹配ip的前24为与cidr的前24(1000 0000.0000 0000.0000 0000)位相同则匹配成功假设有一个ip 128.0.0.128 二进制为 1000 0000.0000 0000.0000 0000.1000 0000可以看到前24位与cidr相同 则匹配成功 域名域名就比较简单了,直接按点分割就行了 前缀树通过上述规则 我们可以使用前缀树实现CIDR对ip的匹配 12345678 root / \ 0 1 / \ / \ 0 1 0 1 /当ip匹配到此处,此处已无任何子树,且是某一cidr的末尾时则匹配成功若此处节点为null(golang为nil)且不是某一cidr的末尾时则匹配失败 域名的前缀树相同,只不过域名不再是只有0和1,而且在匹配的时候还需要跳过前面的那些前缀. 12345678910111213141516 +---------+ | root | +---------+ / / \facebook google twitter ... / / \ \com com mail com ... \ com 在对域名匹配时如对 www.play.google.com匹配: 没有www 跳过 没有play 跳过 有google 继续 有com 且 域名已为最后一个节点 -&gt; 判断trie中是否为最后的一个子树 -&gt; 是 -&gt; 匹配成功 trie树类似上述结构 trie树节点 我们可以这样写+node|- bool(判断是否匹配成功,是否是某一cidr的末尾)|- left(左树代表0)|- right(右树代表1) 域名的这样写+node|- bool|- domainNode|- next 使用golang实现123456789101112131415type node struct &#123; isLast bool left *node right *node&#125;type TrieTree struct &#123; root *node&#125;func NewTrieTree() *TrieTree &#123; return &amp;TrieTree&#123; root: &amp;node&#123;&#125;, &#125;&#125; 对每一个CIDR的插入注意: 此处传入的CIDR为CIDR前mask位的二进制形式 12345678910111213141516171819202122func (trie *TrieTree) Insert(str string) &#123; nodeTemp := trie.root for i := 0; i &lt; len(str); i++ &#123; // 1 byte is 49 if str[i] == 49 &#123; if nodeTemp.right == nil &#123; nodeTemp.right = new(node) &#125; nodeTemp = nodeTemp.right &#125; // 0 byte is 48 if str[i] == 48 &#123; if nodeTemp.left == nil &#123; nodeTemp.left = new(node) &#125; nodeTemp = nodeTemp.left &#125; if i == len(str)-1 &#123; nodeTemp.isLast = true &#125; &#125;&#125; 对ip的匹配注意: 此处传入的ip为ip的二进制形式 123456789101112131415161718func (trie *TrieTree) Search(str string) bool &#123; nodeTemp := trie.root for i := 0; i &lt; len(str); i++ &#123; if str[i] == 49 &#123; nodeTemp = nodeTemp.right &#125; if str[i] == 48 &#123; nodeTemp = nodeTemp.left &#125; if nodeTemp == nil &#123; return false &#125; if nodeTemp.isLast == true &#123; return true &#125; &#125; return false&#125;]]></content>
+    <title>CIDR匹配 域名匹配</title>
+    <url>/posts/3cb4313e/</url>
+    <content><![CDATA[<p>完整实现代码:<br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/cidrmatch/trie/trie.go" target="_blank" rel="noopener">CIDR</a>  <a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/cidrmatch/cidrmatch.go" target="_blank" rel="noopener">IP转换为二进制</a><br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/domainmatch/domainmatcher.go" target="_blank" rel="noopener">域名</a>  </p>
+<h2 id="CIDR"><a href="#CIDR" class="headerlink" title="CIDR"></a>CIDR</h2><p>我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功.  </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">假设有一个cidr为128.0.0.1/24</span><br><span class="line">转换为二进制 1000 0000.0000 0000.0000 0000.0000 0001/24</span><br><span class="line">可以知道要匹配ip的前24为与cidr的前24(1000 0000.0000 0000.0000 0000)位相同则匹配成功</span><br><span class="line">假设有一个ip 128.0.0.128 二进制为 1000 0000.0000 0000.0000 0000.1000 0000</span><br><span class="line">可以看到前24位与cidr相同 则匹配成功</span><br></pre></td></tr></table></figure>
+
+<h2 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h2><p>域名就比较简单了,直接按点分割就行了</p>
+<h2 id="前缀树"><a href="#前缀树" class="headerlink" title="前缀树"></a>前缀树</h2><p>通过上述规则 我们可以使用前缀树实现CIDR对ip的匹配 </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">        root</span><br><span class="line">       /    \</span><br><span class="line">      0      1</span><br><span class="line">     / \    / \</span><br><span class="line">    0   1  0   1</span><br><span class="line">   /</span><br><span class="line">当ip匹配到此处,此处已无任何子树,且是某一cidr的末尾时则匹配成功</span><br><span class="line">若此处节点为null(golang为nil)且不是某一cidr的末尾时则匹配失败</span><br></pre></td></tr></table></figure>
+
+
+<p>域名的前缀树相同,只不过域名不再是只有0和1,而且在匹配的时候还需要跳过前面的那些前缀.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">        +---------+</span><br><span class="line">        |  root   |</span><br><span class="line">        +---------+</span><br><span class="line">       /     /      \</span><br><span class="line">facebook   google   twitter  ...</span><br><span class="line">  /        /   \       \</span><br><span class="line">com      com   mail    com   ...</span><br><span class="line">                \</span><br><span class="line">               com</span><br><span class="line">               </span><br><span class="line">在对域名匹配时</span><br><span class="line">如对 www.play.google.com匹配:</span><br><span class="line">    没有www  跳过</span><br><span class="line">    没有play 跳过</span><br><span class="line">    有google 继续</span><br><span class="line">    有com 且 域名已为最后一个节点 -&gt; 判断trie中是否为最后的一个子树 -&gt; 是 -&gt; 匹配成功</span><br></pre></td></tr></table></figure>
+
+<p>trie树类似上述结构</p>
+<p>trie树节点 我们可以这样写<a id="more"></a><br>+node<br>|- bool(判断是否匹配成功,是否是某一cidr的末尾)<br>|- left(左树代表0)<br>|- right(右树代表1)  </p>
+<p>域名的这样写<br>+node<br>|- bool<br>|- domainNode<br>|- next</p>
+<h2 id="使用golang实现"><a href="#使用golang实现" class="headerlink" title="使用golang实现"></a>使用golang实现</h2><figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> node <span class="keyword">struct</span> &#123;</span><br><span class="line"> isLast <span class="keyword">bool</span></span><br><span class="line">    left   *node</span><br><span class="line">    right  *node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> TrieTree <span class="keyword">struct</span> &#123;</span><br><span class="line">    root *node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewTrieTree</span><span class="params">()</span> *<span class="title">TrieTree</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;TrieTree&#123;</span><br><span class="line">		root: &amp;node&#123;&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对每一个CIDR的插入<br>注意: 此处传入的CIDR为CIDR前mask位的二进制形式</p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(trie *TrieTree)</span> <span class="title">Insert</span><span class="params">(str <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	nodeTemp := trie.root</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(str); i++ &#123;</span><br><span class="line">		<span class="comment">// 1 byte is 49</span></span><br><span class="line">		<span class="keyword">if</span> str[i] == <span class="number">49</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> nodeTemp.right == <span class="literal">nil</span> &#123;</span><br><span class="line">				nodeTemp.right = <span class="built_in">new</span>(node)</span><br><span class="line">			&#125;</span><br><span class="line">			nodeTemp = nodeTemp.right</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 0 byte is 48</span></span><br><span class="line">		<span class="keyword">if</span> str[i] == <span class="number">48</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> nodeTemp.left == <span class="literal">nil</span> &#123;</span><br><span class="line">				nodeTemp.left = <span class="built_in">new</span>(node)</span><br><span class="line">			&#125;</span><br><span class="line">			nodeTemp = nodeTemp.left</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> i == <span class="built_in">len</span>(str)<span class="number">-1</span> &#123;</span><br><span class="line">			nodeTemp.isLast = <span class="literal">true</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对ip的匹配<br>注意: 此处传入的ip为ip的二进制形式</p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(trie *TrieTree)</span> <span class="title">Search</span><span class="params">(str <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">	nodeTemp := trie.root</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(str); i++ &#123;</span><br><span class="line">		<span class="keyword">if</span> str[i] == <span class="number">49</span> &#123;</span><br><span class="line">			nodeTemp = nodeTemp.right</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> str[i] == <span class="number">48</span> &#123;</span><br><span class="line">			nodeTemp = nodeTemp.left</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> nodeTemp == <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> nodeTemp.isLast == <span class="literal">true</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
-        <category>计算机网络</category>
+        <category>Network</category>
       </categories>
       <tags>
         <tag>CIDR</tag>
-        <tag>计算机网络</tag>
         <tag>golang</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[golang实现子进程后台]]></title>
-    <url>%2Fposts%2F89c4c907%2F</url>
-    <content type="text"><![CDATA[系统的进程机制linux1234567891011121314151617linux下的进程机制,当父进程被杀死之后,子进程就被系统接管+系统|-父进程 -&gt; system管理|--子进程 -&gt; 父进程管理当父进程被杀死之后+系统|-父进程 -&gt; 被杀死|--子进程 -&gt; system管理如果子进程被杀死,而且父进程没有处理子进程的善后工作,那么子进程就会变成僵尸进程+系统|-父进程 -&gt; system管理|--子进程(被杀死) -&gt; 僵尸进程 windows1234567891011121314151617181920212223windows下的进程机制就不太一样了,当父进程被杀死之后,子进程也会被杀死但是如果子进程还有子进程,杀死子进程但不杀死父进程,子进程的子进程就会被系统接管+系统|-父进程 -&gt; system管理|--子进程 -&gt; 父进程管理|---孙进程 -&gt; 子进程管理当父进程被杀死+系统|-父进程 -&gt; 被杀死|--子进程 -&gt; 被杀死 |---孙进程 -&gt; 被杀死当子进程被杀死+系统|-父进程 -&gt; 系统管理|--子进程 -&gt; 被杀死|-孙进程 -&gt; 系统管理windows的机制和linux不太一样,如果子进程被杀死也不会有僵尸进程这种东西,所以子进程可以放心杀死 实现golang的后台如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程golang只提供了forkexec,也就是说一个程序只能创建子进程通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程,这样就相当于创建了子进程,子进程创建孙进程实现就是给程序加参数,再次调用的时候加上这个参数再创建想要的进程 123456789101112131415func daemonF()&#123; cmd := exec.Command("puthon","-m","http.server") cmd.Start()&#125;func main()&#123; daemon := flag.Bool("d", false, "d") flag.Parse() if *daemon == true &#123; daemonF() &#125; else &#123; nowFunction, _ := filepath.Abs(os.Args[0]) cmd := exec.Command(nowFunction,"-d") cmd.Run() &#125;&#125; 123456比如我们有一个程序叫makebk,有一个参数 -d+系统|-makebk(再次调用makebk并加上参数-d) -&gt; 父进程:system|--makebk -d(加上参数之后再创建想要的进程) -&gt; 父进程:makebk|---子进程 -&gt; 父进程:makebk -d 这样就得到我们想要的三层结构了,这时候让父进程杀死make -d,就实现子进程被系统接管,实现子进程后台]]></content>
+    <title>golang实现子进程后台</title>
+    <url>/posts/89c4c907/</url>
+    <content><![CDATA[<h2 id="系统的进程机制"><a href="#系统的进程机制" class="headerlink" title="系统的进程机制"></a>系统的进程机制</h2><h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">linux下的进程机制,当父进程被杀死之后,子进程就被系统接管</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程 -&gt; 父进程管理</span><br><span class="line"></span><br><span class="line">当父进程被杀死之后</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; 被杀死</span><br><span class="line">|--子进程 -&gt; system管理</span><br><span class="line"></span><br><span class="line">如果子进程被杀死,而且父进程没有处理子进程的善后工作,那么子进程就会变成僵尸进程</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程(被杀死) -&gt; 僵尸进程</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h3 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">windows下的进程机制就不太一样了,当父进程被杀死之后,子进程也会被杀死</span><br><span class="line">但是如果子进程还有子进程,杀死子进程但不杀死父进程,子进程的子进程就会被系统接管</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程 -&gt; 父进程管理</span><br><span class="line">|---孙进程 -&gt; 子进程管理</span><br><span class="line"></span><br><span class="line">当父进程被杀死</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; 被杀死</span><br><span class="line">|--子进程 -&gt; 被杀死  </span><br><span class="line">|---孙进程 -&gt; 被杀死</span><br><span class="line"></span><br><span class="line">当子进程被杀死</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; 系统管理</span><br><span class="line">|--子进程 -&gt; 被杀死</span><br><span class="line">|-孙进程 -&gt; 系统管理</span><br><span class="line"></span><br><span class="line">windows的机制和linux不太一样,如果子进程被杀死也不会有僵尸进程这种东西,所以子进程可以放心杀死</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现golang的后台"><a href="#实现golang的后台" class="headerlink" title="实现golang的后台"></a>实现golang的后台</h2><p>如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现<br>如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程<br>golang只提供了forkexec,也就是说一个程序只能创建子进程<br><strong>通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程,这样就相当于创建了子进程,子进程创建孙进程</strong><br><strong>实现就是给程序加参数,再次调用的时候加上这个参数再创建想要的进程</strong></p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">daemonF</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cmd := exec.Command(<span class="string">"puthon"</span>,<span class="string">"-m"</span>,<span class="string">"http.server"</span>)</span><br><span class="line">    cmd.Start()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    daemon := flag.Bool(<span class="string">"d"</span>, <span class="literal">false</span>, <span class="string">"d"</span>)</span><br><span class="line">    flag.Parse()</span><br><span class="line">    <span class="keyword">if</span> *daemon == <span class="literal">true</span> &#123;</span><br><span class="line">        daemonF()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        nowFunction, _ := filepath.Abs(os.Args[<span class="number">0</span>])</span><br><span class="line">        cmd := exec.Command(nowFunction,<span class="string">"-d"</span>)</span><br><span class="line">        cmd.Run()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">比如我们有一个程序叫makebk,有一个参数 -d</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-makebk(再次调用makebk并加上参数-d) -&gt; 父进程:system</span><br><span class="line">|--makebk -d(加上参数之后再创建想要的进程) -&gt; 父进程:makebk</span><br><span class="line">|---子进程 -&gt; 父进程:makebk -d</span><br></pre></td></tr></table></figure>
+
+<p>这样就得到我们想要的三层结构了,这时候让父进程杀死make -d,就实现子进程被系统接管,实现子进程后台</p>
+]]></content>
       <categories>
         <category>golang</category>
       </categories>
@@ -89,11 +460,22 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[uefi and efi]]></title>
-    <url>%2Fposts%2Fa99a60b1%2F</url>
-    <content type="text"><![CDATA[创建efi分区: 创建efi分区要设置boot flag,而不是纯FAT32文件系统使用gdisk 12gdisk /dev/sd**这里要注意后面输入分区系统编号 要选择EFI分区,目前efi分区编号是 ef00 使用parted 12parted /dev/sd**(parted) set 1 boot on 之后再格式化为fat32 1mkfs.vfat -F 32 /dev/sd** uefi 会查看所有 fat 分区，看看里面有没有 efi 引导文件,然后只要是 FAT32 文件系统就行,所以可以把 windows 或 ubuntu 的 iso 直接解压到一个 fat 分区（比如 fat 的 u 盘或移动硬盘）然后引导有些UEFI系统只会识别 efi分区下的EFI/boot文件夹内的efi文件,有的甚至只会识别EFI/boot/bootx64.efi]]></content>
+    <title>uefi and efi</title>
+    <url>/posts/a99a60b1/</url>
+    <content><![CDATA[<p>创建efi分区:  </p>
+<p>创建efi分区要设置boot flag,而不是纯FAT32文件系统<br>使用gdisk</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gdisk /dev/sd**</span><br><span class="line">这里要注意后面输入分区系统编号 要选择EFI分区,目前efi分区编号是 ef00</span><br></pre></td></tr></table></figure>
+
+<p>使用parted</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">parted /dev/sd**</span><br><span class="line">(parted) set 1 boot on</span><br></pre></td></tr></table></figure>
+
+<p>之后再格式化为fat32</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkfs.vfat -F 32 /dev/sd**</span><br></pre></td></tr></table></figure>
+
+<p>uefi 会查看所有 fat 分区，看看里面有没有 efi 引导文件,然后只要是 FAT32 文件系统就行,所以可以把 windows 或 ubuntu 的 iso 直接解压到一个 fat 分区（比如 fat 的 u 盘或移动硬盘）然后引导<br><strong>有些UEFI系统只会识别 efi分区下的EFI/boot文件夹内的efi文件,有的甚至只会识别EFI/boot/bootx64.efi</strong></p>
+]]></content>
       <categories>
-        <category>efi</category>
+        <category>Computer</category>
       </categories>
       <tags>
         <tag>efi</tag>
@@ -101,34 +483,178 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[深度学习之感知器的实现]]></title>
-    <url>%2Fposts%2F64e69c3e%2F</url>
-    <content type="text"><![CDATA[感知器的一个公式: 当 wx+b&gt;0 , f(x)=1,否则f(x)=0 x输入的向量 w:是权重 w*x是点积 b是偏置(与权重类似,偏置可以认为是激励函数的偏移量，或者给神经元一个基础活跃等级。) 对权重的调整公式,此处使用了梯度下降的方法: w=w+i*(t-count)*x i是一个常数,i越小感知器学习越精确,当然耗费时间也最长 t:本应该得到的值 count:实际计算得到的值 x:同上 对偏置调整的公式: b=b+i*(t-count) 这次我们使用python来实现与和或 12345678910#因为与和或计算需要输入两个数,所以这里设置两个权重global w1,w2w1=0.4w2=0.6#偏置随便设一个global bb=0.8#上面提到的常数global ii=0.01 对感知器公式实现的函数: 12345def count(x,y): if w1*x+w2*y+b&gt;0: return 1 else: return 0 对权重和偏置不断矫正的函数: 1234567def update_all(r,x,y): global w1,w2,b temp = count(x,y) w1=w1+i*(r-temp)*x w2=w2+i*(r-temp)*y b=b+i*(r-temp) print(w1,w2,b) 最后就是输入学习的资料和确认计算结果: 1234567891011def main(): for _ in range(1,50): update_all(1.0,1.0,1.0) update_all(0.0,1.0,0.0) update_all(0.0,0.0,1.0) update_all(0.0,0.0,0.0) print(&apos;1 and 1 =&apos;,count(1,1)) print(&apos;0 and 1 =&apos;,count(0,1)) print(&apos;1 and 0 =&apos;,count(1,0)) print(&apos;0 and 0 =&apos;,count(0,0)) 这里我们先进行与的计算:这里我前面代码写错了,所以说下面所有的结果会不一样…..进行25次学习的结果: 123456789101112(0.4, 0.6, 0.8)(0.39, 0.6, 0.79)(0.39, 0.59, 0.78)(0.39, 0.59, 0.77)(0.39, 0.59, 0.77).......省略........(0.1599999999999998, 0.35999999999999976, 0.08999999999999947)(0.1599999999999998, 0.35999999999999976, 0.07999999999999947)(&apos;1 and 1 =&apos;, 1)(&apos;0 and 1 =&apos;, 1)(&apos;1 and 0 =&apos;, 1)(&apos;0 and 0 =&apos;, 1) 这里我们明显发现结果是错误的,提升到50次: 123456789101112131415(0.4, 0.6, 0.8)(0.39, 0.6, 0.79)(0.39, 0.59, 0.78)(0.39, 0.59, 0.77)(0.39, 0.59, 0.77)(0.38, 0.59, 0.76)(0.38, 0.58, 0.75).......省略........(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)(&apos;1 and 1 =&apos;, 1)(&apos;0 and 1 =&apos;, 0)(&apos;1 and 0 =&apos;, 0)(&apos;0 and 0 =&apos;, 0) 结果正确了,并且权重和偏置都稳定到一个值,是不是感觉很神奇或运算也是相同的,这里我们将偏置改为b=0.4:25次: 1234567891011121314151617181920(0.4, 0.6, 0.4)(0.4, 0.6, 0.4)(0.4, 0.6, 0.4)(0.4, 0.6, 0.39)(0.4, 0.6, 0.39)(0.4, 0.6, 0.39)(0.4, 0.6, 0.39)(0.4, 0.6, 0.38)(0.4, 0.6, 0.38)(0.4, 0.6, 0.38).......省略........(0.4, 0.6, 0.16999999999999982)(0.4, 0.6, 0.16999999999999982)(0.4, 0.6, 0.16999999999999982)(0.4, 0.6, 0.16999999999999982)(0.4, 0.6, 0.1599999999999998)(&apos;1 and 1 =&apos;, 1)(&apos;0 and 1 =&apos;, 1)(&apos;1 and 0 =&apos;, 1)(&apos;0 and 0 =&apos;, 1) 50次: 123456789101112131415161718(0.4, 0.6, 0.4)(0.4, 0.6, 0.4)(0.4, 0.6, 0.4)(0.4, 0.6, 0.39)(0.4, 0.6, 0.39)(0.4, 0.6, 0.39)(0.4, 0.6, 0.39)(0.4, 0.6, 0.38).......省略........(0.4, 0.6, -1.97758476261356e-16)(0.4, 0.6, -1.97758476261356e-16)(0.4, 0.6, -1.97758476261356e-16)(0.4, 0.6, -1.97758476261356e-16)(0.4, 0.6, -1.97758476261356e-16)(&apos;1 and 1 =&apos;, 1)(&apos;0 and 1 =&apos;, 1)(&apos;1 and 0 =&apos;, 1)(&apos;0 and 0 =&apos;, 0) 参考:感知器(维基百科)零基础入门深度学习(1) - 感知器]]></content>
+    <title>深度学习之感知器的实现</title>
+    <url>/posts/64e69c3e/</url>
+    <content><![CDATA[<p>感知器的一个公式:<br>  <strong>当 wx+b&gt;0 , f(x)=1,否则f(x)=0</strong></p>
+<ul>
+<li>x输入的向量  </li>
+<li>w:是权重  </li>
+<li>w*x是点积  </li>
+<li>b是偏置(与权重类似,偏置可以认为是激励函数的偏移量，或者给神经元一个基础活跃等级。)  </li>
+</ul>
+<p>对权重的调整公式,此处使用了梯度下降的方法: <strong>w=w+i*(t-count)*x</strong>  </p>
+<ul>
+<li>i是一个常数,i越小感知器学习越精确,当然耗费时间也最长  </li>
+<li>t:本应该得到的值  </li>
+<li>count:实际计算得到的值  </li>
+<li>x:同上  </li>
+</ul>
+<p>对偏置调整的公式: <strong>b=b+i*(t-count)</strong></p>
+<p>这次我们使用python来实现与和或<a id="more"></a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#因为与和或计算需要输入两个数,所以这里设置两个权重</span><br><span class="line">global w1,w2</span><br><span class="line">w1=0.4</span><br><span class="line">w2=0.6</span><br><span class="line">#偏置随便设一个</span><br><span class="line">global b</span><br><span class="line">b=0.8</span><br><span class="line">#上面提到的常数</span><br><span class="line">global i</span><br><span class="line">i=0.01</span><br></pre></td></tr></table></figure>
+
+<p>对感知器公式实现的函数:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def count(x,y):</span><br><span class="line">    if w1*x+w2*y+b&gt;0:</span><br><span class="line">        return 1</span><br><span class="line">    else:</span><br><span class="line">        return 0</span><br></pre></td></tr></table></figure>
+
+<p>对权重和偏置不断矫正的函数:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def update_all(r,x,y):</span><br><span class="line">    global w1,w2,b</span><br><span class="line">    temp = count(x,y)</span><br><span class="line">    w1=w1+i*(r-temp)*x</span><br><span class="line">    w2=w2+i*(r-temp)*y</span><br><span class="line">    b=b+i*(r-temp)</span><br><span class="line">    print(w1,w2,b)</span><br></pre></td></tr></table></figure>
+
+<p>最后就是输入学习的资料和确认计算结果:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def main():</span><br><span class="line">    for _ in range(1,50):</span><br><span class="line">        update_all(1.0,1.0,1.0)</span><br><span class="line">        update_all(0.0,1.0,0.0)</span><br><span class="line">        update_all(0.0,0.0,1.0)</span><br><span class="line">        update_all(0.0,0.0,0.0)</span><br><span class="line">    </span><br><span class="line">    print(&apos;1 and 1 =&apos;,count(1,1))</span><br><span class="line">    print(&apos;0 and 1 =&apos;,count(0,1))</span><br><span class="line">    print(&apos;1 and 0 =&apos;,count(1,0))</span><br><span class="line">    print(&apos;0 and 0 =&apos;,count(0,0))</span><br></pre></td></tr></table></figure>
+
+<p>这里我们先进行与的计算:<br>这里我前面代码写错了,所以说下面所有的结果会不一样…..<br>进行25次学习的结果:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(0.4, 0.6, 0.8)</span><br><span class="line">(0.39, 0.6, 0.79)</span><br><span class="line">(0.39, 0.59, 0.78)</span><br><span class="line">(0.39, 0.59, 0.77)</span><br><span class="line">(0.39, 0.59, 0.77)</span><br><span class="line">.......省略........</span><br><span class="line">(0.1599999999999998, 0.35999999999999976, 0.08999999999999947)</span><br><span class="line">(0.1599999999999998, 0.35999999999999976, 0.07999999999999947)</span><br><span class="line">(&apos;1 and 1 =&apos;, 1)</span><br><span class="line">(&apos;0 and 1 =&apos;, 1)</span><br><span class="line">(&apos;1 and 0 =&apos;, 1)</span><br><span class="line">(&apos;0 and 0 =&apos;, 1)</span><br></pre></td></tr></table></figure>
+
+<p>这里我们明显发现结果是错误的,提升到50次:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(0.4, 0.6, 0.8)</span><br><span class="line">(0.39, 0.6, 0.79)</span><br><span class="line">(0.39, 0.59, 0.78)</span><br><span class="line">(0.39, 0.59, 0.77)</span><br><span class="line">(0.39, 0.59, 0.77)</span><br><span class="line">(0.38, 0.59, 0.76)</span><br><span class="line">(0.38, 0.58, 0.75)</span><br><span class="line">.......省略........</span><br><span class="line">(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)</span><br><span class="line">(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)</span><br><span class="line">(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)</span><br><span class="line">(&apos;1 and 1 =&apos;, 1)</span><br><span class="line">(&apos;0 and 1 =&apos;, 0)</span><br><span class="line">(&apos;1 and 0 =&apos;, 0)</span><br><span class="line">(&apos;0 and 0 =&apos;, 0)</span><br></pre></td></tr></table></figure>
+
+<p>结果正确了,并且权重和偏置都稳定到一个值,是不是感觉很神奇<br>或运算也是相同的,这里我们将偏置改为b=0.4:<br>25次:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.38)</span><br><span class="line">(0.4, 0.6, 0.38)</span><br><span class="line">(0.4, 0.6, 0.38)</span><br><span class="line">.......省略........</span><br><span class="line">(0.4, 0.6, 0.16999999999999982)</span><br><span class="line">(0.4, 0.6, 0.16999999999999982)</span><br><span class="line">(0.4, 0.6, 0.16999999999999982)</span><br><span class="line">(0.4, 0.6, 0.16999999999999982)</span><br><span class="line">(0.4, 0.6, 0.1599999999999998)</span><br><span class="line">(&apos;1 and 1 =&apos;, 1)</span><br><span class="line">(&apos;0 and 1 =&apos;, 1)</span><br><span class="line">(&apos;1 and 0 =&apos;, 1)</span><br><span class="line">(&apos;0 and 0 =&apos;, 1)</span><br></pre></td></tr></table></figure>
+
+<p>50次:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.38)</span><br><span class="line">.......省略........</span><br><span class="line">(0.4, 0.6, -1.97758476261356e-16)</span><br><span class="line">(0.4, 0.6, -1.97758476261356e-16)</span><br><span class="line">(0.4, 0.6, -1.97758476261356e-16)</span><br><span class="line">(0.4, 0.6, -1.97758476261356e-16)</span><br><span class="line">(0.4, 0.6, -1.97758476261356e-16)</span><br><span class="line">(&apos;1 and 1 =&apos;, 1)</span><br><span class="line">(&apos;0 and 1 =&apos;, 1)</span><br><span class="line">(&apos;1 and 0 =&apos;, 1)</span><br><span class="line">(&apos;0 and 0 =&apos;, 0)</span><br></pre></td></tr></table></figure>
+
+<p>参考:<br><a href="https://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8" target="_blank" rel="noopener">感知器(维基百科)</a><br><a href="https://www.zybuluo.com/hanbingtao/note/433855" target="_blank" rel="noopener">零基础入门深度学习(1) - 感知器</a>  </p>
+]]></content>
       <categories>
-        <category>深度学习</category>
+        <category>Machine Learning</category>
       </categories>
       <tags>
         <tag>python</tag>
-        <tag>深度学习</tag>
-        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[golang socks5/http proxy]]></title>
-    <url>%2Fposts%2Fc7816edc%2F</url>
-    <content type="text"><![CDATA[完整实现代码:socks5 clientsocks5 serverhttp server 此处已socks5client为例,大致流程都相同,只是协议不同: socks5client运行流程如下: 本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。 先进行TCP连接golang实现(这里的地址我是本地socks5服务端) 12345conn,err := net.Dial("tcp","127.0.0.1:1080")if err != nil&#123; fmt.Println(err) return&#125; 向socks5服务端发送验证验证字段: VER NMETHODS METHODS 1字节 1字节 1-255字节 VER是SOCKS版本，这里应该是0x05； NMETHODS是METHODS部分的长度； METHODS是客户端支持的认证方式列表，每个方法占1字节。当前的定义是： 0x00 不需要认证 0x01 GSSAPI 0x02 用户名、密码认证 0x03 - 0x7F由IANA分配（保留） 0x80 - 0xFE为私人方法保留 0xFF 无可接受的方法 golang实现代码: 12345678910111213141516171819202122232425262728sendData := []byte&#123;0x05, 0x01, 0x00&#125;if _, err := conn.Write(sendData); err != nil&#123; return err&#125;getData := make([]byte, 3)if _, err = conn.Read(getData[:]); err != nil &#123; return err&#125;if getData[0] != 0x05 || getData[1] == 0xFF &#123; return errors.New("socks5 first handshake failed!")&#125;if getData[1] == 0x02 &#123; sendData := append( append( append( []byte&#123;0x01, byte(len(socks5client.Username))&#125;, []byte(socks5client.Username)...), byte(len(socks5client.Password))), []byte(socks5client.Password)...) _, _ = conn.Write(sendData) getData := make([]byte, 3) if _, err = conn.Read(getData[:]); err != nil &#123; return err &#125; if getData[1] == 0x01 &#123; return errors.New("username or password not correct,socks5 handshake failed!") &#125;&#125; 向socks5服务端发送请求请求字段: VER CMD RSV ATYP DST.ADDR DST.PORT 1字节 1字节 0x00 1字节 动态 2字节 VER是SOCKS版本，这里应该是0x05； CMD是SOCK的命令码 0x01表示CONNECT请求 0x02表示BIND请求 0x03表示UDP转发 RSV 0x00，保留 ATYP DST.ADDR类型 0x01 IPv4地址，DST.ADDR部分4字节长度 0x03 域名，DST.ADDR部分第一个字节为域名长度，DST.ADDR剩余的内容为域名，没有\0结尾。 0x04 IPv6地址，16个字节长度。 DST.ADDR 目的地址 DST.PORT 网络字节序表示的目的端口 golang实现代码 12345678910111213141516171819// 此处为向 www.google.com:443 发送请求domain := "www.google.com"serverPort := 443sendData = append( append( []byte&#123;0x5, 0x01, 0x00, 0x03, byte(len(domain))&#125;, []byte(domain)...), byte(serverPort&gt;&gt;8), byte(serverPort&amp;255))if _,err = conn.Write(sendData); err!=nil&#123; fmt.Println(err) return&#125;getData := make([]byte, 1024)if _, err = conn.Read(getData[:]); err != nil &#123; return err&#125;if getData[0] != 0x05 || getData[1] != 0x00 &#123; return errors.New("socks5 second handshake failed!")&#125; 进行数据转发golang实现代码(不太熟悉各种请求这里随便弄了一个) 1234if _,err = conn.Write([]byte("GET /generate_204/ HTTP/2.0\r\n")); err!=nil&#123; fmt.Println(err) return&#125; 关闭TCP连接1conn.Close() 参考来源SOCKS(维基百科)SOCKS5 协议介绍]]></content>
+    <title>golang socks5/http proxy</title>
+    <url>/posts/c7816edc/</url>
+    <content><![CDATA[<p>完整实现代码:<br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/socks5client/socks5Client.go" target="_blank" rel="noopener">socks5 client</a><br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/socks5Server/socks5server.go" target="_blank" rel="noopener">socks5 server</a><br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/httpserver/httpserver.go" target="_blank" rel="noopener">http server</a>  </p>
+<p>此处已socks5client为例,大致流程都相同,只是协议不同:  </p>
+<p>socks5client运行流程如下:</p>
+<ul>
+<li>本机和代理服务端协商和建立连接；</li>
+<li>本机告诉代理服务端目标服务的地址；</li>
+<li>代理服务端去连接目标服务，成功后告诉本机；</li>
+<li>本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。</li>
+</ul>
+<h2 id="先进行TCP连接"><a href="#先进行TCP连接" class="headerlink" title="先进行TCP连接"></a>先进行TCP连接</h2><p>golang实现(<em>这里的地址我是本地socks5服务端</em>)</p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">conn,err := net.Dial(<span class="string">"tcp"</span>,<span class="string">"127.0.0.1:1080"</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span>&#123;</span><br><span class="line">    fmt.Println(err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="向socks5服务端发送验证"><a href="#向socks5服务端发送验证" class="headerlink" title="向socks5服务端发送验证"></a>向socks5服务端发送验证</h2><p>验证字段:</p>
+<table>
+<thead>
+<tr>
+<th align="center">VER</th>
+<th align="center">NMETHODS</th>
+<th align="center">METHODS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1字节</td>
+<td align="center">1字节</td>
+<td align="center">1-255字节</td>
+</tr>
+</tbody></table>
+<ul>
+<li>VER是SOCKS版本，这里应该是0x05； <a id="more"></a> </li>
+<li>NMETHODS是METHODS部分的长度；  </li>
+<li>METHODS是客户端支持的认证方式列表，每个方法占1字节。当前的定义是：  <ul>
+<li>0x00 不需要认证</li>
+<li>0x01 GSSAPI</li>
+<li>0x02 用户名、密码认证</li>
+<li>0x03 - 0x7F由IANA分配（保留）</li>
+<li>0x80 - 0xFE为私人方法保留</li>
+<li>0xFF 无可接受的方法</li>
+</ul>
+</li>
+</ul>
+<p>golang实现代码:  </p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">sendData := []<span class="keyword">byte</span>&#123;<span class="number">0x05</span>, <span class="number">0x01</span>, <span class="number">0x00</span>&#125;</span><br><span class="line"><span class="keyword">if</span> _, err := conn.Write(sendData); err != <span class="literal">nil</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> err</span><br><span class="line">&#125;</span><br><span class="line">getData := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">3</span>)</span><br><span class="line"><span class="keyword">if</span> _, err = conn.Read(getData[:]); err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> err</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> getData[<span class="number">0</span>] != <span class="number">0x05</span> || getData[<span class="number">1</span>] == <span class="number">0xFF</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> errors.New(<span class="string">"socks5 first handshake failed!"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> getData[<span class="number">1</span>] == <span class="number">0x02</span> &#123;</span><br><span class="line">    sendData := <span class="built_in">append</span>(</span><br><span class="line">        <span class="built_in">append</span>(</span><br><span class="line">            <span class="built_in">append</span>(</span><br><span class="line">                []<span class="keyword">byte</span>&#123;<span class="number">0x01</span>, <span class="keyword">byte</span>(<span class="built_in">len</span>(socks5client.Username))&#125;,</span><br><span class="line">                []<span class="keyword">byte</span>(socks5client.Username)...),</span><br><span class="line">            <span class="keyword">byte</span>(<span class="built_in">len</span>(socks5client.Password))),</span><br><span class="line">        []<span class="keyword">byte</span>(socks5client.Password)...)</span><br><span class="line">    _, _ = conn.Write(sendData)</span><br><span class="line">    getData := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">if</span> _, err = conn.Read(getData[:]); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> getData[<span class="number">1</span>] == <span class="number">0x01</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> errors.New(<span class="string">"username or password not correct,socks5 handshake failed!"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="向socks5服务端发送请求"><a href="#向socks5服务端发送请求" class="headerlink" title="向socks5服务端发送请求"></a>向socks5服务端发送请求</h2><p>请求字段:</p>
+<table>
+<thead>
+<tr>
+<th align="center">VER</th>
+<th align="center">CMD</th>
+<th align="center">RSV</th>
+<th align="center">ATYP</th>
+<th align="center">DST.ADDR</th>
+<th align="center">DST.PORT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1字节</td>
+<td align="center">1字节</td>
+<td align="center">0x00</td>
+<td align="center">1字节</td>
+<td align="center">动态</td>
+<td align="center">2字节</td>
+</tr>
+</tbody></table>
+<ul>
+<li>VER是SOCKS版本，这里应该是0x05；</li>
+<li>CMD是SOCK的命令码<ul>
+<li>0x01表示CONNECT请求</li>
+<li>0x02表示BIND请求</li>
+<li>0x03表示UDP转发</li>
+</ul>
+</li>
+<li>RSV 0x00，保留</li>
+<li>ATYP DST.ADDR类型<ul>
+<li>0x01 IPv4地址，DST.ADDR部分4字节长度</li>
+<li>0x03 域名，DST.ADDR部分第一个字节为域名长度，DST.ADDR剩余的内容为域名，没有\0结尾。</li>
+<li>0x04 IPv6地址，16个字节长度。</li>
+</ul>
+</li>
+<li>DST.ADDR 目的地址</li>
+<li>DST.PORT 网络字节序表示的目的端口</li>
+</ul>
+<p>golang实现代码</p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 此处为向 www.google.com:443 发送请求</span></span><br><span class="line">domain := <span class="string">"www.google.com"</span></span><br><span class="line">serverPort := <span class="number">443</span></span><br><span class="line">sendData = <span class="built_in">append</span>(</span><br><span class="line">    <span class="built_in">append</span>(</span><br><span class="line">        []<span class="keyword">byte</span>&#123;<span class="number">0x5</span>, <span class="number">0x01</span>, <span class="number">0x00</span>, <span class="number">0x03</span>, <span class="keyword">byte</span>(<span class="built_in">len</span>(domain))&#125;,</span><br><span class="line">        []<span class="keyword">byte</span>(domain)...), <span class="keyword">byte</span>(serverPort&gt;&gt;<span class="number">8</span>),</span><br><span class="line">    <span class="keyword">byte</span>(serverPort&amp;<span class="number">255</span>))</span><br><span class="line"><span class="keyword">if</span> _,err = conn.Write(sendData); err!=<span class="literal">nil</span>&#123;</span><br><span class="line">    fmt.Println(err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">getData := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">1024</span>)</span><br><span class="line"><span class="keyword">if</span> _, err = conn.Read(getData[:]); err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> err</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> getData[<span class="number">0</span>] != <span class="number">0x05</span> || getData[<span class="number">1</span>] != <span class="number">0x00</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> errors.New(<span class="string">"socks5 second handshake failed!"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="进行数据转发"><a href="#进行数据转发" class="headerlink" title="进行数据转发"></a>进行数据转发</h2><p>golang实现代码(<em>不太熟悉各种请求这里随便弄了一个</em>)</p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> _,err = conn.Write([]<span class="keyword">byte</span>(<span class="string">"GET /generate_204/ HTTP/2.0\r\n"</span>)); err!=<span class="literal">nil</span>&#123;</span><br><span class="line">    fmt.Println(err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="关闭TCP连接"><a href="#关闭TCP连接" class="headerlink" title="关闭TCP连接"></a>关闭TCP连接</h2><figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">conn.Close()</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h2><p><a href="https://en.wikipedia.org/wiki/SOCKS" target="_blank" rel="noopener">SOCKS(维基百科)</a><br><a href="https://my.oschina.net/997155658/blog/1563154" target="_blank" rel="noopener">SOCKS5 协议介绍</a>  </p>
+]]></content>
       <categories>
-        <category>计算机网络</category>
+        <category>Network</category>
       </categories>
       <tags>
-        <tag>计算机网络</tag>
         <tag>socks5</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[安卓通过adb添加电池用户白名单]]></title>
-    <url>%2Fposts%2F1e63e0e%2F</url>
-    <content type="text"><![CDATA[安卓6.0引入了doze来节省电量,但某些国产ui(如锤子)阉割了这个菜单,可通过adb添加 添加应用到白名单： 1adb shell dumpsys deviceidle whitelist +&lt;package&gt; 如: 1adb shell dumpsys deviceidle whitelist +com.google.android.gms 删除白名单(把加号改成减号): 1adb shell dumpsys deviceidle whitelist -&lt;package&gt; 查看doze状态： 1adb shell dumpsys deviceidle 获取完整的帮助菜单: 1adb shell dumpsys deviceidle -h 1234567891011121314151617181920212223242526272829303132Device idle controller (deviceidle) commands: help Print this help text. step [light|deep] Immediately step to next state, without waiting for alarm. force-idle [light|deep] Force directly into idle mode, regardless of other device state. force-inactive Force to be inactive, ready to freely step idle states. unforce Resume normal functioning after force-idle or force-inactive. get [light|deep|force|screen|charging|network] Retrieve the current given state. disable [light|deep|all] Completely disable device idle mode. enable [light|deep|all] Re-enable device idle mode after it had previously been disabled. enabled [light|deep|all] Print 1 if device idle mode is currently enabled, else 0. whitelist Print currently whitelisted apps. whitelist [package ...] Add (prefix with +) or remove (prefix with -) packages. except-idle-whitelist [package ...|reset] Prefix the package with &apos;+&apos; to add it to whitelist or &apos;=&apos; to check if it is already whitelisted [reset] will reset the whitelist to it&apos;s original state Note that unlike &lt;whitelist&gt; cmd, changes made using this won&apos;t be persisted across boots tempwhitelist Print packages that are temporarily whitelisted. tempwhitelist [-u USER] [-d DURATION] [package ..] Temporarily place packages in whitelist for DURATION milliseconds. If no DURATION is specified, 10 seconds is used]]></content>
+    <title>安卓通过adb添加电池用户白名单</title>
+    <url>/posts/1e63e0e/</url>
+    <content><![CDATA[<p>安卓6.0引入了doze来节省电量,但某些国产ui(如锤子)阉割了这个菜单,可通过adb添加  </p>
+<p>添加应用到白名单：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys deviceidle whitelist +&lt;package&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys deviceidle whitelist +com.google.android.gms</span><br></pre></td></tr></table></figure>
+
+<p>删除白名单(把加号改成减号):  <a id="more"></a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys deviceidle whitelist -&lt;package&gt;</span><br></pre></td></tr></table></figure>
+
+<p>查看doze状态：  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys deviceidle</span><br></pre></td></tr></table></figure>
+
+<p>获取完整的帮助菜单:  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys deviceidle -h</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Device idle controller (deviceidle) commands:</span><br><span class="line">  help</span><br><span class="line">    Print this help text.</span><br><span class="line">  step [light|deep]</span><br><span class="line">    Immediately step to next state, without waiting for alarm.</span><br><span class="line">  force-idle [light|deep]</span><br><span class="line">    Force directly into idle mode, regardless of other device state.</span><br><span class="line">  force-inactive</span><br><span class="line">    Force to be inactive, ready to freely step idle states.</span><br><span class="line">  unforce</span><br><span class="line">    Resume normal functioning after force-idle or force-inactive.</span><br><span class="line">  get [light|deep|force|screen|charging|network]</span><br><span class="line">    Retrieve the current given state.</span><br><span class="line">  disable [light|deep|all]</span><br><span class="line">    Completely disable device idle mode.</span><br><span class="line">  enable [light|deep|all]</span><br><span class="line">    Re-enable device idle mode after it had previously been disabled.</span><br><span class="line">  enabled [light|deep|all]</span><br><span class="line">    Print 1 if device idle mode is currently enabled, else 0.</span><br><span class="line">  whitelist</span><br><span class="line">    Print currently whitelisted apps.</span><br><span class="line">  whitelist [package ...]</span><br><span class="line">    Add (prefix with +) or remove (prefix with -) packages.</span><br><span class="line">  except-idle-whitelist [package ...|reset]</span><br><span class="line">    Prefix the package with &apos;+&apos; to add it to whitelist or &apos;=&apos; to check if it is already whitelisted</span><br><span class="line">    [reset] will reset the whitelist to it&apos;s original state</span><br><span class="line">    Note that unlike &lt;whitelist&gt; cmd, changes made using this won&apos;t be persisted across boots</span><br><span class="line">  tempwhitelist</span><br><span class="line">    Print packages that are temporarily whitelisted.</span><br><span class="line">  tempwhitelist [-u USER] [-d DURATION] [package ..]</span><br><span class="line">    Temporarily place packages in whitelist for DURATION milliseconds.</span><br><span class="line">    If no DURATION is specified, 10 seconds is used</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>android</category>
       </categories>
@@ -137,9 +663,21 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[安卓使用dalvikvm运行java(termux运行java)]]></title>
-    <url>%2Fposts%2F8b98169e%2F</url>
-    <content type="text"><![CDATA[一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些 安装所需工具termux上安装 ecj 和 dx就可以了 1apt install ecj dx 编译为class文件1ecj XXX.java 编译成dex文件1dx --dex --output=XXX.dex XXX.class 使用dalvikvm运行1dalvikvm -cp XXX.dex XXX 参考: 使用 dalvikvm 执行一个运行于命令行的 Hello World]]></content>
+    <title>安卓使用dalvikvm运行java(termux运行java)</title>
+    <url>/posts/8b98169e/</url>
+    <content><![CDATA[<p>一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件<br>发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些  </p>
+<h2 id="安装所需工具"><a href="#安装所需工具" class="headerlink" title="安装所需工具"></a>安装所需工具</h2><p>termux上安装 ecj 和 dx就可以了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install ecj dx</span><br></pre></td></tr></table></figure>
+
+<h2 id="编译为class文件"><a href="#编译为class文件" class="headerlink" title="编译为class文件"></a>编译为class文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ecj XXX.java</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h2 id="编译成dex文件"><a href="#编译成dex文件" class="headerlink" title="编译成dex文件"></a>编译成dex文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dx --dex --output=XXX.dex XXX.class</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用dalvikvm运行"><a href="#使用dalvikvm运行" class="headerlink" title="使用dalvikvm运行"></a>使用dalvikvm运行</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dalvikvm -cp XXX.dex XXX</span><br></pre></td></tr></table></figure>
+
+<p>参考: <a href="https://bbs.pediy.com/thread-184592.htm" target="_blank" rel="noopener">使用 dalvikvm 执行一个运行于命令行的 Hello World</a></p>
+]]></content>
       <categories>
         <category>android</category>
       </categories>
@@ -149,21 +687,59 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[用CIDR表示网段]]></title>
-    <url>%2Fposts%2Fe2b25bb8%2F</url>
-    <content type="text"><![CDATA[我们知道一般CIDR(无类别域间路由)网段的表示为:192.168.0.0/24这种形式 IP地址首先我们得知道ip地址是如何来的ipv4的地址是用32位二进制数表示的如: 255.255.255.0 -&gt; 11111111.11111111.11111111.00000000 网络前缀192.168.0.0/24中的24就是网络前缀,网络前缀可转化为网络掩码,24表示网络掩码的前24位为1 网络掩码「网络掩码」又叫「子网掩码」、「地址掩码」、「子網路遮罩」（subnet mask），它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。 –维基百科 将网络前缀转化为网络掩码: 24 -&gt; 11111111.11111111.11111111.00000000 -&gt; 255.255.255.0255.255.255.0就是网络掩码 CIDR网络地址的计算方法为ip地址与网络掩码进行’与’运算通过上面的计算好的网络掩码可知这个ip地址的前24位是不变的 ,所以192.168.0.0/24表示的网段为: 192.168.0.0 - 192.168.0.255]]></content>
+    <title>用CIDR表示网段</title>
+    <url>/posts/e2b25bb8/</url>
+    <content><![CDATA[<p>我们知道一般CIDR(无类别域间路由)网段的表示为:<strong>192.168.0.0/24</strong>这种形式</p>
+<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><p>首先我们得知道ip地址是如何来的<br>ipv4的地址是用32位二进制数表示的<br>如: 255.255.255.0 -&gt; 11111111.11111111.11111111.00000000</p>
+<h2 id="网络前缀"><a href="#网络前缀" class="headerlink" title="网络前缀"></a>网络前缀</h2><p><strong>192.168.0.0/24</strong>中的24就是网络前缀,网络前缀可转化为网络掩码,24表示网络掩码的前24位为1 </p>
+<h2 id="网络掩码"><a href="#网络掩码" class="headerlink" title="网络掩码"></a>网络掩码</h2><p>「网络掩码」又叫「子网掩码」、「地址掩码」、「子網路遮罩」（subnet mask），它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。      –维基百科<a id="more"></a>  </p>
+<p>将网络前缀转化为网络掩码: 24 -&gt; 11111111.11111111.11111111.00000000 -&gt; 255.255.255.0<br><em>255.255.255.0</em>就是网络掩码</p>
+<h2 id="CIDR"><a href="#CIDR" class="headerlink" title="CIDR"></a>CIDR</h2><p><strong><em>网络地址的计算方法为ip地址与网络掩码进行’与’运算</em></strong><br>通过上面的计算好的网络掩码可知这个ip地址的前24位是不变的  ,所以<strong>192.168.0.0/24</strong>表示的网段为: <strong>192.168.0.0 - 192.168.0.255</strong></p>
+]]></content>
       <categories>
-        <category>网络</category>
+        <category>Network</category>
       </categories>
       <tags>
+        <tag>CIDR</tag>
         <tag>IP</tag>
-        <tag>网络</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[android dumpsys tool]]></title>
-    <url>%2Fposts%2F25303996%2F</url>
-    <content type="text"><![CDATA[查看dumpsys所有的子命令: 1dumpsys | grep &quot;DUMP OF SERVICE&quot; output: 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849DUMP OF SERVICE SurfaceFlinger:DUMP OF SERVICE accessibility:DUMP OF SERVICE account:DUMP OF SERVICE activity:DUMP OF SERVICE alarm:DUMP OF SERVICE appwidget:DUMP OF SERVICE audio:DUMP OF SERVICE backup:DUMP OF SERVICE battery:DUMP OF SERVICE batteryinfo:DUMP OF SERVICE clipboard:DUMP OF SERVICE connectivity:DUMP OF SERVICE content:DUMP OF SERVICE cpuinfo:DUMP OF SERVICE device_policy:DUMP OF SERVICE devicestoragemonitor:DUMP OF SERVICE diskstats:DUMP OF SERVICE dropbox:DUMP OF SERVICE entropy:DUMP OF SERVICE hardware:DUMP OF SERVICE input_method:DUMP OF SERVICE iphonesubinfo:DUMP OF SERVICE isms:DUMP OF SERVICE location:DUMP OF SERVICE media.audio_flinger:DUMP OF SERVICE media.audio_policy:DUMP OF SERVICE media.player:DUMP OF SERVICE meminfo:DUMP OF SERVICE mount:DUMP OF SERVICE netstat:DUMP OF SERVICE network_management:DUMP OF SERVICE notification:DUMP OF SERVICE package:DUMP OF SERVICE permission:DUMP OF SERVICE phone:DUMP OF SERVICE power:DUMP OF SERVICE reboot:DUMP OF SERVICE screenshot:DUMP OF SERVICE search:DUMP OF SERVICE sensor:DUMP OF SERVICE simphonebook:DUMP OF SERVICE statusbar:DUMP OF SERVICE telephony.registry:DUMP OF SERVICE throttle:DUMP OF SERVICE usagestats:DUMP OF SERVICE vibrator:DUMP OF SERVICE wallpaper:DUMP OF SERVICE wifi:DUMP OF SERVICE window: eg:1.得到电池的所有信息 1adb shell dumpsys battery 2.得到wifi的所有信息 1adb shell dumpsys wifi 3.得到cpu的所有信息 1adb shell dumpsys cpuinfo 4.得到总的存储情况 1adb shell dumpsys meminfo 5.得到某应用的存储情况 1adb shell dumpsys meminfo &apos;your apps package name&apos; 6.得到所有的服务列表 1adb shell service list 7.得到所有的账户列表 1adb shell dumpsys account 8.获得某子命令的帮助信息 1adb shell dumpsys account -h 参考:What’s the Android ADB shell “dumpsys” tool and what are its benefits?]]></content>
+    <title>android dumpsys tool</title>
+    <url>/posts/25303996/</url>
+    <content><![CDATA[<p>查看dumpsys所有的子命令:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dumpsys | grep &quot;DUMP OF SERVICE&quot;</span><br></pre></td></tr></table></figure>
+
+<p>output:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DUMP OF SERVICE SurfaceFlinger:</span><br><span class="line">DUMP OF SERVICE accessibility:</span><br><span class="line">DUMP OF SERVICE account:</span><br><span class="line">DUMP OF SERVICE activity:</span><br><span class="line">DUMP OF SERVICE alarm:</span><br><span class="line">DUMP OF SERVICE appwidget:</span><br><span class="line">DUMP OF SERVICE audio:</span><br><span class="line">DUMP OF SERVICE backup:</span><br><span class="line">DUMP OF SERVICE battery:</span><br><span class="line">DUMP OF SERVICE batteryinfo:</span><br><span class="line">DUMP OF SERVICE clipboard:</span><br><span class="line">DUMP OF SERVICE connectivity:</span><br><span class="line">DUMP OF SERVICE content:</span><br><span class="line">DUMP OF SERVICE cpuinfo:</span><br><span class="line">DUMP OF SERVICE device_policy:</span><br><span class="line">DUMP OF SERVICE devicestoragemonitor:</span><br><span class="line">DUMP OF SERVICE diskstats:</span><br><span class="line">DUMP OF SERVICE dropbox:</span><br><span class="line">DUMP OF SERVICE entropy:</span><br><span class="line">DUMP OF SERVICE hardware:</span><br><span class="line">DUMP OF SERVICE input_method:</span><br><span class="line">DUMP OF SERVICE iphonesubinfo:</span><br><span class="line">DUMP OF SERVICE isms:</span><br><span class="line">DUMP OF SERVICE location:</span><br><span class="line">DUMP OF SERVICE media.audio_flinger:</span><br><span class="line">DUMP OF SERVICE media.audio_policy:</span><br><span class="line">DUMP OF SERVICE media.player:</span><br><span class="line">DUMP OF SERVICE meminfo:</span><br><span class="line">DUMP OF SERVICE mount:</span><br><span class="line">DUMP OF SERVICE netstat:</span><br><span class="line">DUMP OF SERVICE network_management:</span><br><span class="line">DUMP OF SERVICE notification:</span><br><span class="line">DUMP OF SERVICE package:</span><br><span class="line">DUMP OF SERVICE permission:</span><br><span class="line">DUMP OF SERVICE phone:</span><br><span class="line">DUMP OF SERVICE power:</span><br><span class="line">DUMP OF SERVICE reboot:</span><br><span class="line">DUMP OF SERVICE screenshot:</span><br><span class="line">DUMP OF SERVICE search:</span><br><span class="line">DUMP OF SERVICE sensor:</span><br><span class="line">DUMP OF SERVICE simphonebook:</span><br><span class="line">DUMP OF SERVICE statusbar:</span><br><span class="line">DUMP OF SERVICE telephony.registry:</span><br><span class="line">DUMP OF SERVICE throttle:</span><br><span class="line">DUMP OF SERVICE usagestats:</span><br><span class="line">DUMP OF SERVICE vibrator:</span><br><span class="line">DUMP OF SERVICE wallpaper:</span><br><span class="line">DUMP OF SERVICE wifi:</span><br><span class="line">DUMP OF SERVICE window:</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p>eg:<br>1.得到电池的所有信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys battery</span><br></pre></td></tr></table></figure>
+
+<p>2.得到wifi的所有信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys wifi</span><br></pre></td></tr></table></figure>
+
+<p>3.得到cpu的所有信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys cpuinfo</span><br></pre></td></tr></table></figure>
+
+<p>4.得到总的存储情况</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys meminfo</span><br></pre></td></tr></table></figure>
+
+<p>5.得到某应用的存储情况</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys meminfo &apos;your apps package name&apos;</span><br></pre></td></tr></table></figure>
+
+<p>6.得到所有的服务列表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell service list</span><br></pre></td></tr></table></figure>
+
+<p>7.得到所有的账户列表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys account</span><br></pre></td></tr></table></figure>
+
+<p>8.获得某子命令的帮助信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys account -h</span><br></pre></td></tr></table></figure>
+
+<p>参考:<br><a href="https://stackoverflow.com/questions/11201659/whats-the-android-adb-shell-dumpsys-tool-and-what-are-its-benefits" target="_blank" rel="noopener">What’s the Android ADB shell “dumpsys” tool and what are its benefits?</a></p>
+]]></content>
       <categories>
         <category>android</category>
       </categories>
@@ -173,9 +749,18 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[安卓通过shell更改语言]]></title>
-    <url>%2Fposts%2Ff7f814df%2F</url>
-    <content type="text"><![CDATA[对于Android M或更高版本，使用： 12setprop ro.product.locale xx-XXsetprop persist.sys.locale xx-XX xx是语言XX是国家改为日语为:xx=ja XX=JP 其他安卓版本: 123setprop persist.sys.language xxsetprop persist.sys.country XXsetprop ctl.restart zygote xx是语言XX是国家 Zygote进程运行时, 会初始化Dalvik虚拟机, 并运行它. Android的应用程序是由Java编写的, 它们不能直接运行在Linux上, 只能运行在Dalvik虚拟机中. 并且, 每个应用程序都运行在各自的虚拟机中, 应用程序每次运行都要重新初始化并启动虚拟机, 这个过程会消耗相当长时间, 是拖慢应用程序的原因之一. 因此, 在Android中, 应用程序运行前, 通过Zygote进程共享已运行的虚拟机的代码与内存信息, 缩短应用程序运行所耗费的时间. 也就是说, Zygote进程会事先将应用程序要使用的Android Framework中的类与资源加载到内存中, 并组织形成所用资源的链接信息. 这样, 新运行的Android应用程序在使用所需资源时不必每次形成资源的链接信息, 这样就大大提升了程序的运行时间. 参考:1.通过ADB更改设备语言2.初识Zygote进程]]></content>
+    <title>安卓通过shell更改语言</title>
+    <url>/posts/f7f814df/</url>
+    <content><![CDATA[<p>对于Android M或更高版本，使用：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">setprop ro.product.locale xx-XX</span><br><span class="line">setprop persist.sys.locale xx-XX</span><br></pre></td></tr></table></figure>
+
+<p>xx是语言<br>XX是国家<br>改为日语为:xx=ja XX=JP  </p>
+<p>其他安卓版本:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">setprop persist.sys.language xx</span><br><span class="line">setprop persist.sys.country XX</span><br><span class="line">setprop ctl.restart zygote</span><br></pre></td></tr></table></figure>
+
+<p>xx是语言<br>XX是国家  <a id="more"></a><br>Zygote进程运行时, 会初始化Dalvik虚拟机, 并运行它. Android的应用程序是由Java编写的, 它们不能直接运行在Linux上, 只能运行在Dalvik虚拟机中. 并且, 每个应用程序都运行在各自的虚拟机中, 应用程序每次运行都要重新初始化并启动虚拟机, 这个过程会消耗相当长时间, 是拖慢应用程序的原因之一. 因此, 在Android中, 应用程序运行前, 通过Zygote进程共享已运行的虚拟机的代码与内存信息, 缩短应用程序运行所耗费的时间. 也就是说, Zygote进程会事先将应用程序要使用的Android Framework中的类与资源加载到内存中, 并组织形成所用资源的链接信息. 这样, 新运行的Android应用程序在使用所需资源时不必每次形成资源的链接信息, 这样就大大提升了程序的运行时间.   </p>
+<p>参考:<br>1.<a href="http://bbs.bugcode.cn/t/16729" target="_blank" rel="noopener">通过ADB更改设备语言</a><br>2.<a href="https://www.jianshu.com/p/3dbe46439359" target="_blank" rel="noopener">初识Zygote进程</a></p>
+]]></content>
       <categories>
         <category>android</category>
       </categories>
@@ -184,9 +769,21 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[解决xfce4画面撕裂]]></title>
-    <url>%2Fposts%2F38868ade%2F</url>
-    <content type="text"><![CDATA[安装compton1sudo apt install compton 修改配置文件compton的配置文件在~/.config/compton.conf因为有些窗口的阴影有时候会变的很奇怪,大概你有可能需要修改一下,附上我的: 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179180181182183184185186187188189190191192193194195196197198199200201202203204205206207208209210211212213214215216217218219220221222223################################### Backend################################### Backend to use: &quot;xrender&quot; or &quot;glx&quot;.# GLX backend is typically much faster but depends on a sane driver.backend = &quot;glx&quot;;################################### GLX backend##################################glx-no-stencil = true;# GLX backend: Copy unmodified regions from front buffer instead of redrawing them all.# My tests with nvidia-drivers show a 10% decrease in performance when the whole screen is modified,# but a 20% increase when only 1/4 is.# My tests on nouveau show terrible slowdown.# Useful with --glx-swap-method, as well.glx-copy-from-front = false;# GLX backend: Use MESA_copy_sub_buffer to do partial screen update.# My tests on nouveau shows a 200% performance boost when only 1/4 of the screen is updated.# May break VSync and is not available on some drivers.# Overrides --glx-copy-from-front.# glx-use-copysubbuffermesa = true;# GLX backend: Avoid rebinding pixmap on window damage.# Probably could improve performance on rapid window content changes, but is known to break things on some drivers (LLVMpipe).# Recommended if it works.# glx-no-rebind-pixmap = true;# GLX backend: GLX buffer swap method we assume.# Could be undefined (0), copy (1), exchange (2), 3-6, or buffer-age (-1).# undefined is the slowest and the safest, and the default value.# copy is fastest, but may fail on some drivers,# 2-6 are gradually slower but safer (6 is still faster than 0).# Usually, double buffer means 2, triple buffer means 3.# buffer-age means auto-detect using GLX_EXT_buffer_age, supported by some drivers.# Useless with --glx-use-copysubbuffermesa.# Partially breaks --resize-damage.# Defaults to undefined.glx-swap-method = &quot;undefined&quot;;################################### Shadows################################### Enabled client-side shadows on windows.shadow = true;# Don&apos;t draw shadows on DND windows.no-dnd-shadow = true;# Avoid drawing shadows on dock/panel windows.no-dock-shadow = true;# Zero the part of the shadow&apos;s mask behind the window. Fix some weirdness with ARGB windows.#clear-shadow = true;# The blur radius for shadows. (default 12)shadow-radius = 5;# The left offset for shadows. (default -15)shadow-offset-x = -5;# The top offset for shadows. (default -15)shadow-offset-y = -5;# The translucency for shadows. (default .75)shadow-opacity = 0.5;# Set if you want different colour shadows# shadow-red = 0.0;# shadow-green = 0.0;# shadow-blue = 0.0;# The shadow exclude options are helpful if you have shadows enabled. #Due to the way compton draws its shadows, certain applications will have visual glitches# (most applications are fine, only apps that do weird things with xshapes or argb are affected).# This list includes all the affected apps I found in my testing. #The &quot;! name~=&apos;&apos;&quot; part excludes shadows on any &quot;Unknown&quot; windows, this prevents a visual glitch with the XFWM alt tab switcher.#此处加入排除阴影的程序名字shadow-exclude = [ &quot;! name~=&apos;&apos;&quot;, &quot;name = &apos;Notification&apos;&quot;, &quot;name = &apos;Plank&apos;&quot;, &quot;name = &apos;Docky&apos;&quot;, &quot;name = &apos;Kupfer&apos;&quot;, &quot;name = &apos;xfce4-notifyd&apos;&quot;, &quot;name *= &apos;VLC&apos;&quot;, &quot;name *= &apos;compton&apos;&quot;, &quot;name *= &apos;gedit&apos;&quot;, &quot;name *= &apos;Archive Manager&apos;&quot;,# &quot;name *= &apos;Chromium&apos;&quot;,# &quot;name *= &apos;Chrome&apos;&quot;,# &quot;name *= &apos;Firefox&apos;&quot;, &quot;class_g = &apos;Conky&apos;&quot;, &quot;class_g = &apos;Kupfer&apos;&quot;, &quot;class_g = &apos;Synapse&apos;&quot;, &quot;class_g ?= &apos;Notify-osd&apos;&quot;, &quot;class_g ?= &apos;Cairo-dock&apos;&quot;, &quot;class_g ?= &apos;Xfce4-notifyd&apos;&quot;, &quot;class_g ?= &apos;Xfce4-power-manager&apos;&quot;];# Avoid drawing shadow on all shaped windows (see also: --detect-rounded-corners)shadow-ignore-shaped = false;################################### Opacity##################################################################### Fading################################### Fade windows during opacity changes.fading = true;# The time between steps in a fade in milliseconds. (default 10).fade-delta = 4;# Opacity change between steps while fading in. (default 0.028).#fade-in-step = 0.03;# Opacity change between steps while fading out. (default 0.03).#fade-out-step = 0.03;# Fade windows in/out when opening/closing#no-fading-openclose = true;# Specify a list of conditions of windows that should not be faded.#fade-exclude = [ ];fade-exclude = [ ];################################### Other################################### Try to detect WM windows and mark them as active.mark-wmwin-focused = true;# Mark all non-WM but override-redirect windows active (e.g. menus).mark-ovredir-focused = true;# Use EWMH _NET_WM_ACTIVE_WINDOW to determine which window is focused instead of using FocusIn/Out events.# Usually more reliable but depends on a EWMH-compliant WM.use-ewmh-active-win = true;# Detect rounded corners and treat them as rectangular when --shadow-ignore-shaped is on.detect-rounded-corners = true;# Detect _NET_WM_OPACITY on client windows, useful for window managers not passing _NET_WM_OPACITY of client windows to frame windows.# This prevents opacity being ignored for some apps.# For example without this enabled my xfce4-notifyd is 100% opacity no matter what.#detect-client-opacity = true;# Specify refresh rate of the screen.# If not specified or 0, compton will try detecting this with X RandR extension.refresh-rate = 0;# Set VSync method. VSync methods currently available:# none: No VSync# drm: VSync with DRM_IOCTL_WAIT_VBLANK. May only work on some drivers.# opengl: Try to VSync with SGI_video_sync OpenGL extension. Only work on some drivers.# opengl-oml: Try to VSync with OML_sync_control OpenGL extension. Only work on some drivers.# opengl-swc: Try to VSync with SGI_swap_control OpenGL extension. Only work on some drivers. #Works only with GLX backend. Known to be most effective on many drivers. #Does not actually control paint timing, only buffer swap is affected, #so it doesn’t have the effect of --sw-opti unlike other methods. Experimental.# opengl-mswc: Try to VSync with MESA_swap_control OpenGL extension. Basically the same as opengl-swc above, except the extension we use.# (Note some VSync methods may not be enabled at compile time.)vsync = &quot;opengl-swc&quot;;# Enable DBE painting mode, intended to use with VSync to (hopefully) eliminate tearing.# Reported to have no effect, though.dbe = false;# Painting on X Composite overlay window. Recommended.paint-on-overlay = true;# Limit compton to repaint at most once every 1 / refresh_rate second to boost performance.# This should not be used with --vsync drm/opengl/opengl-oml as they essentially does --sw-opti&apos;s job already,# unless you wish to specify a lower refresh rate than the actual value.sw-opti = false;# Unredirect all windows if a full-screen opaque window is detected, to maximize performance for full-screen windows, like games.# Known to cause flickering when redirecting/unredirecting windows.# paint-on-overlay may make the flickering less obvious.unredir-if-possible = false;# Specify a list of conditions of windows that should always be considered focused.focus-exclude = [ ];# Use WM_TRANSIENT_FOR to group windows, and consider windows in the same group focused at the same time.detect-transient = true;# Use WM_CLIENT_LEADER to group windows, and consider windows in the same group focused at the same time.# WM_TRANSIENT_FOR has higher priority if --detect-transient is enabled, too.detect-client-leader = true;################################### Window type settings##################################wintypes:&#123; tooltip = &#123; # fade: Fade the particular type of windows. fade = true; # shadow: Give those windows shadow shadow = false; # opacity: Default opacity for the type of windows. opacity = 0.85; # focus: Whether to always consider windows of this type focused. focus = true; &#125;;&#125;; 关闭xfce4自带的合成器设置管理器-&gt;窗口管理器微调-&gt;合成器 启动compton前台运行1compton 后台运行1compton -b 开机自启动修改~/.xprofile文件将compton -b直接加到新的一行就行了]]></content>
+    <title>解决xfce4画面撕裂</title>
+    <url>/posts/38868ade/</url>
+    <content><![CDATA[<h2 id="安装compton"><a href="#安装compton" class="headerlink" title="安装compton"></a>安装compton</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install compton</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>compton的配置文件在~/.config/compton.conf<br>因为有些窗口的阴影有时候会变的很奇怪,大概你有可能需要修改一下,附上我的:<a id="more"></a>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#################################</span><br><span class="line">#</span><br><span class="line"># Backend</span><br><span class="line">#</span><br><span class="line">#################################</span><br><span class="line"></span><br><span class="line"># Backend to use: &quot;xrender&quot; or &quot;glx&quot;.</span><br><span class="line"># GLX backend is typically much faster but depends on a sane driver.</span><br><span class="line">backend = &quot;glx&quot;;</span><br><span class="line"></span><br><span class="line">#################################</span><br><span class="line">#</span><br><span class="line"># GLX backend</span><br><span class="line">#</span><br><span class="line">#################################</span><br><span class="line"></span><br><span class="line">glx-no-stencil = true;</span><br><span class="line"></span><br><span class="line"># GLX backend: Copy unmodified regions from front buffer instead of redrawing them all.</span><br><span class="line"># My tests with nvidia-drivers show a 10% decrease in performance when the whole screen is modified,</span><br><span class="line"># but a 20% increase when only 1/4 is.</span><br><span class="line"># My tests on nouveau show terrible slowdown.</span><br><span class="line"># Useful with --glx-swap-method, as well.</span><br><span class="line">glx-copy-from-front = false;</span><br><span class="line"></span><br><span class="line"># GLX backend: Use MESA_copy_sub_buffer to do partial screen update.</span><br><span class="line"># My tests on nouveau shows a 200% performance boost when only 1/4 of the screen is updated.</span><br><span class="line"># May break VSync and is not available on some drivers.</span><br><span class="line"># Overrides --glx-copy-from-front.</span><br><span class="line"># glx-use-copysubbuffermesa = true;</span><br><span class="line"></span><br><span class="line"># GLX backend: Avoid rebinding pixmap on window damage.</span><br><span class="line"># Probably could improve performance on rapid window content changes, but is known to break things on some drivers (LLVMpipe).</span><br><span class="line"># Recommended if it works.</span><br><span class="line"># glx-no-rebind-pixmap = true;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># GLX backend: GLX buffer swap method we assume.</span><br><span class="line"># Could be undefined (0), copy (1), exchange (2), 3-6, or buffer-age (-1).</span><br><span class="line"># undefined is the slowest and the safest, and the default value.</span><br><span class="line"># copy is fastest, but may fail on some drivers,</span><br><span class="line"># 2-6 are gradually slower but safer (6 is still faster than 0).</span><br><span class="line"># Usually, double buffer means 2, triple buffer means 3.</span><br><span class="line"># buffer-age means auto-detect using GLX_EXT_buffer_age, supported by some drivers.</span><br><span class="line"># Useless with --glx-use-copysubbuffermesa.</span><br><span class="line"># Partially breaks --resize-damage.</span><br><span class="line"># Defaults to undefined.</span><br><span class="line">glx-swap-method = &quot;undefined&quot;;</span><br><span class="line"></span><br><span class="line">#################################</span><br><span class="line">#</span><br><span class="line"># Shadows</span><br><span class="line">#</span><br><span class="line">#################################</span><br><span class="line"></span><br><span class="line"># Enabled client-side shadows on windows.</span><br><span class="line">shadow = true;</span><br><span class="line"># Don&apos;t draw shadows on DND windows.</span><br><span class="line">no-dnd-shadow = true;</span><br><span class="line"># Avoid drawing shadows on dock/panel windows.</span><br><span class="line">no-dock-shadow = true;</span><br><span class="line"># Zero the part of the shadow&apos;s mask behind the window. Fix some weirdness with ARGB windows.</span><br><span class="line">#clear-shadow = true;</span><br><span class="line"># The blur radius for shadows. (default 12)</span><br><span class="line">shadow-radius = 5;</span><br><span class="line"># The left offset for shadows. (default -15)</span><br><span class="line">shadow-offset-x = -5;</span><br><span class="line"># The top offset for shadows. (default -15)</span><br><span class="line">shadow-offset-y = -5;</span><br><span class="line"># The translucency for shadows. (default .75)</span><br><span class="line">shadow-opacity = 0.5;</span><br><span class="line"></span><br><span class="line"># Set if you want different colour shadows</span><br><span class="line"># shadow-red = 0.0;</span><br><span class="line"># shadow-green = 0.0;</span><br><span class="line"># shadow-blue = 0.0;</span><br><span class="line"></span><br><span class="line"># The shadow exclude options are helpful if you have shadows enabled. </span><br><span class="line">#Due to the way compton draws its shadows, certain applications will have visual glitches</span><br><span class="line"></span><br><span class="line"># (most applications are fine, only apps that do weird things with xshapes or argb are affected).</span><br><span class="line"></span><br><span class="line"># This list includes all the affected apps I found in my testing. </span><br><span class="line">#The &quot;! name~=&apos;&apos;&quot; part excludes shadows on any &quot;Unknown&quot; windows, this prevents a visual glitch with the XFWM alt tab switcher.</span><br><span class="line">#此处加入排除阴影的程序名字</span><br><span class="line">shadow-exclude = [</span><br><span class="line">    &quot;! name~=&apos;&apos;&quot;,</span><br><span class="line">    &quot;name = &apos;Notification&apos;&quot;,</span><br><span class="line">    &quot;name = &apos;Plank&apos;&quot;,</span><br><span class="line">    &quot;name = &apos;Docky&apos;&quot;,</span><br><span class="line">    &quot;name = &apos;Kupfer&apos;&quot;,</span><br><span class="line">    &quot;name = &apos;xfce4-notifyd&apos;&quot;,</span><br><span class="line">    &quot;name *= &apos;VLC&apos;&quot;,</span><br><span class="line">    &quot;name *= &apos;compton&apos;&quot;,</span><br><span class="line">    &quot;name *= &apos;gedit&apos;&quot;,</span><br><span class="line">    &quot;name *= &apos;Archive Manager&apos;&quot;,</span><br><span class="line">#    &quot;name *= &apos;Chromium&apos;&quot;,</span><br><span class="line">#    &quot;name *= &apos;Chrome&apos;&quot;,</span><br><span class="line">#    &quot;name *= &apos;Firefox&apos;&quot;,</span><br><span class="line">    &quot;class_g = &apos;Conky&apos;&quot;,</span><br><span class="line">    &quot;class_g = &apos;Kupfer&apos;&quot;,</span><br><span class="line">    &quot;class_g = &apos;Synapse&apos;&quot;,</span><br><span class="line">    &quot;class_g ?= &apos;Notify-osd&apos;&quot;,</span><br><span class="line">    &quot;class_g ?= &apos;Cairo-dock&apos;&quot;,</span><br><span class="line">    &quot;class_g ?= &apos;Xfce4-notifyd&apos;&quot;,</span><br><span class="line">    &quot;class_g ?= &apos;Xfce4-power-manager&apos;&quot;</span><br><span class="line">];</span><br><span class="line"># Avoid drawing shadow on all shaped windows (see also: --detect-rounded-corners)</span><br><span class="line">shadow-ignore-shaped = false;</span><br><span class="line"></span><br><span class="line">#################################</span><br><span class="line">#</span><br><span class="line"># Opacity</span><br><span class="line">#</span><br><span class="line">#################################</span><br><span class="line"></span><br><span class="line">#################################</span><br><span class="line">#</span><br><span class="line"># Fading</span><br><span class="line">#</span><br><span class="line">#################################</span><br><span class="line"></span><br><span class="line"># Fade windows during opacity changes.</span><br><span class="line">fading = true;</span><br><span class="line"># The time between steps in a fade in milliseconds. (default 10).</span><br><span class="line">fade-delta = 4;</span><br><span class="line"># Opacity change between steps while fading in. (default 0.028).</span><br><span class="line">#fade-in-step = 0.03;</span><br><span class="line"># Opacity change between steps while fading out. (default 0.03).</span><br><span class="line">#fade-out-step = 0.03;</span><br><span class="line"># Fade windows in/out when opening/closing</span><br><span class="line">#no-fading-openclose = true;</span><br><span class="line"></span><br><span class="line"># Specify a list of conditions of windows that should not be faded.</span><br><span class="line">#fade-exclude = [ ];</span><br><span class="line">fade-exclude = [ ];</span><br><span class="line"></span><br><span class="line">#################################</span><br><span class="line">#</span><br><span class="line"># Other</span><br><span class="line">#</span><br><span class="line">#################################</span><br><span class="line"></span><br><span class="line"># Try to detect WM windows and mark them as active.</span><br><span class="line">mark-wmwin-focused = true;</span><br><span class="line"># Mark all non-WM but override-redirect windows active (e.g. menus).</span><br><span class="line">mark-ovredir-focused = true;</span><br><span class="line"># Use EWMH _NET_WM_ACTIVE_WINDOW to determine which window is focused instead of using FocusIn/Out events.</span><br><span class="line"># Usually more reliable but depends on a EWMH-compliant WM.</span><br><span class="line">use-ewmh-active-win = true;</span><br><span class="line"># Detect rounded corners and treat them as rectangular when --shadow-ignore-shaped is on.</span><br><span class="line">detect-rounded-corners = true;</span><br><span class="line"></span><br><span class="line"># Detect _NET_WM_OPACITY on client windows, useful for window managers not passing _NET_WM_OPACITY of client windows to frame windows.</span><br><span class="line"># This prevents opacity being ignored for some apps.</span><br><span class="line"># For example without this enabled my xfce4-notifyd is 100% opacity no matter what.</span><br><span class="line">#detect-client-opacity = true;</span><br><span class="line"></span><br><span class="line"># Specify refresh rate of the screen.</span><br><span class="line"># If not specified or 0, compton will try detecting this with X RandR extension.</span><br><span class="line">refresh-rate = 0;</span><br><span class="line"></span><br><span class="line"># Set VSync method. VSync methods currently available:</span><br><span class="line"># none: No VSync</span><br><span class="line"># drm: VSync with DRM_IOCTL_WAIT_VBLANK. May only work on some drivers.</span><br><span class="line"># opengl: Try to VSync with SGI_video_sync OpenGL extension. Only work on some drivers.</span><br><span class="line"># opengl-oml: Try to VSync with OML_sync_control OpenGL extension. Only work on some drivers.</span><br><span class="line"></span><br><span class="line"># opengl-swc: Try to VSync with SGI_swap_control OpenGL extension. Only work on some drivers. </span><br><span class="line">#Works only with GLX backend. Known to be most effective on many drivers. </span><br><span class="line">#Does not actually control paint timing, only buffer swap is affected, </span><br><span class="line">#so it doesn’t have the effect of --sw-opti unlike other methods. Experimental.</span><br><span class="line"></span><br><span class="line"># opengl-mswc: Try to VSync with MESA_swap_control OpenGL extension. Basically the same as opengl-swc above, except the extension we use.</span><br><span class="line"># (Note some VSync methods may not be enabled at compile time.)</span><br><span class="line">vsync = &quot;opengl-swc&quot;;</span><br><span class="line"></span><br><span class="line"># Enable DBE painting mode, intended to use with VSync to (hopefully) eliminate tearing.</span><br><span class="line"># Reported to have no effect, though.</span><br><span class="line">dbe = false;</span><br><span class="line"># Painting on X Composite overlay window. Recommended.</span><br><span class="line">paint-on-overlay = true;</span><br><span class="line"></span><br><span class="line"># Limit compton to repaint at most once every 1 / refresh_rate second to boost performance.</span><br><span class="line"># This should not be used with --vsync drm/opengl/opengl-oml as they essentially does --sw-opti&apos;s job already,</span><br><span class="line"># unless you wish to specify a lower refresh rate than the actual value.</span><br><span class="line">sw-opti = false;</span><br><span class="line"></span><br><span class="line"># Unredirect all windows if a full-screen opaque window is detected, to maximize performance for full-screen windows, like games.</span><br><span class="line"># Known to cause flickering when redirecting/unredirecting windows.</span><br><span class="line"># paint-on-overlay may make the flickering less obvious.</span><br><span class="line">unredir-if-possible = false;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Specify a list of conditions of windows that should always be considered focused.</span><br><span class="line">focus-exclude = [ ];</span><br><span class="line"></span><br><span class="line"># Use WM_TRANSIENT_FOR to group windows, and consider windows in the same group focused at the same time.</span><br><span class="line">detect-transient = true;</span><br><span class="line"># Use WM_CLIENT_LEADER to group windows, and consider windows in the same group focused at the same time.</span><br><span class="line"># WM_TRANSIENT_FOR has higher priority if --detect-transient is enabled, too.</span><br><span class="line">detect-client-leader = true;</span><br><span class="line"></span><br><span class="line">#################################</span><br><span class="line">#</span><br><span class="line"># Window type settings</span><br><span class="line">#</span><br><span class="line">#################################</span><br><span class="line"></span><br><span class="line">wintypes:</span><br><span class="line">&#123;</span><br><span class="line">    tooltip =</span><br><span class="line">    &#123;</span><br><span class="line">        # fade: Fade the particular type of windows.</span><br><span class="line">        fade = true;</span><br><span class="line">        # shadow: Give those windows shadow</span><br><span class="line">        shadow = false;</span><br><span class="line">        # opacity: Default opacity for the type of windows.</span><br><span class="line">        opacity = 0.85;</span><br><span class="line">        # focus: Whether to always consider windows of this type focused.</span><br><span class="line">        focus = true;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="关闭xfce4自带的合成器"><a href="#关闭xfce4自带的合成器" class="headerlink" title="关闭xfce4自带的合成器"></a>关闭xfce4自带的合成器</h2><p><strong>设置管理器-&gt;窗口管理器微调-&gt;合成器</strong>  </p>
+<p><img src="http://blog-1254450445.cossgp.myqcloud.com/compton.png" alt></p>
+<h2 id="启动compton"><a href="#启动compton" class="headerlink" title="启动compton"></a>启动compton</h2><h3 id="前台运行"><a href="#前台运行" class="headerlink" title="前台运行"></a>前台运行</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">compton</span><br></pre></td></tr></table></figure>
+
+<h3 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">compton -b</span><br></pre></td></tr></table></figure>
+
+<h3 id="开机自启动"><a href="#开机自启动" class="headerlink" title="开机自启动"></a>开机自启动</h3><p>修改~/.xprofile文件<br>将<code>compton -b</code>直接加到新的一行就行了</p>
+]]></content>
       <categories>
         <category>linux</category>
       </categories>
@@ -196,9 +793,30 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux下intel&AMD双显卡切换]]></title>
-    <url>%2Fposts%2F3b8b96de%2F</url>
-    <content type="text"><![CDATA[使用xrandr显示可支持的显卡 1xrandr --listproviders 输出类似以下内容 123Providers: number : 2Provider 0: id: 0x6b cap: 0x9, Source Output, Sink Offload crtcs: 3 outputs: 7 associated providers: 1 name:modesettingProvider 1: id: 0x41 cap: 0x6, Sink Output, Source Offload crtcs: 2 outputs: 0 associated providers: 1 name:OLAND @ pci:0000:01:00.0 To be able to render GPU-intensive applications by the more powerful discrete card use 1xrandr --setprovideroffloadsink 1 0 或者 1xrandr --setprovideroffloadsink 0x41 0x6b 使用DRI_PRIME为某个应用选择使用哪一张显卡,使用glxinfo可以查看正在使用的显卡 12DRI_PRIME=0 glxinfo | grep &quot;OpenGL renderer&quot;DRI_PRIME=1 glxinfo | grep &quot;OpenGL renderer&quot; 如为steam启用独显 1DRI_PRIME=1 steam 参考资料: 1.Intel/AMD Hybrid graphics Ubuntu 18.04 2.PRIME (简体中文)]]></content>
+    <title>linux下intel&amp;AMD双显卡切换</title>
+    <url>/posts/3b8b96de/</url>
+    <content><![CDATA[<p>使用<strong>xrandr</strong>显示可支持的显卡</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">xrandr --listproviders</span><br></pre></td></tr></table></figure>
+
+<p>输出类似以下内容</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Providers: number : 2</span><br><span class="line">Provider 0: id: 0x6b cap: 0x9, Source Output, Sink Offload crtcs: 3 outputs: 7 associated providers: 1 name:modesetting</span><br><span class="line">Provider 1: id: 0x41 cap: 0x6, Sink Output, Source Offload crtcs: 2 outputs: 0 associated providers: 1 name:OLAND @ pci:0000:01:00.0</span><br></pre></td></tr></table></figure>
+
+<p>To be able to render GPU-intensive applications by the more powerful discrete card use</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">xrandr --setprovideroffloadsink 1 0</span><br></pre></td></tr></table></figure>
+
+<p>或者<a id="more"></a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">xrandr --setprovideroffloadsink 0x41 0x6b</span><br></pre></td></tr></table></figure>
+
+<p>使用DRI_PRIME为某个应用选择使用哪一张显卡,使用glxinfo可以查看正在使用的显卡</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DRI_PRIME=0 glxinfo | grep &quot;OpenGL renderer&quot;</span><br><span class="line">DRI_PRIME=1 glxinfo | grep &quot;OpenGL renderer&quot;</span><br></pre></td></tr></table></figure>
+
+<p>如为steam启用独显</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DRI_PRIME=1 steam</span><br></pre></td></tr></table></figure>
+
+<p>参考资料:</p>
+<p>1.<a href="https://askubuntu.com/questions/1038271/intel-amd-hybrid-graphics-ubuntu-18-04" target="_blank" rel="noopener">Intel/AMD Hybrid graphics Ubuntu 18.04</a></p>
+<p>2.<a href="https://wiki.archlinux.org/index.php/PRIME" target="_blank" rel="noopener">PRIME (简体中文)</a></p>
+]]></content>
       <categories>
         <category>linux</category>
       </categories>
@@ -209,33 +827,99 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python使用lxml分析网页]]></title>
-    <url>%2Fposts%2F77d15527%2F</url>
-    <content type="text"><![CDATA[首先得引入lxml 12345#xpath为frome lxml import etree#cssselector为import lxml.html#cssselector使用起来简单但功能比xpath少 cssselector 12345678910111213tree = lxml.html.fromstring(&apos;你获取的网页源代码文件或变量&apos;)css = tree.cssselect(&apos;要选择的内容&apos;)#例如tree.cssselect(&apos;div.word-info &gt; div.pronounces &gt; span.word-audio&apos;)#选择器选择的结果为listcss.text_content()#表示选择的内容css.attrib[&apos;要表示的标签属性&apos;]#如css.attrb[&apos;class&apos;]表示的就是所选择内容的class属性 如果选择的内容换行符太多可以使用split表示成list去除 说明 例子 选择所有标签 * 选择&lt;a&gt;标签 a 选择所有class=”link”的标签 .link 选择class=”link”的&lt;a&gt;标签 a.link 选择id=”home”的&lt;a&gt;标签 a#home 选择父元素为&lt;a&gt;标签的所有&lt;span&gt;标签 a &gt; span 选择&lt;a&gt;标签内部的所有&lt;span&gt;标签 a span 选择title属性为”Home”的所有&lt;a&gt;标签 a[title=Home] xpath 1234selector=etree.HTML(&apos;你获取的网页源代码文件或变量&apos;)css = selector.xpath(&apos;要选择的内容&apos;)#xpath可直接表示#xpath可选择并表示属性 xpath由于内容太多,可以直接参考官方文档]]></content>
+    <title>python使用lxml分析网页</title>
+    <url>/posts/77d15527/</url>
+    <content><![CDATA[<p>首先得引入lxml</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#xpath为</span><br><span class="line">frome lxml import etree</span><br><span class="line">#cssselector为</span><br><span class="line">import lxml.html</span><br><span class="line">#cssselector使用起来简单但功能比xpath少</span><br></pre></td></tr></table></figure>
+
+<p>cssselector</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tree = lxml.html.fromstring(&apos;你获取的网页源代码文件或变量&apos;)</span><br><span class="line">css = tree.cssselect(&apos;要选择的内容&apos;)</span><br><span class="line"></span><br><span class="line">#例如tree.cssselect(&apos;div.word-info &gt; div.pronounces &gt; span.word-audio&apos;)</span><br><span class="line">#选择器选择的结果为list</span><br><span class="line"></span><br><span class="line">css.text_content()</span><br><span class="line"></span><br><span class="line">#表示选择的内容</span><br><span class="line"></span><br><span class="line">css.attrib[&apos;要表示的标签属性&apos;]</span><br><span class="line"></span><br><span class="line">#如css.attrb[&apos;class&apos;]表示的就是所选择内容的class属性</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p><strong>如果选择的内容换行符太多可以使用split表示成list去除</strong></p>
+<table>
+<thead>
+<tr>
+<th>说明</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>选择所有标签</td>
+<td>*</td>
+</tr>
+<tr>
+<td>选择&lt;a&gt;标签</td>
+<td>a</td>
+</tr>
+<tr>
+<td>选择所有class=”link”的标签</td>
+<td>.link</td>
+</tr>
+<tr>
+<td>选择class=”link”的&lt;a&gt;标签</td>
+<td>a.link</td>
+</tr>
+<tr>
+<td>选择id=”home”的&lt;a&gt;标签</td>
+<td>a#home</td>
+</tr>
+<tr>
+<td>选择父元素为&lt;a&gt;标签的所有&lt;span&gt;标签</td>
+<td>a &gt; span</td>
+</tr>
+<tr>
+<td>选择&lt;a&gt;标签内部的所有&lt;span&gt;标签</td>
+<td>a span</td>
+</tr>
+<tr>
+<td>选择title属性为”Home”的所有&lt;a&gt;标签</td>
+<td>a[title=Home]</td>
+</tr>
+</tbody></table>
+<p>xpath</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">selector=etree.HTML(&apos;你获取的网页源代码文件或变量&apos;)</span><br><span class="line">css = selector.xpath(&apos;要选择的内容&apos;)</span><br><span class="line">#xpath可直接表示</span><br><span class="line">#xpath可选择并表示属性</span><br></pre></td></tr></table></figure>
+
+<p><em>xpath由于内容太多,可以直接参考官方文档</em></p>
+]]></content>
       <categories>
         <category>python</category>
       </categories>
       <tags>
-        <tag>编程</tag>
         <tag>python</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python获取网页源码(爬虫?)]]></title>
-    <url>%2Fposts%2Fcee10602%2F</url>
-    <content type="text"><![CDATA[利用requrst,使用首先要 1import requests 使用方法 123url = &apos;要获取的网页地址&apos;useragent = &apos;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36&apos;#user-agent 可有可无,有些网页防爬虫就要模拟浏览器requests.get(url,headers=&#123;&apos;User-Agent&apos;:useragent&#125;))]]></content>
+    <title>python获取网页源码(爬虫?)</title>
+    <url>/posts/cee10602/</url>
+    <content><![CDATA[<p>利用requrst,使用首先要</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br></pre></td></tr></table></figure>
+
+<p>使用方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">url = &apos;要获取的网页地址&apos;</span><br><span class="line">useragent = &apos;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36&apos;#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span><br><span class="line">requests.get(url,headers=&#123;&apos;User-Agent&apos;:useragent&#125;))</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
         <category>python</category>
       </categories>
       <tags>
-        <tag>编程</tag>
         <tag>python</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[snap删除旧的core(snap删除其他版本的软件)]]></title>
-    <url>%2Fposts%2Fb6b8953%2F</url>
-    <content type="text"><![CDATA[偶尔发现snap会自动升级core且不删除旧版，在’/snap/core’会发现好几个版本的文件夹。使用 1sudo snap remove core --revision xxx 删除某个版本的core，xxx是软件的rev，使用 1snap list 可以查看软件的rev，其他软件也能用这个方法删除旧的版本哦。 参考：How to unmount and possibly delete old Ubuntu Core snap]]></content>
+    <title>snap删除旧的core(snap删除其他版本的软件)</title>
+    <url>/posts/b6b8953/</url>
+    <content><![CDATA[<p>偶尔发现snap会自动升级core且不删除旧版，在’/snap/core’<br>会发现好几个版本的文件夹。<br>使用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo snap remove core --revision xxx</span><br></pre></td></tr></table></figure>
+
+<p>删除某个版本的core，xxx是软件的rev，使用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">snap list</span><br></pre></td></tr></table></figure>
+
+<p>可以查看软件的rev，其他软件也能用这个方法删除旧的版本哦。</p>
+<p>参考：<a href="https://askubuntu.com/questions/828859/how-to-unmount-and-possibly-delete-old-ubuntu-core-snap" target="_blank" rel="noopener">How to unmount and possibly delete old Ubuntu Core snap</a></p>
+]]></content>
       <categories>
         <category>linux</category>
       </categories>
@@ -245,9 +929,42 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[ubuntu终端下连接wifi]]></title>
-    <url>%2Fposts%2Ffb6d8628%2F</url>
-    <content type="text"><![CDATA[首先使用rfkill查看你的wifi设备是否被停用使用命令 1rfkill list 获得设备列表，每个都包含与之关联的索引号，从 0 开始查看设备是否被停用，要启用被停用的设备，请运行： 1rfkill unblock &lt;索引号&gt; 要启用所有设备，请运行： 1rfkill unblock all 您可以使用这个索引号让 rfkill 停使或者使用某个设备，例如： 1rfkill block 0 您还可以使用 rfkill 阻断某一类设备，或者所有启用了RFKill的设备。例如： 1rfkill block wifi 停用系统中的所有Wi-Fi设备 启用无线网卡1ifconfig wlan0 up 使用iwconfig命令搜索无线网1iwlist wlan0 scan 记下essid连接无密码的无线网 1iwconfig wlan0 essid essidname 其中essidname是搜索到的无线网essid连接有密码的无线网 1iwconfig wlan0 essid essidname key &lt;密码&gt; 补充通过dhcp获取IP 1dhclient wlan0 或 1dhcpcd wlan0]]></content>
+    <title>ubuntu终端下连接wifi</title>
+    <url>/posts/fb6d8628/</url>
+    <content><![CDATA[<h2 id="首先使用rfkill查看你的wifi设备是否被停用"><a href="#首先使用rfkill查看你的wifi设备是否被停用" class="headerlink" title="首先使用rfkill查看你的wifi设备是否被停用"></a>首先使用rfkill查看你的wifi设备是否被停用</h2><p>使用命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rfkill list</span><br></pre></td></tr></table></figure>
+
+<p>获得设备列表，每个都包含与之关联的索引号，从 0 开始<br>查看设备是否被停用，要启用被停用的设备，请运行：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rfkill unblock &lt;索引号&gt;</span><br></pre></td></tr></table></figure>
+
+<p>要启用所有设备，请运行：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rfkill unblock all</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p>您可以使用这个索引号让 rfkill 停使或者使用某个设备，例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rfkill block 0</span><br></pre></td></tr></table></figure>
+
+<p>您还可以使用 rfkill 阻断某一类设备，或者所有启用了RFKill的设备。例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rfkill block wifi</span><br></pre></td></tr></table></figure>
+
+<p>停用系统中的所有Wi-Fi设备</p>
+<h2 id="启用无线网卡"><a href="#启用无线网卡" class="headerlink" title="启用无线网卡"></a>启用无线网卡</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ifconfig wlan0 up</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用iwconfig命令搜索无线网"><a href="#使用iwconfig命令搜索无线网" class="headerlink" title="使用iwconfig命令搜索无线网"></a>使用iwconfig命令搜索无线网</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">iwlist wlan0 scan</span><br></pre></td></tr></table></figure>
+
+<p>记下essid<br>连接无密码的无线网</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">iwconfig wlan0 essid essidname</span><br></pre></td></tr></table></figure>
+
+<p>其中essidname是搜索到的无线网essid<br>连接有密码的无线网 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">iwconfig wlan0 essid essidname key &lt;密码&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>通过dhcp获取IP</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dhclient wlan0</span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dhcpcd wlan0</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
         <category>linux</category>
       </categories>
@@ -256,34 +973,48 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[暗影精灵更改efi启动顺序]]></title>
-    <url>%2Fposts%2F6683eff9%2F</url>
-    <content type="text"><![CDATA[–2019-04-22 更新–最新版bios已经可以调整启动顺序了(图在最下面) ——– 之 前 ——-暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说 首先从ubuntu进入/boot/efi/EFI备份windwos的启动文件（切记一定要备份，否则只能从pe重新建立windwos启动项） 1cp -arf Microsoft win10 将ubuntu的grubx64.efi替换掉EFI/Microsoft/Boot/bootmgfw.efi文件 1cp -arf ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi 这样替换之后grub就接管了系统的启动 然后将/boot/grub/grub.cfg中关于windows的启动段复制到/etc/grub.d/40_custom中将chainloader /EFI/Micorosoft/Boot/bootmgfw.efi改为chainloader /EFI/win10/Boot/bootmgfw.efi就是把中间那个改为你备份的文件夹，可以改一改前面的启动名称最后执行update-grub来更新启动项 但是windwos有大更新的时候会把更改的覆盖掉，再来一遍就好了 参考文章暗影精灵2pro安装win10+ubuntu16.10双系统]]></content>
+    <title>暗影精灵更改efi启动顺序</title>
+    <url>/posts/6683eff9/</url>
+    <content><![CDATA[<p>–2019-04-22 更新–<br><strong>最新版bios已经可以调整启动顺序了(<a href="#jump">图在最下面</a>)</strong>  </p>
+<p>——– 之 前 ——-<br>暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说</p>
+<p>首先从ubuntu进入/boot/efi/EFI<br><strong>备份windwos的启动文件</strong>（<strong>切记一定要备份，否则只能从pe重新建立windwos启动项</strong>）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp -arf Microsoft win10</span><br></pre></td></tr></table></figure>
+
+<p>将ubuntu的grubx64.efi替换掉EFI/Microsoft/Boot/bootmgfw.efi文件 <a id="more"></a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp -arf ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi</span><br></pre></td></tr></table></figure>
+
+<p>这样替换之后grub就接管了系统的启动</p>
+<p>然后将/boot/grub/grub.cfg中关于windows的启动段复制到/etc/grub.d/40_custom中<br>将<strong>chainloader /EFI/Micorosoft/Boot/bootmgfw.efi</strong><br>改为<br><strong>chainloader /EFI/win10/Boot/bootmgfw.efi</strong><br>就是把中间那个改为你备份的文件夹，可以改一改前面的启动名称<br>最后执行update-grub来更新启动项</p>
+<p>但是windwos有大更新的时候会把更改的覆盖掉，再来一遍就好了</p>
+<p><span id="jump"><img src="http://blog-1254450445.cossgp.myqcloud.com/efi.jpg" alt></span></p>
+<p>参考文章<a href="https://blog.csdn.net/zyix_0712/article/details/69675748" target="_blank" rel="noopener">暗影精灵2pro安装win10+ubuntu16.10双系统</a></p>
+]]></content>
       <categories>
-        <category>计算机</category>
+        <category>Computer</category>
       </categories>
       <tags>
         <tag>EFI</tag>
         <tag>BIOS</tag>
-        <tag>计算机</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[関西弁コレクション]]></title>
-    <url>%2Fposts%2Fa4241e7%2F</url>
-    <content type="text"><![CDATA[平常看到的関西弁会在这里记录–2019年2月1日– ①関西弁の～ねんけど、～やねん、～ねんの意味を教えて下さい②～ねやは～ですかの意味ですか？それ意外に意味、使い方等は有りますか？③言葉の関西弁のアクセントを教えて下さい ①・・・～ねんけど ですけれど（〇〇なんですけれど）～やねん、～ねん です（〇〇なんです） ②・・・～ねやは～（～やねん”わ”～ですね。）〇○なんですよ。 ③・・・～ねんけど（中中）～やねん（高低）～やねんわ～（高低中） 関西弁で、「あんねんけど」と「あるねんけど」の違いはなんですか？ 意味の違いはない。「あるねんけど」＝「あんねんけど」 「る」が撥音化して「ん」になっただけ。日本語では語中の「ラ行音」が「ん」に変化する傾向がある。・それで→そんで・分からない→分かんない –2018年12月8日– せやからアカンてゆうたやろせやから 別表記：そやから「だから」の意味。主に関西地方で用いる。「そやから」ともいう。 アカン(あかん)関西弁で「ダメ」の意味。 『ゆうて』は『～言って』 ##方言で だから ダメって 言ったでしょ –2018年8月29日– ビビり【名词】1.颤动，振纹（机械）2.胆小，大阪方言。関西弁 女子|假名:おなご 【名词】1.女孩，女孩子。2.妇女，女子。3.女仆，该说法多用于关西地区。详细解释: 名词 女孩，女孩子。（女の子、女児）。 妇女，女子。（女の人、女性、婦人）。 女仆，该说法多用于关西地区。（召し使いの女、女中、はしため）。 –2018年8月7日更新– それアカンやつや一字一句、分けてみましょう。「それ、アカン、やつ、や」になります。「それ」はthatのことですよね。「アカン」はNOのことです。その通り、関西弁です。「やつ」は奴のことです。人を愚弄する言い方ですね。でも人以外に、ものに対しても指す場合があります。「や」も関西弁です。これを東京の人が話すと「それはいけない人だよね～」や「それはありえないよね～」という言い方になります。元ネタを想像すると、ここでは「やつ」はものを指していると思います。 せ や な同意を表明する語。関西弁。「そうだね」、「そうだな」などに相当する。 しんどい 【形容词/イ形容词】1.日本关西方言，费劲，吃力。累。疲劳。源自:《现代日汉双解词典》外教社 形容词/イ形容词 骨が折れる。難儀だ。麻烦。费劲。 この仕事はしんどい。这个工作费劲（麻烦）。 くたびれている。疲乏。劳累。疲劳。 しんどくてもこの仕事をやってしまおう。即使累，也要把这个工作干完。 おお，しんどい。好累！ ほんま 【本真】（ 名 ・形動 ）本当である・こと（さま）。真実。主に関西地方で用いる。 「 －の話やで」 「 －に驚いたわ」 しゃあない【方言】 ;大阪话。没办法、没辙了。（大阪弁で「しかたない」の意味である。） アカン感叹词不行，不可以。（（「埒らち明かぬ」の略。多く関西で使う）うまくいかない。だめだ。不可である。） アホやん跟冒失娘（ドジっ娘）类似，关西方言 冒失娘（ドジっ娘），萌属性之一。此属性以女性为主，若是男性可用较中性的“ドジっ子”。日文“どじ”或“どぢ”是指人或事的出错和失误。“ドジっ娘”就是指经常弄翻物件、行事笨拙、“大错不出，小错不断”，总是搞出呆呆笨笨事情的少女。中文意译的“冒失”，是指做事有漏失，而不是为人鲁莽无礼的意思。どじっ应该不写成汉字参考自维基百科]]></content>
-      <categories>
-        <category>日语</category>
-      </categories>
-      <tags>
-        <tag>日语</tag>
-        <tag>関西弁</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[JavaScript对字符串操作]]></title>
-    <url>%2Fposts%2F86cfa6a%2F</url>
-    <content type="text"><![CDATA[1234var name='aaaa';var age='bbbb';var change='Hello javascript';var message=`hello,$&#123;name&#125;,$&#123;age&#125;,`+name+age;//将多个字符串写成一句话 1var length=message.length;//获取字符串长度 1var upper=message.toUpperCase();//把字符串全部变成大写 1var lower=message.toLowerCase();//把字符串全部变成小写 1var search=message.indexOf('aaaa');//搜索字符串位置 1var substr=message.substring(9, 15);//返回区间内字符串 12x=document.getElementById("test"); //查找元素x.innerHTML="Hello JavaScript"; //改变内容]]></content>
+    <title>JavaScript对字符串操作</title>
+    <url>/posts/86cfa6a/</url>
+    <content><![CDATA[<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name=<span class="string">'aaaa'</span>;</span><br><span class="line"><span class="keyword">var</span> age=<span class="string">'bbbb'</span>;</span><br><span class="line"><span class="keyword">var</span> change=<span class="string">'Hello javascript'</span>;</span><br><span class="line"><span class="keyword">var</span> message=<span class="string">`hello,<span class="subst">$&#123;name&#125;</span>,<span class="subst">$&#123;age&#125;</span>,`</span>+name+age;<span class="comment">//将多个字符串写成一句话</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> length=message.length;<span class="comment">//获取字符串长度</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> upper=message.toUpperCase();<span class="comment">//把字符串全部变成大写</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> lower=message.toLowerCase();<span class="comment">//把字符串全部变成小写</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> search=message.indexOf(<span class="string">'aaaa'</span>);<span class="comment">//搜索字符串位置</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> substr=message.substring(<span class="number">9</span>, <span class="number">15</span>);<span class="comment">//返回区间内字符串</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">x=<span class="built_in">document</span>.getElementById(<span class="string">"test"</span>);  <span class="comment">//查找元素</span></span><br><span class="line">x.innerHTML=<span class="string">"Hello JavaScript"</span>;    <span class="comment">//改变内容</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
         <category>JavaScript</category>
       </categories>
@@ -293,94 +1024,202 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[让win10的UWP应用走代理]]></title>
-    <url>%2Fposts%2Fd22ffdb6%2F</url>
-    <content type="text"><![CDATA[原因因为uwp应用的特殊性,即使使用proxifier和proxycap这种应用者无法让其走代理 1.SSTAP这个应用是创建虚拟网卡,让windows全局走代理.但其有弊端就是有一些国内的网站也会走代理,比如BILIBILI.虽然可以自己写规则但实在是麻烦无比. 2.fiddler利用fiddler的winconfig实现uwp应用走代理把要走代理的应用勾上但这不是全局代理,只能让uwp应用走代理]]></content>
+    <title>让win10的UWP应用走代理</title>
+    <url>/posts/d22ffdb6/</url>
+    <content><![CDATA[<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>因为uwp应用的特殊性,即使使用proxifier和proxycap这种应用者无法让其走代理</p>
+<h2 id="1-SSTAP"><a href="#1-SSTAP" class="headerlink" title="1.SSTAP"></a>1.SSTAP</h2><p>这个应用是创建虚拟网卡,让windows全局走代理.但其有弊端就是有一些国内的网站也会走代理,比如BILIBILI.虽然可以自己写规则但实在是麻烦无比.<a id="more"></a></p>
+<h2 id="2-fiddler"><a href="#2-fiddler" class="headerlink" title="2.fiddler"></a>2.fiddler</h2><p>利用fiddler的winconfig实现uwp应用走代理<br><img src="http://blog-1254450445.cossgp.myqcloud.com/WK%290~%29WR%29N79$KZ4HZZTDQ2.png" alt><br>把要走代理的应用勾上<br><img src="http://blog-1254450445.cossgp.myqcloud.com/KT3%28H@%60C63P@2KH_X7C@QDI.png" alt><br>但这不是全局代理,只能让uwp应用走代理</p>
+]]></content>
       <categories>
-        <category>使用技巧</category>
+        <category>Network</category>
       </categories>
       <tags>
-        <tag>windows</tag>
-        <tag>技巧</tag>
+        <tag>Proxy</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[c语言数组输出的另一种方法]]></title>
-    <url>%2Fposts%2F854ed6ec%2F</url>
-    <content type="text"><![CDATA[今天看到这样一种写法,原文链接:一个有趣的C语言程序 123456789#include &lt;stdio.h&gt; int main()&#123; int a = 1; int x[5]=&#123;1,2,3,4,5&#125;; printf(&quot;%d&quot;,a[x]); return 0;&#125; 1output: 2 int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].所以就是x[1]对应的值：2 由此我又想到了二位数组 123456789#include &lt;stdio.h&gt; int main()&#123; int a = 1; int x[2][2]=&#123;&#123;1,2&#125;,&#123;3,4&#125;&#125;; printf(&quot;%d&quot;,a[a[x]]); return 0;&#125; 1output: 4 感觉好神奇,而且在之前不知道在哪看到c语言的数组其实就是指针的合集,而且最近要用链表,更觉得链表和数组差不多.]]></content>
+    <title>c语言数组输出的另一种方法</title>
+    <url>/posts/854ed6ec/</url>
+    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173" target="_blank" rel="noopener">一个有趣的C语言程序</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a = 1;</span><br><span class="line">    int x[5]=&#123;1,2,3,4,5&#125;;</span><br><span class="line">    printf(&quot;%d&quot;,a[x]);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">output: 2</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>所以就是x[1]对应的值：2</p>
+<p>由此我又想到了二位数组</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a = 1;</span><br><span class="line">    int x[2][2]=&#123;&#123;1,2&#125;,&#123;3,4&#125;&#125;;</span><br><span class="line">    printf(&quot;%d&quot;,a[a[x]]);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">output: 4</span><br></pre></td></tr></table></figure>
+
+<p>感觉好神奇,而且在之前不知道在哪看到<strong>c语言的数组其实就是指针的合集</strong>,而且最近要用链表,更觉得链表和数组差不多.</p>
+]]></content>
       <categories>
-        <category>编程</category>
+        <category>Program</category>
       </categories>
       <tags>
-        <tag>c语言</tag>
-        <tag>编程</tag>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[利用结构体让函数返回多个值]]></title>
-    <url>%2Fposts%2Fc69434f1%2F</url>
-    <content type="text"><![CDATA[c语言123456789101112131415161718192021222324#include &quot;stdio.h&quot;typedef struct test //建立结构体&#123; int a; int b; int c;&#125;T;T testt(int aa,int bb,int cc) //建立函数&#123; T aaa; aaa.a=aa*bb; aaa.b=aa*cc; aaa.c=bb*cc; return aaa; //返回结构&#125;int main()&#123; T b=testt(4,5,6); printf(&quot;%d %d %d \n&quot;,b.a,b.b,b.c); T *f=&amp;b; printf(&quot;%d %d %d&quot;,f-&gt;a,f-&gt;b,f-&gt;c);&#125; C++ 123456789101112131415161718192021222324252627#include &quot;iostream&quot;typedef struct sss //建立结构体&#123; int a; int b; int c;&#125;S;S s(double a,double b,double c) 建立函数&#123; S d; d.a=a*a; d.b=b*b; d.c=c*c; return d;//返回结构体&#125;int main()&#123; S z=s(3,4,5); std::cout&lt;&lt;z.a &lt;&lt;std::endl &lt;&lt;z.b &lt;&lt;std::endl &lt;&lt;z.c &lt;&lt;std::endl;&#125;]]></content>
+    <title>利用结构体让函数返回多个值</title>
+    <url>/posts/c69434f1/</url>
+    <content><![CDATA[<h2 id="c语言"><a href="#c语言" class="headerlink" title="c语言"></a>c语言</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &quot;stdio.h&quot;</span><br><span class="line">typedef struct test //建立结构体</span><br><span class="line">&#123;</span><br><span class="line">	int a;</span><br><span class="line">	int b;</span><br><span class="line">	int c;</span><br><span class="line">&#125;T;</span><br><span class="line"></span><br><span class="line">T testt(int aa,int bb,int cc) //建立函数</span><br><span class="line">&#123;</span><br><span class="line">	T aaa;</span><br><span class="line">	aaa.a=aa*bb;</span><br><span class="line">	aaa.b=aa*cc;</span><br><span class="line">	aaa.c=bb*cc;</span><br><span class="line">	return aaa; //返回结构</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	T b=testt(4,5,6);</span><br><span class="line">	printf(&quot;%d %d %d \n&quot;,b.a,b.b,b.c);</span><br><span class="line">	T *f=&amp;b;</span><br><span class="line">	printf(&quot;%d %d %d&quot;,f-&gt;a,f-&gt;b,f-&gt;c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &quot;iostream&quot;</span><br><span class="line">typedef struct sss //建立结构体</span><br><span class="line">&#123;</span><br><span class="line">	int a;</span><br><span class="line">	int b;</span><br><span class="line">	int c;</span><br><span class="line">&#125;S;</span><br><span class="line"></span><br><span class="line">S s(double a,double b,double c) 建立函数</span><br><span class="line">&#123;</span><br><span class="line">	S d;</span><br><span class="line">	d.a=a*a;</span><br><span class="line">	d.b=b*b;</span><br><span class="line">	d.c=c*c;</span><br><span class="line">	return d;//返回结构体</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	S z=s(3,4,5);</span><br><span class="line">	std::cout&lt;&lt;z.a</span><br><span class="line">	         &lt;&lt;std::endl</span><br><span class="line">	         &lt;&lt;z.b</span><br><span class="line">	         &lt;&lt;std::endl</span><br><span class="line">	         &lt;&lt;z.c</span><br><span class="line">	         &lt;&lt;std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
-        <category>编程</category>
+        <category>Program</category>
       </categories>
       <tags>
-        <tag>c语言</tag>
-        <tag>编程</tag>
-        <tag>c++</tag>
+        <tag>C</tag>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[c语言基本类型在内存中的存储方式]]></title>
-    <url>%2Fposts%2Fe404489%2F</url>
-    <content type="text"><![CDATA[浮点数float 符号位 + 指数位 + 尾数位 ↑ ↑ ↑ 第一位 8位 23位 double 符号位 + 指数位 + 尾数位 ↑ ↑ ↑ 第一位 11位 52位 整数整数在内存中是以补码的形式存储 正整数原码=反码=补码 负整数原码即为原码反码=原码符号为不变,其余取反(注:第一位为符号位)补码=反码+1 2019年4月3日更新原码范围: 整数:(1111…1) $-(2^n-1) \leq x \leq 2^n-1$ (01111…1) 小数:(1.111…1) $-(1-2^n) \leq x \leq 1-2^{-n}$ (0.111…1)]]></content>
+    <title>c语言基本类型在内存中的存储方式</title>
+    <url>/posts/e404489/</url>
+    <content><![CDATA[<h2 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h2><h3 id="float"><a href="#float" class="headerlink" title="float"></a>float</h3><table>
+<thead>
+<tr>
+<th align="center">符号位</th>
+<th align="center">+</th>
+<th align="center">指数位</th>
+<th align="center">+</th>
+<th align="center">尾数位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">↑</td>
+<td align="center"></td>
+<td align="center">↑</td>
+<td align="center"></td>
+<td align="center">↑</td>
+</tr>
+<tr>
+<td align="center">第一位</td>
+<td align="center"></td>
+<td align="center">8位</td>
+<td align="center"></td>
+<td align="center">23位</td>
+</tr>
+</tbody></table>
+<a id="more"></a>
+
+<h3 id="double"><a href="#double" class="headerlink" title="double"></a>double</h3><table>
+<thead>
+<tr>
+<th align="center">符号位</th>
+<th align="center">+</th>
+<th align="center">指数位</th>
+<th align="center">+</th>
+<th align="center">尾数位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">↑</td>
+<td align="center"></td>
+<td align="center">↑</td>
+<td align="center"></td>
+<td align="center">↑</td>
+</tr>
+<tr>
+<td align="center">第一位</td>
+<td align="center"></td>
+<td align="center">11位</td>
+<td align="center"></td>
+<td align="center">52位</td>
+</tr>
+</tbody></table>
+<h2 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h2><p>整数在内存中是以补码的形式存储</p>
+<h3 id="正整数"><a href="#正整数" class="headerlink" title="正整数"></a>正整数</h3><p>原码=反码=补码</p>
+<h3 id="负整数"><a href="#负整数" class="headerlink" title="负整数"></a>负整数</h3><p>原码即为原码<br>反码=原码符号为不变,其余取反(注:第一位为符号位)<br>补码=反码+1</p>
+<p><strong>2019年4月3日更新</strong><br>原码范围:</p>
+<ul>
+<li>整数:(1111…1) <strong>$-(2^n-1) \leq x \leq 2^n-1$</strong> (01111…1)</li>
+<li>小数:(1.111…1) <strong>$-(1-2^n) \leq x \leq 1-2^{-n}$</strong> (0.111…1)</li>
+</ul>
+]]></content>
       <categories>
-        <category>编程</category>
+        <category>Program</category>
       </categories>
       <tags>
-        <tag>c语言</tag>
-        <tag>编程</tag>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[c语言利用char指针变量将int按字节打印地址]]></title>
-    <url>%2Fposts%2F43cb2931%2F</url>
-    <content type="text"><![CDATA[因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.而char的大小刚好为一个字节,是我们想要的东西.这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.代码如下 123int a=-65;char *b=(char *)&amp;a;printf(&quot;%p\n%p\n%p\n%p\n&quot;,a,a+1,a+2,a+3); 如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数. 123int a=-65;char *b=(char *)&amp;a;printf(&quot;%02x\n%02x\n%02x\n%02x\n&quot;,*(unsigned char*)a,*(unsigned char*)(a+1),*(unsigned char*)(a+2),*(unsigned char*)(a+3)); 两者结合一下 123int a=-65;char *b=(char *)&amp;a;printf(&quot;%p %02x\n%p %02x\n%p %02x\n%p %02x\n&quot;,a,*(unsigned char*)a,a+1,*(unsigned char*)(a+1),a+2,*(unsigned char*)(a+2),a+3,*(unsigned char*)(a+3)); 输出内容如图有任何错误请邮箱联系我指出我的错误,万分感谢]]></content>
+    <title>c语言利用char指针变量将int按字节打印地址</title>
+    <url>/posts/43cb2931/</url>
+    <content><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>而char的大小刚好为一个字节,是我们想要的东西.<br>这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>代码如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int a=-65;</span><br><span class="line">char *b=(char *)&amp;a;</span><br><span class="line">printf(&quot;%p\n%p\n%p\n%p\n&quot;,a,a+1,a+2,a+3);</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int a=-65;</span><br><span class="line">char *b=(char *)&amp;a;</span><br><span class="line">printf(&quot;%02x\n%02x\n%02x\n%02x\n&quot;,*(unsigned char*)a,*(unsigned char*)(a+1),*(unsigned char*)(a+2),*(unsigned char*)(a+3));</span><br></pre></td></tr></table></figure>
+
+<p>两者结合一下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int a=-65;</span><br><span class="line">char *b=(char *)&amp;a;</span><br><span class="line">printf(&quot;%p %02x\n%p %02x\n%p %02x\n%p %02x\n&quot;,a,*(unsigned char*)a,a+1,*(unsigned char*)(a+1),a+2,*(unsigned char*)(a+2),a+3,*(unsigned char*)(a+3));</span><br></pre></td></tr></table></figure>
+
+<p>输出内容如图<br><img src="http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png" alt><br><strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
+]]></content>
       <categories>
-        <category>编程</category>
+        <category>Program</category>
       </categories>
       <tags>
-        <tag>c语言</tag>
-        <tag>编程</tag>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[c语言中格式化字符的应用]]></title>
-    <url>%2Fposts%2Fb6b4601%2F</url>
-    <content type="text"><![CDATA[格式化规定符符号 作用%d 十进制有符号整数%u 十进制无符号整数%f 浮点数%s 字符串%c 单个字符%p 指针的值%e 指数形式的浮点数%x, %X 无符号以十六进制表示的整数%0 无符号以八进制表示的整数%g 自动选择合适的表示法 说明:(1). 可以在”%”和字母之间插进数字表示最大场宽。例如: %3d 表示输出3位整型数, 不够3位右对齐。%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。另外, 若想在输出值前加一些0, 就应在场宽项前加个0。例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。(2). 可以在”%”和字母之间加小写字母l, 表示输出的是长型数。例如: %ld 表示输出long整数,%lf 表示输出double浮点数(3). 可以控制输出左对齐或右对齐, 即在”%”和字母之间加入一个”-“ 号可说明输出为左对齐, 否则为右对齐。例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐. 一些特殊规定字符字符 作用/n 换行/f 清屏并换页/r 回车/t Tab符/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数]]></content>
+    <title>c语言中格式化字符的应用</title>
+    <url>/posts/b6b4601/</url>
+    <content><![CDATA[<h2 id="格式化规定符"><a href="#格式化规定符" class="headerlink" title="格式化规定符"></a>格式化规定符</h2><p>符号 作用<br>%d 十进制有符号整数<br>%u 十进制无符号整数<br>%f 浮点数<br>%s 字符串<br>%c 单个字符<br>%p 指针的值<br>%e 指数形式的浮点数<br>%x, %X 无符号以十六进制表示的整数<a id="more"></a><br>%0 无符号以八进制表示的整数<br>%g 自动选择合适的表示法</p>
+<p>说明:<br>(1). 可以在”%”和字母之间插进数字表示最大场宽。<br>例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>(2). 可以在”%”和字母之间加小写字母l, 表示输出的是长型数。<br>例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>(3). 可以控制输出左对齐或右对齐, 即在”%”和字母之间加入一个”-“ 号可说明输出为左对齐, 否则为右对齐。<br>例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
+<h2 id="一些特殊规定字符"><a href="#一些特殊规定字符" class="headerlink" title="一些特殊规定字符"></a>一些特殊规定字符</h2><p>字符 作用<br>/n   换行<br>/f   清屏并换页<br>/r   回车<br>/t   Tab符<br>/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
+]]></content>
       <categories>
-        <category>编程</category>
+        <category>Program</category>
       </categories>
       <tags>
-        <tag>c语言</tag>
-        <tag>编程</tag>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[常用等价无穷小的一般形式]]></title>
-    <url>%2Fposts%2F10bb899d%2F</url>
-    <content type="text"><![CDATA[当$\lim_{φ(x)\to0}$时,$\sin φ(x)$$φ(x)$$arc\sin φ(x)$$φ(x)$$\tanφ(x)$$φ(x)$$arc\tanφ(x)$$φ(x)$$\ln(1+φ(x))$$φ(x)$$e^{φ(x)}-1$$φ(x)$$a^{φ(x)}-1$$φ(x)\ln a$$\sqrt[n]{1+φ(x)}-1$$\frac{1}{n}φ(x)$$(1+φ(x))^{\mu-1}$$\muφ(x)$$1-\cosφ(x)$$\frac{(φ(x))^2}{2}$]]></content>
+    <title>常用等价无穷小的一般形式</title>
+    <url>/posts/10bb899d/</url>
+    <content><![CDATA[<p>当$\lim_{φ(x)\to0}$时,<br>$\sin φ(x)$<del>$φ(x)$<br>$arc\sin φ(x)$</del>$φ(x)$<br>$\tanφ(x)$<del>$φ(x)$<br>$arc\tanφ(x)$</del>$φ(x)$<br>$\ln(1+φ(x))$<del>$φ(x)$<br>$e^{φ(x)}-1$</del>$φ(x)$<br>$a^{φ(x)}-1$<del>$φ(x)\ln a$<br>$\sqrt[n]{1+φ(x)}-1$</del>$\frac{1}{n}φ(x)$<br>$(1+φ(x))^{\mu-1}$<del>$\muφ(x)$<br>$1-\cosφ(x)$</del>$\frac{(φ(x))^2}{2}$</p>
+]]></content>
       <categories>
-        <category>数学</category>
+        <category>Math</category>
       </categories>
       <tags>
-        <tag>数学</tag>
-        <tag>公式</tag>
+        <tag>Math</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[三蛋空间自建贴吧云签到]]></title>
-    <url>%2Fposts%2F8a291f21%2F</url>
-    <content type="text"><![CDATA[–这是我自建的贴吧云签到:http://dmly.tk(已失效)之后为教程 注册免费空间首先你得注册一个三蛋空间的账号,三蛋空间注册网址:三蛋空间 创建网站注册完成之后点击这里 添加一个空模版,如图 写上名字和密码,点击create ftp下载SmartFTP Client或者其他你熟悉的ftp上传工具,这里百度就行了进入三蛋空间的管理网站,点击这里,如图 把这里的信息填入SmartFTP Client中 然后点ok 上传贴吧云签到源码github地址:Tieba-Cloud-Sign点击这里下载zip并解压 将解压得到的所有文件拖入ftp上的public_html文件夹中 创建数据库然后进入三蛋空间创建数据库三蛋空间会自动给你的数据库名字前加上数字,所以之后在贴吧安装中要注意 安装之后进入你的网站,然后安装就行了. 创建cron job安装完成后就要把do.php加入cron,否则是不会自动签到的,按图中的步骤进行]]></content>
+    <title>三蛋空间自建贴吧云签到</title>
+    <url>/posts/8a291f21/</url>
+    <content><![CDATA[<h2 id="–"><a href="#–" class="headerlink" title="–"></a>–</h2><p>这是我自建的贴吧云签到:<del><a href="http://dmly.tk" target="_blank" rel="noopener">http://dmly.tk</a></del>(已失效)<br>之后为教程</p>
+<h3 id="注册免费空间"><a href="#注册免费空间" class="headerlink" title="注册免费空间"></a>注册免费空间</h3><p>首先你得注册一个三蛋空间的账号,三蛋空间注册网址:<a href="https://www.000webhost.com/members/website/list" target="_blank" rel="noopener">三蛋空间</a><a id="more"></a></p>
+<h3 id="创建网站"><a href="#创建网站" class="headerlink" title="创建网站"></a>创建网站</h3><p>注册完成之后点击这里 添加一个空模版,如图</p>
+<p><img src="http://blog-1254450445.cossgp.myqcloud.com/%E6%B3%A8%E5%86%8C.png" alt></p>
+<p>写上名字和密码,点击create</p>
+<p><img src="http://blog-1254450445.cossgp.myqcloud.com/%E5%90%8D%E5%AD%97.png" alt></p>
+<h3 id="ftp"><a href="#ftp" class="headerlink" title="ftp"></a>ftp</h3><p>下载SmartFTP Client或者其他你熟悉的ftp上传工具,这里百度就行了<br>进入三蛋空间的管理网站,点击这里,如图</p>
+<p><img src="http://blog-1254450445.cossgp.myqcloud.com/detile.png" alt><br><img src="http://blog-1254450445.cossgp.myqcloud.com/%5D%60$%603%29%284TGPPR%5DZDA8@60W8.png" alt></p>
+<p>把这里的信息填入SmartFTP Client中</p>
+<p><img src="http://blog-1254450445.cossgp.myqcloud.com/NS0ID6B9@2EIS4%25%7D%7B%60KLQQ7.png" alt><br>然后点ok</p>
+<h3 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h3><p>贴吧云签到源码github地址:<a href="https://github.com/MoeNetwork/Tieba-Cloud-Sign" target="_blank" rel="noopener">Tieba-Cloud-Sign</a><br>点击这里下载zip并解压</p>
+<p><img src="http://blog-1254450445.cossgp.myqcloud.com/GA%5D3BI8Q77U8J%7DTW2%25PD%5D4L.png" alt></p>
+<p>将解压得到的所有文件拖入ftp上的public_html文件夹中</p>
+<p><img src="http://blog-1254450445.cossgp.myqcloud.com/LR%7D$$65~BX37S2%29I%7DL%60Y309.png" alt></p>
+<h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><p>然后进入三蛋空间创建数据库<br>三蛋空间会自动给你的数据库名字前加上数字,所以之后在贴吧安装中要注意</p>
+<p><img src="http://blog-1254450445.cossgp.myqcloud.com/4%25JP1V7TEKX4IE0~1UUQN%5DU.png" alt></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>之后进入你的网站,然后安装就行了.</p>
+<h3 id="创建cron-job"><a href="#创建cron-job" class="headerlink" title="创建cron job"></a>创建cron job</h3><p>安装完成后就要把do.php加入cron,否则是不会自动签到的,按图中的步骤进行<br><img src="http://blog-1254450445.cossgp.myqcloud.com/P5LC1%7B%7D%7BQ%7B1_QCZ0%5DE@L0WO.png" alt></p>
+]]></content>
       <categories>
         <category>建站</category>
       </categories>
@@ -390,15 +1229,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[更改绑定手机号]]></title>
-    <url>%2Fposts%2F3fee5f2%2F</url>
-    <content type="text"><![CDATA[绑定手机号：微信，网易云，淘宝原手机号及证件，支付宝，google银行卡，贴吧，酷安，微博需要原手机号，bilibili（需要原手机号)微软,欢喜云，京东（原手机号及银行卡，非我的实名认证）天猫，银行卡，steam，小冰，yy(需要原手机号)]]></content>
+    <title>更改绑定手机号</title>
+    <url>/posts/3fee5f2/</url>
+    <content><![CDATA[<p>绑定手机号：微信，网易云，淘宝原手机号及证件，支付宝，google<br>银行卡，贴吧，酷安，微博需要原手机号，bilibili（需要原手机号)<a id="more"></a><br>微软,欢喜云，京东（原手机号及银行卡，非我的实名认证）<br>天猫，银行卡，steam，小冰，yy(需要原手机号)<br><img src="http://blog-1254450445.cossgp.myqcloud.com/%E6%8D%95%E8%8E%B72.PNG" alt></p>
+]]></content>
       <categories>
-        <category>日常生活</category>
+        <category>Personally</category>
       </categories>
       <tags>
-        <tag>生活</tag>
-        <tag>日常</tag>
+        <tag>Personally</tag>
       </tags>
   </entry>
 </search>
