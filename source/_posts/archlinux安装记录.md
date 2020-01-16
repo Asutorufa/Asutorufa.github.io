@@ -8,7 +8,7 @@ categories:
   - linux
 abbrlink: e3707853
 date: 2019-08-03 00:18:40
-updated: 2019-12-23 00:20:00
+updated: 2020-01-16 00:20:00
 ---
 详细安装教程请参考arch wiki [Installation guide (简体中文)](https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)),此处只记录安装后遇到的问题.
 
@@ -442,6 +442,62 @@ wine-wechat 运行要保证当前运行环境变量为中文,否则无法显示�
 
 ```shell
 LC_ALL=zh_CN.UTF-8 wechat
+```
+
+***
+耳机电流声:  
+>[Troubleshooting#Glitches,_skips_or_crackling](https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Glitches,_skips_or_crackling)
+
+```shell
+The newer implementation of the PulseAudio sound server uses timer-based audio scheduling instead of the traditional, interrupt-driven approach.
+
+Timer-based scheduling may expose issues in some ALSA drivers. On the other hand, other drivers might be glitchy without it on, so check to see what works on your system.
+
+To turn timer-based scheduling off add tsched=0 in /etc/pulse/default.pa:
+
+/etc/pulse/default.pa
+
+load-module module-udev-detect tsched=0
+
+Then restart the PulseAudio server:
+
+$ pulseaudio -k
+$ pulseaudio --start
+```
+
+>[Troubleshooting#Static_noise_when_using_headphones](https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Static_noise_when_using_headphones)  
+
+```shell
+Static noise when using headphones
+
+Time-based scheduling may be causing this, disable it as explained in #Glitches, skips or crackling.
+
+Another reason you are encountering static noise in your headphone jack could be ALSA's loopback mixing.
+
+Make sure you have alsa-utils installed, launch alsamixer, then select your audio device (pressing F6}), navigate all the way left using the left arrow, and stop on Loopback, if Enabled disable it using the down arrow. This should not impact audio playback or microphone recording negatively, unless you require loopback mixing.
+
+Some notebook models, like Dell XPS 13 9360, suffer from continuous hissing sound when a headphone is plugged in.
+
+Yet another reason for this symptom could be the power-saving mode of your audio device.[10] If you followed Power management#Audio, revert the changes and check if it solves the problem.
+```
+
+开启alsa的噪音消减模块:  
+>[Troubleshooting#Enable_Echo.2FNoise-Cancellation](https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Enable_Echo.2FNoise-Cancellation)
+
+```shell
+Arch does not load the Pulseaudio Echo-Cancellation module by default, therefore, we have to add it in /etc/pulse/default.pa. First you can test if the module is present with pacmd and entering list-modules. If you cannot find a line showing name: <module-echo-cancel> you have to add
+
+/etc/pulse/default.pa
+
+### Enable Echo/Noise-Cancellation
+load-module module-echo-cancel use_master_format=1 aec_method=webrtc aec_args="analog_gain_control=0\ digital_gain_control=1" source_name=echoCancel_source sink_name=echoCancel_sink
+set-default-source echoCancel_source
+set-default-sink echoCancel_sink
+
+then restart Pulseaudio
+
+$ pulseaudio -k
+$ pulseaudio --start
 ```
 
 ***
