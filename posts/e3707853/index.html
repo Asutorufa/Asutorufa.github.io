@@ -77,7 +77,7 @@
 <meta property="og:site_name" content="アストルフォの幻想郷">
 <meta property="og:description" content="详细安装教程请参考arch wiki Installation guide (简体中文),此处只记录安装后遇到的问题. grub更新菜单   1grub-mkconfig -o /boot/grub/grub.cfg  安装os-prober让grub检测到其他系统并自动创建引导 1pacman -S os-prober  使用system-boot(就是直接使用linux内核引导系统,不再需要g">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-22T16:20:00.000Z">
+<meta property="og:updated_time" content="2020-01-15T16:20:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="archlinux安装记录">
 <meta name="twitter:description" content="详细安装教程请参考arch wiki Installation guide (简体中文),此处只记录安装后遇到的问题. grub更新菜单   1grub-mkconfig -o /boot/grub/grub.cfg  安装os-prober让grub检测到其他系统并自动创建引导 1pacman -S os-prober  使用system-boot(就是直接使用linux内核引导系统,不再需要g">
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-12-23T00:20:00+08:00">
-                2019-12-23
+              <time title="更新于" itemprop="dateModified" datetime="2020-01-16T00:20:00+08:00">
+                2020-01-16
               </time>
             
           </span>
@@ -603,6 +603,24 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LC_ALL=zh_CN.UTF-8 wechat</span><br></pre></td></tr></table></figure>
 
 <hr>
+<p>耳机电流声:  </p>
+<blockquote>
+<p><a href="https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Glitches,_skips_or_crackling" target="_blank" rel="noopener">Troubleshooting#Glitches,_skips_or_crackling</a></p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">The newer implementation of the PulseAudio sound server uses timer-based audio scheduling instead of the traditional, interrupt-driven approach.</span><br><span class="line"></span><br><span class="line">Timer-based scheduling may expose issues in some ALSA drivers. On the other hand, other drivers might be glitchy without it on, so check to see what works on your system.</span><br><span class="line"></span><br><span class="line">To turn timer-based scheduling off add tsched=0 in /etc/pulse/default.pa:</span><br><span class="line"></span><br><span class="line">/etc/pulse/default.pa</span><br><span class="line"></span><br><span class="line">load-module module-udev-detect tsched=0</span><br><span class="line"></span><br><span class="line">Then restart the PulseAudio server:</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> pulseaudio -k</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> pulseaudio --start</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a href="https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Static_noise_when_using_headphones" target="_blank" rel="noopener">Troubleshooting#Static_noise_when_using_headphones</a>  </p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Static noise when using headphones</span><br><span class="line"></span><br><span class="line">Time-based scheduling may be causing this, disable it as explained in #Glitches, skips or crackling.</span><br><span class="line"></span><br><span class="line">Another reason you are encountering static noise in your headphone jack could be ALSA's loopback mixing.</span><br><span class="line"></span><br><span class="line">Make sure you have alsa-utils installed, launch alsamixer, then select your audio device (pressing F6&#125;), navigate all the way left using the left arrow, and stop on Loopback, if Enabled disable it using the down arrow. This should not impact audio playback or microphone recording negatively, unless you require loopback mixing.</span><br><span class="line"></span><br><span class="line">Some notebook models, like Dell XPS 13 9360, suffer from continuous hissing sound when a headphone is plugged in.</span><br><span class="line"></span><br><span class="line">Yet another reason for this symptom could be the power-saving mode of your audio device.[10] If you followed Power management#Audio, revert the changes and check if it solves the problem.</span><br></pre></td></tr></table></figure>
+
+<p>开启alsa的噪音消减模块:  </p>
+<blockquote>
+<p><a href="https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Enable_Echo.2FNoise-Cancellation" target="_blank" rel="noopener">Troubleshooting#Enable_Echo.2FNoise-Cancellation</a></p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Arch does not load the Pulseaudio Echo-Cancellation module by default, therefore, we have to add it in /etc/pulse/default.pa. First you can test if the module is present with pacmd and entering list-modules. If you cannot find a line showing name: &lt;module-echo-cancel&gt; you have to add</span><br><span class="line"></span><br><span class="line">/etc/pulse/default.pa</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## Enable Echo/Noise-Cancellation</span></span></span><br><span class="line">load-module module-echo-cancel use_master_format=1 aec_method=webrtc aec_args="analog_gain_control=0\ digital_gain_control=1" source_name=echoCancel_source sink_name=echoCancel_sink</span><br><span class="line">set-default-source echoCancel_source</span><br><span class="line">set-default-sink echoCancel_sink</span><br><span class="line"></span><br><span class="line">then restart Pulseaudio</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> pulseaudio -k</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> pulseaudio --start</span></span><br></pre></td></tr></table></figure>
+
+<hr>
 <p>已知问题:</p>
 <p>kde discover 无法使用pacman backend<br>discover 使用了 packagekit,使用 pkcon 需要root权限,按理来说packagekit会自动获取root且无需输入密码,但discover无法获取root已无法已root用户运行,问题未知,放弃解决<br>解决方法:<br>卸载discover packagekit packagekit-qt5<br>新安装的话 索性不装就行了  </p>
 <hr>
@@ -827,7 +845,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
