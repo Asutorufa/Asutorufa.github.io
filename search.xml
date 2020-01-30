@@ -373,6 +373,9 @@
 <p>wine-wechat 运行要保证当前运行环境变量为中文,否则无法显示中文字体,即使wine装了中文字体:</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">LC_ALL=zh_CN.UTF-8 wechat</span><br></pre></td></tr></table></figure>
 
+<p>使用此<a href="https://github.com/askme765cs/Wine-QQ-TIM" target="_blank" rel="noopener">Wine-QQ-TIM</a>项目的QQ或者TIM乱码,缺少字体:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo pacman -S wqy-microhei</span><br></pre></td></tr></table></figure>
+
 <hr>
 <p>耳机电流声:  </p>
 <blockquote>
@@ -1013,7 +1016,12 @@
   <entry>
     <title>関西弁コレクション</title>
     <url>/posts/a4241e7/</url>
-    <content><![CDATA[<p>平常看到的関西弁会在这里记录<br>–<strong>2019年2月1日</strong>–</p>
+    <content><![CDATA[<p>平常看到的関西弁会在这里记录  </p>
+<p>–<strong>2020年1月30日</strong>–<br> おらん とはどういう意味ですか?</p>
+<blockquote>
+<p>文からするとその方は関西の人ですかね。おらんは方言で、「いない」という意味です。<br>例文：<em>俺も一緒やな 3年ぐらいはおらん。</em></p>
+</blockquote>
+<p>–<strong>2019年2月1日</strong>–</p>
 <hr>
 <p>①関西弁の～ねんけど、～やねん、～ねんの意味を教えて下さい<br>②～ねやは～ですかの意味ですか？それ意外に意味、使い方等は有りますか？<br>③言葉の関西弁のアクセントを教えて下さい  </p>
 <p>①・・・<br>～ねんけど ですけれど（〇〇なんですけれど）<br>～やねん、～ねん です（〇〇なんです）</p>
