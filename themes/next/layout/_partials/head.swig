@@ -156,7 +156,3 @@
 {% endif %}
 
 {% include 'head/custom-head.swig' %}
-
-{% if is_post() && config.generator_amp %}
-  <link rel="amphtml" href="./amp/index.html">
-{% endif %}
