@@ -8,7 +8,7 @@ categories:
   - linux
 abbrlink: e3707853
 date: 2019-08-03 00:18:40
-updated: 2020-01-30 00:20:00
+updated: 2020-02-04 00:20:00
 ---
 详细安装教程请参考arch wiki [Installation guide (简体中文)](https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)),此处只记录安装后遇到的问题.
 
@@ -507,14 +507,13 @@ $ pulseaudio --start
 ```
 
 ***
-已知问题:
-
 kde discover 无法使用pacman backend  
-discover 使用了 packagekit,使用 pkcon 需要root权限,按理来说packagekit会自动获取root且无需输入密码,但discover无法获取root已无法已root用户运行,问题未知,放弃解决  
+~~discover 使用了 packagekit,使用 pkcon 需要root权限,按理来说packagekit会自动获取root且无需输入密码,但discover无法获取root已无法已root用户运行,问题未知,放弃解决  
 解决方法:  
 卸载discover packagekit packagekit-qt5  
-新安装的话 索性不装就行了  
+新安装的话 索性不装就行了~~  
 
+2020年2月4日已解决,重新安装后好了,可能之前是bug,现在修复好了
 ***
 
 >1. 此方法参考自 <a id='1'>[用户添加](https://www.jianshu.com/p/6eaf642a94ed)</a>
