@@ -1884,7 +1884,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #99ffac;
+  background: #ff670d;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3214,4 +3214,71 @@ pre .javascript .function {
   .pagination {
     margin: 8px 0 0;
   }
+}
+.site-author-image {
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  transition: 1.4s all;
+}
+.site-author-image:hover {
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  -transform: rotate(360deg);
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #999;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:vertical:hover {
+  background-color: #666;
+}
+::-webkit-scrollbar-thumb:vertical:active {
+  background-color: #333;
+}
+::-webkit-scrollbar-button {
+  display: none;
+}
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+::selection {
+  background: #8cc4dc;
+  color: #f7f7f7;
+}
+::-moz-selection {
+  background: #8cc4dc;
+  color: #f7f7f7;
+}
+.site-meta {
+  padding: 20px 0;
+  color: #fff;
+  background: #8cc4dc;
+}
+.site-subtitle {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #000;
+}
+.btn {
+  color: #8cc4dc;
+  background: #fff;
+  border: 2px solid #8cc4dc;
+}
+.btn:hover {
+  border-color: #8cc4dc;
+  color: #fff;
+  background: #8cc4dc;
+}
+.highlight {
+  border-radius: 5px;
+}
+pre {
+  border-radius: 5px;
 }

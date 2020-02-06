@@ -315,6 +315,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/88967b7c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="アストルフォ">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://github.com/asutorufa.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="アストルフォの幻想郷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/posts/88967b7c/" itemprop="url">OpenCV瞳孔定位</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-06T18:15:35+08:00">
+                2020-02-06
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-02-06T18:15:35+08:00">
+                2020-02-06
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer-Graphics/" itemprop="url" rel="index">
+                    <span itemprop="name">Computer Graphics</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="利用OpenCV自带的分类器识别面部及眼睛"><a href="#利用OpenCV自带的分类器识别面部及眼睛" class="headerlink" title="利用OpenCV自带的分类器识别面部及眼睛"></a>利用OpenCV自带的分类器识别面部及眼睛</h2><p>OpenCV自带里许多分类器,可在<a href="https://github.com/opencv/opencv/tree/master/data/haarcascades" target="_blank" rel="noopener">haarcascades</a>下载  </p>
+<h3 id="获取面部"><a href="#获取面部" class="headerlink" title="获取面部"></a>获取面部</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取面部</span></span><br><span class="line"><span class="comment">// image 为输入的OpenCV的格式的图像</span></span><br><span class="line"><span class="comment">// out 为输出图像 &lt;- 此处输出图像为裁剪下来的矩形面部图像</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">get_face</span><span class="params">(cv::Mat <span class="built_in">image</span>, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 将图像转为灰度图像,可提高识别精度</span></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    cv::cvtColor(<span class="built_in">image</span>, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 此处的rect为用来存储识别出的面部的定位 &lt;- 这里为vector是因为识别的面部可能不止为一个</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::Rect&gt; <span class="built_in">rect</span>;</span><br><span class="line">    <span class="comment">// 初始化OpenCV的分类器</span></span><br><span class="line">    cv::CascadeClassifier cas = cv::CascadeClassifier(<span class="string">"haarcascade_frontalface_default.xml"</span>);</span><br><span class="line">    cas.detectMultiScale(gray, <span class="built_in">rect</span>, <span class="number">1.15</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="comment">// 判断rect是否为空,为空的话就是没有被识别的面部</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">rect</span>.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 输出图像,这里的rect可能不止为一个(因为可能不止一张脸),所以实际中应该使用for循环</span></span><br><span class="line">    <span class="comment">// 我这里用rect[0]为了简化</span></span><br><span class="line">    out = <span class="built_in">image</span>(<span class="built_in">rect</span>[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/posts/88967b7c/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/d91b7c06/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1787,192 +1946,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://Asutorufa.github.io/posts/c7816edc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="アストルフォ">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://github.com/asutorufa.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="アストルフォの幻想郷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/c7816edc/" itemprop="url">golang socks5/http proxy</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-06T20:02:47+08:00">
-                2019-03-06
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-10T00:00:00+08:00">
-                2019-11-10
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Network/" itemprop="url" rel="index">
-                    <span itemprop="name">Network</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>完整实现代码:<br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/socks5client/socks5Client.go" target="_blank" rel="noopener">socks5 client</a><br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/socks5Server/socks5server.go" target="_blank" rel="noopener">socks5 server</a><br><a href="https://github.com/Asutorufa/SsrMicroClient/blob/master/net/httpserver/httpserver.go" target="_blank" rel="noopener">http server</a>  </p>
-<p>此处已socks5client为例,大致流程都相同,只是协议不同:  </p>
-<p>socks5client运行流程如下:</p>
-<ul>
-<li>本机和代理服务端协商和建立连接；</li>
-<li>本机告诉代理服务端目标服务的地址；</li>
-<li>代理服务端去连接目标服务，成功后告诉本机；</li>
-<li>本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。</li>
-</ul>
-<h2 id="先进行TCP连接"><a href="#先进行TCP连接" class="headerlink" title="先进行TCP连接"></a>先进行TCP连接</h2><p>golang实现(<em>这里的地址我是本地socks5服务端</em>)</p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conn,err := net.Dial(<span class="string">"tcp"</span>,<span class="string">"127.0.0.1:1080"</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span>&#123;</span><br><span class="line">    fmt.Println(err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="向socks5服务端发送验证"><a href="#向socks5服务端发送验证" class="headerlink" title="向socks5服务端发送验证"></a>向socks5服务端发送验证</h2><p>验证字段:</p>
-<table>
-<thead>
-<tr>
-<th align="center">VER</th>
-<th align="center">NMETHODS</th>
-<th align="center">METHODS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">1字节</td>
-<td align="center">1字节</td>
-<td align="center">1-255字节</td>
-</tr>
-</tbody></table>
-<ul>
-<li>VER是SOCKS版本，这里应该是0x05；
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/c7816edc/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </li></ul></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2027,7 +2000,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2038,7 +2011,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
