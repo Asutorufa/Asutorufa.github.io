@@ -1,1 +1,96 @@
 // Custom styles.
+
+// 圆形头像
+.site-author-image {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    transition: 1.4s all;
+}
+
+// 头像旋转
+.site-author-image:hover {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -transform: rotate(360deg);
+}
+
+/*- scrollbar -*/
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #999;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:vertical:hover{
+    background-color: #666;
+}
+::-webkit-scrollbar-thumb:vertical:active{
+    background-color: #333;
+}
+::-webkit-scrollbar-button{
+    display: none;
+}
+::-webkit-scrollbar-track{
+    background-color: #f1f1f1;
+}
+/*- scrollbar -*/
+
+/*
+文章内链接文本样式
+.post-body p a{
+    color: #0593d3;
+    border-bottom: none;
+    border-bottom: 1px solid #0593d3;
+    &:hover {
+        color: #fc6423;
+        border-bottom: none;
+        border-bottom: 1px solid #fc6423;
+    }
+}*/
+
+// 修改选中字符的颜色
+/* webkit, opera, IE9 */
+::selection {
+    background: #8cc4dc;
+    color: #f7f7f7;
+}
+/* firefox */
+::-moz-selection {
+    background: #8cc4dc;
+    color: #f7f7f7;
+}
+
+// 修改网站头部颜色
+.site-meta {
+    padding: 20px 0;
+    color: #fff;
+    background: #8cc4dc;
+}
+.site-subtitle {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #000000;
+}
+
+// 修改按键（button）样式
+.btn {
+    color: #8cc4dc;
+    background: #fff;
+    border: 2px solid #8cc4dc;
+}
+// 按键（button）点击时样式
+.btn:hover {
+  border-color: #8cc4dc;
+  color: #fff;
+  background: #8cc4dc;
+}
+
+
+// 代码块 加圆角
+.highlight { border-radius: 5px;}
+pre { border-radius: 5px;}

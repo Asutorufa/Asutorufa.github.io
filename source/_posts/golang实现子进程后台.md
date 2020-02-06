@@ -2,7 +2,6 @@
 title: golang实现子进程后台
 tags:
   - golang
-  - go
   - linux
   - windows
 categories:
