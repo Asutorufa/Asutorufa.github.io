@@ -1890,7 +1890,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #42d7f5;
+  background: #ff7af1;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3247,7 +3247,8 @@ pre .javascript .function {
   color: #000;
 }
 .menu-item-active a,
-.menu .menu-item a:hover {
+.menu .menu-item a:hover,
+.links-of-author .links-of-author-item a:hover {
   background-color: rgba(255,0,0,0.3);
   border-bottom-color: rgba(255,0,0,0);
 }
