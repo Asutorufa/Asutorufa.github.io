@@ -13,6 +13,7 @@
     {% endif %}
     <div class="sidebar-inner">
 
+
       {% set display_toc = is_post and theme.toc.enable or is_page and theme.toc.enable %}
 
       {% if display_toc and toc(page.content).length > 1 %}
@@ -170,6 +171,7 @@
         </div>
       {% endif %}
 
+    <div class="for-blur"></div>
     </div>
   </aside>
 {% endmacro %}
