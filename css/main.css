@@ -1820,7 +1820,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #94ff95;
+  background: #ed01ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3207,6 +3207,9 @@ pre .javascript .function {
 .links-of-author .links-of-author-item a,
 .site-state .site-state-item a {
   color: #000;
+}
+.btn-bar {
+  background-color: #000;
 }
 .menu-item-active a,
 .menu .menu-item a:hover,
