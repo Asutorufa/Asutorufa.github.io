@@ -1890,7 +1890,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff8250;
+  background: #b0a64a;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3240,6 +3240,7 @@ pre .javascript .function {
   padding: 20px 0;
   color: #fff;
   background-color: rgba(255,0,0,0);
+/* background: #8cc4dc; */
 }
 .site-subtitle {
   margin-top: 10px;
@@ -3249,12 +3250,13 @@ pre .javascript .function {
 .menu .menu-item a,
 .links-of-author .links-of-author-item a,
 .site-state .site-state-item a {
-  color: #fff;
+  color: #000;
 }
 .menu-item-active a,
 .menu .menu-item a:hover,
-.links-of-author .links-of-author-item a:hover {
-  background-color: rgba(255,0,0,0.3);
+.links-of-author .links-of-author-item a:hover,
+.back-to-top {
+  background-color: rgba(255,102,204,0.3);
   border-bottom-color: rgba(255,0,0,0);
 }
 .main::before {
@@ -3268,7 +3270,7 @@ pre .javascript .function {
   height: 100%;
   background: inherit;
   background-attachment: fixed;
-  background-image: url("https://227anime.com/assets/img/top/img_main.jpg");
+  background-image: url("/images/background.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -3276,19 +3278,67 @@ pre .javascript .function {
   z-index: -1;
   filter: blur(10px);
 }
+#content {
+  position: relative;
+}
+.header-inner,
+#content {
+  top: 3px;
+}
+.header-inner,
+.sidebar-inner,
+#posts .post .post-block,
+#posts .post-block,
+#content .post-block,
+.pagination,
+.btn,
+.popup.search-popup {
+  border-radius: 20px;
+}
+.local-search-popup .local-search-header {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12), 0 -1px 0.5px 0 rgba(0,0,0,0.09);
+  background-color: rgba(255,102,204,0);
+}
+.back-to-top {
+  border-radius: 0px 0px 20px 20px;
+}
+.pagination .prev,
+.pagination .next,
+.pagination .page-number {
+  border-top: 0;
+  border-radius: 15px;
+}
+.pagination .page-number.current {
+  background-color: rgba(255,102,204,0.3);
+}
+.pagination .prev:hover,
+.pagination .next:hover,
+.pagination .page-number:hover {
+  background-color: rgba(255,102,204,0.3);
+}
 .sidebar-inner,
 .sidebar,
 .header-inner,
-.pagination {
+.pagination,
+.menu-item-active a:after,
+body {
   background-color: rgba(0,0,0,0);
 }
 .footer {
   position: relative;
 }
 .btn {
+/* color: #8cc4dc; */
+/* background: #fff; */
   background-color: rgba(0,0,0,0);
+/* border: 2px solid #8cc4dc; */
 }
 .btn:hover {
+/* border-color: #8cc4dc;
+   color: #fff;
+   background: #8cc4dc; */
   background-color: rgba(0,0,0,0.3);
 }
 .highlight {
@@ -3299,13 +3349,13 @@ pre {
 }
 @font-face {
   font-family: 'JetBrainsMono';
-  src: url("/fonts/JetBrainsMono/woff2/JetBrainsMono-Regular.woff2") format('woff2'), url("/fonts/JetBrainsMono/woff/JetBrainsMono-Regular.woff") format('woff');
+  src: local('JetBrainsMono'), url("/fonts/JetBrainsMono/woff2/JetBrainsMono-Regular.woff2") format('woff2'), url("/fonts/JetBrainsMono/woff/JetBrainsMono-Regular.woff") format('woff');
   font-weight: 300;
   font-style: normal;
 }
 @font-face {
   font-family: 'FiraCode';
-  src: url("/fonts/FiraCode/woff2/FiraCode-Regular.woff2") format('woff2'), url("/fonts/FiraCode/woff/FiraCode-Light.woff") format("woff");
+  src: local('FiraCode'), url("/fonts/FiraCode/woff2/FiraCode-Regular.woff2") format('woff2'), url("/fonts/FiraCode/woff/FiraCode-Light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
 }
