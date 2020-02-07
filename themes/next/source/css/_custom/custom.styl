@@ -1,6 +1,8 @@
-// Custom styles.
+/* Custom styles. */
 
-// 圆形头像
+
+/* 圆形头像 */
+
 .site-author-image {
     border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -8,7 +10,9 @@
     transition: 1.4s all;
 }
 
-// 头像旋转
+
+/* 头像旋转 */
+
 .site-author-image:hover {
     -webkit-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
@@ -16,29 +20,39 @@
     -transform: rotate(360deg);
 }
 
+
 /*- scrollbar -*/
+
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
 }
-::-webkit-scrollbar-thumb{
+
+::-webkit-scrollbar-thumb {
     background-color: #999;
     -webkit-border-radius: 5px;
     border-radius: 5px;
 }
-::-webkit-scrollbar-thumb:vertical:hover{
+
+::-webkit-scrollbar-thumb:vertical:hover {
     background-color: #666;
 }
-::-webkit-scrollbar-thumb:vertical:active{
+
+::-webkit-scrollbar-thumb:vertical:active {
     background-color: #333;
 }
-::-webkit-scrollbar-button{
+
+::-webkit-scrollbar-button {
     display: none;
 }
-::-webkit-scrollbar-track{
+
+::-webkit-scrollbar-track {
     background-color: #f1f1f1;
 }
+
+
 /*- scrollbar -*/
+
 
 /*
 文章内链接文本样式
@@ -53,100 +67,188 @@
     }
 }*/
 
-// 修改选中字符的颜色
+
+/* 修改选中字符的颜色 */
+
+
 /* webkit, opera, IE9 */
+
 ::selection {
     background: #8cc4dc;
     color: #f7f7f7;
 }
+
+
 /* firefox */
+
 ::-moz-selection {
     background: #8cc4dc;
     color: #f7f7f7;
 }
 
-// 修改网站头部颜色
+
+/* 修改网站头部颜色 */
+
 .site-meta {
     padding: 20px 0;
     color: #fff;
-    background-color: rgba(255,0,0,0);
-//     background: #8cc4dc;
+    background-color: rgba(255, 0, 0, 0);
+    /* background: #8cc4dc; */
 }
+
 .site-subtitle {
     margin-top: 10px;
     font-size: 13px;
     color: #000000;
 }
-.menu .menu-item a,.links-of-author .links-of-author-item a,.site-state .site-state-item a{
-  color:rgba(255,255,255,1);
+
+.menu .menu-item a,
+.links-of-author .links-of-author-item a,
+.site-state .site-state-item a {
+    color: rgba(0, 0, 0, 1);
 }
 
-.menu-item-active a,.menu .menu-item a:hover,.links-of-author .links-of-author-item a:hover{
-    background-color: rgba(255,0,0,0.3);
-    border-bottom-color: rgba(255,0,0,0);
+.menu-item-active a,
+.menu .menu-item a:hover,
+.links-of-author .links-of-author-item a:hover,
+.back-to-top {
+    background-color: rgba(255, 102, 204, 0.3);
+    border-bottom-color: rgba(255, 0, 0, 0);
 }
 
-.main::before{
+.main::before {
     content: '';
     position: absolute;
-    top:0;
+    top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
     background: inherit;
     background-attachment: fixed;
-    background-image:url('https://227anime.com/assets/img/top/img_main.jpg');
+    background-image: url('/images/background.webp');
     background-position: center;
     background-repeat: no-repeat;
-    background-size:cover;
-    background-attachment:fixed;
-    z-index:-1;
-    filter:blur(10px);
-}
-.sidebar-inner,.sidebar,.header-inner,.pagination{
-    background-color: rgba(0,0,0,0);
+    background-size: cover;
+    background-attachment: fixed;
+    z-index: -1;
+    filter: blur(10px);
 }
 
-.footer{
-  position: relative;
+#content {
+    position: relative;
 }
-// 修改按键（button）样式
+
+.header-inner,
+#content {
+    top: 3px;
+}
+
+.header-inner,
+.sidebar-inner,
+#posts .post .post-block,
+#posts .post-block,
+#content .post-block,
+.pagination,
+.btn,
+.popup.search-popup {
+    border-radius: 20px;
+}
+
+.local-search-popup .local-search-header {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 -1px 0.5px 0 rgba(0, 0, 0, 0.09);
+    background-color: rgba(255, 102, 204, 0);
+}
+
+.back-to-top {
+    border-radius: 0px 0px 20px 20px;
+}
+
+.pagination .prev,
+.pagination .next,
+.pagination .page-number {
+    border-top: 0;
+    border-radius: 15px;
+}
+
+.pagination .page-number.current {
+    background-color: rgba(255, 102, 204, 0.3);
+}
+
+.pagination .prev:hover,
+.pagination .next:hover,
+.pagination .page-number:hover {
+    background-color: rgba(255, 102, 204, 0.3);
+}
+
+.sidebar-inner,
+.sidebar,
+.header-inner,
+.pagination,
+.menu-item-active a:after,
+body {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+
+/* .popup.search-popup{
+   background-color: rgba(0,0,0,0);
+ } */
+
+.footer {
+    position: relative;
+}
+
+
+/* 修改按键（button）样式 */
+
 .btn {
-//     color: #8cc4dc;
-//     background: #fff;
-    background-color: rgba(0,0,0,0);
-//     border: 2px solid #8cc4dc;
+    /* color: #8cc4dc; */
+    /* background: #fff; */
+    background-color: rgba(0, 0, 0, 0);
+    /* border: 2px solid #8cc4dc; */
 }
-// 按键（button）点击时样式
+
+
+/* 按键（button）点击时样式 */
+
 .btn:hover {
-//   border-color: #8cc4dc;
-//   color: #fff;
-//   background: #8cc4dc;
-    background-color: rgba(0,0,0,0.3);
+    /* border-color: #8cc4dc;
+   color: #fff;
+   background: #8cc4dc; */
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 
-// 代码块 加圆角
-.highlight { border-radius: 5px;}
-pre { border-radius: 5px;}
+/* 代码块 加圆角 */
 
-// JetBrainsMono
-@font-face{
-  font-family:'JetBrainsMono';
-  src:url('/fonts/JetBrainsMono/woff2/JetBrainsMono-Regular.woff2')format('woff2'),
-    url('/fonts/JetBrainsMono/woff/JetBrainsMono-Regular.woff')format('woff');
-  font-weight: 300;
-  font-style: normal;
+.highlight {
+    border-radius: 5px;
+}
+
+pre {
+    border-radius: 5px;
 }
 
 
-// FiraCode
-@font-face{
-  font-family:'FiraCode';
-  src:url('/fonts/FiraCode/woff2/FiraCode-Regular.woff2')format('woff2'),
-    url("/fonts/FiraCode/woff/FiraCode-Light.woff") format("woff");
-  font-weight: 300;
-  font-style: normal;
+/* JetBrainsMono */
+
+@font-face {
+    font-family: 'JetBrainsMono';
+    src: local('JetBrainsMono'), url('/fonts/JetBrainsMono/woff2/JetBrainsMono-Regular.woff2')format('woff2'), url('/fonts/JetBrainsMono/woff/JetBrainsMono-Regular.woff')format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+
+/* FiraCode */
+
+@font-face {
+    font-family: 'FiraCode';
+    src: local('FiraCode'), url('/fonts/FiraCode/woff2/FiraCode-Regular.woff2')format('woff2'), url("/fonts/FiraCode/woff/FiraCode-Light.woff") format("woff");
+    font-weight: 300;
+    font-style: normal;
 }
