@@ -86,9 +86,9 @@
         <category>Computer Graphics</category>
       </categories>
       <tags>
+        <tag>archlinux</tag>
         <tag>C++</tag>
         <tag>OpenCV</tag>
-        <tag>archlinux</tag>
       </tags>
   </entry>
   <entry>
@@ -1255,8 +1255,8 @@
         <category>Program</category>
       </categories>
       <tags>
-        <tag>C++</tag>
         <tag>C</tag>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
