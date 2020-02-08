@@ -120,6 +120,12 @@ abbrlink:
   alg: crc32  #support crc16(default) and crc32
   rep: hex    #support dec(default) and hex
 
+# lazyload image
+lazyload:
+  enable: true
+  onlypost: false
+  loadingImg: 
+
 live2d:
   enable: true
   scriptFrom: local
