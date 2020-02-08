@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>linux PPPOE拨号上网</title>
+    <url>/posts/59c8ffd6/</url>
+    <content><![CDATA[<h2 id="安装rp-pppoe"><a href="#安装rp-pppoe" class="headerlink" title="安装rp-pppoe"></a>安装rp-pppoe</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S rp-pppoe</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo pppoe-setup</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; Enter your PPPoE user name:</span></span><br></pre></td></tr></table></figure>
+
+<p>这里输入网络运营商提供给你的用户名.</p>
+<a id="more"></a>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; Enter the Ethernet interface connected to the DSL modem</span></span><br><span class="line">For Solaris, this is likely to be something like /dev/hme0.</span><br><span class="line">For Linux, it will be ethn, where 'n' is a number. :</span><br></pre></td></tr></table></figure>
+
+<p>这里输入你链接网络的网卡,可以使用<code>ip addr</code>进行查看 比如<code>eth1</code>,<code>wlo1</code>.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; Enter the demand value (default no):</span><br></pre></td></tr></table></figure>
+
+<p>这里可以直接回车</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; Enter the DNS information here:</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; Enter the secondary DNS server address here:</span></span><br></pre></td></tr></table></figure>
+
+<p>这里输入两个DNS,比如<code>1.1.1.1</code>,<code>8.8.8.8</code>.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; Please enter your PPPoE password:</span></span><br></pre></td></tr></table></figure>
+
+<p>这里输入网络运营商提供给你的密码.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">The firewall choices are:</span><br><span class="line">0 - NONE: This script will not set any firewall rules.  You are responsible</span><br><span class="line">          for ensuring the security of your machine.  You are STRONGLY</span><br><span class="line">          recommended to use some kind of firewall rules.</span><br><span class="line">1 - STANDALONE: Appropriate for a basic stand-alone web-surfing workstation</span><br><span class="line">2 - MASQUERADE: Appropriate for a machine acting as an Internet gateway</span><br><span class="line">                for a LAN</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; Choose a <span class="built_in">type</span> of firewall (0-2):</span></span><br></pre></td></tr></table></figure>
+
+<p>这里我使用1,可以按照自己的需求选择防火墙配置.</p>
+<h2 id="启用"><a href="#启用" class="headerlink" title="启用"></a>启用</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo pppoe-start</span><br></pre></td></tr></table></figure>
+
+<p>可以使用<code>ip addr</code>进行查看,现在应该有一个<code>ppp0</code>的网络.</p>
+<h2 id="查看路由确认启用"><a href="#查看路由确认启用" class="headerlink" title="查看路由确认启用"></a>查看路由确认启用</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[ ~ ] route</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><br><span class="line">default         0.0.0.0         0.0.0.0         U     0      0        0 ppp0</span><br><span class="line">                                ...</span><br><span class="line">                                ...</span><br></pre></td></tr></table></figure>
+
+<p>如果没有default到ppp0的这条路由,需要手动创建:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo route add default dev ppp0</span><br></pre></td></tr></table></figure>
+
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><blockquote>
+<ul>
+<li><a href="https://www.cnblogs.com/viusuangio/p/7112674.html" target="_blank" rel="noopener">archlinux pppoe拨号连接使用详解[转载]</a>  </li>
+<li><a href="https://www.librehat.com/guide-on-linux-ppp-over-wireless-network/" target="_blank" rel="noopener">Linux下连接无线网络后拨号（即PPP over WiFi）</a></li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>archlinux</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>OpenCV瞳孔定位</title>
     <url>/posts/88967b7c/</url>
     <content><![CDATA[<h2 id="利用OpenCV自带的分类器识别面部及眼睛"><a href="#利用OpenCV自带的分类器识别面部及眼睛" class="headerlink" title="利用OpenCV自带的分类器识别面部及眼睛"></a>利用OpenCV自带的分类器识别面部及眼睛</h2><p>OpenCV自带里许多分类器,可在<a href="https://github.com/opencv/opencv/tree/master/data/haarcascades" target="_blank" rel="noopener">haarcascades</a>下载  </p>
@@ -35,9 +86,9 @@
         <category>Computer Graphics</category>
       </categories>
       <tags>
-        <tag>archlinux</tag>
         <tag>C++</tag>
         <tag>OpenCV</tag>
+        <tag>archlinux</tag>
       </tags>
   </entry>
   <entry>
@@ -68,7 +119,7 @@
     <title>深度学习</title>
     <url>/posts/33115a55/</url>
     <content><![CDATA[<p><strong>如果以下的表格及图像出现格式问题,请将你的浏览器中文字体的等宽字体设置好</strong></p>
-<h2 id="一-预处理"><a href="#一-预处理" class="headerlink" title="一.预处理"></a>一.预处理</h2><h3 id="提取特征量"><a href="#提取特征量" class="headerlink" title="提取特征量"></a>提取特征量</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">         +--------------+</span><br><span class="line"><span class="meta">-------&gt;</span><span class="bash"> |人能想到的算法| --------&gt; 答案</span></span><br><span class="line">         +--------------+</span><br><span class="line"></span><br><span class="line">         +--------------------------+           +-------------------+</span><br><span class="line"><span class="meta">-------&gt;</span><span class="bash"> |人想到的特征量(SIF,HGD...)| --------&gt; |机器学习(svm,knn..)| --------&gt; 答案</span></span><br><span class="line">         +--------------------------+           +-------------------+</span><br><span class="line"></span><br><span class="line">         +------------------+</span><br><span class="line">         |神经网络(深度学习)|</span><br><span class="line"><span class="meta">-------&gt;</span><span class="bash"> | 特征量也是由计算 | --------&gt; 答案</span></span><br><span class="line">         |     机自动寻找   |</span><br><span class="line">         +------------------+</span><br></pre></td></tr></table></figure>
+<h2 id="一-预处理"><a href="#一-预处理" class="headerlink" title="一.预处理"></a>一.预处理</h2><h3 id="提取特征量"><a href="#提取特征量" class="headerlink" title="提取特征量"></a>提取特征量</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Human created algorithm: 人想到的算法</span><br><span class="line">         +-----------------------+</span><br><span class="line"><span class="meta">-------&gt;</span><span class="bash"> |Human created algorithm| --------&gt; 答案</span></span><br><span class="line">         +-----------------------+</span><br><span class="line"></span><br><span class="line">Human created Feature quantity: 人想到的特征量</span><br><span class="line">      +------------------------------------------+       +---------------------------+</span><br><span class="line"><span class="meta">----&gt;</span><span class="bash"> |Human created Feature quantity(SIF,HGD...)| ----&gt; |Machine learning(svm,knn..)| ---&gt; 答案</span></span><br><span class="line">      +------------------------------------------+       +---------------------------+</span><br><span class="line"></span><br><span class="line">Feature quantity find by computer: 计算机自动寻找特征量</span><br><span class="line">         +-----------------------------------+</span><br><span class="line">         |        Neural Networks            |</span><br><span class="line"><span class="meta">-------&gt;</span><span class="bash"> |      (Machine learning)           | --------&gt; 答案</span></span><br><span class="line">         | Feature quantity find by computer |</span><br><span class="line">         +-----------------------------------+</span><br></pre></td></tr></table></figure>
 
 <h3 id="Hyper-Parameter"><a href="#Hyper-Parameter" class="headerlink" title="Hyper-Parameter"></a>Hyper-Parameter</h3><ol>
 <li>设定超参数的范围</li>
@@ -85,7 +136,7 @@
 </blockquote>
 <h4 id="输出层"><a href="#输出层" class="headerlink" title="输出层"></a>输出层</h4><p>输出层的神经数量需要根据待解决的问题来决定,如:对于分类问题,输出层的神经元数量一般设定为类别的数量.<a id="more"></a></p>
 <h2 id="二-激活函数"><a href="#二-激活函数" class="headerlink" title="二.激活函数"></a>二.激活函数</h2><p>激活函数用来决定如何来激活(处理)输入的信号.<br>如:<br>感知器<br>$ a = b + w_1x_1 + w_2x_2 $</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">+-----+----------+</span><br><span class="line">|x1 x2|输入的信号|</span><br><span class="line">+-----+----------+</span><br><span class="line">|  b  |   偏置   |</span><br><span class="line">+-----+----------+</span><br><span class="line">|w1 w2|   权重   |</span><br><span class="line">+-----+----------+</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">signal : 输入的信号</span><br><span class="line">Biasing: 偏置</span><br><span class="line">Weight : 权重</span><br><span class="line"></span><br><span class="line">+-----+---------+</span><br><span class="line">|x1 x2| Signal  |</span><br><span class="line">+-----+---------+</span><br><span class="line">|  b  | Biasing |</span><br><span class="line">+-----+---------+</span><br><span class="line">|w1 w2| Weight  |</span><br><span class="line">+-----+---------+</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">    b   +--------------------+</span><br><span class="line"><span class="meta"> 1----&gt;</span><span class="bash"> |                    |</span></span><br><span class="line">        | +---+  h()  +---+  |</span><br><span class="line">   w1   | | a | ----&gt; | y |  |</span><br><span class="line"><span class="meta">x1----&gt;</span><span class="bash"> | +---+       +---+  |</span></span><br><span class="line">        |                    |</span><br><span class="line">   w2   |                    |</span><br><span class="line"><span class="meta">x2----&gt;</span><span class="bash"> |                    |</span></span><br><span class="line">        +--------------------+</span><br></pre></td></tr></table></figure>
 
@@ -1204,8 +1255,8 @@
         <category>Program</category>
       </categories>
       <tags>
-        <tag>C</tag>
         <tag>C++</tag>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
