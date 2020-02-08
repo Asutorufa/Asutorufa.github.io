@@ -111,7 +111,7 @@ sitemap:
 #math:
   #engine: 'katex' #'mathjax' # or 'katex'
   #mathjax: 
-    ##src: custom_mathjax_source
+    #src: custom_mathjax_source
     #config:
        #MathJax config
 

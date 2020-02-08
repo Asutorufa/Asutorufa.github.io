@@ -206,7 +206,7 @@ sidebar:
 scroll_to_more: false
 
 # Automatically saving scroll position on each post/page in cookies.
-save_scroll: true
+save_scroll: false
 
 # Automatically excerpt description in homepage as preamble text.
 excerpt_description: true
@@ -343,8 +343,8 @@ font:
 mathjax:
   enable: true
   per_page: false
-  #cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
-  cdn: //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+  cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
+  #cdn: /lib/mathjax/2.7.1/mathjax.js?config=TeX-AMS-MML_HTMLorMML
 
 # Han Support docs: https://hanzi.pro/
 han: false
