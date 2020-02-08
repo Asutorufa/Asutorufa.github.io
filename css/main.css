@@ -1820,7 +1820,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ed01ff;
+  background: #ff1d79;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3229,7 +3229,6 @@ pre .javascript .function {
   height: 100%;
   background: inherit;
   background-attachment: fixed;
-  background-image: url("/images/background.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
