@@ -84,17 +84,7 @@ deploy:
 - type: git
   repo: #repository:
    github: https://gh_token@github.com/Asutorufa/Asutorufa.github.io.git
-   #coding: git@git.coding.net:defoliation/defoliation.git
   branch: master
-#- type: baidu_url_submitter
-
-# Admin
-#admin:
-#    name: Asutorufa
-#    password: 
-#    secret: hey hexo
-#    expire: 60*1
-#     cors: http://localhost:3000
 
 #站内搜索
 search:
@@ -106,14 +96,8 @@ search:
 #站内地图
 sitemap:
     path: sitemap.xml
-    #template: ./sitemap_template.xml
-
-#math:
-  #engine: 'katex' #'mathjax' # or 'katex'
-  #mathjax: 
-    #src: custom_mathjax_source
-    #config:
-       #MathJax config
+    #tag: false
+    #category: false
 
 # abbrlink config
 abbrlink:

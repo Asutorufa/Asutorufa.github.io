@@ -342,7 +342,7 @@ font:
 # MathJax Support
 mathjax:
   enable: true
-  per_page: false
+  per_page: true
   cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
   #cdn: /lib/mathjax/2.7.1/mathjax.js?config=TeX-AMS-MML_HTMLorMML
 
@@ -654,10 +654,10 @@ motion:
     sidebar: slideUpIn
 
 # Fancybox
-fancybox: true
+fancybox: false
 
 # Progress bar in the top during page loading.
-pace: true
+pace: false
 # Themes list:
 #pace-theme-big-counter
 #pace-theme-bounce
