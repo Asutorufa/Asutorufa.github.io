@@ -2,6 +2,7 @@
 title: About
 date: 2017-10-08 10:01:32
 type: about
+language: ja
 ---
 面倒くさいだから、何も書きないです。  
 

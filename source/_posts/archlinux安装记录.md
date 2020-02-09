@@ -9,6 +9,7 @@ categories:
 abbrlink: e3707853
 date: 2019-08-03 00:18:40
 updated: 2020-02-04 00:20:00
+language: zh-Hans
 ---
 详细安装教程请参考arch wiki [Installation guide (简体中文)](https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)),此处只记录安装后遇到的问题.
 

@@ -7,6 +7,7 @@ categories:
 abbrlink: f7f814df
 date: 2019-01-23 19:15:44
 updated: 2019-01-23 19:15:44
+language: zh-Hans
 ---
 
 对于Android M或更高版本，使用：

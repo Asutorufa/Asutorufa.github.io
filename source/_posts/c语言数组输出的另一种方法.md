@@ -7,6 +7,7 @@ tags:
 abbrlink: 854ed6ec
 date: 2017-12-10 10:39:54
 updated: 2017-12-10 10:39:54
+language: zh-Hans
 ---
 
 今天看到这样一种写法,原文链接:[一个有趣的C语言程序](http://blog.accut.cn/archives/173)

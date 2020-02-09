@@ -8,6 +8,7 @@ categories:
 abbrlink: 59c8ffd6
 date: 2020-02-08 16:26:57
 updated: 2020-02-08 16:26:57
+language: zh-Hans
 ---
 ## 安装rp-pppoe
 

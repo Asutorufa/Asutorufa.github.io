@@ -4,13 +4,13 @@
 
 # Site
 title: アストルフォの幻想郷
-subtitle: Talk is cheap,Show me the code.
+subtitle: やりたくないこともやる
 description: アンドロイドです。
 author: アストルフォ
 language: 
-- zh-Hans #zh-CN
 - en
 - ja
+- zh-Hans
 timezone: Asia/Shanghai
 
 # URL

@@ -1,6 +1,6 @@
 ---
-title: categories
+title: archives
 date: 2017-10-08 10:00:50
-type: categories
+type: archives
 language: ja
 ---

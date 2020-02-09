@@ -9,6 +9,7 @@ categories:
 abbrlink: 88967b7c
 date: 2020-02-06 18:15:35
 updated: 2020-02-06 18:15:35
+language: zh-Hans
 ---
 
 ## 利用OpenCV自带的分类器识别面部及眼睛

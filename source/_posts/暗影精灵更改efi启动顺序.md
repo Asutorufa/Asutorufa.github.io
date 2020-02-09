@@ -8,6 +8,7 @@ categories:
 abbrlink: 6683eff9
 date: 2018-06-23 11:43:40
 updated: 2018-06-23 11:43:40
+language: zh-Hans
 ---
 --2019-04-22 更新--  
 **最新版bios已经可以调整启动顺序了([图在最下面](#jump))**  

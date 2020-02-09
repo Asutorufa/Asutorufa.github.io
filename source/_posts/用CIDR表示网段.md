@@ -8,6 +8,7 @@ categories:
 abbrlink: e2b25bb8
 date: 2019-02-02 22:34:07
 updated: 2019-02-02 22:34:07
+language: zh-Hans
 ---
 我们知道一般CIDR(无类别域间路由)网段的表示为:**192.168.0.0/24**这种形式
 

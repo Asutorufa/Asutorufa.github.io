@@ -3,7 +3,7 @@ title:
   category: カテゴリ
   tag: タグ
 
-author: Author
+author: 著者
 
 menu:
   home: ホーム
@@ -21,8 +21,8 @@ sidebar:
 post:
   sticky: 固定
   posted: 投稿日
-  modified: Updated at
-  in: In
+  modified: 修正日
+  in: カテゴリ
   read_more: 続きを読む
   untitled: 無題
   toc_empty: 見出しがありません
@@ -31,11 +31,11 @@ post:
   min2read: Reading time
   totalcount: Site words total count
   copyright:
-    author: Post author
-    link: Post link
-    license_title: Copyright Notice
-    license_content: 'All articles in this blog are licensed under
-      <a href="%s" rel="external nofollow" target="_blank">%s</a> unless stating additionally.'
+    author: 著者
+    link: 記事へのリンク
+    license_title: 著作権表示
+    license_content: 'このブログ内のすべての記事は、特別な記載がない限り
+      <a href="%s" rel="external nofollow" target="_blank">%s</a> の下のライセンスで保護されています。'
 
 page:
   totally: 全ページ
@@ -43,7 +43,7 @@ page:
 
 footer:
   powered: "Powered by %s"
-  theme: Theme
+  theme: テーマ
 
 counter:
   tag_cloud:

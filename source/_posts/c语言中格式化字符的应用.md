@@ -7,6 +7,7 @@ categories:
 abbrlink: b6b4601
 date: 2017-10-10 13:03:15
 updated: 2017-10-10 13:03:15
+language: zh-Hans
 ---
 ## 格式化规定符
 符号 作用

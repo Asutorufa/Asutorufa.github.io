@@ -8,6 +8,7 @@ categories:
 abbrlink: c7816edc
 date: 2019-03-06 20:02:47
 updated: 2019-11-10 00:00:00
+language: zh-Hans
 ---
 完整实现代码:  
 [socks5 client](https://github.com/Asutorufa/SsrMicroClient/blob/master/net/socks5client/socks5Client.go)   

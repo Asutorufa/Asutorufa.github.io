@@ -8,6 +8,7 @@ categories:
 abbrlink: '25303996'
 date: 2019-02-01 00:00:02
 updated: 2019-02-01 00:00:02
+language: zh-Hans
 ---
 
 查看dumpsys所有的子命令:
