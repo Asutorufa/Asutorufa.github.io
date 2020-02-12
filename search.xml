@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>用Android/PC为linux拓展屏幕</title>
+      <link href="/posts/4f3989f0/"/>
+      <url>/posts/4f3989f0/</url>
+      
+        <content type="html"><![CDATA[<h2 id="新建虚拟屏幕"><a href="#新建虚拟屏幕" class="headerlink" title="新建虚拟屏幕"></a>新建虚拟屏幕</h2><p>计算出拓展屏幕所需的信息.比如我想拓展1920x1200 60fps的虚拟屏幕:</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gtf 1920 1200 60</span><br></pre></td></tr></table></figure><p>结果</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 1920x1200 @ 60.00 Hz (GTF) hsync: 74.52 kHz; pclk: 193.16 MHz</span><br><span class="line"> Modeline "1920x1200_60.00"  193.16  1920 2048 2256 2592  1200 1201 1204 1242  -HSync +Vsync</span><br></pre></td></tr></table></figure><p>使用xrandr添加新的mode,参数就是上面结果<code>Modeline</code>后面那些东西:</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xrandr --newmode "1920x1200_60.00"  193.16  1920 2048 2256 2592  1200 1201 1204 1242  -HSync +Vsync</span><br></pre></td></tr></table></figure><p>使用xrandr查看空闲的接口:</p><a id="more"></a><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[ ~ ] xrandr</span><br><span class="line">Screen 0: minimum 8 x 8, current 1920 x 1080, maximum 32767 x 32767</span><br><span class="line">eDP1 connected primary 1920x1080+0+0 (normal left inverted right x axis y axis) 340mm x 190mm</span><br><span class="line">   1920x1080     60.02*+  40.03  </span><br><span class="line">HDMI1 disconnected (normal left inverted right x axis y axis)</span><br><span class="line">VIRTUAL1 disconnected (normal left inverted right x axis y axis)</span><br><span class="line">HDMI-1-2 disconnected (normal left inverted right x axis y axis)</span><br></pre></td></tr></table></figure><p>比如我目前在使用的屏幕是eDP1,下面都为空闲,如果有虚拟的就用虚拟的,没有虚拟的用HDMI的也行:</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xrandr --addmode VIRTUAL1 1920x1200_60.00</span><br></pre></td></tr></table></figure><p>拓展屏幕到左面:</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xrandr --output VIRTUAL1 --mode 1920x1200_60.00 --left-of eDP1 # &lt;- 这里也可以使用--right-of,就是拓展到左边.</span><br></pre></td></tr></table></figure><p>目前为止我们已经创建好了一个虚拟屏幕.  </p><p>如果想删除上面新建的东西,可以使用下面的指令(注意相关参数换成自己的)或者直接重启电脑就好了.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xrandr --output VIRTUAL1 --off</span><br><span class="line">xrandr --delmode VIRTUAL1 1920x1200_60.00</span><br><span class="line">xrndr --rmmode 1920x1200_60.00</span><br></pre></td></tr></table></figure><h2 id="连接屏幕"><a href="#连接屏幕" class="headerlink" title="连接屏幕"></a>连接屏幕</h2><p>连接屏幕可以用teamviewer或者x11vnc,以及各种远程控制电脑的软件,这里我更建议使用teamviewer,更流畅,而且方法简单.</p><h3 id="x11vnc"><a href="#x11vnc" class="headerlink" title="x11vnc"></a>x11vnc</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -clip 1920x1200+0+0 # &lt;-这里的两个0,分别是开始剪切的x和y的坐标,如果你拓展到了右边,这里就要加上相应的大小.</span><br></pre></td></tr></table></figure><p>然后使用安卓上的连接vnc的软件即可,默认端口是5900.</p><h2 id="使用usb加快传输速度"><a href="#使用usb加快传输速度" class="headerlink" title="使用usb加快传输速度"></a>使用usb加快传输速度</h2><p>把手机用usb连接到电脑上,然后用adb连接.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb devices</span><br></pre></td></tr></table></figure><h3 id="x11vnc-1"><a href="#x11vnc-1" class="headerlink" title="x11vnc"></a>x11vnc</h3><p>这个的默认端口是5900,将电脑端口映射到android上.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb reverse tcp:5900 tcp:5900</span><br></pre></td></tr></table></figure><p>然后手机上直接连接127.0.0.1:5900就可以</p><h3 id="teamviewer"><a href="#teamviewer" class="headerlink" title="teamviewer"></a>teamviewer</h3><p>到teamviewer官网查询,可以知道默认端口为:</p><blockquote><p>TCP / UDP端口5938<br>TCP端口443<br>TCP端口80  </p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb reverse tcp:5938 tcp:5938</span><br></pre></td></tr></table></figure><p>后面的443和80也可做映射,不过我这里就使用了5938就成功了.<br>然后手机上的teamviewer连接127.0.0.1就可以了.  </p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote><p><a href="https://sangams.com.np/using-android-pc-as-a-second-monitor-in-linux/" target="_blank" rel="noopener">Using Android/PC as a Second Monitor in Linux</a></p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>linux PPPOE拨号上网</title>
       <link href="/posts/59c8ffd6/"/>
       <url>/posts/59c8ffd6/</url>
