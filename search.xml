@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>とある番組の記録</title>
+      <link href="/posts/fe7367b8/"/>
+      <url>/posts/fe7367b8/</url>
+      
+        <content type="html"><![CDATA[<p>最近わたくしたくさん言葉知りました、記録したい、例えば：どこ見つかった、どうおもう。<br>今回は「２２・７　計算中」、この番組すごくおもしろい、ぜひ見てください。</p><h2 id="ツッコミ・漫才・呆け"><a href="#ツッコミ・漫才・呆け" class="headerlink" title="ツッコミ・漫才・呆け"></a>ツッコミ・漫才・呆け</h2><p>この番組のMCは三四郎さん、おふたりはお笑い芸人ですね、この前に私は全然しらない、いつも「ツッコミ」で出ます、知りたいですからしらべました。</p><h2 id="パクリ"><a href="#パクリ" class="headerlink" title="パクリ"></a>パクリ</h2><p>「滝川みうのテンションが上がる動画選手権」の都ちゃんの得点は０点、理由は彼女作りASMR動画は最初みうちゃんの自己PR動画のなかのひとつのパクリ。ここがわたくし知りました。</p><h2 id="醍醐味"><a href="#醍醐味" class="headerlink" title="醍醐味"></a>醍醐味</h2><p>相田さんはとある回あるVTRの評価で出ます。</p><h2 id="屁理屈"><a href="#屁理屈" class="headerlink" title="屁理屈"></a>屁理屈</h2><p>桜ちゃんたくさん屁理屈を言う、でもかわいいです。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 日本語 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 日本語 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>用Android/PC为linux拓展屏幕</title>
       <link href="/posts/4f3989f0/"/>
       <url>/posts/4f3989f0/</url>
@@ -20,9 +45,9 @@
       
         <tags>
             
-            <tag> android </tag>
-            
             <tag> linux </tag>
+            
+            <tag> android </tag>
             
         </tags>
       
@@ -74,11 +99,11 @@
       
         <tags>
             
+            <tag> archlinux </tag>
+            
             <tag> C++ </tag>
             
             <tag> OpenCV </tag>
-            
-            <tag> archlinux </tag>
             
         </tags>
       
@@ -236,9 +261,9 @@
       
         <tags>
             
-            <tag> CIDR </tag>
-            
             <tag> golang </tag>
+            
+            <tag> CIDR </tag>
             
         </tags>
       
@@ -263,9 +288,9 @@
       
         <tags>
             
-            <tag> golang </tag>
-            
             <tag> linux </tag>
+            
+            <tag> golang </tag>
             
             <tag> windows </tag>
             
@@ -344,9 +369,9 @@
       
         <tags>
             
-            <tag> golang </tag>
-            
             <tag> socks5 </tag>
+            
+            <tag> golang </tag>
             
         </tags>
       
@@ -423,9 +448,9 @@
       
         <tags>
             
-            <tag> CIDR </tag>
-            
             <tag> IP </tag>
+            
+            <tag> CIDR </tag>
             
         </tags>
       
@@ -793,9 +818,9 @@
       
         <tags>
             
-            <tag> C++ </tag>
-            
             <tag> C </tag>
+            
+            <tag> C++ </tag>
             
         </tags>
       
