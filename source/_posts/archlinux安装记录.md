@@ -8,7 +8,7 @@ categories:
   - linux
 abbrlink: e3707853
 date: 2019-08-03 00:18:40
-updated: 2020-02-04 00:20:00
+updated: 2020-02-17 00:20:00
 language: zh-Hans
 ---
 详细安装教程请参考arch wiki [Installation guide (简体中文)](https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)),此处只记录安装后遇到的问题.
@@ -515,6 +515,31 @@ kde discover 无法使用pacman backend
 新安装的话 索性不装就行了~~  
 
 2020年2月4日已解决,重新安装后好了,可能之前是bug,现在修复好了
+***
+C++使用openCV:
+
+```shell
+pacman -S opencv
+# vtk和hdf5为openCV的依赖 不安装会编译失败
+sudo pacman -S vtk
+sudo pacman -Ss hdf5
+# cmake用来生成makefile
+pacman -S cmake
+```
+
+***
+traceroute:
+
+```shell
+#目前使用了ipip.net 的besttrace
+pacman -S besttrace
+```
+
+***
+wine 错误  
+`0009:err:module:load_so_dll failed to load .so lib "/usr/bin/../lib32/wine/l3codeca.acm.so": libmpg123.so.0: cannot open shared object file: No such file or directory`  
+解决方法:  
+`sudo pacman -S lib32-mpg123`
 ***
 
 >1. 此方法参考自 <a id='1'>[用户添加](https://www.jianshu.com/p/6eaf642a94ed)</a>
