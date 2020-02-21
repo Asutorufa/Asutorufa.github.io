@@ -8,7 +8,7 @@ categories:
   - linux
 abbrlink: e3707853
 date: 2019-08-03 00:18:40
-updated: 2020-02-17 00:20:00
+updated: 2020-02-21 00:20:00
 language: zh-Hans
 ---
 详细安装教程请参考arch wiki [Installation guide (简体中文)](https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)),此处只记录安装后遇到的问题.
@@ -541,8 +541,47 @@ wine 错误
 解决方法:  
 `sudo pacman -S lib32-mpg123`
 ***
+ark 解压7z和rar
+
+```shell
+查看可选依赖
+pacman -Qi ark
+支持7z
+sudo pacman -S p7zip
+支持rar
+sudo pacman -S unrar
+```
+
+***
+plasma的鼠标样式有时候会不应用在标题栏和其他地方
+
+```shell
+I had a similar problem on Arch.
+
+Try edit /usr/share/icons/default/index.theme
+
+Replace: Inherits=Adwaita
+
+to: Inherits=breeze_cursors
+
+This will change the cursor to the dark breeze, I don't know the name of the white cursor.
+```
+
+>- [[Plasma 5] Cursor icon changes to the "KDE Classic" theme when hovering over a windows title bar/resizing it etc?](https://www.reddit.com/r/kde/comments/3pse8f/plasma_5_cursor_icon_changes_to_the_kde_classic/)
+>- [Cursor_themes_(简体中文)#XDG_规则](https://wiki.archlinux.org/index.php/Cursor_themes_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#XDG_%E8%A7%84%E5%88%99)
+
+***
+
+plasma自带的虚拟桌面指示有些bug而且不好看,代替默认虚拟桌面的指示
+
+```shell
+yay -S plasma5-applets-virtual-desktop-bar-git
+```
+
+***
 
 >1. 此方法参考自 <a id='1'>[用户添加](https://www.jianshu.com/p/6eaf642a94ed)</a>
 >2. 此方法参考自 <a id='2'>[PulseAudio can not load bluetooth module](https://askubuntu.com/questions/689281/pulseaudio-can-not-load-bluetooth-module)
 </a>
 >3. 此方法来自 <a id="3">[Plasma wont set Chromium as default browser](https://bbs.archlinux.org/viewtopic.php?id=198432)</a>
+
