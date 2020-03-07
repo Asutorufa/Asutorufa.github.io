@@ -111,7 +111,7 @@ lazyload:
   loadingImg: 
 
 live2d:
-  enable: true
+  enable: false
   scriptFrom: local
   pluginRootPath: live2dw/
   pluginJsPath: lib/
@@ -139,7 +139,7 @@ live2d:
 filter_optimize:
   enable: true
   # remove the surrounding comments in each of the bundled files
-  remove_comments: false
+  remove_comments: true
   css:
     # bundle loaded css file into the one
     bundle: true
@@ -152,8 +152,8 @@ filter_optimize:
     excludes:
   js:
     # bundle loaded js file into the one
-    bundle: true
+    bundle: false
     excludes:
   # set the priority of this plugin,
   # lower means it will be executed first, default is 10
-  priority: 20
+  priority: 10
