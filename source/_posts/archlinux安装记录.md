@@ -540,6 +540,19 @@ wine 错误
 `0009:err:module:load_so_dll failed to load .so lib "/usr/bin/../lib32/wine/l3codeca.acm.so": libmpg123.so.0: cannot open shared object file: No such file or directory`  
 解决方法:  
 `sudo pacman -S lib32-mpg123`
+
+包含中国国内软件的[winetricks-zh](https://github.com/hillwoodroc/winetricks-zh)
+
+```shell
+pacman -S winetricks-zh
+```
+
+qq軽聊版需要库:
+
+```shell
+sudo pacman -S lib32-libpulse
+```
+
 ***
 ark 解压7z和rar
 
@@ -585,3 +598,25 @@ yay -S plasma5-applets-virtual-desktop-bar-git
 </a>
 >3. 此方法来自 <a id="3">[Plasma wont set Chromium as default browser](https://bbs.archlinux.org/viewtopic.php?id=198432)</a>
 
+***
+
+为arch添加command not found  
+
+```shell
+sudo pacman -S pkgfile
+```
+
+更新command-not-found数据库
+
+```shell
+pkgfile -U
+```
+
+最后在`~/.bashrc`添加
+
+```bash
+source /usr/share/doc/pkgfile/command-not-found.bash
+```
+
+***
+nethogs: 按进程查看流量占用
