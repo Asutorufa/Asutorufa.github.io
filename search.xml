@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>解决linux下Realtek ALC295的耳机炸裂声</title>
+      <link href="/posts/67c8ee7f/"/>
+      <url>/posts/67c8ee7f/</url>
+      
+        <content type="html"><![CDATA[<p>个人使用的笔记本是暗影精灵2 PRO,产品名称是: OMEN by HP Laptop 15-ax210TX.  </p><p>最初本人装的是ubuntu,左边耳机的声音一直有噼里啪啦的炸裂声,后来换了Arch还是一样的情况,而且本人喜欢听安静的声音,类似读故事或是心跳声这种,每次听到劈裂啪啦的声音真是难受.</p><p>最初尝试过Arch wiki中的各种方法 包括</p><blockquote><p><a href="https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Glitches,_skips_or_crackling" target="_blank" rel="noopener">PulseAudio/Troubleshooting#Glitches,_skips_or_crackling</a><br><a href="https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Static_noise_when_using_headphones" target="_blank" rel="noopener">PulseAudio/Troubleshooting#Static_noise_when_using_headphones</a></p></blockquote><p>都没有任何改进.</p><p>直到后来才发现这是linux下Realtek ALC295的驱动不完善导致的,这个bug在17年就提出了,至今都没有得到解决.</p><blockquote><p><a href="https://bugzilla.kernel.org/show_bug.cgi?id=195457" target="_blank" rel="noopener">Bug 195457 - Realtek ALC295 still unsupported</a><br><a href="https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/1648183" target="_blank" rel="noopener">Crackling and popping sound when using headphones</a>  </p></blockquote><p>在下面的评论区终于看到了解决方法:</p><a id="more"></a><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">I've managed to fix this problem on my machine (HP Omen 15 running Ubuntu 17.04 using codec for Realtek ALC295 sound device). To fix the problem, I can do the following:</span><br><span class="line"></span><br><span class="line">Install alsa-tools if not installed:</span><br><span class="line"></span><br><span class="line">sudo apt install alsa-tools</span><br><span class="line"></span><br><span class="line">Create and save a script in /usr/local/bin:</span><br><span class="line"></span><br><span class="line"><span class="section">#!/bin/bash</span></span><br><span class="line">hda-verb /dev/snd/hwC0D0 0x20 SET<span class="emphasis">_COEF_</span>INDEX 0x67</span><br><span class="line">hda-verb /dev/snd/hwC0D0 0x20 SET<span class="emphasis">_PROC_</span>COEF 0x3000</span><br><span class="line"></span><br><span class="line">Run the script as root in a terminal to immediately fix the problem.</span><br><span class="line"></span><br><span class="line">To run the script on startup, use cron with the @reboot command:</span><br><span class="line"></span><br><span class="line">sudo crontab -e</span><br><span class="line"></span><br><span class="line">and then add line in crontab:</span><br><span class="line">@reboot [full path to script]</span><br><span class="line"></span><br><span class="line">To run script on resume from suspend, copy the script to /lib/systemd/system-sleep</span><br><span class="line"></span><br><span class="line">For more technical details regarding this fix, see https://bugzilla.kernel.org/show_bug.cgi?id=195457</span><br></pre></td></tr></table></figure><p>arch下类似 除了是用pacman安装alsa-tools,之后操作是一样的.</p><hr><blockquote><p><a href="https://bugzilla.kernel.org/show_bug.cgi?id=195457" target="_blank" rel="noopener">Bug 195457 - Realtek ALC295 still unsupported</a><br><a href="https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/1648183" target="_blank" rel="noopener">Crackling and popping sound when using headphones</a><br><a href="https://askubuntu.com/questions/873881/how-to-install-bang-and-olufsen-audio-drivers-for-hp-laptop" target="_blank" rel="noopener">How to install Bang and Olufsen Audio drivers for HP laptop?</a></p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> driver </tag>
+            
+            <tag> Realtek ALC295 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>NAT穿透</title>
       <link href="/posts/1124a628/"/>
       <url>/posts/1124a628/</url>
