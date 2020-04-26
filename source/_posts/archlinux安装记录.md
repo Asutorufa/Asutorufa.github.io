@@ -13,6 +13,13 @@ language: zh-Hans
 ---
 详细安装教程请参考arch wiki [Installation guide (简体中文)](https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)),此处只记录安装后遇到的问题.
 
+***
+
+暗影精灵2 PRO 静音LED不起作用和左边耳机会有噼里啪啦声:  
+具体解决方法我已经写到archwiki里了,请看: [Laptop/HP#HP_Omen_15_ax210TX](https://wiki.archlinux.org/index.php?title=Laptop/HP#HP_Omen_15_ax210TX)
+
+***
+
 grub更新菜单  
 
 ```shell
