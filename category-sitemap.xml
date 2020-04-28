@@ -8,6 +8,13 @@
     </url>
 
     <url>
+        <loc>https://Asutorufa.github.io/categories/Computer/</loc>
+        <lastmod>2020-04-29T14:57:46.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://Asutorufa.github.io/categories/linux/</loc>
         <lastmod>2020-04-25T14:57:40.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -59,13 +66,6 @@
     <url>
         <loc>https://Asutorufa.github.io/categories/golang/</loc>
         <lastmod>2019-06-09T02:34:04.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://Asutorufa.github.io/categories/Computer/</loc>
-        <lastmod>2019-04-22T14:57:46.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
