@@ -3,6 +3,27 @@
 
 
     <url>
+        <loc>https://Asutorufa.github.io/tags/translate/</loc>
+        <lastmod>2020-05-03T16:26:24.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://Asutorufa.github.io/tags/English/</loc>
+        <lastmod>2020-05-03T16:26:24.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://Asutorufa.github.io/tags/C/</loc>
+        <lastmod>2020-05-03T16:26:24.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://Asutorufa.github.io/tags/uefi/</loc>
         <lastmod>2020-04-29T14:57:46.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -257,13 +278,6 @@
     <url>
         <loc>https://Asutorufa.github.io/tags/EFI/</loc>
         <lastmod>2018-06-23T03:43:40.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://Asutorufa.github.io/tags/C/</loc>
-        <lastmod>2017-12-10T02:39:54.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

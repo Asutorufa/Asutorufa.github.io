@@ -8,6 +8,13 @@
     </url>
 
     <url>
+        <loc>https://Asutorufa.github.io/categories/Program/</loc>
+        <lastmod>2020-05-03T16:26:24.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://Asutorufa.github.io/categories/Computer/</loc>
         <lastmod>2020-04-29T14:57:46.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -87,13 +94,6 @@
     <url>
         <loc>https://Asutorufa.github.io/categories/python/</loc>
         <lastmod>2018-08-07T06:47:51.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://Asutorufa.github.io/categories/Program/</loc>
-        <lastmod>2017-12-10T02:39:54.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
