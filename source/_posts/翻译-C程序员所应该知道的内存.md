@@ -110,22 +110,70 @@ iff [if]
     abbr. (= if and only if) 当且仅当
 ```
 
+## 了解栈分配
+
+实用腰带(译者注：此处为直译，原文为Utility belt)：
+
+- [alloca()-在调用者的栈帧中分配内存](https://linux.die.net/man/3/alloca)
+- [getrlimit()-获取/设置资源限制](https://linux.die.net/man/2/getrlimit)
+- [sigaltstack()-设置并且(或)得到信号栈上下文](https://linux.die.net/man/2/sigaltstack)
+
+栈易于理解,所有人都知道如何在栈中创建一个变量,不是吗?  
+这里有两个例子:
+
+```c
+int stairway = 2;
+int heaven[] = { 6, 5, 4 };
+```
+
+变量的有效性被范围所限制.在C语言中,这意味着:`{}`.所以每次出现右花括号时就意味着一个变量的结束.然后这里有[alloca()](https://linux.die.net/man/3/alloca),允许在当前的栈帧中动态分配内存.栈帧与内存框架(memory frame)(也被叫做物理页(physical page))不同,这是一个简单的可以被放入栈中的数据组(函数,参数,变量...).每当我们在栈顶时,我们可以使用剩余的内存直到达到栈的大小限制.  
+这就是可变长数组(variable-length arrays=VLA),以及alloca()的工作方式,但是有一个不同-可变长的数组的有效性被范围限制,alloca将保留内存直到函数返回(或被释放).这不是单纯的语法警察(译者注:原文language lawyering,这节下面有详细翻译),这确实是一个问题如果你在循环中使用alloca,因为你没有任何手段去释放它.
+
+```c
+void laugh(void) {
+	for (unsigned i = 0; i < megatron; ++i) {
+	    char *res = alloca(2);
+	    memcpy(res, "ha", 2);
+	    char vla[2] = {'h','a'}
+	} /* vla dies, res lives */
+} /* all allocas die */
+```
+
+可变长数组和alloca都不适合大分配,因为你几乎没有控制可用的栈内存并且超过栈限制的分配将导致栈溢出.这里有两种方法,但都不实用.  
+第一个方法就是使用sigaltstack()去抓获`SIGSEGV`并处理.然而这仅仅是让你抓获到栈溢出.  
+另一个方法是以`split-stacks`进行编译,顾名思义,这真的就是把单片栈分为较小的栈链表也被叫做`stacklets`.就我所知,GCC和clang都支持-fsplit-stack选项.理论上这也改善了内存的消耗量并且降低了创建线程的成本 - 因为栈一开始就很小并且按需增长.实际上,预期可能会有兼容性问题,因为他需要一个split-stack链表感知器(译者注:原文aware linker)(如:gold)与split-stack unaware库配合使用,而且还有性能问题(Agis Anastasopoulos的"hot split"在Go中是个很好的[解释](http://agis.io/2014/03/25/contiguous-stacks-in-go.html))
+
+```md
+Stack Frame 栈帧
+digest [ˈdaɪˌdʒɛst]
+    理解
+
+a variable dies 变量的结束
+
+aka = also-known-as
+
+this is how 这就是...
+
+means [mēnz]
+    名词 手段; 方法; 工具; 办法; 径; 繇; 款
+
+grow on demand 按需增长
+
+play nice with 配合
+
+scope 美 [skoʊp] 英 [skəʊp]
+    n. 范围，领域；
+
+remaining 其余
+```
+
+**language lawyer** from [What does Stroustrup mean by 'language lawyers'? He's said it more than a few times.](https://www.reddit.com/r/cpp/comments/52yd5s/what_does_stroustrup_mean_by_language_lawyers_hes/)  
+A language lawyer is generally someone that is familiar enough with the details of the standard that they can quote it chapter and verse in order to answer a question, solve a problem, prove a point, etc. The standard is the ultimate authority on what is and isn't valid C++, and much like the law it's written in very technical and precise language that requires some effort to really unpack, so there are several parallels to the field of law.  
+It can have both positive and negative connotations. The idea is that you shouldn't need to be a language lawyer to be able to learn and use the language. At the same time, having a single document that precisely defines the semantics of the language is a significant advantage that many other languages lack, so the fact that it's possible to be a language lawyer is not an automatic negative. In order to have compatible implementations it's necessary to define all the edge conditions and dark corners of the language, even if it results in some truly out there passages of the standard.  
+
 ## 未完待续-不定时接着翻译
 
 ```md
 conquering [ˈkɒŋkərɪŋ]
     adj /ˈkɒŋkərɪŋ/ 进行征服的
-
-digest [ˈdaɪˌdʒɛst]
-    理解
-
-
-scope 美 [skoʊp] 英 [skəʊp]
-    n. 范围，领域；
-
-a variable dies 变量的结束
-
-remaining 其余
-
-aka = also-known-as
 ```

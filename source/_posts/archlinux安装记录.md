@@ -8,7 +8,7 @@ categories:
   - linux
 abbrlink: e3707853
 date: 2019-08-03 00:18:40
-updated: 2020-02-21 00:20:00
+updated: 2020-05-05 00:20:00
 language: zh-Hans
 ---
 详细安装教程请参考arch wiki [Installation guide (简体中文)](https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)),此处只记录安装后遇到的问题.
@@ -600,13 +600,6 @@ yay -S plasma5-applets-virtual-desktop-bar-git
 
 ***
 
->1. 此方法参考自 <a id='1'>[用户添加](https://www.jianshu.com/p/6eaf642a94ed)</a>
->2. 此方法参考自 <a id='2'>[PulseAudio can not load bluetooth module](https://askubuntu.com/questions/689281/pulseaudio-can-not-load-bluetooth-module)
-</a>
->3. 此方法来自 <a id="3">[Plasma wont set Chromium as default browser](https://bbs.archlinux.org/viewtopic.php?id=198432)</a>
-
-***
-
 为arch添加command not found  
 
 ```shell
@@ -627,3 +620,18 @@ source /usr/share/doc/pkgfile/command-not-found.bash
 
 ***
 nethogs: 按进程查看流量占用
+***
+coc中c语言自动补全,需要安装ccls:
+
+```shell
+sudo pacman -S ccls
+```
+
+***
+
+>1. 此方法参考自 <a id='1'>[用户添加](https://www.jianshu.com/p/6eaf642a94ed)</a>
+>2. 此方法参考自 <a id='2'>[PulseAudio can not load bluetooth module](https://askubuntu.com/questions/689281/pulseaudio-can-not-load-bluetooth-module)
+</a>
+>3. 此方法来自 <a id="3">[Plasma wont set Chromium as default browser](https://bbs.archlinux.org/viewtopic.php?id=198432)</a>
+
+***
