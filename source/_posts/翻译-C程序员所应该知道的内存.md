@@ -171,6 +171,73 @@ remaining 其余
 A language lawyer is generally someone that is familiar enough with the details of the standard that they can quote it chapter and verse in order to answer a question, solve a problem, prove a point, etc. The standard is the ultimate authority on what is and isn't valid C++, and much like the law it's written in very technical and precise language that requires some effort to really unpack, so there are several parallels to the field of law.  
 It can have both positive and negative connotations. The idea is that you shouldn't need to be a language lawyer to be able to learn and use the language. At the same time, having a single document that precisely defines the semantics of the language is a significant advantage that many other languages lack, so the fact that it's possible to be a language lawyer is not an automatic negative. In order to have compatible implementations it's necessary to define all the edge conditions and dark corners of the language, even if it results in some truly out there passages of the standard.  
 
+## 了解堆分配
+
+Utility belt:  
+
+- [brk(), sbrk() - manipulate the data segment size](https://linux.die.net/man/2/sbrk)
+- [malloc() family - portable libc memory allocator](https://linux.die.net/man/3/malloc)
+
+堆分配可以简单的看作是移动堆段的结束位置([program break](https://linux.die.net/man/2/sbrk))和声明内存在旧位置和新位置之间。到了这一点，堆分配和栈分配一样快(没有分页，假设栈已锁定在内存中)。但是有一只猫(cat)，我的意思是捕获(catch)，该死的(dammit)。
+
+```c
+char *block = sbrk(1024 * sizeof(char));
+```
+
+(1)我们不能重新声明未使用的内存块，(2)不是线程安全的，因为堆在线程之间共享，(3)接口很难移植，库不能接触到中断  
+
+>man 3 sbrk — Various systems use various types for the argument of sbrk(). Common are int, ssize_t, ptrdiff_t, intptr_t.  
+
+由于这些原因，libc实现了用于内存分配的集中式接口。实现方式[各不相同](https://en.wikibooks.org/wiki/C_Programming/C_Reference/stdlib.h/malloc#Implementations)，但是它支持线程安全的任意大小的内存分配...但有代价。代价是延迟，因为这里还涉及锁，数据结构保留有关已用/可用块的信息以及额外的内存开销。堆也不是唯一使用的，因为内存映射段也经常应用于大内存块。  
+
+>man 3 malloc — Normally, malloc() allocates memory from the heap, … when allocating blocks of memory larger than  
+>MMAP_THRESHOLD, the glibc malloc() implementation allocates the memory as a private anonymous mapping.  
+
+因为从`start_brk`到`brk`堆总是连续的，所以你不能精确钻取漏洞穿过它并减少数据段大小。想象以下情节：  
+
+```c
+char *truck = malloc(1024 * 1024 * sizeof(char));
+char *bike  = malloc(sizeof(char));
+free(truck);
+```
+
+堆[分配器]移动`brk`为`truck`腾出空间。同样为`bike`也进行相同的操作。但是在`truck`释放后，`brk`也无法降级(向下移)，因为`bike`占据最高段地址。结论就是你的程序可以重用之前`truck`的内存，但是不会被交回系统直到`bike`被释放。
+假设`truck`被映射，它将不能处于堆段，并且不能影响程序中断(program break)。不过，这种技巧并不能阻止因小分配(另一种说法也叫“碎片化”)而造成的漏洞。  
+注意`free()`不总是尝试去缩小数据段，因为这是一个[潜在的昂贵操作](https://marek.vavrusa.com/memory/#pagefault)。这对于长时间运行的程序来说是一个问题，如守护程序。一个GNU的拓展，被叫做[malloc_trim()](https://linux.die.net/man/3/malloc_trim)，用于从堆顶部释放内存，但可能会很慢。它对很多小对象的伤害很大，因此应谨慎使用。
+
+```md
+sans [sænz]
+    __没有__,在外,外部
+
+portable [ˈpɔːtəbəl]
+    可移植的
+
+The cost
+    代价
+
+utilised
+    adj. 被利用的
+
+exclusively [iks'klu:sivli]
+    adv. 独占地，专门地，完全地
+
+contiguous [kənˈtɪgjuəs]
+    adj. 邻近的；__连续的__
+
+scenario [səˈnɛriˌoʊ]
+    n. __情节__；剧本；方案
+
+reuse [riˈjuz]
+    n. 再用，重新使用
+    v. 再用，重新使用
+
+fragmentation [frægmən'teiʃən]
+    碎片
+
+sparingly [ˈspeərɪŋlɪ]
+    adv. 拘谨地;朴实地;节俭地
+```
+
 ## 未完待续-不定时接着翻译
 
 ```md
