@@ -210,6 +210,7 @@ func getName(c []byte, all []byte) (name string, x []byte) {
 		name += string(c[1:int(c[0])+1]) + "."
 		c = c[int(c[0])+1:]
 		if c[0] == 0 {
+			c = c[1:] // lastOfDomain: one byte 0
 			break
 		}
 	}
@@ -259,7 +260,7 @@ func resolveHeader(req []byte, answer []byte) (anCount int, answerSection []byte
 	var x string
 	x, c = getName(c, answer)
 	log.Println(x)
-	c = c[1:] // lastOfDomain: one byte 0
+	
 	log.Println("qType:", c[:2])
 	c = c[2:]
 	log.Println("qClass:", c[:2])
