@@ -8,6 +8,13 @@
     </url>
 
     <url>
+        <loc>https://Asutorufa.github.io/categories/Network/</loc>
+        <lastmod>2020-05-31T10:44:37.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://Asutorufa.github.io/categories/linux/</loc>
         <lastmod>2020-05-05T11:02:47.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -24,13 +31,6 @@
     <url>
         <loc>https://Asutorufa.github.io/categories/Computer/</loc>
         <lastmod>2020-04-29T14:57:46.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://Asutorufa.github.io/categories/Network/</loc>
-        <lastmod>2020-04-22T03:33:26.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
