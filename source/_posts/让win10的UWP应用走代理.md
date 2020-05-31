@@ -3,7 +3,7 @@ title: 让win10的UWP应用走代理
 categories:
   - Network
 tags:
-  - Proxy
+  - proxy
 abbrlink: d22ffdb6
 date: 2018-02-08 15:09:16
 updated: 2020-03-01 15:09:16

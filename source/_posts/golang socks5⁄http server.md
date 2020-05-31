@@ -7,22 +7,26 @@ categories:
   - Network
 abbrlink: c7816edc
 date: 2019-03-06 20:02:47
-updated: 2019-11-10 00:00:00
+updated: 2020-05-30 00:00:00
 language: zh-Hans
 ---
 完整实现代码:  
-[socks5 client](https://github.com/Asutorufa/SsrMicroClient/blob/master/net/socks5client/socks5Client.go)   
-[socks5 server](https://github.com/Asutorufa/SsrMicroClient/blob/master/net/socks5Server/socks5server.go)  
-[http server](https://github.com/Asutorufa/SsrMicroClient/blob/master/net/httpserver/httpserver.go)  
+[socks5 client](https://github.com/Asutorufa/yuhaiin/blob/master/net/proxy/socks5/client/socks5client.go)  
+[socks5 server](https://github.com/Asutorufa/yuhaiin/blob/master/net/proxy/socks5/server/server.go)  
+[http server](https://github.com/Asutorufa/yuhaiin/blob/master/net/proxy/http/server/server.go)  
 
 此处已socks5client为例,大致流程都相同,只是协议不同:  
 
-socks5client运行流程如下:
+socks5运行流程如下:
 
-- 本机和代理服务端协商和建立连接；
-- 本机告诉代理服务端目标服务的地址；
-- 代理服务端去连接目标服务，成功后告诉本机；
-- 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。
+tcp:
+    - 本机和代理服务端协商和建立连接；
+    - 本机告诉代理服务端目标服务的地址；
+    - 代理服务端去连接目标服务，成功后告诉本机；
+    - 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。
+udp:
+    - udp因为是无连接的,所以所以数据一次只用一个udp包
+    - socks5是通过tcp先确认socks5 server支持udp,然后再通过udp发送请求
 
 ## 先进行TCP连接
 
@@ -149,7 +153,30 @@ if _,err = conn.Write([]byte("GET /generate_204/ HTTP/2.0\r\n")); err!=nil{
 conn.Close()
 ```
 
+## UDP
+
+```md
+      +----+------+------+----------+----------+----------+
+      |RSV | FRAG | ATYP | DST.ADDR | DST.PORT |   DATA   |
+      +----+------+------+----------+----------+----------+
+      | 2  |  1   |  1   | Variable |    2     | Variable |
+      +----+------+------+----------+----------+----------+
+
+     The fields in the UDP request header are:
+
+          o  RSV  Reserved X'0000'
+          o  FRAG    Current fragment number
+          o  ATYP    address type of following addresses:
+             o  IP V4 address: X'01'
+             o  DOMAINNAME: X'03'
+             o  IP V6 address: X'04'
+          o  DST.ADDR       desired destination address
+          o  DST.PORT       desired destination port
+          o  DATA     user data
+```
+
 ## 参考来源  
 
 [SOCKS(维基百科)](https://en.wikipedia.org/wiki/SOCKS)  
 [SOCKS5 协议介绍](https://my.oschina.net/997155658/blog/1563154)  
+[rfc1928](https://tools.ietf.org/html/rfc1928)  
