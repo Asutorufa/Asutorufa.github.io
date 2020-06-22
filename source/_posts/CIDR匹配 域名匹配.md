@@ -7,13 +7,11 @@ categories:
   - Network
 abbrlink: 3cb4313e
 date: 2019-08-02 18:55:15
-updated: 2019-11-10 18:55:15
+updated: 2020-06-23 00:55:15
 language: zh-Hans
 ---
 
-完整实现代码:  
-[CIDR](https://github.com/Asutorufa/SsrMicroClient/blob/master/net/cidrmatch/trie/trie.go)  [IP转换为二进制](https://github.com/Asutorufa/SsrMicroClient/blob/master/net/cidrmatch/cidrmatch.go)  
-[域名](https://github.com/Asutorufa/SsrMicroClient/blob/master/net/domainmatch/domainmatcher.go)  
+所有完整实现代码:[match](https://github.com/Asutorufa/yuhaiin/tree/master/net/match)
 
 ## CIDR
 
@@ -33,7 +31,7 @@ language: zh-Hans
 
 ## 前缀树
 
-通过上述规则 我们可以使用前缀树实现CIDR对ip的匹配 
+通过上述规则 我们可以使用前缀树实现CIDR对ip的匹配
 
 ```shell
             root
@@ -58,14 +56,33 @@ facebook   google   twitter  ...
 com      com   mail    com   ...
                 \
                com
-               
+
 在对域名匹配时
 如对 www.play.google.com匹配:
     没有www  跳过
     没有play 跳过
     有google 继续
     有com 且 域名已为最后一个节点 -> 判断trie中是否为最后的一个子树 -> 是 -> 匹配成功
+
+这里有一个明显的问题
+	比如我们同时插入了music.126.com和163.com
+	然后我们需要查询music.163.com是否被匹配
+	是不是发现了问题,无法被匹配,因为包含music,我们会匹配到music.126.com这条线,而不是163.com
+
+这里有个很简单的解决方法,就是把域名倒过来插入,倒过来匹配,就跟JAVA包名那样
+        +---------+
+        |  root   |
+        +---------+
+             /
+            com        ...
+           /   \
+         163   126     ...
+                 \
+                music
+
+这样就能被正确匹配了,而且会缩短时间,不会去完整匹配整个域名,只匹配后面有的就行了
 ```
+
 
 trie树类似上述结构
 

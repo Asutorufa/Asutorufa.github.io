@@ -6,13 +6,13 @@ tags:
   - golang
 categories:
   - Network
-language: ZH-Hans
+language: zh-Hans
 abbrlink: f05986bf
 date: 2020-05-31 18:44:37
 updated: 2020-05-31 18:44:37
 ---
-
-完整实现代码[dns client](https://github.com/Asutorufa/yuhaiin/blob/master/net/dns/dns.go)
+这个DNS系列现在有以下几篇文章  
+[DNS](/posts/f05986bf/)  [EDNS](/posts/668530ca/) [DNSSEC](/posts/1751943e/) [DNS over HTTPS](/posts/4b39445f/) 完整代码请看[DNS](https://github.com/Asutorufa/yuhaiin/tree/master/net/dns)
 
 ## DNS Header
 
