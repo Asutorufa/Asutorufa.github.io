@@ -8,7 +8,7 @@
       <link href="/posts/931c13a4/"/>
       <url>/posts/931c13a4/</url>
       
-        <content type="html"><![CDATA[<p>complete document <a href="https://maxmind.github.io/MaxMind-DB/" target="_blank" rel="noopener">MaxMind DB File Format SpecificationDescription</a></p><p>here is only how convert trie tree to array</p><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">0100, 1011 -&gt; trie</span><br><span class="line"></span><br><span class="line"><span class="code">              root</span></span><br><span class="line"><span class="code">               |</span></span><br><span class="line"><span class="code">         +-----+------+</span></span><br><span class="line"><span class="code">        /              \</span></span><br><span class="line"><span class="code">       0                1</span></span><br><span class="line"><span class="code">     /   \             /  \</span></span><br><span class="line">   null   1           0   null</span><br><span class="line"><span class="code">         / \        /   \</span></span><br><span class="line"><span class="code">        0 null     null   1</span></span><br><span class="line"><span class="code">       / \               / \</span></span><br><span class="line"><span class="code">       0 null         null  1</span></span><br></pre></td></tr></table></figure><p>trie -&gt; array<br>left is 0, right is 1<br>value is index of array<a id="more"></a></p><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> left | right byte</span><br><span class="line">3     |   5    2</span><br><span class="line">null  |   7    4</span><br><span class="line">9     |  null  6</span><br><span class="line">11    |  null  8</span><br><span class="line">null  |  13   10</span><br><span class="line">15    |  null 12</span><br><span class="line">null  |  17   14</span><br><span class="line">end   |  null 16</span><br><span class="line">null  |  end  18</span><br><span class="line"></span><br><span class="line">array: [3,5,null,7,9,null,11,null,null,13,15,null,null,17,end,null,null,end]</span><br></pre></td></tr></table></figure><p>for example:</p><p>index 1:<br> next left index 3 is null, so 00* is not exist<br> next right index 3+1 = 4 is not null, continue search until end or null</p><p>this is one byte as one child, but one byte max is 255, if node more than 255, we can use multiple byte as one child</p>]]></content>
+        <content type="html"><![CDATA[<p>complete document <a href="https://maxmind.github.io/MaxMind-DB/" target="_blank" rel="noopener">MaxMind DB File Format SpecificationDescription</a></p><p>here is only how convert trie tree to array</p><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">0100, 1011 -&gt; trie</span><br><span class="line"></span><br><span class="line"><span class="code">              root</span></span><br><span class="line"><span class="code">               |</span></span><br><span class="line"><span class="code">         +-----+------+</span></span><br><span class="line"><span class="code">        /              \</span></span><br><span class="line"><span class="code">       0                1</span></span><br><span class="line"><span class="code">     /   \             /  \</span></span><br><span class="line">   null   1           0   null</span><br><span class="line"><span class="code">         / \        /   \</span></span><br><span class="line"><span class="code">        0 null     null   1</span></span><br><span class="line"><span class="code">       / \               / \</span></span><br><span class="line"><span class="code">       0 null         null  1</span></span><br></pre></td></tr></table></figure><p>trie -&gt; array<br>left is 0, right is 1<br>value is index of array<a id="more"></a></p><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> left | right  byte/index</span><br><span class="line">2     |   4    0-1</span><br><span class="line">null  |   6    2-3</span><br><span class="line">8     |  null  4-5</span><br><span class="line">10    |  null  6-7</span><br><span class="line">null  |  12    8-9</span><br><span class="line">14    |  null  10-11</span><br><span class="line">null  |  16    11-12</span><br><span class="line">end   |  null  12-13</span><br><span class="line">null  |  end   13-14</span><br><span class="line"></span><br><span class="line">array: [2,4,null,6,8,null,10,null,null,12,14,null,null,16,end,null,null,end]</span><br></pre></td></tr></table></figure><p>for example:</p><p>index 1:<br> next left index 2 is null, so 00* is not exist<br> next right index 2+1 = 3 is not null, continue search until end or null</p><p>this is one byte as one child, but one byte max is 255, if node more than 255, we can use multiple byte as one child</p>]]></content>
       
       
       <categories>
@@ -45,9 +45,9 @@
       
         <tags>
             
-            <tag> DNS </tag>
-            
             <tag> golang </tag>
+            
+            <tag> DNS </tag>
             
             <tag> DOH </tag>
             
@@ -74,11 +74,11 @@
       
         <tags>
             
+            <tag> golang </tag>
+            
             <tag> DNS </tag>
             
             <tag> UDP </tag>
-            
-            <tag> golang </tag>
             
             <tag> DNSSEC </tag>
             
@@ -105,11 +105,11 @@
       
         <tags>
             
+            <tag> golang </tag>
+            
             <tag> DNS </tag>
             
             <tag> UDP </tag>
-            
-            <tag> golang </tag>
             
             <tag> EDNS </tag>
             
@@ -163,11 +163,11 @@
       
         <tags>
             
+            <tag> golang </tag>
+            
             <tag> DNS </tag>
             
             <tag> UDP </tag>
-            
-            <tag> golang </tag>
             
         </tags>
       
@@ -300,9 +300,9 @@
       
         <tags>
             
-            <tag> android </tag>
-            
             <tag> linux </tag>
+            
+            <tag> android </tag>
             
         </tags>
       
@@ -516,9 +516,9 @@
       
         <tags>
             
-            <tag> golang </tag>
-            
             <tag> CIDR </tag>
+            
+            <tag> golang </tag>
             
         </tags>
       
@@ -703,9 +703,9 @@
       
         <tags>
             
-            <tag> IP </tag>
-            
             <tag> CIDR </tag>
+            
+            <tag> IP </tag>
             
         </tags>
       
