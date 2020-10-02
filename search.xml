@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>gpg使用</title>
+      <link href="/posts/7d547224/"/>
+      <url>/posts/7d547224/</url>
+      
+        <content type="html"><![CDATA[<p>生成一个密钥</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --full-gen-key</span><br></pre></td></tr></table></figure><p>之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了.</p><p>创建一个子密钥</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gpg --edit-key [key <span class="built_in">hash</span>]</span><br><span class="line"></span><br><span class="line">gpg&gt; addkey</span><br><span class="line"><span class="comment">#只有与前面是相同的, 按需求选择.</span></span><br><span class="line"></span><br><span class="line">gpg&gt; save</span><br><span class="line"><span class="comment"># 保存</span></span><br></pre></td></tr></table></figure><p>导出密钥</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg -o /path/gpg_key --<span class="built_in">export</span>-secret-keys [key <span class="built_in">hash</span>]</span><br></pre></td></tr></table></figure><p>导出子密钥</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg -o /path/gpg_key.sub --<span class="built_in">export</span>-secret-subkeys [key <span class="built_in">hash</span>]</span><br></pre></td></tr></table></figure><p>导出吊销证书</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gpg --generate-revocation [key <span class="built_in">hash</span>]</span><br><span class="line"><span class="comment"># 输出是文本内容, 复制保存下来就行了</span></span><br></pre></td></tr></table></figure><a id="more"></a><p>删除密钥</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gpg --delete-secret-keys [key <span class="built_in">hash</span>]</span><br><span class="line">gpg --delete-keys [key <span class="built_in">hash</span>]</span><br></pre></td></tr></table></figure><p>导入子密钥</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --import /path/gpg_key.sub</span><br></pre></td></tr></table></figure><p>查看密钥</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gpg -k</span><br><span class="line">gpg -K</span><br></pre></td></tr></table></figure><p>加密文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg -r [user name] -o [output file] -e [filename]</span><br></pre></td></tr></table></figure><p>解密</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gpg -o [output file] -d [filename] <span class="comment"># 输出到文件</span></span><br><span class="line">gpg -d [filename] <span class="comment"># 直接输出到终端</span></span><br></pre></td></tr></table></figure><hr><p><a href="https://gist.github.com/jhjguxin/6037564" target="_blank" rel="noopener">GPG 加密解密简明教程</a><br><a href="https://mogeko.me/2019/068/" target="_blank" rel="noopener">GPG 的正确使用姿势</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> encrypt </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>GeoIP mmdb format</title>
       <link href="/posts/931c13a4/"/>
       <url>/posts/931c13a4/</url>
@@ -45,9 +72,9 @@
       
         <tags>
             
-            <tag> golang </tag>
-            
             <tag> DNS </tag>
+            
+            <tag> golang </tag>
             
             <tag> DOH </tag>
             
@@ -74,11 +101,11 @@
       
         <tags>
             
-            <tag> golang </tag>
-            
             <tag> DNS </tag>
             
             <tag> UDP </tag>
+            
+            <tag> golang </tag>
             
             <tag> DNSSEC </tag>
             
@@ -105,11 +132,11 @@
       
         <tags>
             
-            <tag> golang </tag>
-            
             <tag> DNS </tag>
             
             <tag> UDP </tag>
+            
+            <tag> golang </tag>
             
             <tag> EDNS </tag>
             
@@ -163,11 +190,11 @@
       
         <tags>
             
-            <tag> golang </tag>
-            
             <tag> DNS </tag>
             
             <tag> UDP </tag>
+            
+            <tag> golang </tag>
             
         </tags>
       
@@ -300,9 +327,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> android </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -516,9 +543,9 @@
       
         <tags>
             
-            <tag> CIDR </tag>
-            
             <tag> golang </tag>
+            
+            <tag> CIDR </tag>
             
         </tags>
       
@@ -703,9 +730,9 @@
       
         <tags>
             
-            <tag> CIDR </tag>
-            
             <tag> IP </tag>
+            
+            <tag> CIDR </tag>
             
         </tags>
       
