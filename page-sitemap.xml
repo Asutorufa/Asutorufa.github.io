@@ -8,50 +8,50 @@
     </url>
     
     <url>
+        <loc>https://Asutorufa.github.io/friends/</loc>
+        <lastmod>2020-12-21T08:05:59.220Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
         <loc>https://Asutorufa.github.io/schedule/</loc>
-        <lastmod>2020-10-02T06:07:05.436Z</lastmod>
+        <lastmod>2020-12-21T08:05:59.220Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
         <loc>https://Asutorufa.github.io/tags/</loc>
-        <lastmod>2020-10-02T06:07:05.436Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>https://Asutorufa.github.io/friends/</loc>
-        <lastmod>2020-10-02T06:07:05.432Z</lastmod>
+        <lastmod>2020-12-21T08:05:59.220Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
         <loc>https://Asutorufa.github.io/about/</loc>
-        <lastmod>2020-10-02T06:07:05.420Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>https://Asutorufa.github.io/categories/</loc>
-        <lastmod>2020-10-02T06:07:05.420Z</lastmod>
+        <lastmod>2020-12-21T08:05:59.208Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
         <loc>https://Asutorufa.github.io/archives/</loc>
-        <lastmod>2020-10-02T06:07:05.420Z</lastmod>
+        <lastmod>2020-12-21T08:05:59.208Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://Asutorufa.github.io/categories/</loc>
+        <lastmod>2020-12-21T08:05:59.208Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
         <loc>https://Asutorufa.github.io/email/</loc>
-        <lastmod>2020-10-02T06:07:05.420Z</lastmod>
+        <lastmod>2020-12-21T08:05:59.208Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
