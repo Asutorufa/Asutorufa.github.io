@@ -138,3 +138,10 @@ hostdev配置可以在添加硬件(PCI HOST Devices)的界面直接修改xml, �
 
 启动虚拟机后, 进入虚拟机安装相应的显卡驱动就行了.  
 这样就快很多了, 比软件渲染快多了, 这样用linux也能愉快的使用其他系统了.
+
+***
+
+[Intel_GVT-g](https://wiki.archlinux.org/index.php/Intel_GVT-g)
+[让 KVM 上的 Windows 虚拟机插上GVT-g 的翅膀](https://medium.com/@langleyhouge/%E8%AE%A9-kvm-%E4%B8%8A%E7%9A%84-windows-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%8F%92%E4%B8%8Agvt-g-%E7%9A%84%E7%BF%85%E8%86%80-ac0ac28b73b8)
+[libvirt hooks](https://www.libvirt.org/hooks.html)
+[Intel Gvt](https://blog.bepbep.co/posts/gvt/)
