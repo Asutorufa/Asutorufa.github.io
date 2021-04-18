@@ -3,6 +3,20 @@
 
 
     <url>
+        <loc>https://Asutorufa.github.io/tags/HTTP/</loc>
+        <lastmod>2021-04-18T10:16:58.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://Asutorufa.github.io/tags/HTTPS/</loc>
+        <lastmod>2021-04-18T10:16:58.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://Asutorufa.github.io/tags/Hyperledger-Fabric/</loc>
         <lastmod>2021-01-24T09:34:58.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -250,13 +264,6 @@
     <url>
         <loc>https://Asutorufa.github.io/tags/%E9%96%A2%E8%A5%BF%E5%BC%81/</loc>
         <lastmod>2020-01-30T01:42:02.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://Asutorufa.github.io/tags/HTTP/</loc>
-        <lastmod>2019-12-23T15:37:32.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
