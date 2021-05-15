@@ -8,7 +8,7 @@ categories:
   - linux
 abbrlink: e3707853
 date: 2019-08-03 00:18:40
-updated: 2020-05-05 00:20:00
+updated: 2021-05-15 04:45:00
 language: zh-Hans
 ---
 详细安装教程请参考arch wiki [Installation guide (简体中文)](https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)),此处只记录安装后遇到的问题.
@@ -243,6 +243,20 @@ Exec = /usr/bin/paccache -rvk3
 ext4分区优化:  
 
 `有备用电源或者笔记本可以关闭ext4的barriers具体方法参考`[Ext4#Turning_barriers_off](https://wiki.archlinux.org/index.php/Ext4#Turning_barriers_off)  
+
+调整内核的I/O调度[Improving_performance#Changing_I/O_scheduler](https://wiki.archlinux.org/title/Improving_performance#Changing_I/O_scheduler)  
+The process to change I/O scheduler, depending on whether the disk is rotating or not can be automated and persist across reboots. For example the udev rule below sets the scheduler to none for NVMe, mq-deadline for SSD/eMMC, and bfq for rotational drives:
+  
+/etc/udev/rules.d/60-ioschedulers.rules
+
+```conf
+# set scheduler for NVMe
+ACTION=="add|change", KERNEL=="nvme[0-9]n[0-9]", ATTR{queue/scheduler}="none"
+# set scheduler for SSD and eMMC
+ACTION=="add|change", KERNEL=="sd[a-z]|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="mq-deadline"
+# set scheduler for rotating disks
+ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
+```
 
 ***
 deadbeef-git 打开提示`plugin cdda.so not found or failed to load`  
