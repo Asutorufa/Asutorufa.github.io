@@ -44,7 +44,7 @@ highlight:
   enable: true
   line_number: true
   auto_detect: false
-  tab_replace:
+  tab_replace: true
   
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
@@ -96,8 +96,10 @@ search:
 #站内地图
 sitemap:
     path: sitemap.xml
-    #tag: false
-    #category: false
+    template: 
+    rel: true
+    tags: true
+    categories: true
 
 # abbrlink config
 abbrlink:
@@ -110,49 +112,28 @@ lazyload:
   onlypost: false
   loadingImg: 
 
-live2d:
-  enable: false
-  scriptFrom: local
-  pluginRootPath: live2dw/
-  pluginJsPath: lib/
-  pluginModelPath: assets/
-  model:
-    use: live2d-widget-model-koharu
-    scale: 1.0
-    hHeadPos: 0.5
-    vHeadPos: 0.618
-  display:
-    width: 125
-    height: 175
-    superSample: 2
-    position: right
-    hOffset: 25
-    vOffset: 0
-  mobile:
-    show: true
-    scale: 0.7
-  react:
-    opacityDefault: 1
-    opacityOnHover: 1
-
-
 filter_optimize:
   enable: true
   # remove the surrounding comments in each of the bundled files
-  remove_comments: true
+  remove_comments: false
   css:
+    # minify all css files
+    minify: true
     # bundle loaded css file into the one
-    bundle: true
+    bundle: false # 会导致页面加载变得很奇怪
     # use a script block to load css elements dynamically
-    delivery: true
+    delivery: true 
     # make specific css content inline into the html page
     #   - only support the full path
     #   - default is ['css/main.css']
     inlines:
     excludes:
+      - '**/font-awesome.min.css'
   js:
+    # minify all js files
+    minify: true
     # bundle loaded js file into the one
-    bundle: false
+    bundle: false  # 会导致某些插件失效
     excludes:
   # set the priority of this plugin,
   # lower means it will be executed first, default is 10
