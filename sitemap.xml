@@ -1,26 +1,960 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://asutorufa.github.io/about/index.html</loc>
+    
+    <lastmod>2021-05-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/archives/index.html</loc>
+    
+    <lastmod>2021-05-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/index.html</loc>
+    
+    <lastmod>2021-05-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/email/index.html</loc>
+    
+    <lastmod>2021-05-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/friends/index.html</loc>
+    
+    <lastmod>2021-05-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/schedule/index.html</loc>
+    
+    <lastmod>2021-05-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/index.html</loc>
+    
+    <lastmod>2021-05-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/e3707853/</loc>
+    
+    <lastmod>2021-05-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/11b2b8df/</loc>
+    
+    <lastmod>2021-04-18</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/d67c4794/</loc>
+    
+    <lastmod>2021-03-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/afc6d6dd/</loc>
+    
+    <lastmod>2021-01-24</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/3a1d136/</loc>
+    
+    <lastmod>2021-01-17</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/7d547224/</loc>
+    
+    <lastmod>2020-10-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/931c13a4/</loc>
+    
+    <lastmod>2020-07-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/3cb4313e/</loc>
+    
+    <lastmod>2020-06-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/4b39445f/</loc>
+    
+    <lastmod>2020-06-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/1751943e/</loc>
+    
+    <lastmod>2020-06-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/668530ca/</loc>
+    
+    <lastmod>2020-06-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/34615c2d/</loc>
+    
+    <lastmod>2020-06-05</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/f05986bf/</loc>
+    
+    <lastmod>2020-05-31</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/c7816edc/</loc>
+    
+    <lastmod>2020-05-29</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/3b8b96de/</loc>
+    
+    <lastmod>2020-05-05</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/f87fc9f0/</loc>
+    
+    <lastmod>2020-05-03</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/a99a60b1/</loc>
+    
+    <lastmod>2020-04-29</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/67c8ee7f/</loc>
+    
+    <lastmod>2020-04-25</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/1124a628/</loc>
+    
+    <lastmod>2020-04-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/fe7367b8/</loc>
+    
+    <lastmod>2020-03-11</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/d22ffdb6/</loc>
+    
+    <lastmod>2020-03-01</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/4f3989f0/</loc>
+    
+    <lastmod>2020-02-12</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/59c8ffd6/</loc>
+    
+    <lastmod>2020-02-08</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/88967b7c/</loc>
+    
+    <lastmod>2020-02-06</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/a4241e7/</loc>
+    
+    <lastmod>2020-01-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/d91b7c06/</loc>
+    
+    <lastmod>2019-12-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/33115a55/</loc>
+    
+    <lastmod>2019-11-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/4f95e9f6/</loc>
+    
+    <lastmod>2019-09-07</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/5938ae8c/</loc>
+    
+    <lastmod>2019-08-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/89c4c907/</loc>
+    
+    <lastmod>2019-06-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/64e69c3e/</loc>
+    
+    <lastmod>2019-03-08</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/1e63e0e/</loc>
+    
+    <lastmod>2019-02-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/8b98169e/</loc>
+    
+    <lastmod>2019-02-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/e2b25bb8/</loc>
+    
+    <lastmod>2019-02-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/25303996/</loc>
+    
+    <lastmod>2019-01-31</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/f7f814df/</loc>
+    
+    <lastmod>2019-01-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/38868ade/</loc>
+    
+    <lastmod>2018-12-08</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/86cfa6a/</loc>
+    
+    <lastmod>2018-09-04</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/77d15527/</loc>
+    
+    <lastmod>2018-08-07</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/cee10602/</loc>
+    
+    <lastmod>2018-08-07</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/b6b8953/</loc>
+    
+    <lastmod>2018-06-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/fb6d8628/</loc>
+    
+    <lastmod>2018-06-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/6683eff9/</loc>
+    
+    <lastmod>2018-06-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/854ed6ec/</loc>
+    
+    <lastmod>2017-12-10</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/c69434f1/</loc>
+    
+    <lastmod>2017-11-29</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/e404489/</loc>
+    
+    <lastmod>2017-10-30</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/43cb2931/</loc>
+    
+    <lastmod>2017-10-24</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/b6b4601/</loc>
+    
+    <lastmod>2017-10-10</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/10bb899d/</loc>
+    
+    <lastmod>2017-10-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/8a291f21/</loc>
+    
+    <lastmod>2017-10-08</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/posts/3fee5f2/</loc>
+    
+    <lastmod>2017-10-08</lastmod>
+    
+  </url>
+  
 
+  <url>
+    <loc>https://asutorufa.github.io/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
 
-    <sitemap>
-        <loc>https://Asutorufa.github.io/post-sitemap.xml</loc>
-        <lastmod>2021-05-14T20:45:00.000Z</lastmod>
-    </sitemap>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/CIDR/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/golang/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/DNS/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/DOH/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/UDP/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/DNSSEC/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/EDNS/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/Network/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/bios/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/computer/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/HTTPS/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/HTTP/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/blockchain/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/Hyperledger-Fabric/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/JavaScript/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/%E5%89%8D%E7%AB%AF/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/NAT/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/C/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/OpenCV/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/archlinux/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/android/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/adb/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/efi/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/linux/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/C/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/socks5/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/windows/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/encrypt/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/proxy/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/%E5%8F%8C%E6%98%BE%E5%8D%A1/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/amd/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/nodejs/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/python/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/snap/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/uefi/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/%E5%BB%BA%E7%AB%99/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/%E5%85%8D%E8%B4%B9/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/Linux/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/qemu/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/GVT-g/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/intel/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/java/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/Math/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/EFI/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/BIOS/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/Personally/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/assembly/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/Deep-Learning/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/IP/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/English/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/translate/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/driver/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/Realtek-ALC295/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/xfce4/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/%E9%96%A2%E8%A5%BF%E5%BC%81/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
-    <sitemap>
-        <loc>https://Asutorufa.github.io/page-sitemap.xml</loc>
-        <lastmod>2021-05-23T09:11:43.073Z</lastmod>
-    </sitemap>
-
-    <sitemap>
-        <loc>https://Asutorufa.github.io/category-sitemap.xml</loc>
-        <lastmod>2021-05-14T20:45:00.000Z</lastmod>
-    </sitemap>
-
-    <sitemap>
-        <loc>https://Asutorufa.github.io/tag-sitemap.xml</loc>
-        <lastmod>2021-05-14T20:45:00.000Z</lastmod>
-    </sitemap>
-
-</sitemapindex>
-<!-- XML Sitemap generated by Hexo SEO Friendly Sitemap Generator -->
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/%E6%97%A5%E5%B8%B8/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/Network/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/linux/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/Hyperledger-fabric/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/JavaScript/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/Computer-Graphics/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/android/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/Program/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/golang/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/nodejs/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/python/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/Computer/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/%E5%BB%BA%E7%AB%99/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/Linux/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/Math/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/Personally/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/assembly/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/Machine-Learning/</loc>
+    <lastmod>2021-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+</urlset>
