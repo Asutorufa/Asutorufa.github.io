@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>iptables</title>
+      <link href="posts/736b1750/"/>
+      <url>posts/736b1750/</url>
+      
+        <content type="html"><![CDATA[<p>iptables chain</p><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">    +---------------------------------------------------------+</span></span><br><span class="line"><span class="code">    |                   Network Card                          |</span></span><br><span class="line"><span class="code">    +---------------------------------------------------------+</span></span><br><span class="line"><span class="code">      |                                                    ^</span></span><br><span class="line"><span class="code">      |                                                    |</span></span><br><span class="line"><span class="code">      v                                                    |</span></span><br><span class="line"> +----------+          is?      no    +-------+        +-----------+</span><br><span class="line"> |prerouting| ----&gt; localhost ------&gt; |forward| ----&gt;  |postrouting|</span><br><span class="line"> +----------+          |              +-------+        +-----------+ </span><br><span class="line"><span class="code">                       | yes                                 ^</span></span><br><span class="line"><span class="code">                       |                                     |</span></span><br><span class="line"><span class="code">                       v                                     |</span></span><br><span class="line"><span class="code">                    +---------+                        +-----------+</span></span><br><span class="line"><span class="code">                    |  input  |                        |   output  |</span></span><br><span class="line"><span class="code">                    +---------+                        +-----------+</span></span><br><span class="line"><span class="code">                         |                                   ^</span></span><br><span class="line"><span class="code">                         |                                   |</span></span><br><span class="line"><span class="code">                         |                                   |</span></span><br><span class="line"><span class="code">                         v                                   |</span></span><br><span class="line"><span class="code">    +----------------------------------------------------------+</span></span><br><span class="line"><span class="code">    |                        user                              |</span></span><br><span class="line"><span class="code">    +----------------------------------------------------------+</span></span><br><span class="line"></span><br><span class="line">out -&gt; localhost: prerouting -&gt; input</span><br><span class="line">forward:          prerouting -&gt; forward    -&gt; postrouting</span><br><span class="line">localhost -&gt; out: output     -&gt; postrouting</span><br></pre></td></tr></table></figure><p>iptables table:  </p><ul><li>filter:</li><li>nat:</li><li>magle:</li><li>raw:</li></ul><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">table &lt;-&gt; chain  </span><br><span class="line">raw: PREROUTING, OUTPUT  </span><br><span class="line">mangle: PREROUTING, INPUT, FORWARD, OUTPUT, POSTROUTING  </span><br><span class="line">nat: PREROUTING, OUTPUT, POSTROUTING, INPUT  </span><br><span class="line">filter: INPUT, FORWARD, OUTPUT</span><br><span class="line"></span><br><span class="line">raw –&gt; mangle –&gt; nat –&gt; filter  </span><br><span class="line"></span><br><span class="line">chain &lt;-&gt; table</span><br><span class="line">PREROUTING: raw, mangle, nat</span><br><span class="line">INPUT: mangle, filter, nat</span><br><span class="line">FORWARD: mangle, filter</span><br><span class="line">OUTPUT: raw, mangle, nat, filter</span><br><span class="line">POSTROUTING: mangle, nat</span><br></pre></td></tr></table></figure><p>query</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t &lt;table&gt; -nvL &lt;chain&gt;</span><br></pre></td></tr></table></figure><hr><p><a href="https://www.zsythink.net/archives/tag/iptables/page/2" target="_blank" rel="noopener">iptables</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Network </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> iptables </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>HTTPS相关</title>
       <link href="posts/11b2b8df/"/>
       <url>posts/11b2b8df/</url>
