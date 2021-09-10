@@ -26,7 +26,8 @@ intel_iommu=on i915.enable_gvt=1 i915.enable_guc=0
 在`/etc/mkinitcpio.conf`的MODULES=()`中添加:
 
 ```conf
-kvmgt vfio vfio-iommu-type1 vfio-mdev
+# linux 5.14后，arch的linux内核模块已经不会勾选vfio-mdev，自测不影响gvt-g
+kvmgt vfio vfio-iommu-type1s
 ```
 
 然后运行,我用的zen内核所以是linux-zen,默认内核是linux
