@@ -4,6 +4,71 @@
   
     
     <entry>
+      <title>加密模式</title>
+      <link href="posts/903c04f7/"/>
+      <url>posts/903c04f7/</url>
+      
+        <content type="html"><![CDATA[<ul><li>块加密</li><li>流加密</li><li>认证加密</li><li>AEAD</li></ul><p>暂时挖坑, 慢慢补(还不太懂)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Crypto </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>TUN网卡</title>
+      <link href="posts/a67af13f/"/>
+      <url>posts/a67af13f/</url>
+      
+        <content type="html"><![CDATA[<ul><li>golang tun (givsor)</li><li>android VPN service</li></ul><p>暂时先挖坑, 后面补</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Network </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>RSA加密</title>
+      <link href="posts/f1a158c9/"/>
+      <url>posts/f1a158c9/</url>
+      
+        <content type="html"><![CDATA[<h2 id="质数"><a href="#质数" class="headerlink" title="质数"></a>质数</h2><p>质数（Prime number），又称素数，指在大于1的自然数中，除了1和该数自身外，无法被其他自然数整除的数（也可定义为只有1与该数本身两个正因数的数）。  </p><p>来自 <a href="https://zh.wikipedia.org/wiki/%E8%B4%A8%E6%95%B0" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E8%B4%A8%E6%95%B0</a>  </p><h3 id="互质"><a href="#互质" class="headerlink" title="互质"></a>互质</h3><p>互质是公约数只有1的两个整数，叫做互质整数。</p><h2 id="欧拉"><a href="#欧拉" class="headerlink" title="欧拉"></a>欧拉</h2><p>在数论中，对正整数n，欧拉函数phi(n)是小于等于n的正整数中与n互质的数的数目。此函数以其首名研究者欧拉命名，它又称为φ函数（由高斯所命名）或是欧拉总计函数（totient function，由西尔维斯特所命名）。  </p><p>来自 <a href="https://zh.wikipedia.org/wiki/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0</a>  </p><a id="more"></a><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">例如 11 的欧拉:</span><br><span class="line"></span><br><span class="line">比11小且与11互质的正整数有: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</span><br><span class="line"></span><br><span class="line">所以phi(11) = 10 = 11-1</span><br></pre></td></tr></table></figure><p>由上例子同时可知, 质数的欧拉是他本身减1: phi(N) = N - 1<br>同时 歐拉函數是積性函數，即是说若m,n互質，則 phi(mn) = phi(m)phi(n)</p><h2 id="模反元素"><a href="#模反元素" class="headerlink" title="模反元素"></a>模反元素</h2><p>模逆元也称为模倒数，或者模逆元。&lt;- 模反元素<br>如果两个正整数a和n互质，那么一定可以找到整数b，使得 ab-1 被n整除，或者说ab被n除的余数是1。这时，b就叫做a的“模反元素”。  </p><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如3关于20的模反元素是7，(3*7)%20=1</span><br></pre></td></tr></table></figure><h2 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h2><ol><li>隨意選擇兩個大的質數 p和q,p不等于q,计算N=pq.  </li><li>求N的欧拉，r = phi(N) = phi(q) x phi(p) = (p-1)(q-1)  </li><li>选择一个小于r的整数e，使e与r互质。並求得e关于r的模反元素，命名为d。  </li><li>(N,e)是公钥，(N,d)是私钥。  </li><li>加密原文m, 得到密文 x = (m^e)%N  </li><li>解密公式为 m = (x^d)%N<br><strong>只能加密比N小的数字，比N大的数字无法加密。</strong>  </li></ol><p>eg：</p><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">选择两个质数3,11。</span><br><span class="line">计算得到N=3*11=33</span><br><span class="line">计算N的欧拉，r=phi(N)=phi(3)*phi(11)=(3-1)(11-1)=20</span><br><span class="line">选择一个小于的r且与r互质的整数3，求得3关于20的模反元素7</span><br><span class="line">得到公钥(33,3),私钥(33,7)</span><br><span class="line"></span><br><span class="line">加密：</span><br><span class="line">加密数字24，(24^3)%33 = 30, 获得加密后的密文 30</span><br><span class="line">解密：</span><br><span class="line">对密文30解密，(30^7)%33 = 24, 获得解密后的明文24</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Crypto </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Crypto </tag>
+            
+            <tag> RSA </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>为广告而生,从使用到干掉大陆版MIUI</title>
       <link href="posts/6c3a98b5/"/>
       <url>posts/6c3a98b5/</url>
