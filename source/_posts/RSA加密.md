@@ -55,6 +55,8 @@ updated: 2022-08-14 21:46:24
 *__a^phi(n) = 1 (mod n)__*  
 即 a^phi(n)与1在模n下同余。欧拉定理得名于瑞士数学家莱昂哈德·欧拉。  
 
+> gcd: greatest common divisor(最大公约数)
+
 ## RSA
 
 1. 隨意選擇兩個大的質數 p和q,p不等于q,计算N=pq.  
