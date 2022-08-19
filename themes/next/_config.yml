@@ -457,7 +457,8 @@ needmoreshare2:
 #google_site_verification:
 
 # Google Analytics
-google_analytics: UA-108718677-1
+#google_analytics: UA-108718677-1
+google_analytics: G-JN3GB41L9H
 
 # Bing Webmaster tools verification setting
 # See: https://www.bing.com/webmaster/
