@@ -2141,6 +2141,44 @@
       </tags>
   </entry>
   <entry>
+    <title>秘密共享</title>
+    <url>/posts/ce6c7d90/</url>
+    <content><![CDATA[<h2 id="拉格朗日插值法"><a href="#拉格朗日插值法" class="headerlink" title="拉格朗日插值法"></a>拉格朗日插值法</h2><p>对某个多项式函数，已知有给定的k + 1个取值点：<code>(x0,y0)...(xk,yk)</code><br>假设任意两个不同的xj都互不相同，那么应用拉格朗日插值公式所得到的拉格朗日插值多项式为：  </p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">l0 = (((x-x1)(x-x2)...(x-xk))/((x0-x1)(x0-x2)...(x0-xk)))*y0</span><br><span class="line"><span class="code">    ...</span></span><br><span class="line">lk = ...</span><br></pre></td></tr></table></figure>
+
+<p><code>f(x) = l0+l1...+lk</code>即可求出多项式</p>
+<h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><figure class="highlight md"><table><tr><td class="code"><pre><span class="line">已知3个点(4,10)(5,5.25)(6,1)</span><br><span class="line"></span><br><span class="line">l0 = (((x-5)(x-6))/((4-5)(4-6))) * 10</span><br><span class="line">l1 = (((x-4)(x-6))/((5-4)(5-6))) * 5.25</span><br><span class="line">l2 = (((x-4)(x-5))/((6-4)(6-5))) * 1</span><br><span class="line"></span><br><span class="line">f(x) = l0+l1+l2 = 1/4(x^2-28x+136)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Shamir-秘密共享"><a href="#Shamir-秘密共享" class="headerlink" title="Shamir 秘密共享"></a>Shamir 秘密共享</h2><p>生成</p>
+<a id="more"></a>
+<ul>
+<li>设需要生成w个密钥，至少需要t个密钥才能算出真实密钥</li>
+<li>选择一个数P，之后所有数都需要进行模运算</li>
+<li>设置真实密钥K</li>
+<li>随机选择t-1个不大于P的数 <code>a0,a1...at-1</code></li>
+<li>得到多项式 <code>f(x)=K+a0x+a1x^2...+at-1x^t</code></li>
+<li>将<code>x=1.x=2...x=w</code>带入多项式即可获得多个密钥<code>(1,k1)(2,k2)...(w,kw)</code></li>
+</ul>
+<p>解密</p>
+<ul>
+<li>利用拉格朗日插值法即可算出多项式</li>
+<li>需要带上模计算多项式，如果计算多项式时有除法需要进行计算模乘逆元</li>
+<li>因为只需要K所以计算的时候可以直接x&#x3D;0</li>
+</ul>
+<h3 id="eg1"><a href="#eg1" class="headerlink" title="eg1"></a>eg1</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">w=4,t=3,K=2,p=23，选择随机数 a0=3, a1=2</span><br><span class="line"></span><br><span class="line">加密</span><br><span class="line"></span><br><span class="line">得到多项式 f(x) = (2 + 3x + 2x^2) mod 23</span><br><span class="line">f(1) = 2, f(2) = 16, f(3) = 6, f(4) = 0</span><br><span class="line">获得4个密钥(1,2)(2,16)(3,6)(4,0)</span><br><span class="line"></span><br><span class="line">解密</span><br><span class="line"></span><br><span class="line">选择其中三个进行解密，(1,7)(3,6)(4,0)</span><br><span class="line"></span><br><span class="line">l0 = (((x-3)(x-4))/((1-3)(1-4)))*7</span><br><span class="line">l1 = (((x-1)(x-4))/((3-1)(3-4)))*6</span><br><span class="line">l2 = (((x-1)(x-3))/((4-1)(4-3)))*0</span><br><span class="line"></span><br><span class="line">将x=0带入可得</span><br><span class="line"></span><br><span class="line">l0 = 14</span><br><span class="line">l1 = -12</span><br><span class="line">l2 = 0</span><br><span class="line"></span><br><span class="line">可得k = (l0+l1+l2) mod 23</span><br><span class="line">     = 2 mod 23</span><br><span class="line">     = 2</span><br></pre></td></tr></table></figure>
+
+<h3 id="eg2"><a href="#eg2" class="headerlink" title="eg2"></a>eg2</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">w=5,t=3,k=13,p=17,选择随机数a0=10,a1=2</span><br><span class="line"></span><br><span class="line">加密</span><br><span class="line"></span><br><span class="line">得到多项式 f(x) = (13 + 10x + 2x^2) mod 17</span><br><span class="line">f(1) = 8, f(2) = 7, f(3) = 10, f(4) = 0, f(5) = 11</span><br><span class="line">获得5个密钥(1,8)(2,7)(3,10)(4,0)(5,11)</span><br><span class="line"></span><br><span class="line">解密</span><br><span class="line"></span><br><span class="line">选择其中三个进行解密，(1,8)(2,7)(5,11)</span><br><span class="line"></span><br><span class="line">l0 = 11 * ( ((x-1)(x-2)) / ((5-1)(5-2)) )</span><br><span class="line">l1 = 7  * ( ((x-1)(x-5)) / ((2-1)(2-5)) )</span><br><span class="line">l2 = 8  * ( ((x-2)(x-5)) / ((1-2)(1-5)) )</span><br><span class="line"></span><br><span class="line">将 x=0 带入</span><br><span class="line"></span><br><span class="line">l0 = 22/12</span><br><span class="line">l1 = -140/12</span><br><span class="line">l2 = 240/12</span><br><span class="line"></span><br><span class="line">K = (l0+l1+l2) mod 17</span><br><span class="line">  = (61/6) mod 17</span><br><span class="line">  = (61 * 6^-1) mod 17 // 6^-1为6关于17的模乘逆元为3</span><br><span class="line">  = (61 * 3) mod 17 </span><br><span class="line">  = 13</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Crypto</category>
+      </categories>
+      <tags>
+        <tag>Crypto</tag>
+        <tag>Shamir</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>翻译-C程序员所应该知道的内存</title>
     <url>/posts/f87fc9f0/</url>
     <content><![CDATA[<blockquote>
