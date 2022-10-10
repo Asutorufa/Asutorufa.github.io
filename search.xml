@@ -2169,6 +2169,13 @@
 
 <h3 id="eg2"><a href="#eg2" class="headerlink" title="eg2"></a>eg2</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">w=5,t=3,k=13,p=17,选择随机数a0=10,a1=2</span><br><span class="line"></span><br><span class="line">加密</span><br><span class="line"></span><br><span class="line">得到多项式 f(x) = (13 + 10x + 2x^2) mod 17</span><br><span class="line">f(1) = 8, f(2) = 7, f(3) = 10, f(4) = 0, f(5) = 11</span><br><span class="line">获得5个密钥(1,8)(2,7)(3,10)(4,0)(5,11)</span><br><span class="line"></span><br><span class="line">解密</span><br><span class="line"></span><br><span class="line">选择其中三个进行解密，(1,8)(2,7)(5,11)</span><br><span class="line"></span><br><span class="line">l0 = 11 * ( ((x-1)(x-2)) / ((5-1)(5-2)) )</span><br><span class="line">l1 = 7  * ( ((x-1)(x-5)) / ((2-1)(2-5)) )</span><br><span class="line">l2 = 8  * ( ((x-2)(x-5)) / ((1-2)(1-5)) )</span><br><span class="line"></span><br><span class="line">将 x=0 带入</span><br><span class="line"></span><br><span class="line">l0 = 22/12</span><br><span class="line">l1 = -140/12</span><br><span class="line">l2 = 240/12</span><br><span class="line"></span><br><span class="line">K = (l0+l1+l2) mod 17</span><br><span class="line">  = (61/6) mod 17</span><br><span class="line">  = (61 * 6^-1) mod 17 // 6^-1为6关于17的模乘逆元为3</span><br><span class="line">  = (61 * 3) mod 17 </span><br><span class="line">  = 13</span><br></pre></td></tr></table></figure>
 
+<hr>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing" target="_blank" rel="noopener">Shamir’s Secret Sharing - Wikipedia</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E6%8F%92%E5%80%BC%E6%B3%95" target="_blank" rel="noopener">拉格朗日插值法 - Wikipedia</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/95362628" target="_blank" rel="noopener">趣说密码学（五）秘密共享方案——shamir,中国剩余定理,Brickell和Blakley</a></li>
+<li><a href="https://www.cnblogs.com/pyrie/p/sss_py.html" target="_blank" rel="noopener">Shamir秘密共享方案 (Python)</a></li>
+</ul>
 ]]></content>
       <categories>
         <category>Crypto</category>
