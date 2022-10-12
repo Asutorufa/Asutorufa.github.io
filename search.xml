@@ -587,10 +587,10 @@
 <th align="center"><code>ri-1 = qi * ri + ri+1</code></th>
 <th align="center">商<code>qi</code></th>
 <th align="center">余数<code>ri</code></th>
-<th align="center">si-1 &#x3D; qi *si + si+1</th>
-<th align="center">si</th>
-<th align="center">ti-1 &#x3D; qi* si + ti+1</th>
-<th align="center">ti</th>
+<th align="center"><code>si-1 = qi * si + si+1</code></th>
+<th align="center"><code>si</code></th>
+<th align="center"><code>ti-1 = qi * si + ti+1</code></th>
+<th align="center"><code>ti</code></th>
 </tr>
 </thead>
 <tbody><tr>
@@ -648,7 +648,7 @@
 <td align="center">130</td>
 </tr>
 </tbody></table>
-<p>可得 <code>gcd(160,11) = 1 = 2 * 160 + (-29) * 11 = 320 - 319</code>,<br>所以2是160关于11的模乘逆元, 131 &#x3D; -29 + 160是11关于160的模乘逆元, 因为-29为负数需要加上模变成正数</p>
+<p>可得 <code>gcd(160,11) = 1 = 2 * 160 + (-29) * 11 = 320 - 319</code>,<br>所以<br>  2是160关于11的模乘逆元<br>  131 &#x3D; -29 + 160是11关于160的模乘逆元, 因为-29为负数需要加上模变成正数</p>
 <h3 id="欧拉定理"><a href="#欧拉定理" class="headerlink" title="欧拉定理"></a>欧拉定理</h3><p>在数论中，欧拉定理（也称费马-欧拉定理或欧拉phi函数定理）是一个关于同余的性质。欧拉定理表明，若n,a为正整数，且n,a互素（即gcd(a,n)&#x3D;1），则<br><em><strong>a^phi(n) &#x3D; 1 (mod n)</strong></em><br>即 a^phi(n)与1在模n下同余。欧拉定理得名于瑞士数学家莱昂哈德·欧拉。  </p>
 <blockquote>
 <p>gcd: greatest common divisor(最大公约数)</p>
