@@ -480,17 +480,175 @@
     <url>/posts/f1a158c9/</url>
     <content><![CDATA[<h2 id="质数"><a href="#质数" class="headerlink" title="质数"></a>质数</h2><p>质数（Prime number），又称素数，指在大于1的自然数中，除了1和该数自身外，无法被其他自然数整除的数（也可定义为只有1与该数本身两个正因数的数）。  </p>
 <p>来自 <a href="https://zh.wikipedia.org/wiki/%E8%B4%A8%E6%95%B0" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E8%B4%A8%E6%95%B0</a>  </p>
-<h3 id="互质"><a href="#互质" class="headerlink" title="互质"></a>互质</h3><p>互质是公约数只有1的两个整数，叫做互质整数。</p>
+<h3 id="互质"><a href="#互质" class="headerlink" title="互质"></a>互质</h3><p>互质是公约数只有1的两个整数，也可记gcd(a,b)&#x3D;1, 叫做互质整数。</p>
 <h2 id="欧拉"><a href="#欧拉" class="headerlink" title="欧拉"></a>欧拉</h2><p>在数论中，对正整数n，欧拉函数phi(n)是小于等于n的正整数中与n互质的数的数目。此函数以其首名研究者欧拉命名，它又称为φ函数（由高斯所命名）或是欧拉总计函数（totient function，由西尔维斯特所命名）。  </p>
 <p>来自 <a href="https://zh.wikipedia.org/wiki/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0</a>  </p>
 <a id="more"></a>
 <figure class="highlight md"><table><tr><td class="code"><pre><span class="line">例如 11 的欧拉:</span><br><span class="line"></span><br><span class="line">比11小且与11互质的正整数有: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</span><br><span class="line"></span><br><span class="line">所以phi(11) = 10 = 11-1</span><br></pre></td></tr></table></figure>
 
 <p>由上例子同时可知, 质数的欧拉是他本身减1: phi(N) &#x3D; N - 1<br>同时 歐拉函數是積性函數，即是说若m,n互質，則 phi(mn) &#x3D; phi(m)phi(n)</p>
+<h2 id="欧几里得算法"><a href="#欧几里得算法" class="headerlink" title="欧几里得算法"></a>欧几里得算法</h2><p>也叫辗转相除法，用来找出两个数的最大公约数<code>gcd(a,b)</code><br>商记作<code>qi</code>, 余数记作<code>ri</code>, 欧几里得算法可写为 <code>ri-1 = qi * ri + ri+1</code></p>
+<p>eg1: 寻找160, 11 的最大公约数</p>
+<table>
+<thead>
+<tr>
+<th align="center"><code>ri-1 = qi * ri + ri+1</code></th>
+<th align="center">商<code>qi</code></th>
+<th align="center">余数<code>ri</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">160</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">11</td>
+</tr>
+<tr>
+<td align="center">160 &#x3D; 14 * 11 + 6</td>
+<td align="center">14</td>
+<td align="center">6</td>
+</tr>
+<tr>
+<td align="center">11 &#x3D; 1 * 6 + 5</td>
+<td align="center">1</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="center">6 &#x3D; 1 * 5 + 1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">5 &#x3D; 5 * 1 + 0</td>
+<td align="center">5</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<p>可得最大公约数为1, 同时因为<code>gcd(160,11) = 1</code>, 所以 160, 11 互质</p>
+<p>eg2: 寻找 160, 122 的最大公约数</p>
+<table>
+<thead>
+<tr>
+<th align="center"><code>ri-1 = qi * ri + ri+1</code></th>
+<th align="center">商<code>qi</code></th>
+<th align="center">余数<code>ri</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">160</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">122</td>
+</tr>
+<tr>
+<td align="center">160 &#x3D; 1 * 122 + 38</td>
+<td align="center">1</td>
+<td align="center">38</td>
+</tr>
+<tr>
+<td align="center">122 &#x3D; 3 * 38 +8</td>
+<td align="center">3</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td align="center">38 &#x3D; 4 * 8 + 6</td>
+<td align="center">4</td>
+<td align="center">6</td>
+</tr>
+<tr>
+<td align="center">8 &#x3D; 1 * 6 + 2</td>
+<td align="center">1</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">6 &#x3D; 3 * 2 + 0</td>
+<td align="center">3</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<p>所以最大公约数为2</p>
 <h2 id="模反元素"><a href="#模反元素" class="headerlink" title="模反元素"></a>模反元素</h2><p>模逆元也称为模倒数，或者模逆元。&lt;- 模反元素<br>如果两个正整数a和n互质，那么一定可以找到整数b，使得 ab-1 被n整除，或者说ab被n除的余数是1。这时，b就叫做a的“模反元素”。  </p>
 <figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如3关于20的模反元素是7，(3*7)%20=1</span><br></pre></td></tr></table></figure>
 
 <p><a href="https://zh.wikipedia.org/wiki/%E6%A8%A1%E5%8F%8D%E5%85%83%E7%B4%A0" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E6%A8%A1%E5%8F%8D%E5%85%83%E7%B4%A0</a></p>
+<h3 id="拓展欧几里得算法"><a href="#拓展欧几里得算法" class="headerlink" title="拓展欧几里得算法"></a>拓展欧几里得算法</h3><p>计算欧几里得同时多计算<code>si-1 = qi *si + si+1</code>和<code>si-1 = qi *si + si+1</code>, 初始分别为<code>s0 = 1</code>,<code>s1 = 0</code>和<code>t0 = 0</code>, <code>t1 = 1</code></p>
+<p>eg1: 寻找160, 11 的最大公约数</p>
+<table>
+<thead>
+<tr>
+<th align="center"><code>ri-1 = qi * ri + ri+1</code></th>
+<th align="center">商<code>qi</code></th>
+<th align="center">余数<code>ri</code></th>
+<th align="center">si-1 &#x3D; qi *si + si+1</th>
+<th align="center">si</th>
+<th align="center">ti-1 &#x3D; qi* si + ti+1</th>
+<th align="center">ti</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">160</td>
+<td align="center"></td>
+<td align="center">1</td>
+<td align="center"></td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">11</td>
+<td align="center"></td>
+<td align="center">0</td>
+<td align="center"></td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">160 &#x3D; 14 * 11 + 6</td>
+<td align="center">14</td>
+<td align="center">6</td>
+<td align="center">1 &#x3D; 14 * 0 + 1</td>
+<td align="center">1</td>
+<td align="center">0 &#x3D; 14 *1 - 14</td>
+<td align="center">-14</td>
+</tr>
+<tr>
+<td align="center">11 &#x3D; 1* 6 + 5</td>
+<td align="center">1</td>
+<td align="center">5</td>
+<td align="center">0 &#x3D; 1 * 1 - 1</td>
+<td align="center">-1</td>
+<td align="center">1 &#x3D; 1 * (-14) + 15</td>
+<td align="center">15</td>
+</tr>
+<tr>
+<td align="center">6 &#x3D; 1 *5 + 1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1 &#x3D; 1 * (-1) + 2</td>
+<td align="center">2</td>
+<td align="center">-14&#x3D; 1 * 15 - 29</td>
+<td align="center">-29</td>
+</tr>
+<tr>
+<td align="center">5 &#x3D; 5* 1 + 0</td>
+<td align="center">5</td>
+<td align="center">0</td>
+<td align="center">-1 &#x3D; 5 * 2 - 11</td>
+<td align="center">11</td>
+<td align="center">15 &#x3D; 5 * (-29) + 130</td>
+<td align="center">130</td>
+</tr>
+</tbody></table>
+<p>可得 <code>gcd(160,11) = 1 = 2 * 160 + (-29) * 11 = 320 - 319</code>,<br>所以2是160关于11的模乘逆元, 131 &#x3D; -29 + 160是11关于160的模乘逆元, 因为-29为负数需要加上模变成正数</p>
 <h3 id="欧拉定理"><a href="#欧拉定理" class="headerlink" title="欧拉定理"></a>欧拉定理</h3><p>在数论中，欧拉定理（也称费马-欧拉定理或欧拉phi函数定理）是一个关于同余的性质。欧拉定理表明，若n,a为正整数，且n,a互素（即gcd(a,n)&#x3D;1），则<br><em><strong>a^phi(n) &#x3D; 1 (mod n)</strong></em><br>即 a^phi(n)与1在模n下同余。欧拉定理得名于瑞士数学家莱昂哈德·欧拉。  </p>
 <blockquote>
 <p>gcd: greatest common divisor(最大公约数)</p>
