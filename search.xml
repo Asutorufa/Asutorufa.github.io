@@ -769,6 +769,7 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">visudo</span><br><span class="line">    #找到这样的一行,把前面的#去掉:</span><br><span class="line">    #%wheel ALL=(ALL) ALL</span><br><span class="line">按ESC键，输入x!回车就可以保存并退出</span><br></pre></td></tr></table></figure>
 
 <hr>
+<p>关闭NetworkManager网络检查(ping.archlinux.org有时候会被墙-_-)<br><a href="https://wiki.archlinux.org/title/NetworkManager#Checking_connectivity" target="_blank" rel="noopener">NetworkManager#Checking_connectivity</a>  </p>
 <p>启用dhcp自动获取网络地址,不然开机无法自动联网</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable dhcpcd.service</span><br></pre></td></tr></table></figure>
 
