@@ -32,14 +32,11 @@ script:
 
 # 设置 git push 别名，邮箱。替换真实 token 到 _config.yml 文件中，然后 deploy 部署
 after_script:
-  - git config user.name "Asutorufa"
-  - git config user.email "16442314+Asutorufa@users.noreply.github.com"
-  - git clone https://github.com/Asutorufa/Asutorufa.github.io.git .deploy_git # 解决 commit 清空问题
-  - cd .deploy_git
-  - git checkout master
-  - cd ../
+  # - git clone https://github.com/Asutorufa/Asutorufa.github.io.git .deploy_git # 解决 commit 清空问题
+  # - cd .deploy_git
+  # - git checkout master
+  # - cd ../
   # 替换同目录下的_config.yml文件中gh_token字符串为travis后台刚才配置的变量，注意此处sed命令用了双引号。单引号无效！
-  - sed -i "s/gh_token/${GIT_REPO_TOKEN}/g" ./_config.yml # 这里的 GH_TOKEN 名字要和网页中定义的别名一致
-  #- cat ./_config.yml
-  - npx hexo deploy
+  # - sed -i "s/gh_token/${GIT_REPO_TOKEN}/g" ./_config.yml # 这里的 GH_TOKEN 名字要和网页中定义的别名一致
+  # - npx hexo deploy
 # E: Build LifeCycle 
