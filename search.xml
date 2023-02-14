@@ -10,6 +10,59 @@
       </categories>
   </entry>
   <entry>
+    <title>DNS over HTTPS</title>
+    <url>/posts/4b39445f/</url>
+    <content><![CDATA[<p>这个DNS系列现在有以下几篇文章<br><a href="/posts/f05986bf/">DNS</a>  <a href="/posts/668530ca/">EDNS</a> <a href="/posts/1751943e/">DNSSEC</a> <a href="/posts/4b39445f/">DNS over HTTPS</a> 完整代码请看<a href="https://github.com/Asutorufa/yuhaiin/tree/master/net/dns" target="_blank" rel="noopener">DNS</a></p>
+<hr>
+<p>DOH就比较简单了,因为DOH使用的请求数据和应答数据均为之前的DNS协议格式,包括DNS,EDNS,DNSSEC…当然是否支持EDNS,DNSSEC需要看DNS服务器的支持情况<br>DOH的最主要的区别是把DNS使用的UDP,换成了HTTPS,这样就能防止DNS污染了,而且可以使用DNSSEC加上ESNI来防止证书劫持,DOH的协议在<a href="https://tools.ietf.org/html/rfc8484" target="_blank" rel="noopener">rfc8484</a>中有定义<br>DOH主要有两种方式HTTP的GET请求和POST的请求</p>
+<h2 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h2><p>GET请求需要使用BASE64对请求的字节数据进行序列化,然后作为参数传递,获取到的数据使用我们之前的解析进行解析就行了</p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">get</span><span class="params">(dReq []<span class="keyword">byte</span>, server <span class="keyword">string</span>)</span> <span class="params">(body []<span class="keyword">byte</span>, err error)</span></span> &#123;</span><br><span class="line">    query := strings.Replace(base64.URLEncoding.EncodeToString(dReq), <span class="string">"="</span>, <span class="string">""</span>, <span class="number">-1</span>)</span><br><span class="line">    urls := <span class="string">"https://"</span> + server + <span class="string">"/dns-query?dns="</span> + query</span><br><span class="line">    res, err := http.Get(urls)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> res.Body.Close()</span><br><span class="line">    body, err = ioutil.ReadAll(res.Body)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h2><p>POST并不需要进行序列化,直接把原始请求数据作为body就行了</p>
+<a id="more"></a>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">post</span><span class="params">(dReq []<span class="keyword">byte</span>, server <span class="keyword">string</span>)</span> <span class="params">(body []<span class="keyword">byte</span>, err error)</span></span> &#123;</span><br><span class="line">    client := &amp;http.Client&#123;Timeout: <span class="number">5</span> * time.Second&#125;</span><br><span class="line">    req, err := http.NewRequest(http.MethodPost, <span class="string">""</span>, bytes.NewReader(dReq))</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(<span class="string">"DOH:post() newReq -&gt; %v"</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    urls, err := url.Parse(<span class="string">"//"</span> + server)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(<span class="string">"DOH:post() urlParse -&gt; %v"</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    req.URL.Scheme = <span class="string">"https"</span></span><br><span class="line">    req.URL.Host = urls.Host</span><br><span class="line">    req.URL.Path = urls.Path + <span class="string">"/dns-query"</span></span><br><span class="line">    req.Header.Set(<span class="string">"accept"</span>, <span class="string">"application/dns-message"</span>)</span><br><span class="line">    req.Header.Set(<span class="string">"content-type"</span>, <span class="string">"application/dns-message"</span>)</span><br><span class="line">    req.ContentLength = <span class="keyword">int64</span>(<span class="built_in">len</span>(dReq))</span><br><span class="line"></span><br><span class="line">    resp, err := client.Do(req)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(<span class="string">"DOH:post() req -&gt; %v"</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> resp.Body.Close()</span><br><span class="line">    body, err = ioutil.ReadAll(resp.Body)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(<span class="string">"DOH:post() readBody -&gt; %v"</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完整代码请看开头</p>
+<hr>
+<blockquote>
+<p><a href="https://tools.ietf.org/html/rfc8484" target="_blank" rel="noopener">rfc8484</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>DNS</tag>
+        <tag>DOH</tag>
+        <tag>golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>DNSSEC</title>
+    <url>/posts/1751943e/</url>
+    <content><![CDATA[<p>这个DNS系列现在有以下几篇文章<br><a href="/posts/f05986bf/">DNS</a>  <a href="/posts/668530ca/">EDNS</a> <a href="/posts/1751943e/">DNSSEC</a> <a href="/posts/4b39445f/">DNS over HTTPS</a> 完整代码请看<a href="https://github.com/Asutorufa/yuhaiin/tree/master/net/dns" target="_blank" rel="noopener">DNS</a></p>
+<hr>
+<p>注意: 这里我只完成了请求字段,主要原因是因为我学习这些DNS协议是为了找到防止DNS污染的方法,而DNSSEC并不能,而且应答头比较复杂,可能还要了解ssl和tls的知识,所以这里我没有完成代码,想了解的请看<a href="https://tools.ietf.org/html/rfc3225" target="_blank" rel="noopener">protocol change</a> <a href="https://tools.ietf.org/html/rfc4034" target="_blank" rel="noopener">rfc4034</a> <a href="https://tools.ietf.org/html/rfc4035" target="_blank" rel="noopener">rfc4035</a> <a href="https://tools.ietf.org/html/rfc4034#appendix-A.1" target="_blank" rel="noopener">Algorithm</a>  </p>
+<p>DNSSEC也是使用了EDNS,而且只需要改一个字段,就是之前提到Z,具体协议请看</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="code">          +0 (MSB)                +1 (LSB)</span></span><br><span class="line">   +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+</span><br><span class="line">0: |   EXTENDED-RCODE      |       VERSION         |</span><br><span class="line">   +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+</span><br><span class="line">2: |DO|                    Z                       |</span><br><span class="line">   +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+</span><br></pre></td></tr></table></figure>
+
+<p>完成请求头</p>
+<a id="more"></a>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> eDNSHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">    DnsHeader   []<span class="keyword">byte</span></span><br><span class="line">    Name        [<span class="number">1</span>]<span class="keyword">byte</span></span><br><span class="line">    Type        [<span class="number">2</span>]<span class="keyword">byte</span></span><br><span class="line">    PayloadSize [<span class="number">2</span>]<span class="keyword">byte</span></span><br><span class="line">    ExtendRCode [<span class="number">1</span>]<span class="keyword">byte</span></span><br><span class="line">    EDNSVersion [<span class="number">1</span>]<span class="keyword">byte</span></span><br><span class="line">    Z           [<span class="number">2</span>]<span class="keyword">byte</span></span><br><span class="line">    Data        []<span class="keyword">byte</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">createDNSSEC</span><span class="params">(domain <span class="keyword">string</span>, reqType2 reqType)</span> <span class="params">(header eDNSHeader, b []<span class="keyword">byte</span>)</span></span> &#123;</span><br><span class="line">    <span class="comment">//eDNSHeader := createEDNSReq(domain,reqType2,[]byte&#123;&#125;)</span></span><br><span class="line">    header = eDNSHeader&#123;&#125;</span><br><span class="line">    header.DnsHeader = creatRequest(domain, reqType2)</span><br><span class="line">    header.Name[<span class="number">0</span>] = <span class="number">0</span>b0</span><br><span class="line">    header.Type = [<span class="number">2</span>]<span class="keyword">byte</span>&#123;<span class="number">0</span>b00000000, <span class="number">0</span>b00101001&#125;</span><br><span class="line">    header.PayloadSize = [<span class="number">2</span>]<span class="keyword">byte</span>&#123;<span class="number">0</span>b00010000, <span class="number">0</span>b00000000&#125; <span class="comment">//4096</span></span><br><span class="line">    header.ExtendRCode = [<span class="number">1</span>]<span class="keyword">byte</span>&#123;<span class="number">0</span>b00000000&#125;</span><br><span class="line">    header.EDNSVersion = [<span class="number">1</span>]<span class="keyword">byte</span>&#123;<span class="number">0</span>b00000000&#125;</span><br><span class="line">    header.Z = [<span class="number">2</span>]<span class="keyword">byte</span>&#123;<span class="number">0</span>b10000000, <span class="number">0</span>b00000000&#125; <span class="comment">// Do bit = 1</span></span><br><span class="line">    <span class="keyword">return</span> header, createEDNSRequ(header)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>是不是很简单,再结合之前的EDNS就能完成完整的请求</p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>DNS</tag>
+        <tag>golang</tag>
+        <tag>UDP</tag>
+        <tag>DNSSEC</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CIDR匹配 域名匹配</title>
     <url>/posts/3cb4313e/</url>
     <content><![CDATA[<p>所有完整实现代码:<a href="https://github.com/Asutorufa/yuhaiin/tree/master/net/match" target="_blank" rel="noopener">match</a></p>
@@ -39,61 +92,8 @@
         <category>Network</category>
       </categories>
       <tags>
+        <tag>golang</tag>
         <tag>CIDR</tag>
-        <tag>golang</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>DNS over HTTPS</title>
-    <url>/posts/4b39445f/</url>
-    <content><![CDATA[<p>这个DNS系列现在有以下几篇文章<br><a href="/posts/f05986bf/">DNS</a>  <a href="/posts/668530ca/">EDNS</a> <a href="/posts/1751943e/">DNSSEC</a> <a href="/posts/4b39445f/">DNS over HTTPS</a> 完整代码请看<a href="https://github.com/Asutorufa/yuhaiin/tree/master/net/dns" target="_blank" rel="noopener">DNS</a></p>
-<hr>
-<p>DOH就比较简单了,因为DOH使用的请求数据和应答数据均为之前的DNS协议格式,包括DNS,EDNS,DNSSEC…当然是否支持EDNS,DNSSEC需要看DNS服务器的支持情况<br>DOH的最主要的区别是把DNS使用的UDP,换成了HTTPS,这样就能防止DNS污染了,而且可以使用DNSSEC加上ESNI来防止证书劫持,DOH的协议在<a href="https://tools.ietf.org/html/rfc8484" target="_blank" rel="noopener">rfc8484</a>中有定义<br>DOH主要有两种方式HTTP的GET请求和POST的请求</p>
-<h2 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h2><p>GET请求需要使用BASE64对请求的字节数据进行序列化,然后作为参数传递,获取到的数据使用我们之前的解析进行解析就行了</p>
-<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">get</span><span class="params">(dReq []<span class="keyword">byte</span>, server <span class="keyword">string</span>)</span> <span class="params">(body []<span class="keyword">byte</span>, err error)</span></span> &#123;</span><br><span class="line">    query := strings.Replace(base64.URLEncoding.EncodeToString(dReq), <span class="string">"="</span>, <span class="string">""</span>, <span class="number">-1</span>)</span><br><span class="line">    urls := <span class="string">"https://"</span> + server + <span class="string">"/dns-query?dns="</span> + query</span><br><span class="line">    res, err := http.Get(urls)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> res.Body.Close()</span><br><span class="line">    body, err = ioutil.ReadAll(res.Body)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h2><p>POST并不需要进行序列化,直接把原始请求数据作为body就行了</p>
-<a id="more"></a>
-<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">post</span><span class="params">(dReq []<span class="keyword">byte</span>, server <span class="keyword">string</span>)</span> <span class="params">(body []<span class="keyword">byte</span>, err error)</span></span> &#123;</span><br><span class="line">    client := &amp;http.Client&#123;Timeout: <span class="number">5</span> * time.Second&#125;</span><br><span class="line">    req, err := http.NewRequest(http.MethodPost, <span class="string">""</span>, bytes.NewReader(dReq))</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(<span class="string">"DOH:post() newReq -&gt; %v"</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    urls, err := url.Parse(<span class="string">"//"</span> + server)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(<span class="string">"DOH:post() urlParse -&gt; %v"</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    req.URL.Scheme = <span class="string">"https"</span></span><br><span class="line">    req.URL.Host = urls.Host</span><br><span class="line">    req.URL.Path = urls.Path + <span class="string">"/dns-query"</span></span><br><span class="line">    req.Header.Set(<span class="string">"accept"</span>, <span class="string">"application/dns-message"</span>)</span><br><span class="line">    req.Header.Set(<span class="string">"content-type"</span>, <span class="string">"application/dns-message"</span>)</span><br><span class="line">    req.ContentLength = <span class="keyword">int64</span>(<span class="built_in">len</span>(dReq))</span><br><span class="line"></span><br><span class="line">    resp, err := client.Do(req)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(<span class="string">"DOH:post() req -&gt; %v"</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> resp.Body.Close()</span><br><span class="line">    body, err = ioutil.ReadAll(resp.Body)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(<span class="string">"DOH:post() readBody -&gt; %v"</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>完整代码请看开头</p>
-<hr>
-<blockquote>
-<p><a href="https://tools.ietf.org/html/rfc8484" target="_blank" rel="noopener">rfc8484</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>golang</tag>
-        <tag>DNS</tag>
-        <tag>DOH</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>DNSSEC</title>
-    <url>/posts/1751943e/</url>
-    <content><![CDATA[<p>这个DNS系列现在有以下几篇文章<br><a href="/posts/f05986bf/">DNS</a>  <a href="/posts/668530ca/">EDNS</a> <a href="/posts/1751943e/">DNSSEC</a> <a href="/posts/4b39445f/">DNS over HTTPS</a> 完整代码请看<a href="https://github.com/Asutorufa/yuhaiin/tree/master/net/dns" target="_blank" rel="noopener">DNS</a></p>
-<hr>
-<p>注意: 这里我只完成了请求字段,主要原因是因为我学习这些DNS协议是为了找到防止DNS污染的方法,而DNSSEC并不能,而且应答头比较复杂,可能还要了解ssl和tls的知识,所以这里我没有完成代码,想了解的请看<a href="https://tools.ietf.org/html/rfc3225" target="_blank" rel="noopener">protocol change</a> <a href="https://tools.ietf.org/html/rfc4034" target="_blank" rel="noopener">rfc4034</a> <a href="https://tools.ietf.org/html/rfc4035" target="_blank" rel="noopener">rfc4035</a> <a href="https://tools.ietf.org/html/rfc4034#appendix-A.1" target="_blank" rel="noopener">Algorithm</a>  </p>
-<p>DNSSEC也是使用了EDNS,而且只需要改一个字段,就是之前提到Z,具体协议请看</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="code">          +0 (MSB)                +1 (LSB)</span></span><br><span class="line">   +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+</span><br><span class="line">0: |   EXTENDED-RCODE      |       VERSION         |</span><br><span class="line">   +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+</span><br><span class="line">2: |DO|                    Z                       |</span><br><span class="line">   +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+</span><br></pre></td></tr></table></figure>
-
-<p>完成请求头</p>
-<a id="more"></a>
-<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> eDNSHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">    DnsHeader   []<span class="keyword">byte</span></span><br><span class="line">    Name        [<span class="number">1</span>]<span class="keyword">byte</span></span><br><span class="line">    Type        [<span class="number">2</span>]<span class="keyword">byte</span></span><br><span class="line">    PayloadSize [<span class="number">2</span>]<span class="keyword">byte</span></span><br><span class="line">    ExtendRCode [<span class="number">1</span>]<span class="keyword">byte</span></span><br><span class="line">    EDNSVersion [<span class="number">1</span>]<span class="keyword">byte</span></span><br><span class="line">    Z           [<span class="number">2</span>]<span class="keyword">byte</span></span><br><span class="line">    Data        []<span class="keyword">byte</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">createDNSSEC</span><span class="params">(domain <span class="keyword">string</span>, reqType2 reqType)</span> <span class="params">(header eDNSHeader, b []<span class="keyword">byte</span>)</span></span> &#123;</span><br><span class="line">    <span class="comment">//eDNSHeader := createEDNSReq(domain,reqType2,[]byte&#123;&#125;)</span></span><br><span class="line">    header = eDNSHeader&#123;&#125;</span><br><span class="line">    header.DnsHeader = creatRequest(domain, reqType2)</span><br><span class="line">    header.Name[<span class="number">0</span>] = <span class="number">0</span>b0</span><br><span class="line">    header.Type = [<span class="number">2</span>]<span class="keyword">byte</span>&#123;<span class="number">0</span>b00000000, <span class="number">0</span>b00101001&#125;</span><br><span class="line">    header.PayloadSize = [<span class="number">2</span>]<span class="keyword">byte</span>&#123;<span class="number">0</span>b00010000, <span class="number">0</span>b00000000&#125; <span class="comment">//4096</span></span><br><span class="line">    header.ExtendRCode = [<span class="number">1</span>]<span class="keyword">byte</span>&#123;<span class="number">0</span>b00000000&#125;</span><br><span class="line">    header.EDNSVersion = [<span class="number">1</span>]<span class="keyword">byte</span>&#123;<span class="number">0</span>b00000000&#125;</span><br><span class="line">    header.Z = [<span class="number">2</span>]<span class="keyword">byte</span>&#123;<span class="number">0</span>b10000000, <span class="number">0</span>b00000000&#125; <span class="comment">// Do bit = 1</span></span><br><span class="line">    <span class="keyword">return</span> header, createEDNSRequ(header)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>是不是很简单,再结合之前的EDNS就能完成完整的请求</p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>golang</tag>
-        <tag>DNS</tag>
-        <tag>UDP</tag>
-        <tag>DNSSEC</tag>
       </tags>
   </entry>
   <entry>
@@ -178,8 +178,8 @@
         <category>Network</category>
       </categories>
       <tags>
-        <tag>golang</tag>
         <tag>DNS</tag>
+        <tag>golang</tag>
         <tag>UDP</tag>
       </tags>
   </entry>
@@ -233,8 +233,8 @@
         <category>Network</category>
       </categories>
       <tags>
-        <tag>golang</tag>
         <tag>DNS</tag>
+        <tag>golang</tag>
         <tag>UDP</tag>
         <tag>EDNS</tag>
       </tags>
@@ -426,6 +426,49 @@
 <blockquote>
 <p><a href="https://zh.wikipedia.org/wiki/STUN" target="_blank" rel="noopener">STUN</a><br><a href="https://zh.wikipedia.org/wiki/TURN" target="_blank" rel="noopener">TURN</a><br><a href="https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2" target="_blank" rel="noopener">网络地址转换</a><br><a href="https://blog.csdn.net/ustcgy/article/details/5655050" target="_blank" rel="noopener">NAT与NAT穿透(二)</a><br><a href="https://zhuanlan.zhihu.com/p/40816201" target="_blank" rel="noopener">简单解释 P2P 技术之 UDP 打洞</a><br><a href="http://www.52im.net/thread-50-1-1.html" target="_blank" rel="noopener">P2P技术详解(一)：NAT详解——详细原理、P2P简介</a>  </p>
 </blockquote>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>UDP</tag>
+        <tag>NAT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NAT类型</title>
+    <url>/posts/14e0ef9e/</url>
+    <content><![CDATA[<h2 id="NAT-Mapping"><a href="#NAT-Mapping" class="headerlink" title="NAT Mapping"></a>NAT Mapping</h2><p>描述NAT在映射网络内主机地址的行为</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">computer(192.168.100.2:30086) -&gt; NAT -&gt; 1.1.1.1:2345</span><br></pre></td></tr></table></figure>
+
+<p>Endpoint-Independent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向不同地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086</span><br><span class="line"></span><br><span class="line">此时主机向 1.0.0.1:53 发送udp包,</span><br><span class="line"><span class="code">             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包</span></span><br><span class="line">主机又向   1.0.0.1:63 发送udp包,</span><br><span class="line"><span class="code">             NAT也使用 1.1.1.1:2345 向 1.0.0.1:63 发包</span></span><br><span class="line">主机又向   8.8.8.8:53 发送udp包,</span><br><span class="line"><span class="code">             NAT也使用 1.1.1.1:2345 向 8.8.8.8:53 发包</span></span><br><span class="line"></span><br><span class="line">这种无论目标地址和端口是什么都使用同一地址进行发包的NAT行为就是 Endpoint-Independent Mapping,</span><br><span class="line">跟没有NAT一样</span><br></pre></td></tr></table></figure>
+
+<p>Address-Dependent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向同一地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086</span><br><span class="line"></span><br><span class="line">此时主机向 1.0.0.1:53 发送udp包,</span><br><span class="line"><span class="code">             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包</span></span><br><span class="line">主机又向   1.0.0.1:63 发送udp包,</span><br><span class="line"><span class="code">             NAT也将使用 1.1.1.1:2345 向 1.0.0.1:63 发包</span></span><br><span class="line">主机又向   8.8.8.8:53 发送udp包,</span><br><span class="line"><span class="code">             此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包</span></span><br><span class="line"></span><br><span class="line">这种依赖目标地址但不依赖端口的NAT映射行为就是 Address-Dependent Mapping</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p>Address and Port-Dependent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向同一地址和同一端口发包时, NAT使用同一映射地址向外发包</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086</span><br><span class="line"></span><br><span class="line">此时主机向 1.0.0.1:53 发送udp包, </span><br><span class="line"><span class="code">            NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包</span></span><br><span class="line">主机又向   1.0.0.1:63 发送udp包,</span><br><span class="line"><span class="code">            NAT将使用一新映射地址 1.1.1.1:3789 向 1.0.0.1:63 发包</span></span><br><span class="line">主机又向   8.8.8.8:53 发送udp包,</span><br><span class="line"><span class="code">           此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包</span></span><br><span class="line">主机又向 1.0.0.1:53 发送udp包,</span><br><span class="line"><span class="code">            NAT使用相同地址 1.1.1.1:2345 向 1.0.0.1:53 发包</span></span><br><span class="line"></span><br><span class="line">这种同时依赖目标地址和端口的NAT映射行为就是 Address and Port-Dependent Mapping,</span><br><span class="line">这种NAT类型是没有办法进行NAT穿透的</span><br></pre></td></tr></table></figure>
+
+<h2 id="NAT-Filtering"><a href="#NAT-Filtering" class="headerlink" title="NAT Filtering"></a>NAT Filtering</h2><p>描述当NAT为网络内主机映射一地址后，互联网内主机向映射地址发送数据时，将允许哪些地址通过的行为</p>
+<p>Endpoint-Independent Filtering</p>
+<p>A NAT device employing the combination of “Endpoint-Independent<br>  Mapping” and “Endpoint-Independent Filtering” will accept incoming<br>  traffic to a mapped public port from ANY external endpoint on the<br>  public network.</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345</span><br><span class="line"></span><br><span class="line">无论外部任何地址和端口的主机向1.1.1.1:2345发包, NAT都将会将其转发到 192.168.100.2:30086</span><br></pre></td></tr></table></figure>
+
+<p>Address-Dependent Filtering<br>for receiving packets from a specific external endpoint, it is necessary for the internal endpoint to<br>  send packets first to that specific external endpoint’s IP address.</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345</span><br><span class="line"></span><br><span class="line">如果需要NAT将外部数据包转发到主机上,</span><br><span class="line">必须先由主机向某一地址发包, </span><br><span class="line">NAT都会将收到的同一地址(所有端口)的数据包转发到主机上</span><br></pre></td></tr></table></figure>
+
+<p>Address and Port-Dependent Filtering</p>
+<p>for receiving  packets from a specific external endpoint, it is necessary for<br>  the internal endpoint to send packets first to that external endpoint’s IP address and port.</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345</span><br><span class="line"></span><br><span class="line">如果需要NAT将外部数据包转发到主机上</span><br><span class="line">必须先由主机向某一地址和某一端口发包</span><br><span class="line">NAT都会将收到的同一地址和同一端口的数据包转发到主机上</span><br><span class="line"></span><br><span class="line">这种NAT类型是没发进行NAT穿透的</span><br></pre></td></tr></table></figure>
+
+<h2 id="NAT穿透"><a href="#NAT穿透" class="headerlink" title="NAT穿透"></a>NAT穿透</h2><p>是否可以进行NAT穿透, 同时依赖NAT Mapping和NAT Filtering</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">Mapping和Filtering都为Endpoint-Independent Mapping,</span><br><span class="line"><span class="code">         这种是百分之百可以进行穿透</span></span><br><span class="line">Mapping为Endpoint-Independent Mapping, Filtering为Address and Port-Dependent Filtering,</span><br><span class="line"><span class="code">         这种也是可以进行穿透的</span></span><br><span class="line">但如果Mapping和Filtering都为Address and Port-Dependent Filtering,</span><br><span class="line"><span class="code">         这种是必不可能穿透</span></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>Network</category>
