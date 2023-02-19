@@ -1,5 +1,16 @@
 {% if page.comments %}
 
+
+<ins class="adsbygoogle"
+     style="display:block;margin: 12px 0 12px 0;"
+     data-ad-format="fluid"
+     data-ad-layout-key="-h2+d+5c-9-3e"
+     data-ad-client="ca-pub-8681435945442113"
+     data-ad-slot="8241328770"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
   {% if (theme.duoshuo and theme.duoshuo.shortname) or theme.duoshuo_shortname %}
     <div class="comments" id="comments">
       <div class="ds-thread" data-thread-key="{{ page.path }}"

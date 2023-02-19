@@ -11,6 +11,7 @@
     {% if theme.sidebar.onmobile %}
       <div id="sidebar-dimmer"></div>
     {% endif %}
+
     <div class="sidebar-inner">
 
 
@@ -136,7 +137,6 @@
             </div>
           {% endif %}
 
-          {% include '../_custom/sidebar.swig' %}
         </div>
       </section>
 
@@ -162,6 +162,9 @@
       <!--/noindex-->
       {% endif %}
 
+
+      {% include '../_custom/sidebar.swig' %}
+
       {% if theme.sidebar.b2t %}
         <div class="back-to-top">
           <i class="fa fa-arrow-up"></i>
@@ -171,7 +174,12 @@
         </div>
       {% endif %}
 
+
+
     <div class="for-blur"></div>
+
     </div>
+
+
   </aside>
 {% endmacro %}
