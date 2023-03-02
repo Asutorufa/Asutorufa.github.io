@@ -44,6 +44,32 @@
       </tags>
   </entry>
   <entry>
+    <title>CRI 容器运行时接口</title>
+    <url>/posts/8144a111/</url>
+    <content><![CDATA[<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">+----------------+       +-----------------+</span><br><span class="line">|  kubelet       |       |   CRI shim      |</span><br><span class="line">| +-----------+  |       |  +-----------+  |      +-----------+</span><br><span class="line">| |grpc client|&lt;-|-------|-&gt;|grpc server|  |&lt;----&gt;| container |</span><br><span class="line">| +-----------+  |       |  +-----------+  |      |  runtime  |</span><br><span class="line">+----------------+       +-----------------+      +-----------+</span><br></pre></td></tr></table></figure>
+
+<h2 id="CRI-shim"><a href="#CRI-shim" class="headerlink" title="CRI shim"></a>CRI shim</h2><ul>
+<li>cri-o</li>
+<li>cri-containerd</li>
+<li>rkt</li>
+<li>frakti</li>
+<li>docker (cri-dockerd)</li>
+</ul>
+<h2 id="container-runtime"><a href="#container-runtime" class="headerlink" title="container runtime"></a>container runtime</h2><ul>
+<li>gvisor</li>
+<li>kata containers</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>Kubernetes</tag>
+        <tag>CRI</tag>
+        <tag>container</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>DNS over HTTPS</title>
     <url>/posts/4b39445f/</url>
     <content><![CDATA[<p>这个DNS系列现在有以下几篇文章<br><a href="/posts/f05986bf/">DNS</a>  <a href="/posts/668530ca/">EDNS</a> <a href="/posts/1751943e/">DNSSEC</a> <a href="/posts/4b39445f/">DNS over HTTPS</a> 完整代码请看<a href="https://github.com/Asutorufa/yuhaiin/tree/master/net/dns" target="_blank" rel="noopener">DNS</a></p>
