@@ -2,6 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://asutorufa.github.io/about/index.html</loc>
+    
+    <lastmod>2023-09-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/archives/index.html</loc>
+    
+    <lastmod>2023-09-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/categories/index.html</loc>
+    
+    <lastmod>2023-09-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/email/index.html</loc>
+    
+    <lastmod>2023-09-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://asutorufa.github.io/friends/index.html</loc>
     
     <lastmod>2023-09-23</lastmod>
@@ -21,42 +57,6 @@
   
   <url>
     <loc>https://asutorufa.github.io/tags/index.html</loc>
-    
-    <lastmod>2023-09-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.github.io/about/index.html</loc>
-    
-    <lastmod>2023-09-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.github.io/archives/index.html</loc>
-    
-    <lastmod>2023-09-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.github.io/email/index.html</loc>
-    
-    <lastmod>2023-09-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.github.io/categories/index.html</loc>
     
     <lastmod>2023-09-23</lastmod>
     
