@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>2021-03-20 01:25AM</title>
-    <url>/posts/d67c4794/</url>
-    <content><![CDATA[<p>2021-03-20 01:25AM<a id="more"></a><br>第一次出来实习, 住的房子是同事转租给我的, 本来说是去出差, 但是没过几天就辞职了, 走的时候帮我出了500块房租, 还留了不少东西, 我还白住了半个多月没出钱, 我可以说是相当幸运, 第一次出来找工作就有不少人照顾我.<br>刚过来的时候刚好有个学长在这边, 挺照顾我的, 帮了我不少, 还给了我一些东西.<br>因为一直在学校食堂吃饭, 没怎么关注过学校食堂以外的饭馆的价格, 看到外面饭店里菜的价格, 真的是难以接受, 都是15块起步, 吃饱至少得20多, 跟学校里不到10块就能吃饱相比真的是差的很多, 而且自己还要交房租, 一开始我真的很担心实习的工资可能会导致我连饭都吃不起.<br>所以刚开始我都是能省一点就省一点, 除了中午饭, 都是自己在做, 10块钱买的菜可以吃很久, 不过过了一段时间之后就没那么担心了, 可能是因为渐渐对周围熟悉起来了, 也不太担心钱不够花的问题了, 因为在大学就想着省钱, 平时也不买水果啥的, 到了大三,大四得了一些生活习惯病, 飞蚊症,鼻炎,耳鸣… 都是些没法治的病, 刚开始还去医院花了不少钱, 到最后还没治好, 所以现在都是尽量吃的健康, 水果再贵我也要买一些吃.<br>因为大学的时候有了耳鸣, 虽然耳鸣的声音不是很大, 但是我对声音真的很敏感, 一有点声音就会醒的那种, 之前还敢睡觉的时候戴戴耳机, 自从得了耳鸣之后耳机也不敢多戴了, 一直想买一个sony的XM3, 但是好不容易攒的钱, 总是会因为各种原因花掉, 比如因为考试要回学校买机票了(因为现在机票比高铁便宜很多,所以还是买机票了), 而且学校本来给找工作同学发的助学金也发给考研的人了, 可能这就是国情吧, 贫苦生永远拿不到助学金, 拿到助学金的人全去买一双两三千的鞋了, 这正常吗?<br>刚来的时候, 我对面最大那个房间住着一家三口, 小孩还很小, 有时候会哭, 不过一般不到5分钟就不哭了, 感觉还好没那么吵. 现在对面换成一对情侣了, 真的很吵, 一直说话, 半夜12点1点不睡覺还在大笑, 还好签的合同就剩两个月了, 自己也买了新的隔音耳塞, 只能先坚持坚持了, 合同到期我一定要换一个好一点的房子, 贵点也行, 只要隔音比较好.<br>楼上还有一个敲架子鼓的, 这是我没想到的, 居民楼里敲架子鼓, 小区周围的环境也很差, 每天都有装修的, 要不是初来乍到, 我一定不会选择这里的.<br>来到这边基本哪里都没去过, 一部分原因是没钱, 还有一部分原因是自己想干的事太多, 又想学日语, 又想维护自己写的开源项目, 还想看看关注的youtuber新出的视频, 周末对我来说完全不够用, 最近上班摸鱼都有在搞自己的开源项目, 虽然可能一个用的人都没有, 但是我还是想弄好一点, 至少自己用的舒服点.<br>公司的话还好, 虽然没有想象中那么好, 但是还能接受. 主要是管理比较乱, 没有代码规范, 有些代码也写的很有问题, 如果不再改改的, 我相信只会越来越影响效率, 不少地方代码写的很有问题, 整个项目的架构也不太对, 至少从我这个大学还没毕业的来看问题还是不少的. 我不太会说话, 有时候会惹人不高兴或是事后觉得自己说的不对, 对于技术相关的问题有时我真的很想反驳, 但现在都尽量忍住了, 不想让别人觉得我这个后辈很无礼. 有时确实没有共同话题, 比如我现在真的很讨厌bilibili, 对于我来说变味太严重, 但是反而是因为出圈太严重了, 用的人越来越多, 周围同事总是会说昨天我在bilibili上看了什么, 我也不好说什么, 因为我现在已经基本不用它了.<br>自己的话, 除了多了工作和做饭, 习惯基本没什么变化, 平时瞎搞搞电脑, 看看youtube,twitter, 在笔记本上记录一下最近新知道的日语单词, 写写代码.  </p>
-]]></content>
-      <categories>
-        <category>日常</category>
-      </categories>
-  </entry>
-  <entry>
     <title>CIDR匹配 域名匹配</title>
     <url>/posts/3cb4313e/</url>
     <content><![CDATA[<p>所有完整实现代码:<a href="https://github.com/Asutorufa/yuhaiin/tree/master/net/match" target="_blank" rel="noopener">match</a></p>
@@ -42,6 +33,15 @@
         <tag>CIDR</tag>
         <tag>golang</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>2021-03-20 01:25AM</title>
+    <url>/posts/d67c4794/</url>
+    <content><![CDATA[<p>2021-03-20 01:25AM<a id="more"></a><br>第一次出来实习, 住的房子是同事转租给我的, 本来说是去出差, 但是没过几天就辞职了, 走的时候帮我出了500块房租, 还留了不少东西, 我还白住了半个多月没出钱, 我可以说是相当幸运, 第一次出来找工作就有不少人照顾我.<br>刚过来的时候刚好有个学长在这边, 挺照顾我的, 帮了我不少, 还给了我一些东西.<br>因为一直在学校食堂吃饭, 没怎么关注过学校食堂以外的饭馆的价格, 看到外面饭店里菜的价格, 真的是难以接受, 都是15块起步, 吃饱至少得20多, 跟学校里不到10块就能吃饱相比真的是差的很多, 而且自己还要交房租, 一开始我真的很担心实习的工资可能会导致我连饭都吃不起.<br>所以刚开始我都是能省一点就省一点, 除了中午饭, 都是自己在做, 10块钱买的菜可以吃很久, 不过过了一段时间之后就没那么担心了, 可能是因为渐渐对周围熟悉起来了, 也不太担心钱不够花的问题了, 因为在大学就想着省钱, 平时也不买水果啥的, 到了大三,大四得了一些生活习惯病, 飞蚊症,鼻炎,耳鸣… 都是些没法治的病, 刚开始还去医院花了不少钱, 到最后还没治好, 所以现在都是尽量吃的健康, 水果再贵我也要买一些吃.<br>因为大学的时候有了耳鸣, 虽然耳鸣的声音不是很大, 但是我对声音真的很敏感, 一有点声音就会醒的那种, 之前还敢睡觉的时候戴戴耳机, 自从得了耳鸣之后耳机也不敢多戴了, 一直想买一个sony的XM3, 但是好不容易攒的钱, 总是会因为各种原因花掉, 比如因为考试要回学校买机票了(因为现在机票比高铁便宜很多,所以还是买机票了), 而且学校本来给找工作同学发的助学金也发给考研的人了, 可能这就是国情吧, 贫苦生永远拿不到助学金, 拿到助学金的人全去买一双两三千的鞋了, 这正常吗?<br>刚来的时候, 我对面最大那个房间住着一家三口, 小孩还很小, 有时候会哭, 不过一般不到5分钟就不哭了, 感觉还好没那么吵. 现在对面换成一对情侣了, 真的很吵, 一直说话, 半夜12点1点不睡覺还在大笑, 还好签的合同就剩两个月了, 自己也买了新的隔音耳塞, 只能先坚持坚持了, 合同到期我一定要换一个好一点的房子, 贵点也行, 只要隔音比较好.<br>楼上还有一个敲架子鼓的, 这是我没想到的, 居民楼里敲架子鼓, 小区周围的环境也很差, 每天都有装修的, 要不是初来乍到, 我一定不会选择这里的.<br>来到这边基本哪里都没去过, 一部分原因是没钱, 还有一部分原因是自己想干的事太多, 又想学日语, 又想维护自己写的开源项目, 还想看看关注的youtuber新出的视频, 周末对我来说完全不够用, 最近上班摸鱼都有在搞自己的开源项目, 虽然可能一个用的人都没有, 但是我还是想弄好一点, 至少自己用的舒服点.<br>公司的话还好, 虽然没有想象中那么好, 但是还能接受. 主要是管理比较乱, 没有代码规范, 有些代码也写的很有问题, 如果不再改改的, 我相信只会越来越影响效率, 不少地方代码写的很有问题, 整个项目的架构也不太对, 至少从我这个大学还没毕业的来看问题还是不少的. 我不太会说话, 有时候会惹人不高兴或是事后觉得自己说的不对, 对于技术相关的问题有时我真的很想反驳, 但现在都尽量忍住了, 不想让别人觉得我这个后辈很无礼. 有时确实没有共同话题, 比如我现在真的很讨厌bilibili, 对于我来说变味太严重, 但是反而是因为出圈太严重了, 用的人越来越多, 周围同事总是会说昨天我在bilibili上看了什么, 我也不好说什么, 因为我现在已经基本不用它了.<br>自己的话, 除了多了工作和做饭, 习惯基本没什么变化, 平时瞎搞搞电脑, 看看youtube,twitter, 在笔记本上记录一下最近新知道的日语单词, 写写代码.  </p>
+]]></content>
+      <categories>
+        <category>日常</category>
+      </categories>
   </entry>
   <entry>
     <title>CRI 容器运行时接口</title>
@@ -419,49 +419,6 @@
       </tags>
   </entry>
   <entry>
-    <title>NAT穿透</title>
-    <url>/posts/1124a628/</url>
-    <content><![CDATA[<h2 id="NAT-网络地址转换"><a href="#NAT-网络地址转换" class="headerlink" title="NAT 网络地址转换"></a>NAT 网络地址转换</h2><p>网络地址转换 NAT (Network Address Translation)  方法于1994年提出。<br>需要在专用网连接到互联网的路由器上安装 NAT 软件。装有 NAT 软件的路由器叫作 NAT路由器，它至少有一个有效的外部全球IP地址。<br>所有使用本地地址的主机在和外界通信时，都要在 NAT 路由器上将其本地地址转换成全球 IP 地址，才能和互联网连接。  </p>
-<h3 id="网络地址转换的过程"><a href="#网络地址转换的过程" class="headerlink" title="网络地址转换的过程"></a>网络地址转换的过程</h3><p>内部主机 A 用本地地址 IPA 和互联网上主机 B 通信所发送的数据报必须经过 NAT 路由器。<br>NAT 路由器将数据报的源地址 IPA 转换成全球地址 IPG，<strong>并把转换结果记录到NAT地址转换表中</strong>，目的地址 IPB 保持不变，然后发送到互联网。<br>NAT 路由器收到主机 B 发回的数据报时，知道数据报中的源地址是 IPB 而目的地址是 IPG。<br>根据 NAT 转换表，NAT 路由器将目的地址 IPG 转换为 IPA，转发给最终的内部主机 A。  </p>
-<p>网络地址转换表例子:</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">+-------------+---------------+</span><br><span class="line">| private IP  |   public IP   |</span><br><span class="line">+-------------+---------------+</span><br><span class="line">| 192.168.1.55|219.152.168.222|</span><br><span class="line">+-------------+---------------+</span><br><span class="line">| 192.168.1.59|219.152.168.223|</span><br><span class="line">+-------------+---------------+</span><br><span class="line">|192.168.1.155|219.152.168.224|</span><br><span class="line">+-------------+---------------+</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<h3 id="NAPT-网络地址与端口号转换"><a href="#NAPT-网络地址与端口号转换" class="headerlink" title="NAPT 网络地址与端口号转换"></a>NAPT 网络地址与端口号转换</h3><p>为了更加有效地利用 NAT 路由器上的全球IP地址，现在常用的 NAT 转换表把运输层的端口号也利用上。这样，就可以使多个拥有本地地址的主机，共用一个 NAT 路由器上的全球 IP 地址，因而可以同时和互联网上的不同主机进行通信。<br>使用端口号的 NAT 叫作网络地址与端口号转换NAPT (Network Address and Port Translation)，而不使用端口号的 NAT 就叫作传统的 NAT (traditional NAT)。  </p>
-<p>带端口的网络地址转换表例子:</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">+-----------------+--------------------+</span><br><span class="line">|   private IP    |     public IP      |</span><br><span class="line">+-----------------+--------------------+</span><br><span class="line">|192.168.1.55:5566|219.152.168.222:9200|</span><br><span class="line">+-----------------+--------------------+</span><br><span class="line">| 192.168.1.59:80 |219.152.168.222:9201|</span><br><span class="line">+-----------------+--------------------+</span><br><span class="line">|192.168.1.59:4465|219.152.168.222:9202|</span><br><span class="line">+-----------------+--------------------+</span><br></pre></td></tr></table></figure>
-
-<h3 id="不同类型的NAT"><a href="#不同类型的NAT" class="headerlink" title="不同类型的NAT"></a>不同类型的NAT</h3><p>来自Wikipedia  </p>
-<ul>
-<li>完全圆锥型NAT（Full cone NAT），即一对一（one-to-one）NAT<br>一旦一个内部地址（iAddr:port）映射到外部地址（eAddr:port），所有发自iAddr:port的包都经由eAddr:port向外发送。任意外部主机都能通过给eAddr:port发包到达iAddr:port（注：port不需要一样）  </li>
-<li>受限圆锥型NAT（Address-Restricted cone NAT）<br>内部客户端必须首先发送数据包到对方（IP&#x3D;X.X.X.X），然后才能接收来自X.X.X.X的数据包。在限制方面，唯一的要求是数据包是来自X.X.X.X。<br>内部地址（iAddr:port1）映射到外部地址（eAddr:port2），所有发自iAddr:port1的包都经由eAddr:port2向外发送。外部主机（hostAddr:any）能通过给eAddr:port2发包到达iAddr:port1。（注：any指外部主机源端口不受限制，但是目的端口必须是port2。只有外部主机数据包的目的IP 为 内部客户端的所映射的外部ip，且目的端口为port2时数据包才被放行。）  </li>
-<li>端口受限圆锥型NAT（Port-Restricted cone NAT）<br>类似受限制锥形NAT（Restricted cone NAT），但是还有端口限制。<br>一旦一个内部地址（iAddr:port1）映射到外部地址（eAddr:port2），所有发自iAddr:port1的包都经由eAddr:port2向外发送。<br>在受限圆锥型NAT基础上增加了外部主机源端口必须是固定的。  </li>
-<li>对称NAT（Symmetric NAT）<br>每一个来自相同内部IP与端口，到一个特定目的地地址和端口的请求，都映射到一个独特的外部IP地址和端口。<br>同一内部IP与端口发到不同的目的地和端口的信息包，都使用不同的映射<br>只有曾经收到过内部主机数据的外部主机，才能够把数据包发回</li>
-</ul>
-<h2 id="UDP打洞"><a href="#UDP打洞" class="headerlink" title="UDP打洞"></a>UDP打洞</h2><p>UDP打洞就是利用了NAT地址转换表.  </p>
-<h3 id="正常访问一台具有公网IP的主机"><a href="#正常访问一台具有公网IP的主机" class="headerlink" title="正常访问一台具有公网IP的主机"></a>正常访问一台具有公网IP的主机</h3><figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="code">      +-----+</span></span><br><span class="line">A &lt;-  | NAT |  -----Public INTERNET -&gt; B</span><br><span class="line"><span class="code">      +-----+</span></span><br></pre></td></tr></table></figure>
-
-<p>由主机A向主机B发起请求.<br>NAT将内网地址转换为公网地址,并存在NAT转换表中,这样NAT就知道了来自B的访问应该发给A.  </p>
-<h3 id="两台都在NAT中的主机建立连接"><a href="#两台都在NAT中的主机建立连接" class="headerlink" title="两台都在NAT中的主机建立连接"></a>两台都在NAT中的主机建立连接</h3><figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="code">      +-----+                              +-----+</span></span><br><span class="line">A &lt;-  |NATA |  ----- Public INTERNET ----- | NATB|  -&gt; B</span><br><span class="line"><span class="code">      +-----+                              +-----+</span></span><br></pre></td></tr></table></figure>
-
-<p>首先我们需要知道两台NAT的公网地址和主机A,B的端口.<br>假设NATA的公网地址为1.1.1.1,主机A的端口为1000,NATB的公网地址为1.0.0.1,主机B的端口为1001.<br>然后由A向1.0.0.1:1001发起UDP请求,这样NATA就会记住来自1.0.0.1:1001的请求应该发给A.<br>B也进行同样的操作向1.1.1.1:1000,发起UDP请求.<br>这样A和B就建立起了一条连接.</p>
-<p>为了知道主机A和主机B所在网络公网地址,我们需要有一台在公网中的主机来存储A和B的公网地址和端口.</p>
-<h3 id="STUN"><a href="#STUN" class="headerlink" title="STUN"></a>STUN</h3><p>STUN（Session Traversal Utilities for NAT，NAT会话穿越应用程序）是一种网络协议，它允许位于NAT（或多重NAT）后的客户端找出自己的公网地址，查出自己位于哪种类型的NAT之后以及NAT为某一个本地端口所绑定的Internet端端口。这些信息被用来在两个同时处于NAT路由器之后的主机之间创建UDP通信。该协议由<a href="https://tools.ietf.org/html/rfc5389" target="_blank" rel="noopener">RFC 5389</a>定义。  </p>
-<h3 id="TURN"><a href="#TURN" class="headerlink" title="TURN"></a>TURN</h3><p>TURN（全名Traversal Using Relay NAT），是一种数据传输协议（data-transfer protocol）。允许在TCP或UDP的连在线跨越NAT或防火墙。<br>TURN是一个client-server协议。TURN的NAT穿透方法与STUN类似，都是通过获取应用层中的公有地址达到NAT穿透。但实现TURN client的终端必须在通信开始前与TURN server进行交互，并要求TURN server产生”relay port”，也就是relayed-transport-address。这时TURN server会创建peer，即远程端点（remote endpoints），开始进行中继（relay）的动作，TURN client利用relay port将数据发送至peer，再由peer转传到另一方的TURN client。该协议由<a href="https://tools.ietf.org/html/rfc5766" target="_blank" rel="noopener">RFC 5766</a>定义。  </p>
-<hr>
-<blockquote>
-<p><a href="https://zh.wikipedia.org/wiki/STUN" target="_blank" rel="noopener">STUN</a><br><a href="https://zh.wikipedia.org/wiki/TURN" target="_blank" rel="noopener">TURN</a><br><a href="https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2" target="_blank" rel="noopener">网络地址转换</a><br><a href="https://blog.csdn.net/ustcgy/article/details/5655050" target="_blank" rel="noopener">NAT与NAT穿透(二)</a><br><a href="https://zhuanlan.zhihu.com/p/40816201" target="_blank" rel="noopener">简单解释 P2P 技术之 UDP 打洞</a><br><a href="http://www.52im.net/thread-50-1-1.html" target="_blank" rel="noopener">P2P技术详解(一)：NAT详解——详细原理、P2P简介</a>  </p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>UDP</tag>
-        <tag>NAT</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>NAT类型</title>
     <url>/posts/14e0ef9e/</url>
     <content><![CDATA[<h2 id="NAT-Mapping"><a href="#NAT-Mapping" class="headerlink" title="NAT Mapping"></a>NAT Mapping</h2><p>描述NAT在映射网络内主机地址的行为</p>
@@ -495,6 +452,49 @@
 <h2 id="NAT穿透"><a href="#NAT穿透" class="headerlink" title="NAT穿透"></a>NAT穿透</h2><p>是否可以进行NAT穿透, 同时依赖NAT Mapping和NAT Filtering</p>
 <figure class="highlight md"><table><tr><td class="code"><pre><span class="line">Mapping和Filtering都为Endpoint-Independent Mapping,</span><br><span class="line"><span class="code">         这种是百分之百可以进行穿透</span></span><br><span class="line">Mapping为Endpoint-Independent Mapping, Filtering为Address and Port-Dependent Filtering,</span><br><span class="line"><span class="code">         这种也是可以进行穿透的</span></span><br><span class="line">但如果Mapping和Filtering都为Address and Port-Dependent Filtering,</span><br><span class="line"><span class="code">         这种是必不可能穿透</span></span><br></pre></td></tr></table></figure>
 
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>UDP</tag>
+        <tag>NAT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NAT穿透</title>
+    <url>/posts/1124a628/</url>
+    <content><![CDATA[<h2 id="NAT-网络地址转换"><a href="#NAT-网络地址转换" class="headerlink" title="NAT 网络地址转换"></a>NAT 网络地址转换</h2><p>网络地址转换 NAT (Network Address Translation)  方法于1994年提出。<br>需要在专用网连接到互联网的路由器上安装 NAT 软件。装有 NAT 软件的路由器叫作 NAT路由器，它至少有一个有效的外部全球IP地址。<br>所有使用本地地址的主机在和外界通信时，都要在 NAT 路由器上将其本地地址转换成全球 IP 地址，才能和互联网连接。  </p>
+<h3 id="网络地址转换的过程"><a href="#网络地址转换的过程" class="headerlink" title="网络地址转换的过程"></a>网络地址转换的过程</h3><p>内部主机 A 用本地地址 IPA 和互联网上主机 B 通信所发送的数据报必须经过 NAT 路由器。<br>NAT 路由器将数据报的源地址 IPA 转换成全球地址 IPG，<strong>并把转换结果记录到NAT地址转换表中</strong>，目的地址 IPB 保持不变，然后发送到互联网。<br>NAT 路由器收到主机 B 发回的数据报时，知道数据报中的源地址是 IPB 而目的地址是 IPG。<br>根据 NAT 转换表，NAT 路由器将目的地址 IPG 转换为 IPA，转发给最终的内部主机 A。  </p>
+<p>网络地址转换表例子:</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">+-------------+---------------+</span><br><span class="line">| private IP  |   public IP   |</span><br><span class="line">+-------------+---------------+</span><br><span class="line">| 192.168.1.55|219.152.168.222|</span><br><span class="line">+-------------+---------------+</span><br><span class="line">| 192.168.1.59|219.152.168.223|</span><br><span class="line">+-------------+---------------+</span><br><span class="line">|192.168.1.155|219.152.168.224|</span><br><span class="line">+-------------+---------------+</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h3 id="NAPT-网络地址与端口号转换"><a href="#NAPT-网络地址与端口号转换" class="headerlink" title="NAPT 网络地址与端口号转换"></a>NAPT 网络地址与端口号转换</h3><p>为了更加有效地利用 NAT 路由器上的全球IP地址，现在常用的 NAT 转换表把运输层的端口号也利用上。这样，就可以使多个拥有本地地址的主机，共用一个 NAT 路由器上的全球 IP 地址，因而可以同时和互联网上的不同主机进行通信。<br>使用端口号的 NAT 叫作网络地址与端口号转换NAPT (Network Address and Port Translation)，而不使用端口号的 NAT 就叫作传统的 NAT (traditional NAT)。  </p>
+<p>带端口的网络地址转换表例子:</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">+-----------------+--------------------+</span><br><span class="line">|   private IP    |     public IP      |</span><br><span class="line">+-----------------+--------------------+</span><br><span class="line">|192.168.1.55:5566|219.152.168.222:9200|</span><br><span class="line">+-----------------+--------------------+</span><br><span class="line">| 192.168.1.59:80 |219.152.168.222:9201|</span><br><span class="line">+-----------------+--------------------+</span><br><span class="line">|192.168.1.59:4465|219.152.168.222:9202|</span><br><span class="line">+-----------------+--------------------+</span><br></pre></td></tr></table></figure>
+
+<h3 id="不同类型的NAT"><a href="#不同类型的NAT" class="headerlink" title="不同类型的NAT"></a>不同类型的NAT</h3><p>来自Wikipedia  </p>
+<ul>
+<li>完全圆锥型NAT（Full cone NAT），即一对一（one-to-one）NAT<br>一旦一个内部地址（iAddr:port）映射到外部地址（eAddr:port），所有发自iAddr:port的包都经由eAddr:port向外发送。任意外部主机都能通过给eAddr:port发包到达iAddr:port（注：port不需要一样）  </li>
+<li>受限圆锥型NAT（Address-Restricted cone NAT）<br>内部客户端必须首先发送数据包到对方（IP&#x3D;X.X.X.X），然后才能接收来自X.X.X.X的数据包。在限制方面，唯一的要求是数据包是来自X.X.X.X。<br>内部地址（iAddr:port1）映射到外部地址（eAddr:port2），所有发自iAddr:port1的包都经由eAddr:port2向外发送。外部主机（hostAddr:any）能通过给eAddr:port2发包到达iAddr:port1。（注：any指外部主机源端口不受限制，但是目的端口必须是port2。只有外部主机数据包的目的IP 为 内部客户端的所映射的外部ip，且目的端口为port2时数据包才被放行。）  </li>
+<li>端口受限圆锥型NAT（Port-Restricted cone NAT）<br>类似受限制锥形NAT（Restricted cone NAT），但是还有端口限制。<br>一旦一个内部地址（iAddr:port1）映射到外部地址（eAddr:port2），所有发自iAddr:port1的包都经由eAddr:port2向外发送。<br>在受限圆锥型NAT基础上增加了外部主机源端口必须是固定的。  </li>
+<li>对称NAT（Symmetric NAT）<br>每一个来自相同内部IP与端口，到一个特定目的地地址和端口的请求，都映射到一个独特的外部IP地址和端口。<br>同一内部IP与端口发到不同的目的地和端口的信息包，都使用不同的映射<br>只有曾经收到过内部主机数据的外部主机，才能够把数据包发回</li>
+</ul>
+<h2 id="UDP打洞"><a href="#UDP打洞" class="headerlink" title="UDP打洞"></a>UDP打洞</h2><p>UDP打洞就是利用了NAT地址转换表.  </p>
+<h3 id="正常访问一台具有公网IP的主机"><a href="#正常访问一台具有公网IP的主机" class="headerlink" title="正常访问一台具有公网IP的主机"></a>正常访问一台具有公网IP的主机</h3><figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="code">      +-----+</span></span><br><span class="line">A &lt;-  | NAT |  -----Public INTERNET -&gt; B</span><br><span class="line"><span class="code">      +-----+</span></span><br></pre></td></tr></table></figure>
+
+<p>由主机A向主机B发起请求.<br>NAT将内网地址转换为公网地址,并存在NAT转换表中,这样NAT就知道了来自B的访问应该发给A.  </p>
+<h3 id="两台都在NAT中的主机建立连接"><a href="#两台都在NAT中的主机建立连接" class="headerlink" title="两台都在NAT中的主机建立连接"></a>两台都在NAT中的主机建立连接</h3><figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="code">      +-----+                              +-----+</span></span><br><span class="line">A &lt;-  |NATA |  ----- Public INTERNET ----- | NATB|  -&gt; B</span><br><span class="line"><span class="code">      +-----+                              +-----+</span></span><br></pre></td></tr></table></figure>
+
+<p>首先我们需要知道两台NAT的公网地址和主机A,B的端口.<br>假设NATA的公网地址为1.1.1.1,主机A的端口为1000,NATB的公网地址为1.0.0.1,主机B的端口为1001.<br>然后由A向1.0.0.1:1001发起UDP请求,这样NATA就会记住来自1.0.0.1:1001的请求应该发给A.<br>B也进行同样的操作向1.1.1.1:1000,发起UDP请求.<br>这样A和B就建立起了一条连接.</p>
+<p>为了知道主机A和主机B所在网络公网地址,我们需要有一台在公网中的主机来存储A和B的公网地址和端口.</p>
+<h3 id="STUN"><a href="#STUN" class="headerlink" title="STUN"></a>STUN</h3><p>STUN（Session Traversal Utilities for NAT，NAT会话穿越应用程序）是一种网络协议，它允许位于NAT（或多重NAT）后的客户端找出自己的公网地址，查出自己位于哪种类型的NAT之后以及NAT为某一个本地端口所绑定的Internet端端口。这些信息被用来在两个同时处于NAT路由器之后的主机之间创建UDP通信。该协议由<a href="https://tools.ietf.org/html/rfc5389" target="_blank" rel="noopener">RFC 5389</a>定义。  </p>
+<h3 id="TURN"><a href="#TURN" class="headerlink" title="TURN"></a>TURN</h3><p>TURN（全名Traversal Using Relay NAT），是一种数据传输协议（data-transfer protocol）。允许在TCP或UDP的连在线跨越NAT或防火墙。<br>TURN是一个client-server协议。TURN的NAT穿透方法与STUN类似，都是通过获取应用层中的公有地址达到NAT穿透。但实现TURN client的终端必须在通信开始前与TURN server进行交互，并要求TURN server产生”relay port”，也就是relayed-transport-address。这时TURN server会创建peer，即远程端点（remote endpoints），开始进行中继（relay）的动作，TURN client利用relay port将数据发送至peer，再由peer转传到另一方的TURN client。该协议由<a href="https://tools.ietf.org/html/rfc5766" target="_blank" rel="noopener">RFC 5766</a>定义。  </p>
+<hr>
+<blockquote>
+<p><a href="https://zh.wikipedia.org/wiki/STUN" target="_blank" rel="noopener">STUN</a><br><a href="https://zh.wikipedia.org/wiki/TURN" target="_blank" rel="noopener">TURN</a><br><a href="https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2" target="_blank" rel="noopener">网络地址转换</a><br><a href="https://blog.csdn.net/ustcgy/article/details/5655050" target="_blank" rel="noopener">NAT与NAT穿透(二)</a><br><a href="https://zhuanlan.zhihu.com/p/40816201" target="_blank" rel="noopener">简单解释 P2P 技术之 UDP 打洞</a><br><a href="http://www.52im.net/thread-50-1-1.html" target="_blank" rel="noopener">P2P技术详解(一)：NAT详解——详细原理、P2P简介</a>  </p>
+</blockquote>
 ]]></content>
       <categories>
         <category>Network</category>
@@ -761,26 +761,6 @@
       </categories>
   </entry>
   <entry>
-    <title>TUN网卡</title>
-    <url>/posts/a67af13f/</url>
-    <content><![CDATA[<h2 id="Golang-Tun-gVisor"><a href="#Golang-Tun-gVisor" class="headerlink" title="Golang Tun (gVisor)"></a>Golang Tun (gVisor)</h2><figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"gvisor.dev/gvisor/pkg/tcpip/stack"</span> <span class="comment">// gvisor</span></span><br><span class="line"></span><br><span class="line">s := stack.New(stack.Options&#123;</span><br><span class="line">  NetworkProtocols:   []stack.NetworkProtocolFactory&#123;ipv4.NewProtocol, ipv6.NewProtocol&#125;,</span><br><span class="line">  TransportProtocols: []stack.TransportProtocolFactory&#123;tcp.NewProtocol, udp.NewProtocol, icmp.NewProtocol4, icmp.NewProtocol6&#125;,</span><br><span class="line"> &#125;)</span><br><span class="line"></span><br><span class="line">ep := fdbased.New(&amp;fdbased.Options&#123;</span><br><span class="line">   FDs:            []<span class="keyword">int</span>&#123;fd&#125;, <span class="comment">// fd: linux文件标识符, 如android中最后会获取到一个文件标识符</span></span><br><span class="line">   MTU:            <span class="keyword">uint32</span>(<span class="number">1500</span>),</span><br><span class="line">  &#125;)</span><br><span class="line"> </span><br><span class="line"> nicID := tcpip.NICID(s.UniqueID())</span><br><span class="line"> <span class="keyword">if</span> er := s.CreateNIC(nicID, ep); er != <span class="literal">nil</span> &#123;</span><br><span class="line">  ep.Attach(<span class="literal">nil</span>)</span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isdns</span><span class="params">(opt *TunOpt, id stack.TransportEndpointID)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line"> <span class="keyword">if</span> id.LocalPort == <span class="number">53</span> &amp;&amp; (opt.DNSHijacking || id.LocalAddress.String() == opt.Gateway) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// TCP</span></span><br><span class="line"> s.SetTransportProtocolHandler(tcp.ProtocolNumber, tcp.NewForwarder(s, defaultWndSize, maxConnAttempts,  <span class="function"><span class="keyword">func</span><span class="params">(r *tcp.ForwarderRequest)</span></span> &#123;</span><br><span class="line">  wq := <span class="built_in">new</span>(waiter.Queue)</span><br><span class="line">  id := r.ID()</span><br><span class="line"></span><br><span class="line">  ep, err := r.CreateEndpoint(wq)</span><br><span class="line">  <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">   r.Complete(<span class="literal">true</span>)</span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  r.Complete(<span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(local net.Conn, id stack.TransportEndpointID)</span></span> &#123;</span><br><span class="line">   <span class="keyword">defer</span> local.Close()</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> isdns(opt, id) &#123; <span class="comment">// 劫持一下dns</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * Handle DNS</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   target := net.JoinHostPort(id.LocalAddress.String(), id.LocalPort) <span class="comment">// 远程目标地址</span></span><br><span class="line">   nconn, er := net.Dial(<span class="string">"tcp"</span>, target)</span><br><span class="line">   <span class="keyword">if</span> er != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">defer</span> conn.Close()</span><br><span class="line">   utils.Relay(local, conn)</span><br><span class="line">  &#125;(gonet.NewTCPConn(wq, ep), id)</span><br><span class="line"> &#125;).HandlePacket)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// UDP</span></span><br><span class="line"> s.SetTransportProtocolHandler(udp.ProtocolNumber, udp.NewForwarder(s, <span class="function"><span class="keyword">func</span><span class="params">(fr *udp.ForwarderRequest)</span></span> &#123;</span><br><span class="line">    <span class="comment">// handle udp, 和tcp差不多</span></span><br><span class="line"> &#125;).HandlePacket)</span><br></pre></td></tr></table></figure>
-
-<p>完整代码: <a href="https://github.com/Asutorufa/yuhaiin/tree/main/pkg/net/proxy/tun" target="_blank" rel="noopener">tun</a></p>
-<h2 id="Android-VPN-Service"><a href="#Android-VPN-Service" class="headerlink" title="Android VPN Service"></a>Android VPN Service</h2><p>Android 的VPN Service只能处理Tun接口</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyVpnService</span> : <span class="type">VpnService</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStartCommand</span><span class="params">(intent: <span class="type">Intent</span>?, flags: <span class="type">Int</span>, startId: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">        Builder().apply &#123;</span><br><span class="line">            setMtu(<span class="number">1500</span>)</span><br><span class="line">            setSession(<span class="string">"my vpn"</span>)</span><br><span class="line"></span><br><span class="line">            addAddress(<span class="string">"172.19.0.1"</span>, <span class="number">24</span>).addRoute(<span class="string">"172.19.0.2"</span>, <span class="number">32</span>)</span><br><span class="line">            addAddress(<span class="string">"fdfe:dcba:9876::1"</span>, <span class="number">126</span>)</span><br><span class="line">                .addRoute(<span class="string">"2000::"</span>, <span class="number">3</span>) <span class="comment">// https://issuetracker.google.com/issues/149636790</span></span><br><span class="line">                .addRoute(<span class="string">"fdfe:dcba:9876::2"</span>, <span class="number">128</span>)</span><br><span class="line"></span><br><span class="line">            addDnsServer(<span class="string">"172.19.0.2"</span>) <span class="comment">// 记得在Tun中劫持172.19.0.2:53处理所有的DNS请求</span></span><br><span class="line"></span><br><span class="line">            addDisallowedApplication(<span class="string">"com.example"</span>) <span class="comment">// Disallowed和Allowed不能同时调用</span></span><br><span class="line">            <span class="comment">// addAllowedApplication("com.example")</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">const</span> fd = establish()</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    fd 为 linux文件标识符</span></span><br><span class="line"><span class="comment">    如果是通过tun2socks这种命令行工具处理</span></span><br><span class="line"><span class="comment">    需要使用Linux socket将fd发送给子进程</span></span><br><span class="line"><span class="comment">           </span></span><br><span class="line"><span class="comment">    如果是调用so动态库则不需要</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    通过unix文件socket发送sd</span></span><br><span class="line"><span class="comment">      private fun sendFd(path: String) &#123;</span></span><br><span class="line"><span class="comment">            LocalSocket().use &#123; localSocket -&gt;</span></span><br><span class="line"><span class="comment">                localSocket.connect(</span></span><br><span class="line"><span class="comment">                    LocalSocketAddress(</span></span><br><span class="line"><span class="comment">                        path,</span></span><br><span class="line"><span class="comment">                        LocalSocketAddress.Namespace.FILESYSTEM</span></span><br><span class="line"><span class="comment">                    )</span></span><br><span class="line"><span class="comment">                )</span></span><br><span class="line"><span class="comment">                localSocket.setFileDescriptorsForSend(arrayOf(fd)) // &lt;------</span></span><br><span class="line"><span class="comment">                localSocket.outputStream.write(42)</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> START_STICKY   </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>完整代码: <a href="https://github.com/Asutorufa/yuhaiin-android/tree/main/app/src/main/kotlin/io/github/asutorufa/yuhaiin/service" target="_blank" rel="noopener">VpnService</a></p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>Golang</tag>
-        <tag>Tun</tag>
-        <tag>Kotlin</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>android dumpsys tool</title>
     <url>/posts/25303996/</url>
     <content><![CDATA[<p>查看dumpsys所有的子命令:</p>
@@ -822,6 +802,40 @@
       <tags>
         <tag>android</tag>
         <tag>adb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c语言中格式化字符的应用</title>
+    <url>/posts/b6b4601/</url>
+    <content><![CDATA[<h2 id="格式化规定符"><a href="#格式化规定符" class="headerlink" title="格式化规定符"></a>格式化规定符</h2><p>符号 作用<br>%d 十进制有符号整数<br>%u 十进制无符号整数<br>%f 浮点数<br>%s 字符串<br>%c 单个字符<br>%p 指针的值<br>%e 指数形式的浮点数<br>%x, %X 无符号以十六进制表示的整数<a id="more"></a><br>%0 无符号以八进制表示的整数<br>%g 自动选择合适的表示法</p>
+<p>说明:<br>(1). 可以在”%”和字母之间插进数字表示最大场宽。<br>例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>(2). 可以在”%”和字母之间加小写字母l, 表示输出的是长型数。<br>例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>(3). 可以控制输出左对齐或右对齐, 即在”%”和字母之间加入一个”-“ 号可说明输出为左对齐, 否则为右对齐。<br>例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
+<h2 id="一些特殊规定字符"><a href="#一些特殊规定字符" class="headerlink" title="一些特殊规定字符"></a>一些特殊规定字符</h2><p>字符 作用<br>&#x2F;n   换行<br>&#x2F;f   清屏并换页<br>&#x2F;r   回车<br>&#x2F;t   Tab符<br>&#x2F;xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TUN网卡</title>
+    <url>/posts/a67af13f/</url>
+    <content><![CDATA[<h2 id="Golang-Tun-gVisor"><a href="#Golang-Tun-gVisor" class="headerlink" title="Golang Tun (gVisor)"></a>Golang Tun (gVisor)</h2><figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"gvisor.dev/gvisor/pkg/tcpip/stack"</span> <span class="comment">// gvisor</span></span><br><span class="line"></span><br><span class="line">s := stack.New(stack.Options&#123;</span><br><span class="line">  NetworkProtocols:   []stack.NetworkProtocolFactory&#123;ipv4.NewProtocol, ipv6.NewProtocol&#125;,</span><br><span class="line">  TransportProtocols: []stack.TransportProtocolFactory&#123;tcp.NewProtocol, udp.NewProtocol, icmp.NewProtocol4, icmp.NewProtocol6&#125;,</span><br><span class="line"> &#125;)</span><br><span class="line"></span><br><span class="line">ep := fdbased.New(&amp;fdbased.Options&#123;</span><br><span class="line">   FDs:            []<span class="keyword">int</span>&#123;fd&#125;, <span class="comment">// fd: linux文件标识符, 如android中最后会获取到一个文件标识符</span></span><br><span class="line">   MTU:            <span class="keyword">uint32</span>(<span class="number">1500</span>),</span><br><span class="line">  &#125;)</span><br><span class="line"> </span><br><span class="line"> nicID := tcpip.NICID(s.UniqueID())</span><br><span class="line"> <span class="keyword">if</span> er := s.CreateNIC(nicID, ep); er != <span class="literal">nil</span> &#123;</span><br><span class="line">  ep.Attach(<span class="literal">nil</span>)</span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isdns</span><span class="params">(opt *TunOpt, id stack.TransportEndpointID)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line"> <span class="keyword">if</span> id.LocalPort == <span class="number">53</span> &amp;&amp; (opt.DNSHijacking || id.LocalAddress.String() == opt.Gateway) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// TCP</span></span><br><span class="line"> s.SetTransportProtocolHandler(tcp.ProtocolNumber, tcp.NewForwarder(s, defaultWndSize, maxConnAttempts,  <span class="function"><span class="keyword">func</span><span class="params">(r *tcp.ForwarderRequest)</span></span> &#123;</span><br><span class="line">  wq := <span class="built_in">new</span>(waiter.Queue)</span><br><span class="line">  id := r.ID()</span><br><span class="line"></span><br><span class="line">  ep, err := r.CreateEndpoint(wq)</span><br><span class="line">  <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">   r.Complete(<span class="literal">true</span>)</span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  r.Complete(<span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(local net.Conn, id stack.TransportEndpointID)</span></span> &#123;</span><br><span class="line">   <span class="keyword">defer</span> local.Close()</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> isdns(opt, id) &#123; <span class="comment">// 劫持一下dns</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * Handle DNS</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   target := net.JoinHostPort(id.LocalAddress.String(), id.LocalPort) <span class="comment">// 远程目标地址</span></span><br><span class="line">   nconn, er := net.Dial(<span class="string">"tcp"</span>, target)</span><br><span class="line">   <span class="keyword">if</span> er != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">defer</span> conn.Close()</span><br><span class="line">   utils.Relay(local, conn)</span><br><span class="line">  &#125;(gonet.NewTCPConn(wq, ep), id)</span><br><span class="line"> &#125;).HandlePacket)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// UDP</span></span><br><span class="line"> s.SetTransportProtocolHandler(udp.ProtocolNumber, udp.NewForwarder(s, <span class="function"><span class="keyword">func</span><span class="params">(fr *udp.ForwarderRequest)</span></span> &#123;</span><br><span class="line">    <span class="comment">// handle udp, 和tcp差不多</span></span><br><span class="line"> &#125;).HandlePacket)</span><br></pre></td></tr></table></figure>
+
+<p>完整代码: <a href="https://github.com/Asutorufa/yuhaiin/tree/main/pkg/net/proxy/tun" target="_blank" rel="noopener">tun</a></p>
+<h2 id="Android-VPN-Service"><a href="#Android-VPN-Service" class="headerlink" title="Android VPN Service"></a>Android VPN Service</h2><p>Android 的VPN Service只能处理Tun接口</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyVpnService</span> : <span class="type">VpnService</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStartCommand</span><span class="params">(intent: <span class="type">Intent</span>?, flags: <span class="type">Int</span>, startId: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">        Builder().apply &#123;</span><br><span class="line">            setMtu(<span class="number">1500</span>)</span><br><span class="line">            setSession(<span class="string">"my vpn"</span>)</span><br><span class="line"></span><br><span class="line">            addAddress(<span class="string">"172.19.0.1"</span>, <span class="number">24</span>).addRoute(<span class="string">"172.19.0.2"</span>, <span class="number">32</span>)</span><br><span class="line">            addAddress(<span class="string">"fdfe:dcba:9876::1"</span>, <span class="number">126</span>)</span><br><span class="line">                .addRoute(<span class="string">"2000::"</span>, <span class="number">3</span>) <span class="comment">// https://issuetracker.google.com/issues/149636790</span></span><br><span class="line">                .addRoute(<span class="string">"fdfe:dcba:9876::2"</span>, <span class="number">128</span>)</span><br><span class="line"></span><br><span class="line">            addDnsServer(<span class="string">"172.19.0.2"</span>) <span class="comment">// 记得在Tun中劫持172.19.0.2:53处理所有的DNS请求</span></span><br><span class="line"></span><br><span class="line">            addDisallowedApplication(<span class="string">"com.example"</span>) <span class="comment">// Disallowed和Allowed不能同时调用</span></span><br><span class="line">            <span class="comment">// addAllowedApplication("com.example")</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">const</span> fd = establish()</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    fd 为 linux文件标识符</span></span><br><span class="line"><span class="comment">    如果是通过tun2socks这种命令行工具处理</span></span><br><span class="line"><span class="comment">    需要使用Linux socket将fd发送给子进程</span></span><br><span class="line"><span class="comment">           </span></span><br><span class="line"><span class="comment">    如果是调用so动态库则不需要</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    通过unix文件socket发送sd</span></span><br><span class="line"><span class="comment">      private fun sendFd(path: String) &#123;</span></span><br><span class="line"><span class="comment">            LocalSocket().use &#123; localSocket -&gt;</span></span><br><span class="line"><span class="comment">                localSocket.connect(</span></span><br><span class="line"><span class="comment">                    LocalSocketAddress(</span></span><br><span class="line"><span class="comment">                        path,</span></span><br><span class="line"><span class="comment">                        LocalSocketAddress.Namespace.FILESYSTEM</span></span><br><span class="line"><span class="comment">                    )</span></span><br><span class="line"><span class="comment">                )</span></span><br><span class="line"><span class="comment">                localSocket.setFileDescriptorsForSend(arrayOf(fd)) // &lt;------</span></span><br><span class="line"><span class="comment">                localSocket.outputStream.write(42)</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> START_STICKY   </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完整代码: <a href="https://github.com/Asutorufa/yuhaiin-android/tree/main/app/src/main/kotlin/io/github/asutorufa/yuhaiin/service" target="_blank" rel="noopener">VpnService</a></p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+        <tag>Tun</tag>
+        <tag>Kotlin</tag>
       </tags>
   </entry>
   <entry>
@@ -1125,20 +1139,6 @@
       </tags>
   </entry>
   <entry>
-    <title>c语言中格式化字符的应用</title>
-    <url>/posts/b6b4601/</url>
-    <content><![CDATA[<h2 id="格式化规定符"><a href="#格式化规定符" class="headerlink" title="格式化规定符"></a>格式化规定符</h2><p>符号 作用<br>%d 十进制有符号整数<br>%u 十进制无符号整数<br>%f 浮点数<br>%s 字符串<br>%c 单个字符<br>%p 指针的值<br>%e 指数形式的浮点数<br>%x, %X 无符号以十六进制表示的整数<a id="more"></a><br>%0 无符号以八进制表示的整数<br>%g 自动选择合适的表示法</p>
-<p>说明:<br>(1). 可以在”%”和字母之间插进数字表示最大场宽。<br>例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>(2). 可以在”%”和字母之间加小写字母l, 表示输出的是长型数。<br>例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>(3). 可以控制输出左对齐或右对齐, 即在”%”和字母之间加入一个”-“ 号可说明输出为左对齐, 否则为右对齐。<br>例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
-<h2 id="一些特殊规定字符"><a href="#一些特殊规定字符" class="headerlink" title="一些特殊规定字符"></a>一些特殊规定字符</h2><p>字符 作用<br>&#x2F;n   换行<br>&#x2F;f   清屏并换页<br>&#x2F;r   回车<br>&#x2F;t   Tab符<br>&#x2F;xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>c语言基本类型在内存中的存储方式</title>
     <url>/posts/e404489/</url>
     <content><![CDATA[<h2 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h2><h3 id="float"><a href="#float" class="headerlink" title="float"></a>float</h3><table>
@@ -1231,6 +1231,30 @@
       </categories>
       <tags>
         <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>golang实现子进程后台</title>
+    <url>/posts/89c4c907/</url>
+    <content><![CDATA[<h2 id="系统的进程机制"><a href="#系统的进程机制" class="headerlink" title="系统的进程机制"></a>系统的进程机制</h2><h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">linux下的进程机制,当父进程被杀死之后,子进程就被系统接管</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程 -&gt; 父进程管理</span><br><span class="line"></span><br><span class="line">当父进程被杀死之后</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; 被杀死</span><br><span class="line">|--子进程 -&gt; system管理</span><br><span class="line"></span><br><span class="line">如果子进程被杀死,而且父进程没有处理子进程的善后工作,那么子进程就会变成僵尸进程</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程(被杀死) -&gt; 僵尸进程</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h3 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">windows下的进程机制就不太一样了,当父进程被杀死之后,子进程也会被杀死</span><br><span class="line">但是如果子进程还有子进程,杀死子进程但不杀死父进程,子进程的子进程就会被系统接管</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程 -&gt; 父进程管理</span><br><span class="line">|---孙进程 -&gt; 子进程管理</span><br><span class="line"></span><br><span class="line">当父进程被杀死</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; 被杀死</span><br><span class="line">|--子进程 -&gt; 被杀死  </span><br><span class="line">|---孙进程 -&gt; 被杀死</span><br><span class="line"></span><br><span class="line">当子进程被杀死</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; 系统管理</span><br><span class="line">|--子进程 -&gt; 被杀死</span><br><span class="line">|-孙进程 -&gt; 系统管理</span><br><span class="line"></span><br><span class="line">windows的机制和linux不太一样,如果子进程被杀死也不会有僵尸进程这种东西,所以子进程可以放心杀死</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现golang的后台"><a href="#实现golang的后台" class="headerlink" title="实现golang的后台"></a>实现golang的后台</h2><p>如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现<br>如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程<br>golang只提供了forkexec,也就是说一个程序只能创建子进程<br><strong>通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程,这样就相当于创建了子进程,子进程创建孙进程</strong><br><strong>实现就是给程序加参数,再次调用的时候加上这个参数再创建想要的进程</strong></p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">daemonF</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cmd := exec.Command(<span class="string">"puthon"</span>,<span class="string">"-m"</span>,<span class="string">"http.server"</span>)</span><br><span class="line">    cmd.Start()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    daemon := flag.Bool(<span class="string">"d"</span>, <span class="literal">false</span>, <span class="string">"d"</span>)</span><br><span class="line">    flag.Parse()</span><br><span class="line">    <span class="keyword">if</span> *daemon == <span class="literal">true</span> &#123;</span><br><span class="line">        daemonF()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        nowFunction, _ := filepath.Abs(os.Args[<span class="number">0</span>])</span><br><span class="line">        cmd := exec.Command(nowFunction,<span class="string">"-d"</span>)</span><br><span class="line">        cmd.Run()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">比如我们有一个程序叫makebk,有一个参数 -d</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-makebk(再次调用makebk并加上参数-d) -&gt; 父进程:system</span><br><span class="line">|--makebk -d(加上参数之后再创建想要的进程) -&gt; 父进程:makebk</span><br><span class="line">|---子进程 -&gt; 父进程:makebk -d</span><br></pre></td></tr></table></figure>
+
+<p>这样就得到我们想要的三层结构了,这时候让父进程杀死make -d,就实现子进程被系统接管,实现子进程后台</p>
+]]></content>
+      <categories>
+        <category>golang</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>linux</tag>
+        <tag>windows</tag>
       </tags>
   </entry>
   <entry>
@@ -1331,30 +1355,6 @@
       <tags>
         <tag>golang</tag>
         <tag>socks5</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>golang实现子进程后台</title>
-    <url>/posts/89c4c907/</url>
-    <content><![CDATA[<h2 id="系统的进程机制"><a href="#系统的进程机制" class="headerlink" title="系统的进程机制"></a>系统的进程机制</h2><h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">linux下的进程机制,当父进程被杀死之后,子进程就被系统接管</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程 -&gt; 父进程管理</span><br><span class="line"></span><br><span class="line">当父进程被杀死之后</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; 被杀死</span><br><span class="line">|--子进程 -&gt; system管理</span><br><span class="line"></span><br><span class="line">如果子进程被杀死,而且父进程没有处理子进程的善后工作,那么子进程就会变成僵尸进程</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程(被杀死) -&gt; 僵尸进程</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<h3 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">windows下的进程机制就不太一样了,当父进程被杀死之后,子进程也会被杀死</span><br><span class="line">但是如果子进程还有子进程,杀死子进程但不杀死父进程,子进程的子进程就会被系统接管</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程 -&gt; 父进程管理</span><br><span class="line">|---孙进程 -&gt; 子进程管理</span><br><span class="line"></span><br><span class="line">当父进程被杀死</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; 被杀死</span><br><span class="line">|--子进程 -&gt; 被杀死  </span><br><span class="line">|---孙进程 -&gt; 被杀死</span><br><span class="line"></span><br><span class="line">当子进程被杀死</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; 系统管理</span><br><span class="line">|--子进程 -&gt; 被杀死</span><br><span class="line">|-孙进程 -&gt; 系统管理</span><br><span class="line"></span><br><span class="line">windows的机制和linux不太一样,如果子进程被杀死也不会有僵尸进程这种东西,所以子进程可以放心杀死</span><br></pre></td></tr></table></figure>
-
-<h2 id="实现golang的后台"><a href="#实现golang的后台" class="headerlink" title="实现golang的后台"></a>实现golang的后台</h2><p>如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现<br>如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程<br>golang只提供了forkexec,也就是说一个程序只能创建子进程<br><strong>通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程,这样就相当于创建了子进程,子进程创建孙进程</strong><br><strong>实现就是给程序加参数,再次调用的时候加上这个参数再创建想要的进程</strong></p>
-<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">daemonF</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cmd := exec.Command(<span class="string">"puthon"</span>,<span class="string">"-m"</span>,<span class="string">"http.server"</span>)</span><br><span class="line">    cmd.Start()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    daemon := flag.Bool(<span class="string">"d"</span>, <span class="literal">false</span>, <span class="string">"d"</span>)</span><br><span class="line">    flag.Parse()</span><br><span class="line">    <span class="keyword">if</span> *daemon == <span class="literal">true</span> &#123;</span><br><span class="line">        daemonF()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        nowFunction, _ := filepath.Abs(os.Args[<span class="number">0</span>])</span><br><span class="line">        cmd := exec.Command(nowFunction,<span class="string">"-d"</span>)</span><br><span class="line">        cmd.Run()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">比如我们有一个程序叫makebk,有一个参数 -d</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-makebk(再次调用makebk并加上参数-d) -&gt; 父进程:system</span><br><span class="line">|--makebk -d(加上参数之后再创建想要的进程) -&gt; 父进程:makebk</span><br><span class="line">|---子进程 -&gt; 父进程:makebk -d</span><br></pre></td></tr></table></figure>
-
-<p>这样就得到我们想要的三层结构了,这时候让父进程杀死make -d,就实现子进程被系统接管,实现子进程后台</p>
-]]></content>
-      <categories>
-        <category>golang</category>
-      </categories>
-      <tags>
-        <tag>golang</tag>
-        <tag>linux</tag>
-        <tag>windows</tag>
       </tags>
   </entry>
   <entry>
@@ -1508,6 +1508,20 @@
       </tags>
   </entry>
   <entry>
+    <title>nodejs异步回调函数</title>
+    <url>/posts/5938ae8c/</url>
+    <content><![CDATA[<p>研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async&#x2F;await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.<br>如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">        resolve(<span class="string">"test"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">test2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">await</span> test())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test2()</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>nodejs</category>
+      </categories>
+      <tags>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>linux下intel&amp;AMD双显卡切换</title>
     <url>/posts/3b8b96de/</url>
     <content><![CDATA[<p>使用<strong>xrandr</strong>显示可支持的显卡</p>
@@ -1546,17 +1560,41 @@
       </tags>
   </entry>
   <entry>
-    <title>nodejs异步回调函数</title>
-    <url>/posts/5938ae8c/</url>
-    <content><![CDATA[<p>研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async&#x2F;await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.<br>如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">        resolve(<span class="string">"test"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">test2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">await</span> test())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test2()</span><br></pre></td></tr></table></figure>
+    <title>snap删除旧的core(snap删除其他版本的软件)</title>
+    <url>/posts/b6b8953/</url>
+    <content><![CDATA[<p>偶尔发现snap会自动升级core且不删除旧版，在’&#x2F;snap&#x2F;core’<br>会发现好几个版本的文件夹。<br>使用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo snap remove core --revision xxx</span><br></pre></td></tr></table></figure>
+
+<p>删除某个版本的core，xxx是软件的rev，使用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">snap list</span><br></pre></td></tr></table></figure>
+
+<p>可以查看软件的rev，其他软件也能用这个方法删除旧的版本哦。</p>
+<p>参考：<a href="https://askubuntu.com/questions/828859/how-to-unmount-and-possibly-delete-old-ubuntu-core-snap" target="_blank" rel="noopener">How to unmount and possibly delete old Ubuntu Core snap</a></p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>snap</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python获取网页源码(爬虫?)</title>
+    <url>/posts/cee10602/</url>
+    <content><![CDATA[<p>利用requrst,使用首先要</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br></pre></td></tr></table></figure>
+
+<p>使用方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">url = &apos;要获取的网页地址&apos;</span><br><span class="line">useragent = &apos;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36&apos;#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span><br><span class="line">requests.get(url,headers=&#123;&apos;User-Agent&apos;:useragent&#125;))</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
-        <category>nodejs</category>
+        <category>python</category>
       </categories>
       <tags>
-        <tag>nodejs</tag>
+        <tag>python</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
@@ -1621,44 +1659,6 @@
       <tags>
         <tag>python</tag>
         <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python获取网页源码(爬虫?)</title>
-    <url>/posts/cee10602/</url>
-    <content><![CDATA[<p>利用requrst,使用首先要</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br></pre></td></tr></table></figure>
-
-<p>使用方法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">url = &apos;要获取的网页地址&apos;</span><br><span class="line">useragent = &apos;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36&apos;#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span><br><span class="line">requests.get(url,headers=&#123;&apos;User-Agent&apos;:useragent&#125;))</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>snap删除旧的core(snap删除其他版本的软件)</title>
-    <url>/posts/b6b8953/</url>
-    <content><![CDATA[<p>偶尔发现snap会自动升级core且不删除旧版，在’&#x2F;snap&#x2F;core’<br>会发现好几个版本的文件夹。<br>使用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo snap remove core --revision xxx</span><br></pre></td></tr></table></figure>
-
-<p>删除某个版本的core，xxx是软件的rev，使用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">snap list</span><br></pre></td></tr></table></figure>
-
-<p>可以查看软件的rev，其他软件也能用这个方法删除旧的版本哦。</p>
-<p>参考：<a href="https://askubuntu.com/questions/828859/how-to-unmount-and-possibly-delete-old-ubuntu-core-snap" target="_blank" rel="noopener">How to unmount and possibly delete old Ubuntu Core snap</a></p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>snap</tag>
       </tags>
   </entry>
   <entry>
@@ -1729,29 +1729,6 @@
       </tags>
   </entry>
   <entry>
-    <title>とある番組の記録</title>
-    <url>/posts/fe7367b8/</url>
-    <content><![CDATA[<p>最近わたくしはたくさん言葉知りました、記録したい、例えば：どこ見つかった、どうおもう。<br>今回は「２２・７　計算中」、この番組すごくおもしろい、ぜひ見てください。</p>
-<h2 id="ツッコミ・漫才・呆け"><a href="#ツッコミ・漫才・呆け" class="headerlink" title="ツッコミ・漫才・呆け"></a>ツッコミ・漫才・呆け</h2><p>この番組のMCは三四郎さん、おふたりはお笑い芸人ですね、この前に私は全然しらなかった、いつも「ツッコミ」を言うで、知りたいですからしらべました。</p>
-<h2 id="パクリ"><a href="#パクリ" class="headerlink" title="パクリ"></a>パクリ</h2><p>「滝川みうのテンションが上がる動画選手権」で都ちゃんの得点は０点、理由は彼女作りASMR動画は最初みうちゃんの自己PR動画のなかのひとつのパクリ。ここがわたくし知りました。</p>
-<h2 id="醍醐味"><a href="#醍醐味" class="headerlink" title="醍醐味"></a>醍醐味</h2><p>相田さんはとある回あるVTRの評価です。</p>
-<h2 id="屁理屈"><a href="#屁理屈" class="headerlink" title="屁理屈"></a>屁理屈</h2><p>桜ちゃんたくさん屁理屈を言った、でもかわいいです。</p>
-<h2 id="キャバクラ"><a href="#キャバクラ" class="headerlink" title="キャバクラ"></a>キャバクラ</h2><p>「誰かキャバクラに誘うたらどうですか？」は第７３回と７４回でひとつ問題です。神木みかみ優しすぎる、結果受ける。</p>
-<h2 id="ため口"><a href="#ため口" class="headerlink" title="ため口"></a>ため口</h2><p>じつはわたくしは日本の上下関係理解不能。なんで「先輩に対してため口なんであり得ないだろう。」、堅苦しい過ぎるじゃないか。</p>
-<h2 id="オラオラ"><a href="#オラオラ" class="headerlink" title="オラオラ"></a>オラオラ</h2><p>わたくし今覚えるのはこれは相田さん誰に評価です。</p>
-<h2 id="オフショット・グラビア"><a href="#オフショット・グラビア" class="headerlink" title="オフショット・グラビア"></a>オフショット・グラビア</h2><p>１．いつもの写真<br>２．アイドルの写真</p>
-<h2 id="ロケ"><a href="#ロケ" class="headerlink" title="ロケ"></a>ロケ</h2><p>多分VTRです。外へ出てに撮影すること。</p>
-<hr>
-<p>まだまだあるです。</p>
-]]></content>
-      <categories>
-        <category>日本語</category>
-      </categories>
-      <tags>
-        <tag>日本語</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>三蛋空间自建贴吧云签到</title>
     <url>/posts/8a291f21/</url>
     <content><![CDATA[<h2 id="–"><a href="#–" class="headerlink" title="–"></a>–</h2><p>这是我自建的贴吧云签到:<del><a href="http://dmly.tk/" target="_blank" rel="noopener">http://dmly.tk</a></del>(已失效)<br>之后为教程</p>
@@ -1779,6 +1756,29 @@
       <tags>
         <tag>建站</tag>
         <tag>免费</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>とある番組の記録</title>
+    <url>/posts/fe7367b8/</url>
+    <content><![CDATA[<p>最近わたくしはたくさん言葉知りました、記録したい、例えば：どこ見つかった、どうおもう。<br>今回は「２２・７　計算中」、この番組すごくおもしろい、ぜひ見てください。</p>
+<h2 id="ツッコミ・漫才・呆け"><a href="#ツッコミ・漫才・呆け" class="headerlink" title="ツッコミ・漫才・呆け"></a>ツッコミ・漫才・呆け</h2><p>この番組のMCは三四郎さん、おふたりはお笑い芸人ですね、この前に私は全然しらなかった、いつも「ツッコミ」を言うで、知りたいですからしらべました。</p>
+<h2 id="パクリ"><a href="#パクリ" class="headerlink" title="パクリ"></a>パクリ</h2><p>「滝川みうのテンションが上がる動画選手権」で都ちゃんの得点は０点、理由は彼女作りASMR動画は最初みうちゃんの自己PR動画のなかのひとつのパクリ。ここがわたくし知りました。</p>
+<h2 id="醍醐味"><a href="#醍醐味" class="headerlink" title="醍醐味"></a>醍醐味</h2><p>相田さんはとある回あるVTRの評価です。</p>
+<h2 id="屁理屈"><a href="#屁理屈" class="headerlink" title="屁理屈"></a>屁理屈</h2><p>桜ちゃんたくさん屁理屈を言った、でもかわいいです。</p>
+<h2 id="キャバクラ"><a href="#キャバクラ" class="headerlink" title="キャバクラ"></a>キャバクラ</h2><p>「誰かキャバクラに誘うたらどうですか？」は第７３回と７４回でひとつ問題です。神木みかみ優しすぎる、結果受ける。</p>
+<h2 id="ため口"><a href="#ため口" class="headerlink" title="ため口"></a>ため口</h2><p>じつはわたくしは日本の上下関係理解不能。なんで「先輩に対してため口なんであり得ないだろう。」、堅苦しい過ぎるじゃないか。</p>
+<h2 id="オラオラ"><a href="#オラオラ" class="headerlink" title="オラオラ"></a>オラオラ</h2><p>わたくし今覚えるのはこれは相田さん誰に評価です。</p>
+<h2 id="オフショット・グラビア"><a href="#オフショット・グラビア" class="headerlink" title="オフショット・グラビア"></a>オフショット・グラビア</h2><p>１．いつもの写真<br>２．アイドルの写真</p>
+<h2 id="ロケ"><a href="#ロケ" class="headerlink" title="ロケ"></a>ロケ</h2><p>多分VTRです。外へ出てに撮影すること。</p>
+<hr>
+<p>まだまだあるです。</p>
+]]></content>
+      <categories>
+        <category>日本語</category>
+      </categories>
+      <tags>
+        <tag>日本語</tag>
       </tags>
   </entry>
   <entry>
@@ -2024,30 +2024,6 @@
       </tags>
   </entry>
   <entry>
-    <title>安卓使用dalvikvm运行java(termux运行java)</title>
-    <url>/posts/8b98169e/</url>
-    <content><![CDATA[<p>一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件<br>发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些  </p>
-<h2 id="安装所需工具"><a href="#安装所需工具" class="headerlink" title="安装所需工具"></a>安装所需工具</h2><p>termux上安装 ecj 和 dx就可以了</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install ecj dx</span><br></pre></td></tr></table></figure>
-
-<h2 id="编译为class文件"><a href="#编译为class文件" class="headerlink" title="编译为class文件"></a>编译为class文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ecj XXX.java</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<h2 id="编译成dex文件"><a href="#编译成dex文件" class="headerlink" title="编译成dex文件"></a>编译成dex文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dx --dex --output=XXX.dex XXX.class</span><br></pre></td></tr></table></figure>
-
-<h2 id="使用dalvikvm运行"><a href="#使用dalvikvm运行" class="headerlink" title="使用dalvikvm运行"></a>使用dalvikvm运行</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dalvikvm -cp XXX.dex XXX</span><br></pre></td></tr></table></figure>
-
-<p>参考: <a href="https://bbs.pediy.com/thread-184592.htm" target="_blank" rel="noopener">使用 dalvikvm 执行一个运行于命令行的 Hello World</a></p>
-]]></content>
-      <categories>
-        <category>android</category>
-      </categories>
-      <tags>
-        <tag>android</tag>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>安卓通过adb添加电池用户白名单</title>
     <url>/posts/1e63e0e/</url>
     <content><![CDATA[<p>安卓6.0引入了doze来节省电量,但某些国产ui(如锤子)阉割了这个菜单,可通过adb添加  </p>
@@ -2075,6 +2051,18 @@
       </tags>
   </entry>
   <entry>
+    <title>常用等价无穷小的一般形式</title>
+    <url>/posts/10bb899d/</url>
+    <content><![CDATA[<p>当$\lim_{φ(x)\to0}$时,<br>$\sin φ(x)$<del>$φ(x)$<br>$arc\sin φ(x)$</del>$φ(x)$<br>$\tanφ(x)$<del>$φ(x)$<br>$arc\tanφ(x)$</del>$φ(x)$<br>$\ln(1+φ(x))$<del>$φ(x)$<br>$e^{φ(x)}-1$</del>$φ(x)$<br>$a^{φ(x)}-1$<del>$φ(x)\ln a$<br>$\sqrt[n]{1+φ(x)}-1$</del>$\frac{1}{n}φ(x)$<br>$(1+φ(x))^{\mu-1}$<del>$\muφ(x)$<br>$1-\cosφ(x)$</del>$\frac{(φ(x))^2}{2}$</p>
+]]></content>
+      <categories>
+        <category>Math</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>安卓通过shell更改语言</title>
     <url>/posts/f7f814df/</url>
     <content><![CDATA[<p>对于Android M或更高版本，使用：</p>
@@ -2095,40 +2083,27 @@
       </tags>
   </entry>
   <entry>
-    <title>常用等价无穷小的一般形式</title>
-    <url>/posts/10bb899d/</url>
-    <content><![CDATA[<p>当$\lim_{φ(x)\to0}$时,<br>$\sin φ(x)$<del>$φ(x)$<br>$arc\sin φ(x)$</del>$φ(x)$<br>$\tanφ(x)$<del>$φ(x)$<br>$arc\tanφ(x)$</del>$φ(x)$<br>$\ln(1+φ(x))$<del>$φ(x)$<br>$e^{φ(x)}-1$</del>$φ(x)$<br>$a^{φ(x)}-1$<del>$φ(x)\ln a$<br>$\sqrt[n]{1+φ(x)}-1$</del>$\frac{1}{n}φ(x)$<br>$(1+φ(x))^{\mu-1}$<del>$\muφ(x)$<br>$1-\cosφ(x)$</del>$\frac{(φ(x))^2}{2}$</p>
+    <title>安卓使用dalvikvm运行java(termux运行java)</title>
+    <url>/posts/8b98169e/</url>
+    <content><![CDATA[<p>一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件<br>发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些  </p>
+<h2 id="安装所需工具"><a href="#安装所需工具" class="headerlink" title="安装所需工具"></a>安装所需工具</h2><p>termux上安装 ecj 和 dx就可以了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install ecj dx</span><br></pre></td></tr></table></figure>
+
+<h2 id="编译为class文件"><a href="#编译为class文件" class="headerlink" title="编译为class文件"></a>编译为class文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ecj XXX.java</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h2 id="编译成dex文件"><a href="#编译成dex文件" class="headerlink" title="编译成dex文件"></a>编译成dex文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dx --dex --output=XXX.dex XXX.class</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用dalvikvm运行"><a href="#使用dalvikvm运行" class="headerlink" title="使用dalvikvm运行"></a>使用dalvikvm运行</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dalvikvm -cp XXX.dex XXX</span><br></pre></td></tr></table></figure>
+
+<p>参考: <a href="https://bbs.pediy.com/thread-184592.htm" target="_blank" rel="noopener">使用 dalvikvm 执行一个运行于命令行的 Hello World</a></p>
 ]]></content>
       <categories>
-        <category>Math</category>
+        <category>android</category>
       </categories>
       <tags>
-        <tag>Math</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>暗影精灵更改efi启动顺序</title>
-    <url>/posts/6683eff9/</url>
-    <content><![CDATA[<p>–2019-04-22 更新–<br><strong>最新版bios已经可以调整启动顺序了(<a href="#jump">图在最下面</a>)</strong>  </p>
-<p>——– 之 前 ——-<br>暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说</p>
-<p>首先从ubuntu进入&#x2F;boot&#x2F;efi&#x2F;EFI<br><strong>备份windwos的启动文件</strong>（<strong>切记一定要备份，否则只能从pe重新建立windwos启动项</strong>）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp -arf Microsoft win10</span><br></pre></td></tr></table></figure>
-
-<p>将ubuntu的grubx64.efi替换掉EFI&#x2F;Microsoft&#x2F;Boot&#x2F;bootmgfw.efi文件 <a id="more"></a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp -arf ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi</span><br></pre></td></tr></table></figure>
-
-<p>这样替换之后grub就接管了系统的启动</p>
-<p>然后将&#x2F;boot&#x2F;grub&#x2F;grub.cfg中关于windows的启动段复制到&#x2F;etc&#x2F;grub.d&#x2F;40_custom中<br>将<strong>chainloader &#x2F;EFI&#x2F;Micorosoft&#x2F;Boot&#x2F;bootmgfw.efi</strong><br>改为<br><strong>chainloader &#x2F;EFI&#x2F;win10&#x2F;Boot&#x2F;bootmgfw.efi</strong><br>就是把中间那个改为你备份的文件夹，可以改一改前面的启动名称<br>最后执行update-grub来更新启动项</p>
-<p>但是windwos有大更新的时候会把更改的覆盖掉，再来一遍就好了</p>
-<p><span id="jump"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="http://blog-1254450445.cossgp.myqcloud.com/efi.jpg"></span></p>
-<p>参考文章<a href="https://blog.csdn.net/zyix_0712/article/details/69675748" target="_blank" rel="noopener">暗影精灵2pro安装win10+ubuntu16.10双系统</a></p>
-]]></content>
-      <categories>
-        <category>Computer</category>
-      </categories>
-      <tags>
-        <tag>EFI</tag>
-        <tag>BIOS</tag>
+        <tag>android</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -2141,52 +2116,6 @@
       </categories>
       <tags>
         <tag>Personally</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>汇编语言学习</title>
-    <url>/posts/4f95e9f6/</url>
-    <content><![CDATA[<p>最近想了解一下c是如何编译为汇编语言的<br>首先写了一个相当简单的c</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdio.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> c = a + b;</span><br><span class="line">    <span class="keyword">int</span> d = <span class="number">3</span> + <span class="number">4</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d"</span>,c,d);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用<code>gcc -S</code>编译为汇编语言:</p>
-<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="meta">	.file</span>	<span class="string">"hello.c"</span></span><br><span class="line"><span class="meta">	.text</span></span><br><span class="line"><span class="meta">	.section</span>	.rodata</span><br><span class="line"><span class="symbol">.LC0:</span></span><br><span class="line"><span class="meta">	.string</span>	<span class="string">"%d %d"</span></span><br><span class="line"><span class="meta">	.text</span></span><br><span class="line"><span class="meta">	.globl</span>	main</span><br><span class="line"><span class="meta">	.type</span>	main, @function</span><br><span class="line"><span class="symbol">main:</span></span><br><span class="line"><span class="symbol">.LFB0:</span></span><br><span class="line"><span class="meta">	.cfi_startproc</span></span><br><span class="line">    pushq	%rbp</span><br><span class="line"><span class="meta">	.cfi_def_cfa_offset</span> <span class="number">16</span></span><br><span class="line"><span class="meta">	.cfi_offset</span> <span class="number">6</span>, -<span class="number">16</span></span><br><span class="line">    <span class="keyword">movq</span>	%rsp, %rbp</span><br><span class="line"><span class="meta">	.cfi_def_cfa_register</span> <span class="number">6</span></span><br><span class="line">    subq	<span class="number">$16</span>, %rsp</span><br><span class="line">    movl	<span class="number">$1</span>, -<span class="number">16</span>(%rbp)</span><br><span class="line">    movl	<span class="number">$2</span>, -<span class="number">12</span>(%rbp)</span><br><span class="line">    movl	-<span class="number">16</span>(%rbp), %edx</span><br><span class="line">    movl	-<span class="number">12</span>(%rbp), %eax</span><br><span class="line">    addl	%edx, %eax</span><br><span class="line">    movl	%eax, -<span class="number">8</span>(%rbp)</span><br><span class="line">    movl	<span class="number">$7</span>, -<span class="number">4</span>(%rbp)</span><br><span class="line">    movl	-<span class="number">4</span>(%rbp), %edx</span><br><span class="line">    movl	-<span class="number">8</span>(%rbp), %eax</span><br><span class="line">    movl	%eax, %esi</span><br><span class="line">    leaq	.LC0(%rip), %rdi</span><br><span class="line">    movl	<span class="number">$0</span>, %eax</span><br><span class="line">    <span class="keyword">call</span>	printf@PLT</span><br><span class="line">    movl	<span class="number">$0</span>, %eax</span><br><span class="line">    <span class="keyword">leave</span></span><br><span class="line"><span class="meta">	.cfi_def_cfa</span> <span class="number">7</span>, <span class="number">8</span></span><br><span class="line">    <span class="keyword">ret</span></span><br><span class="line"><span class="meta">	.cfi_endproc</span></span><br><span class="line"><span class="symbol">.LFE0:</span></span><br><span class="line"><span class="meta">	.size</span>	main, .-main</span><br><span class="line"><span class="meta">	.ident</span>	<span class="string">"GCC: (GNU) 9.1.0"</span></span><br><span class="line"><span class="meta">	.section</span>	.note<span class="number">.</span>GNU-stack,<span class="string">""</span>,@progbits</span><br></pre></td></tr></table></figure>
-
-<p>以”点”做为前缀的指令都是用来指导汇编器的命令。<br>精简一下差不多这样:<a id="more"></a></p>
-<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">.LC0:</span></span><br><span class="line"><span class="meta"> .string</span>	<span class="string">"%d %d"</span></span><br><span class="line"><span class="meta"> .text</span></span><br><span class="line"><span class="meta"> .globl</span>	main</span><br><span class="line"><span class="meta"> .type</span>	main, @function</span><br><span class="line"></span><br><span class="line"><span class="symbol">main:</span></span><br><span class="line"> pushq	%rbp</span><br><span class="line"> <span class="keyword">movq</span>	%rsp, %rbp</span><br><span class="line"> movl	<span class="number">$1</span>, -<span class="number">16</span>(%rbp)</span><br><span class="line"> movl	<span class="number">$2</span>, -<span class="number">12</span>(%rbp)</span><br><span class="line"> movl	-<span class="number">16</span>(%rbp), %edx</span><br><span class="line"> movl	-<span class="number">12</span>(%rbp), %eax</span><br><span class="line"> addl	%edx, %eax</span><br><span class="line"> movl	%eax, -<span class="number">8</span>(%rbp)</span><br><span class="line"> movl	<span class="number">$7</span>, -<span class="number">4</span>(%rbp)</span><br><span class="line"> movl	-<span class="number">4</span>(%rbp), %edx</span><br><span class="line"> movl	-<span class="number">8</span>(%rbp), %eax</span><br><span class="line"> movl	%eax, %esi</span><br><span class="line"> leaq	.LC0(%rip), %rdi</span><br><span class="line"> movl	<span class="number">$0</span>, %eax</span><br><span class="line"> <span class="keyword">call</span>	printf@PLT</span><br><span class="line"> movl	<span class="number">$0</span>, %eax</span><br><span class="line"> <span class="keyword">leave</span></span><br><span class="line"> <span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
-
-<p>首先了解一下几个寄存器<sup><a href="#1"><font color="red">[1]</font></a></sup></p>
-<ul>
-<li>%rbp 是栈帧指针，用于标识当前栈帧的起始位置</li>
-<li>%rsp 是堆栈指针寄存器，通常会指向栈顶位置，堆栈的 pop 和push 操作就是通过改变 %rsp 的值即移动堆栈指针的位置来实现的。</li>
-<li>%eax 是”累加器”(accumulator), 它是很多加法乘法指令的缺省寄存器。</li>
-<li>%edx 则总是被用来放整数除法产生的余数。</li>
-<li>%rip 指令地址寄存器，用来存储 CPU 即将要执行的指令地址。每次 CPU 执行完相应的汇编指令之后，rip 寄存器的值就会自行累加；rip 无法直接赋值，call, ret, jmp 等指令可以修改 rip。</li>
-<li>%rdi，%rsi，%rdx，%rcx，%r8，%r9 用作函数参数，依次对应第1参数，第2参数。</li>
-<li>ESI&#x2F;EDI 分别叫做”源&#x2F;目标索引寄存器”(source&#x2F;destination index),因为在很多字符串操作指令中, DS:ESI指向源串,而ES:EDI指向目标串.</li>
-</ul>
-<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line">pushq	%rbp</span><br><span class="line"><span class="keyword">movq</span>	%rsp, %rbp</span><br><span class="line">确认栈</span><br></pre></td></tr></table></figure>
-
-<p><code>movl	$1, -16(%rbp)</code> 把1移入寄存器rbq中-16是地址起始位置<br><code>movl	$2, -12(%rbp)</code> 跟上面相同<br><code>movl	-16(%rbp), %edx</code> 把<code>-16(%rbp)</code>移入寄存器edx中,上面可知就是把1移入edx中<br><code>movl	-12(%rbp), %eax</code> 跟上面类似 不过这次用的是寄存器eax<br><code>addl	%edx, %eax</code> 把edx和eax中的内容相加,并存入edx中<br><code>movl	%eax, -8(%rbp)</code> 把eax中的内容存入rbq中位置为-8<br><code>movl	$7, -4(%rbp)</code> 把7存入rbq位置为-4,对应c代码为<code>int d = 3 + 4</code>,由此可知编译器在编译时其实是会进行相应优化的<br><code>.LC0(%rip)</code>は、printfが使うアドレス、前もってprintfで使用する書式を設定している(就是说设置printf使用的地址,并提前设置格式)<sup><a href="#2"><font color="red">[2]</font></a></sup><br><code>call	printf@PLT</code> 调用printf<br> <code>leave</code> 离开printf<br><code>ret</code>:结束当前函数</p>
-<hr>
-<p>接下来我们可以简单的实战一下:<br>给gcc开启O3级别的优化:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gcc -O3 -S</span><br></pre></td></tr></table></figure>
-
-<p>生成的汇编码:</p>
-<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="meta">	.file</span>	<span class="string">"hello.c"</span></span><br><span class="line"><span class="meta">	.text</span></span><br><span class="line"><span class="meta">	.section</span>	.rodata<span class="number">.</span>str1<span class="number">.1</span>,<span class="string">"aMS"</span>,@progbits,<span class="number">1</span></span><br><span class="line"><span class="symbol">.LC0:</span></span><br><span class="line"><span class="meta">	.string</span>	<span class="string">"%d %d"</span></span><br><span class="line"><span class="meta">	.section</span>	.text<span class="number">.</span>startup,<span class="string">"ax"</span>,@progbits</span><br><span class="line"><span class="meta">	.p2align</span> <span class="number">4</span></span><br><span class="line"><span class="meta">	.globl</span>	main</span><br><span class="line"><span class="meta">	.type</span>	main, @function</span><br><span class="line"><span class="symbol">main:</span></span><br><span class="line"><span class="symbol">.LFB11:</span></span><br><span class="line"><span class="meta">	.cfi_startproc</span></span><br><span class="line">    subq	<span class="number">$8</span>, %rsp</span><br><span class="line"><span class="meta">	.cfi_def_cfa_offset</span> <span class="number">16</span></span><br><span class="line">    movl	<span class="number">$7</span>, %edx</span><br><span class="line">    movl	<span class="number">$3</span>, %esi</span><br><span class="line">    xorl	%eax, %eax</span><br><span class="line">    leaq	.LC0(%rip), %rdi</span><br><span class="line">    <span class="keyword">call</span>	printf@PLT</span><br><span class="line">    xorl	%eax, %eax</span><br><span class="line">    addq	<span class="number">$8</span>, %rsp</span><br><span class="line"><span class="meta">	.cfi_def_cfa_offset</span> <span class="number">8</span></span><br><span class="line">    <span class="keyword">ret</span></span><br><span class="line"><span class="meta">	.cfi_endproc</span></span><br><span class="line"><span class="symbol">.LFE11:</span></span><br><span class="line"><span class="meta">	.size</span>	main, .-main</span><br><span class="line"><span class="meta">	.ident</span>	<span class="string">"GCC: (GNU) 9.1.0"</span></span><br><span class="line"><span class="meta">	.section</span>	.note<span class="number">.</span>GNU-stack,<span class="string">""</span>,@progbits</span><br></pre></td></tr></table></figure>
-
-<p>从以上汇编代码中我们可以发现,优化之后的汇编代码将最后相加的值给了内存,而不像之前那样先占用两个内存空间然后再相加.</p>
-<hr>
-<blockquote>
-<p>[1] <a id="1"><a href="https://zhuanlan.zhihu.com/p/27339191" target="_blank" rel="noopener">x86-64 下函数调用及栈帧原理</a></a><br>[2] <a id="2"><a href="https://qiita.com/diggy-mo/items/fe56f6ea357e5928a8ca" target="_blank" rel="noopener">アセンブラ学習log_1</a></a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>assembly</category>
-      </categories>
-      <tags>
-        <tag>汇编语言</tag>
-        <tag>assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -2281,6 +2210,52 @@
       </tags>
   </entry>
   <entry>
+    <title>汇编语言学习</title>
+    <url>/posts/4f95e9f6/</url>
+    <content><![CDATA[<p>最近想了解一下c是如何编译为汇编语言的<br>首先写了一个相当简单的c</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdio.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> c = a + b;</span><br><span class="line">    <span class="keyword">int</span> d = <span class="number">3</span> + <span class="number">4</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d"</span>,c,d);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>gcc -S</code>编译为汇编语言:</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="meta">	.file</span>	<span class="string">"hello.c"</span></span><br><span class="line"><span class="meta">	.text</span></span><br><span class="line"><span class="meta">	.section</span>	.rodata</span><br><span class="line"><span class="symbol">.LC0:</span></span><br><span class="line"><span class="meta">	.string</span>	<span class="string">"%d %d"</span></span><br><span class="line"><span class="meta">	.text</span></span><br><span class="line"><span class="meta">	.globl</span>	main</span><br><span class="line"><span class="meta">	.type</span>	main, @function</span><br><span class="line"><span class="symbol">main:</span></span><br><span class="line"><span class="symbol">.LFB0:</span></span><br><span class="line"><span class="meta">	.cfi_startproc</span></span><br><span class="line">    pushq	%rbp</span><br><span class="line"><span class="meta">	.cfi_def_cfa_offset</span> <span class="number">16</span></span><br><span class="line"><span class="meta">	.cfi_offset</span> <span class="number">6</span>, -<span class="number">16</span></span><br><span class="line">    <span class="keyword">movq</span>	%rsp, %rbp</span><br><span class="line"><span class="meta">	.cfi_def_cfa_register</span> <span class="number">6</span></span><br><span class="line">    subq	<span class="number">$16</span>, %rsp</span><br><span class="line">    movl	<span class="number">$1</span>, -<span class="number">16</span>(%rbp)</span><br><span class="line">    movl	<span class="number">$2</span>, -<span class="number">12</span>(%rbp)</span><br><span class="line">    movl	-<span class="number">16</span>(%rbp), %edx</span><br><span class="line">    movl	-<span class="number">12</span>(%rbp), %eax</span><br><span class="line">    addl	%edx, %eax</span><br><span class="line">    movl	%eax, -<span class="number">8</span>(%rbp)</span><br><span class="line">    movl	<span class="number">$7</span>, -<span class="number">4</span>(%rbp)</span><br><span class="line">    movl	-<span class="number">4</span>(%rbp), %edx</span><br><span class="line">    movl	-<span class="number">8</span>(%rbp), %eax</span><br><span class="line">    movl	%eax, %esi</span><br><span class="line">    leaq	.LC0(%rip), %rdi</span><br><span class="line">    movl	<span class="number">$0</span>, %eax</span><br><span class="line">    <span class="keyword">call</span>	printf@PLT</span><br><span class="line">    movl	<span class="number">$0</span>, %eax</span><br><span class="line">    <span class="keyword">leave</span></span><br><span class="line"><span class="meta">	.cfi_def_cfa</span> <span class="number">7</span>, <span class="number">8</span></span><br><span class="line">    <span class="keyword">ret</span></span><br><span class="line"><span class="meta">	.cfi_endproc</span></span><br><span class="line"><span class="symbol">.LFE0:</span></span><br><span class="line"><span class="meta">	.size</span>	main, .-main</span><br><span class="line"><span class="meta">	.ident</span>	<span class="string">"GCC: (GNU) 9.1.0"</span></span><br><span class="line"><span class="meta">	.section</span>	.note<span class="number">.</span>GNU-stack,<span class="string">""</span>,@progbits</span><br></pre></td></tr></table></figure>
+
+<p>以”点”做为前缀的指令都是用来指导汇编器的命令。<br>精简一下差不多这样:<a id="more"></a></p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">.LC0:</span></span><br><span class="line"><span class="meta"> .string</span>	<span class="string">"%d %d"</span></span><br><span class="line"><span class="meta"> .text</span></span><br><span class="line"><span class="meta"> .globl</span>	main</span><br><span class="line"><span class="meta"> .type</span>	main, @function</span><br><span class="line"></span><br><span class="line"><span class="symbol">main:</span></span><br><span class="line"> pushq	%rbp</span><br><span class="line"> <span class="keyword">movq</span>	%rsp, %rbp</span><br><span class="line"> movl	<span class="number">$1</span>, -<span class="number">16</span>(%rbp)</span><br><span class="line"> movl	<span class="number">$2</span>, -<span class="number">12</span>(%rbp)</span><br><span class="line"> movl	-<span class="number">16</span>(%rbp), %edx</span><br><span class="line"> movl	-<span class="number">12</span>(%rbp), %eax</span><br><span class="line"> addl	%edx, %eax</span><br><span class="line"> movl	%eax, -<span class="number">8</span>(%rbp)</span><br><span class="line"> movl	<span class="number">$7</span>, -<span class="number">4</span>(%rbp)</span><br><span class="line"> movl	-<span class="number">4</span>(%rbp), %edx</span><br><span class="line"> movl	-<span class="number">8</span>(%rbp), %eax</span><br><span class="line"> movl	%eax, %esi</span><br><span class="line"> leaq	.LC0(%rip), %rdi</span><br><span class="line"> movl	<span class="number">$0</span>, %eax</span><br><span class="line"> <span class="keyword">call</span>	printf@PLT</span><br><span class="line"> movl	<span class="number">$0</span>, %eax</span><br><span class="line"> <span class="keyword">leave</span></span><br><span class="line"> <span class="keyword">ret</span></span><br></pre></td></tr></table></figure>
+
+<p>首先了解一下几个寄存器<sup><a href="#1"><font color="red">[1]</font></a></sup></p>
+<ul>
+<li>%rbp 是栈帧指针，用于标识当前栈帧的起始位置</li>
+<li>%rsp 是堆栈指针寄存器，通常会指向栈顶位置，堆栈的 pop 和push 操作就是通过改变 %rsp 的值即移动堆栈指针的位置来实现的。</li>
+<li>%eax 是”累加器”(accumulator), 它是很多加法乘法指令的缺省寄存器。</li>
+<li>%edx 则总是被用来放整数除法产生的余数。</li>
+<li>%rip 指令地址寄存器，用来存储 CPU 即将要执行的指令地址。每次 CPU 执行完相应的汇编指令之后，rip 寄存器的值就会自行累加；rip 无法直接赋值，call, ret, jmp 等指令可以修改 rip。</li>
+<li>%rdi，%rsi，%rdx，%rcx，%r8，%r9 用作函数参数，依次对应第1参数，第2参数。</li>
+<li>ESI&#x2F;EDI 分别叫做”源&#x2F;目标索引寄存器”(source&#x2F;destination index),因为在很多字符串操作指令中, DS:ESI指向源串,而ES:EDI指向目标串.</li>
+</ul>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line">pushq	%rbp</span><br><span class="line"><span class="keyword">movq</span>	%rsp, %rbp</span><br><span class="line">确认栈</span><br></pre></td></tr></table></figure>
+
+<p><code>movl	$1, -16(%rbp)</code> 把1移入寄存器rbq中-16是地址起始位置<br><code>movl	$2, -12(%rbp)</code> 跟上面相同<br><code>movl	-16(%rbp), %edx</code> 把<code>-16(%rbp)</code>移入寄存器edx中,上面可知就是把1移入edx中<br><code>movl	-12(%rbp), %eax</code> 跟上面类似 不过这次用的是寄存器eax<br><code>addl	%edx, %eax</code> 把edx和eax中的内容相加,并存入edx中<br><code>movl	%eax, -8(%rbp)</code> 把eax中的内容存入rbq中位置为-8<br><code>movl	$7, -4(%rbp)</code> 把7存入rbq位置为-4,对应c代码为<code>int d = 3 + 4</code>,由此可知编译器在编译时其实是会进行相应优化的<br><code>.LC0(%rip)</code>は、printfが使うアドレス、前もってprintfで使用する書式を設定している(就是说设置printf使用的地址,并提前设置格式)<sup><a href="#2"><font color="red">[2]</font></a></sup><br><code>call	printf@PLT</code> 调用printf<br> <code>leave</code> 离开printf<br><code>ret</code>:结束当前函数</p>
+<hr>
+<p>接下来我们可以简单的实战一下:<br>给gcc开启O3级别的优化:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gcc -O3 -S</span><br></pre></td></tr></table></figure>
+
+<p>生成的汇编码:</p>
+<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="meta">	.file</span>	<span class="string">"hello.c"</span></span><br><span class="line"><span class="meta">	.text</span></span><br><span class="line"><span class="meta">	.section</span>	.rodata<span class="number">.</span>str1<span class="number">.1</span>,<span class="string">"aMS"</span>,@progbits,<span class="number">1</span></span><br><span class="line"><span class="symbol">.LC0:</span></span><br><span class="line"><span class="meta">	.string</span>	<span class="string">"%d %d"</span></span><br><span class="line"><span class="meta">	.section</span>	.text<span class="number">.</span>startup,<span class="string">"ax"</span>,@progbits</span><br><span class="line"><span class="meta">	.p2align</span> <span class="number">4</span></span><br><span class="line"><span class="meta">	.globl</span>	main</span><br><span class="line"><span class="meta">	.type</span>	main, @function</span><br><span class="line"><span class="symbol">main:</span></span><br><span class="line"><span class="symbol">.LFB11:</span></span><br><span class="line"><span class="meta">	.cfi_startproc</span></span><br><span class="line">    subq	<span class="number">$8</span>, %rsp</span><br><span class="line"><span class="meta">	.cfi_def_cfa_offset</span> <span class="number">16</span></span><br><span class="line">    movl	<span class="number">$7</span>, %edx</span><br><span class="line">    movl	<span class="number">$3</span>, %esi</span><br><span class="line">    xorl	%eax, %eax</span><br><span class="line">    leaq	.LC0(%rip), %rdi</span><br><span class="line">    <span class="keyword">call</span>	printf@PLT</span><br><span class="line">    xorl	%eax, %eax</span><br><span class="line">    addq	<span class="number">$8</span>, %rsp</span><br><span class="line"><span class="meta">	.cfi_def_cfa_offset</span> <span class="number">8</span></span><br><span class="line">    <span class="keyword">ret</span></span><br><span class="line"><span class="meta">	.cfi_endproc</span></span><br><span class="line"><span class="symbol">.LFE11:</span></span><br><span class="line"><span class="meta">	.size</span>	main, .-main</span><br><span class="line"><span class="meta">	.ident</span>	<span class="string">"GCC: (GNU) 9.1.0"</span></span><br><span class="line"><span class="meta">	.section</span>	.note<span class="number">.</span>GNU-stack,<span class="string">""</span>,@progbits</span><br></pre></td></tr></table></figure>
+
+<p>从以上汇编代码中我们可以发现,优化之后的汇编代码将最后相加的值给了内存,而不像之前那样先占用两个内存空间然后再相加.</p>
+<hr>
+<blockquote>
+<p>[1] <a id="1"><a href="https://zhuanlan.zhihu.com/p/27339191" target="_blank" rel="noopener">x86-64 下函数调用及栈帧原理</a></a><br>[2] <a id="2"><a href="https://qiita.com/diggy-mo/items/fe56f6ea357e5928a8ca" target="_blank" rel="noopener">アセンブラ学習log_1</a></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>assembly</category>
+      </categories>
+      <tags>
+        <tag>汇编语言</tag>
+        <tag>assembly</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>深度学习之感知器的实现</title>
     <url>/posts/64e69c3e/</url>
     <content><![CDATA[<p>感知器的一个公式:<br>  <strong>当 wx+b&gt;0 , f(x)&#x3D;1,否则f(x)&#x3D;0</strong></p>
@@ -2332,6 +2307,31 @@
       </tags>
   </entry>
   <entry>
+    <title>暗影精灵更改efi启动顺序</title>
+    <url>/posts/6683eff9/</url>
+    <content><![CDATA[<p>–2019-04-22 更新–<br><strong>最新版bios已经可以调整启动顺序了(<a href="#jump">图在最下面</a>)</strong>  </p>
+<p>——– 之 前 ——-<br>暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说</p>
+<p>首先从ubuntu进入&#x2F;boot&#x2F;efi&#x2F;EFI<br><strong>备份windwos的启动文件</strong>（<strong>切记一定要备份，否则只能从pe重新建立windwos启动项</strong>）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp -arf Microsoft win10</span><br></pre></td></tr></table></figure>
+
+<p>将ubuntu的grubx64.efi替换掉EFI&#x2F;Microsoft&#x2F;Boot&#x2F;bootmgfw.efi文件 <a id="more"></a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp -arf ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi</span><br></pre></td></tr></table></figure>
+
+<p>这样替换之后grub就接管了系统的启动</p>
+<p>然后将&#x2F;boot&#x2F;grub&#x2F;grub.cfg中关于windows的启动段复制到&#x2F;etc&#x2F;grub.d&#x2F;40_custom中<br>将<strong>chainloader &#x2F;EFI&#x2F;Micorosoft&#x2F;Boot&#x2F;bootmgfw.efi</strong><br>改为<br><strong>chainloader &#x2F;EFI&#x2F;win10&#x2F;Boot&#x2F;bootmgfw.efi</strong><br>就是把中间那个改为你备份的文件夹，可以改一改前面的启动名称<br>最后执行update-grub来更新启动项</p>
+<p>但是windwos有大更新的时候会把更改的覆盖掉，再来一遍就好了</p>
+<p><span id="jump"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="http://blog-1254450445.cossgp.myqcloud.com/efi.jpg"></span></p>
+<p>参考文章<a href="https://blog.csdn.net/zyix_0712/article/details/69675748" target="_blank" rel="noopener">暗影精灵2pro安装win10+ubuntu16.10双系统</a></p>
+]]></content>
+      <categories>
+        <category>Computer</category>
+      </categories>
+      <tags>
+        <tag>EFI</tag>
+        <tag>BIOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>用CIDR表示网段</title>
     <url>/posts/e2b25bb8/</url>
     <content><![CDATA[<p>我们知道一般CIDR(无类别域间路由)网段的表示为:<strong>192.168.0.0&#x2F;24</strong>这种形式</p>
@@ -2347,6 +2347,95 @@
       <tags>
         <tag>CIDR</tag>
         <tag>IP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>离散对数问题</title>
+    <url>/posts/1f299eb2/</url>
+    <content><![CDATA[<p>前置知识 欧拉, 欧拉定理, 模反元素(模逆元) 可参见: <a href="/posts/f1a158c9/">RSA加密</a></p>
+<h2 id="阶"><a href="#阶" class="headerlink" title="阶"></a>阶</h2><p>由欧拉定理可知，若n,a为正整数，且n,a互素（即gcd(a,n)&#x3D;1），则 a^phi(n) &#x3D; 1 (mod n)。<br>因此满足同余式 a^m &#x3D; 1 (mod n)的<strong>最小正整数m</strong>存在，这个m称作a模n的阶，记作delta(n,a)。  </p>
+<h2 id="原根"><a href="#原根" class="headerlink" title="原根"></a>原根</h2><p>若n,a为正整数，且n,a互质，如果 gcd(a,n)&#x3D;1 且 delta(n,a) &#x3D; phi(n), 则称a为模n的原根.<br>简单来说，使该式成立的d可能有很多个值，又由欧拉定理可知delta(n,a) &#x3D; phi(n)一定是满足的，如果此时所有delta(n,a)的可能取值中phi(n)是最小的，那么就称a为模n的原根。</p>
+<p>eg:</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">a=3, n=7</span><br><span class="line">可知 3,7互质, 所以phi(n) = 7 - 1 = 6</span><br><span class="line">可得 3^6 = 1 (mod 7)</span><br><span class="line"></span><br><span class="line">计算3^1, 3^2, 3^3, 3^4, 3^5 (mod 7) 都不等于1, 所以 6为满足 a^x = 1 (mod n)的最小正整数</span><br><span class="line"></span><br><span class="line">delta(7,3) = 6 = phi(7), 可得 3为模7的原根</span><br></pre></td></tr></table></figure>
+
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><a id="more"></a>
+<ul>
+<li>delta(n,a)一定能整除phi(n)</li>
+<li>若一个数m有原根, 则它的原根个数为phi(phi(m))</li>
+</ul>
+<h2 id="离散对数"><a href="#离散对数" class="headerlink" title="离散对数"></a>离散对数</h2><p>如果对于一个整数b和质数p的一个原根a，可以找到一个唯一的指数i，使得：<br><strong>b&#x3D; a^i (mod p), 其中 0 &lt;&#x3D; i &lt;&#x3D; p-1</strong><br>成立，那么指数i称为b的以a为基数的模p的离散对数。  </p>
+<p>离散对数难题是指：<br>当已知一个大质数p和它的一个原根a，如果给定一个b，要计算i的值是相当困难的。<br>常将i作为私钥, b作为公钥，即使知道b和a也无法求出i。</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><ul>
+<li>DH密钥交换</li>
+</ul>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">取一质数 7, 计算出其原根 3, 同时质数7和其原根3是公开的</span><br><span class="line"></span><br><span class="line">Alice:</span><br><span class="line"><span class="bullet">  - </span>取一个随机数 3 作为自己的私钥</span><br><span class="line"><span class="bullet">  - </span>计算 3^3 (mod 7) = 6</span><br><span class="line"><span class="bullet">  - </span>将6作为公钥发送给Bob</span><br><span class="line"></span><br><span class="line">Bob:</span><br><span class="line"><span class="bullet">    - </span>取一个随机数 1 作为自己的私钥</span><br><span class="line"><span class="bullet">    - </span>计算 3^1 (mod 7) = 3</span><br><span class="line"><span class="bullet">    - </span>将3作为公钥发送给Alice</span><br><span class="line"></span><br><span class="line">Alice 使用 3 计算出共享密钥 3^3 (mod 7) = 6</span><br><span class="line">Bob 使用 6 计算出共享密钥 6^1 (mod 7) = 6</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Elgamal加密</li>
+</ul>
+<p>接上面DH密钥交换</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">获取到公共密钥6之后，Alice和Bob都可以使用公共密钥6来加密信息</span><br><span class="line"></span><br><span class="line">palintext: 6</span><br><span class="line"></span><br><span class="line">加密: 6*6 (mod 7) = 1, 密文为 1</span><br><span class="line">解密: 1*6^-1 (mod 7) = 6 <span class="xml"><span class="tag">&lt;<span class="name">-</span> <span class="attr">6</span>^<span class="attr">-1</span> 是指<span class="attr">6</span>关于模<span class="attr">7</span>的逆元</span></span></span><br></pre></td></tr></table></figure>
+
+<p>上面的写的感觉不太对,完整过程</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">Alice 取一质数 7, 计算出其原根 3, 选一数 3 作为自己的私钥, 3^3 (mod 7) = 6</span><br><span class="line">将 &#123;7,3,6&#125; 作为公钥公开</span><br><span class="line"></span><br><span class="line">Bob想传递信息 6 给 Alice</span><br><span class="line"></span><br><span class="line">Bob选一数 5 作为自己的私钥</span><br><span class="line"><span class="bullet"> - </span>加密密钥: 3^5 (mod 7) = 5</span><br><span class="line"><span class="bullet"> - </span>公钥: 3^5 (mod 7) = 5</span><br><span class="line"><span class="bullet"> - </span>密文: 6*(6^5) (mod 7) = 1</span><br><span class="line"><span class="bullet"> - </span>将 (5,1) 作为密文发送给Alice</span><br><span class="line"></span><br><span class="line">Alice解密</span><br><span class="line"><span class="bullet"> - </span>计算解密密钥: 5^3 (mod 7) = 6</span><br><span class="line"><span class="bullet"> - </span>解密: 1 * 6^-1 (mod 7) = 6 <span class="xml"><span class="tag">&lt;<span class="name">-</span> 此处<span class="attr">6</span>^<span class="attr">-1</span>是指<span class="attr">6</span>关于模<span class="attr">7</span>的逆元(模反元素)</span></span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Crypto</category>
+      </categories>
+      <tags>
+        <tag>Crypto</tag>
+        <tag>离散对数</tag>
+        <tag>DH密钥交换</tag>
+        <tag>Elgamal</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决linux下Realtek ALC295的耳机炸裂声</title>
+    <url>/posts/67c8ee7f/</url>
+    <content><![CDATA[<p>个人使用的笔记本是暗影精灵2 PRO,产品名称是: OMEN by HP Laptop 15-ax210TX.  </p>
+<p>最初本人装的是ubuntu,左边耳机的声音一直有噼里啪啦的炸裂声,后来换了Arch还是一样的情况,而且本人喜欢听安静的声音,类似读故事或是心跳声这种,每次听到劈裂啪啦的声音真是难受.</p>
+<p>最初尝试过Arch wiki中的各种方法 包括</p>
+<blockquote>
+<p><a href="https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Glitches,_skips_or_crackling" target="_blank" rel="noopener">PulseAudio&#x2F;Troubleshooting#Glitches,_skips_or_crackling</a><br><a href="https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Static_noise_when_using_headphones" target="_blank" rel="noopener">PulseAudio&#x2F;Troubleshooting#Static_noise_when_using_headphones</a></p>
+</blockquote>
+<p>都没有任何改进.</p>
+<p>直到后来才发现这是linux下Realtek ALC295的驱动不完善导致的,这个bug在17年就提出了,至今都没有得到解决.</p>
+<blockquote>
+<p><a href="https://bugzilla.kernel.org/show_bug.cgi?id=195457" target="_blank" rel="noopener">Bug 195457 - Realtek ALC295 still unsupported</a><br><a href="https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/1648183" target="_blank" rel="noopener">Crackling and popping sound when using headphones</a>  </p>
+</blockquote>
+<p>即使有人提交补丁并合并到了linux内核中</p>
+<blockquote>
+<p><a href="https://github.com/torvalds/linux/commit/44be77c590f381bc629815ac789b8b15ecc4ddcf#diff-6cb60ab78549a5b6838f746b9e128105" target="_blank" rel="noopener">ALSA: hda - Fix missing COEF init for ALC225&#x2F;295&#x2F;299</a></p>
+</blockquote>
+<p>但是事实证明并没有用</p>
+<p>依照上面有人提供的方法却有效(看起来跟提交补丁差不多,但是补丁却没有起作用):</p>
+<a id="more"></a>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">I've managed to fix this problem on my machine (HP Omen 15 running Ubuntu 17.04 using codec for Realtek ALC295 sound device). To fix the problem, I can do the following:</span><br><span class="line"></span><br><span class="line">Install alsa-tools if not installed:</span><br><span class="line"></span><br><span class="line">sudo apt install alsa-tools</span><br><span class="line"></span><br><span class="line">Create and save a script in /usr/local/bin:</span><br><span class="line"></span><br><span class="line"><span class="section">#!/bin/bash</span></span><br><span class="line">hda-verb /dev/snd/hwC0D0 0x20 SET<span class="emphasis">_COEF_</span>INDEX 0x67</span><br><span class="line">hda-verb /dev/snd/hwC0D0 0x20 SET<span class="emphasis">_PROC_</span>COEF 0x3000</span><br><span class="line"></span><br><span class="line">Run the script as root in a terminal to immediately fix the problem.</span><br><span class="line"></span><br><span class="line">To run the script on startup, use cron with the @reboot command:</span><br><span class="line"></span><br><span class="line">sudo crontab -e</span><br><span class="line"></span><br><span class="line">and then add line in crontab:</span><br><span class="line">@reboot [full path to script]</span><br><span class="line"></span><br><span class="line">To run script on resume from suspend, copy the script to /lib/systemd/system-sleep</span><br><span class="line"></span><br><span class="line">For more technical details regarding this fix, see https://bugzilla.kernel.org/show_bug.cgi?id=195457</span><br></pre></td></tr></table></figure>
+
+<p>arch下类似 除了是用pacman安装alsa-tools,之后操作是一样的.</p>
+<p>不使用crontab,使用systemd的方法<a href="https://wiki.archlinux.org/index.php/ASUS_Zenbook_UX430/UX530#Headphones_audio_is_too_low" target="_blank" rel="noopener">ASUS_Zenbook_UX430&#x2F;UX530#Headphones_audio_is_too_low</a></p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">In order to fix it, install alsa-tools or hda-verbAUR and create the file:</span><br><span class="line"></span><br><span class="line">/usr/local/bin/fix<span class="emphasis">_headphones_</span>audio.sh</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>; <span class="keyword">do</span></span><br><span class="line">    DEVICE=`ls /dev/snd/hwC[[:<span class="built_in">print</span>:]]*D0 | head -n 1`</span><br><span class="line">    <span class="keyword">if</span> [ ! -z <span class="string">"<span class="variable">$DEVICE</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        hda-verb <span class="string">"<span class="variable">$DEVICE</span>"</span> 0x20 SET_COEF_INDEX 0x67</span><br><span class="line">        hda-verb <span class="string">"<span class="variable">$DEVICE</span>"</span> 0x20 SET_PROC_COEF 0x3000</span><br><span class="line">        <span class="built_in">break</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    sleep 1</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">Then create a systemd script with the following content:</span><br><span class="line"></span><br><span class="line">/etc/systemd/system/fix<span class="emphasis">_headphones_</span>audio.service</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Fix headphones audio after boot &amp; resume.</span><br><span class="line">After=multi-user.target suspend.target hibernate.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=oneshot</span><br><span class="line">ExecStart=/bin/sh &apos;/usr/local/bin/fix_headphones_audio.sh&apos;</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target suspend.target hibernate.target</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">And finally, start and enable fix<span class="emphasis">_headphones_</span>audio.service.</span><br></pre></td></tr></table></figure>
+
+<hr>
+<blockquote>
+<p><a href="https://bugzilla.kernel.org/show_bug.cgi?id=195457" target="_blank" rel="noopener">Bug 195457 - Realtek ALC295 still unsupported</a><br><a href="https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/1648183" target="_blank" rel="noopener">Crackling and popping sound when using headphones</a><br><a href="https://askubuntu.com/questions/873881/how-to-install-bang-and-olufsen-audio-drivers-for-hp-laptop" target="_blank" rel="noopener">How to install Bang and Olufsen Audio drivers for HP laptop?</a><br><a href="https://wiki.archlinux.org/index.php/ASUS_Zenbook_UX430/UX530#Headphones_audio_is_too_low" target="_blank" rel="noopener">ASUS_Zenbook_UX430&#x2F;UX530#Headphones_audio_is_too_low</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>driver</tag>
+        <tag>Realtek ALC295</tag>
       </tags>
   </entry>
   <entry>
@@ -2406,92 +2495,19 @@
       </tags>
   </entry>
   <entry>
-    <title>离散对数问题</title>
-    <url>/posts/1f299eb2/</url>
-    <content><![CDATA[<p>前置知识 欧拉, 欧拉定理, 模反元素(模逆元) 可参见: <a href="/posts/f1a158c9/">RSA加密</a></p>
-<h2 id="阶"><a href="#阶" class="headerlink" title="阶"></a>阶</h2><p>由欧拉定理可知，若n,a为正整数，且n,a互素（即gcd(a,n)&#x3D;1），则 a^phi(n) &#x3D; 1 (mod n)。<br>因此满足同余式 a^m &#x3D; 1 (mod n)的<strong>最小正整数m</strong>存在，这个m称作a模n的阶，记作delta(n,a)。  </p>
-<h2 id="原根"><a href="#原根" class="headerlink" title="原根"></a>原根</h2><p>若n,a为正整数，且n,a互质，如果 gcd(a,n)&#x3D;1 且 delta(n,a) &#x3D; phi(n), 则称a为模n的原根.<br>简单来说，使该式成立的d可能有很多个值，又由欧拉定理可知delta(n,a) &#x3D; phi(n)一定是满足的，如果此时所有delta(n,a)的可能取值中phi(n)是最小的，那么就称a为模n的原根。</p>
-<p>eg:</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">a=3, n=7</span><br><span class="line">可知 3,7互质, 所以phi(n) = 7 - 1 = 6</span><br><span class="line">可得 3^6 = 1 (mod 7)</span><br><span class="line"></span><br><span class="line">计算3^1, 3^2, 3^3, 3^4, 3^5 (mod 7) 都不等于1, 所以 6为满足 a^x = 1 (mod n)的最小正整数</span><br><span class="line"></span><br><span class="line">delta(7,3) = 6 = phi(7), 可得 3为模7的原根</span><br></pre></td></tr></table></figure>
-
-<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><a id="more"></a>
-<ul>
-<li>delta(n,a)一定能整除phi(n)</li>
-<li>若一个数m有原根, 则它的原根个数为phi(phi(m))</li>
-</ul>
-<h2 id="离散对数"><a href="#离散对数" class="headerlink" title="离散对数"></a>离散对数</h2><p>如果对于一个整数b和质数p的一个原根a，可以找到一个唯一的指数i，使得：<br><strong>b&#x3D; a^i (mod p), 其中 0 &lt;&#x3D; i &lt;&#x3D; p-1</strong><br>成立，那么指数i称为b的以a为基数的模p的离散对数。  </p>
-<p>离散对数难题是指：<br>当已知一个大质数p和它的一个原根a，如果给定一个b，要计算i的值是相当困难的。<br>常将i作为私钥, b作为公钥，即使知道b和a也无法求出i。</p>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><ul>
-<li>DH密钥交换</li>
-</ul>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">取一质数 7, 计算出其原根 3, 同时质数7和其原根3是公开的</span><br><span class="line"></span><br><span class="line">Alice:</span><br><span class="line"><span class="bullet">  - </span>取一个随机数 3 作为自己的私钥</span><br><span class="line"><span class="bullet">  - </span>计算 3^3 (mod 7) = 6</span><br><span class="line"><span class="bullet">  - </span>将6作为公钥发送给Bob</span><br><span class="line"></span><br><span class="line">Bob:</span><br><span class="line"><span class="bullet">    - </span>取一个随机数 1 作为自己的私钥</span><br><span class="line"><span class="bullet">    - </span>计算 3^1 (mod 7) = 3</span><br><span class="line"><span class="bullet">    - </span>将3作为公钥发送给Alice</span><br><span class="line"></span><br><span class="line">Alice 使用 3 计算出共享密钥 3^3 (mod 7) = 6</span><br><span class="line">Bob 使用 6 计算出共享密钥 6^1 (mod 7) = 6</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Elgamal加密</li>
-</ul>
-<p>接上面DH密钥交换</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">获取到公共密钥6之后，Alice和Bob都可以使用公共密钥6来加密信息</span><br><span class="line"></span><br><span class="line">palintext: 6</span><br><span class="line"></span><br><span class="line">加密: 6*6 (mod 7) = 1, 密文为 1</span><br><span class="line">解密: 1*6^-1 (mod 7) = 6 <span class="xml"><span class="tag">&lt;<span class="name">-</span> <span class="attr">6</span>^<span class="attr">-1</span> 是指<span class="attr">6</span>关于模<span class="attr">7</span>的逆元</span></span></span><br></pre></td></tr></table></figure>
-
-<p>上面的写的感觉不太对,完整过程</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">Alice 取一质数 7, 计算出其原根 3, 选一数 3 作为自己的私钥, 3^3 (mod 7) = 6</span><br><span class="line">将 &#123;7,3,6&#125; 作为公钥公开</span><br><span class="line"></span><br><span class="line">Bob想传递信息 6 给 Alice</span><br><span class="line"></span><br><span class="line">Bob选一数 5 作为自己的私钥</span><br><span class="line"><span class="bullet"> - </span>加密密钥: 3^5 (mod 7) = 5</span><br><span class="line"><span class="bullet"> - </span>公钥: 3^5 (mod 7) = 5</span><br><span class="line"><span class="bullet"> - </span>密文: 6*(6^5) (mod 7) = 1</span><br><span class="line"><span class="bullet"> - </span>将 (5,1) 作为密文发送给Alice</span><br><span class="line"></span><br><span class="line">Alice解密</span><br><span class="line"><span class="bullet"> - </span>计算解密密钥: 5^3 (mod 7) = 6</span><br><span class="line"><span class="bullet"> - </span>解密: 1 * 6^-1 (mod 7) = 6 <span class="xml"><span class="tag">&lt;<span class="name">-</span> 此处<span class="attr">6</span>^<span class="attr">-1</span>是指<span class="attr">6</span>关于模<span class="attr">7</span>的逆元(模反元素)</span></span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Crypto</category>
-      </categories>
-      <tags>
-        <tag>Crypto</tag>
-        <tag>离散对数</tag>
-        <tag>DH密钥交换</tag>
-        <tag>Elgamal</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>秘密共享</title>
-    <url>/posts/ce6c7d90/</url>
-    <content><![CDATA[<h2 id="拉格朗日插值法"><a href="#拉格朗日插值法" class="headerlink" title="拉格朗日插值法"></a>拉格朗日插值法</h2><p>对某个多项式函数，已知有给定的k + 1个取值点：<code>(x0,y0)...(xk,yk)</code><br>假设任意两个不同的xj都互不相同，那么应用拉格朗日插值公式所得到的拉格朗日插值多项式为：  </p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">l0 = (((x-x1)(x-x2)...(x-xk))/((x0-x1)(x0-x2)...(x0-xk)))*y0</span><br><span class="line"><span class="code">    ...</span></span><br><span class="line">lk = ...</span><br></pre></td></tr></table></figure>
-
-<p><code>f(x) = l0+l1...+lk</code>即可求出多项式</p>
-<h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><figure class="highlight md"><table><tr><td class="code"><pre><span class="line">已知3个点(4,10)(5,5.25)(6,1)</span><br><span class="line"></span><br><span class="line">l0 = (((x-5)(x-6))/((4-5)(4-6))) * 10</span><br><span class="line">l1 = (((x-4)(x-6))/((5-4)(5-6))) * 5.25</span><br><span class="line">l2 = (((x-4)(x-5))/((6-4)(6-5))) * 1</span><br><span class="line"></span><br><span class="line">f(x) = l0+l1+l2 = 1/4(x^2-28x+136)</span><br></pre></td></tr></table></figure>
-
-<h2 id="Shamir-秘密共享"><a href="#Shamir-秘密共享" class="headerlink" title="Shamir 秘密共享"></a>Shamir 秘密共享</h2><p>生成</p>
+    <title>让win10的UWP应用走代理</title>
+    <url>/posts/d22ffdb6/</url>
+    <content><![CDATA[<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>因为uwp应用的特殊性,即使使用proxifier和proxycap这种应用也无法让其走代理</p>
+<h2 id="现在可直接用WindowsLoopbackManager"><a href="#现在可直接用WindowsLoopbackManager" class="headerlink" title="现在可直接用WindowsLoopbackManager"></a>现在可直接用WindowsLoopbackManager</h2><p><a href="https://github.com/tiagonmas/Windows-Loopback-Exemption-Manager" target="_blank" rel="noopener">WindowsLoopbackManager</a></p>
 <a id="more"></a>
-<ul>
-<li>设需要生成w个密钥，至少需要t个密钥才能算出真实密钥</li>
-<li>选择一个数P，之后所有数都需要进行模运算</li>
-<li>设置真实密钥K</li>
-<li>随机选择t-1个不大于P的数 <code>a0,a1...at-1</code></li>
-<li>得到多项式 <code>f(x)=K+a0x+a1x^2...+at-1x^t</code></li>
-<li>将<code>x=1.x=2...x=w</code>带入多项式即可获得多个密钥<code>(1,k1)(2,k2)...(w,kw)</code></li>
-</ul>
-<p>解密</p>
-<ul>
-<li>利用拉格朗日插值法即可算出多项式</li>
-<li>需要带上模计算多项式，如果计算多项式时有除法需要进行计算模乘逆元</li>
-<li>因为只需要K所以计算的时候可以直接x&#x3D;0</li>
-</ul>
-<h3 id="eg1"><a href="#eg1" class="headerlink" title="eg1"></a>eg1</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">w=4,t=3,K=2,p=23，选择随机数 a0=3, a1=2</span><br><span class="line"></span><br><span class="line">加密</span><br><span class="line"></span><br><span class="line">得到多项式 f(x) = (2 + 3x + 2x^2) mod 23</span><br><span class="line">f(1) = 2, f(2) = 16, f(3) = 6, f(4) = 0</span><br><span class="line">获得4个密钥(1,2)(2,16)(3,6)(4,0)</span><br><span class="line"></span><br><span class="line">解密</span><br><span class="line"></span><br><span class="line">选择其中三个进行解密，(1,7)(3,6)(4,0)</span><br><span class="line"></span><br><span class="line">l0 = (((x-3)(x-4))/((1-3)(1-4)))*7</span><br><span class="line">l1 = (((x-1)(x-4))/((3-1)(3-4)))*6</span><br><span class="line">l2 = (((x-1)(x-3))/((4-1)(4-3)))*0</span><br><span class="line"></span><br><span class="line">将x=0带入可得</span><br><span class="line"></span><br><span class="line">l0 = 14</span><br><span class="line">l1 = -12</span><br><span class="line">l2 = 0</span><br><span class="line"></span><br><span class="line">可得k = (l0+l1+l2) mod 23</span><br><span class="line">     = 2 mod 23</span><br><span class="line">     = 2</span><br></pre></td></tr></table></figure>
-
-<h3 id="eg2"><a href="#eg2" class="headerlink" title="eg2"></a>eg2</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">w=5,t=3,k=13,p=17,选择随机数a0=10,a1=2</span><br><span class="line"></span><br><span class="line">加密</span><br><span class="line"></span><br><span class="line">得到多项式 f(x) = (13 + 10x + 2x^2) mod 17</span><br><span class="line">f(1) = 8, f(2) = 7, f(3) = 10, f(4) = 0, f(5) = 11</span><br><span class="line">获得5个密钥(1,8)(2,7)(3,10)(4,0)(5,11)</span><br><span class="line"></span><br><span class="line">解密</span><br><span class="line"></span><br><span class="line">选择其中三个进行解密，(1,8)(2,7)(5,11)</span><br><span class="line"></span><br><span class="line">l0 = 11 * ( ((x-1)(x-2)) / ((5-1)(5-2)) )</span><br><span class="line">l1 = 7  * ( ((x-1)(x-5)) / ((2-1)(2-5)) )</span><br><span class="line">l2 = 8  * ( ((x-2)(x-5)) / ((1-2)(1-5)) )</span><br><span class="line"></span><br><span class="line">将 x=0 带入</span><br><span class="line"></span><br><span class="line">l0 = 22/12</span><br><span class="line">l1 = -140/12</span><br><span class="line">l2 = 240/12</span><br><span class="line"></span><br><span class="line">K = (l0+l1+l2) mod 17</span><br><span class="line">  = (61/6) mod 17</span><br><span class="line">  = (61 * 6^-1) mod 17 // 6^-1为6关于17的模乘逆元为3</span><br><span class="line">  = (61 * 3) mod 17 </span><br><span class="line">  = 13</span><br></pre></td></tr></table></figure>
-
-<h2 id="中国剩余定理"><a href="#中国剩余定理" class="headerlink" title="中国剩余定理"></a>中国剩余定理</h2><p>example</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">w=5,t=3,K=117</span><br><span class="line"></span><br><span class="line">选择w个d,要求单调递增并两两互素,t个最小的d相乘大于K,K大于t-1个最大d相乘</span><br><span class="line">d1=4,d2=5,d3=7,d4=9,d5=11</span><br><span class="line"></span><br><span class="line">计算 ki=Key mod di // = -&gt; \equal</span><br><span class="line"></span><br><span class="line">k1 = 117 mod 4 = 1</span><br><span class="line">k2 = 117 mod 5 = 2</span><br><span class="line">k3 = 117 mod 7 = 5</span><br><span class="line">k4 = 117 mod 9 = 0</span><br><span class="line">k5 = 117 mod 11 = 7</span><br><span class="line"></span><br><span class="line">即五个密钥(1,4),(2,5),(3,7),(0,9),(7,11)</span><br><span class="line"></span><br><span class="line">解密</span><br><span class="line">选其中三个密钥(1,4)(2,5)(3,7)</span><br><span class="line">可得</span><br><span class="line"></span><br><span class="line">k mod 4 = 1</span><br><span class="line">k mod 5 = 2</span><br><span class="line">k mod 11 = 7</span><br><span class="line"></span><br><span class="line">分解为</span><br><span class="line">k1 mod 4 = 1, k1 mod 5 = 0, k1 mod 11 = 0</span><br><span class="line">  -&gt; 5 * 11 * x1 mod 4 = 1</span><br><span class="line">  -&gt; x1 = 3</span><br><span class="line">  -&gt; k1 = 55 * 3 = 165</span><br><span class="line"></span><br><span class="line">k2 mod 4 = 0, k2 mod 5 = 2, k2 mod 11 = 0</span><br><span class="line">  -&gt; 4 * 11 * x2 mod 5 = 2</span><br><span class="line">  -&gt; 44 * x2 * 2^-1 mod 5 = 1 // 2^-1 为2关于5的模乘逆元</span><br><span class="line">  -&gt; 44 * x2 * 3 mod 5 = 1</span><br><span class="line">  -&gt; 132 * x2 mod 5 = 1 // 相当于算132关于5的模乘逆元</span><br><span class="line">  -&gt; x2 = 3</span><br><span class="line">  -&gt; k2 = 44 * 3 = 132</span><br><span class="line"></span><br><span class="line">k3 mod 4 = 0, k3 mod 5 = 0, k3 mod 11 = 7</span><br><span class="line">  -&gt; 4 * 5 * x3 mod 11 = 7</span><br><span class="line">  -&gt; 20 * x3 * 7^-1 mod 11 = 1 // 7^-1 为7关于11的模乘逆元</span><br><span class="line">  -&gt; 20 * x3 * 8 mod 11 = 1</span><br><span class="line">  -&gt; 160 * x3 mod 11 = 1 // 相当于算160关于11的模乘逆元</span><br><span class="line">  -&gt; x3 = 2</span><br><span class="line">  -&gt; k3 = 40</span><br><span class="line"></span><br><span class="line">K = (k1 + k2 + k3) mod 4*5*11</span><br><span class="line">  = (165+132+40) mod 220</span><br><span class="line">  = 337 mod 220</span><br><span class="line">  = 117</span><br><span class="line"></span><br><span class="line">另一种：</span><br><span class="line">k1 mod 4 = 1, k1 mod 5 = 0, k1 mod 11 = 0</span><br><span class="line">  -&gt; 1 * (k1 mod 4 = 1, k1 mod 5 = 0, k1 mod 11 = 0) </span><br><span class="line">  -&gt; 5 * 11 * x1 mod 4 = 1</span><br><span class="line">  -&gt; x1 = 3</span><br><span class="line">  -&gt; k1 = 1 * 55 * 3 = 165</span><br><span class="line"></span><br><span class="line">k2 mod 4 = 0, k2 mod 5 = 2, k2 mod 11 = 0</span><br><span class="line">  -&gt; 2 * (k2 mod 4 = 0, k2 mod 5 = 1, k2 mod 11 = 0)</span><br><span class="line">  -&gt; 4 * 11 * x2 mod 5 = 1</span><br><span class="line">  -&gt; x2 = 4</span><br><span class="line">  -&gt; k2 2 * 44 * 4 = 352</span><br><span class="line"></span><br><span class="line">k3 mod 4 = 0, k3 mod 5 = 0, k3 mod 11 = 7</span><br><span class="line">  -&gt; 7 * (k3 mod 4 = 0, k3 mod 5 = 0, k3 mod 11 = 1)</span><br><span class="line">  -&gt; 4 * 5 * x3 mod 11 = 1</span><br><span class="line">  -&gt; x3 = 5</span><br><span class="line">  -&gt; k3 = 7 * 20 * 5 = 700</span><br><span class="line"></span><br><span class="line">K = (k1 + k2 + k3) mod (4*5*11)</span><br><span class="line">  = (165 + 352 + 700) mod 220</span><br><span class="line">  = 1217 mod 220</span><br><span class="line">  = 117</span><br></pre></td></tr></table></figure>
-
-<hr>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing" target="_blank" rel="noopener">Shamir’s Secret Sharing - Wikipedia</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E6%8F%92%E5%80%BC%E6%B3%95" target="_blank" rel="noopener">拉格朗日插值法 - Wikipedia</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/95362628" target="_blank" rel="noopener">趣说密码学（五）秘密共享方案——shamir,中国剩余定理,Brickell和Blakley</a></li>
-<li><a href="https://www.cnblogs.com/pyrie/p/sss_py.html" target="_blank" rel="noopener">Shamir秘密共享方案 (Python)</a></li>
-</ul>
+<h2 id="1-SSTAP"><a href="#1-SSTAP" class="headerlink" title="1.SSTAP"></a>1.SSTAP</h2><p>这个应用是创建虚拟网卡,让windows全局走代理.但其有弊端就是有一些国内的网站也会走代理,比如BILIBILI.虽然可以自己写规则但实在是麻烦无比.</p>
+<h2 id="2-fiddler"><a href="#2-fiddler" class="headerlink" title="2.fiddler"></a>2.fiddler</h2><p>利用fiddler的winconfig实现uwp应用走代理<br><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="http://blog-1254450445.cossgp.myqcloud.com/WK%290~%29WR%29N79$KZ4HZZTDQ2.png" alt="."><br>把要走代理的应用勾上<br><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="http://blog-1254450445.cossgp.myqcloud.com/KT3%28H@%60C63P@2KH_X7C@QDI.png" alt="."><br>但这不是全局代理,只能让uwp应用走代理</p>
 ]]></content>
       <categories>
-        <category>Crypto</category>
+        <category>Network</category>
       </categories>
       <tags>
-        <tag>Crypto</tag>
-        <tag>Shamir</tag>
+        <tag>proxy</tag>
       </tags>
   </entry>
   <entry>
@@ -2574,54 +2590,6 @@
       </tags>
   </entry>
   <entry>
-    <title>解决linux下Realtek ALC295的耳机炸裂声</title>
-    <url>/posts/67c8ee7f/</url>
-    <content><![CDATA[<p>个人使用的笔记本是暗影精灵2 PRO,产品名称是: OMEN by HP Laptop 15-ax210TX.  </p>
-<p>最初本人装的是ubuntu,左边耳机的声音一直有噼里啪啦的炸裂声,后来换了Arch还是一样的情况,而且本人喜欢听安静的声音,类似读故事或是心跳声这种,每次听到劈裂啪啦的声音真是难受.</p>
-<p>最初尝试过Arch wiki中的各种方法 包括</p>
-<blockquote>
-<p><a href="https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Glitches,_skips_or_crackling" target="_blank" rel="noopener">PulseAudio&#x2F;Troubleshooting#Glitches,_skips_or_crackling</a><br><a href="https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Static_noise_when_using_headphones" target="_blank" rel="noopener">PulseAudio&#x2F;Troubleshooting#Static_noise_when_using_headphones</a></p>
-</blockquote>
-<p>都没有任何改进.</p>
-<p>直到后来才发现这是linux下Realtek ALC295的驱动不完善导致的,这个bug在17年就提出了,至今都没有得到解决.</p>
-<blockquote>
-<p><a href="https://bugzilla.kernel.org/show_bug.cgi?id=195457" target="_blank" rel="noopener">Bug 195457 - Realtek ALC295 still unsupported</a><br><a href="https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/1648183" target="_blank" rel="noopener">Crackling and popping sound when using headphones</a>  </p>
-</blockquote>
-<p>即使有人提交补丁并合并到了linux内核中</p>
-<blockquote>
-<p><a href="https://github.com/torvalds/linux/commit/44be77c590f381bc629815ac789b8b15ecc4ddcf#diff-6cb60ab78549a5b6838f746b9e128105" target="_blank" rel="noopener">ALSA: hda - Fix missing COEF init for ALC225&#x2F;295&#x2F;299</a></p>
-</blockquote>
-<p>但是事实证明并没有用</p>
-<p>依照上面有人提供的方法却有效(看起来跟提交补丁差不多,但是补丁却没有起作用):</p>
-<a id="more"></a>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">I've managed to fix this problem on my machine (HP Omen 15 running Ubuntu 17.04 using codec for Realtek ALC295 sound device). To fix the problem, I can do the following:</span><br><span class="line"></span><br><span class="line">Install alsa-tools if not installed:</span><br><span class="line"></span><br><span class="line">sudo apt install alsa-tools</span><br><span class="line"></span><br><span class="line">Create and save a script in /usr/local/bin:</span><br><span class="line"></span><br><span class="line"><span class="section">#!/bin/bash</span></span><br><span class="line">hda-verb /dev/snd/hwC0D0 0x20 SET<span class="emphasis">_COEF_</span>INDEX 0x67</span><br><span class="line">hda-verb /dev/snd/hwC0D0 0x20 SET<span class="emphasis">_PROC_</span>COEF 0x3000</span><br><span class="line"></span><br><span class="line">Run the script as root in a terminal to immediately fix the problem.</span><br><span class="line"></span><br><span class="line">To run the script on startup, use cron with the @reboot command:</span><br><span class="line"></span><br><span class="line">sudo crontab -e</span><br><span class="line"></span><br><span class="line">and then add line in crontab:</span><br><span class="line">@reboot [full path to script]</span><br><span class="line"></span><br><span class="line">To run script on resume from suspend, copy the script to /lib/systemd/system-sleep</span><br><span class="line"></span><br><span class="line">For more technical details regarding this fix, see https://bugzilla.kernel.org/show_bug.cgi?id=195457</span><br></pre></td></tr></table></figure>
-
-<p>arch下类似 除了是用pacman安装alsa-tools,之后操作是一样的.</p>
-<p>不使用crontab,使用systemd的方法<a href="https://wiki.archlinux.org/index.php/ASUS_Zenbook_UX430/UX530#Headphones_audio_is_too_low" target="_blank" rel="noopener">ASUS_Zenbook_UX430&#x2F;UX530#Headphones_audio_is_too_low</a></p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">In order to fix it, install alsa-tools or hda-verbAUR and create the file:</span><br><span class="line"></span><br><span class="line">/usr/local/bin/fix<span class="emphasis">_headphones_</span>audio.sh</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>; <span class="keyword">do</span></span><br><span class="line">    DEVICE=`ls /dev/snd/hwC[[:<span class="built_in">print</span>:]]*D0 | head -n 1`</span><br><span class="line">    <span class="keyword">if</span> [ ! -z <span class="string">"<span class="variable">$DEVICE</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        hda-verb <span class="string">"<span class="variable">$DEVICE</span>"</span> 0x20 SET_COEF_INDEX 0x67</span><br><span class="line">        hda-verb <span class="string">"<span class="variable">$DEVICE</span>"</span> 0x20 SET_PROC_COEF 0x3000</span><br><span class="line">        <span class="built_in">break</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    sleep 1</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">Then create a systemd script with the following content:</span><br><span class="line"></span><br><span class="line">/etc/systemd/system/fix<span class="emphasis">_headphones_</span>audio.service</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Fix headphones audio after boot &amp; resume.</span><br><span class="line">After=multi-user.target suspend.target hibernate.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=oneshot</span><br><span class="line">ExecStart=/bin/sh &apos;/usr/local/bin/fix_headphones_audio.sh&apos;</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target suspend.target hibernate.target</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">And finally, start and enable fix<span class="emphasis">_headphones_</span>audio.service.</span><br></pre></td></tr></table></figure>
-
-<hr>
-<blockquote>
-<p><a href="https://bugzilla.kernel.org/show_bug.cgi?id=195457" target="_blank" rel="noopener">Bug 195457 - Realtek ALC295 still unsupported</a><br><a href="https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/1648183" target="_blank" rel="noopener">Crackling and popping sound when using headphones</a><br><a href="https://askubuntu.com/questions/873881/how-to-install-bang-and-olufsen-audio-drivers-for-hp-laptop" target="_blank" rel="noopener">How to install Bang and Olufsen Audio drivers for HP laptop?</a><br><a href="https://wiki.archlinux.org/index.php/ASUS_Zenbook_UX430/UX530#Headphones_audio_is_too_low" target="_blank" rel="noopener">ASUS_Zenbook_UX430&#x2F;UX530#Headphones_audio_is_too_low</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>driver</tag>
-        <tag>Realtek ALC295</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>解决xfce4画面撕裂</title>
     <url>/posts/38868ade/</url>
     <content><![CDATA[<h2 id="安装compton"><a href="#安装compton" class="headerlink" title="安装compton"></a>安装compton</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install compton</span><br></pre></td></tr></table></figure>
@@ -2646,19 +2614,51 @@
       </tags>
   </entry>
   <entry>
-    <title>让win10的UWP应用走代理</title>
-    <url>/posts/d22ffdb6/</url>
-    <content><![CDATA[<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>因为uwp应用的特殊性,即使使用proxifier和proxycap这种应用也无法让其走代理</p>
-<h2 id="现在可直接用WindowsLoopbackManager"><a href="#现在可直接用WindowsLoopbackManager" class="headerlink" title="现在可直接用WindowsLoopbackManager"></a>现在可直接用WindowsLoopbackManager</h2><p><a href="https://github.com/tiagonmas/Windows-Loopback-Exemption-Manager" target="_blank" rel="noopener">WindowsLoopbackManager</a></p>
+    <title>秘密共享</title>
+    <url>/posts/ce6c7d90/</url>
+    <content><![CDATA[<h2 id="拉格朗日插值法"><a href="#拉格朗日插值法" class="headerlink" title="拉格朗日插值法"></a>拉格朗日插值法</h2><p>对某个多项式函数，已知有给定的k + 1个取值点：<code>(x0,y0)...(xk,yk)</code><br>假设任意两个不同的xj都互不相同，那么应用拉格朗日插值公式所得到的拉格朗日插值多项式为：  </p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">l0 = (((x-x1)(x-x2)...(x-xk))/((x0-x1)(x0-x2)...(x0-xk)))*y0</span><br><span class="line"><span class="code">    ...</span></span><br><span class="line">lk = ...</span><br></pre></td></tr></table></figure>
+
+<p><code>f(x) = l0+l1...+lk</code>即可求出多项式</p>
+<h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><figure class="highlight md"><table><tr><td class="code"><pre><span class="line">已知3个点(4,10)(5,5.25)(6,1)</span><br><span class="line"></span><br><span class="line">l0 = (((x-5)(x-6))/((4-5)(4-6))) * 10</span><br><span class="line">l1 = (((x-4)(x-6))/((5-4)(5-6))) * 5.25</span><br><span class="line">l2 = (((x-4)(x-5))/((6-4)(6-5))) * 1</span><br><span class="line"></span><br><span class="line">f(x) = l0+l1+l2 = 1/4(x^2-28x+136)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Shamir-秘密共享"><a href="#Shamir-秘密共享" class="headerlink" title="Shamir 秘密共享"></a>Shamir 秘密共享</h2><p>生成</p>
 <a id="more"></a>
-<h2 id="1-SSTAP"><a href="#1-SSTAP" class="headerlink" title="1.SSTAP"></a>1.SSTAP</h2><p>这个应用是创建虚拟网卡,让windows全局走代理.但其有弊端就是有一些国内的网站也会走代理,比如BILIBILI.虽然可以自己写规则但实在是麻烦无比.</p>
-<h2 id="2-fiddler"><a href="#2-fiddler" class="headerlink" title="2.fiddler"></a>2.fiddler</h2><p>利用fiddler的winconfig实现uwp应用走代理<br><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="http://blog-1254450445.cossgp.myqcloud.com/WK%290~%29WR%29N79$KZ4HZZTDQ2.png" alt="."><br>把要走代理的应用勾上<br><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="http://blog-1254450445.cossgp.myqcloud.com/KT3%28H@%60C63P@2KH_X7C@QDI.png" alt="."><br>但这不是全局代理,只能让uwp应用走代理</p>
+<ul>
+<li>设需要生成w个密钥，至少需要t个密钥才能算出真实密钥</li>
+<li>选择一个数P，之后所有数都需要进行模运算</li>
+<li>设置真实密钥K</li>
+<li>随机选择t-1个不大于P的数 <code>a0,a1...at-1</code></li>
+<li>得到多项式 <code>f(x)=K+a0x+a1x^2...+at-1x^t</code></li>
+<li>将<code>x=1.x=2...x=w</code>带入多项式即可获得多个密钥<code>(1,k1)(2,k2)...(w,kw)</code></li>
+</ul>
+<p>解密</p>
+<ul>
+<li>利用拉格朗日插值法即可算出多项式</li>
+<li>需要带上模计算多项式，如果计算多项式时有除法需要进行计算模乘逆元</li>
+<li>因为只需要K所以计算的时候可以直接x&#x3D;0</li>
+</ul>
+<h3 id="eg1"><a href="#eg1" class="headerlink" title="eg1"></a>eg1</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">w=4,t=3,K=2,p=23，选择随机数 a0=3, a1=2</span><br><span class="line"></span><br><span class="line">加密</span><br><span class="line"></span><br><span class="line">得到多项式 f(x) = (2 + 3x + 2x^2) mod 23</span><br><span class="line">f(1) = 2, f(2) = 16, f(3) = 6, f(4) = 0</span><br><span class="line">获得4个密钥(1,2)(2,16)(3,6)(4,0)</span><br><span class="line"></span><br><span class="line">解密</span><br><span class="line"></span><br><span class="line">选择其中三个进行解密，(1,7)(3,6)(4,0)</span><br><span class="line"></span><br><span class="line">l0 = (((x-3)(x-4))/((1-3)(1-4)))*7</span><br><span class="line">l1 = (((x-1)(x-4))/((3-1)(3-4)))*6</span><br><span class="line">l2 = (((x-1)(x-3))/((4-1)(4-3)))*0</span><br><span class="line"></span><br><span class="line">将x=0带入可得</span><br><span class="line"></span><br><span class="line">l0 = 14</span><br><span class="line">l1 = -12</span><br><span class="line">l2 = 0</span><br><span class="line"></span><br><span class="line">可得k = (l0+l1+l2) mod 23</span><br><span class="line">     = 2 mod 23</span><br><span class="line">     = 2</span><br></pre></td></tr></table></figure>
+
+<h3 id="eg2"><a href="#eg2" class="headerlink" title="eg2"></a>eg2</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">w=5,t=3,k=13,p=17,选择随机数a0=10,a1=2</span><br><span class="line"></span><br><span class="line">加密</span><br><span class="line"></span><br><span class="line">得到多项式 f(x) = (13 + 10x + 2x^2) mod 17</span><br><span class="line">f(1) = 8, f(2) = 7, f(3) = 10, f(4) = 0, f(5) = 11</span><br><span class="line">获得5个密钥(1,8)(2,7)(3,10)(4,0)(5,11)</span><br><span class="line"></span><br><span class="line">解密</span><br><span class="line"></span><br><span class="line">选择其中三个进行解密，(1,8)(2,7)(5,11)</span><br><span class="line"></span><br><span class="line">l0 = 11 * ( ((x-1)(x-2)) / ((5-1)(5-2)) )</span><br><span class="line">l1 = 7  * ( ((x-1)(x-5)) / ((2-1)(2-5)) )</span><br><span class="line">l2 = 8  * ( ((x-2)(x-5)) / ((1-2)(1-5)) )</span><br><span class="line"></span><br><span class="line">将 x=0 带入</span><br><span class="line"></span><br><span class="line">l0 = 22/12</span><br><span class="line">l1 = -140/12</span><br><span class="line">l2 = 240/12</span><br><span class="line"></span><br><span class="line">K = (l0+l1+l2) mod 17</span><br><span class="line">  = (61/6) mod 17</span><br><span class="line">  = (61 * 6^-1) mod 17 // 6^-1为6关于17的模乘逆元为3</span><br><span class="line">  = (61 * 3) mod 17 </span><br><span class="line">  = 13</span><br></pre></td></tr></table></figure>
+
+<h2 id="中国剩余定理"><a href="#中国剩余定理" class="headerlink" title="中国剩余定理"></a>中国剩余定理</h2><p>example</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">w=5,t=3,K=117</span><br><span class="line"></span><br><span class="line">选择w个d,要求单调递增并两两互素,t个最小的d相乘大于K,K大于t-1个最大d相乘</span><br><span class="line">d1=4,d2=5,d3=7,d4=9,d5=11</span><br><span class="line"></span><br><span class="line">计算 ki=Key mod di // = -&gt; \equal</span><br><span class="line"></span><br><span class="line">k1 = 117 mod 4 = 1</span><br><span class="line">k2 = 117 mod 5 = 2</span><br><span class="line">k3 = 117 mod 7 = 5</span><br><span class="line">k4 = 117 mod 9 = 0</span><br><span class="line">k5 = 117 mod 11 = 7</span><br><span class="line"></span><br><span class="line">即五个密钥(1,4),(2,5),(3,7),(0,9),(7,11)</span><br><span class="line"></span><br><span class="line">解密</span><br><span class="line">选其中三个密钥(1,4)(2,5)(3,7)</span><br><span class="line">可得</span><br><span class="line"></span><br><span class="line">k mod 4 = 1</span><br><span class="line">k mod 5 = 2</span><br><span class="line">k mod 11 = 7</span><br><span class="line"></span><br><span class="line">分解为</span><br><span class="line">k1 mod 4 = 1, k1 mod 5 = 0, k1 mod 11 = 0</span><br><span class="line">  -&gt; 5 * 11 * x1 mod 4 = 1</span><br><span class="line">  -&gt; x1 = 3</span><br><span class="line">  -&gt; k1 = 55 * 3 = 165</span><br><span class="line"></span><br><span class="line">k2 mod 4 = 0, k2 mod 5 = 2, k2 mod 11 = 0</span><br><span class="line">  -&gt; 4 * 11 * x2 mod 5 = 2</span><br><span class="line">  -&gt; 44 * x2 * 2^-1 mod 5 = 1 // 2^-1 为2关于5的模乘逆元</span><br><span class="line">  -&gt; 44 * x2 * 3 mod 5 = 1</span><br><span class="line">  -&gt; 132 * x2 mod 5 = 1 // 相当于算132关于5的模乘逆元</span><br><span class="line">  -&gt; x2 = 3</span><br><span class="line">  -&gt; k2 = 44 * 3 = 132</span><br><span class="line"></span><br><span class="line">k3 mod 4 = 0, k3 mod 5 = 0, k3 mod 11 = 7</span><br><span class="line">  -&gt; 4 * 5 * x3 mod 11 = 7</span><br><span class="line">  -&gt; 20 * x3 * 7^-1 mod 11 = 1 // 7^-1 为7关于11的模乘逆元</span><br><span class="line">  -&gt; 20 * x3 * 8 mod 11 = 1</span><br><span class="line">  -&gt; 160 * x3 mod 11 = 1 // 相当于算160关于11的模乘逆元</span><br><span class="line">  -&gt; x3 = 2</span><br><span class="line">  -&gt; k3 = 40</span><br><span class="line"></span><br><span class="line">K = (k1 + k2 + k3) mod 4*5*11</span><br><span class="line">  = (165+132+40) mod 220</span><br><span class="line">  = 337 mod 220</span><br><span class="line">  = 117</span><br><span class="line"></span><br><span class="line">另一种：</span><br><span class="line">k1 mod 4 = 1, k1 mod 5 = 0, k1 mod 11 = 0</span><br><span class="line">  -&gt; 1 * (k1 mod 4 = 1, k1 mod 5 = 0, k1 mod 11 = 0) </span><br><span class="line">  -&gt; 5 * 11 * x1 mod 4 = 1</span><br><span class="line">  -&gt; x1 = 3</span><br><span class="line">  -&gt; k1 = 1 * 55 * 3 = 165</span><br><span class="line"></span><br><span class="line">k2 mod 4 = 0, k2 mod 5 = 2, k2 mod 11 = 0</span><br><span class="line">  -&gt; 2 * (k2 mod 4 = 0, k2 mod 5 = 1, k2 mod 11 = 0)</span><br><span class="line">  -&gt; 4 * 11 * x2 mod 5 = 1</span><br><span class="line">  -&gt; x2 = 4</span><br><span class="line">  -&gt; k2 2 * 44 * 4 = 352</span><br><span class="line"></span><br><span class="line">k3 mod 4 = 0, k3 mod 5 = 0, k3 mod 11 = 7</span><br><span class="line">  -&gt; 7 * (k3 mod 4 = 0, k3 mod 5 = 0, k3 mod 11 = 1)</span><br><span class="line">  -&gt; 4 * 5 * x3 mod 11 = 1</span><br><span class="line">  -&gt; x3 = 5</span><br><span class="line">  -&gt; k3 = 7 * 20 * 5 = 700</span><br><span class="line"></span><br><span class="line">K = (k1 + k2 + k3) mod (4*5*11)</span><br><span class="line">  = (165 + 352 + 700) mod 220</span><br><span class="line">  = 1217 mod 220</span><br><span class="line">  = 117</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing" target="_blank" rel="noopener">Shamir’s Secret Sharing - Wikipedia</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E6%8F%92%E5%80%BC%E6%B3%95" target="_blank" rel="noopener">拉格朗日插值法 - Wikipedia</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/95362628" target="_blank" rel="noopener">趣说密码学（五）秘密共享方案——shamir,中国剩余定理,Brickell和Blakley</a></li>
+<li><a href="https://www.cnblogs.com/pyrie/p/sss_py.html" target="_blank" rel="noopener">Shamir秘密共享方案 (Python)</a></li>
+</ul>
 ]]></content>
       <categories>
-        <category>Network</category>
+        <category>Crypto</category>
       </categories>
       <tags>
-        <tag>proxy</tag>
+        <tag>Crypto</tag>
+        <tag>Shamir</tag>
       </tags>
   </entry>
   <entry>
