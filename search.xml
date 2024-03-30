@@ -266,27 +266,6 @@
       </tags>
   </entry>
   <entry>
-    <title>GeoIP mmdb format</title>
-    <url>/posts/931c13a4/</url>
-    <content><![CDATA[<p>complete document <a href="https://maxmind.github.io/MaxMind-DB/" target="_blank" rel="noopener">MaxMind DB File Format SpecificationDescription</a></p>
-<p>here is only how convert trie tree to array</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">0100, 1011 -&gt; trie</span><br><span class="line"></span><br><span class="line"><span class="code">              root</span></span><br><span class="line"><span class="code">               |</span></span><br><span class="line"><span class="code">         +-----+------+</span></span><br><span class="line"><span class="code">        /              \</span></span><br><span class="line"><span class="code">       0                1</span></span><br><span class="line"><span class="code">     /   \             /  \</span></span><br><span class="line">   null   1           0   null</span><br><span class="line"><span class="code">         / \        /   \</span></span><br><span class="line"><span class="code">        0 null     null   1</span></span><br><span class="line"><span class="code">       / \               / \</span></span><br><span class="line"><span class="code">       0 null         null  1</span></span><br></pre></td></tr></table></figure>
-
-<p>trie -&gt; array<br>left is 0, right is 1<br>value is index of array<a id="more"></a></p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"> left | right  byte/index</span><br><span class="line">2     |   4    0-1</span><br><span class="line">null  |   6    2-3</span><br><span class="line">8     |  null  4-5</span><br><span class="line">10    |  null  6-7</span><br><span class="line">null  |  12    8-9</span><br><span class="line">14    |  null  10-11</span><br><span class="line">null  |  16    11-12</span><br><span class="line">end   |  null  12-13</span><br><span class="line">null  |  end   13-14</span><br><span class="line"></span><br><span class="line">array: [2,4,null,6,8,null,10,null,null,12,14,null,null,16,end,null,null,end]</span><br></pre></td></tr></table></figure>
-
-<p>for example:</p>
-<p>index 1:<br> next left index 2 is null, so 00* is not exist<br> next right index 2+1 &#x3D; 3 is not null, continue search until end or null</p>
-<p>this is one byte as one child, but one byte max is 255, if node more than 255, we can use multiple byte as one child</p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>Network</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HP Laptop linux 下intel&amp;amd双显卡</title>
     <url>/posts/34615c2d/</url>
     <content><![CDATA[<p>查看<code>双显卡</code>切换情况，正常情况下如果没有在用独显应该显示是<code>DynOff</code>，但是我这里即使是不开桌面也是<code>DynPwr</code></p>
@@ -309,6 +288,61 @@
       <tags>
         <tag>bios</tag>
         <tag>computer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GeoIP mmdb format</title>
+    <url>/posts/931c13a4/</url>
+    <content><![CDATA[<p>complete document <a href="https://maxmind.github.io/MaxMind-DB/" target="_blank" rel="noopener">MaxMind DB File Format SpecificationDescription</a></p>
+<p>here is only how convert trie tree to array</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">0100, 1011 -&gt; trie</span><br><span class="line"></span><br><span class="line"><span class="code">              root</span></span><br><span class="line"><span class="code">               |</span></span><br><span class="line"><span class="code">         +-----+------+</span></span><br><span class="line"><span class="code">        /              \</span></span><br><span class="line"><span class="code">       0                1</span></span><br><span class="line"><span class="code">     /   \             /  \</span></span><br><span class="line">   null   1           0   null</span><br><span class="line"><span class="code">         / \        /   \</span></span><br><span class="line"><span class="code">        0 null     null   1</span></span><br><span class="line"><span class="code">       / \               / \</span></span><br><span class="line"><span class="code">       0 null         null  1</span></span><br></pre></td></tr></table></figure>
+
+<p>trie -&gt; array<br>left is 0, right is 1<br>value is index of array<a id="more"></a></p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"> left | right  byte/index</span><br><span class="line">2     |   4    0-1</span><br><span class="line">null  |   6    2-3</span><br><span class="line">8     |  null  4-5</span><br><span class="line">10    |  null  6-7</span><br><span class="line">null  |  12    8-9</span><br><span class="line">14    |  null  10-11</span><br><span class="line">null  |  16    11-12</span><br><span class="line">end   |  null  12-13</span><br><span class="line">null  |  end   13-14</span><br><span class="line"></span><br><span class="line">array: [2,4,null,6,8,null,10,null,null,12,14,null,null,16,end,null,null,end]</span><br></pre></td></tr></table></figure>
+
+<p>for example:</p>
+<p>index 1:<br> next left index 2 is null, so 00* is not exist<br> next right index 2+1 &#x3D; 3 is not null, continue search until end or null</p>
+<p>this is one byte as one child, but one byte max is 255, if node more than 255, we can use multiple byte as one child</p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>Network</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hyperledger Fabric组织更换证书</title>
+    <url>/posts/afc6d6dd/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近一直在研究关于如何给一个fabric的组织更换一个新的证书, 包括所有加入的通道, 所有peer和orderer.<br>用了很多看似完美的方法却多次测试失败, 最后总算找到一种方法.</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"channel_group"</span>: &#123;</span><br><span class="line">        <span class="attr">"groups"</span>: &#123;</span><br><span class="line">            <span class="attr">"Application"</span>: &#123;</span><br><span class="line">                <span class="attr">"groups"</span>: &#123;</span><br><span class="line">                    <span class="attr">"Org1MSP"</span>: &#123;</span><br><span class="line">                        <span class="attr">"groups"</span>: &#123; &#125;, </span><br><span class="line">                        <span class="attr">"mod_policy"</span>: <span class="string">"Admins"</span>, </span><br><span class="line">                        <span class="attr">"values"</span>: &#123;</span><br><span class="line">                            <span class="attr">"MSP"</span>: &#123;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;, </span><br><span class="line">                        <span class="attr">"version"</span>: <span class="string">"0"</span></span><br><span class="line">                    &#125;, </span><br><span class="line">                    <span class="attr">"Org2MSP"</span>: &#123;</span><br><span class="line">                        <span class="attr">"groups"</span>: &#123; &#125;, </span><br><span class="line">                        <span class="attr">"mod_policy"</span>: <span class="string">"Admins"</span>, </span><br><span class="line">                        <span class="attr">"values"</span>: &#123;</span><br><span class="line">                            <span class="attr">"MSP"</span>: &#123;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;, </span><br><span class="line">                        <span class="attr">"version"</span>: <span class="string">"0"</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, </span><br><span class="line">                <span class="attr">"version"</span>: <span class="string">"1"</span></span><br><span class="line">            &#125;, </span><br><span class="line">            <span class="attr">"Orderer"</span>: &#123;</span><br><span class="line">                <span class="attr">"groups"</span>: &#123;</span><br><span class="line">                    <span class="attr">"OrdererOrg"</span>: &#123;</span><br><span class="line">                        <span class="attr">"groups"</span>: &#123; &#125;, </span><br><span class="line">                        <span class="attr">"values"</span>: &#123;</span><br><span class="line">                            <span class="attr">"MSP"</span>: &#123;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;, </span><br><span class="line">                        <span class="attr">"version"</span>: <span class="string">"0"</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, </span><br><span class="line">                <span class="attr">"values"</span>: &#123;</span><br><span class="line">                    <span class="attr">"ConsensusType"</span>: &#123;</span><br><span class="line">                        <span class="attr">"mod_policy"</span>: <span class="string">"Admins"</span>, </span><br><span class="line">                        <span class="attr">"value"</span>: &#123;</span><br><span class="line">                            <span class="attr">"metadata"</span>: &#123;</span><br><span class="line">                                <span class="attr">"consenters"</span>: [</span><br><span class="line">                                    &#123;</span><br><span class="line">                                        <span class="attr">"client_tls_cert"</span>: <span class="string">"=="</span>, </span><br><span class="line">                                        <span class="attr">"host"</span>: <span class="string">"orderer.example.com"</span>, </span><br><span class="line">                                        <span class="attr">"port"</span>: <span class="number">7050</span>, </span><br><span class="line">                                        <span class="attr">"server_tls_cert"</span>: <span class="string">"=="</span></span><br><span class="line">                                    &#125;</span><br><span class="line">                                ], </span><br><span class="line">                                <span class="attr">"options"</span>: &#123;</span><br><span class="line">                                    <span class="attr">"election_tick"</span>: <span class="number">10</span>, </span><br><span class="line">                                    <span class="attr">"heartbeat_tick"</span>: <span class="number">1</span>, </span><br><span class="line">                                    <span class="attr">"max_inflight_blocks"</span>: <span class="number">5</span>, </span><br><span class="line">                                    <span class="attr">"snapshot_interval_size"</span>: <span class="number">16777216</span>, </span><br><span class="line">                                    <span class="attr">"tick_interval"</span>: <span class="string">"500ms"</span></span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;, </span><br><span class="line">                            <span class="attr">"state"</span>: <span class="string">"STATE_NORMAL"</span>, </span><br><span class="line">                            <span class="attr">"type"</span>: <span class="string">"etcdraft"</span></span><br><span class="line">                        &#125;, </span><br><span class="line">                        <span class="attr">"version"</span>: <span class="string">"0"</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, </span><br><span class="line">                <span class="attr">"version"</span>: <span class="string">"0"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, </span><br><span class="line">        <span class="attr">"sequence"</span>: <span class="string">"2"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个通道配置块类似上面这种,为了看的清楚有些内容我删了, 更换证书我们需要保证application及orderer的MSP是相同的, 否则更新配置块是不会成功的, 且我们得保证当前组织的raft节点的证书也要全部更换掉.</p>
+<h2 id="失败过程"><a href="#失败过程" class="headerlink" title="失败过程"></a>失败过程</h2><a id="more"></a>
+<h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>第一次就是非常简单的想法, 先更换所有通道的通道配置块的ca证书, 然后重启所有peer和orderer节点.<br>但是这里因为raft的问题, 通道配置块内的<strong>raft的tls证书一次只能更换一个</strong>, 如果我要更换证书的组织拥有多个orderer且都作为raft节点, 这是如果直接更新可能会直接导致raft共识直接失效, 很多情况想想都不行.</p>
+<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><p>先移除多余的raft节点, 更换后再加进来, 测试后发现自己想的太简单了,  因为即使后面重新加进来后, 之前被移除的节点也无法拉取到新的配置块, 因为他们的通道配置块内还是旧的证书, 当然连不上了, 这里必须要更新它们的创世区块才行, 操作过于繁琐, 且在区块链创建初期很容易导致整个联盟的raft共识崩溃掉.</p>
+<h3 id="3"><a href="#3" class="headerlink" title="3"></a>3</h3><p>查看官方文档, 发现orderer和raft的端口可以分开, 也就是说orderer和raft grpc服务可以分开了, 后来测试才发现是自己想错了, 且官方文档的误导性太强了, raft和组织的证书仍旧是绑定在一起的, 如果一个组织只有一个ca证书且拥有多个raft节点依旧无法更换.<br>如果使用不同的证书, 查看orderer的报错, 可以发现是在orderer连接其他orderer的raft节点时会出问题, 会报证书验证不通过, 这里我才发现下面的解决方法.</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>最后才发现fabric一个组织的msp目录下的证书都是可以放多个ca证书的, 创建创世区块时, 配置块内的证书数组就会有两个证书, 这样即使orderer和raft使用不同的ca证书签发下来的tls证书, 只要在组织的ca列表内就不会有问题.</p>
+<p>这样就有了更换证书的方法, 过程大概是这样的:</p>
+<ul>
+<li>先将新的tlsca证书添加到所有到通道配置块内, 注意这里是添加, 不是替换.  </li>
+<li>替换通道配置块内一个raft节点的证书为新证书, 替换本地orderer节点的证书文件, 重启节点.</li>
+<li>重复以上步骤直到替换了所有raft节点的证书.</li>
+<li>然后再替换其他的ca证书, admin证书之类的.</li>
+<li>最后将通道配置块内的旧证书删除掉.</li>
+</ul>
+<p>这样就完成替换了, 大概过程就是如此, 实际操作时可能会有所出入.<br>当然如果觉得没有删除旧证书的必要也可以不删除.</p>
+<h2 id="附加"><a href="#附加" class="headerlink" title="附加"></a>附加</h2><p>关于fabric ca</p>
+<p>fabric ca在签发证书时, ca就是fabric ca server下的ca, 不会重新签发新的ca.  </p>
+<p>关于msp目录</p>
+<p>keystore &lt;- 节点&#x2F;用户证书的密钥<br>signcerts &lt;- 节点&#x2F;用户证书</p>
+]]></content>
+      <categories>
+        <category>Hyperledger fabric</category>
+      </categories>
+      <tags>
+        <tag>blockchain</tag>
+        <tag>Hyperledger Fabric</tag>
       </tags>
   </entry>
   <entry>
@@ -428,40 +462,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hyperledger Fabric组织更换证书</title>
-    <url>/posts/afc6d6dd/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近一直在研究关于如何给一个fabric的组织更换一个新的证书, 包括所有加入的通道, 所有peer和orderer.<br>用了很多看似完美的方法却多次测试失败, 最后总算找到一种方法.</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"channel_group"</span>: &#123;</span><br><span class="line">        <span class="attr">"groups"</span>: &#123;</span><br><span class="line">            <span class="attr">"Application"</span>: &#123;</span><br><span class="line">                <span class="attr">"groups"</span>: &#123;</span><br><span class="line">                    <span class="attr">"Org1MSP"</span>: &#123;</span><br><span class="line">                        <span class="attr">"groups"</span>: &#123; &#125;, </span><br><span class="line">                        <span class="attr">"mod_policy"</span>: <span class="string">"Admins"</span>, </span><br><span class="line">                        <span class="attr">"values"</span>: &#123;</span><br><span class="line">                            <span class="attr">"MSP"</span>: &#123;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;, </span><br><span class="line">                        <span class="attr">"version"</span>: <span class="string">"0"</span></span><br><span class="line">                    &#125;, </span><br><span class="line">                    <span class="attr">"Org2MSP"</span>: &#123;</span><br><span class="line">                        <span class="attr">"groups"</span>: &#123; &#125;, </span><br><span class="line">                        <span class="attr">"mod_policy"</span>: <span class="string">"Admins"</span>, </span><br><span class="line">                        <span class="attr">"values"</span>: &#123;</span><br><span class="line">                            <span class="attr">"MSP"</span>: &#123;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;, </span><br><span class="line">                        <span class="attr">"version"</span>: <span class="string">"0"</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, </span><br><span class="line">                <span class="attr">"version"</span>: <span class="string">"1"</span></span><br><span class="line">            &#125;, </span><br><span class="line">            <span class="attr">"Orderer"</span>: &#123;</span><br><span class="line">                <span class="attr">"groups"</span>: &#123;</span><br><span class="line">                    <span class="attr">"OrdererOrg"</span>: &#123;</span><br><span class="line">                        <span class="attr">"groups"</span>: &#123; &#125;, </span><br><span class="line">                        <span class="attr">"values"</span>: &#123;</span><br><span class="line">                            <span class="attr">"MSP"</span>: &#123;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;, </span><br><span class="line">                        <span class="attr">"version"</span>: <span class="string">"0"</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, </span><br><span class="line">                <span class="attr">"values"</span>: &#123;</span><br><span class="line">                    <span class="attr">"ConsensusType"</span>: &#123;</span><br><span class="line">                        <span class="attr">"mod_policy"</span>: <span class="string">"Admins"</span>, </span><br><span class="line">                        <span class="attr">"value"</span>: &#123;</span><br><span class="line">                            <span class="attr">"metadata"</span>: &#123;</span><br><span class="line">                                <span class="attr">"consenters"</span>: [</span><br><span class="line">                                    &#123;</span><br><span class="line">                                        <span class="attr">"client_tls_cert"</span>: <span class="string">"=="</span>, </span><br><span class="line">                                        <span class="attr">"host"</span>: <span class="string">"orderer.example.com"</span>, </span><br><span class="line">                                        <span class="attr">"port"</span>: <span class="number">7050</span>, </span><br><span class="line">                                        <span class="attr">"server_tls_cert"</span>: <span class="string">"=="</span></span><br><span class="line">                                    &#125;</span><br><span class="line">                                ], </span><br><span class="line">                                <span class="attr">"options"</span>: &#123;</span><br><span class="line">                                    <span class="attr">"election_tick"</span>: <span class="number">10</span>, </span><br><span class="line">                                    <span class="attr">"heartbeat_tick"</span>: <span class="number">1</span>, </span><br><span class="line">                                    <span class="attr">"max_inflight_blocks"</span>: <span class="number">5</span>, </span><br><span class="line">                                    <span class="attr">"snapshot_interval_size"</span>: <span class="number">16777216</span>, </span><br><span class="line">                                    <span class="attr">"tick_interval"</span>: <span class="string">"500ms"</span></span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;, </span><br><span class="line">                            <span class="attr">"state"</span>: <span class="string">"STATE_NORMAL"</span>, </span><br><span class="line">                            <span class="attr">"type"</span>: <span class="string">"etcdraft"</span></span><br><span class="line">                        &#125;, </span><br><span class="line">                        <span class="attr">"version"</span>: <span class="string">"0"</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, </span><br><span class="line">                <span class="attr">"version"</span>: <span class="string">"0"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, </span><br><span class="line">        <span class="attr">"sequence"</span>: <span class="string">"2"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>一个通道配置块类似上面这种,为了看的清楚有些内容我删了, 更换证书我们需要保证application及orderer的MSP是相同的, 否则更新配置块是不会成功的, 且我们得保证当前组织的raft节点的证书也要全部更换掉.</p>
-<h2 id="失败过程"><a href="#失败过程" class="headerlink" title="失败过程"></a>失败过程</h2><a id="more"></a>
-<h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>第一次就是非常简单的想法, 先更换所有通道的通道配置块的ca证书, 然后重启所有peer和orderer节点.<br>但是这里因为raft的问题, 通道配置块内的<strong>raft的tls证书一次只能更换一个</strong>, 如果我要更换证书的组织拥有多个orderer且都作为raft节点, 这是如果直接更新可能会直接导致raft共识直接失效, 很多情况想想都不行.</p>
-<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><p>先移除多余的raft节点, 更换后再加进来, 测试后发现自己想的太简单了,  因为即使后面重新加进来后, 之前被移除的节点也无法拉取到新的配置块, 因为他们的通道配置块内还是旧的证书, 当然连不上了, 这里必须要更新它们的创世区块才行, 操作过于繁琐, 且在区块链创建初期很容易导致整个联盟的raft共识崩溃掉.</p>
-<h3 id="3"><a href="#3" class="headerlink" title="3"></a>3</h3><p>查看官方文档, 发现orderer和raft的端口可以分开, 也就是说orderer和raft grpc服务可以分开了, 后来测试才发现是自己想错了, 且官方文档的误导性太强了, raft和组织的证书仍旧是绑定在一起的, 如果一个组织只有一个ca证书且拥有多个raft节点依旧无法更换.<br>如果使用不同的证书, 查看orderer的报错, 可以发现是在orderer连接其他orderer的raft节点时会出问题, 会报证书验证不通过, 这里我才发现下面的解决方法.</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>最后才发现fabric一个组织的msp目录下的证书都是可以放多个ca证书的, 创建创世区块时, 配置块内的证书数组就会有两个证书, 这样即使orderer和raft使用不同的ca证书签发下来的tls证书, 只要在组织的ca列表内就不会有问题.</p>
-<p>这样就有了更换证书的方法, 过程大概是这样的:</p>
-<ul>
-<li>先将新的tlsca证书添加到所有到通道配置块内, 注意这里是添加, 不是替换.  </li>
-<li>替换通道配置块内一个raft节点的证书为新证书, 替换本地orderer节点的证书文件, 重启节点.</li>
-<li>重复以上步骤直到替换了所有raft节点的证书.</li>
-<li>然后再替换其他的ca证书, admin证书之类的.</li>
-<li>最后将通道配置块内的旧证书删除掉.</li>
-</ul>
-<p>这样就完成替换了, 大概过程就是如此, 实际操作时可能会有所出入.<br>当然如果觉得没有删除旧证书的必要也可以不删除.</p>
-<h2 id="附加"><a href="#附加" class="headerlink" title="附加"></a>附加</h2><p>关于fabric ca</p>
-<p>fabric ca在签发证书时, ca就是fabric ca server下的ca, 不会重新签发新的ca.  </p>
-<p>关于msp目录</p>
-<p>keystore &lt;- 节点&#x2F;用户证书的密钥<br>signcerts &lt;- 节点&#x2F;用户证书</p>
-]]></content>
-      <categories>
-        <category>Hyperledger fabric</category>
-      </categories>
-      <tags>
-        <tag>blockchain</tag>
-        <tag>Hyperledger Fabric</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>NAT类型</title>
     <url>/posts/14e0ef9e/</url>
     <content><![CDATA[<h2 id="NAT-Mapping"><a href="#NAT-Mapping" class="headerlink" title="NAT Mapping"></a>NAT Mapping</h2><p>描述NAT在映射网络内主机地址的行为</p>
@@ -502,6 +502,84 @@
       <tags>
         <tag>UDP</tag>
         <tag>NAT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OpenCV瞳孔定位</title>
+    <url>/posts/88967b7c/</url>
+    <content><![CDATA[<h2 id="利用OpenCV自带的分类器识别面部及眼睛"><a href="#利用OpenCV自带的分类器识别面部及眼睛" class="headerlink" title="利用OpenCV自带的分类器识别面部及眼睛"></a>利用OpenCV自带的分类器识别面部及眼睛</h2><p>OpenCV自带里许多分类器,可在<a href="https://github.com/opencv/opencv/tree/master/data/haarcascades" target="_blank" rel="noopener">haarcascades</a>下载  </p>
+<h3 id="获取面部"><a href="#获取面部" class="headerlink" title="获取面部"></a>获取面部</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获取面部</span></span><br><span class="line"><span class="comment">// image 为输入的OpenCV的格式的图像</span></span><br><span class="line"><span class="comment">// out 为输出图像 &lt;- 此处输出图像为裁剪下来的矩形面部图像</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">get_face</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 将图像转为灰度图像,可提高识别精度</span></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    cv::cvtColor(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 此处的rect为用来存储识别出的面部的定位 &lt;- 这里为vector是因为识别的面部可能不止为一个</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::Rect&gt; rect;</span><br><span class="line">    <span class="comment">// 初始化OpenCV的分类器</span></span><br><span class="line">    cv::CascadeClassifier cas = cv::CascadeClassifier(<span class="string">"haarcascade_frontalface_default.xml"</span>);</span><br><span class="line">    cas.detectMultiScale(gray, rect, <span class="number">1.15</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="comment">// 判断rect是否为空,为空的话就是没有被识别的面部</span></span><br><span class="line">    <span class="keyword">if</span> (rect.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 输出图像,这里的rect可能不止为一个(因为可能不止一张脸),所以实际中应该使用for循环</span></span><br><span class="line">    <span class="comment">// 我这里用rect[0]为了简化</span></span><br><span class="line">    out = image(rect[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h3 id="获取眼睛"><a href="#获取眼睛" class="headerlink" title="获取眼睛"></a>获取眼睛</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这里与上面相同(这里我只识别左眼,OpenCV还提供了其他文件可获取右眼和双眼)</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">get_left_eye</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 之后与面部相同</span></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    cv::cvtColor(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::Rect&gt; rect;</span><br><span class="line">    cv::CascadeClassifier cas = cv::CascadeClassifier(<span class="string">"xml/haarcascade_lefteye_2splits.xml"</span>);</span><br><span class="line">    cas.detectMultiScale(gray, rect, <span class="number">1.15</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="keyword">if</span> (rect.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    out = image(rect[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="瞳孔定位"><a href="#瞳孔定位" class="headerlink" title="瞳孔定位"></a>瞳孔定位</h2><ul>
+<li>获取的眼睛图像</li>
+<li>裁剪去除眉毛</li>
+<li>伽马矫正提高图像对比度</li>
+<li>转化为灰度图像</li>
+<li>利用threshold进行阈值操作(此处可能会改为inRange,目前还在测试)</li>
+<li>腐蚀</li>
+<li>膨胀</li>
+<li>medianBlur平滑图像</li>
+<li>检测关键点并画在图像上</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定位眼球 -&gt; 检测关键点</span></span><br><span class="line"><span class="function"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::KeyPoint&gt; <span class="title">dector</span><span class="params">(cv::Mat image)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cv::SimpleBlobDetector::Params detector_params;</span><br><span class="line">    detector_params.filterByArea = <span class="literal">true</span>;</span><br><span class="line">    detector_params.maxArea = <span class="number">1500</span>;</span><br><span class="line">    cv::Ptr&lt;cv::SimpleBlobDetector&gt; blob_dector = cv::SimpleBlobDetector::create(detector_params);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::KeyPoint&gt; keypoints;</span><br><span class="line">    blob_dector-&gt;detect(image, keypoints);</span><br><span class="line">    <span class="keyword">return</span> keypoints;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">get_pupil</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// width -&gt; image.rows ;</span></span><br><span class="line">    <span class="comment">// height -&gt; image.cols;</span></span><br><span class="line">    <span class="comment">// cut eyebrow 裁剪 去除眉毛</span></span><br><span class="line">    image = image(cv::Rect(image.cols / <span class="number">10</span>, image.rows / <span class="number">2.5</span>, image.cols * <span class="number">8</span> / <span class="number">10</span>, image.rows / <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Gamma correction/gamma nonlinearity 伽马校正 -&gt; https://www.cnblogs.com/sdu20112013/p/11597171.html</span></span><br><span class="line">    <span class="function">cv::Mat <span class="title">look_up_table</span><span class="params">(<span class="number">1</span>, <span class="number">256</span>, CV_8U)</span></span>;</span><br><span class="line">    uchar *p = look_up_table.ptr();</span><br><span class="line">    <span class="keyword">float</span> gamma = <span class="number">0.7</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; ++i)</span><br><span class="line">        p[i] = cv::saturate_cast&lt;uchar&gt;(<span class="built_in">pow</span>(i / <span class="number">255.0</span>, gamma) * <span class="number">255.0</span>);</span><br><span class="line">    cv::LUT(image, look_up_table, image);</span><br><span class="line"></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    <span class="comment">// 转化为灰度图像</span></span><br><span class="line">    cv::cvtColor(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 阈值操作</span></span><br><span class="line">    cv::threshold(gray, gray, inRange_threshold, <span class="number">255</span>, CV_THRESH_BINARY);</span><br><span class="line">    <span class="comment">//膨胀及腐蚀</span></span><br><span class="line">    cv::erode(gray, gray, cv::Mat(), cv::Point(<span class="number">-1</span>, <span class="number">-1</span>), <span class="number">2</span>);</span><br><span class="line">    cv::dilate(gray, gray, cv::Mat(), cv::Point(<span class="number">-1</span>, <span class="number">-1</span>), <span class="number">3</span>);</span><br><span class="line">    <span class="comment">// 平滑图像</span></span><br><span class="line">    cv ::medianBlur(gray, gray, <span class="number">5</span>);</span><br><span class="line">    <span class="comment">// 检测并画出关键点</span></span><br><span class="line">    cv::drawKeypoints(image, dector(gray), image, cv::Scalar(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);</span><br><span class="line">    out = image;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="OpenCV在ArchLinux上的使用"><a href="#OpenCV在ArchLinux上的使用" class="headerlink" title="OpenCV在ArchLinux上的使用"></a>OpenCV在ArchLinux上的使用</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S opencv</span><br><span class="line"><span class="meta">#</span><span class="bash"> vtk和hdf5为opencv的依赖,不安装编译会失败</span></span><br><span class="line">sudo pacman -S vtk</span><br><span class="line">sudo pacman -Ss hdf5</span><br></pre></td></tr></table></figure>
+
+<h3 id="Cmake文件"><a href="#Cmake文件" class="headerlink" title="Cmake文件"></a>Cmake文件</h3><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.14</span>)</span><br><span class="line"><span class="keyword">project</span>(eyedector)</span><br><span class="line"><span class="keyword">add_definitions</span>(-std=c++<span class="number">11</span>)</span><br><span class="line"><span class="comment"># 这里只需要添加OpenCV的就能编译成功</span></span><br><span class="line"><span class="keyword">find_package</span>(OpenCV REQUIRED)</span><br><span class="line"><span class="keyword">link_libraries</span>(<span class="variable">$&#123;OpenCV_LIBS&#125;</span>)</span><br><span class="line"><span class="keyword">add_executable</span>(out opencvtest.cpp)</span><br></pre></td></tr></table></figure>
+
+<h3 id="利用安卓手机充当网络摄像头"><a href="#利用安卓手机充当网络摄像头" class="headerlink" title="利用安卓手机充当网络摄像头"></a>利用安卓手机充当网络摄像头</h3><p>手机安装这个<a href="https://play.google.com/store/apps/details?id=com.pas.webcam" target="_blank" rel="noopener">IP Webcam</a>,使用时会显示局域网中的地址  </p>
+<p>OpenCV中</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">cv::VideoCapture <span class="title">cap</span><span class="params">(<span class="string">"http://192.168.0.xx:8080/video"</span>)</span></span>; <span class="comment">// 这里为网络摄像头的地址,需要在后面加上/video</span></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">&#123;</span><br><span class="line">    cv::Mat frame;</span><br><span class="line">    cap &gt;&gt; frame;</span><br><span class="line">    cv::imshow(<span class="string">"test"</span>, frame);</span><br><span class="line">    <span class="keyword">if</span> (cv::waitKey(<span class="number">1</span>) == <span class="number">27</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Computer Graphics</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>OpenCV</tag>
+        <tag>archlinux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TUF GAMING B550M-PLUS WIFI II lm_sensors</title>
+    <url>/posts/fe953398/</url>
+    <content><![CDATA[<p>the sensors not show fan and voltage<br>it’s a kernel bug now <a href="https://bugzilla.kernel.org/show_bug.cgi?id=204807" target="_blank" rel="noopener">Hardware monitoring sensor nct6798d doesn’t work unless acpi_enforce_resources&#x3D;lax is enabled</a><br>need wait add the motherboard name to linux kernel code list <a href="https://github.com/torvalds/linux/blob/4bbf3422df78029f03161640dcb1e9d1ed64d1ea/drivers/hwmon/nct6775-platform.c#L1044" target="_blank" rel="noopener">linux&#x2F;drivers&#x2F;hwmon&#x2F;nct6775-platform.c</a>  </p>
+<h2 id="temporary-measure"><a href="#temporary-measure" class="headerlink" title="temporary measure"></a>temporary measure</h2><p>add</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">acpi<span class="emphasis">_enforce_</span>resources=lax</span><br></pre></td></tr></table></figure>
+
+<p>to linux boot parameter  </p>
+<p>load nct6775 kernel module  </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">modprobe -v nct6775</span><br></pre></td></tr></table></figure>
+
+<p>run <code>sensors-detect --auto</code>.  </p>
+<p>finally, you will see nct6798-isa-* in sensors.</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>TUN网卡</title>
+    <url>/posts/a67af13f/</url>
+    <content><![CDATA[<h2 id="Golang-Tun-gVisor"><a href="#Golang-Tun-gVisor" class="headerlink" title="Golang Tun (gVisor)"></a>Golang Tun (gVisor)</h2><figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"gvisor.dev/gvisor/pkg/tcpip/stack"</span> <span class="comment">// gvisor</span></span><br><span class="line"></span><br><span class="line">s := stack.New(stack.Options&#123;</span><br><span class="line">  NetworkProtocols:   []stack.NetworkProtocolFactory&#123;ipv4.NewProtocol, ipv6.NewProtocol&#125;,</span><br><span class="line">  TransportProtocols: []stack.TransportProtocolFactory&#123;tcp.NewProtocol, udp.NewProtocol, icmp.NewProtocol4, icmp.NewProtocol6&#125;,</span><br><span class="line"> &#125;)</span><br><span class="line"></span><br><span class="line">ep := fdbased.New(&amp;fdbased.Options&#123;</span><br><span class="line">   FDs:            []<span class="keyword">int</span>&#123;fd&#125;, <span class="comment">// fd: linux文件标识符, 如android中最后会获取到一个文件标识符</span></span><br><span class="line">   MTU:            <span class="keyword">uint32</span>(<span class="number">1500</span>),</span><br><span class="line">  &#125;)</span><br><span class="line"> </span><br><span class="line"> nicID := tcpip.NICID(s.UniqueID())</span><br><span class="line"> <span class="keyword">if</span> er := s.CreateNIC(nicID, ep); er != <span class="literal">nil</span> &#123;</span><br><span class="line">  ep.Attach(<span class="literal">nil</span>)</span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isdns</span><span class="params">(opt *TunOpt, id stack.TransportEndpointID)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line"> <span class="keyword">if</span> id.LocalPort == <span class="number">53</span> &amp;&amp; (opt.DNSHijacking || id.LocalAddress.String() == opt.Gateway) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// TCP</span></span><br><span class="line"> s.SetTransportProtocolHandler(tcp.ProtocolNumber, tcp.NewForwarder(s, defaultWndSize, maxConnAttempts,  <span class="function"><span class="keyword">func</span><span class="params">(r *tcp.ForwarderRequest)</span></span> &#123;</span><br><span class="line">  wq := <span class="built_in">new</span>(waiter.Queue)</span><br><span class="line">  id := r.ID()</span><br><span class="line"></span><br><span class="line">  ep, err := r.CreateEndpoint(wq)</span><br><span class="line">  <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">   r.Complete(<span class="literal">true</span>)</span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  r.Complete(<span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(local net.Conn, id stack.TransportEndpointID)</span></span> &#123;</span><br><span class="line">   <span class="keyword">defer</span> local.Close()</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> isdns(opt, id) &#123; <span class="comment">// 劫持一下dns</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * Handle DNS</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   target := net.JoinHostPort(id.LocalAddress.String(), id.LocalPort) <span class="comment">// 远程目标地址</span></span><br><span class="line">   nconn, er := net.Dial(<span class="string">"tcp"</span>, target)</span><br><span class="line">   <span class="keyword">if</span> er != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">defer</span> conn.Close()</span><br><span class="line">   utils.Relay(local, conn)</span><br><span class="line">  &#125;(gonet.NewTCPConn(wq, ep), id)</span><br><span class="line"> &#125;).HandlePacket)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// UDP</span></span><br><span class="line"> s.SetTransportProtocolHandler(udp.ProtocolNumber, udp.NewForwarder(s, <span class="function"><span class="keyword">func</span><span class="params">(fr *udp.ForwarderRequest)</span></span> &#123;</span><br><span class="line">    <span class="comment">// handle udp, 和tcp差不多</span></span><br><span class="line"> &#125;).HandlePacket)</span><br></pre></td></tr></table></figure>
+
+<p>完整代码: <a href="https://github.com/Asutorufa/yuhaiin/tree/main/pkg/net/proxy/tun" target="_blank" rel="noopener">tun</a></p>
+<h2 id="Android-VPN-Service"><a href="#Android-VPN-Service" class="headerlink" title="Android VPN Service"></a>Android VPN Service</h2><p>Android 的VPN Service只能处理Tun接口</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyVpnService</span> : <span class="type">VpnService</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStartCommand</span><span class="params">(intent: <span class="type">Intent</span>?, flags: <span class="type">Int</span>, startId: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">        Builder().apply &#123;</span><br><span class="line">            setMtu(<span class="number">1500</span>)</span><br><span class="line">            setSession(<span class="string">"my vpn"</span>)</span><br><span class="line"></span><br><span class="line">            addAddress(<span class="string">"172.19.0.1"</span>, <span class="number">24</span>).addRoute(<span class="string">"172.19.0.2"</span>, <span class="number">32</span>)</span><br><span class="line">            addAddress(<span class="string">"fdfe:dcba:9876::1"</span>, <span class="number">126</span>)</span><br><span class="line">                .addRoute(<span class="string">"2000::"</span>, <span class="number">3</span>) <span class="comment">// https://issuetracker.google.com/issues/149636790</span></span><br><span class="line">                .addRoute(<span class="string">"fdfe:dcba:9876::2"</span>, <span class="number">128</span>)</span><br><span class="line"></span><br><span class="line">            addDnsServer(<span class="string">"172.19.0.2"</span>) <span class="comment">// 记得在Tun中劫持172.19.0.2:53处理所有的DNS请求</span></span><br><span class="line"></span><br><span class="line">            addDisallowedApplication(<span class="string">"com.example"</span>) <span class="comment">// Disallowed和Allowed不能同时调用</span></span><br><span class="line">            <span class="comment">// addAllowedApplication("com.example")</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">const</span> fd = establish()</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    fd 为 linux文件标识符</span></span><br><span class="line"><span class="comment">    如果是通过tun2socks这种命令行工具处理</span></span><br><span class="line"><span class="comment">    需要使用Linux socket将fd发送给子进程</span></span><br><span class="line"><span class="comment">           </span></span><br><span class="line"><span class="comment">    如果是调用so动态库则不需要</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    通过unix文件socket发送sd</span></span><br><span class="line"><span class="comment">      private fun sendFd(path: String) &#123;</span></span><br><span class="line"><span class="comment">            LocalSocket().use &#123; localSocket -&gt;</span></span><br><span class="line"><span class="comment">                localSocket.connect(</span></span><br><span class="line"><span class="comment">                    LocalSocketAddress(</span></span><br><span class="line"><span class="comment">                        path,</span></span><br><span class="line"><span class="comment">                        LocalSocketAddress.Namespace.FILESYSTEM</span></span><br><span class="line"><span class="comment">                    )</span></span><br><span class="line"><span class="comment">                )</span></span><br><span class="line"><span class="comment">                localSocket.setFileDescriptorsForSend(arrayOf(fd)) // &lt;------</span></span><br><span class="line"><span class="comment">                localSocket.outputStream.write(42)</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> START_STICKY   </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完整代码: <a href="https://github.com/Asutorufa/yuhaiin-android/tree/main/app/src/main/kotlin/io/github/asutorufa/yuhaiin/service" target="_blank" rel="noopener">VpnService</a></p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+        <tag>Tun</tag>
+        <tag>Kotlin</tag>
       </tags>
   </entry>
   <entry>
@@ -700,237 +778,6 @@
       <tags>
         <tag>Crypto</tag>
         <tag>RSA</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>OpenCV瞳孔定位</title>
-    <url>/posts/88967b7c/</url>
-    <content><![CDATA[<h2 id="利用OpenCV自带的分类器识别面部及眼睛"><a href="#利用OpenCV自带的分类器识别面部及眼睛" class="headerlink" title="利用OpenCV自带的分类器识别面部及眼睛"></a>利用OpenCV自带的分类器识别面部及眼睛</h2><p>OpenCV自带里许多分类器,可在<a href="https://github.com/opencv/opencv/tree/master/data/haarcascades" target="_blank" rel="noopener">haarcascades</a>下载  </p>
-<h3 id="获取面部"><a href="#获取面部" class="headerlink" title="获取面部"></a>获取面部</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获取面部</span></span><br><span class="line"><span class="comment">// image 为输入的OpenCV的格式的图像</span></span><br><span class="line"><span class="comment">// out 为输出图像 &lt;- 此处输出图像为裁剪下来的矩形面部图像</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">get_face</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 将图像转为灰度图像,可提高识别精度</span></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    cv::cvtColor(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 此处的rect为用来存储识别出的面部的定位 &lt;- 这里为vector是因为识别的面部可能不止为一个</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::Rect&gt; rect;</span><br><span class="line">    <span class="comment">// 初始化OpenCV的分类器</span></span><br><span class="line">    cv::CascadeClassifier cas = cv::CascadeClassifier(<span class="string">"haarcascade_frontalface_default.xml"</span>);</span><br><span class="line">    cas.detectMultiScale(gray, rect, <span class="number">1.15</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="comment">// 判断rect是否为空,为空的话就是没有被识别的面部</span></span><br><span class="line">    <span class="keyword">if</span> (rect.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 输出图像,这里的rect可能不止为一个(因为可能不止一张脸),所以实际中应该使用for循环</span></span><br><span class="line">    <span class="comment">// 我这里用rect[0]为了简化</span></span><br><span class="line">    out = image(rect[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<h3 id="获取眼睛"><a href="#获取眼睛" class="headerlink" title="获取眼睛"></a>获取眼睛</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这里与上面相同(这里我只识别左眼,OpenCV还提供了其他文件可获取右眼和双眼)</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">get_left_eye</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 之后与面部相同</span></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    cv::cvtColor(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::Rect&gt; rect;</span><br><span class="line">    cv::CascadeClassifier cas = cv::CascadeClassifier(<span class="string">"xml/haarcascade_lefteye_2splits.xml"</span>);</span><br><span class="line">    cas.detectMultiScale(gray, rect, <span class="number">1.15</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="keyword">if</span> (rect.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    out = image(rect[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="瞳孔定位"><a href="#瞳孔定位" class="headerlink" title="瞳孔定位"></a>瞳孔定位</h2><ul>
-<li>获取的眼睛图像</li>
-<li>裁剪去除眉毛</li>
-<li>伽马矫正提高图像对比度</li>
-<li>转化为灰度图像</li>
-<li>利用threshold进行阈值操作(此处可能会改为inRange,目前还在测试)</li>
-<li>腐蚀</li>
-<li>膨胀</li>
-<li>medianBlur平滑图像</li>
-<li>检测关键点并画在图像上</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定位眼球 -&gt; 检测关键点</span></span><br><span class="line"><span class="function"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::KeyPoint&gt; <span class="title">dector</span><span class="params">(cv::Mat image)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cv::SimpleBlobDetector::Params detector_params;</span><br><span class="line">    detector_params.filterByArea = <span class="literal">true</span>;</span><br><span class="line">    detector_params.maxArea = <span class="number">1500</span>;</span><br><span class="line">    cv::Ptr&lt;cv::SimpleBlobDetector&gt; blob_dector = cv::SimpleBlobDetector::create(detector_params);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::KeyPoint&gt; keypoints;</span><br><span class="line">    blob_dector-&gt;detect(image, keypoints);</span><br><span class="line">    <span class="keyword">return</span> keypoints;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">get_pupil</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// width -&gt; image.rows ;</span></span><br><span class="line">    <span class="comment">// height -&gt; image.cols;</span></span><br><span class="line">    <span class="comment">// cut eyebrow 裁剪 去除眉毛</span></span><br><span class="line">    image = image(cv::Rect(image.cols / <span class="number">10</span>, image.rows / <span class="number">2.5</span>, image.cols * <span class="number">8</span> / <span class="number">10</span>, image.rows / <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Gamma correction/gamma nonlinearity 伽马校正 -&gt; https://www.cnblogs.com/sdu20112013/p/11597171.html</span></span><br><span class="line">    <span class="function">cv::Mat <span class="title">look_up_table</span><span class="params">(<span class="number">1</span>, <span class="number">256</span>, CV_8U)</span></span>;</span><br><span class="line">    uchar *p = look_up_table.ptr();</span><br><span class="line">    <span class="keyword">float</span> gamma = <span class="number">0.7</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; ++i)</span><br><span class="line">        p[i] = cv::saturate_cast&lt;uchar&gt;(<span class="built_in">pow</span>(i / <span class="number">255.0</span>, gamma) * <span class="number">255.0</span>);</span><br><span class="line">    cv::LUT(image, look_up_table, image);</span><br><span class="line"></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    <span class="comment">// 转化为灰度图像</span></span><br><span class="line">    cv::cvtColor(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 阈值操作</span></span><br><span class="line">    cv::threshold(gray, gray, inRange_threshold, <span class="number">255</span>, CV_THRESH_BINARY);</span><br><span class="line">    <span class="comment">//膨胀及腐蚀</span></span><br><span class="line">    cv::erode(gray, gray, cv::Mat(), cv::Point(<span class="number">-1</span>, <span class="number">-1</span>), <span class="number">2</span>);</span><br><span class="line">    cv::dilate(gray, gray, cv::Mat(), cv::Point(<span class="number">-1</span>, <span class="number">-1</span>), <span class="number">3</span>);</span><br><span class="line">    <span class="comment">// 平滑图像</span></span><br><span class="line">    cv ::medianBlur(gray, gray, <span class="number">5</span>);</span><br><span class="line">    <span class="comment">// 检测并画出关键点</span></span><br><span class="line">    cv::drawKeypoints(image, dector(gray), image, cv::Scalar(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);</span><br><span class="line">    out = image;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="OpenCV在ArchLinux上的使用"><a href="#OpenCV在ArchLinux上的使用" class="headerlink" title="OpenCV在ArchLinux上的使用"></a>OpenCV在ArchLinux上的使用</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S opencv</span><br><span class="line"><span class="meta">#</span><span class="bash"> vtk和hdf5为opencv的依赖,不安装编译会失败</span></span><br><span class="line">sudo pacman -S vtk</span><br><span class="line">sudo pacman -Ss hdf5</span><br></pre></td></tr></table></figure>
-
-<h3 id="Cmake文件"><a href="#Cmake文件" class="headerlink" title="Cmake文件"></a>Cmake文件</h3><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.14</span>)</span><br><span class="line"><span class="keyword">project</span>(eyedector)</span><br><span class="line"><span class="keyword">add_definitions</span>(-std=c++<span class="number">11</span>)</span><br><span class="line"><span class="comment"># 这里只需要添加OpenCV的就能编译成功</span></span><br><span class="line"><span class="keyword">find_package</span>(OpenCV REQUIRED)</span><br><span class="line"><span class="keyword">link_libraries</span>(<span class="variable">$&#123;OpenCV_LIBS&#125;</span>)</span><br><span class="line"><span class="keyword">add_executable</span>(out opencvtest.cpp)</span><br></pre></td></tr></table></figure>
-
-<h3 id="利用安卓手机充当网络摄像头"><a href="#利用安卓手机充当网络摄像头" class="headerlink" title="利用安卓手机充当网络摄像头"></a>利用安卓手机充当网络摄像头</h3><p>手机安装这个<a href="https://play.google.com/store/apps/details?id=com.pas.webcam" target="_blank" rel="noopener">IP Webcam</a>,使用时会显示局域网中的地址  </p>
-<p>OpenCV中</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">cv::VideoCapture <span class="title">cap</span><span class="params">(<span class="string">"http://192.168.0.xx:8080/video"</span>)</span></span>; <span class="comment">// 这里为网络摄像头的地址,需要在后面加上/video</span></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">&#123;</span><br><span class="line">    cv::Mat frame;</span><br><span class="line">    cap &gt;&gt; frame;</span><br><span class="line">    cv::imshow(<span class="string">"test"</span>, frame);</span><br><span class="line">    <span class="keyword">if</span> (cv::waitKey(<span class="number">1</span>) == <span class="number">27</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Computer Graphics</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>OpenCV</tag>
-        <tag>archlinux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TUN网卡</title>
-    <url>/posts/a67af13f/</url>
-    <content><![CDATA[<h2 id="Golang-Tun-gVisor"><a href="#Golang-Tun-gVisor" class="headerlink" title="Golang Tun (gVisor)"></a>Golang Tun (gVisor)</h2><figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"gvisor.dev/gvisor/pkg/tcpip/stack"</span> <span class="comment">// gvisor</span></span><br><span class="line"></span><br><span class="line">s := stack.New(stack.Options&#123;</span><br><span class="line">  NetworkProtocols:   []stack.NetworkProtocolFactory&#123;ipv4.NewProtocol, ipv6.NewProtocol&#125;,</span><br><span class="line">  TransportProtocols: []stack.TransportProtocolFactory&#123;tcp.NewProtocol, udp.NewProtocol, icmp.NewProtocol4, icmp.NewProtocol6&#125;,</span><br><span class="line"> &#125;)</span><br><span class="line"></span><br><span class="line">ep := fdbased.New(&amp;fdbased.Options&#123;</span><br><span class="line">   FDs:            []<span class="keyword">int</span>&#123;fd&#125;, <span class="comment">// fd: linux文件标识符, 如android中最后会获取到一个文件标识符</span></span><br><span class="line">   MTU:            <span class="keyword">uint32</span>(<span class="number">1500</span>),</span><br><span class="line">  &#125;)</span><br><span class="line"> </span><br><span class="line"> nicID := tcpip.NICID(s.UniqueID())</span><br><span class="line"> <span class="keyword">if</span> er := s.CreateNIC(nicID, ep); er != <span class="literal">nil</span> &#123;</span><br><span class="line">  ep.Attach(<span class="literal">nil</span>)</span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isdns</span><span class="params">(opt *TunOpt, id stack.TransportEndpointID)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line"> <span class="keyword">if</span> id.LocalPort == <span class="number">53</span> &amp;&amp; (opt.DNSHijacking || id.LocalAddress.String() == opt.Gateway) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// TCP</span></span><br><span class="line"> s.SetTransportProtocolHandler(tcp.ProtocolNumber, tcp.NewForwarder(s, defaultWndSize, maxConnAttempts,  <span class="function"><span class="keyword">func</span><span class="params">(r *tcp.ForwarderRequest)</span></span> &#123;</span><br><span class="line">  wq := <span class="built_in">new</span>(waiter.Queue)</span><br><span class="line">  id := r.ID()</span><br><span class="line"></span><br><span class="line">  ep, err := r.CreateEndpoint(wq)</span><br><span class="line">  <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">   r.Complete(<span class="literal">true</span>)</span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  r.Complete(<span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(local net.Conn, id stack.TransportEndpointID)</span></span> &#123;</span><br><span class="line">   <span class="keyword">defer</span> local.Close()</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> isdns(opt, id) &#123; <span class="comment">// 劫持一下dns</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * Handle DNS</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   target := net.JoinHostPort(id.LocalAddress.String(), id.LocalPort) <span class="comment">// 远程目标地址</span></span><br><span class="line">   nconn, er := net.Dial(<span class="string">"tcp"</span>, target)</span><br><span class="line">   <span class="keyword">if</span> er != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">defer</span> conn.Close()</span><br><span class="line">   utils.Relay(local, conn)</span><br><span class="line">  &#125;(gonet.NewTCPConn(wq, ep), id)</span><br><span class="line"> &#125;).HandlePacket)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// UDP</span></span><br><span class="line"> s.SetTransportProtocolHandler(udp.ProtocolNumber, udp.NewForwarder(s, <span class="function"><span class="keyword">func</span><span class="params">(fr *udp.ForwarderRequest)</span></span> &#123;</span><br><span class="line">    <span class="comment">// handle udp, 和tcp差不多</span></span><br><span class="line"> &#125;).HandlePacket)</span><br></pre></td></tr></table></figure>
-
-<p>完整代码: <a href="https://github.com/Asutorufa/yuhaiin/tree/main/pkg/net/proxy/tun" target="_blank" rel="noopener">tun</a></p>
-<h2 id="Android-VPN-Service"><a href="#Android-VPN-Service" class="headerlink" title="Android VPN Service"></a>Android VPN Service</h2><p>Android 的VPN Service只能处理Tun接口</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyVpnService</span> : <span class="type">VpnService</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStartCommand</span><span class="params">(intent: <span class="type">Intent</span>?, flags: <span class="type">Int</span>, startId: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">        Builder().apply &#123;</span><br><span class="line">            setMtu(<span class="number">1500</span>)</span><br><span class="line">            setSession(<span class="string">"my vpn"</span>)</span><br><span class="line"></span><br><span class="line">            addAddress(<span class="string">"172.19.0.1"</span>, <span class="number">24</span>).addRoute(<span class="string">"172.19.0.2"</span>, <span class="number">32</span>)</span><br><span class="line">            addAddress(<span class="string">"fdfe:dcba:9876::1"</span>, <span class="number">126</span>)</span><br><span class="line">                .addRoute(<span class="string">"2000::"</span>, <span class="number">3</span>) <span class="comment">// https://issuetracker.google.com/issues/149636790</span></span><br><span class="line">                .addRoute(<span class="string">"fdfe:dcba:9876::2"</span>, <span class="number">128</span>)</span><br><span class="line"></span><br><span class="line">            addDnsServer(<span class="string">"172.19.0.2"</span>) <span class="comment">// 记得在Tun中劫持172.19.0.2:53处理所有的DNS请求</span></span><br><span class="line"></span><br><span class="line">            addDisallowedApplication(<span class="string">"com.example"</span>) <span class="comment">// Disallowed和Allowed不能同时调用</span></span><br><span class="line">            <span class="comment">// addAllowedApplication("com.example")</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">const</span> fd = establish()</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    fd 为 linux文件标识符</span></span><br><span class="line"><span class="comment">    如果是通过tun2socks这种命令行工具处理</span></span><br><span class="line"><span class="comment">    需要使用Linux socket将fd发送给子进程</span></span><br><span class="line"><span class="comment">           </span></span><br><span class="line"><span class="comment">    如果是调用so动态库则不需要</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    通过unix文件socket发送sd</span></span><br><span class="line"><span class="comment">      private fun sendFd(path: String) &#123;</span></span><br><span class="line"><span class="comment">            LocalSocket().use &#123; localSocket -&gt;</span></span><br><span class="line"><span class="comment">                localSocket.connect(</span></span><br><span class="line"><span class="comment">                    LocalSocketAddress(</span></span><br><span class="line"><span class="comment">                        path,</span></span><br><span class="line"><span class="comment">                        LocalSocketAddress.Namespace.FILESYSTEM</span></span><br><span class="line"><span class="comment">                    )</span></span><br><span class="line"><span class="comment">                )</span></span><br><span class="line"><span class="comment">                localSocket.setFileDescriptorsForSend(arrayOf(fd)) // &lt;------</span></span><br><span class="line"><span class="comment">                localSocket.outputStream.write(42)</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> START_STICKY   </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>完整代码: <a href="https://github.com/Asutorufa/yuhaiin-android/tree/main/app/src/main/kotlin/io/github/asutorufa/yuhaiin/service" target="_blank" rel="noopener">VpnService</a></p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>Golang</tag>
-        <tag>Tun</tag>
-        <tag>Kotlin</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TUF GAMING B550M-PLUS WIFI II lm_sensors</title>
-    <url>/posts/fe953398/</url>
-    <content><![CDATA[<p>the sensors not show fan and voltage<br>it’s a kernel bug now <a href="https://bugzilla.kernel.org/show_bug.cgi?id=204807" target="_blank" rel="noopener">Hardware monitoring sensor nct6798d doesn’t work unless acpi_enforce_resources&#x3D;lax is enabled</a><br>need wait add the motherboard name to linux kernel code list <a href="https://github.com/torvalds/linux/blob/4bbf3422df78029f03161640dcb1e9d1ed64d1ea/drivers/hwmon/nct6775-platform.c#L1044" target="_blank" rel="noopener">linux&#x2F;drivers&#x2F;hwmon&#x2F;nct6775-platform.c</a>  </p>
-<h2 id="temporary-measure"><a href="#temporary-measure" class="headerlink" title="temporary measure"></a>temporary measure</h2><p>add</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">acpi<span class="emphasis">_enforce_</span>resources=lax</span><br></pre></td></tr></table></figure>
-
-<p>to linux boot parameter  </p>
-<p>load nct6775 kernel module  </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">modprobe -v nct6775</span><br></pre></td></tr></table></figure>
-
-<p>run <code>sensors-detect --auto</code>.  </p>
-<p>finally, you will see nct6798-isa-* in sensors.</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>android dumpsys tool</title>
-    <url>/posts/25303996/</url>
-    <content><![CDATA[<p>查看dumpsys所有的子命令:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dumpsys | grep &quot;DUMP OF SERVICE&quot;</span><br></pre></td></tr></table></figure>
-
-<p>output:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DUMP OF SERVICE SurfaceFlinger:</span><br><span class="line">DUMP OF SERVICE accessibility:</span><br><span class="line">DUMP OF SERVICE account:</span><br><span class="line">DUMP OF SERVICE activity:</span><br><span class="line">DUMP OF SERVICE alarm:</span><br><span class="line">DUMP OF SERVICE appwidget:</span><br><span class="line">DUMP OF SERVICE audio:</span><br><span class="line">DUMP OF SERVICE backup:</span><br><span class="line">DUMP OF SERVICE battery:</span><br><span class="line">DUMP OF SERVICE batteryinfo:</span><br><span class="line">DUMP OF SERVICE clipboard:</span><br><span class="line">DUMP OF SERVICE connectivity:</span><br><span class="line">DUMP OF SERVICE content:</span><br><span class="line">DUMP OF SERVICE cpuinfo:</span><br><span class="line">DUMP OF SERVICE device_policy:</span><br><span class="line">DUMP OF SERVICE devicestoragemonitor:</span><br><span class="line">DUMP OF SERVICE diskstats:</span><br><span class="line">DUMP OF SERVICE dropbox:</span><br><span class="line">DUMP OF SERVICE entropy:</span><br><span class="line">DUMP OF SERVICE hardware:</span><br><span class="line">DUMP OF SERVICE input_method:</span><br><span class="line">DUMP OF SERVICE iphonesubinfo:</span><br><span class="line">DUMP OF SERVICE isms:</span><br><span class="line">DUMP OF SERVICE location:</span><br><span class="line">DUMP OF SERVICE media.audio_flinger:</span><br><span class="line">DUMP OF SERVICE media.audio_policy:</span><br><span class="line">DUMP OF SERVICE media.player:</span><br><span class="line">DUMP OF SERVICE meminfo:</span><br><span class="line">DUMP OF SERVICE mount:</span><br><span class="line">DUMP OF SERVICE netstat:</span><br><span class="line">DUMP OF SERVICE network_management:</span><br><span class="line">DUMP OF SERVICE notification:</span><br><span class="line">DUMP OF SERVICE package:</span><br><span class="line">DUMP OF SERVICE permission:</span><br><span class="line">DUMP OF SERVICE phone:</span><br><span class="line">DUMP OF SERVICE power:</span><br><span class="line">DUMP OF SERVICE reboot:</span><br><span class="line">DUMP OF SERVICE screenshot:</span><br><span class="line">DUMP OF SERVICE search:</span><br><span class="line">DUMP OF SERVICE sensor:</span><br><span class="line">DUMP OF SERVICE simphonebook:</span><br><span class="line">DUMP OF SERVICE statusbar:</span><br><span class="line">DUMP OF SERVICE telephony.registry:</span><br><span class="line">DUMP OF SERVICE throttle:</span><br><span class="line">DUMP OF SERVICE usagestats:</span><br><span class="line">DUMP OF SERVICE vibrator:</span><br><span class="line">DUMP OF SERVICE wallpaper:</span><br><span class="line">DUMP OF SERVICE wifi:</span><br><span class="line">DUMP OF SERVICE window:</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<p>eg:<br>1.得到电池的所有信息</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys battery</span><br></pre></td></tr></table></figure>
-
-<p>2.得到wifi的所有信息</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys wifi</span><br></pre></td></tr></table></figure>
-
-<p>3.得到cpu的所有信息</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys cpuinfo</span><br></pre></td></tr></table></figure>
-
-<p>4.得到总的存储情况</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys meminfo</span><br></pre></td></tr></table></figure>
-
-<p>5.得到某应用的存储情况</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys meminfo &apos;your apps package name&apos;</span><br></pre></td></tr></table></figure>
-
-<p>6.得到所有的服务列表</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell service list</span><br></pre></td></tr></table></figure>
-
-<p>7.得到所有的账户列表</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys account</span><br></pre></td></tr></table></figure>
-
-<p>8.获得某子命令的帮助信息</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys account -h</span><br></pre></td></tr></table></figure>
-
-<p>参考:<br><a href="https://stackoverflow.com/questions/11201659/whats-the-android-adb-shell-dumpsys-tool-and-what-are-its-benefits" target="_blank" rel="noopener">What’s the Android ADB shell “dumpsys” tool and what are its benefits?</a></p>
-]]></content>
-      <categories>
-        <category>android</category>
-      </categories>
-      <tags>
-        <tag>android</tag>
-        <tag>adb</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言中格式化字符的应用</title>
-    <url>/posts/b6b4601/</url>
-    <content><![CDATA[<h2 id="格式化规定符"><a href="#格式化规定符" class="headerlink" title="格式化规定符"></a>格式化规定符</h2><p>符号 作用<br>%d 十进制有符号整数<br>%u 十进制无符号整数<br>%f 浮点数<br>%s 字符串<br>%c 单个字符<br>%p 指针的值<br>%e 指数形式的浮点数<br>%x, %X 无符号以十六进制表示的整数<a id="more"></a><br>%0 无符号以八进制表示的整数<br>%g 自动选择合适的表示法</p>
-<p>说明:<br>(1). 可以在”%”和字母之间插进数字表示最大场宽。<br>例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>(2). 可以在”%”和字母之间加小写字母l, 表示输出的是长型数。<br>例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>(3). 可以控制输出左对齐或右对齐, 即在”%”和字母之间加入一个”-“ 号可说明输出为左对齐, 否则为右对齐。<br>例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
-<h2 id="一些特殊规定字符"><a href="#一些特殊规定字符" class="headerlink" title="一些特殊规定字符"></a>一些特殊规定字符</h2><p>字符 作用<br>&#x2F;n   换行<br>&#x2F;f   清屏并换页<br>&#x2F;r   回车<br>&#x2F;t   Tab符<br>&#x2F;xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言基本类型在内存中的存储方式</title>
-    <url>/posts/e404489/</url>
-    <content><![CDATA[<h2 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h2><h3 id="float"><a href="#float" class="headerlink" title="float"></a>float</h3><table>
-<thead>
-<tr>
-<th align="center">符号位</th>
-<th align="center">+</th>
-<th align="center">指数位</th>
-<th align="center">+</th>
-<th align="center">尾数位</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">↑</td>
-<td align="center"></td>
-<td align="center">↑</td>
-<td align="center"></td>
-<td align="center">↑</td>
-</tr>
-<tr>
-<td align="center">第一位</td>
-<td align="center"></td>
-<td align="center">8位</td>
-<td align="center"></td>
-<td align="center">23位</td>
-</tr>
-</tbody></table>
-<a id="more"></a>
-
-<h3 id="double"><a href="#double" class="headerlink" title="double"></a>double</h3><table>
-<thead>
-<tr>
-<th align="center">符号位</th>
-<th align="center">+</th>
-<th align="center">指数位</th>
-<th align="center">+</th>
-<th align="center">尾数位</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">↑</td>
-<td align="center"></td>
-<td align="center">↑</td>
-<td align="center"></td>
-<td align="center">↑</td>
-</tr>
-<tr>
-<td align="center">第一位</td>
-<td align="center"></td>
-<td align="center">11位</td>
-<td align="center"></td>
-<td align="center">52位</td>
-</tr>
-</tbody></table>
-<h2 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h2><p>整数在内存中是以补码的形式存储</p>
-<h3 id="正整数"><a href="#正整数" class="headerlink" title="正整数"></a>正整数</h3><p>原码&#x3D;反码&#x3D;补码</p>
-<h3 id="负整数"><a href="#负整数" class="headerlink" title="负整数"></a>负整数</h3><p>原码即为原码<br>反码&#x3D;原码符号为不变,其余取反(注:第一位为符号位)<br>补码&#x3D;反码+1</p>
-<p><strong>2019年4月3日更新</strong><br>原码范围:</p>
-<ul>
-<li>整数:(1111…1) <strong>$-(2^n-1) \leq x \leq 2^n-1$</strong> (01111…1)</li>
-<li>小数:(1.111…1) <strong>$-(1-2^n) \leq x \leq 1-2^{-n}$</strong> (0.111…1)</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言数组输出的另一种方法</title>
-    <url>/posts/854ed6ec/</url>
-    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173" target="_blank" rel="noopener">一个有趣的C语言程序</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a = 1;</span><br><span class="line">    int x[5]=&#123;1,2,3,4,5&#125;;</span><br><span class="line">    printf(&quot;%d&quot;,a[x]);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">output: 2</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>所以可以进一步写成*(a+&amp;x[0]),又因为a&#x3D;1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>所以就是x[1]对应的值：2</p>
-<p>由此我又想到了二位数组</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a = 1;</span><br><span class="line">    int x[2][2]=&#123;&#123;1,2&#125;,&#123;3,4&#125;&#125;;</span><br><span class="line">    printf(&quot;%d&quot;,a[a[x]]);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">output: 4</span><br></pre></td></tr></table></figure>
-
-<p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -1231,6 +1078,159 @@
         <tag>archlinux</tag>
         <tag>efi</tag>
         <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>android dumpsys tool</title>
+    <url>/posts/25303996/</url>
+    <content><![CDATA[<p>查看dumpsys所有的子命令:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dumpsys | grep &quot;DUMP OF SERVICE&quot;</span><br></pre></td></tr></table></figure>
+
+<p>output:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DUMP OF SERVICE SurfaceFlinger:</span><br><span class="line">DUMP OF SERVICE accessibility:</span><br><span class="line">DUMP OF SERVICE account:</span><br><span class="line">DUMP OF SERVICE activity:</span><br><span class="line">DUMP OF SERVICE alarm:</span><br><span class="line">DUMP OF SERVICE appwidget:</span><br><span class="line">DUMP OF SERVICE audio:</span><br><span class="line">DUMP OF SERVICE backup:</span><br><span class="line">DUMP OF SERVICE battery:</span><br><span class="line">DUMP OF SERVICE batteryinfo:</span><br><span class="line">DUMP OF SERVICE clipboard:</span><br><span class="line">DUMP OF SERVICE connectivity:</span><br><span class="line">DUMP OF SERVICE content:</span><br><span class="line">DUMP OF SERVICE cpuinfo:</span><br><span class="line">DUMP OF SERVICE device_policy:</span><br><span class="line">DUMP OF SERVICE devicestoragemonitor:</span><br><span class="line">DUMP OF SERVICE diskstats:</span><br><span class="line">DUMP OF SERVICE dropbox:</span><br><span class="line">DUMP OF SERVICE entropy:</span><br><span class="line">DUMP OF SERVICE hardware:</span><br><span class="line">DUMP OF SERVICE input_method:</span><br><span class="line">DUMP OF SERVICE iphonesubinfo:</span><br><span class="line">DUMP OF SERVICE isms:</span><br><span class="line">DUMP OF SERVICE location:</span><br><span class="line">DUMP OF SERVICE media.audio_flinger:</span><br><span class="line">DUMP OF SERVICE media.audio_policy:</span><br><span class="line">DUMP OF SERVICE media.player:</span><br><span class="line">DUMP OF SERVICE meminfo:</span><br><span class="line">DUMP OF SERVICE mount:</span><br><span class="line">DUMP OF SERVICE netstat:</span><br><span class="line">DUMP OF SERVICE network_management:</span><br><span class="line">DUMP OF SERVICE notification:</span><br><span class="line">DUMP OF SERVICE package:</span><br><span class="line">DUMP OF SERVICE permission:</span><br><span class="line">DUMP OF SERVICE phone:</span><br><span class="line">DUMP OF SERVICE power:</span><br><span class="line">DUMP OF SERVICE reboot:</span><br><span class="line">DUMP OF SERVICE screenshot:</span><br><span class="line">DUMP OF SERVICE search:</span><br><span class="line">DUMP OF SERVICE sensor:</span><br><span class="line">DUMP OF SERVICE simphonebook:</span><br><span class="line">DUMP OF SERVICE statusbar:</span><br><span class="line">DUMP OF SERVICE telephony.registry:</span><br><span class="line">DUMP OF SERVICE throttle:</span><br><span class="line">DUMP OF SERVICE usagestats:</span><br><span class="line">DUMP OF SERVICE vibrator:</span><br><span class="line">DUMP OF SERVICE wallpaper:</span><br><span class="line">DUMP OF SERVICE wifi:</span><br><span class="line">DUMP OF SERVICE window:</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p>eg:<br>1.得到电池的所有信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys battery</span><br></pre></td></tr></table></figure>
+
+<p>2.得到wifi的所有信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys wifi</span><br></pre></td></tr></table></figure>
+
+<p>3.得到cpu的所有信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys cpuinfo</span><br></pre></td></tr></table></figure>
+
+<p>4.得到总的存储情况</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys meminfo</span><br></pre></td></tr></table></figure>
+
+<p>5.得到某应用的存储情况</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys meminfo &apos;your apps package name&apos;</span><br></pre></td></tr></table></figure>
+
+<p>6.得到所有的服务列表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell service list</span><br></pre></td></tr></table></figure>
+
+<p>7.得到所有的账户列表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys account</span><br></pre></td></tr></table></figure>
+
+<p>8.获得某子命令的帮助信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb shell dumpsys account -h</span><br></pre></td></tr></table></figure>
+
+<p>参考:<br><a href="https://stackoverflow.com/questions/11201659/whats-the-android-adb-shell-dumpsys-tool-and-what-are-its-benefits" target="_blank" rel="noopener">What’s the Android ADB shell “dumpsys” tool and what are its benefits?</a></p>
+]]></content>
+      <categories>
+        <category>android</category>
+      </categories>
+      <tags>
+        <tag>android</tag>
+        <tag>adb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c语言中格式化字符的应用</title>
+    <url>/posts/b6b4601/</url>
+    <content><![CDATA[<h2 id="格式化规定符"><a href="#格式化规定符" class="headerlink" title="格式化规定符"></a>格式化规定符</h2><p>符号 作用<br>%d 十进制有符号整数<br>%u 十进制无符号整数<br>%f 浮点数<br>%s 字符串<br>%c 单个字符<br>%p 指针的值<br>%e 指数形式的浮点数<br>%x, %X 无符号以十六进制表示的整数<a id="more"></a><br>%0 无符号以八进制表示的整数<br>%g 自动选择合适的表示法</p>
+<p>说明:<br>(1). 可以在”%”和字母之间插进数字表示最大场宽。<br>例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>(2). 可以在”%”和字母之间加小写字母l, 表示输出的是长型数。<br>例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>(3). 可以控制输出左对齐或右对齐, 即在”%”和字母之间加入一个”-“ 号可说明输出为左对齐, 否则为右对齐。<br>例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
+<h2 id="一些特殊规定字符"><a href="#一些特殊规定字符" class="headerlink" title="一些特殊规定字符"></a>一些特殊规定字符</h2><p>字符 作用<br>&#x2F;n   换行<br>&#x2F;f   清屏并换页<br>&#x2F;r   回车<br>&#x2F;t   Tab符<br>&#x2F;xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c语言基本类型在内存中的存储方式</title>
+    <url>/posts/e404489/</url>
+    <content><![CDATA[<h2 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h2><h3 id="float"><a href="#float" class="headerlink" title="float"></a>float</h3><table>
+<thead>
+<tr>
+<th align="center">符号位</th>
+<th align="center">+</th>
+<th align="center">指数位</th>
+<th align="center">+</th>
+<th align="center">尾数位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">↑</td>
+<td align="center"></td>
+<td align="center">↑</td>
+<td align="center"></td>
+<td align="center">↑</td>
+</tr>
+<tr>
+<td align="center">第一位</td>
+<td align="center"></td>
+<td align="center">8位</td>
+<td align="center"></td>
+<td align="center">23位</td>
+</tr>
+</tbody></table>
+<a id="more"></a>
+
+<h3 id="double"><a href="#double" class="headerlink" title="double"></a>double</h3><table>
+<thead>
+<tr>
+<th align="center">符号位</th>
+<th align="center">+</th>
+<th align="center">指数位</th>
+<th align="center">+</th>
+<th align="center">尾数位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">↑</td>
+<td align="center"></td>
+<td align="center">↑</td>
+<td align="center"></td>
+<td align="center">↑</td>
+</tr>
+<tr>
+<td align="center">第一位</td>
+<td align="center"></td>
+<td align="center">11位</td>
+<td align="center"></td>
+<td align="center">52位</td>
+</tr>
+</tbody></table>
+<h2 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h2><p>整数在内存中是以补码的形式存储</p>
+<h3 id="正整数"><a href="#正整数" class="headerlink" title="正整数"></a>正整数</h3><p>原码&#x3D;反码&#x3D;补码</p>
+<h3 id="负整数"><a href="#负整数" class="headerlink" title="负整数"></a>负整数</h3><p>原码即为原码<br>反码&#x3D;原码符号为不变,其余取反(注:第一位为符号位)<br>补码&#x3D;反码+1</p>
+<p><strong>2019年4月3日更新</strong><br>原码范围:</p>
+<ul>
+<li>整数:(1111…1) <strong>$-(2^n-1) \leq x \leq 2^n-1$</strong> (01111…1)</li>
+<li>小数:(1.111…1) <strong>$-(1-2^n) \leq x \leq 1-2^{-n}$</strong> (0.111…1)</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c语言数组输出的另一种方法</title>
+    <url>/posts/854ed6ec/</url>
+    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173" target="_blank" rel="noopener">一个有趣的C语言程序</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a = 1;</span><br><span class="line">    int x[5]=&#123;1,2,3,4,5&#125;;</span><br><span class="line">    printf(&quot;%d&quot;,a[x]);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">output: 2</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>所以可以进一步写成*(a+&amp;x[0]),又因为a&#x3D;1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>所以就是x[1]对应的值：2</p>
+<p>由此我又想到了二位数组</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a = 1;</span><br><span class="line">    int x[2][2]=&#123;&#123;1,2&#125;,&#123;3,4&#125;&#125;;</span><br><span class="line">    printf(&quot;%d&quot;,a[a[x]]);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">output: 4</span><br></pre></td></tr></table></figure>
+
+<p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -1573,6 +1573,24 @@
       </tags>
   </entry>
   <entry>
+    <title>python获取网页源码(爬虫?)</title>
+    <url>/posts/cee10602/</url>
+    <content><![CDATA[<p>利用requrst,使用首先要</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br></pre></td></tr></table></figure>
+
+<p>使用方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">url = &apos;要获取的网页地址&apos;</span><br><span class="line">useragent = &apos;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36&apos;#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span><br><span class="line">requests.get(url,headers=&#123;&apos;User-Agent&apos;:useragent&#125;))</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>编程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>linux PPPOE拨号上网</title>
     <url>/posts/59c8ffd6/</url>
     <content><![CDATA[<h2 id="安装rp-pppoe"><a href="#安装rp-pppoe" class="headerlink" title="安装rp-pppoe"></a>安装rp-pppoe</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S rp-pppoe</span><br></pre></td></tr></table></figure>
@@ -1711,22 +1729,38 @@
       </tags>
   </entry>
   <entry>
-    <title>python获取网页源码(爬虫?)</title>
-    <url>/posts/cee10602/</url>
-    <content><![CDATA[<p>利用requrst,使用首先要</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br></pre></td></tr></table></figure>
+    <title>为广告而生,从使用到干掉大陆版MIUI</title>
+    <url>/posts/6c3a98b5/</url>
+    <content><![CDATA[<p>使用四年多的锤子手机越来越不堪重负，我决定换一款新的手机，在精心挑选后，选定了今年年初发布的一款Red MI手机，其极高的性价比打动了我。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>在收货当天就迫不及待下班回家开始把玩，有一个词可以形容我当时的体验：軽い。<br>换手机的契机也是如此，国产app越来越毒瘤，旧手机越来越卡，开启健康码和支付宝都要至少等待2秒。由于四年的落差，即使是一款性价比手机也让我觉得好流畅，还有120hz屏幕，令我爱不释手。  </p>
+<h2 id="忍受"><a href="#忍受" class="headerlink" title="忍受"></a>忍受</h2><p>我知道MIUI是有广告的，但根据各种网上的说法，是有开关是可以关闭的。<br>所以我一入手就根据网上流传的各种方法将隐藏在系统不同角落的广告关闭了。<br>确实有效，APP和系统设置中的一些广告确实没有了，天真的我以为真的干掉了广告。<br>但是不定时广告推送，小米商城推送各种促销，系统自带浏览器也开始充当新闻客户端，各种推送傻逼新闻，而这一切的前提都是在我进入软件关闭各种推送的条件下，在了解后得知可以使用ADB冻结几个系统软件解决，我冻结了以下系统软件：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell pm disable-user com.xiaomi.ab</span><br><span class="line">adb shell pm disable-user com.miui.systemAdSolution</span><br><span class="line">adb shell pm disable-user com.miui.analytics</span><br><span class="line">adb shell pm disable-user com.sohu.inputmethod.sogou.xiaomi</span><br></pre></td></tr></table></figure>
 
-<p>使用方法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">url = &apos;要获取的网页地址&apos;</span><br><span class="line">useragent = &apos;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36&apos;#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span><br><span class="line">requests.get(url,headers=&#123;&apos;User-Agent&apos;:useragent&#125;))</span><br></pre></td></tr></table></figure>
+<p>确实有效，而且连某些app的开屏广告都没了。</p>
+<h2 id="愤怒"><a href="#愤怒" class="headerlink" title="愤怒"></a>愤怒</h2><a id="more"></a>
+<p>虽然我不重度依赖谷歌，但我重度使用Twitter,Youtube,Reddit，在使用一段时间后，我发现推特的推送不灵了，每次开屏才会一堆一堆的推送，而在息屏的情况下根本收不到推送。<br>最初我一度认为是自己的设置有问题，毕竟连我的旧手机锤子都可以及时收到各种推送。<br>在对Google Play Service各种设置后，包括但不限于，取消应用黑名单，后台锁住app，但没有任何改变。<br>在了解后得知，大陆版MIUI会在息屏后断开FCM的连接，且强制设置在FCM断开后不再允许其重连，这一切我都可以理解，由于国内的环境，不断重试确实会导致耗电增加，在网友提醒下我通过ADB冻结了以下两个应用：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell pm disable-user com.miui.powerkeeper</span><br><span class="line">adb shell pm disable-user com.xiaomi.powerchecker</span><br></pre></td></tr></table></figure>
 
+<p>别说，还真有用，基本上能正常收到推送了，我以为我解决问题了。<br><strong>但是</strong><br>我发现息屏情况下播放音乐，音乐会自动暂停，在上网搜索后，我发现不只我有这个问题，在各方打听后得知是冻结<code>com.miui.powerkeeper</code>导致的。<br>加上KDE connect会时不时的断开，我真的很愤怒，我能理解MIUI的做法，但我无法忍受不给用户任何开关一刀切的做法，所以我决定干掉自带的陆版MIUI。</p>
+<h2 id="成为“欧洲人”"><a href="#成为“欧洲人”" class="headerlink" title="成为“欧洲人”"></a>成为“欧洲人”</h2><p>在经过7天的忍受之后，备份好手机内的各种资料后，成功解锁了手机。<br>我决定刷入<code>XIAOMI.EU</code>，一个被小米官方和欧洲ABC经销商认可的官改系统。<br>在<a href="https://xiaomi.eu/" target="_blank" rel="noopener">xiaomi.eu</a>上提前下载适用于手机的twrp和ROM。  </p>
+<ul>
+<li><p>临时刷入TWRP并进入TWRP</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">fastboot flash recovery twrp.img</span><br><span class="line">fastboot boot twrp.img</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在TWRP内格式化DATA分区，<strong>注意不要清除System和Persist分区</strong>。</p>
+</li>
+<li><p>在TWRP内开启sideload。  </p>
+</li>
+<li><p>通过sideload刷入rom</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb sideload xxxxx.ZIP</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>在百分之47的时候会结束，貌似是个bug，不过这个时候其实已经成功刷入了，直接重启进入系统即可。</p>
+<h2 id="享受"><a href="#享受" class="headerlink" title="享受"></a>享受</h2><p>没有了小米的各种广告推送，自带谷歌play商店，而不是小米应用商店，手动安装应用时不再要求你多次确认，正常的FCM推送，不再断开的KDE Connect，虽然缺失了一部分特有的功能，但此时此刻我感受到了成为“欧洲人”的优越感。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果你喜欢折腾且会刷机，那么小米手机依旧可以在你的购机候选名单中，否贼就将其永久拉黑。<br>我不认同广告漫天飞的系统会符合用户习惯，包括所谓“符合中国用户习惯”。  </p>
 ]]></content>
       <categories>
-        <category>python</category>
+        <category>Personally</category>
       </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>编程</tag>
-      </tags>
   </entry>
   <entry>
     <title>とある番組の記録</title>
@@ -1782,80 +1816,6 @@
       </tags>
   </entry>
   <entry>
-    <title>利用结构体让函数返回多个值</title>
-    <url>/posts/c69434f1/</url>
-    <content><![CDATA[<h2 id="c语言"><a href="#c语言" class="headerlink" title="c语言"></a>c语言</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &quot;stdio.h&quot;</span><br><span class="line">typedef struct test //建立结构体</span><br><span class="line">&#123;</span><br><span class="line">    int a;</span><br><span class="line">    int b;</span><br><span class="line">    int c;</span><br><span class="line">&#125;T;</span><br><span class="line"></span><br><span class="line">T testt(int aa,int bb,int cc) //建立函数</span><br><span class="line">&#123;</span><br><span class="line">    T aaa;</span><br><span class="line">    aaa.a=aa*bb;</span><br><span class="line">    aaa.b=aa*cc;</span><br><span class="line">    aaa.c=bb*cc;</span><br><span class="line">    return aaa; //返回结构</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    T b=testt(4,5,6);</span><br><span class="line">    printf(&quot;%d %d %d \n&quot;,b.a,b.b,b.c);</span><br><span class="line">    T *f=&amp;b;</span><br><span class="line">    printf(&quot;%d %d %d&quot;,f-&gt;a,f-&gt;b,f-&gt;c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &quot;iostream&quot;</span><br><span class="line">typedef struct sss //建立结构体</span><br><span class="line">&#123;</span><br><span class="line">    int a;</span><br><span class="line">    int b;</span><br><span class="line">    int c;</span><br><span class="line">&#125;S;</span><br><span class="line"></span><br><span class="line">S s(double a,double b,double c) 建立函数</span><br><span class="line">&#123;</span><br><span class="line">    S d;</span><br><span class="line">    d.a=a*a;</span><br><span class="line">    d.b=b*b;</span><br><span class="line">    d.c=c*c;</span><br><span class="line">    return d;//返回结构体</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    S z=s(3,4,5);</span><br><span class="line">    std::cout&lt;&lt;z.a</span><br><span class="line">             &lt;&lt;std::endl</span><br><span class="line">             &lt;&lt;z.b</span><br><span class="line">             &lt;&lt;std::endl</span><br><span class="line">             &lt;&lt;z.c</span><br><span class="line">             &lt;&lt;std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言利用char指针变量将int按字节打印地址</title>
-    <url>/posts/43cb2931/</url>
-    <content><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>而char的大小刚好为一个字节,是我们想要的东西.<br>这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>代码如下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int a=-65;</span><br><span class="line">char *b=(char *)&amp;a;</span><br><span class="line">printf(&quot;%p\n%p\n%p\n%p\n&quot;,a,a+1,a+2,a+3);</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-
-<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int a=-65;</span><br><span class="line">char *b=(char *)&amp;a;</span><br><span class="line">printf(&quot;%02x\n%02x\n%02x\n%02x\n&quot;,*(unsigned char*)a,*(unsigned char*)(a+1),*(unsigned char*)(a+2),*(unsigned char*)(a+3));</span><br></pre></td></tr></table></figure>
-
-<p>两者结合一下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int a=-65;</span><br><span class="line">char *b=(char *)&amp;a;</span><br><span class="line">printf(&quot;%p %02x\n%p %02x\n%p %02x\n%p %02x\n&quot;,a,*(unsigned char*)a,a+1,*(unsigned char*)(a+1),a+2,*(unsigned char*)(a+2),a+3,*(unsigned char*)(a+3));</span><br></pre></td></tr></table></figure>
-
-<p>输出内容如图<br><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png"><br><strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>为广告而生,从使用到干掉大陆版MIUI</title>
-    <url>/posts/6c3a98b5/</url>
-    <content><![CDATA[<p>使用四年多的锤子手机越来越不堪重负，我决定换一款新的手机，在精心挑选后，选定了今年年初发布的一款Red MI手机，其极高的性价比打动了我。</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>在收货当天就迫不及待下班回家开始把玩，有一个词可以形容我当时的体验：軽い。<br>换手机的契机也是如此，国产app越来越毒瘤，旧手机越来越卡，开启健康码和支付宝都要至少等待2秒。由于四年的落差，即使是一款性价比手机也让我觉得好流畅，还有120hz屏幕，令我爱不释手。  </p>
-<h2 id="忍受"><a href="#忍受" class="headerlink" title="忍受"></a>忍受</h2><p>我知道MIUI是有广告的，但根据各种网上的说法，是有开关是可以关闭的。<br>所以我一入手就根据网上流传的各种方法将隐藏在系统不同角落的广告关闭了。<br>确实有效，APP和系统设置中的一些广告确实没有了，天真的我以为真的干掉了广告。<br>但是不定时广告推送，小米商城推送各种促销，系统自带浏览器也开始充当新闻客户端，各种推送傻逼新闻，而这一切的前提都是在我进入软件关闭各种推送的条件下，在了解后得知可以使用ADB冻结几个系统软件解决，我冻结了以下系统软件：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell pm disable-user com.xiaomi.ab</span><br><span class="line">adb shell pm disable-user com.miui.systemAdSolution</span><br><span class="line">adb shell pm disable-user com.miui.analytics</span><br><span class="line">adb shell pm disable-user com.sohu.inputmethod.sogou.xiaomi</span><br></pre></td></tr></table></figure>
-
-<p>确实有效，而且连某些app的开屏广告都没了。</p>
-<h2 id="愤怒"><a href="#愤怒" class="headerlink" title="愤怒"></a>愤怒</h2><a id="more"></a>
-<p>虽然我不重度依赖谷歌，但我重度使用Twitter,Youtube,Reddit，在使用一段时间后，我发现推特的推送不灵了，每次开屏才会一堆一堆的推送，而在息屏的情况下根本收不到推送。<br>最初我一度认为是自己的设置有问题，毕竟连我的旧手机锤子都可以及时收到各种推送。<br>在对Google Play Service各种设置后，包括但不限于，取消应用黑名单，后台锁住app，但没有任何改变。<br>在了解后得知，大陆版MIUI会在息屏后断开FCM的连接，且强制设置在FCM断开后不再允许其重连，这一切我都可以理解，由于国内的环境，不断重试确实会导致耗电增加，在网友提醒下我通过ADB冻结了以下两个应用：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell pm disable-user com.miui.powerkeeper</span><br><span class="line">adb shell pm disable-user com.xiaomi.powerchecker</span><br></pre></td></tr></table></figure>
-
-<p>别说，还真有用，基本上能正常收到推送了，我以为我解决问题了。<br><strong>但是</strong><br>我发现息屏情况下播放音乐，音乐会自动暂停，在上网搜索后，我发现不只我有这个问题，在各方打听后得知是冻结<code>com.miui.powerkeeper</code>导致的。<br>加上KDE connect会时不时的断开，我真的很愤怒，我能理解MIUI的做法，但我无法忍受不给用户任何开关一刀切的做法，所以我决定干掉自带的陆版MIUI。</p>
-<h2 id="成为“欧洲人”"><a href="#成为“欧洲人”" class="headerlink" title="成为“欧洲人”"></a>成为“欧洲人”</h2><p>在经过7天的忍受之后，备份好手机内的各种资料后，成功解锁了手机。<br>我决定刷入<code>XIAOMI.EU</code>，一个被小米官方和欧洲ABC经销商认可的官改系统。<br>在<a href="https://xiaomi.eu/" target="_blank" rel="noopener">xiaomi.eu</a>上提前下载适用于手机的twrp和ROM。  </p>
-<ul>
-<li><p>临时刷入TWRP并进入TWRP</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">fastboot flash recovery twrp.img</span><br><span class="line">fastboot boot twrp.img</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在TWRP内格式化DATA分区，<strong>注意不要清除System和Persist分区</strong>。</p>
-</li>
-<li><p>在TWRP内开启sideload。  </p>
-</li>
-<li><p>通过sideload刷入rom</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb sideload xxxxx.ZIP</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>在百分之47的时候会结束，貌似是个bug，不过这个时候其实已经成功刷入了，直接重启进入系统即可。</p>
-<h2 id="享受"><a href="#享受" class="headerlink" title="享受"></a>享受</h2><p>没有了小米的各种广告推送，自带谷歌play商店，而不是小米应用商店，手动安装应用时不再要求你多次确认，正常的FCM推送，不再断开的KDE Connect，虽然缺失了一部分特有的功能，但此时此刻我感受到了成为“欧洲人”的优越感。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果你喜欢折腾且会刷机，那么小米手机依旧可以在你的购机候选名单中，否贼就将其永久拉黑。<br>我不认同广告漫天飞的系统会符合用户习惯，包括所谓“符合中国用户习惯”。  </p>
-]]></content>
-      <categories>
-        <category>Personally</category>
-      </categories>
-  </entry>
-  <entry>
     <title>使用GVT-g显卡虚拟化</title>
     <url>/posts/3a1d136/</url>
     <content><![CDATA[<h2 id="为内核添加参数"><a href="#为内核添加参数" class="headerlink" title="为内核添加参数"></a>为内核添加参数</h2><p>比如<code>grub</code>在<code>/etc/default/grub</code>的<code>GRUB_CMDLINE_LINUX_DEFAULT=</code>中添加</p>
@@ -1909,27 +1869,43 @@
       </tags>
   </entry>
   <entry>
-    <title>安卓使用dalvikvm运行java(termux运行java)</title>
-    <url>/posts/8b98169e/</url>
-    <content><![CDATA[<p>一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件<br>发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些  </p>
-<h2 id="安装所需工具"><a href="#安装所需工具" class="headerlink" title="安装所需工具"></a>安装所需工具</h2><p>termux上安装 ecj 和 dx就可以了</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install ecj dx</span><br></pre></td></tr></table></figure>
-
-<h2 id="编译为class文件"><a href="#编译为class文件" class="headerlink" title="编译为class文件"></a>编译为class文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ecj XXX.java</span><br></pre></td></tr></table></figure>
+    <title>c语言利用char指针变量将int按字节打印地址</title>
+    <url>/posts/43cb2931/</url>
+    <content><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>而char的大小刚好为一个字节,是我们想要的东西.<br>这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>代码如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int a=-65;</span><br><span class="line">char *b=(char *)&amp;a;</span><br><span class="line">printf(&quot;%p\n%p\n%p\n%p\n&quot;,a,a+1,a+2,a+3);</span><br></pre></td></tr></table></figure>
 
 <a id="more"></a>
-<h2 id="编译成dex文件"><a href="#编译成dex文件" class="headerlink" title="编译成dex文件"></a>编译成dex文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dx --dex --output=XXX.dex XXX.class</span><br></pre></td></tr></table></figure>
 
-<h2 id="使用dalvikvm运行"><a href="#使用dalvikvm运行" class="headerlink" title="使用dalvikvm运行"></a>使用dalvikvm运行</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dalvikvm -cp XXX.dex XXX</span><br></pre></td></tr></table></figure>
+<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int a=-65;</span><br><span class="line">char *b=(char *)&amp;a;</span><br><span class="line">printf(&quot;%02x\n%02x\n%02x\n%02x\n&quot;,*(unsigned char*)a,*(unsigned char*)(a+1),*(unsigned char*)(a+2),*(unsigned char*)(a+3));</span><br></pre></td></tr></table></figure>
 
-<p>参考: <a href="https://bbs.pediy.com/thread-184592.htm" target="_blank" rel="noopener">使用 dalvikvm 执行一个运行于命令行的 Hello World</a></p>
+<p>两者结合一下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int a=-65;</span><br><span class="line">char *b=(char *)&amp;a;</span><br><span class="line">printf(&quot;%p %02x\n%p %02x\n%p %02x\n%p %02x\n&quot;,a,*(unsigned char*)a,a+1,*(unsigned char*)(a+1),a+2,*(unsigned char*)(a+2),a+3,*(unsigned char*)(a+3));</span><br></pre></td></tr></table></figure>
+
+<p>输出内容如图<br><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png"><br><strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
 ]]></content>
       <categories>
-        <category>android</category>
+        <category>Program</category>
       </categories>
       <tags>
-        <tag>android</tag>
-        <tag>java</tag>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>利用结构体让函数返回多个值</title>
+    <url>/posts/c69434f1/</url>
+    <content><![CDATA[<h2 id="c语言"><a href="#c语言" class="headerlink" title="c语言"></a>c语言</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &quot;stdio.h&quot;</span><br><span class="line">typedef struct test //建立结构体</span><br><span class="line">&#123;</span><br><span class="line">    int a;</span><br><span class="line">    int b;</span><br><span class="line">    int c;</span><br><span class="line">&#125;T;</span><br><span class="line"></span><br><span class="line">T testt(int aa,int bb,int cc) //建立函数</span><br><span class="line">&#123;</span><br><span class="line">    T aaa;</span><br><span class="line">    aaa.a=aa*bb;</span><br><span class="line">    aaa.b=aa*cc;</span><br><span class="line">    aaa.c=bb*cc;</span><br><span class="line">    return aaa; //返回结构</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    T b=testt(4,5,6);</span><br><span class="line">    printf(&quot;%d %d %d \n&quot;,b.a,b.b,b.c);</span><br><span class="line">    T *f=&amp;b;</span><br><span class="line">    printf(&quot;%d %d %d&quot;,f-&gt;a,f-&gt;b,f-&gt;c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &quot;iostream&quot;</span><br><span class="line">typedef struct sss //建立结构体</span><br><span class="line">&#123;</span><br><span class="line">    int a;</span><br><span class="line">    int b;</span><br><span class="line">    int c;</span><br><span class="line">&#125;S;</span><br><span class="line"></span><br><span class="line">S s(double a,double b,double c) 建立函数</span><br><span class="line">&#123;</span><br><span class="line">    S d;</span><br><span class="line">    d.a=a*a;</span><br><span class="line">    d.b=b*b;</span><br><span class="line">    d.c=c*c;</span><br><span class="line">    return d;//返回结构体</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    S z=s(3,4,5);</span><br><span class="line">    std::cout&lt;&lt;z.a</span><br><span class="line">             &lt;&lt;std::endl</span><br><span class="line">             &lt;&lt;z.b</span><br><span class="line">             &lt;&lt;std::endl</span><br><span class="line">             &lt;&lt;z.c</span><br><span class="line">             &lt;&lt;std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -2002,6 +1978,7 @@
 <li>花咲くいろは</li>
 <li>TARI TARI</li>
 </ul>
+<a id="more"></a>
 <h2 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h2><p>key社的动漫作品我几乎全看了，大部分都很好看，推荐：</p>
 <ul>
 <li>CLANNAD</li>
@@ -2048,6 +2025,30 @@
       </tags>
   </entry>
   <entry>
+    <title>安卓使用dalvikvm运行java(termux运行java)</title>
+    <url>/posts/8b98169e/</url>
+    <content><![CDATA[<p>一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件<br>发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些  </p>
+<h2 id="安装所需工具"><a href="#安装所需工具" class="headerlink" title="安装所需工具"></a>安装所需工具</h2><p>termux上安装 ecj 和 dx就可以了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install ecj dx</span><br></pre></td></tr></table></figure>
+
+<h2 id="编译为class文件"><a href="#编译为class文件" class="headerlink" title="编译为class文件"></a>编译为class文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ecj XXX.java</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h2 id="编译成dex文件"><a href="#编译成dex文件" class="headerlink" title="编译成dex文件"></a>编译成dex文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dx --dex --output=XXX.dex XXX.class</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用dalvikvm运行"><a href="#使用dalvikvm运行" class="headerlink" title="使用dalvikvm运行"></a>使用dalvikvm运行</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dalvikvm -cp XXX.dex XXX</span><br></pre></td></tr></table></figure>
+
+<p>参考: <a href="https://bbs.pediy.com/thread-184592.htm" target="_blank" rel="noopener">使用 dalvikvm 执行一个运行于命令行的 Hello World</a></p>
+]]></content>
+      <categories>
+        <category>android</category>
+      </categories>
+      <tags>
+        <tag>android</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>安卓通过adb添加电池用户白名单</title>
     <url>/posts/1e63e0e/</url>
     <content><![CDATA[<p>安卓6.0引入了doze来节省电量,但某些国产ui(如锤子)阉割了这个菜单,可通过adb添加  </p>
@@ -2075,18 +2076,6 @@
       </tags>
   </entry>
   <entry>
-    <title>常用等价无穷小的一般形式</title>
-    <url>/posts/10bb899d/</url>
-    <content><![CDATA[<p>当$\lim_{φ(x)\to0}$时,<br>$\sin φ(x)$<del>$φ(x)$<br>$arc\sin φ(x)$</del>$φ(x)$<br>$\tanφ(x)$<del>$φ(x)$<br>$arc\tanφ(x)$</del>$φ(x)$<br>$\ln(1+φ(x))$<del>$φ(x)$<br>$e^{φ(x)}-1$</del>$φ(x)$<br>$a^{φ(x)}-1$<del>$φ(x)\ln a$<br>$\sqrt[n]{1+φ(x)}-1$</del>$\frac{1}{n}φ(x)$<br>$(1+φ(x))^{\mu-1}$<del>$\muφ(x)$<br>$1-\cosφ(x)$</del>$\frac{(φ(x))^2}{2}$</p>
-]]></content>
-      <categories>
-        <category>Math</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>安卓通过shell更改语言</title>
     <url>/posts/f7f814df/</url>
     <content><![CDATA[<p>对于Android M或更高版本，使用：</p>
@@ -2104,6 +2093,52 @@
       </categories>
       <tags>
         <tag>android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>实现一个简单的Kubernetes controller</title>
+    <url>/posts/edf1c330/</url>
+    <content><![CDATA[<h2 id="controller是什么"><a href="#controller是什么" class="headerlink" title="controller是什么"></a>controller是什么</h2><p>简单来说，controller就是监听kubernetes的配置&#x2F;状态变化，自动对资源进行调节。比如kubernetes内置的controller有Deployment、StatefulSet、DaemonSet。</p>
+<h2 id="实现controller"><a href="#实现controller" class="headerlink" title="实现controller"></a>实现controller</h2><p>这里我们实现一个简单的loadbalancer controller，使用kubernetes的client-go。  </p>
+<p>先创建一个新的Serivce,并且指定Type为LoadBalancer。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-service</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/name:</span> <span class="string">MyApp</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">80</span></span><br><span class="line">  <span class="attr">clusterIP:</span> <span class="number">10.0</span><span class="number">.171</span><span class="number">.239</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">LoadBalancer</span></span><br></pre></td></tr></table></figure>
+
+<p>这时Service的状态还是pending,因为还没有controller为其分配IP地址。</p>
+<p>创建新的client</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">config, err := rest.InClusterConfig()</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cli, err := kubernetes.NewForConfig(config)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建一个新的对Service状态变化的监听</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">wch, err := cli.CoreV1().Services(corev1.NamespaceAll).Watch(context.TODO(), metav1.ListOptions&#123;Watch: <span class="literal">true</span>&#125;)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">defer</span> wch.Stop()</span><br></pre></td></tr></table></figure>
+
+<p>如果是新建的Serivce,并且Type为LoadBalancer，则自动为其分配一个IP地址。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 端口分配范围</span></span><br><span class="line"><span class="keyword">var</span> portRange = atomic.Uint32&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    portRange.Store(<span class="number">30000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> &lt;-signChannel:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">case</span> obj, ok := &lt;-wch.ResultChan():</span><br><span class="line">            <span class="keyword">if</span> !ok &#123;</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            svc, ok := obj.Object.(*corev1.Service)</span><br><span class="line">            <span class="keyword">if</span> !ok &#123;</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">switch</span> obj.Type &#123;</span><br><span class="line">            <span class="keyword">case</span> watch.Added:</span><br><span class="line">                <span class="comment">// 判断是否是LoadBalancer</span></span><br><span class="line">                <span class="comment">// 生成环境中还应结合Annotations进行判断，防止误更改错误的Service.</span></span><br><span class="line">                <span class="keyword">if</span> svc.Spec.Type != corev1.ServiceTypeLoadBalancer &#123;</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 生成端口，并创建转发（只会打印，不会真正创建规则）</span></span><br><span class="line">                sport := portRange.Add(<span class="number">1</span>)</span><br><span class="line">                forward(svc, sport)</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 为service分配IP地址</span></span><br><span class="line">                svc.Status.LoadBalancer.Ingress = []corev1.LoadBalancerIngress&#123;</span><br><span class="line">                    &#123;</span><br><span class="line">                        IP: svc.Spec.ClusterIP,</span><br><span class="line">                        Ports: []corev1.PortStatus&#123;</span><br><span class="line">                            &#123;</span><br><span class="line">                                Port: <span class="keyword">int32</span>(sport),</span><br><span class="line">                            &#125;,</span><br><span class="line">                        &#125;,</span><br><span class="line">                    &#125;,</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 更新service</span></span><br><span class="line">                _, err := cli.</span><br><span class="line">                    CoreV1().</span><br><span class="line">                    Services(svc.Namespace).</span><br><span class="line">                    UpdateStatus(context.TODO(), svc, metav1.UpdateOptions&#123;&#125;)</span><br><span class="line">                <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                    slog.Error(err.Error())</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    slog.Info(<span class="string">"service added"</span>, svc.Name, svc.Namespace, svc.Spec.ClusterIP, svc.Spec.ClusterIPs)</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> watch.Modified:</span><br><span class="line">                slog.Info(<span class="string">"service modified"</span>, svc.Name, svc.Namespace, svc.Spec.ClusterIP, svc.Spec.ClusterIPs)</span><br><span class="line">            <span class="keyword">case</span> watch.Deleted:</span><br><span class="line">                slog.Info(<span class="string">"service deleted"</span>, svc.Name, svc.Namespace, svc.Spec.ClusterIP, svc.Spec.ClusterIPs)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 模拟实现iptables自动创建转发</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">forward</span><span class="params">(svc *corev1.Service, sport <span class="keyword">uint32</span>)</span></span> &#123;</span><br><span class="line">    ip, err := netip.ParseAddr(svc.Spec.ClusterIP)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="built_in">panic</span>(err)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> _, v := <span class="keyword">range</span> svc.Spec.Ports &#123;</span><br><span class="line">        <span class="keyword">var</span> ipt <span class="keyword">string</span></span><br><span class="line">        <span class="keyword">var</span> mask <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> ip.Is4() &#123;</span><br><span class="line">            ipt = <span class="string">"iptables"</span></span><br><span class="line">            mask = <span class="string">"32"</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ipt = <span class="string">"ip6tables"</span></span><br><span class="line">            mask = <span class="string">"128"</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        fmt.Println(</span><br><span class="line">            ipt, <span class="string">"-t"</span>, <span class="string">"filter"</span>, <span class="string">"-A"</span>, <span class="string">"FORWARD"</span>,</span><br><span class="line">            <span class="string">"-d"</span>, svc.Spec.ClusterIP+<span class="string">"/"</span>+mask,</span><br><span class="line">            <span class="string">"-p"</span>, <span class="keyword">string</span>(v.Protocol),</span><br><span class="line">            <span class="string">"--dport"</span>, strconv.Itoa(<span class="keyword">int</span>(v.Port)),</span><br><span class="line">            <span class="string">"-j"</span>, <span class="string">"DROP"</span>,</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        fmt.Println(</span><br><span class="line">            ipt, <span class="string">"-t"</span>, <span class="string">"nat"</span>, <span class="string">"-I"</span>, <span class="string">"PRETROUTING"</span>, <span class="number">0</span>,</span><br><span class="line">            <span class="string">"-p"</span>, <span class="keyword">string</span>(v.Protocol),</span><br><span class="line">            <span class="string">"--dport"</span>, strconv.Itoa(<span class="keyword">int</span>(sport)),</span><br><span class="line">            <span class="string">"-j"</span>, <span class="string">"DNAT"</span>,</span><br><span class="line">            <span class="string">"--to"</span>, net.JoinHostPort(svc.Spec.ClusterIP, strconv.Itoa(<span class="keyword">int</span>(v.Port))),</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        fmt.Println(</span><br><span class="line">            ipt, <span class="string">"-t"</span>, <span class="string">"nat"</span>, <span class="string">"-I"</span>, <span class="string">"POSTROUTING"</span>,</span><br><span class="line">            <span class="string">"-d"</span>, svc.Spec.ClusterIP+<span class="string">"/"</span>+mask,</span><br><span class="line">            <span class="string">"-p"</span>, v.Protocol,</span><br><span class="line">            <span class="string">"-j"</span>, <span class="string">"MASQUERADE"</span>,</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行这个简单程序，再观察Serivce, 就会发现Serivice已经不再处于pending状态，并也为其分配了一个IP地址，虽然不能真正使用此地址进行访问，因为我们并没有创建真正的转发规则。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-service</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/name:</span> <span class="string">MyApp</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">80</span></span><br><span class="line">  <span class="attr">clusterIP:</span> <span class="number">10.0</span><span class="number">.171</span><span class="number">.239</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">LoadBalancer</span></span><br><span class="line"><span class="attr">status:</span></span><br><span class="line">  <span class="attr">loadBalancer:</span></span><br><span class="line">    <span class="attr">ingress:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ip:</span> <span class="number">10.0</span><span class="number">.171</span><span class="number">.239</span></span><br></pre></td></tr></table></figure>
+
+<p>k3s的<a href="https://github.com/k3s-io/klipper-lb" target="_blank" rel="noopener">klipper-lb</a>是一个很简单loadbalancer实现，代码只是几行脚本。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">start_proxy</span></span>() &#123;</span><br><span class="line">    <span class="keyword">for</span> src_range <span class="keyword">in</span> <span class="variable">$&#123;SRC_RANGES//,/ &#125;</span>; <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">echo</span> <span class="variable">$&#123;src_range&#125;</span> | grep -Eq <span class="string">":"</span>; <span class="keyword">then</span></span><br><span class="line">            ip6tables -t filter -I FORWARD -s <span class="variable">$&#123;src_range&#125;</span> -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;DEST_PORT&#125;</span> -j ACCEPT</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            iptables -t filter -I FORWARD -s <span class="variable">$&#123;src_range&#125;</span> -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;DEST_PORT&#125;</span> -j ACCEPT</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> dest_ip <span class="keyword">in</span> <span class="variable">$&#123;DEST_IPS//,/ &#125;</span>; <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">echo</span> <span class="variable">$&#123;dest_ip&#125;</span> | grep -Eq <span class="string">":"</span>; <span class="keyword">then</span></span><br><span class="line">            [ $(cat /proc/sys/net/ipv6/conf/all/forwarding) == 1 ] || <span class="built_in">exit</span> 1</span><br><span class="line">            ip6tables -t filter -A FORWARD -d <span class="variable">$&#123;dest_ip&#125;</span>/128 -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;DEST_PORT&#125;</span> -j DROP</span><br><span class="line">            ip6tables -t nat -I PREROUTING -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;SRC_PORT&#125;</span> -j DNAT --to [<span class="variable">$&#123;dest_ip&#125;</span>]:<span class="variable">$&#123;DEST_PORT&#125;</span></span><br><span class="line">            ip6tables -t nat -I POSTROUTING -d <span class="variable">$&#123;dest_ip&#125;</span>/128 -p <span class="variable">$&#123;DEST_PROTO&#125;</span> -j MASQUERADE</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            [ $(cat /proc/sys/net/ipv4/ip_forward) == 1 ] || <span class="built_in">exit</span> 1</span><br><span class="line">            iptables -t filter -A FORWARD -d <span class="variable">$&#123;dest_ip&#125;</span>/32 -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;DEST_PORT&#125;</span> -j DROP</span><br><span class="line">            iptables -t nat -I PREROUTING -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;SRC_PORT&#125;</span> -j DNAT --to <span class="variable">$&#123;dest_ip&#125;</span>:<span class="variable">$&#123;DEST_PORT&#125;</span></span><br><span class="line">            iptables -t nat -I POSTROUTING -d <span class="variable">$&#123;dest_ip&#125;</span>/32 -p <span class="variable">$&#123;DEST_PROTO&#125;</span> -j MASQUERADE</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>Kubernetes</tag>
+        <tag>CRI</tag>
+        <tag>container</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常用等价无穷小的一般形式</title>
+    <url>/posts/10bb899d/</url>
+    <content><![CDATA[<p>当$\lim_{φ(x)\to0}$时,<br>$\sin φ(x)$<del>$φ(x)$<br>$arc\sin φ(x)$</del>$φ(x)$<br>$\tanφ(x)$<del>$φ(x)$<br>$arc\tanφ(x)$</del>$φ(x)$<br>$\ln(1+φ(x))$<del>$φ(x)$<br>$e^{φ(x)}-1$</del>$φ(x)$<br>$a^{φ(x)}-1$<del>$φ(x)\ln a$<br>$\sqrt[n]{1+φ(x)}-1$</del>$\frac{1}{n}φ(x)$<br>$(1+φ(x))^{\mu-1}$<del>$\muφ(x)$<br>$1-\cosφ(x)$</del>$\frac{(φ(x))^2}{2}$</p>
+]]></content>
+      <categories>
+        <category>Math</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
       </tags>
   </entry>
   <entry>
@@ -2401,8 +2436,8 @@
         <category>linux</category>
       </categories>
       <tags>
-        <tag>android</tag>
         <tag>linux</tag>
+        <tag>android</tag>
       </tags>
   </entry>
   <entry>
