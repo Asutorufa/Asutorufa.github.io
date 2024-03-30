@@ -1,4 +1,5 @@
     <!--google adsense-->
+    <!--
     <div class="google-adsense">
     <ins class="adsbygoogle"
       style="display:inline-block;width:216px;height:100px"
@@ -7,5 +8,5 @@
     <script>
       (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
-    </div>
+    </div>-->
 
