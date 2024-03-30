@@ -4,12 +4,6 @@ date: 2017-10-08 10:01:32
 type: about
 language: ja
 ---
-雨 清竜人
-
-誰が わたしを 幸せにしてくれるの  
-なにが わたしを 満たしてくれるっていうの  
-感情なんて全て一過性のものでしょ  
-わかんないよ ねぇ もう わかんないよ わかってたまるかよ  
 
 面倒くさいだから、何も書きないです。  
 
@@ -32,3 +26,14 @@ Icon
 
 - [__Twitterフォロワー限定！ハロウィンスペシャルアイコン＆壁紙プレゼントキャンペーン！__](https://227anime.com/special/halloween/)  
 - [__「22/7 計算中」放送開始記念 アイコン＆壁紙 プレゼント__](https://www.nanabunnonijyuuni.com/special/wp-present/)
+
+OpenSource Contribution History
+
+- [logcatviewer #1](https://github.com/kyze8439690/logcatviewer/pull/1)
+- [rke2 #4501](https://github.com/rancher/rke2/pull/4501)
+- [go-openssl #26](https://github.com/Luzifer/go-openssl/pull/26)
+- [go-openssl #27](https://github.com/Luzifer/go-openssl/pull/27)
+- [go-yamux #113](https://github.com/libp2p/go-yamux/pull/113)
+- [go-yamux #114](https://github.com/libp2p/go-yamux/pull/114)
+- [netlink #911](https://github.com/vishvananda/netlink/pull/911)
+- [tailscale #11555](https://github.com/tailscale/tailscale/pull/11555)
