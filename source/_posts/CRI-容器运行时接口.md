@@ -1,13 +1,14 @@
 ---
 title: CRI 容器运行时接口
+tags:
+  - Kubernetes
+  - CRI
+  - container
+categories:
+  - Kubernetes
+abbrlink: 8144a111
 date: 2023-03-01 14:55:45
 updated: 2023-03-01 14:55:45
-tags:
- - Kubernetes
- - CRI
- - container
-categories:
- - Kubernetes
 language:
 ---
 
