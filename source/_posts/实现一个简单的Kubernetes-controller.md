@@ -41,7 +41,7 @@ spec:
 这时Service的状态还是pending,因为还没有controller为其分配IP地址。
 
 创建新的client
-
+<!--more-->
 ```go
 config, err := rest.InClusterConfig()
 if err != nil {
