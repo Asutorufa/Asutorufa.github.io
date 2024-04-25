@@ -84,6 +84,7 @@
   {% include '_third-party/needsharebutton.swig' %}
   {% include '_third-party/rating.swig' %}
   {% include '_third-party/mathjax.swig' %}
+  {% include '_third-party/katex.swig' %}
   {% include '_third-party/scroll-cookie.swig' %}
   {% include '_third-party/exturl.swig' %}
   <script type="text/javascript" src="{{ url_for(theme.js) }}/src/custom.js"></script>

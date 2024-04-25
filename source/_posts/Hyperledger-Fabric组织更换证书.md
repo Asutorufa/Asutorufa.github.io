@@ -5,8 +5,7 @@ tags:
   - Hyperledger Fabric
 categories:
   - Hyperledger fabric
-language:
-  - zh-Hans
+language: zh-Hans
 abbrlink: afc6d6dd
 date: 2021-01-24 17:34:58
 updated: 2021-01-24 17:34:58

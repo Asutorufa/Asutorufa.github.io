@@ -2,9 +2,9 @@ name: NodeJS with Gulp
 
 on:
   push:
-    branches: [ "hexo" ]
+    branches: ["hexo"]
   pull_request:
-    branches: [ "hexo" ]
+    branches: ["hexo"]
 
 jobs:
   build:
@@ -12,26 +12,26 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [21.x]
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Build
-      run: |
-        npm install
-        npx hexo clean
-        npx hexo generate
-        gulp
+      - name: Build
+        run: |
+          npm install
+          npx hexo clean
+          npx hexo generate
+          gulp
 
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        personal_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
-        publish_branch: master  # default: gh-pages
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: master # default: gh-pages

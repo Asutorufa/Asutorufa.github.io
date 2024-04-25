@@ -5,8 +5,7 @@ tags:
   - encrypt
 categories:
   - linux
-language:
-  - zh-Hans
+language: zh-Hans
 abbrlink: 7d547224
 date: 2020-10-02 14:00:01
 updated: 2020-10-02 14:00:01

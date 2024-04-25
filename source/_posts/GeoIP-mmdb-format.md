@@ -7,7 +7,7 @@ categories:
 abbrlink: 931c13a4
 date: 2020-07-27 22:15:17
 updated: 2020-07-27 22:15:17
-language:
+language: en
 ---
 
 complete document [MaxMind DB File Format SpecificationDescription](https://maxmind.github.io/MaxMind-DB/)

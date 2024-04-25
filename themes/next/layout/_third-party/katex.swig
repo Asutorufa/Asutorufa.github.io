@@ -1,0 +1,6 @@
+{% if theme.katex.enable %}
+ <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"
+  />
+{% endif %}
