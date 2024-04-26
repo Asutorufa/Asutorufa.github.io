@@ -199,10 +199,10 @@ sidebar:
 # ---------------------------------------------------------------
 
 # Automatically scroll page to section which is under <!-- more --> mark.
-scroll_to_more: false
+scroll_to_more: true
 
 # Automatically saving scroll position on each post/page in cookies.
-save_scroll: false
+save_scroll: true
 
 # Automatically excerpt description in homepage as preamble text.
 excerpt_description: true
@@ -628,8 +628,8 @@ tabs:
 
 # Use velocity to animate everything.
 motion:
-  enable: false
-  async: false
+  enable: true
+  async: true
   transition:
     # Transition variants:
     # fadeIn | fadeOut | flipXIn | flipXOut | flipYIn | flipYOut | flipBounceXIn | flipBounceXOut | flipBounceYIn | flipBounceYOut
@@ -701,10 +701,6 @@ vendors:
   # See: http://fancyapps.com/fancybox/
   fancybox:
   fancybox_css:
-
-  # Internal version: 1.0.6
-  # See: https://github.com/ftlabs/fastclick
-  fastclick:
 
   # Internal version: 1.9.7
   # See: https://github.com/tuupola/jquery_lazyload
