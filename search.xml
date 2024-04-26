@@ -1177,6 +1177,48 @@ The process to change I/O scheduler, depending on whether the disk is rotating o
       </tags>
   </entry>
   <entry>
+    <title>c语言中格式化字符的应用</title>
+    <url>/posts/b6b4601/</url>
+    <content><![CDATA[<h2 id="格式化规定符">格式化规定符</h2>
+<p>符号 作用<br>
+%d 十进制有符号整数<br>
+%u 十进制无符号整数<br>
+%f 浮点数<br>
+%s 字符串<br>
+%c 单个字符<br>
+%p 指针的值<br>
+%e 指数形式的浮点数<br>
+%x, %X 无符号以十六进制表示的整数<span id="more"></span><br>
+%0 无符号以八进制表示的整数<br>
+%g 自动选择合适的表示法</p>
+<p>说明:<br>
+(1). 可以在&quot;%“和字母之间插进数字表示最大场宽。<br>
+例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>
+%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>
+另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>
+例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>
+如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>
+例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>
+(2). 可以在”%“和字母之间加小写字母l, 表示输出的是长型数。<br>
+例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>
+(3). 可以控制输出左对齐或右对齐, 即在”%“和字母之间加入一个”-&quot; 号可说明输出为左对齐, 否则为右对齐。<br>
+例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
+<h2 id="一些特殊规定字符">一些特殊规定字符</h2>
+<p>字符 作用<br>
+/n   换行<br>
+/f   清屏并换页<br>
+/r   回车<br>
+/t   Tab符<br>
+/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>c语言基本类型在内存中的存储方式</title>
     <url>/posts/e404489/</url>
     <content><![CDATA[<h2 id="浮点数">浮点数</h2>
@@ -1251,48 +1293,6 @@ The process to change I/O scheduler, depending on whether the disk is rotating o
 <li>整数:(1111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-(2^n-1) \leq x \leq 2^n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7477em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></strong> (01111…1)</li>
 <li>小数:(1.111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mi>n</mi></msup><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mrow><mo>−</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">-(1-2^n) \leq x \leq 1-2^{-n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7713em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span></strong> (0.111…1)</li>
 </ul>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言中格式化字符的应用</title>
-    <url>/posts/b6b4601/</url>
-    <content><![CDATA[<h2 id="格式化规定符">格式化规定符</h2>
-<p>符号 作用<br>
-%d 十进制有符号整数<br>
-%u 十进制无符号整数<br>
-%f 浮点数<br>
-%s 字符串<br>
-%c 单个字符<br>
-%p 指针的值<br>
-%e 指数形式的浮点数<br>
-%x, %X 无符号以十六进制表示的整数<span id="more"></span><br>
-%0 无符号以八进制表示的整数<br>
-%g 自动选择合适的表示法</p>
-<p>说明:<br>
-(1). 可以在&quot;%“和字母之间插进数字表示最大场宽。<br>
-例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>
-%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>
-另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>
-例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>
-如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>
-例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>
-(2). 可以在”%“和字母之间加小写字母l, 表示输出的是长型数。<br>
-例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>
-(3). 可以控制输出左对齐或右对齐, 即在”%“和字母之间加入一个”-&quot; 号可说明输出为左对齐, 否则为右对齐。<br>
-例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
-<h2 id="一些特殊规定字符">一些特殊规定字符</h2>
-<p>字符 作用<br>
-/n   换行<br>
-/f   清屏并换页<br>
-/r   回车<br>
-/t   Tab符<br>
-/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
 ]]></content>
       <categories>
         <category>Program</category>
@@ -1610,20 +1610,6 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </tags>
   </entry>
   <entry>
-    <title>nodejs异步回调函数</title>
-    <url>/posts/5938ae8c/</url>
-    <content><![CDATA[<p>研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.<br>
-如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">await</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="keyword">function</span> (<span class="params">resolve, reject</span>) &#123;</span><br><span class="line">        <span class="title function_">resolve</span>(<span class="string">&quot;test&quot;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">test2</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">await</span> <span class="title function_">test</span>())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test2</span>()</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>nodejs</category>
-      </categories>
-      <tags>
-        <tag>nodejs</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux下intel&amp;AMD双显卡切换</title>
     <url>/posts/3b8b96de/</url>
     <content><![CDATA[<p>使用<strong>xrandr</strong>显示可支持的显卡</p>
@@ -1654,6 +1640,20 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
         <tag>linux</tag>
         <tag>双显卡</tag>
         <tag>amd</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nodejs异步回调函数</title>
+    <url>/posts/5938ae8c/</url>
+    <content><![CDATA[<p>研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.<br>
+如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">await</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="keyword">function</span> (<span class="params">resolve, reject</span>) &#123;</span><br><span class="line">        <span class="title function_">resolve</span>(<span class="string">&quot;test&quot;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">test2</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">await</span> <span class="title function_">test</span>())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test2</span>()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>nodejs</category>
+      </categories>
+      <tags>
+        <tag>nodejs</tag>
       </tags>
   </entry>
   <entry>
@@ -2129,31 +2129,6 @@ Output: plaintext, or an error if the authentication tag does not match the supp
       </tags>
   </entry>
   <entry>
-    <title>安卓使用dalvikvm运行java(termux运行java)</title>
-    <url>/posts/8b98169e/</url>
-    <content><![CDATA[<p>一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件<br>
-发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些</p>
-<h2 id="安装所需工具">安装所需工具</h2>
-<p>termux上安装 ecj 和 dx就可以了</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt install ecj dx</span><br></pre></td></tr></table></figure>
-<h2 id="编译为class文件">编译为class文件</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ecj XXX.java</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h2 id="编译成dex文件">编译成dex文件</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dx --dex --output=XXX.dex XXX.class</span><br></pre></td></tr></table></figure>
-<h2 id="使用dalvikvm运行">使用dalvikvm运行</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dalvikvm -cp XXX.dex XXX</span><br></pre></td></tr></table></figure>
-<p>参考: <a href="https://bbs.pediy.com/thread-184592.htm">使用 dalvikvm 执行一个运行于命令行的 Hello World</a></p>
-]]></content>
-      <categories>
-        <category>android</category>
-      </categories>
-      <tags>
-        <tag>android</tag>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>动漫影评</title>
     <url>/posts/665020d8/</url>
     <content><![CDATA[<p>目前我只会记录最近看了个，有些看的比较早的就不记录了，记忆也比较模糊。</p>
@@ -2249,6 +2224,31 @@ Output: plaintext, or an error if the authentication tag does not match the supp
       </tags>
   </entry>
   <entry>
+    <title>安卓使用dalvikvm运行java(termux运行java)</title>
+    <url>/posts/8b98169e/</url>
+    <content><![CDATA[<p>一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件<br>
+发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些</p>
+<h2 id="安装所需工具">安装所需工具</h2>
+<p>termux上安装 ecj 和 dx就可以了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt install ecj dx</span><br></pre></td></tr></table></figure>
+<h2 id="编译为class文件">编译为class文件</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ecj XXX.java</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h2 id="编译成dex文件">编译成dex文件</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dx --dex --output=XXX.dex XXX.class</span><br></pre></td></tr></table></figure>
+<h2 id="使用dalvikvm运行">使用dalvikvm运行</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dalvikvm -cp XXX.dex XXX</span><br></pre></td></tr></table></figure>
+<p>参考: <a href="https://bbs.pediy.com/thread-184592.htm">使用 dalvikvm 执行一个运行于命令行的 Hello World</a></p>
+]]></content>
+      <categories>
+        <category>android</category>
+      </categories>
+      <tags>
+        <tag>android</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>安卓通过adb添加电池用户白名单</title>
     <url>/posts/1e63e0e/</url>
     <content><![CDATA[<p>安卓6.0引入了doze来节省电量,但某些国产ui(如锤子)阉割了这个菜单,可通过adb添加</p>
@@ -2326,37 +2326,6 @@ Zygote进程运行时, 会初始化Dalvik虚拟机, 并运行它. Android的应�
       </tags>
   </entry>
   <entry>
-    <title>暗影精灵更改efi启动顺序</title>
-    <url>/posts/6683eff9/</url>
-    <content><![CDATA[<p>–2019-04-22 更新–<br>
-<strong>最新版bios已经可以调整启动顺序了(<a href="#jump">图在最下面</a>)</strong></p>
-<p>-------- 之 前 -------<br>
-暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说</p>
-<p>首先从ubuntu进入/boot/efi/EFI<br>
-<strong>备份windwos的启动文件</strong>（<strong>切记一定要备份，否则只能从pe重新建立windwos启动项</strong>）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cp -arf Microsoft win10</span><br></pre></td></tr></table></figure>
-<p>将ubuntu的grubx64.efi替换掉EFI/Microsoft/Boot/bootmgfw.efi文件 <span id="more"></span></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cp -arf ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi </span><br></pre></td></tr></table></figure>
-<p>这样替换之后grub就接管了系统的启动</p>
-<p>然后将/boot/grub/grub.cfg中关于windows的启动段复制到/etc/grub.d/40_custom中<br>
-将<strong>chainloader /EFI/Micorosoft/Boot/bootmgfw.efi</strong><br>
-改为<br>
-<strong>chainloader /EFI/win10/Boot/bootmgfw.efi</strong><br>
-就是把中间那个改为你备份的文件夹，可以改一改前面的启动名称<br>
-最后执行update-grub来更新启动项</p>
-<p>但是windwos有大更新的时候会把更改的覆盖掉，再来一遍就好了</p>
-<p><span id = "jump"><img src="http://blog-1254450445.cossgp.myqcloud.com/efi.jpg" alt="" loading="lazy"></span></p>
-<p>参考文章<a href="https://blog.csdn.net/zyix_0712/article/details/69675748">暗影精灵2pro安装win10+ubuntu16.10双系统</a></p>
-]]></content>
-      <categories>
-        <category>Computer</category>
-      </categories>
-      <tags>
-        <tag>EFI</tag>
-        <tag>BIOS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>常用等价无穷小的一般形式</title>
     <url>/posts/10bb899d/</url>
     <content><![CDATA[<p>当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>lim</mi><mo>⁡</mo></mrow><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>→</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\lim_{φ(x)\to0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0496em;vertical-align:-0.3552em;"></span><span class="mop"><span class="mop">lim</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span><span class="mrel mtight">→</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3552em;"><span></span></span></span></span></span></span></span></span></span>时,<br>
@@ -2386,6 +2355,37 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </categories>
       <tags>
         <tag>Math</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>暗影精灵更改efi启动顺序</title>
+    <url>/posts/6683eff9/</url>
+    <content><![CDATA[<p>–2019-04-22 更新–<br>
+<strong>最新版bios已经可以调整启动顺序了(<a href="#jump">图在最下面</a>)</strong></p>
+<p>-------- 之 前 -------<br>
+暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说</p>
+<p>首先从ubuntu进入/boot/efi/EFI<br>
+<strong>备份windwos的启动文件</strong>（<strong>切记一定要备份，否则只能从pe重新建立windwos启动项</strong>）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cp -arf Microsoft win10</span><br></pre></td></tr></table></figure>
+<p>将ubuntu的grubx64.efi替换掉EFI/Microsoft/Boot/bootmgfw.efi文件 <span id="more"></span></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cp -arf ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi </span><br></pre></td></tr></table></figure>
+<p>这样替换之后grub就接管了系统的启动</p>
+<p>然后将/boot/grub/grub.cfg中关于windows的启动段复制到/etc/grub.d/40_custom中<br>
+将<strong>chainloader /EFI/Micorosoft/Boot/bootmgfw.efi</strong><br>
+改为<br>
+<strong>chainloader /EFI/win10/Boot/bootmgfw.efi</strong><br>
+就是把中间那个改为你备份的文件夹，可以改一改前面的启动名称<br>
+最后执行update-grub来更新启动项</p>
+<p>但是windwos有大更新的时候会把更改的覆盖掉，再来一遍就好了</p>
+<p><span id = "jump"><img src="http://blog-1254450445.cossgp.myqcloud.com/efi.jpg" alt="" loading="lazy"></span></p>
+<p>参考文章<a href="https://blog.csdn.net/zyix_0712/article/details/69675748">暗影精灵2pro安装win10+ubuntu16.10双系统</a></p>
+]]></content>
+      <categories>
+        <category>Computer</category>
+      </categories>
+      <tags>
+        <tag>EFI</tag>
+        <tag>BIOS</tag>
       </tags>
   </entry>
   <entry>
@@ -2456,56 +2456,6 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       <tags>
         <tag>汇编语言</tag>
         <tag>assembly</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深度学习之感知器的实现</title>
-    <url>/posts/64e69c3e/</url>
-    <content><![CDATA[<p>感知器的一个公式:<br>
-<strong>当 wx+b&gt;0 , f(x)=1,否则f(x)=0</strong></p>
-<ul>
-<li>x输入的向量</li>
-<li>w:是权重</li>
-<li>w*x是点积</li>
-<li>b是偏置(与权重类似,偏置可以认为是激励函数的偏移量，或者给神经元一个基础活跃等级。)</li>
-</ul>
-<p>对权重的调整公式,此处使用了梯度下降的方法: <strong>w=w+i*(t-count)*x</strong></p>
-<ul>
-<li>i是一个常数,i越小感知器学习越精确,当然耗费时间也最长</li>
-<li>t:本应该得到的值</li>
-<li>count:实际计算得到的值</li>
-<li>x:同上</li>
-</ul>
-<p>对偏置调整的公式: <em><em>b=b+i</em>(t-count)</em>*</p>
-<p>这次我们使用python来实现与和或<span id="more"></span></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#因为与和或计算需要输入两个数,所以这里设置两个权重</span><br><span class="line">global w1,w2</span><br><span class="line">w1=0.4</span><br><span class="line">w2=0.6</span><br><span class="line">#偏置随便设一个</span><br><span class="line">global b</span><br><span class="line">b=0.8</span><br><span class="line">#上面提到的常数</span><br><span class="line">global i</span><br><span class="line">i=0.01</span><br></pre></td></tr></table></figure>
-<p>对感知器公式实现的函数:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def count(x,y):</span><br><span class="line">    if w1*x+w2*y+b&gt;0:</span><br><span class="line">        return 1</span><br><span class="line">    else:</span><br><span class="line">        return 0</span><br></pre></td></tr></table></figure>
-<p>对权重和偏置不断矫正的函数:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def update_all(r,x,y):</span><br><span class="line">    global w1,w2,b</span><br><span class="line">    temp = count(x,y)</span><br><span class="line">    w1=w1+i*(r-temp)*x</span><br><span class="line">    w2=w2+i*(r-temp)*y</span><br><span class="line">    b=b+i*(r-temp)</span><br><span class="line">    print(w1,w2,b)</span><br></pre></td></tr></table></figure>
-<p>最后就是输入学习的资料和确认计算结果:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def main():</span><br><span class="line">    for _ in range(1,50):</span><br><span class="line">        update_all(1.0,1.0,1.0)</span><br><span class="line">        update_all(0.0,1.0,0.0)</span><br><span class="line">        update_all(0.0,0.0,1.0)</span><br><span class="line">        update_all(0.0,0.0,0.0)</span><br><span class="line">    </span><br><span class="line">    print(&#x27;1 and 1 =&#x27;,count(1,1))</span><br><span class="line">    print(&#x27;0 and 1 =&#x27;,count(0,1))</span><br><span class="line">    print(&#x27;1 and 0 =&#x27;,count(1,0))</span><br><span class="line">    print(&#x27;0 and 0 =&#x27;,count(0,0))</span><br></pre></td></tr></table></figure>
-<p>这里我们先进行与的计算:<br>
-这里我前面代码写错了,所以说下面所有的结果会不一样…<br>
-进行25次学习的结果:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(0.4, 0.6, 0.8)</span><br><span class="line">(0.39, 0.6, 0.79)</span><br><span class="line">(0.39, 0.59, 0.78)</span><br><span class="line">(0.39, 0.59, 0.77)</span><br><span class="line">(0.39, 0.59, 0.77)</span><br><span class="line">.......省略........</span><br><span class="line">(0.1599999999999998, 0.35999999999999976, 0.08999999999999947)</span><br><span class="line">(0.1599999999999998, 0.35999999999999976, 0.07999999999999947)</span><br><span class="line">(&#x27;1 and 1 =&#x27;, 1)</span><br><span class="line">(&#x27;0 and 1 =&#x27;, 1)</span><br><span class="line">(&#x27;1 and 0 =&#x27;, 1)</span><br><span class="line">(&#x27;0 and 0 =&#x27;, 1)</span><br></pre></td></tr></table></figure>
-<p>这里我们明显发现结果是错误的,提升到50次:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(0.4, 0.6, 0.8)</span><br><span class="line">(0.39, 0.6, 0.79)</span><br><span class="line">(0.39, 0.59, 0.78)</span><br><span class="line">(0.39, 0.59, 0.77)</span><br><span class="line">(0.39, 0.59, 0.77)</span><br><span class="line">(0.38, 0.59, 0.76)</span><br><span class="line">(0.38, 0.58, 0.75)</span><br><span class="line">.......省略........</span><br><span class="line">(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)</span><br><span class="line">(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)</span><br><span class="line">(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)</span><br><span class="line">(&#x27;1 and 1 =&#x27;, 1)</span><br><span class="line">(&#x27;0 and 1 =&#x27;, 0)</span><br><span class="line">(&#x27;1 and 0 =&#x27;, 0)</span><br><span class="line">(&#x27;0 and 0 =&#x27;, 0)</span><br></pre></td></tr></table></figure>
-<p>结果正确了,并且权重和偏置都稳定到一个值,是不是感觉很神奇<br>
-或运算也是相同的,这里我们将偏置改为b=0.4:<br>
-25次:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.38)</span><br><span class="line">(0.4, 0.6, 0.38)</span><br><span class="line">(0.4, 0.6, 0.38)</span><br><span class="line">.......省略........</span><br><span class="line">(0.4, 0.6, 0.16999999999999982)</span><br><span class="line">(0.4, 0.6, 0.16999999999999982)</span><br><span class="line">(0.4, 0.6, 0.16999999999999982)</span><br><span class="line">(0.4, 0.6, 0.16999999999999982)</span><br><span class="line">(0.4, 0.6, 0.1599999999999998)</span><br><span class="line">(&#x27;1 and 1 =&#x27;, 1)</span><br><span class="line">(&#x27;0 and 1 =&#x27;, 1)</span><br><span class="line">(&#x27;1 and 0 =&#x27;, 1)</span><br><span class="line">(&#x27;0 and 0 =&#x27;, 1)</span><br></pre></td></tr></table></figure>
-<p>50次:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.38)</span><br><span class="line">.......省略........</span><br><span class="line">(0.4, 0.6, -1.97758476261356e-16)</span><br><span class="line">(0.4, 0.6, -1.97758476261356e-16)</span><br><span class="line">(0.4, 0.6, -1.97758476261356e-16)</span><br><span class="line">(0.4, 0.6, -1.97758476261356e-16)</span><br><span class="line">(0.4, 0.6, -1.97758476261356e-16)</span><br><span class="line">(&#x27;1 and 1 =&#x27;, 1)</span><br><span class="line">(&#x27;0 and 1 =&#x27;, 1)</span><br><span class="line">(&#x27;1 and 0 =&#x27;, 1)</span><br><span class="line">(&#x27;0 and 0 =&#x27;, 0)</span><br></pre></td></tr></table></figure>
-<p>参考:<br>
-<a href="https://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8">感知器(维基百科)</a><br>
-<a href="https://www.zybuluo.com/hanbingtao/note/433855">零基础入门深度学习(1) - 感知器</a></p>
-]]></content>
-      <categories>
-        <category>Machine Learning</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -2689,6 +2639,56 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </categories>
       <tags>
         <tag>Deep Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深度学习之感知器的实现</title>
+    <url>/posts/64e69c3e/</url>
+    <content><![CDATA[<p>感知器的一个公式:<br>
+<strong>当 wx+b&gt;0 , f(x)=1,否则f(x)=0</strong></p>
+<ul>
+<li>x输入的向量</li>
+<li>w:是权重</li>
+<li>w*x是点积</li>
+<li>b是偏置(与权重类似,偏置可以认为是激励函数的偏移量，或者给神经元一个基础活跃等级。)</li>
+</ul>
+<p>对权重的调整公式,此处使用了梯度下降的方法: <strong>w=w+i*(t-count)*x</strong></p>
+<ul>
+<li>i是一个常数,i越小感知器学习越精确,当然耗费时间也最长</li>
+<li>t:本应该得到的值</li>
+<li>count:实际计算得到的值</li>
+<li>x:同上</li>
+</ul>
+<p>对偏置调整的公式: <em><em>b=b+i</em>(t-count)</em>*</p>
+<p>这次我们使用python来实现与和或<span id="more"></span></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#因为与和或计算需要输入两个数,所以这里设置两个权重</span><br><span class="line">global w1,w2</span><br><span class="line">w1=0.4</span><br><span class="line">w2=0.6</span><br><span class="line">#偏置随便设一个</span><br><span class="line">global b</span><br><span class="line">b=0.8</span><br><span class="line">#上面提到的常数</span><br><span class="line">global i</span><br><span class="line">i=0.01</span><br></pre></td></tr></table></figure>
+<p>对感知器公式实现的函数:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def count(x,y):</span><br><span class="line">    if w1*x+w2*y+b&gt;0:</span><br><span class="line">        return 1</span><br><span class="line">    else:</span><br><span class="line">        return 0</span><br></pre></td></tr></table></figure>
+<p>对权重和偏置不断矫正的函数:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def update_all(r,x,y):</span><br><span class="line">    global w1,w2,b</span><br><span class="line">    temp = count(x,y)</span><br><span class="line">    w1=w1+i*(r-temp)*x</span><br><span class="line">    w2=w2+i*(r-temp)*y</span><br><span class="line">    b=b+i*(r-temp)</span><br><span class="line">    print(w1,w2,b)</span><br></pre></td></tr></table></figure>
+<p>最后就是输入学习的资料和确认计算结果:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def main():</span><br><span class="line">    for _ in range(1,50):</span><br><span class="line">        update_all(1.0,1.0,1.0)</span><br><span class="line">        update_all(0.0,1.0,0.0)</span><br><span class="line">        update_all(0.0,0.0,1.0)</span><br><span class="line">        update_all(0.0,0.0,0.0)</span><br><span class="line">    </span><br><span class="line">    print(&#x27;1 and 1 =&#x27;,count(1,1))</span><br><span class="line">    print(&#x27;0 and 1 =&#x27;,count(0,1))</span><br><span class="line">    print(&#x27;1 and 0 =&#x27;,count(1,0))</span><br><span class="line">    print(&#x27;0 and 0 =&#x27;,count(0,0))</span><br></pre></td></tr></table></figure>
+<p>这里我们先进行与的计算:<br>
+这里我前面代码写错了,所以说下面所有的结果会不一样…<br>
+进行25次学习的结果:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(0.4, 0.6, 0.8)</span><br><span class="line">(0.39, 0.6, 0.79)</span><br><span class="line">(0.39, 0.59, 0.78)</span><br><span class="line">(0.39, 0.59, 0.77)</span><br><span class="line">(0.39, 0.59, 0.77)</span><br><span class="line">.......省略........</span><br><span class="line">(0.1599999999999998, 0.35999999999999976, 0.08999999999999947)</span><br><span class="line">(0.1599999999999998, 0.35999999999999976, 0.07999999999999947)</span><br><span class="line">(&#x27;1 and 1 =&#x27;, 1)</span><br><span class="line">(&#x27;0 and 1 =&#x27;, 1)</span><br><span class="line">(&#x27;1 and 0 =&#x27;, 1)</span><br><span class="line">(&#x27;0 and 0 =&#x27;, 1)</span><br></pre></td></tr></table></figure>
+<p>这里我们明显发现结果是错误的,提升到50次:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(0.4, 0.6, 0.8)</span><br><span class="line">(0.39, 0.6, 0.79)</span><br><span class="line">(0.39, 0.59, 0.78)</span><br><span class="line">(0.39, 0.59, 0.77)</span><br><span class="line">(0.39, 0.59, 0.77)</span><br><span class="line">(0.38, 0.59, 0.76)</span><br><span class="line">(0.38, 0.58, 0.75)</span><br><span class="line">.......省略........</span><br><span class="line">(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)</span><br><span class="line">(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)</span><br><span class="line">(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)</span><br><span class="line">(&#x27;1 and 1 =&#x27;, 1)</span><br><span class="line">(&#x27;0 and 1 =&#x27;, 0)</span><br><span class="line">(&#x27;1 and 0 =&#x27;, 0)</span><br><span class="line">(&#x27;0 and 0 =&#x27;, 0)</span><br></pre></td></tr></table></figure>
+<p>结果正确了,并且权重和偏置都稳定到一个值,是不是感觉很神奇<br>
+或运算也是相同的,这里我们将偏置改为b=0.4:<br>
+25次:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.38)</span><br><span class="line">(0.4, 0.6, 0.38)</span><br><span class="line">(0.4, 0.6, 0.38)</span><br><span class="line">.......省略........</span><br><span class="line">(0.4, 0.6, 0.16999999999999982)</span><br><span class="line">(0.4, 0.6, 0.16999999999999982)</span><br><span class="line">(0.4, 0.6, 0.16999999999999982)</span><br><span class="line">(0.4, 0.6, 0.16999999999999982)</span><br><span class="line">(0.4, 0.6, 0.1599999999999998)</span><br><span class="line">(&#x27;1 and 1 =&#x27;, 1)</span><br><span class="line">(&#x27;0 and 1 =&#x27;, 1)</span><br><span class="line">(&#x27;1 and 0 =&#x27;, 1)</span><br><span class="line">(&#x27;0 and 0 =&#x27;, 1)</span><br></pre></td></tr></table></figure>
+<p>50次:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.4)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.39)</span><br><span class="line">(0.4, 0.6, 0.38)</span><br><span class="line">.......省略........</span><br><span class="line">(0.4, 0.6, -1.97758476261356e-16)</span><br><span class="line">(0.4, 0.6, -1.97758476261356e-16)</span><br><span class="line">(0.4, 0.6, -1.97758476261356e-16)</span><br><span class="line">(0.4, 0.6, -1.97758476261356e-16)</span><br><span class="line">(0.4, 0.6, -1.97758476261356e-16)</span><br><span class="line">(&#x27;1 and 1 =&#x27;, 1)</span><br><span class="line">(&#x27;0 and 1 =&#x27;, 1)</span><br><span class="line">(&#x27;1 and 0 =&#x27;, 1)</span><br><span class="line">(&#x27;0 and 0 =&#x27;, 0)</span><br></pre></td></tr></table></figure>
+<p>参考:<br>
+<a href="https://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8">感知器(维基百科)</a><br>
+<a href="https://www.zybuluo.com/hanbingtao/note/433855">零基础入门深度学习(1) - 感知器</a></p>
+]]></content>
+      <categories>
+        <category>Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
