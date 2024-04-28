@@ -1,4 +1,3 @@
-{% if not (theme.duoshuo and theme.duoshuo.shortname) and not theme.duoshuo_shortname %}
   {% if theme.disqus.enable %}
 
     {% if theme.disqus.count  %}
@@ -20,4 +19,3 @@
     {% endif %}
 
   {% endif %}
-{% endif %}

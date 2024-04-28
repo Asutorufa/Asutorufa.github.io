@@ -87,14 +87,12 @@ cheers:
 keep_on: Keep on posting.
 
 symbol:
-  comma: ', '
-  period: '. '
-  colon: ':'
+  comma: ", "
+  period: ". "
+  colon: ":"
 
 reward:
   donate: Donate
   wechatpay: WeChat Pay
   alipay: Alipay
   bitcoin: Bitcoin
-
-gitmentbutton: Show comments from Gitment
