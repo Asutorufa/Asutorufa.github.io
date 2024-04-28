@@ -579,48 +579,6 @@ the internal endpoint to send packets first to that external endpoint’s IP add
       </tags>
   </entry>
   <entry>
-    <title>OpenCV瞳孔定位</title>
-    <url>/posts/88967b7c/</url>
-    <content><![CDATA[<h2 id="利用OpenCV自带的分类器识别面部及眼睛">利用OpenCV自带的分类器识别面部及眼睛</h2>
-<p>OpenCV自带里许多分类器,可在<a href="https://github.com/opencv/opencv/tree/master/data/haarcascades">haarcascades</a>下载</p>
-<h3 id="获取面部">获取面部</h3>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获取面部</span></span><br><span class="line"><span class="comment">// image 为输入的OpenCV的格式的图像</span></span><br><span class="line"><span class="comment">// out 为输出图像 &lt;- 此处输出图像为裁剪下来的矩形面部图像</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">get_face</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 将图像转为灰度图像,可提高识别精度</span></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    cv::<span class="built_in">cvtColor</span>(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 此处的rect为用来存储识别出的面部的定位 &lt;- 这里为vector是因为识别的面部可能不止为一个</span></span><br><span class="line">    std::vector&lt;cv::Rect&gt; rect;</span><br><span class="line">    <span class="comment">// 初始化OpenCV的分类器</span></span><br><span class="line">    cv::CascadeClassifier cas = cv::<span class="built_in">CascadeClassifier</span>(<span class="string">&quot;haarcascade_frontalface_default.xml&quot;</span>);</span><br><span class="line">    cas.<span class="built_in">detectMultiScale</span>(gray, rect, <span class="number">1.15</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="comment">// 判断rect是否为空,为空的话就是没有被识别的面部</span></span><br><span class="line">    <span class="keyword">if</span> (rect.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 输出图像,这里的rect可能不止为一个(因为可能不止一张脸),所以实际中应该使用for循环</span></span><br><span class="line">    <span class="comment">// 我这里用rect[0]为了简化</span></span><br><span class="line">    out = <span class="built_in">image</span>(rect[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h3 id="获取眼睛">获取眼睛</h3>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这里与上面相同(这里我只识别左眼,OpenCV还提供了其他文件可获取右眼和双眼)</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">get_left_eye</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 之后与面部相同</span></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    cv::<span class="built_in">cvtColor</span>(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    std::vector&lt;cv::Rect&gt; rect;</span><br><span class="line">    cv::CascadeClassifier cas = cv::<span class="built_in">CascadeClassifier</span>(<span class="string">&quot;xml/haarcascade_lefteye_2splits.xml&quot;</span>);</span><br><span class="line">    cas.<span class="built_in">detectMultiScale</span>(gray, rect, <span class="number">1.15</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="keyword">if</span> (rect.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    out = <span class="built_in">image</span>(rect[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="瞳孔定位">瞳孔定位</h2>
-<ul>
-<li>获取的眼睛图像</li>
-<li>裁剪去除眉毛</li>
-<li>伽马矫正提高图像对比度</li>
-<li>转化为灰度图像</li>
-<li>利用threshold进行阈值操作(此处可能会改为inRange,目前还在测试)</li>
-<li>腐蚀</li>
-<li>膨胀</li>
-<li>medianBlur平滑图像</li>
-<li>检测关键点并画在图像上</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定位眼球 -&gt; 检测关键点</span></span><br><span class="line"><span class="function">std::vector&lt;cv::KeyPoint&gt; <span class="title">dector</span><span class="params">(cv::Mat image)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cv::SimpleBlobDetector::Params detector_params;</span><br><span class="line">    detector_params.filterByArea = <span class="literal">true</span>;</span><br><span class="line">    detector_params.maxArea = <span class="number">1500</span>;</span><br><span class="line">    cv::Ptr&lt;cv::SimpleBlobDetector&gt; blob_dector = cv::SimpleBlobDetector::<span class="built_in">create</span>(detector_params);</span><br><span class="line">    std::vector&lt;cv::KeyPoint&gt; keypoints;</span><br><span class="line">    blob_dector-&gt;<span class="built_in">detect</span>(image, keypoints);</span><br><span class="line">    <span class="keyword">return</span> keypoints;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">get_pupil</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// width -&gt; image.rows ;</span></span><br><span class="line">    <span class="comment">// height -&gt; image.cols;</span></span><br><span class="line">    <span class="comment">// cut eyebrow 裁剪 去除眉毛</span></span><br><span class="line">    image = <span class="built_in">image</span>(cv::<span class="built_in">Rect</span>(image.cols / <span class="number">10</span>, image.rows / <span class="number">2.5</span>, image.cols * <span class="number">8</span> / <span class="number">10</span>, image.rows / <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Gamma correction/gamma nonlinearity 伽马校正 -&gt; https://www.cnblogs.com/sdu20112013/p/11597171.html</span></span><br><span class="line">    <span class="function">cv::Mat <span class="title">look_up_table</span><span class="params">(<span class="number">1</span>, <span class="number">256</span>, CV_8U)</span></span>;</span><br><span class="line">    uchar *p = look_up_table.<span class="built_in">ptr</span>();</span><br><span class="line">    <span class="type">float</span> gamma = <span class="number">0.7</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; ++i)</span><br><span class="line">        p[i] = cv::<span class="built_in">saturate_cast</span>&lt;uchar&gt;(<span class="built_in">pow</span>(i / <span class="number">255.0</span>, gamma) * <span class="number">255.0</span>);</span><br><span class="line">    cv::<span class="built_in">LUT</span>(image, look_up_table, image);</span><br><span class="line"></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    <span class="comment">// 转化为灰度图像</span></span><br><span class="line">    cv::<span class="built_in">cvtColor</span>(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 阈值操作</span></span><br><span class="line">    cv::<span class="built_in">threshold</span>(gray, gray, inRange_threshold, <span class="number">255</span>, CV_THRESH_BINARY);</span><br><span class="line">    <span class="comment">//膨胀及腐蚀</span></span><br><span class="line">    cv::<span class="built_in">erode</span>(gray, gray, cv::<span class="built_in">Mat</span>(), cv::<span class="built_in">Point</span>(<span class="number">-1</span>, <span class="number">-1</span>), <span class="number">2</span>);</span><br><span class="line">    cv::<span class="built_in">dilate</span>(gray, gray, cv::<span class="built_in">Mat</span>(), cv::<span class="built_in">Point</span>(<span class="number">-1</span>, <span class="number">-1</span>), <span class="number">3</span>);</span><br><span class="line">    <span class="comment">// 平滑图像</span></span><br><span class="line">    cv ::<span class="built_in">medianBlur</span>(gray, gray, <span class="number">5</span>);</span><br><span class="line">    <span class="comment">// 检测并画出关键点</span></span><br><span class="line">    cv::<span class="built_in">drawKeypoints</span>(image, <span class="built_in">dector</span>(gray), image, cv::<span class="built_in">Scalar</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);</span><br><span class="line">    out = image;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="附录">附录</h2>
-<h3 id="OpenCV在ArchLinux上的使用">OpenCV在ArchLinux上的使用</h3>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S opencv</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">vtk和hdf5为opencv的依赖,不安装编译会失败</span></span><br><span class="line">sudo pacman -S vtk</span><br><span class="line">sudo pacman -Ss hdf5</span><br></pre></td></tr></table></figure>
-<h3 id="Cmake文件">Cmake文件</h3>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.14</span>)</span><br><span class="line"><span class="keyword">project</span>(eyedector)</span><br><span class="line"><span class="keyword">add_definitions</span>(-std=c++<span class="number">11</span>)</span><br><span class="line"><span class="comment"># 这里只需要添加OpenCV的就能编译成功</span></span><br><span class="line"><span class="keyword">find_package</span>(OpenCV REQUIRED)</span><br><span class="line"><span class="keyword">link_libraries</span>(<span class="variable">$&#123;OpenCV_LIBS&#125;</span>)</span><br><span class="line"><span class="keyword">add_executable</span>(out opencvtest.cpp)</span><br></pre></td></tr></table></figure>
-<h3 id="利用安卓手机充当网络摄像头">利用安卓手机充当网络摄像头</h3>
-<p>手机安装这个<a href="https://play.google.com/store/apps/details?id=com.pas.webcam">IP Webcam</a>,使用时会显示局域网中的地址</p>
-<p>OpenCV中</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">cv::VideoCapture <span class="title">cap</span><span class="params">(<span class="string">&quot;http://192.168.0.xx:8080/video&quot;</span>)</span></span>; <span class="comment">// 这里为网络摄像头的地址,需要在后面加上/video</span></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">&#123;</span><br><span class="line">    cv::Mat frame;</span><br><span class="line">    cap &gt;&gt; frame;</span><br><span class="line">    cv::<span class="built_in">imshow</span>(<span class="string">&quot;test&quot;</span>, frame);</span><br><span class="line">    <span class="keyword">if</span> (cv::<span class="built_in">waitKey</span>(<span class="number">1</span>) == <span class="number">27</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Computer Graphics</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>OpenCV</tag>
-        <tag>archlinux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RSA加密</title>
     <url>/posts/f1a158c9/</url>
     <content><![CDATA[<h2 id="质数">质数</h2>
@@ -837,6 +795,48 @@ the internal endpoint to send packets first to that external endpoint’s IP add
       <tags>
         <tag>Crypto</tag>
         <tag>RSA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OpenCV瞳孔定位</title>
+    <url>/posts/88967b7c/</url>
+    <content><![CDATA[<h2 id="利用OpenCV自带的分类器识别面部及眼睛">利用OpenCV自带的分类器识别面部及眼睛</h2>
+<p>OpenCV自带里许多分类器,可在<a href="https://github.com/opencv/opencv/tree/master/data/haarcascades">haarcascades</a>下载</p>
+<h3 id="获取面部">获取面部</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获取面部</span></span><br><span class="line"><span class="comment">// image 为输入的OpenCV的格式的图像</span></span><br><span class="line"><span class="comment">// out 为输出图像 &lt;- 此处输出图像为裁剪下来的矩形面部图像</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">get_face</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 将图像转为灰度图像,可提高识别精度</span></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    cv::<span class="built_in">cvtColor</span>(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 此处的rect为用来存储识别出的面部的定位 &lt;- 这里为vector是因为识别的面部可能不止为一个</span></span><br><span class="line">    std::vector&lt;cv::Rect&gt; rect;</span><br><span class="line">    <span class="comment">// 初始化OpenCV的分类器</span></span><br><span class="line">    cv::CascadeClassifier cas = cv::<span class="built_in">CascadeClassifier</span>(<span class="string">&quot;haarcascade_frontalface_default.xml&quot;</span>);</span><br><span class="line">    cas.<span class="built_in">detectMultiScale</span>(gray, rect, <span class="number">1.15</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="comment">// 判断rect是否为空,为空的话就是没有被识别的面部</span></span><br><span class="line">    <span class="keyword">if</span> (rect.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 输出图像,这里的rect可能不止为一个(因为可能不止一张脸),所以实际中应该使用for循环</span></span><br><span class="line">    <span class="comment">// 我这里用rect[0]为了简化</span></span><br><span class="line">    out = <span class="built_in">image</span>(rect[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h3 id="获取眼睛">获取眼睛</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这里与上面相同(这里我只识别左眼,OpenCV还提供了其他文件可获取右眼和双眼)</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">get_left_eye</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 之后与面部相同</span></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    cv::<span class="built_in">cvtColor</span>(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    std::vector&lt;cv::Rect&gt; rect;</span><br><span class="line">    cv::CascadeClassifier cas = cv::<span class="built_in">CascadeClassifier</span>(<span class="string">&quot;xml/haarcascade_lefteye_2splits.xml&quot;</span>);</span><br><span class="line">    cas.<span class="built_in">detectMultiScale</span>(gray, rect, <span class="number">1.15</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="keyword">if</span> (rect.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    out = <span class="built_in">image</span>(rect[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="瞳孔定位">瞳孔定位</h2>
+<ul>
+<li>获取的眼睛图像</li>
+<li>裁剪去除眉毛</li>
+<li>伽马矫正提高图像对比度</li>
+<li>转化为灰度图像</li>
+<li>利用threshold进行阈值操作(此处可能会改为inRange,目前还在测试)</li>
+<li>腐蚀</li>
+<li>膨胀</li>
+<li>medianBlur平滑图像</li>
+<li>检测关键点并画在图像上</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定位眼球 -&gt; 检测关键点</span></span><br><span class="line"><span class="function">std::vector&lt;cv::KeyPoint&gt; <span class="title">dector</span><span class="params">(cv::Mat image)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cv::SimpleBlobDetector::Params detector_params;</span><br><span class="line">    detector_params.filterByArea = <span class="literal">true</span>;</span><br><span class="line">    detector_params.maxArea = <span class="number">1500</span>;</span><br><span class="line">    cv::Ptr&lt;cv::SimpleBlobDetector&gt; blob_dector = cv::SimpleBlobDetector::<span class="built_in">create</span>(detector_params);</span><br><span class="line">    std::vector&lt;cv::KeyPoint&gt; keypoints;</span><br><span class="line">    blob_dector-&gt;<span class="built_in">detect</span>(image, keypoints);</span><br><span class="line">    <span class="keyword">return</span> keypoints;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">get_pupil</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// width -&gt; image.rows ;</span></span><br><span class="line">    <span class="comment">// height -&gt; image.cols;</span></span><br><span class="line">    <span class="comment">// cut eyebrow 裁剪 去除眉毛</span></span><br><span class="line">    image = <span class="built_in">image</span>(cv::<span class="built_in">Rect</span>(image.cols / <span class="number">10</span>, image.rows / <span class="number">2.5</span>, image.cols * <span class="number">8</span> / <span class="number">10</span>, image.rows / <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Gamma correction/gamma nonlinearity 伽马校正 -&gt; https://www.cnblogs.com/sdu20112013/p/11597171.html</span></span><br><span class="line">    <span class="function">cv::Mat <span class="title">look_up_table</span><span class="params">(<span class="number">1</span>, <span class="number">256</span>, CV_8U)</span></span>;</span><br><span class="line">    uchar *p = look_up_table.<span class="built_in">ptr</span>();</span><br><span class="line">    <span class="type">float</span> gamma = <span class="number">0.7</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; ++i)</span><br><span class="line">        p[i] = cv::<span class="built_in">saturate_cast</span>&lt;uchar&gt;(<span class="built_in">pow</span>(i / <span class="number">255.0</span>, gamma) * <span class="number">255.0</span>);</span><br><span class="line">    cv::<span class="built_in">LUT</span>(image, look_up_table, image);</span><br><span class="line"></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    <span class="comment">// 转化为灰度图像</span></span><br><span class="line">    cv::<span class="built_in">cvtColor</span>(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 阈值操作</span></span><br><span class="line">    cv::<span class="built_in">threshold</span>(gray, gray, inRange_threshold, <span class="number">255</span>, CV_THRESH_BINARY);</span><br><span class="line">    <span class="comment">//膨胀及腐蚀</span></span><br><span class="line">    cv::<span class="built_in">erode</span>(gray, gray, cv::<span class="built_in">Mat</span>(), cv::<span class="built_in">Point</span>(<span class="number">-1</span>, <span class="number">-1</span>), <span class="number">2</span>);</span><br><span class="line">    cv::<span class="built_in">dilate</span>(gray, gray, cv::<span class="built_in">Mat</span>(), cv::<span class="built_in">Point</span>(<span class="number">-1</span>, <span class="number">-1</span>), <span class="number">3</span>);</span><br><span class="line">    <span class="comment">// 平滑图像</span></span><br><span class="line">    cv ::<span class="built_in">medianBlur</span>(gray, gray, <span class="number">5</span>);</span><br><span class="line">    <span class="comment">// 检测并画出关键点</span></span><br><span class="line">    cv::<span class="built_in">drawKeypoints</span>(image, <span class="built_in">dector</span>(gray), image, cv::<span class="built_in">Scalar</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);</span><br><span class="line">    out = image;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="附录">附录</h2>
+<h3 id="OpenCV在ArchLinux上的使用">OpenCV在ArchLinux上的使用</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S opencv</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">vtk和hdf5为opencv的依赖,不安装编译会失败</span></span><br><span class="line">sudo pacman -S vtk</span><br><span class="line">sudo pacman -Ss hdf5</span><br></pre></td></tr></table></figure>
+<h3 id="Cmake文件">Cmake文件</h3>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.14</span>)</span><br><span class="line"><span class="keyword">project</span>(eyedector)</span><br><span class="line"><span class="keyword">add_definitions</span>(-std=c++<span class="number">11</span>)</span><br><span class="line"><span class="comment"># 这里只需要添加OpenCV的就能编译成功</span></span><br><span class="line"><span class="keyword">find_package</span>(OpenCV REQUIRED)</span><br><span class="line"><span class="keyword">link_libraries</span>(<span class="variable">$&#123;OpenCV_LIBS&#125;</span>)</span><br><span class="line"><span class="keyword">add_executable</span>(out opencvtest.cpp)</span><br></pre></td></tr></table></figure>
+<h3 id="利用安卓手机充当网络摄像头">利用安卓手机充当网络摄像头</h3>
+<p>手机安装这个<a href="https://play.google.com/store/apps/details?id=com.pas.webcam">IP Webcam</a>,使用时会显示局域网中的地址</p>
+<p>OpenCV中</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">cv::VideoCapture <span class="title">cap</span><span class="params">(<span class="string">&quot;http://192.168.0.xx:8080/video&quot;</span>)</span></span>; <span class="comment">// 这里为网络摄像头的地址,需要在后面加上/video</span></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">&#123;</span><br><span class="line">    cv::Mat frame;</span><br><span class="line">    cap &gt;&gt; frame;</span><br><span class="line">    cv::<span class="built_in">imshow</span>(<span class="string">&quot;test&quot;</span>, frame);</span><br><span class="line">    <span class="keyword">if</span> (cv::<span class="built_in">waitKey</span>(<span class="number">1</span>) == <span class="number">27</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Computer Graphics</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>OpenCV</tag>
+        <tag>archlinux</tag>
       </tags>
   </entry>
   <entry>
@@ -2871,6 +2871,53 @@ TCP端口80</p>
       </tags>
   </entry>
   <entry>
+    <title>解决linux下Realtek ALC295的耳机炸裂声</title>
+    <url>/posts/67c8ee7f/</url>
+    <content><![CDATA[<p>个人使用的笔记本是暗影精灵2 PRO,产品名称是: OMEN by HP Laptop 15-ax210TX.</p>
+<p>最初本人装的是ubuntu,左边耳机的声音一直有噼里啪啦的炸裂声,后来换了Arch还是一样的情况,而且本人喜欢听安静的声音,类似读故事或是心跳声这种,每次听到劈裂啪啦的声音真是难受.</p>
+<p>最初尝试过Arch wiki中的各种方法 包括</p>
+<blockquote>
+<p><a href="https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Glitches,_skips_or_crackling">PulseAudio/Troubleshooting#Glitches,_skips_or_crackling</a><br>
+<a href="https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Static_noise_when_using_headphones">PulseAudio/Troubleshooting#Static_noise_when_using_headphones</a></p>
+</blockquote>
+<p>都没有任何改进.</p>
+<p>直到后来才发现这是linux下Realtek ALC295的驱动不完善导致的,这个bug在17年就提出了,至今都没有得到解决.</p>
+<blockquote>
+<p><a href="https://bugzilla.kernel.org/show_bug.cgi?id=195457">Bug 195457 - Realtek ALC295 still unsupported</a><br>
+<a href="https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/1648183">Crackling and popping sound when using headphones</a></p>
+</blockquote>
+<p>即使有人提交补丁并合并到了linux内核中</p>
+<blockquote>
+<p><a href="https://github.com/torvalds/linux/commit/44be77c590f381bc629815ac789b8b15ecc4ddcf#diff-6cb60ab78549a5b6838f746b9e128105">ALSA: hda - Fix missing COEF init for ALC225/295/299</a></p>
+</blockquote>
+<p>但是事实证明并没有用</p>
+<p>依照上面有人提供的方法却有效(看起来跟提交补丁差不多,但是补丁却没有起作用):</p>
+<span id="more"></span>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">I&#x27;ve managed to fix this problem on my machine (HP Omen 15 running Ubuntu 17.04 using codec for Realtek ALC295 sound device). To fix the problem, I can do the following:</span><br><span class="line"></span><br><span class="line">Install alsa-tools if not installed:</span><br><span class="line"></span><br><span class="line">sudo apt install alsa-tools</span><br><span class="line"></span><br><span class="line">Create and save a script in /usr/local/bin:</span><br><span class="line"></span><br><span class="line"><span class="section">#!/bin/bash</span></span><br><span class="line">hda-verb /dev/snd/hwC0D0 0x20 SET<span class="emphasis">_COEF_</span>INDEX 0x67</span><br><span class="line">hda-verb /dev/snd/hwC0D0 0x20 SET<span class="emphasis">_PROC_</span>COEF 0x3000</span><br><span class="line"></span><br><span class="line">Run the script as root in a terminal to immediately fix the problem.</span><br><span class="line"></span><br><span class="line">To run the script on startup, use cron with the @reboot command:</span><br><span class="line"></span><br><span class="line">sudo crontab -e</span><br><span class="line"></span><br><span class="line">and then add line in crontab:</span><br><span class="line">@reboot [full path to script]</span><br><span class="line"></span><br><span class="line">To run script on resume from suspend, copy the script to /lib/systemd/system-sleep</span><br><span class="line"></span><br><span class="line">For more technical details regarding this fix, see https://bugzilla.kernel.org/show<span class="emphasis">_bug.cgi?id=195457</span></span><br></pre></td></tr></table></figure>
+<p>arch下类似 除了是用pacman安装alsa-tools,之后操作是一样的.</p>
+<p>不使用crontab,使用systemd的方法<a href="https://wiki.archlinux.org/index.php/ASUS_Zenbook_UX430/UX530#Headphones_audio_is_too_low">ASUS_Zenbook_UX430/UX530#Headphones_audio_is_too_low</a></p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">In order to fix it, install alsa-tools or hda-verbAUR and create the file:</span><br><span class="line"></span><br><span class="line">/usr/local/bin/fix<span class="emphasis">_headphones_</span>audio.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>; <span class="keyword">do</span></span><br><span class="line">    DEVICE=`<span class="built_in">ls</span> /dev/snd/hwC[[:<span class="built_in">print</span>:]]*D0 | <span class="built_in">head</span> -n 1`</span><br><span class="line">    <span class="keyword">if</span> [ ! -z <span class="string">&quot;<span class="variable">$DEVICE</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        hda-verb <span class="string">&quot;<span class="variable">$DEVICE</span>&quot;</span> 0x20 SET_COEF_INDEX 0x67</span><br><span class="line">        hda-verb <span class="string">&quot;<span class="variable">$DEVICE</span>&quot;</span> 0x20 SET_PROC_COEF 0x3000</span><br><span class="line">        <span class="built_in">break</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="built_in">sleep</span> 1</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">Then create a systemd script with the following content:</span><br><span class="line"></span><br><span class="line">/etc/systemd/system/fix<span class="emphasis">_headphones_</span>audio.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Fix headphones audio after boot &amp; resume.</span><br><span class="line">After=multi-user.target suspend.target hibernate.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=oneshot</span><br><span class="line">ExecStart=/bin/sh &#x27;/usr/local/bin/fix_headphones_audio.sh&#x27;</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target suspend.target hibernate.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">And finally, start and enable fix<span class="emphasis">_headphones_</span>audio.service.</span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p><a href="https://bugzilla.kernel.org/show_bug.cgi?id=195457">Bug 195457 - Realtek ALC295 still unsupported</a><br>
+<a href="https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/1648183">Crackling and popping sound when using headphones</a><br>
+<a href="https://askubuntu.com/questions/873881/how-to-install-bang-and-olufsen-audio-drivers-for-hp-laptop">How to install Bang and Olufsen Audio drivers for HP laptop?</a><br>
+<a href="https://wiki.archlinux.org/index.php/ASUS_Zenbook_UX430/UX530#Headphones_audio_is_too_low">ASUS_Zenbook_UX430/UX530#Headphones_audio_is_too_low</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>driver</tag>
+        <tag>Realtek ALC295</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>翻译-C程序员所应该知道的内存</title>
     <url>/posts/f87fc9f0/</url>
     <content><![CDATA[<blockquote>
@@ -2954,53 +3001,6 @@ MMAP_THRESHOLD, the glibc malloc() implementation allocates the memory as a priv
         <tag>C</tag>
         <tag>English</tag>
         <tag>translate</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>解决linux下Realtek ALC295的耳机炸裂声</title>
-    <url>/posts/67c8ee7f/</url>
-    <content><![CDATA[<p>个人使用的笔记本是暗影精灵2 PRO,产品名称是: OMEN by HP Laptop 15-ax210TX.</p>
-<p>最初本人装的是ubuntu,左边耳机的声音一直有噼里啪啦的炸裂声,后来换了Arch还是一样的情况,而且本人喜欢听安静的声音,类似读故事或是心跳声这种,每次听到劈裂啪啦的声音真是难受.</p>
-<p>最初尝试过Arch wiki中的各种方法 包括</p>
-<blockquote>
-<p><a href="https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Glitches,_skips_or_crackling">PulseAudio/Troubleshooting#Glitches,_skips_or_crackling</a><br>
-<a href="https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Static_noise_when_using_headphones">PulseAudio/Troubleshooting#Static_noise_when_using_headphones</a></p>
-</blockquote>
-<p>都没有任何改进.</p>
-<p>直到后来才发现这是linux下Realtek ALC295的驱动不完善导致的,这个bug在17年就提出了,至今都没有得到解决.</p>
-<blockquote>
-<p><a href="https://bugzilla.kernel.org/show_bug.cgi?id=195457">Bug 195457 - Realtek ALC295 still unsupported</a><br>
-<a href="https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/1648183">Crackling and popping sound when using headphones</a></p>
-</blockquote>
-<p>即使有人提交补丁并合并到了linux内核中</p>
-<blockquote>
-<p><a href="https://github.com/torvalds/linux/commit/44be77c590f381bc629815ac789b8b15ecc4ddcf#diff-6cb60ab78549a5b6838f746b9e128105">ALSA: hda - Fix missing COEF init for ALC225/295/299</a></p>
-</blockquote>
-<p>但是事实证明并没有用</p>
-<p>依照上面有人提供的方法却有效(看起来跟提交补丁差不多,但是补丁却没有起作用):</p>
-<span id="more"></span>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">I&#x27;ve managed to fix this problem on my machine (HP Omen 15 running Ubuntu 17.04 using codec for Realtek ALC295 sound device). To fix the problem, I can do the following:</span><br><span class="line"></span><br><span class="line">Install alsa-tools if not installed:</span><br><span class="line"></span><br><span class="line">sudo apt install alsa-tools</span><br><span class="line"></span><br><span class="line">Create and save a script in /usr/local/bin:</span><br><span class="line"></span><br><span class="line"><span class="section">#!/bin/bash</span></span><br><span class="line">hda-verb /dev/snd/hwC0D0 0x20 SET<span class="emphasis">_COEF_</span>INDEX 0x67</span><br><span class="line">hda-verb /dev/snd/hwC0D0 0x20 SET<span class="emphasis">_PROC_</span>COEF 0x3000</span><br><span class="line"></span><br><span class="line">Run the script as root in a terminal to immediately fix the problem.</span><br><span class="line"></span><br><span class="line">To run the script on startup, use cron with the @reboot command:</span><br><span class="line"></span><br><span class="line">sudo crontab -e</span><br><span class="line"></span><br><span class="line">and then add line in crontab:</span><br><span class="line">@reboot [full path to script]</span><br><span class="line"></span><br><span class="line">To run script on resume from suspend, copy the script to /lib/systemd/system-sleep</span><br><span class="line"></span><br><span class="line">For more technical details regarding this fix, see https://bugzilla.kernel.org/show<span class="emphasis">_bug.cgi?id=195457</span></span><br></pre></td></tr></table></figure>
-<p>arch下类似 除了是用pacman安装alsa-tools,之后操作是一样的.</p>
-<p>不使用crontab,使用systemd的方法<a href="https://wiki.archlinux.org/index.php/ASUS_Zenbook_UX430/UX530#Headphones_audio_is_too_low">ASUS_Zenbook_UX430/UX530#Headphones_audio_is_too_low</a></p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">In order to fix it, install alsa-tools or hda-verbAUR and create the file:</span><br><span class="line"></span><br><span class="line">/usr/local/bin/fix<span class="emphasis">_headphones_</span>audio.sh</span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>; <span class="keyword">do</span></span><br><span class="line">    DEVICE=`<span class="built_in">ls</span> /dev/snd/hwC[[:<span class="built_in">print</span>:]]*D0 | <span class="built_in">head</span> -n 1`</span><br><span class="line">    <span class="keyword">if</span> [ ! -z <span class="string">&quot;<span class="variable">$DEVICE</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        hda-verb <span class="string">&quot;<span class="variable">$DEVICE</span>&quot;</span> 0x20 SET_COEF_INDEX 0x67</span><br><span class="line">        hda-verb <span class="string">&quot;<span class="variable">$DEVICE</span>&quot;</span> 0x20 SET_PROC_COEF 0x3000</span><br><span class="line">        <span class="built_in">break</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="built_in">sleep</span> 1</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">Then create a systemd script with the following content:</span><br><span class="line"></span><br><span class="line">/etc/systemd/system/fix<span class="emphasis">_headphones_</span>audio.service</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Fix headphones audio after boot &amp; resume.</span><br><span class="line">After=multi-user.target suspend.target hibernate.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=oneshot</span><br><span class="line">ExecStart=/bin/sh &#x27;/usr/local/bin/fix_headphones_audio.sh&#x27;</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target suspend.target hibernate.target</span><br></pre></td></tr></table></figure>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">And finally, start and enable fix<span class="emphasis">_headphones_</span>audio.service.</span><br></pre></td></tr></table></figure>
-<hr>
-<blockquote>
-<p><a href="https://bugzilla.kernel.org/show_bug.cgi?id=195457">Bug 195457 - Realtek ALC295 still unsupported</a><br>
-<a href="https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/1648183">Crackling and popping sound when using headphones</a><br>
-<a href="https://askubuntu.com/questions/873881/how-to-install-bang-and-olufsen-audio-drivers-for-hp-laptop">How to install Bang and Olufsen Audio drivers for HP laptop?</a><br>
-<a href="https://wiki.archlinux.org/index.php/ASUS_Zenbook_UX430/UX530#Headphones_audio_is_too_low">ASUS_Zenbook_UX430/UX530#Headphones_audio_is_too_low</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>driver</tag>
-        <tag>Realtek ALC295</tag>
       </tags>
   </entry>
   <entry>
