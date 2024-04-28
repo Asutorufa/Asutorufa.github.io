@@ -2,33 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://asutorufa.github.io/schedule/index.html</loc>
-    
-    <lastmod>2024-04-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.github.io/tags/index.html</loc>
-    
-    <lastmod>2024-04-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.github.io/about/index.html</loc>
-    
-    <lastmod>2024-04-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://asutorufa.github.io/archives/index.html</loc>
     
     <lastmod>2024-04-28</lastmod>
@@ -57,6 +30,33 @@
   
   <url>
     <loc>https://asutorufa.github.io/friends/index.html</loc>
+    
+    <lastmod>2024-04-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/schedule/index.html</loc>
+    
+    <lastmod>2024-04-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/index.html</loc>
+    
+    <lastmod>2024-04-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/about/index.html</loc>
     
     <lastmod>2024-04-28</lastmod>
     
@@ -956,13 +956,6 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
-    <lastmod>2024-04-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://asutorufa.github.io/tags/%E5%BB%BA%E7%AB%99/</loc>
     <lastmod>2024-04-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -971,6 +964,13 @@
   
   <url>
     <loc>https://asutorufa.github.io/tags/%E5%85%8D%E8%B4%B9/</loc>
+    <lastmod>2024-04-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
     <lastmod>2024-04-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1287,14 +1287,14 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
+    <loc>https://asutorufa.github.io/categories/%E5%BB%BA%E7%AB%99/</loc>
     <lastmod>2024-04-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/categories/%E5%BB%BA%E7%AB%99/</loc>
+    <loc>https://asutorufa.github.io/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
     <lastmod>2024-04-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

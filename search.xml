@@ -621,6 +621,25 @@ the internal endpoint to send packets first to that external endpoint’s IP add
       </tags>
   </entry>
   <entry>
+    <title>TUF GAMING B550M-PLUS WIFI II lm_sensors</title>
+    <url>/posts/fe953398/</url>
+    <content><![CDATA[<p>the sensors not show fan and voltage<br>
+it’s a kernel bug now <a href="https://bugzilla.kernel.org/show_bug.cgi?id=204807">Hardware monitoring sensor nct6798d doesn’t work unless acpi_enforce_resources=lax is enabled</a><br>
+need wait add the motherboard name to linux kernel code list <a href="https://github.com/torvalds/linux/blob/4bbf3422df78029f03161640dcb1e9d1ed64d1ea/drivers/hwmon/nct6775-platform.c#L1044">linux/drivers/hwmon/nct6775-platform.c</a></p>
+<h2 id="temporary-measure">temporary measure</h2>
+<p>add</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">acpi<span class="emphasis">_enforce_</span>resources=lax</span><br></pre></td></tr></table></figure>
+<p>to linux boot parameter</p>
+<p>load nct6775 kernel module</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">modprobe -v nct6775</span><br></pre></td></tr></table></figure>
+<p>run <code>sensors-detect --auto</code>.</p>
+<p>finally, you will see nct6798-isa-* in sensors.</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+  </entry>
+  <entry>
     <title>RSA加密</title>
     <url>/posts/f1a158c9/</url>
     <content><![CDATA[<h2 id="质数">质数</h2>
@@ -838,25 +857,6 @@ the internal endpoint to send packets first to that external endpoint’s IP add
         <tag>Crypto</tag>
         <tag>RSA</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>TUF GAMING B550M-PLUS WIFI II lm_sensors</title>
-    <url>/posts/fe953398/</url>
-    <content><![CDATA[<p>the sensors not show fan and voltage<br>
-it’s a kernel bug now <a href="https://bugzilla.kernel.org/show_bug.cgi?id=204807">Hardware monitoring sensor nct6798d doesn’t work unless acpi_enforce_resources=lax is enabled</a><br>
-need wait add the motherboard name to linux kernel code list <a href="https://github.com/torvalds/linux/blob/4bbf3422df78029f03161640dcb1e9d1ed64d1ea/drivers/hwmon/nct6775-platform.c#L1044">linux/drivers/hwmon/nct6775-platform.c</a></p>
-<h2 id="temporary-measure">temporary measure</h2>
-<p>add</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">acpi<span class="emphasis">_enforce_</span>resources=lax</span><br></pre></td></tr></table></figure>
-<p>to linux boot parameter</p>
-<p>load nct6775 kernel module</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">modprobe -v nct6775</span><br></pre></td></tr></table></figure>
-<p>run <code>sensors-detect --auto</code>.</p>
-<p>finally, you will see nct6798-isa-* in sensors.</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
   </entry>
   <entry>
     <title>TUN网卡</title>
@@ -1819,40 +1819,6 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </tags>
   </entry>
   <entry>
-    <title>とある番組の記録</title>
-    <url>/posts/fe7367b8/</url>
-    <content><![CDATA[<p>最近わたくしはたくさん言葉知りました、記録したい、例えば：どこ見つかった、どうおもう。<br>
-今回は「２２・７　計算中」、この番組すごくおもしろい、ぜひ見てください。</p>
-<h2 id="ツッコミ・漫才・呆け">ツッコミ・漫才・呆け</h2>
-<p>この番組のMCは三四郎さん、おふたりはお笑い芸人ですね、この前に私は全然しらなかった、いつも「ツッコミ」を言うで、知りたいですからしらべました。</p>
-<h2 id="パクリ">パクリ</h2>
-<p>「滝川みうのテンションが上がる動画選手権」で都ちゃんの得点は０点、理由は彼女作りASMR動画は最初みうちゃんの自己PR動画のなかのひとつのパクリ。ここがわたくし知りました。</p>
-<h2 id="醍醐味">醍醐味</h2>
-<p>相田さんはとある回あるVTRの評価です。</p>
-<h2 id="屁理屈">屁理屈</h2>
-<p>桜ちゃんたくさん屁理屈を言った、でもかわいいです。</p>
-<h2 id="キャバクラ">キャバクラ</h2>
-<p>「誰かキャバクラに誘うたらどうですか？」は第７３回と７４回でひとつ問題です。神木みかみ優しすぎる、結果受ける。</p>
-<h2 id="ため口">ため口</h2>
-<p>じつはわたくしは日本の上下関係理解不能。なんで「先輩に対してため口なんであり得ないだろう。」、堅苦しい過ぎるじゃないか。</p>
-<h2 id="オラオラ">オラオラ</h2>
-<p>わたくし今覚えるのはこれは相田さん誰に評価です。</p>
-<h2 id="オフショット・グラビア">オフショット・グラビア</h2>
-<p>１．いつもの写真<br>
-２．アイドルの写真</p>
-<h2 id="ロケ">ロケ</h2>
-<p>多分VTRです。外へ出てに撮影すること。</p>
-<hr>
-<p>まだまだあるです。</p>
-]]></content>
-      <categories>
-        <category>日本語</category>
-      </categories>
-      <tags>
-        <tag>日本語</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>三蛋空间自建贴吧云签到</title>
     <url>/posts/8a291f21/</url>
     <content><![CDATA[<h2 id="–">–</h2>
@@ -1895,6 +1861,40 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       <tags>
         <tag>建站</tag>
         <tag>免费</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>とある番組の記録</title>
+    <url>/posts/fe7367b8/</url>
+    <content><![CDATA[<p>最近わたくしはたくさん言葉知りました、記録したい、例えば：どこ見つかった、どうおもう。<br>
+今回は「２２・７　計算中」、この番組すごくおもしろい、ぜひ見てください。</p>
+<h2 id="ツッコミ・漫才・呆け">ツッコミ・漫才・呆け</h2>
+<p>この番組のMCは三四郎さん、おふたりはお笑い芸人ですね、この前に私は全然しらなかった、いつも「ツッコミ」を言うで、知りたいですからしらべました。</p>
+<h2 id="パクリ">パクリ</h2>
+<p>「滝川みうのテンションが上がる動画選手権」で都ちゃんの得点は０点、理由は彼女作りASMR動画は最初みうちゃんの自己PR動画のなかのひとつのパクリ。ここがわたくし知りました。</p>
+<h2 id="醍醐味">醍醐味</h2>
+<p>相田さんはとある回あるVTRの評価です。</p>
+<h2 id="屁理屈">屁理屈</h2>
+<p>桜ちゃんたくさん屁理屈を言った、でもかわいいです。</p>
+<h2 id="キャバクラ">キャバクラ</h2>
+<p>「誰かキャバクラに誘うたらどうですか？」は第７３回と７４回でひとつ問題です。神木みかみ優しすぎる、結果受ける。</p>
+<h2 id="ため口">ため口</h2>
+<p>じつはわたくしは日本の上下関係理解不能。なんで「先輩に対してため口なんであり得ないだろう。」、堅苦しい過ぎるじゃないか。</p>
+<h2 id="オラオラ">オラオラ</h2>
+<p>わたくし今覚えるのはこれは相田さん誰に評価です。</p>
+<h2 id="オフショット・グラビア">オフショット・グラビア</h2>
+<p>１．いつもの写真<br>
+２．アイドルの写真</p>
+<h2 id="ロケ">ロケ</h2>
+<p>多分VTRです。外へ出てに撮影すること。</p>
+<hr>
+<p>まだまだあるです。</p>
+]]></content>
+      <categories>
+        <category>日本語</category>
+      </categories>
+      <tags>
+        <tag>日本語</tag>
       </tags>
   </entry>
   <entry>
