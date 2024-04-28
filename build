@@ -1,3 +1,0 @@
-#!/bin/bash
-c_dir=$(dirname $(readlink -f $0))
-podman run -it --rm -w /hexo -v ${c_dir}:/hexo node:13-alpine npx hexo g
