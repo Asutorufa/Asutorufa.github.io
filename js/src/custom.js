@@ -1,1 +1,0 @@
-$("#main").lazyload({effect:"fadeIn"});

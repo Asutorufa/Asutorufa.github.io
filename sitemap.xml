@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://asutorufa.github.io/tags/index.html</loc>
+    <loc>https://asutorufa.github.io/schedule/index.html</loc>
     
     <lastmod>2024-04-29</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/schedule/index.html</loc>
+    <loc>https://asutorufa.github.io/tags/index.html</loc>
     
     <lastmod>2024-04-29</lastmod>
     
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/friends/index.html</loc>
+    <loc>https://asutorufa.github.io/email/index.html</loc>
     
     <lastmod>2024-04-29</lastmod>
     
@@ -56,7 +56,7 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/email/index.html</loc>
+    <loc>https://asutorufa.github.io/friends/index.html</loc>
     
     <lastmod>2024-04-29</lastmod>
     
@@ -641,20 +641,6 @@
 
   
   <url>
-    <loc>https://asutorufa.github.io/tags/CIDR/</loc>
-    <lastmod>2024-04-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.github.io/tags/golang/</loc>
-    <lastmod>2024-04-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://asutorufa.github.io/tags/Kubernetes/</loc>
     <lastmod>2024-04-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -670,6 +656,20 @@
   
   <url>
     <loc>https://asutorufa.github.io/tags/container/</loc>
+    <lastmod>2024-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/CIDR/</loc>
+    <lastmod>2024-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/golang/</loc>
     <lastmod>2024-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -704,14 +704,14 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/tags/EDNS/</loc>
+    <loc>https://asutorufa.github.io/tags/Network/</loc>
     <lastmod>2024-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/tags/Network/</loc>
+    <loc>https://asutorufa.github.io/tags/EDNS/</loc>
     <lastmod>2024-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -886,14 +886,14 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/tags/proxy/</loc>
+    <loc>https://asutorufa.github.io/tags/encrypt/</loc>
     <lastmod>2024-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/tags/encrypt/</loc>
+    <loc>https://asutorufa.github.io/tags/proxy/</loc>
     <lastmod>2024-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1196,14 +1196,14 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/categories/Network/</loc>
+    <loc>https://asutorufa.github.io/categories/Kubernetes/</loc>
     <lastmod>2024-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/categories/Kubernetes/</loc>
+    <loc>https://asutorufa.github.io/categories/Network/</loc>
     <lastmod>2024-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
