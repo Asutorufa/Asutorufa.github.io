@@ -4,7 +4,7 @@ $(document).ready(function () {
 
   initScrollSpy();
 
-  function initScrollSpy () {
+  function initScrollSpy() {
     var tocSelector = '.post-toc';
     var $tocElement = $(tocSelector);
     var activeCurrentSelector = '.active-current';
@@ -23,7 +23,7 @@ $(document).ready(function () {
 
     $('body').scrollspy({ target: tocSelector });
 
-    function removeCurrentActiveClass () {
+    function removeCurrentActiveClass() {
       $(tocSelector + ' ' + activeCurrentSelector)
         .removeClass(activeCurrentSelector.substring(1));
     }
@@ -58,7 +58,7 @@ $(document).ready(function () {
         currentTarget.hide();
         target
           .stop()
-          .css({'opacity': 0, 'display': 'block'})
+          .css({ 'opacity': 0, 'display': 'block' })
           .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
             currentTarget.removeClass(activePanelClassName);
             target.addClass(activePanelClassName);
@@ -72,28 +72,18 @@ $(document).ready(function () {
   // TOC item animation navigate & prevent #item selector in adress bar.
   $('.post-toc a').on('click', function (e) {
     e.preventDefault();
-    var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
-    var offset = $(targetSelector).offset().top;
-
-    hasVelocity ?
-      html.velocity('stop').velocity('scroll', {
-        offset: offset  + 'px',
-        mobileHA: false
-      }) :
-      $('html, body').stop().animate({
-        scrollTop: offset
-      }, 500);
+    document.getElementById(decodeURIComponent(this.getAttribute('href').replace('#', ''))).scrollIntoView({ behavior: 'smooth' });
   });
 
   // Expand sidebar on post detail page by default, when post has a toc.
   var $tocContent = $('.post-toc-content');
   var isSidebarCouldDisplay = CONFIG.sidebar.display === 'post' ||
-      CONFIG.sidebar.display === 'always';
+    CONFIG.sidebar.display === 'always';
   var hasTOC = $tocContent.length > 0 && $tocContent.html().trim().length > 0;
   if (isSidebarCouldDisplay && hasTOC) {
     CONFIG.motion.enable ?
       (NexT.motion.middleWares.sidebar = function () {
-          NexT.utils.displaySidebar();
+        NexT.utils.displaySidebar();
       }) : NexT.utils.displaySidebar();
   }
 });

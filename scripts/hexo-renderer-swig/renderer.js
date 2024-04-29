@@ -1,21 +1,48 @@
 'use strict';
 
 const swig = require('free-swig');
-const extras = require('./swig-extras');
 const forTag = require('free-swig/lib/tags/for');
 
-extras.useTag(swig, 'markdown');
-extras.useTag(swig, 'switch');
-extras.useTag(swig, 'case');
+const trim = function (input) {
+  if (typeof input === 'object') {
+    each(input, function (value, key) {
+      input[key] = module.exports(value);
+    });
+    return input;
+  }
 
-extras.useFilter(swig, 'batch');
-extras.useFilter(swig, 'groupby');
-extras.useFilter(swig, 'markdown');
-extras.useFilter(swig, 'nl2br');
-extras.useFilter(swig, 'pluck');
-extras.useFilter(swig, 'split');
-extras.useFilter(swig, 'trim');
-extras.useFilter(swig, 'truncate');
+  if (typeof input === 'string') {
+    return input.replace(/^\s*|\s*$/g, '');
+  }
+
+  return input;
+};
+
+let each = function (obj, fn) {
+  var i, l;
+
+  if (isArray(obj)) {
+    i = 0;
+    l = obj.length;
+    for (i; i < l; i += 1) {
+      if (fn(obj[i], i, obj) === false) {
+        break;
+      }
+    }
+  } else {
+    for (i in obj) {
+      if (obj.hasOwnProperty(i)) {
+        if (fn(obj[i], i, obj) === false) {
+          break;
+        }
+      }
+    }
+  }
+
+  return obj;
+};
+
+swig.setFilter("trim", trim);
 
 swig.setDefaults({
   cache: false,
@@ -41,3 +68,4 @@ function swigRenderer({ text, path }, locals) {
 swigRenderer.compile = ({ text, path }) => swig.compile(text, { filename: path });
 
 module.exports = swigRenderer;
+
