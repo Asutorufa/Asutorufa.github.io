@@ -20,33 +20,6 @@
       </categories>
   </entry>
   <entry>
-    <title>CRI 容器运行时接口</title>
-    <url>/posts/8144a111/</url>
-    <content><![CDATA[<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">+----------------+       +-----------------+</span><br><span class="line">|  kubelet       |       |   CRI shim      |</span><br><span class="line">| +-----------+  |       |  +-----------+  |      +-----------+</span><br><span class="line">| |grpc client|&lt;-|-------|-&gt;|grpc server|  |&lt;----&gt;| container |</span><br><span class="line">| +-----------+  |       |  +-----------+  |      |  runtime  |</span><br><span class="line">+----------------+       +-----------------+      +-----------+</span><br></pre></td></tr></table></figure>
-<h2 id="CRI-shim">CRI shim</h2>
-<ul>
-<li>cri-o</li>
-<li>cri-containerd</li>
-<li>rkt</li>
-<li>frakti</li>
-<li>docker (cri-dockerd)</li>
-</ul>
-<h2 id="container-runtime">container runtime</h2>
-<ul>
-<li>gvisor</li>
-<li>kata containers</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>Kubernetes</tag>
-        <tag>CRI</tag>
-        <tag>container</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CIDR匹配 域名匹配</title>
     <url>/posts/3cb4313e/</url>
     <content><![CDATA[<p>所有完整实现代码:<a href="https://github.com/Asutorufa/yuhaiin/tree/master/net/match">match</a></p>
@@ -86,6 +59,33 @@
       <tags>
         <tag>CIDR</tag>
         <tag>golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CRI 容器运行时接口</title>
+    <url>/posts/8144a111/</url>
+    <content><![CDATA[<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">+----------------+       +-----------------+</span><br><span class="line">|  kubelet       |       |   CRI shim      |</span><br><span class="line">| +-----------+  |       |  +-----------+  |      +-----------+</span><br><span class="line">| |grpc client|&lt;-|-------|-&gt;|grpc server|  |&lt;----&gt;| container |</span><br><span class="line">| +-----------+  |       |  +-----------+  |      |  runtime  |</span><br><span class="line">+----------------+       +-----------------+      +-----------+</span><br></pre></td></tr></table></figure>
+<h2 id="CRI-shim">CRI shim</h2>
+<ul>
+<li>cri-o</li>
+<li>cri-containerd</li>
+<li>rkt</li>
+<li>frakti</li>
+<li>docker (cri-dockerd)</li>
+</ul>
+<h2 id="container-runtime">container runtime</h2>
+<ul>
+<li>gvisor</li>
+<li>kata containers</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>Kubernetes</tag>
+        <tag>CRI</tag>
+        <tag>container</tag>
       </tags>
   </entry>
   <entry>
@@ -397,6 +397,25 @@ x公司x高级架构师采用的是这样的方案:</p>
       </tags>
   </entry>
   <entry>
+    <title>JavaScript对字符串操作</title>
+    <url>/posts/86cfa6a/</url>
+    <content><![CDATA[<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name=<span class="string">&#x27;aaaa&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> age=<span class="string">&#x27;bbbb&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> change=<span class="string">&#x27;Hello javascript&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> message=<span class="string">`hello,<span class="subst">$&#123;name&#125;</span>,<span class="subst">$&#123;age&#125;</span>,`</span>+name+age;<span class="comment">//将多个字符串写成一句话</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> length=message.<span class="property">length</span>;<span class="comment">//获取字符串长度</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> upper=message.<span class="title function_">toUpperCase</span>();<span class="comment">//把字符串全部变成大写</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> lower=message.<span class="title function_">toLowerCase</span>();<span class="comment">//把字符串全部变成小写</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> search=message.<span class="title function_">indexOf</span>(<span class="string">&#x27;aaaa&#x27;</span>);<span class="comment">//搜索字符串位置</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> substr=message.<span class="title function_">substring</span>(<span class="number">9</span>, <span class="number">15</span>);<span class="comment">//返回区间内字符串</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">x=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;test&quot;</span>);  <span class="comment">//查找元素</span></span><br><span class="line">x.<span class="property">innerHTML</span>=<span class="string">&quot;Hello JavaScript&quot;</span>;    <span class="comment">//改变内容</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hyperledger Fabric组织更换证书</title>
     <url>/posts/afc6d6dd/</url>
     <content><![CDATA[<h2 id="前言">前言</h2>
@@ -439,25 +458,6 @@ signcerts &lt;- 节点/用户证书</p>
       <tags>
         <tag>blockchain</tag>
         <tag>Hyperledger Fabric</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JavaScript对字符串操作</title>
-    <url>/posts/86cfa6a/</url>
-    <content><![CDATA[<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name=<span class="string">&#x27;aaaa&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> age=<span class="string">&#x27;bbbb&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> change=<span class="string">&#x27;Hello javascript&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> message=<span class="string">`hello,<span class="subst">$&#123;name&#125;</span>,<span class="subst">$&#123;age&#125;</span>,`</span>+name+age;<span class="comment">//将多个字符串写成一句话</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> length=message.<span class="property">length</span>;<span class="comment">//获取字符串长度</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> upper=message.<span class="title function_">toUpperCase</span>();<span class="comment">//把字符串全部变成大写</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> lower=message.<span class="title function_">toLowerCase</span>();<span class="comment">//把字符串全部变成小写</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> search=message.<span class="title function_">indexOf</span>(<span class="string">&#x27;aaaa&#x27;</span>);<span class="comment">//搜索字符串位置</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> substr=message.<span class="title function_">substring</span>(<span class="number">9</span>, <span class="number">15</span>);<span class="comment">//返回区间内字符串</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">x=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;test&quot;</span>);  <span class="comment">//查找元素</span></span><br><span class="line">x.<span class="property">innerHTML</span>=<span class="string">&quot;Hello JavaScript&quot;</span>;    <span class="comment">//改变内容</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -1302,29 +1302,6 @@ The process to change I/O scheduler, depending on whether the disk is rotating o
       </tags>
   </entry>
   <entry>
-    <title>c语言数组输出的另一种方法</title>
-    <url>/posts/854ed6ec/</url>
-    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173">一个有趣的C语言程序</a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a = 1;</span><br><span class="line">    int x[5]=&#123;1,2,3,4,5&#125;;</span><br><span class="line">    printf(&quot;%d&quot;,a[x]);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">output: 2</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>
-a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
-所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>
-所以就是x[1]对应的值：2</p>
-<p>由此我又想到了二位数组</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a = 1;</span><br><span class="line">    int x[2][2]=&#123;&#123;1,2&#125;,&#123;3,4&#125;&#125;;</span><br><span class="line">    printf(&quot;%d&quot;,a[a[x]]);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">output: 4</span><br></pre></td></tr></table></figure>
-<p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>golang socks5/http proxy</title>
     <url>/posts/c7816edc/</url>
     <content><![CDATA[<p>完整实现代码:<br>
@@ -1442,6 +1419,29 @@ udp:<br>
       <tags>
         <tag>golang</tag>
         <tag>socks5</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c语言数组输出的另一种方法</title>
+    <url>/posts/854ed6ec/</url>
+    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173">一个有趣的C语言程序</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a = 1;</span><br><span class="line">    int x[5]=&#123;1,2,3,4,5&#125;;</span><br><span class="line">    printf(&quot;%d&quot;,a[x]);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">output: 2</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>
+a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
+所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>
+所以就是x[1]对应的值：2</p>
+<p>由此我又想到了二位数组</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a = 1;</span><br><span class="line">    int x[2][2]=&#123;&#123;1,2&#125;,&#123;3,4&#125;&#125;;</span><br><span class="line">    printf(&quot;%d&quot;,a[a[x]]);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">output: 4</span><br></pre></td></tr></table></figure>
+<p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -1657,6 +1657,22 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </tags>
   </entry>
   <entry>
+    <title>python获取网页源码(爬虫?)</title>
+    <url>/posts/cee10602/</url>
+    <content><![CDATA[<p>利用requrst,使用首先要</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br></pre></td></tr></table></figure>
+<p>使用方法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">url = &#x27;要获取的网页地址&#x27;</span><br><span class="line">useragent = &#x27;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36&#x27;#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span><br><span class="line">requests.get(url,headers=&#123;&#x27;User-Agent&#x27;:useragent&#125;))</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>编程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python使用lxml分析网页</title>
     <url>/posts/77d15527/</url>
     <content><![CDATA[<p>首先得引入lxml</p>
@@ -1737,22 +1753,6 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       <tags>
         <tag>linux</tag>
         <tag>snap</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python获取网页源码(爬虫?)</title>
-    <url>/posts/cee10602/</url>
-    <content><![CDATA[<p>利用requrst,使用首先要</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br></pre></td></tr></table></figure>
-<p>使用方法</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">url = &#x27;要获取的网页地址&#x27;</span><br><span class="line">useragent = &#x27;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36&#x27;#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span><br><span class="line">requests.get(url,headers=&#123;&#x27;User-Agent&#x27;:useragent&#125;))</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
