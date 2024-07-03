@@ -235,29 +235,6 @@ DOH主要有两种方式HTTP的GET请求和POST的请求</p>
       </tags>
   </entry>
   <entry>
-    <title>GeoIP mmdb format</title>
-    <url>/posts/931c13a4/</url>
-    <content><![CDATA[<p>complete document <a href="https://maxmind.github.io/MaxMind-DB/">MaxMind DB File Format SpecificationDescription</a></p>
-<p>here is only how convert trie tree to array</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">0100, 1011 -&gt; trie</span><br><span class="line"></span><br><span class="line"><span class="code">              root</span></span><br><span class="line"><span class="code">               |</span></span><br><span class="line"><span class="code">         +-----+------+</span></span><br><span class="line"><span class="code">        /              \</span></span><br><span class="line"><span class="code">       0                1</span></span><br><span class="line"><span class="code">     /   \             /  \</span></span><br><span class="line"><span class="code">   null   1           0   null</span></span><br><span class="line"><span class="code">         / \        /   \</span></span><br><span class="line"><span class="code">        0 null     null   1</span></span><br><span class="line"><span class="code">       / \               / \</span></span><br><span class="line"><span class="code">       0 null         null  1</span></span><br></pre></td></tr></table></figure>
-<p>trie -&gt; array<br>
-left is 0, right is 1<br>
-value is index of array<span id="more"></span></p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"> left | right  byte/index</span><br><span class="line">2     |   4    0-1</span><br><span class="line">null  |   6    2-3</span><br><span class="line">8     |  null  4-5</span><br><span class="line">10    |  null  6-7</span><br><span class="line">null  |  12    8-9</span><br><span class="line">14    |  null  10-11</span><br><span class="line">null  |  16    11-12</span><br><span class="line">end   |  null  12-13</span><br><span class="line">null  |  end   13-14</span><br><span class="line"></span><br><span class="line">array: [2,4,null,6,8,null,10,null,null,12,14,null,null,16,end,null,null,end]</span><br></pre></td></tr></table></figure>
-<p>for example:</p>
-<p>index 1:<br>
-next left index 2 is null, so 00* is not exist<br>
-next right index 2+1 = 3 is not null, continue search until end or null</p>
-<p>this is one byte as one child, but one byte max is 255, if node more than 255, we can use multiple byte as one child</p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>Network</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>EDNS</title>
     <url>/posts/668530ca/</url>
     <content><![CDATA[<p>这个DNS系列现在有以下几篇文章<br>
@@ -322,6 +299,50 @@ ADDRESS就是设置的SubNet的IP地址,依据上面的FAMILY</p>
       </tags>
   </entry>
   <entry>
+    <title>GeoIP mmdb format</title>
+    <url>/posts/931c13a4/</url>
+    <content><![CDATA[<p>complete document <a href="https://maxmind.github.io/MaxMind-DB/">MaxMind DB File Format SpecificationDescription</a></p>
+<p>here is only how convert trie tree to array</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">0100, 1011 -&gt; trie</span><br><span class="line"></span><br><span class="line"><span class="code">              root</span></span><br><span class="line"><span class="code">               |</span></span><br><span class="line"><span class="code">         +-----+------+</span></span><br><span class="line"><span class="code">        /              \</span></span><br><span class="line"><span class="code">       0                1</span></span><br><span class="line"><span class="code">     /   \             /  \</span></span><br><span class="line"><span class="code">   null   1           0   null</span></span><br><span class="line"><span class="code">         / \        /   \</span></span><br><span class="line"><span class="code">        0 null     null   1</span></span><br><span class="line"><span class="code">       / \               / \</span></span><br><span class="line"><span class="code">       0 null         null  1</span></span><br></pre></td></tr></table></figure>
+<p>trie -&gt; array<br>
+left is 0, right is 1<br>
+value is index of array<span id="more"></span></p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"> left | right  byte/index</span><br><span class="line">2     |   4    0-1</span><br><span class="line">null  |   6    2-3</span><br><span class="line">8     |  null  4-5</span><br><span class="line">10    |  null  6-7</span><br><span class="line">null  |  12    8-9</span><br><span class="line">14    |  null  10-11</span><br><span class="line">null  |  16    11-12</span><br><span class="line">end   |  null  12-13</span><br><span class="line">null  |  end   13-14</span><br><span class="line"></span><br><span class="line">array: [2,4,null,6,8,null,10,null,null,12,14,null,null,16,end,null,null,end]</span><br></pre></td></tr></table></figure>
+<p>for example:</p>
+<p>index 1:<br>
+next left index 2 is null, so 00* is not exist<br>
+next right index 2+1 = 3 is not null, continue search until end or null</p>
+<p>this is one byte as one child, but one byte max is 255, if node more than 255, we can use multiple byte as one child</p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>Network</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HP Laptop linux 下intel&amp;amd双显卡</title>
+    <url>/posts/34615c2d/</url>
+    <content><![CDATA[<p>查看<code>双显卡</code>切换情况，正常情况下如果没有在用独显应该显示是<code>DynOff</code>，但是我这里即使是不开桌面也是<code>DynPwr</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[ ~ ] <span class="built_in">cat</span> /sys/kernel/debug/vgaswitcheroo/switch</span><br><span class="line">0:DIS-Audio: :DynPwr:0000:01:00.1</span><br><span class="line">1:IGD:+:Pwr:0000:00:02.0</span><br><span class="line">2:DIS: :DynPwr:0000:01:00.0</span><br></pre></td></tr></table></figure>
+<p>查看<code>dmesg</code>找到</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[    3.495606] [drm] amdgpu kernel modesetting enabled.</span><br><span class="line">[    3.495628] vga_switcheroo: detected switching method \_SB_.PCI0.GFX0.ATPX handle</span><br><span class="line">[    3.495741] ATPX version 1, functions 0x00000033</span><br><span class="line">[    3.495873] ATPX Hybrid Graphics</span><br></pre></td></tr></table></figure>
+<p>找到了调用的方法，网上搜了一圈都没有使用方法，然后使用<code>acpi_call</code>尝试了几个参数，最后找到</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;\_SB_.PCI0.GFX0.ATPX 2 0&quot;</span> &gt;  /proc/acpi/call</span><br></pre></td></tr></table></figure>
+<p>嗯，确实有用，但是实在是太暴力了，直接把整个显卡移除，可以看一下日志<span id="more"></span></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[drm:amdgpu_pci_remove [amdgpu]] *ERROR* Hotplug removal is not supported</span><br><span class="line">[11499.551786] [drm] amdgpu: finishing device.</span><br><span class="line">[11499.554123] CP HQD IQ timer status time out</span><br><span class="line">[11499.554442] CP HQD dequeue request time out</span><br><span class="line">[11503.557688] cp queue preemption time out.</span><br><span class="line">[11503.557729] Creating topology SYSFS entries</span><br><span class="line">[11503.557800] amdgpu: [powerplay]</span><br><span class="line">                    .....</span><br><span class="line">                    .....</span><br><span class="line">                    .....</span><br><span class="line">                failed to send message 84 ret is 65535 </span><br><span class="line">[11503.793030] amdgpu: [powerplay] Failed to force to switch arbf0!</span><br><span class="line">[11503.928787] amdgpu 0000:01:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring kiq_2.1.0 test failed (-110)</span><br><span class="line">[11503.928865] [drm:gfx_v8_0_hw_fini [amdgpu]] *ERROR* KCQ disable failed</span><br><span class="line">[11504.164622] cp is busy, skip halt cp</span><br><span class="line">[11504.282335] rlc is busy, skip halt rlc</span><br><span class="line">[11504.421048] ------------[ cut here ]------------</span><br><span class="line">[11504.421115] WARNING: CPU: 3 PID: 167022 at drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:3170 amdgpu_vm_manager_fini+0x1e/0x50 [amdgpu]</span><br><span class="line">[11504.421115] Modules linked in: acpi_call(OE) ccm rfcomm cmac algif_hash algif_skcipher af_alg bnep btusb btrtl btbcm btintel bluetooth snd_hda_codec_realtek snd_hda_codec_generic ledtrig_audio hid_generic usbhid hid ecdh_generic ecc mousedev amdgpu uvcvideo videobuf2_vmalloc videobuf2_memops videobuf2_v4l2 videobuf2_common x86_pkg_temp_thermal intel_powerclamp coretemp videodev kvm_intel mc kvm nls_iso8859_1 nls_cp437 vfat fat i915 iwlmvm fuse irqbypass mac80211 crct10dif_pclmul gpu_sched crc32_pclmul snd_hda_codec_hdmi libarc4 ghash_clmulni_intel snd_hda_intel ttm hp_wmi snd_intel_dspcfg i2c_algo_bit snd_hda_codec mei_hdcp intel_rapl_msr wmi_bmof sparse_keymap iTCO_wdt iTCO_vendor_support aesni_intel crypto_simd joydev iwlwifi cryptd snd_hda_core glue_helper snd_hwdep intel_cstate snd_pcm drm_kms_helper intel_uncore intel_rapl_perf snd_timer cfg80211 input_leds psmouse pcspkr snd i2c_i801 cec r8169 rc_core intel_gtt realtek syscopyarea sysfillrect processor_thermal_device sysimgblt mei_me</span><br><span class="line">[11504.421137]  libphy intel_rapl_common rfkill int340x_thermal_zone soundcore intel_pch_thermal fb_sys_fops intel_soc_dts_iosf mei wmi battery hp_accel evdev lis3lv02d mac_hid hp_wireless int3400_thermal acpi_thermal_rel ac vboxnetflt(OE) vboxnetadp(OE) drm vboxdrv(OE) crypto_user agpgart ip_tables x_tables ext4 crc32c_generic crc16 mbcache jbd2 rtsx_pci_sdmmc serio_raw mmc_core atkbd libps2 crc32c_intel xhci_pci xhci_hcd rtsx_pci i8042 serio</span><br><span class="line">[11504.421149] CPU: 3 PID: 167022 Comm: kworker/u8:0 Tainted: G        W  OE     5.6.15-arch1-1 #1</span><br><span class="line">[11504.421150] Hardware name: HP OMEN by HP Laptop/82EA, BIOS F.53 12/12/2019</span><br><span class="line">[11504.421153] Workqueue: kacpi_hotplug acpi_hotplug_work_fn</span><br><span class="line">[11504.421221] RIP: 0010:amdgpu_vm_manager_fini+0x1e/0x50 [amdgpu]</span><br><span class="line">[11504.421222] Code: c7 83 a0 4e 00 00 00 00 00 00 eb 87 0f 1f 44 00 00 55 48 89 fd 48 81 c7 a8 4e 00 00 48 83 ec 08 48 83 bd b0 4e 00 00 00 74 14 &lt;0f&gt; 0b e8 4b 3d a3 d5 48 89 ef 48 83 c4 08 5d e9 ce 96 00 00 31 f6</span><br><span class="line">[11504.421223] RSP: 0018:ffffb45703ae3c90 EFLAGS: 00010286</span><br><span class="line">[11504.421225] RAX: 0000000000000000 RBX: ffff8c0f0cdc0000 RCX: 0000000000000000</span><br><span class="line">[11504.421225] RDX: ffff8c0f1c718000 RSI: ffff8c0f0cb53000 RDI: ffff8c0f0cdc4ea8</span><br><span class="line">[11504.421226] RBP: ffff8c0f0cdc0000 R08: 0000000000000040 R09: 0000000000000000</span><br><span class="line">[11504.421227] R10: 0000000000000000 R11: ffff8c0f08056438 R12: 0000000000000001</span><br><span class="line">[11504.421228] R13: ffff8c0f0cdd5020 R14: ffff8c0f1c0de800 R15: ffff8c0f1c09f740</span><br><span class="line">[11504.421229] FS:  0000000000000000(0000) GS:ffff8c0f1ed80000(0000) knlGS:0000000000000000</span><br><span class="line">[11504.421230] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033</span><br><span class="line">[11504.421230] CR2: 00007f5a4f135fd8 CR3: 00000001a020a001 CR4: 00000000003606e0</span><br><span class="line">[11504.421231] Call Trace:</span><br><span class="line">[11504.421300]  gmc_v8_0_sw_fini+0x16/0x60 [amdgpu]</span><br><span class="line">[11504.421386]  amdgpu_device_fini+0x255/0x46f [amdgpu]</span><br><span class="line">[11504.421446]  amdgpu_driver_unload_kms+0x47/0x90 [amdgpu]</span><br><span class="line">[11504.421463]  drm_dev_unregister+0x4b/0xb0 [drm]</span><br><span class="line">[11504.421521]  amdgpu_pci_remove+0x2e/0x50 [amdgpu]</span><br><span class="line">[11504.421525]  pci_device_remove+0x3b/0xa0</span><br><span class="line">[11504.421528]  __device_release_driver+0x15c/0x210</span><br><span class="line">[11504.421529]  device_release_driver+0x24/0x30</span><br><span class="line">[11504.421532]  pci_stop_bus_device+0x68/0x90</span><br><span class="line">[11504.421534]  pci_stop_and_remove_bus_device+0xe/0x20</span><br><span class="line">[11504.421536]  disable_slot+0x49/0x90</span><br><span class="line">[11504.421538]  acpiphp_check_bridge.part.0+0xba/0x140</span><br><span class="line">[11504.421540]  acpiphp_hotplug_notify+0x170/0x280</span><br><span class="line">[11504.421541]  ? acpiphp_post_dock_fixup+0xe0/0xe0</span><br><span class="line">[11504.421544]  acpi_device_hotplug+0x9e/0x410</span><br><span class="line">[11504.421547]  acpi_hotplug_work_fn+0x3d/0x50</span><br><span class="line">[11504.421549]  process_one_work+0x1da/0x3d0</span><br><span class="line">[11504.421551]  worker_thread+0x4d/0x3e0</span><br><span class="line">[11504.421553]  ? rescuer_thread+0x3f0/0x3f0</span><br><span class="line">[11504.421555]  kthread+0x117/0x130</span><br><span class="line">[11504.421556]  ? __kthread_bind_mask+0x60/0x60</span><br><span class="line">[11504.421559]  ret_from_fork+0x35/0x40</span><br><span class="line">[11504.421562] ---[ end trace 9fc85d768333e4aa ]---</span><br><span class="line">[11504.434382] Move buffer fallback to memcpy unavailable</span><br><span class="line">[11504.434384] [TTM] Buffer eviction failed</span><br><span class="line">[11504.434384] [TTM] Cleanup eviction failed</span><br><span class="line">[11504.434402] [TTM] Finalizing pool allocator</span><br><span class="line">[11504.434881] [TTM] Finalizing DMA pool allocator</span><br><span class="line">[11504.434971] [TTM] Zone  kernel: Used memory at exit: 4312 KiB</span><br><span class="line">[11504.434974] [TTM] Zone   dma32: Used memory at exit: 0 KiB</span><br><span class="line">[11504.434976] [drm] amdgpu: ttm finalized</span><br><span class="line">[11504.434989] vga_switcheroo: disabled</span><br><span class="line">[11504.435496] i915 0000:00:02.0: vgaarb: changed VGA decodes: olddecodes=none,decodes=io+mem:owns=io+mem</span><br></pre></td></tr></table></figure>
+<p>所以买笔记本一定要买有<code>linux</code>认证的电脑，即使不是也尽量不要买双显卡了，我买的这个显卡基本闲置，我也不喜欢打游戏，反而耗电。</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>bios</tag>
+        <tag>computer</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>HTTPS相关</title>
     <url>/posts/11b2b8df/</url>
     <content><![CDATA[<p>最近遇到了一件事, 让我又多熟悉了下HTTPS的相关内容, 先看看HTTPS的结构</p>
@@ -373,27 +394,6 @@ x公司x高级架构师采用的是这样的方案:</p>
       <tags>
         <tag>HTTPS</tag>
         <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HP Laptop linux 下intel&amp;amd双显卡</title>
-    <url>/posts/34615c2d/</url>
-    <content><![CDATA[<p>查看<code>双显卡</code>切换情况，正常情况下如果没有在用独显应该显示是<code>DynOff</code>，但是我这里即使是不开桌面也是<code>DynPwr</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[ ~ ] <span class="built_in">cat</span> /sys/kernel/debug/vgaswitcheroo/switch</span><br><span class="line">0:DIS-Audio: :DynPwr:0000:01:00.1</span><br><span class="line">1:IGD:+:Pwr:0000:00:02.0</span><br><span class="line">2:DIS: :DynPwr:0000:01:00.0</span><br></pre></td></tr></table></figure>
-<p>查看<code>dmesg</code>找到</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[    3.495606] [drm] amdgpu kernel modesetting enabled.</span><br><span class="line">[    3.495628] vga_switcheroo: detected switching method \_SB_.PCI0.GFX0.ATPX handle</span><br><span class="line">[    3.495741] ATPX version 1, functions 0x00000033</span><br><span class="line">[    3.495873] ATPX Hybrid Graphics</span><br></pre></td></tr></table></figure>
-<p>找到了调用的方法，网上搜了一圈都没有使用方法，然后使用<code>acpi_call</code>尝试了几个参数，最后找到</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;\_SB_.PCI0.GFX0.ATPX 2 0&quot;</span> &gt;  /proc/acpi/call</span><br></pre></td></tr></table></figure>
-<p>嗯，确实有用，但是实在是太暴力了，直接把整个显卡移除，可以看一下日志<span id="more"></span></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[drm:amdgpu_pci_remove [amdgpu]] *ERROR* Hotplug removal is not supported</span><br><span class="line">[11499.551786] [drm] amdgpu: finishing device.</span><br><span class="line">[11499.554123] CP HQD IQ timer status time out</span><br><span class="line">[11499.554442] CP HQD dequeue request time out</span><br><span class="line">[11503.557688] cp queue preemption time out.</span><br><span class="line">[11503.557729] Creating topology SYSFS entries</span><br><span class="line">[11503.557800] amdgpu: [powerplay]</span><br><span class="line">                    .....</span><br><span class="line">                    .....</span><br><span class="line">                    .....</span><br><span class="line">                failed to send message 84 ret is 65535 </span><br><span class="line">[11503.793030] amdgpu: [powerplay] Failed to force to switch arbf0!</span><br><span class="line">[11503.928787] amdgpu 0000:01:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring kiq_2.1.0 test failed (-110)</span><br><span class="line">[11503.928865] [drm:gfx_v8_0_hw_fini [amdgpu]] *ERROR* KCQ disable failed</span><br><span class="line">[11504.164622] cp is busy, skip halt cp</span><br><span class="line">[11504.282335] rlc is busy, skip halt rlc</span><br><span class="line">[11504.421048] ------------[ cut here ]------------</span><br><span class="line">[11504.421115] WARNING: CPU: 3 PID: 167022 at drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:3170 amdgpu_vm_manager_fini+0x1e/0x50 [amdgpu]</span><br><span class="line">[11504.421115] Modules linked in: acpi_call(OE) ccm rfcomm cmac algif_hash algif_skcipher af_alg bnep btusb btrtl btbcm btintel bluetooth snd_hda_codec_realtek snd_hda_codec_generic ledtrig_audio hid_generic usbhid hid ecdh_generic ecc mousedev amdgpu uvcvideo videobuf2_vmalloc videobuf2_memops videobuf2_v4l2 videobuf2_common x86_pkg_temp_thermal intel_powerclamp coretemp videodev kvm_intel mc kvm nls_iso8859_1 nls_cp437 vfat fat i915 iwlmvm fuse irqbypass mac80211 crct10dif_pclmul gpu_sched crc32_pclmul snd_hda_codec_hdmi libarc4 ghash_clmulni_intel snd_hda_intel ttm hp_wmi snd_intel_dspcfg i2c_algo_bit snd_hda_codec mei_hdcp intel_rapl_msr wmi_bmof sparse_keymap iTCO_wdt iTCO_vendor_support aesni_intel crypto_simd joydev iwlwifi cryptd snd_hda_core glue_helper snd_hwdep intel_cstate snd_pcm drm_kms_helper intel_uncore intel_rapl_perf snd_timer cfg80211 input_leds psmouse pcspkr snd i2c_i801 cec r8169 rc_core intel_gtt realtek syscopyarea sysfillrect processor_thermal_device sysimgblt mei_me</span><br><span class="line">[11504.421137]  libphy intel_rapl_common rfkill int340x_thermal_zone soundcore intel_pch_thermal fb_sys_fops intel_soc_dts_iosf mei wmi battery hp_accel evdev lis3lv02d mac_hid hp_wireless int3400_thermal acpi_thermal_rel ac vboxnetflt(OE) vboxnetadp(OE) drm vboxdrv(OE) crypto_user agpgart ip_tables x_tables ext4 crc32c_generic crc16 mbcache jbd2 rtsx_pci_sdmmc serio_raw mmc_core atkbd libps2 crc32c_intel xhci_pci xhci_hcd rtsx_pci i8042 serio</span><br><span class="line">[11504.421149] CPU: 3 PID: 167022 Comm: kworker/u8:0 Tainted: G        W  OE     5.6.15-arch1-1 #1</span><br><span class="line">[11504.421150] Hardware name: HP OMEN by HP Laptop/82EA, BIOS F.53 12/12/2019</span><br><span class="line">[11504.421153] Workqueue: kacpi_hotplug acpi_hotplug_work_fn</span><br><span class="line">[11504.421221] RIP: 0010:amdgpu_vm_manager_fini+0x1e/0x50 [amdgpu]</span><br><span class="line">[11504.421222] Code: c7 83 a0 4e 00 00 00 00 00 00 eb 87 0f 1f 44 00 00 55 48 89 fd 48 81 c7 a8 4e 00 00 48 83 ec 08 48 83 bd b0 4e 00 00 00 74 14 &lt;0f&gt; 0b e8 4b 3d a3 d5 48 89 ef 48 83 c4 08 5d e9 ce 96 00 00 31 f6</span><br><span class="line">[11504.421223] RSP: 0018:ffffb45703ae3c90 EFLAGS: 00010286</span><br><span class="line">[11504.421225] RAX: 0000000000000000 RBX: ffff8c0f0cdc0000 RCX: 0000000000000000</span><br><span class="line">[11504.421225] RDX: ffff8c0f1c718000 RSI: ffff8c0f0cb53000 RDI: ffff8c0f0cdc4ea8</span><br><span class="line">[11504.421226] RBP: ffff8c0f0cdc0000 R08: 0000000000000040 R09: 0000000000000000</span><br><span class="line">[11504.421227] R10: 0000000000000000 R11: ffff8c0f08056438 R12: 0000000000000001</span><br><span class="line">[11504.421228] R13: ffff8c0f0cdd5020 R14: ffff8c0f1c0de800 R15: ffff8c0f1c09f740</span><br><span class="line">[11504.421229] FS:  0000000000000000(0000) GS:ffff8c0f1ed80000(0000) knlGS:0000000000000000</span><br><span class="line">[11504.421230] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033</span><br><span class="line">[11504.421230] CR2: 00007f5a4f135fd8 CR3: 00000001a020a001 CR4: 00000000003606e0</span><br><span class="line">[11504.421231] Call Trace:</span><br><span class="line">[11504.421300]  gmc_v8_0_sw_fini+0x16/0x60 [amdgpu]</span><br><span class="line">[11504.421386]  amdgpu_device_fini+0x255/0x46f [amdgpu]</span><br><span class="line">[11504.421446]  amdgpu_driver_unload_kms+0x47/0x90 [amdgpu]</span><br><span class="line">[11504.421463]  drm_dev_unregister+0x4b/0xb0 [drm]</span><br><span class="line">[11504.421521]  amdgpu_pci_remove+0x2e/0x50 [amdgpu]</span><br><span class="line">[11504.421525]  pci_device_remove+0x3b/0xa0</span><br><span class="line">[11504.421528]  __device_release_driver+0x15c/0x210</span><br><span class="line">[11504.421529]  device_release_driver+0x24/0x30</span><br><span class="line">[11504.421532]  pci_stop_bus_device+0x68/0x90</span><br><span class="line">[11504.421534]  pci_stop_and_remove_bus_device+0xe/0x20</span><br><span class="line">[11504.421536]  disable_slot+0x49/0x90</span><br><span class="line">[11504.421538]  acpiphp_check_bridge.part.0+0xba/0x140</span><br><span class="line">[11504.421540]  acpiphp_hotplug_notify+0x170/0x280</span><br><span class="line">[11504.421541]  ? acpiphp_post_dock_fixup+0xe0/0xe0</span><br><span class="line">[11504.421544]  acpi_device_hotplug+0x9e/0x410</span><br><span class="line">[11504.421547]  acpi_hotplug_work_fn+0x3d/0x50</span><br><span class="line">[11504.421549]  process_one_work+0x1da/0x3d0</span><br><span class="line">[11504.421551]  worker_thread+0x4d/0x3e0</span><br><span class="line">[11504.421553]  ? rescuer_thread+0x3f0/0x3f0</span><br><span class="line">[11504.421555]  kthread+0x117/0x130</span><br><span class="line">[11504.421556]  ? __kthread_bind_mask+0x60/0x60</span><br><span class="line">[11504.421559]  ret_from_fork+0x35/0x40</span><br><span class="line">[11504.421562] ---[ end trace 9fc85d768333e4aa ]---</span><br><span class="line">[11504.434382] Move buffer fallback to memcpy unavailable</span><br><span class="line">[11504.434384] [TTM] Buffer eviction failed</span><br><span class="line">[11504.434384] [TTM] Cleanup eviction failed</span><br><span class="line">[11504.434402] [TTM] Finalizing pool allocator</span><br><span class="line">[11504.434881] [TTM] Finalizing DMA pool allocator</span><br><span class="line">[11504.434971] [TTM] Zone  kernel: Used memory at exit: 4312 KiB</span><br><span class="line">[11504.434974] [TTM] Zone   dma32: Used memory at exit: 0 KiB</span><br><span class="line">[11504.434976] [drm] amdgpu: ttm finalized</span><br><span class="line">[11504.434989] vga_switcheroo: disabled</span><br><span class="line">[11504.435496] i915 0000:00:02.0: vgaarb: changed VGA decodes: olddecodes=none,decodes=io+mem:owns=io+mem</span><br></pre></td></tr></table></figure>
-<p>所以买笔记本一定要买有<code>linux</code>认证的电脑，即使不是也尽量不要买双显卡了，我买的这个显卡基本闲置，我也不喜欢打游戏，反而耗电。</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>bios</tag>
-        <tag>computer</tag>
       </tags>
   </entry>
   <entry>
@@ -1566,39 +1566,6 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </tags>
   </entry>
   <entry>
-    <title>linux下intel&amp;AMD双显卡切换</title>
-    <url>/posts/3b8b96de/</url>
-    <content><![CDATA[<p>使用<strong>xrandr</strong>显示可支持的显卡</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">xrandr --listproviders</span><br></pre></td></tr></table></figure>
-<p>输出类似以下内容</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Providers: number : 2</span><br><span class="line">Provider 0: id: 0x6b cap: 0x9, Source Output, Sink Offload crtcs: 3 outputs: 7 associated providers: 1 name:modesetting</span><br><span class="line">Provider 1: id: 0x41 cap: 0x6, Sink Output, Source Offload crtcs: 2 outputs: 0 associated providers: 1 name:OLAND @ pci:0000:01:00.0</span><br></pre></td></tr></table></figure>
-<p>To be able to render GPU-intensive applications by the more powerful discrete card use</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">xrandr --setprovideroffloadsink 1 0</span><br></pre></td></tr></table></figure>
-<p>或者<span id="more"></span></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">xrandr --setprovideroffloadsink 0x41 0x6b</span><br></pre></td></tr></table></figure>
-<p>使用DRI_PRIME为某个应用选择使用哪一张显卡,使用glxinfo可以查看正在使用的显卡</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DRI_PRIME=0 glxinfo | grep &quot;OpenGL renderer&quot;</span><br><span class="line">DRI_PRIME=1 glxinfo | grep &quot;OpenGL renderer&quot;</span><br></pre></td></tr></table></figure>
-<p>如为steam启用独显</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DRI_PRIME=1 steam</span><br></pre></td></tr></table></figure>
-<p>如果需要使用独显进行视频硬件播放,还需指定视频解码库,不然会乱码:<br>
-如AMD:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DRI_PRIME=1            # for laptops with switchable graphics</span><br><span class="line">LIBVA_DRIVER_NAME=r600 # value depends on the driver, check /usr/lib/dri for possible options</span><br></pre></td></tr></table></figure>
-<p>使用mpv:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DRI_PRIME=1  LIBVA_DRIVER_NAME=r600 mpv [...]</span><br></pre></td></tr></table></figure>
-<p>参考资料:<br>
-1.<a href="https://askubuntu.com/questions/1038271/intel-amd-hybrid-graphics-ubuntu-18-04">Intel/AMD Hybrid graphics Ubuntu 18.04</a><br>
-2.<a href="https://wiki.archlinux.org/index.php/PRIME">PRIME (简体中文)</a></p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>双显卡</tag>
-        <tag>amd</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux PPPOE拨号上网</title>
     <url>/posts/59c8ffd6/</url>
     <content><![CDATA[<h2 id="安装rp-pppoe">安装rp-pppoe</h2>
@@ -1640,6 +1607,39 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       <tags>
         <tag>archlinux</tag>
         <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux下intel&amp;AMD双显卡切换</title>
+    <url>/posts/3b8b96de/</url>
+    <content><![CDATA[<p>使用<strong>xrandr</strong>显示可支持的显卡</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">xrandr --listproviders</span><br></pre></td></tr></table></figure>
+<p>输出类似以下内容</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Providers: number : 2</span><br><span class="line">Provider 0: id: 0x6b cap: 0x9, Source Output, Sink Offload crtcs: 3 outputs: 7 associated providers: 1 name:modesetting</span><br><span class="line">Provider 1: id: 0x41 cap: 0x6, Sink Output, Source Offload crtcs: 2 outputs: 0 associated providers: 1 name:OLAND @ pci:0000:01:00.0</span><br></pre></td></tr></table></figure>
+<p>To be able to render GPU-intensive applications by the more powerful discrete card use</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">xrandr --setprovideroffloadsink 1 0</span><br></pre></td></tr></table></figure>
+<p>或者<span id="more"></span></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">xrandr --setprovideroffloadsink 0x41 0x6b</span><br></pre></td></tr></table></figure>
+<p>使用DRI_PRIME为某个应用选择使用哪一张显卡,使用glxinfo可以查看正在使用的显卡</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DRI_PRIME=0 glxinfo | grep &quot;OpenGL renderer&quot;</span><br><span class="line">DRI_PRIME=1 glxinfo | grep &quot;OpenGL renderer&quot;</span><br></pre></td></tr></table></figure>
+<p>如为steam启用独显</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DRI_PRIME=1 steam</span><br></pre></td></tr></table></figure>
+<p>如果需要使用独显进行视频硬件播放,还需指定视频解码库,不然会乱码:<br>
+如AMD:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DRI_PRIME=1            # for laptops with switchable graphics</span><br><span class="line">LIBVA_DRIVER_NAME=r600 # value depends on the driver, check /usr/lib/dri for possible options</span><br></pre></td></tr></table></figure>
+<p>使用mpv:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DRI_PRIME=1  LIBVA_DRIVER_NAME=r600 mpv [...]</span><br></pre></td></tr></table></figure>
+<p>参考资料:<br>
+1.<a href="https://askubuntu.com/questions/1038271/intel-amd-hybrid-graphics-ubuntu-18-04">Intel/AMD Hybrid graphics Ubuntu 18.04</a><br>
+2.<a href="https://wiki.archlinux.org/index.php/PRIME">PRIME (简体中文)</a></p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>双显卡</tag>
+        <tag>amd</tag>
       </tags>
   </entry>
   <entry>
@@ -1736,6 +1736,26 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </tags>
   </entry>
   <entry>
+    <title>snap删除旧的core(snap删除其他版本的软件)</title>
+    <url>/posts/b6b8953/</url>
+    <content><![CDATA[<p>偶尔发现snap会自动升级core且不删除旧版，在’/snap/core’<br>
+会发现好几个版本的文件夹。<br>
+使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo snap remove core --revision xxx</span><br></pre></td></tr></table></figure>
+<p>删除某个版本的core，xxx是软件的rev，使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">snap list</span><br></pre></td></tr></table></figure>
+<p>可以查看软件的rev，其他软件也能用这个方法删除旧的版本哦。</p>
+<p>参考：<a href="https://askubuntu.com/questions/828859/how-to-unmount-and-possibly-delete-old-ubuntu-core-snap">How to unmount and possibly delete old Ubuntu Core snap</a></p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>snap</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ubuntu终端下连接wifi</title>
     <url>/posts/fb6d8628/</url>
     <content><![CDATA[<h2 id="首先使用rfkill查看你的wifi设备是否被停用">首先使用rfkill查看你的wifi设备是否被停用</h2>
@@ -1773,26 +1793,6 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </categories>
       <tags>
         <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>snap删除旧的core(snap删除其他版本的软件)</title>
-    <url>/posts/b6b8953/</url>
-    <content><![CDATA[<p>偶尔发现snap会自动升级core且不删除旧版，在’/snap/core’<br>
-会发现好几个版本的文件夹。<br>
-使用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo snap remove core --revision xxx</span><br></pre></td></tr></table></figure>
-<p>删除某个版本的core，xxx是软件的rev，使用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">snap list</span><br></pre></td></tr></table></figure>
-<p>可以查看软件的rev，其他软件也能用这个方法删除旧的版本哦。</p>
-<p>参考：<a href="https://askubuntu.com/questions/828859/how-to-unmount-and-possibly-delete-old-ubuntu-core-snap">How to unmount and possibly delete old Ubuntu Core snap</a></p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>snap</tag>
       </tags>
   </entry>
   <entry>
@@ -2358,6 +2358,22 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </tags>
   </entry>
   <entry>
+    <title>更改绑定手机号</title>
+    <url>/posts/3fee5f2/</url>
+    <content><![CDATA[<p>绑定手机号：微信，网易云，淘宝原手机号及证件，支付宝，google<br>
+银行卡，贴吧，酷安，微博需要原手机号，bilibili（需要原手机号)<span id="more"></span><br>
+微软,欢喜云，京东（原手机号及银行卡，非我的实名认证）<br>
+天猫，银行卡，steam，小冰，yy(需要原手机号)<br>
+<img src="http://blog-1254450445.cossgp.myqcloud.com/%E6%8D%95%E8%8E%B72.PNG" alt="" loading="lazy"></p>
+]]></content>
+      <categories>
+        <category>Personally</category>
+      </categories>
+      <tags>
+        <tag>Personally</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>暗影精灵更改efi启动顺序</title>
     <url>/posts/6683eff9/</url>
     <content><![CDATA[<p>–2019-04-22 更新–<br>
@@ -2386,22 +2402,6 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       <tags>
         <tag>EFI</tag>
         <tag>BIOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>更改绑定手机号</title>
-    <url>/posts/3fee5f2/</url>
-    <content><![CDATA[<p>绑定手机号：微信，网易云，淘宝原手机号及证件，支付宝，google<br>
-银行卡，贴吧，酷安，微博需要原手机号，bilibili（需要原手机号)<span id="more"></span><br>
-微软,欢喜云，京东（原手机号及银行卡，非我的实名认证）<br>
-天猫，银行卡，steam，小冰，yy(需要原手机号)<br>
-<img src="http://blog-1254450445.cossgp.myqcloud.com/%E6%8D%95%E8%8E%B72.PNG" alt="" loading="lazy"></p>
-]]></content>
-      <categories>
-        <category>Personally</category>
-      </categories>
-      <tags>
-        <tag>Personally</tag>
       </tags>
   </entry>
   <entry>
@@ -3004,30 +3004,6 @@ MMAP_THRESHOLD, the glibc malloc() implementation allocates the memory as a priv
       </tags>
   </entry>
   <entry>
-    <title>让win10的UWP应用走代理</title>
-    <url>/posts/d22ffdb6/</url>
-    <content><![CDATA[<h2 id="原因">原因</h2>
-<p>因为uwp应用的特殊性,即使使用proxifier和proxycap这种应用也无法让其走代理</p>
-<h2 id="现在可直接用WindowsLoopbackManager">现在可直接用WindowsLoopbackManager</h2>
-<p><a href="https://github.com/tiagonmas/Windows-Loopback-Exemption-Manager">WindowsLoopbackManager</a></p>
-<span id="more"></span>
-<h2 id="1-SSTAP">1.SSTAP</h2>
-<p>这个应用是创建虚拟网卡,让windows全局走代理.但其有弊端就是有一些国内的网站也会走代理,比如BILIBILI.虽然可以自己写规则但实在是麻烦无比.</p>
-<h2 id="2-fiddler">2.fiddler</h2>
-<p>利用fiddler的winconfig实现uwp应用走代理<br>
-<img src="http://blog-1254450445.cossgp.myqcloud.com/WK%290~%29WR%29N79$KZ4HZZTDQ2.png" alt="." loading="lazy"><br>
-把要走代理的应用勾上<br>
-<img src="http://blog-1254450445.cossgp.myqcloud.com/KT3%28H@%60C63P@2KH_X7C@QDI.png" alt="." loading="lazy"><br>
-但这不是全局代理,只能让uwp应用走代理</p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>proxy</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>解决xfce4画面撕裂</title>
     <url>/posts/38868ade/</url>
     <content><![CDATA[<h2 id="安装compton">安装compton</h2>
@@ -3054,6 +3030,30 @@ MMAP_THRESHOLD, the glibc malloc() implementation allocates the memory as a priv
       <tags>
         <tag>linux</tag>
         <tag>xfce4</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>让win10的UWP应用走代理</title>
+    <url>/posts/d22ffdb6/</url>
+    <content><![CDATA[<h2 id="原因">原因</h2>
+<p>因为uwp应用的特殊性,即使使用proxifier和proxycap这种应用也无法让其走代理</p>
+<h2 id="现在可直接用WindowsLoopbackManager">现在可直接用WindowsLoopbackManager</h2>
+<p><a href="https://github.com/tiagonmas/Windows-Loopback-Exemption-Manager">WindowsLoopbackManager</a></p>
+<span id="more"></span>
+<h2 id="1-SSTAP">1.SSTAP</h2>
+<p>这个应用是创建虚拟网卡,让windows全局走代理.但其有弊端就是有一些国内的网站也会走代理,比如BILIBILI.虽然可以自己写规则但实在是麻烦无比.</p>
+<h2 id="2-fiddler">2.fiddler</h2>
+<p>利用fiddler的winconfig实现uwp应用走代理<br>
+<img src="http://blog-1254450445.cossgp.myqcloud.com/WK%290~%29WR%29N79$KZ4HZZTDQ2.png" alt="." loading="lazy"><br>
+把要走代理的应用勾上<br>
+<img src="http://blog-1254450445.cossgp.myqcloud.com/KT3%28H@%60C63P@2KH_X7C@QDI.png" alt="." loading="lazy"><br>
+但这不是全局代理,只能让uwp应用走代理</p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>proxy</tag>
       </tags>
   </entry>
   <entry>
