@@ -621,25 +621,6 @@ the internal endpoint to send packets first to that external endpoint’s IP add
       </tags>
   </entry>
   <entry>
-    <title>TUF GAMING B550M-PLUS WIFI II lm_sensors</title>
-    <url>/posts/fe953398/</url>
-    <content><![CDATA[<p>the sensors not show fan and voltage<br>
-it’s a kernel bug now <a href="https://bugzilla.kernel.org/show_bug.cgi?id=204807">Hardware monitoring sensor nct6798d doesn’t work unless acpi_enforce_resources=lax is enabled</a><br>
-need wait add the motherboard name to linux kernel code list <a href="https://github.com/torvalds/linux/blob/4bbf3422df78029f03161640dcb1e9d1ed64d1ea/drivers/hwmon/nct6775-platform.c#L1044">linux/drivers/hwmon/nct6775-platform.c</a></p>
-<h2 id="temporary-measure">temporary measure</h2>
-<p>add</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">acpi<span class="emphasis">_enforce_</span>resources=lax</span><br></pre></td></tr></table></figure>
-<p>to linux boot parameter</p>
-<p>load nct6775 kernel module</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">modprobe -v nct6775</span><br></pre></td></tr></table></figure>
-<p>run <code>sensors-detect --auto</code>.</p>
-<p>finally, you will see nct6798-isa-* in sensors.</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-  </entry>
-  <entry>
     <title>RSA加密</title>
     <url>/posts/f1a158c9/</url>
     <content><![CDATA[<h2 id="质数">质数</h2>
@@ -857,6 +838,25 @@ need wait add the motherboard name to linux kernel code list <a href="https://gi
         <tag>Crypto</tag>
         <tag>RSA</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>TUF GAMING B550M-PLUS WIFI II lm_sensors</title>
+    <url>/posts/fe953398/</url>
+    <content><![CDATA[<p>the sensors not show fan and voltage<br>
+it’s a kernel bug now <a href="https://bugzilla.kernel.org/show_bug.cgi?id=204807">Hardware monitoring sensor nct6798d doesn’t work unless acpi_enforce_resources=lax is enabled</a><br>
+need wait add the motherboard name to linux kernel code list <a href="https://github.com/torvalds/linux/blob/4bbf3422df78029f03161640dcb1e9d1ed64d1ea/drivers/hwmon/nct6775-platform.c#L1044">linux/drivers/hwmon/nct6775-platform.c</a></p>
+<h2 id="temporary-measure">temporary measure</h2>
+<p>add</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">acpi<span class="emphasis">_enforce_</span>resources=lax</span><br></pre></td></tr></table></figure>
+<p>to linux boot parameter</p>
+<p>load nct6775 kernel module</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">modprobe -v nct6775</span><br></pre></td></tr></table></figure>
+<p>run <code>sensors-detect --auto</code>.</p>
+<p>finally, you will see nct6798-isa-* in sensors.</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
   </entry>
   <entry>
     <title>TUN网卡</title>
@@ -2355,6 +2355,61 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </categories>
       <tags>
         <tag>Math</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>感觉日语是一种很随意的语言</title>
+    <url>/posts/190e8188/</url>
+    <content><![CDATA[<h2 id="动词活用">动词活用</h2>
+<p>相信不少中国境内的人学习动词都是 一类动词， 二类动词，三类动词， 并且老师甚至还会告诉你不要记《标准日本语》上面带ます的动词，要记字典型。<br>
+然后大概会告诉一类动词的活用，类似下面：</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">「う」段 →「い」段 + ます</span><br><span class="line">以「う」、「つ」、「る」结尾的词 → 去掉词尾 + って</span><br><span class="line">  ...</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
+<p>相信不少人（至少我是）会以为这是类似英文那种动词变形，过去式等这类的。<br>
+然而后来我发现，这完全是误人子弟啊，日本中学（初中）根本就不用这种所谓的变形，也不是说不用，只是他们不会用这种规则去活用动词。</p>
+<p>事实上的动词活用分类：</p>
+<span id="more"></span>
+<ul>
+<li>五段活用</li>
+<li>上一段活用</li>
+<li>下一段活用</li>
+<li>サ変</li>
+<li>か変</li>
+</ul>
+<p>那么什么是五段活用呢：</p>
+<blockquote>
+<p>未然形（ア段）が意思・推量の語尾（あるいは助動詞）の「う」に接続する際にオ段となり、実質的に五つの段全部にわたって活用することとなったものである。<br>
+就是说，动词活用会使用全部五个段的音</p>
+</blockquote>
+<p>比如：</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">カ行五段活用「書く」の例</span><br><span class="line"><span class="code">    未然形-か、こ</span></span><br><span class="line"><span class="code">    連用形-き、い</span></span><br><span class="line"><span class="code">    終止形-く</span></span><br><span class="line"><span class="code">    連体形-く</span></span><br><span class="line"><span class="code">    仮定形-け</span></span><br><span class="line"><span class="code">    命令形-け</span></span><br><span class="line"><span class="code"></span></span><br><span class="line">动词活用时，子音的变化使用了 あ、い、う、え、お　五个段音。</span><br></pre></td></tr></table></figure>
+<p>没错，中学的教学视频都是要根据活用后的形式去反推是不是五段活用，而不是根据字典型的子音去反推是什么类型的动词。<br>
+而之前老师不让你记得“ます型”，其实是 <strong>连用形（指后面会接用言）</strong> ，恰巧这个连用形就可以用来判断是不是五段活用（当然其他活用后的形也可以进行反推），然后在根据是不是五段活用去变化其他形式。<br>
+而且连用型在句子中使用非常广泛，标准日本语默认是这种形式的动词不是没有道理的。<br>
+而  って 这种变形是音便，音便有自己的规则（有时也需要看是不是五段动词），和动词活用不一样。<br>
+也就是说，你不能只记一个字典型，还需要记至少一个活用后的形式，比如未然形的其中一种，会比较好记一点。<br>
+而是不是五段活用，可能是日本人觉得这个是五段活用，那他就五段活用吧，感觉很随意。（而一类，二类，三类，这种分类方式，更像是强行总结了一种方法方便外国人去学习日语。）</p>
+<h2 id="连浊">连浊</h2>
+<p>连浊这个我是真的一头雾水，也查了不少资料，大概的规则就是：</p>
+<ul>
+<li>和词（日本人自己创造的）或者很早就传到日本的外来语，日本人已经当作是自己的了，那么复合词就需要连浊。</li>
+<li>汉语（中国语）和外来语的复合词是不需要连浊的。</li>
+</ul>
+<p>感觉这个也很随意呀，感觉也是我觉得这个要连浊，那就要连浊，我觉得不需要那就不需要。</p>
+<h2 id="「は」-と-「が」">「は」　と　「が」</h2>
+<p>は，が 这两个我也是分不清，到底什么时候用は，什么时候该用が。<br>
+能查到的规则基本都是：</p>
+<ul>
+<li>は 强调后面的</li>
+<li>が 强调前面的</li>
+</ul>
+<p>看了不少相关的视频，发现日本的专门教日语的老师也说不清规则，但他们知道什么时候该用什么，如果用错了，他们会觉得哪里很奇怪，但是说不清规则。<br>
+感觉非常随意。。。。</p>
+]]></content>
+      <categories>
+        <category>日本語</category>
+      </categories>
+      <tags>
+        <tag>日本語</tag>
       </tags>
   </entry>
   <entry>
