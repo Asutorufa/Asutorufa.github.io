@@ -37,3 +37,6 @@ OpenSource Contribution History
 - [go-yamux #114](https://github.com/libp2p/go-yamux/pull/114)
 - [netlink #911](https://github.com/vishvananda/netlink/pull/911)
 - [tailscale #11555](https://github.com/tailscale/tailscale/pull/11555)
+- [microsoft/clr-samples #23](https://github.com/microsoft/clr-samples/pull/23)
+- [containers/buildah #5455](https://github.com/containers/buildah/pull/5455)
+
