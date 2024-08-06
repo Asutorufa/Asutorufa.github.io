@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>2021-03-20 01:25AM</title>
-    <url>/posts/d67c4794/</url>
-    <content><![CDATA[<p>2021-03-20 01:25AM<span id="more"></span><br>
-第一次出来实习, 住的房子是同事转租给我的, 本来说是去出差, 但是没过几天就辞职了, 走的时候帮我出了500块房租, 还留了不少东西, 我还白住了半个多月没出钱, 我可以说是相当幸运, 第一次出来找工作就有不少人照顾我.<br>
-刚过来的时候刚好有个学长在这边, 挺照顾我的, 帮了我不少, 还给了我一些东西.<br>
-因为一直在学校食堂吃饭, 没怎么关注过学校食堂以外的饭馆的价格, 看到外面饭店里菜的价格, 真的是难以接受, 都是15块起步, 吃饱至少得20多, 跟学校里不到10块就能吃饱相比真的是差的很多, 而且自己还要交房租, 一开始我真的很担心实习的工资可能会导致我连饭都吃不起.<br>
-所以刚开始我都是能省一点就省一点, 除了中午饭, 都是自己在做, 10块钱买的菜可以吃很久, 不过过了一段时间之后就没那么担心了, 可能是因为渐渐对周围熟悉起来了, 也不太担心钱不够花的问题了, 因为在大学就想着省钱, 平时也不买水果啥的, 到了大三,大四得了一些生活习惯病, 飞蚊症,鼻炎,耳鸣… 都是些没法治的病, 刚开始还去医院花了不少钱, 到最后还没治好, 所以现在都是尽量吃的健康, 水果再贵我也要买一些吃.<br>
-因为大学的时候有了耳鸣, 虽然耳鸣的声音不是很大, 但是我对声音真的很敏感, 一有点声音就会醒的那种, 之前还敢睡觉的时候戴戴耳机, 自从得了耳鸣之后耳机也不敢多戴了, 一直想买一个sony的XM3, 但是好不容易攒的钱, 总是会因为各种原因花掉, 比如因为考试要回学校买机票了(因为现在机票比高铁便宜很多,所以还是买机票了), 而且学校本来给找工作同学发的助学金也发给考研的人了, 可能这就是国情吧, 贫苦生永远拿不到助学金, 拿到助学金的人全去买一双两三千的鞋了, 这正常吗?<br>
-刚来的时候, 我对面最大那个房间住着一家三口, 小孩还很小, 有时候会哭, 不过一般不到5分钟就不哭了, 感觉还好没那么吵. 现在对面换成一对情侣了, 真的很吵, 一直说话, 半夜12点1点不睡覺还在大笑, 还好签的合同就剩两个月了, 自己也买了新的隔音耳塞, 只能先坚持坚持了, 合同到期我一定要换一个好一点的房子, 贵点也行, 只要隔音比较好.<br>
-楼上还有一个敲架子鼓的, 这是我没想到的, 居民楼里敲架子鼓, 小区周围的环境也很差, 每天都有装修的, 要不是初来乍到, 我一定不会选择这里的.<br>
-来到这边基本哪里都没去过, 一部分原因是没钱, 还有一部分原因是自己想干的事太多, 又想学日语, 又想维护自己写的开源项目, 还想看看关注的youtuber新出的视频, 周末对我来说完全不够用, 最近上班摸鱼都有在搞自己的开源项目, 虽然可能一个用的人都没有, 但是我还是想弄好一点, 至少自己用的舒服点.<br>
-公司的话还好, 虽然没有想象中那么好, 但是还能接受. 主要是管理比较乱, 没有代码规范, 有些代码也写的很有问题, 如果不再改改的, 我相信只会越来越影响效率, 不少地方代码写的很有问题, 整个项目的架构也不太对, 至少从我这个大学还没毕业的来看问题还是不少的. 我不太会说话, 有时候会惹人不高兴或是事后觉得自己说的不对, 对于技术相关的问题有时我真的很想反驳, 但现在都尽量忍住了, 不想让别人觉得我这个后辈很无礼. 有时确实没有共同话题, 比如我现在真的很讨厌bilibili, 对于我来说变味太严重, 但是反而是因为出圈太严重了, 用的人越来越多, 周围同事总是会说昨天我在bilibili上看了什么, 我也不好说什么, 因为我现在已经基本不用它了.<br>
-自己的话, 除了多了工作和做饭, 习惯基本没什么变化, 平时瞎搞搞电脑, 看看youtube,twitter, 在笔记本上记录一下最近新知道的日语单词, 写写代码.</p>
-]]></content>
-      <categories>
-        <category>日常</category>
-      </categories>
-  </entry>
-  <entry>
     <title>CIDR匹配 域名匹配</title>
     <url>/posts/3cb4313e/</url>
     <content><![CDATA[<p>所有完整实现代码:<a href="https://github.com/Asutorufa/yuhaiin/tree/master/net/match">match</a></p>
@@ -60,6 +41,25 @@
         <tag>CIDR</tag>
         <tag>golang</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>2021-03-20 01:25AM</title>
+    <url>/posts/d67c4794/</url>
+    <content><![CDATA[<p>2021-03-20 01:25AM<span id="more"></span><br>
+第一次出来实习, 住的房子是同事转租给我的, 本来说是去出差, 但是没过几天就辞职了, 走的时候帮我出了500块房租, 还留了不少东西, 我还白住了半个多月没出钱, 我可以说是相当幸运, 第一次出来找工作就有不少人照顾我.<br>
+刚过来的时候刚好有个学长在这边, 挺照顾我的, 帮了我不少, 还给了我一些东西.<br>
+因为一直在学校食堂吃饭, 没怎么关注过学校食堂以外的饭馆的价格, 看到外面饭店里菜的价格, 真的是难以接受, 都是15块起步, 吃饱至少得20多, 跟学校里不到10块就能吃饱相比真的是差的很多, 而且自己还要交房租, 一开始我真的很担心实习的工资可能会导致我连饭都吃不起.<br>
+所以刚开始我都是能省一点就省一点, 除了中午饭, 都是自己在做, 10块钱买的菜可以吃很久, 不过过了一段时间之后就没那么担心了, 可能是因为渐渐对周围熟悉起来了, 也不太担心钱不够花的问题了, 因为在大学就想着省钱, 平时也不买水果啥的, 到了大三,大四得了一些生活习惯病, 飞蚊症,鼻炎,耳鸣… 都是些没法治的病, 刚开始还去医院花了不少钱, 到最后还没治好, 所以现在都是尽量吃的健康, 水果再贵我也要买一些吃.<br>
+因为大学的时候有了耳鸣, 虽然耳鸣的声音不是很大, 但是我对声音真的很敏感, 一有点声音就会醒的那种, 之前还敢睡觉的时候戴戴耳机, 自从得了耳鸣之后耳机也不敢多戴了, 一直想买一个sony的XM3, 但是好不容易攒的钱, 总是会因为各种原因花掉, 比如因为考试要回学校买机票了(因为现在机票比高铁便宜很多,所以还是买机票了), 而且学校本来给找工作同学发的助学金也发给考研的人了, 可能这就是国情吧, 贫苦生永远拿不到助学金, 拿到助学金的人全去买一双两三千的鞋了, 这正常吗?<br>
+刚来的时候, 我对面最大那个房间住着一家三口, 小孩还很小, 有时候会哭, 不过一般不到5分钟就不哭了, 感觉还好没那么吵. 现在对面换成一对情侣了, 真的很吵, 一直说话, 半夜12点1点不睡覺还在大笑, 还好签的合同就剩两个月了, 自己也买了新的隔音耳塞, 只能先坚持坚持了, 合同到期我一定要换一个好一点的房子, 贵点也行, 只要隔音比较好.<br>
+楼上还有一个敲架子鼓的, 这是我没想到的, 居民楼里敲架子鼓, 小区周围的环境也很差, 每天都有装修的, 要不是初来乍到, 我一定不会选择这里的.<br>
+来到这边基本哪里都没去过, 一部分原因是没钱, 还有一部分原因是自己想干的事太多, 又想学日语, 又想维护自己写的开源项目, 还想看看关注的youtuber新出的视频, 周末对我来说完全不够用, 最近上班摸鱼都有在搞自己的开源项目, 虽然可能一个用的人都没有, 但是我还是想弄好一点, 至少自己用的舒服点.<br>
+公司的话还好, 虽然没有想象中那么好, 但是还能接受. 主要是管理比较乱, 没有代码规范, 有些代码也写的很有问题, 如果不再改改的, 我相信只会越来越影响效率, 不少地方代码写的很有问题, 整个项目的架构也不太对, 至少从我这个大学还没毕业的来看问题还是不少的. 我不太会说话, 有时候会惹人不高兴或是事后觉得自己说的不对, 对于技术相关的问题有时我真的很想反驳, 但现在都尽量忍住了, 不想让别人觉得我这个后辈很无礼. 有时确实没有共同话题, 比如我现在真的很讨厌bilibili, 对于我来说变味太严重, 但是反而是因为出圈太严重了, 用的人越来越多, 周围同事总是会说昨天我在bilibili上看了什么, 我也不好说什么, 因为我现在已经基本不用它了.<br>
+自己的话, 除了多了工作和做饭, 习惯基本没什么变化, 平时瞎搞搞电脑, 看看youtube,twitter, 在笔记本上记录一下最近新知道的日语单词, 写写代码.</p>
+]]></content>
+      <categories>
+        <category>日常</category>
+      </categories>
   </entry>
   <entry>
     <title>CRI 容器运行时接口</title>
@@ -915,6 +915,48 @@ need wait add the motherboard name to linux kernel code list <a href="https://gi
       </tags>
   </entry>
   <entry>
+    <title>c语言中格式化字符的应用</title>
+    <url>/posts/b6b4601/</url>
+    <content><![CDATA[<h2 id="格式化规定符">格式化规定符</h2>
+<p>符号 作用<br>
+%d 十进制有符号整数<br>
+%u 十进制无符号整数<br>
+%f 浮点数<br>
+%s 字符串<br>
+%c 单个字符<br>
+%p 指针的值<br>
+%e 指数形式的浮点数<br>
+%x, %X 无符号以十六进制表示的整数<span id="more"></span><br>
+%0 无符号以八进制表示的整数<br>
+%g 自动选择合适的表示法</p>
+<p>说明:<br>
+(1). 可以在&quot;%“和字母之间插进数字表示最大场宽。<br>
+例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>
+%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>
+另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>
+例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>
+如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>
+例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>
+(2). 可以在”%“和字母之间加小写字母l, 表示输出的是长型数。<br>
+例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>
+(3). 可以控制输出左对齐或右对齐, 即在”%“和字母之间加入一个”-&quot; 号可说明输出为左对齐, 否则为右对齐。<br>
+例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
+<h2 id="一些特殊规定字符">一些特殊规定字符</h2>
+<p>字符 作用<br>
+/n   换行<br>
+/f   清屏并换页<br>
+/r   回车<br>
+/t   Tab符<br>
+/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>archlinux安装记录</title>
     <url>/posts/e3707853/</url>
     <content><![CDATA[<p>详细安装教程请参考arch wiki <a href="https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">Installation guide (简体中文)</a>,此处只记录安装后遇到的问题.</p>
@@ -1174,48 +1216,6 @@ The process to change I/O scheduler, depending on whether the disk is rotating o
         <tag>archlinux</tag>
         <tag>efi</tag>
         <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言中格式化字符的应用</title>
-    <url>/posts/b6b4601/</url>
-    <content><![CDATA[<h2 id="格式化规定符">格式化规定符</h2>
-<p>符号 作用<br>
-%d 十进制有符号整数<br>
-%u 十进制无符号整数<br>
-%f 浮点数<br>
-%s 字符串<br>
-%c 单个字符<br>
-%p 指针的值<br>
-%e 指数形式的浮点数<br>
-%x, %X 无符号以十六进制表示的整数<span id="more"></span><br>
-%0 无符号以八进制表示的整数<br>
-%g 自动选择合适的表示法</p>
-<p>说明:<br>
-(1). 可以在&quot;%“和字母之间插进数字表示最大场宽。<br>
-例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>
-%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>
-另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>
-例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>
-如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>
-例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>
-(2). 可以在”%“和字母之间加小写字母l, 表示输出的是长型数。<br>
-例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>
-(3). 可以控制输出左对齐或右对齐, 即在”%“和字母之间加入一个”-&quot; 号可说明输出为左对齐, 否则为右对齐。<br>
-例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
-<h2 id="一些特殊规定字符">一些特殊规定字符</h2>
-<p>字符 作用<br>
-/n   换行<br>
-/f   清屏并换页<br>
-/r   回车<br>
-/t   Tab符<br>
-/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -1657,6 +1657,22 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </tags>
   </entry>
   <entry>
+    <title>python获取网页源码(爬虫?)</title>
+    <url>/posts/cee10602/</url>
+    <content><![CDATA[<p>利用requrst,使用首先要</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br></pre></td></tr></table></figure>
+<p>使用方法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">url = &#x27;要获取的网页地址&#x27;</span><br><span class="line">useragent = &#x27;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36&#x27;#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span><br><span class="line">requests.get(url,headers=&#123;&#x27;User-Agent&#x27;:useragent&#125;))</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>编程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python使用lxml分析网页</title>
     <url>/posts/77d15527/</url>
     <content><![CDATA[<p>首先得引入lxml</p>
@@ -1710,22 +1726,6 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
 <p>xpath</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">selector=etree.HTML(&#x27;你获取的网页源代码文件或变量&#x27;)</span><br><span class="line">css = selector.xpath(&#x27;要选择的内容&#x27;)</span><br><span class="line">#xpath可直接表示</span><br><span class="line">#xpath可选择并表示属性</span><br></pre></td></tr></table></figure>
 <p><em>xpath由于内容太多,可以直接参考官方文档</em></p>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python获取网页源码(爬虫?)</title>
-    <url>/posts/cee10602/</url>
-    <content><![CDATA[<p>利用requrst,使用首先要</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br></pre></td></tr></table></figure>
-<p>使用方法</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">url = &#x27;要获取的网页地址&#x27;</span><br><span class="line">useragent = &#x27;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36&#x27;#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span><br><span class="line">requests.get(url,headers=&#123;&#x27;User-Agent&#x27;:useragent&#125;))</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>python</category>
@@ -1796,29 +1796,6 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </tags>
   </entry>
   <entry>
-    <title>uefi and efi</title>
-    <url>/posts/a99a60b1/</url>
-    <content><![CDATA[<p>创建efi分区:</p>
-<p>创建efi分区要设置boot flag,而不是纯FAT32文件系统<br>
-使用gdisk</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gdisk /dev/sd**</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">这里要注意后面输入分区系统编号 要选择EFI分区,目前efi分区编号是 ef00</span></span><br></pre></td></tr></table></figure>
-<p>使用parted</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">parted /dev/sd**</span><br><span class="line">(parted) set 1 boot on</span><br></pre></td></tr></table></figure>
-<p>之后再格式化为fat32</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkfs.vfat -F 32 /dev/sd**</span><br></pre></td></tr></table></figure>
-<p>更新bios中的启动项应该在将启动文件安装到efi分区时还要向bios中的nvram存储器上写入相应的路径,在linux中可以使用efibootmgr完成相应的操作,当然如果你是安装grub,安装grub时会自动向nvram中写入内容,比如在bios更新后,会清除nvram中的内容,所有还要重新安装grub,或是使用efibootmgr写入引导文件路径.可参考<a href="https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface#efibootmgr">Unified_Extensible_Firmware_Interface#efibootmgr</a>,windows中也有相应的工具,具体操作方式可在网路上搜索.<br>
-如果是u盘的话,uefi 会查看所有 fat 分区，看看里面有没有 EFI/boot/bootx64.efi(目前还没有找到相应的文档表示是这个,这只是我个人的猜想,因为在我试过的无论是windows还是linux的iso镜像的efi文件都是这个地方) 引导文件,然后只要是 FAT32 文件系统就行,所以可以把 windows 或 ubuntu 的 iso 直接解压到一个 fat 分区（比如 fat 的 u 盘或移动硬盘）然后引导<br>
-<strong>有些UEFI系统只会识别 efi分区下的EFI/boot文件夹内的efi文件,有的甚至只会识别EFI/boot/bootx64.efi</strong></p>
-]]></content>
-      <categories>
-        <category>Computer</category>
-      </categories>
-      <tags>
-        <tag>efi</tag>
-        <tag>uefi</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>とある番組の記録</title>
     <url>/posts/fe7367b8/</url>
     <content><![CDATA[<p>最近わたくしはたくさん言葉知りました、記録したい、例えば：どこ見つかった、どうおもう。<br>
@@ -1850,6 +1827,29 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </categories>
       <tags>
         <tag>日本語</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>uefi and efi</title>
+    <url>/posts/a99a60b1/</url>
+    <content><![CDATA[<p>创建efi分区:</p>
+<p>创建efi分区要设置boot flag,而不是纯FAT32文件系统<br>
+使用gdisk</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gdisk /dev/sd**</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">这里要注意后面输入分区系统编号 要选择EFI分区,目前efi分区编号是 ef00</span></span><br></pre></td></tr></table></figure>
+<p>使用parted</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">parted /dev/sd**</span><br><span class="line">(parted) set 1 boot on</span><br></pre></td></tr></table></figure>
+<p>之后再格式化为fat32</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkfs.vfat -F 32 /dev/sd**</span><br></pre></td></tr></table></figure>
+<p>更新bios中的启动项应该在将启动文件安装到efi分区时还要向bios中的nvram存储器上写入相应的路径,在linux中可以使用efibootmgr完成相应的操作,当然如果你是安装grub,安装grub时会自动向nvram中写入内容,比如在bios更新后,会清除nvram中的内容,所有还要重新安装grub,或是使用efibootmgr写入引导文件路径.可参考<a href="https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface#efibootmgr">Unified_Extensible_Firmware_Interface#efibootmgr</a>,windows中也有相应的工具,具体操作方式可在网路上搜索.<br>
+如果是u盘的话,uefi 会查看所有 fat 分区，看看里面有没有 EFI/boot/bootx64.efi(目前还没有找到相应的文档表示是这个,这只是我个人的猜想,因为在我试过的无论是windows还是linux的iso镜像的efi文件都是这个地方) 引导文件,然后只要是 FAT32 文件系统就行,所以可以把 windows 或 ubuntu 的 iso 直接解压到一个 fat 分区（比如 fat 的 u 盘或移动硬盘）然后引导<br>
+<strong>有些UEFI系统只会识别 efi分区下的EFI/boot文件夹内的efi文件,有的甚至只会识别EFI/boot/bootx64.efi</strong></p>
+]]></content>
+      <categories>
+        <category>Computer</category>
+      </categories>
+      <tags>
+        <tag>efi</tag>
+        <tag>uefi</tag>
       </tags>
   </entry>
   <entry>
@@ -1954,6 +1954,30 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </categories>
   </entry>
   <entry>
+    <title>c语言利用char指针变量将int按字节打印地址</title>
+    <url>/posts/43cb2931/</url>
+    <content><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>
+而char的大小刚好为一个字节,是我们想要的东西.<br>
+这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>
+代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a=-65;</span><br><span class="line">char *b=(char *)&amp;a;</span><br><span class="line">printf(&quot;%p\n%p\n%p\n%p\n&quot;,a,a+1,a+2,a+3);</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a=-65;</span><br><span class="line">char *b=(char *)&amp;a;</span><br><span class="line">printf(&quot;%02x\n%02x\n%02x\n%02x\n&quot;,*(unsigned char*)a,*(unsigned char*)(a+1),*(unsigned char*)(a+2),*(unsigned char*)(a+3));</span><br></pre></td></tr></table></figure>
+<p>两者结合一下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a=-65;</span><br><span class="line">char *b=(char *)&amp;a;</span><br><span class="line">printf(&quot;%p %02x\n%p %02x\n%p %02x\n%p %02x\n&quot;,a,*(unsigned char*)a,a+1,*(unsigned char*)(a+1),a+2,*(unsigned char*)(a+2),a+3,*(unsigned char*)(a+3));</span><br></pre></td></tr></table></figure>
+<p>输出内容如图<br>
+<img src="http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png" alt="" loading="lazy"><br>
+<strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用GVT-g显卡虚拟化</title>
     <url>/posts/3a1d136/</url>
     <content><![CDATA[<h2 id="为内核添加参数">为内核添加参数</h2>
@@ -2002,30 +2026,6 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
         <tag>qemu</tag>
         <tag>GVT-g</tag>
         <tag>intel</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言利用char指针变量将int按字节打印地址</title>
-    <url>/posts/43cb2931/</url>
-    <content><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>
-而char的大小刚好为一个字节,是我们想要的东西.<br>
-这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>
-代码如下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a=-65;</span><br><span class="line">char *b=(char *)&amp;a;</span><br><span class="line">printf(&quot;%p\n%p\n%p\n%p\n&quot;,a,a+1,a+2,a+3);</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a=-65;</span><br><span class="line">char *b=(char *)&amp;a;</span><br><span class="line">printf(&quot;%02x\n%02x\n%02x\n%02x\n&quot;,*(unsigned char*)a,*(unsigned char*)(a+1),*(unsigned char*)(a+2),*(unsigned char*)(a+3));</span><br></pre></td></tr></table></figure>
-<p>两者结合一下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int a=-65;</span><br><span class="line">char *b=(char *)&amp;a;</span><br><span class="line">printf(&quot;%p %02x\n%p %02x\n%p %02x\n%p %02x\n&quot;,a,*(unsigned char*)a,a+1,*(unsigned char*)(a+1),a+2,*(unsigned char*)(a+2),a+3,*(unsigned char*)(a+3));</span><br></pre></td></tr></table></figure>
-<p>输出内容如图<br>
-<img src="http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png" alt="" loading="lazy"><br>
-<strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -2295,6 +2295,37 @@ Zygote进程运行时, 会初始化Dalvik虚拟机, 并运行它. Android的应�
       </tags>
   </entry>
   <entry>
+    <title>实现一个简单的Kubernetes controller</title>
+    <url>/posts/edf1c330/</url>
+    <content><![CDATA[<h2 id="controller是什么">controller是什么</h2>
+<p>简单来说，controller就是监听kubernetes的配置/状态变化，自动对资源进行调节。比如kubernetes内置的controller有Deployment、StatefulSet、DaemonSet。</p>
+<h2 id="实现controller">实现controller</h2>
+<p>这里我们实现一个简单的loadbalancer controller，使用kubernetes的client-go。</p>
+<p>先创建一个新的Serivce,并且指定Type为LoadBalancer。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-service</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/name:</span> <span class="string">MyApp</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">80</span></span><br><span class="line">  <span class="attr">clusterIP:</span> <span class="number">10.0</span><span class="number">.171</span><span class="number">.239</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">LoadBalancer</span></span><br></pre></td></tr></table></figure>
+<p>这时Service的状态还是pending,因为还没有controller为其分配IP地址。</p>
+<p>创建新的client</p>
+<span id="more"></span>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">config, err := rest.InClusterConfig()</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cli, err := kubernetes.NewForConfig(config)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建一个新的对Service状态变化的监听</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">wch, err := cli.CoreV1().Services(corev1.NamespaceAll).Watch(context.TODO(), metav1.ListOptions&#123;Watch: <span class="literal">true</span>&#125;)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">defer</span> wch.Stop()</span><br></pre></td></tr></table></figure>
+<p>如果是新建的Serivce,并且Type为LoadBalancer，则自动为其分配一个IP地址。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 端口分配范围</span></span><br><span class="line"><span class="keyword">var</span> portRange = atomic.Uint32&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    portRange.Store(<span class="number">30000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> &lt;-signChannel:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">case</span> obj, ok := &lt;-wch.ResultChan():</span><br><span class="line">            <span class="keyword">if</span> !ok &#123;</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            svc, ok := obj.Object.(*corev1.Service)</span><br><span class="line">            <span class="keyword">if</span> !ok &#123;</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">switch</span> obj.Type &#123;</span><br><span class="line">            <span class="keyword">case</span> watch.Added:</span><br><span class="line">                <span class="comment">// 判断是否是LoadBalancer</span></span><br><span class="line">                <span class="comment">// 生成环境中还应结合Annotations进行判断，防止误更改错误的Service.</span></span><br><span class="line">                <span class="keyword">if</span> svc.Spec.Type != corev1.ServiceTypeLoadBalancer &#123;</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 生成端口，并创建转发（只会打印，不会真正创建规则）</span></span><br><span class="line">                sport := portRange.Add(<span class="number">1</span>)</span><br><span class="line">                forward(svc, sport)</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 为service分配IP地址</span></span><br><span class="line">                svc.Status.LoadBalancer.Ingress = []corev1.LoadBalancerIngress&#123;</span><br><span class="line">                    &#123;</span><br><span class="line">                        IP: svc.Spec.ClusterIP,</span><br><span class="line">                        Ports: []corev1.PortStatus&#123;</span><br><span class="line">                            &#123;</span><br><span class="line">                                Port: <span class="type">int32</span>(sport),</span><br><span class="line">                            &#125;,</span><br><span class="line">                        &#125;,</span><br><span class="line">                    &#125;,</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 更新service</span></span><br><span class="line">                _, err := cli.</span><br><span class="line">                    CoreV1().</span><br><span class="line">                    Services(svc.Namespace).</span><br><span class="line">                    UpdateStatus(context.TODO(), svc, metav1.UpdateOptions&#123;&#125;)</span><br><span class="line">                <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                    slog.Error(err.Error())</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    slog.Info(<span class="string">&quot;service added&quot;</span>, svc.Name, svc.Namespace, svc.Spec.ClusterIP, svc.Spec.ClusterIPs)</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> watch.Modified:</span><br><span class="line">                slog.Info(<span class="string">&quot;service modified&quot;</span>, svc.Name, svc.Namespace, svc.Spec.ClusterIP, svc.Spec.ClusterIPs)</span><br><span class="line">            <span class="keyword">case</span> watch.Deleted:</span><br><span class="line">                slog.Info(<span class="string">&quot;service deleted&quot;</span>, svc.Name, svc.Namespace, svc.Spec.ClusterIP, svc.Spec.ClusterIPs)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 模拟实现iptables自动创建转发</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">forward</span><span class="params">(svc *corev1.Service, sport <span class="type">uint32</span>)</span></span> &#123;</span><br><span class="line">    ip, err := netip.ParseAddr(svc.Spec.ClusterIP)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="built_in">panic</span>(err)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> _, v := <span class="keyword">range</span> svc.Spec.Ports &#123;</span><br><span class="line">        <span class="keyword">var</span> ipt <span class="type">string</span></span><br><span class="line">        <span class="keyword">var</span> mask <span class="type">string</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> ip.Is4() &#123;</span><br><span class="line">            ipt = <span class="string">&quot;iptables&quot;</span></span><br><span class="line">            mask = <span class="string">&quot;32&quot;</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ipt = <span class="string">&quot;ip6tables&quot;</span></span><br><span class="line">            mask = <span class="string">&quot;128&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        fmt.Println(</span><br><span class="line">            ipt, <span class="string">&quot;-t&quot;</span>, <span class="string">&quot;filter&quot;</span>, <span class="string">&quot;-A&quot;</span>, <span class="string">&quot;FORWARD&quot;</span>,</span><br><span class="line">            <span class="string">&quot;-d&quot;</span>, svc.Spec.ClusterIP+<span class="string">&quot;/&quot;</span>+mask,</span><br><span class="line">            <span class="string">&quot;-p&quot;</span>, <span class="type">string</span>(v.Protocol),</span><br><span class="line">            <span class="string">&quot;--dport&quot;</span>, strconv.Itoa(<span class="type">int</span>(v.Port)),</span><br><span class="line">            <span class="string">&quot;-j&quot;</span>, <span class="string">&quot;DROP&quot;</span>,</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        fmt.Println(</span><br><span class="line">            ipt, <span class="string">&quot;-t&quot;</span>, <span class="string">&quot;nat&quot;</span>, <span class="string">&quot;-I&quot;</span>, <span class="string">&quot;PRETROUTING&quot;</span>, <span class="number">0</span>,</span><br><span class="line">            <span class="string">&quot;-p&quot;</span>, <span class="type">string</span>(v.Protocol),</span><br><span class="line">            <span class="string">&quot;--dport&quot;</span>, strconv.Itoa(<span class="type">int</span>(sport)),</span><br><span class="line">            <span class="string">&quot;-j&quot;</span>, <span class="string">&quot;DNAT&quot;</span>,</span><br><span class="line">            <span class="string">&quot;--to&quot;</span>, net.JoinHostPort(svc.Spec.ClusterIP, strconv.Itoa(<span class="type">int</span>(v.Port))),</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        fmt.Println(</span><br><span class="line">            ipt, <span class="string">&quot;-t&quot;</span>, <span class="string">&quot;nat&quot;</span>, <span class="string">&quot;-I&quot;</span>, <span class="string">&quot;POSTROUTING&quot;</span>,</span><br><span class="line">            <span class="string">&quot;-d&quot;</span>, svc.Spec.ClusterIP+<span class="string">&quot;/&quot;</span>+mask,</span><br><span class="line">            <span class="string">&quot;-p&quot;</span>, v.Protocol,</span><br><span class="line">            <span class="string">&quot;-j&quot;</span>, <span class="string">&quot;MASQUERADE&quot;</span>,</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行这个简单程序，再观察Serivce, 就会发现Serivice已经不再处于pending状态，并也为其分配了一个IP地址，虽然不能真正使用此地址进行访问，因为我们并没有创建真正的转发规则。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-service</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/name:</span> <span class="string">MyApp</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">80</span></span><br><span class="line">  <span class="attr">clusterIP:</span> <span class="number">10.0</span><span class="number">.171</span><span class="number">.239</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">LoadBalancer</span></span><br><span class="line"><span class="attr">status:</span></span><br><span class="line">  <span class="attr">loadBalancer:</span></span><br><span class="line">    <span class="attr">ingress:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ip:</span> <span class="number">10.0</span><span class="number">.171</span><span class="number">.239</span></span><br></pre></td></tr></table></figure>
+<p>k3s的<a href="https://github.com/k3s-io/klipper-lb">klipper-lb</a>是一个很简单loadbalancer实现，代码只是几行脚本。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">start_proxy</span></span>() &#123;</span><br><span class="line">    <span class="keyword">for</span> src_range <span class="keyword">in</span> <span class="variable">$&#123;SRC_RANGES//,/ &#125;</span>; <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">echo</span> <span class="variable">$&#123;src_range&#125;</span> | grep -Eq <span class="string">&quot;:&quot;</span>; <span class="keyword">then</span></span><br><span class="line">            ip6tables -t filter -I FORWARD -s <span class="variable">$&#123;src_range&#125;</span> -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;DEST_PORT&#125;</span> -j ACCEPT</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            iptables -t filter -I FORWARD -s <span class="variable">$&#123;src_range&#125;</span> -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;DEST_PORT&#125;</span> -j ACCEPT</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> dest_ip <span class="keyword">in</span> <span class="variable">$&#123;DEST_IPS//,/ &#125;</span>; <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">echo</span> <span class="variable">$&#123;dest_ip&#125;</span> | grep -Eq <span class="string">&quot;:&quot;</span>; <span class="keyword">then</span></span><br><span class="line">            [ $(<span class="built_in">cat</span> /proc/sys/net/ipv6/conf/all/forwarding) == 1 ] || <span class="built_in">exit</span> 1</span><br><span class="line">            ip6tables -t filter -A FORWARD -d <span class="variable">$&#123;dest_ip&#125;</span>/128 -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;DEST_PORT&#125;</span> -j DROP</span><br><span class="line">            ip6tables -t nat -I PREROUTING -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;SRC_PORT&#125;</span> -j DNAT --to [<span class="variable">$&#123;dest_ip&#125;</span>]:<span class="variable">$&#123;DEST_PORT&#125;</span></span><br><span class="line">            ip6tables -t nat -I POSTROUTING -d <span class="variable">$&#123;dest_ip&#125;</span>/128 -p <span class="variable">$&#123;DEST_PROTO&#125;</span> -j MASQUERADE</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            [ $(<span class="built_in">cat</span> /proc/sys/net/ipv4/ip_forward) == 1 ] || <span class="built_in">exit</span> 1</span><br><span class="line">            iptables -t filter -A FORWARD -d <span class="variable">$&#123;dest_ip&#125;</span>/32 -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;DEST_PORT&#125;</span> -j DROP</span><br><span class="line">            iptables -t nat -I PREROUTING -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;SRC_PORT&#125;</span> -j DNAT --to <span class="variable">$&#123;dest_ip&#125;</span>:<span class="variable">$&#123;DEST_PORT&#125;</span></span><br><span class="line">            iptables -t nat -I POSTROUTING -d <span class="variable">$&#123;dest_ip&#125;</span>/32 -p <span class="variable">$&#123;DEST_PROTO&#125;</span> -j MASQUERADE</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>Kubernetes</tag>
+        <tag>CRI</tag>
+        <tag>container</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>常用等价无穷小的一般形式</title>
     <url>/posts/10bb899d/</url>
     <content><![CDATA[<p>当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>lim</mi><mo>⁡</mo></mrow><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>→</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\lim_{φ(x)\to0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0496em;vertical-align:-0.3552em;"></span><span class="mop"><span class="mop">lim</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span><span class="mrel mtight">→</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3552em;"><span></span></span></span></span></span></span></span></span></span>时,<br>
@@ -2324,37 +2355,6 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </categories>
       <tags>
         <tag>Math</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>实现一个简单的Kubernetes controller</title>
-    <url>/posts/edf1c330/</url>
-    <content><![CDATA[<h2 id="controller是什么">controller是什么</h2>
-<p>简单来说，controller就是监听kubernetes的配置/状态变化，自动对资源进行调节。比如kubernetes内置的controller有Deployment、StatefulSet、DaemonSet。</p>
-<h2 id="实现controller">实现controller</h2>
-<p>这里我们实现一个简单的loadbalancer controller，使用kubernetes的client-go。</p>
-<p>先创建一个新的Serivce,并且指定Type为LoadBalancer。</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-service</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/name:</span> <span class="string">MyApp</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">80</span></span><br><span class="line">  <span class="attr">clusterIP:</span> <span class="number">10.0</span><span class="number">.171</span><span class="number">.239</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">LoadBalancer</span></span><br></pre></td></tr></table></figure>
-<p>这时Service的状态还是pending,因为还没有controller为其分配IP地址。</p>
-<p>创建新的client</p>
-<span id="more"></span>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">config, err := rest.InClusterConfig()</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cli, err := kubernetes.NewForConfig(config)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>创建一个新的对Service状态变化的监听</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">wch, err := cli.CoreV1().Services(corev1.NamespaceAll).Watch(context.TODO(), metav1.ListOptions&#123;Watch: <span class="literal">true</span>&#125;)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">defer</span> wch.Stop()</span><br></pre></td></tr></table></figure>
-<p>如果是新建的Serivce,并且Type为LoadBalancer，则自动为其分配一个IP地址。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 端口分配范围</span></span><br><span class="line"><span class="keyword">var</span> portRange = atomic.Uint32&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    portRange.Store(<span class="number">30000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> &lt;-signChannel:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">case</span> obj, ok := &lt;-wch.ResultChan():</span><br><span class="line">            <span class="keyword">if</span> !ok &#123;</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            svc, ok := obj.Object.(*corev1.Service)</span><br><span class="line">            <span class="keyword">if</span> !ok &#123;</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">switch</span> obj.Type &#123;</span><br><span class="line">            <span class="keyword">case</span> watch.Added:</span><br><span class="line">                <span class="comment">// 判断是否是LoadBalancer</span></span><br><span class="line">                <span class="comment">// 生成环境中还应结合Annotations进行判断，防止误更改错误的Service.</span></span><br><span class="line">                <span class="keyword">if</span> svc.Spec.Type != corev1.ServiceTypeLoadBalancer &#123;</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 生成端口，并创建转发（只会打印，不会真正创建规则）</span></span><br><span class="line">                sport := portRange.Add(<span class="number">1</span>)</span><br><span class="line">                forward(svc, sport)</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 为service分配IP地址</span></span><br><span class="line">                svc.Status.LoadBalancer.Ingress = []corev1.LoadBalancerIngress&#123;</span><br><span class="line">                    &#123;</span><br><span class="line">                        IP: svc.Spec.ClusterIP,</span><br><span class="line">                        Ports: []corev1.PortStatus&#123;</span><br><span class="line">                            &#123;</span><br><span class="line">                                Port: <span class="type">int32</span>(sport),</span><br><span class="line">                            &#125;,</span><br><span class="line">                        &#125;,</span><br><span class="line">                    &#125;,</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 更新service</span></span><br><span class="line">                _, err := cli.</span><br><span class="line">                    CoreV1().</span><br><span class="line">                    Services(svc.Namespace).</span><br><span class="line">                    UpdateStatus(context.TODO(), svc, metav1.UpdateOptions&#123;&#125;)</span><br><span class="line">                <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                    slog.Error(err.Error())</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    slog.Info(<span class="string">&quot;service added&quot;</span>, svc.Name, svc.Namespace, svc.Spec.ClusterIP, svc.Spec.ClusterIPs)</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> watch.Modified:</span><br><span class="line">                slog.Info(<span class="string">&quot;service modified&quot;</span>, svc.Name, svc.Namespace, svc.Spec.ClusterIP, svc.Spec.ClusterIPs)</span><br><span class="line">            <span class="keyword">case</span> watch.Deleted:</span><br><span class="line">                slog.Info(<span class="string">&quot;service deleted&quot;</span>, svc.Name, svc.Namespace, svc.Spec.ClusterIP, svc.Spec.ClusterIPs)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 模拟实现iptables自动创建转发</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">forward</span><span class="params">(svc *corev1.Service, sport <span class="type">uint32</span>)</span></span> &#123;</span><br><span class="line">    ip, err := netip.ParseAddr(svc.Spec.ClusterIP)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="built_in">panic</span>(err)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> _, v := <span class="keyword">range</span> svc.Spec.Ports &#123;</span><br><span class="line">        <span class="keyword">var</span> ipt <span class="type">string</span></span><br><span class="line">        <span class="keyword">var</span> mask <span class="type">string</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> ip.Is4() &#123;</span><br><span class="line">            ipt = <span class="string">&quot;iptables&quot;</span></span><br><span class="line">            mask = <span class="string">&quot;32&quot;</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ipt = <span class="string">&quot;ip6tables&quot;</span></span><br><span class="line">            mask = <span class="string">&quot;128&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        fmt.Println(</span><br><span class="line">            ipt, <span class="string">&quot;-t&quot;</span>, <span class="string">&quot;filter&quot;</span>, <span class="string">&quot;-A&quot;</span>, <span class="string">&quot;FORWARD&quot;</span>,</span><br><span class="line">            <span class="string">&quot;-d&quot;</span>, svc.Spec.ClusterIP+<span class="string">&quot;/&quot;</span>+mask,</span><br><span class="line">            <span class="string">&quot;-p&quot;</span>, <span class="type">string</span>(v.Protocol),</span><br><span class="line">            <span class="string">&quot;--dport&quot;</span>, strconv.Itoa(<span class="type">int</span>(v.Port)),</span><br><span class="line">            <span class="string">&quot;-j&quot;</span>, <span class="string">&quot;DROP&quot;</span>,</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        fmt.Println(</span><br><span class="line">            ipt, <span class="string">&quot;-t&quot;</span>, <span class="string">&quot;nat&quot;</span>, <span class="string">&quot;-I&quot;</span>, <span class="string">&quot;PRETROUTING&quot;</span>, <span class="number">0</span>,</span><br><span class="line">            <span class="string">&quot;-p&quot;</span>, <span class="type">string</span>(v.Protocol),</span><br><span class="line">            <span class="string">&quot;--dport&quot;</span>, strconv.Itoa(<span class="type">int</span>(sport)),</span><br><span class="line">            <span class="string">&quot;-j&quot;</span>, <span class="string">&quot;DNAT&quot;</span>,</span><br><span class="line">            <span class="string">&quot;--to&quot;</span>, net.JoinHostPort(svc.Spec.ClusterIP, strconv.Itoa(<span class="type">int</span>(v.Port))),</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        fmt.Println(</span><br><span class="line">            ipt, <span class="string">&quot;-t&quot;</span>, <span class="string">&quot;nat&quot;</span>, <span class="string">&quot;-I&quot;</span>, <span class="string">&quot;POSTROUTING&quot;</span>,</span><br><span class="line">            <span class="string">&quot;-d&quot;</span>, svc.Spec.ClusterIP+<span class="string">&quot;/&quot;</span>+mask,</span><br><span class="line">            <span class="string">&quot;-p&quot;</span>, v.Protocol,</span><br><span class="line">            <span class="string">&quot;-j&quot;</span>, <span class="string">&quot;MASQUERADE&quot;</span>,</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行这个简单程序，再观察Serivce, 就会发现Serivice已经不再处于pending状态，并也为其分配了一个IP地址，虽然不能真正使用此地址进行访问，因为我们并没有创建真正的转发规则。</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-service</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/name:</span> <span class="string">MyApp</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">80</span></span><br><span class="line">  <span class="attr">clusterIP:</span> <span class="number">10.0</span><span class="number">.171</span><span class="number">.239</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">LoadBalancer</span></span><br><span class="line"><span class="attr">status:</span></span><br><span class="line">  <span class="attr">loadBalancer:</span></span><br><span class="line">    <span class="attr">ingress:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ip:</span> <span class="number">10.0</span><span class="number">.171</span><span class="number">.239</span></span><br></pre></td></tr></table></figure>
-<p>k3s的<a href="https://github.com/k3s-io/klipper-lb">klipper-lb</a>是一个很简单loadbalancer实现，代码只是几行脚本。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">start_proxy</span></span>() &#123;</span><br><span class="line">    <span class="keyword">for</span> src_range <span class="keyword">in</span> <span class="variable">$&#123;SRC_RANGES//,/ &#125;</span>; <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">echo</span> <span class="variable">$&#123;src_range&#125;</span> | grep -Eq <span class="string">&quot;:&quot;</span>; <span class="keyword">then</span></span><br><span class="line">            ip6tables -t filter -I FORWARD -s <span class="variable">$&#123;src_range&#125;</span> -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;DEST_PORT&#125;</span> -j ACCEPT</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            iptables -t filter -I FORWARD -s <span class="variable">$&#123;src_range&#125;</span> -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;DEST_PORT&#125;</span> -j ACCEPT</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> dest_ip <span class="keyword">in</span> <span class="variable">$&#123;DEST_IPS//,/ &#125;</span>; <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">echo</span> <span class="variable">$&#123;dest_ip&#125;</span> | grep -Eq <span class="string">&quot;:&quot;</span>; <span class="keyword">then</span></span><br><span class="line">            [ $(<span class="built_in">cat</span> /proc/sys/net/ipv6/conf/all/forwarding) == 1 ] || <span class="built_in">exit</span> 1</span><br><span class="line">            ip6tables -t filter -A FORWARD -d <span class="variable">$&#123;dest_ip&#125;</span>/128 -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;DEST_PORT&#125;</span> -j DROP</span><br><span class="line">            ip6tables -t nat -I PREROUTING -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;SRC_PORT&#125;</span> -j DNAT --to [<span class="variable">$&#123;dest_ip&#125;</span>]:<span class="variable">$&#123;DEST_PORT&#125;</span></span><br><span class="line">            ip6tables -t nat -I POSTROUTING -d <span class="variable">$&#123;dest_ip&#125;</span>/128 -p <span class="variable">$&#123;DEST_PROTO&#125;</span> -j MASQUERADE</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            [ $(<span class="built_in">cat</span> /proc/sys/net/ipv4/ip_forward) == 1 ] || <span class="built_in">exit</span> 1</span><br><span class="line">            iptables -t filter -A FORWARD -d <span class="variable">$&#123;dest_ip&#125;</span>/32 -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;DEST_PORT&#125;</span> -j DROP</span><br><span class="line">            iptables -t nat -I PREROUTING -p <span class="variable">$&#123;DEST_PROTO&#125;</span> --dport <span class="variable">$&#123;SRC_PORT&#125;</span> -j DNAT --to <span class="variable">$&#123;dest_ip&#125;</span>:<span class="variable">$&#123;DEST_PORT&#125;</span></span><br><span class="line">            iptables -t nat -I POSTROUTING -d <span class="variable">$&#123;dest_ip&#125;</span>/32 -p <span class="variable">$&#123;DEST_PROTO&#125;</span> -j MASQUERADE</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>Kubernetes</tag>
-        <tag>CRI</tag>
-        <tag>container</tag>
       </tags>
   </entry>
   <entry>
