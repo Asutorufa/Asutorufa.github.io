@@ -5,8 +5,6 @@ type: about
 language: ja
 ---
 
-面倒くさいだから、何も書きないです。  
-
 - [__Email__](/email/)
 - [__Github__](https://github.com/Asutorufa)
 
@@ -39,4 +37,4 @@ OpenSource Contribution History
 - [tailscale #11555](https://github.com/tailscale/tailscale/pull/11555)
 - [microsoft/clr-samples #23](https://github.com/microsoft/clr-samples/pull/23)
 - [containers/buildah #5455](https://github.com/containers/buildah/pull/5455)
-
+- [google/nftables #271](https://github.com/google/nftables/pull/271)
