@@ -461,50 +461,6 @@ signcerts &lt;- 节点/用户证书</p>
       </tags>
   </entry>
   <entry>
-    <title>NAT类型</title>
-    <url>/posts/14e0ef9e/</url>
-    <content><![CDATA[<h2 id="NAT-Mapping">NAT Mapping</h2>
-<p>描述NAT在映射网络内主机地址的行为</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">computer(192.168.100.2:30086) -&gt; NAT -&gt; 1.1.1.1:2345</span><br></pre></td></tr></table></figure>
-<p>Endpoint-Independent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向不同地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086</span><br><span class="line"></span><br><span class="line">此时主机向 1.0.0.1:53 发送udp包,</span><br><span class="line"><span class="code">             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包</span></span><br><span class="line"><span class="code">主机又向   1.0.0.1:63 发送udp包,</span></span><br><span class="line"><span class="code">             NAT也使用 1.1.1.1:2345 向 1.0.0.1:63 发包</span></span><br><span class="line"><span class="code">主机又向   8.8.8.8:53 发送udp包,</span></span><br><span class="line"><span class="code">             NAT也使用 1.1.1.1:2345 向 8.8.8.8:53 发包</span></span><br><span class="line"><span class="code"></span></span><br><span class="line">这种无论目标地址和端口是什么都使用同一地址进行发包的NAT行为就是 Endpoint-Independent Mapping,</span><br><span class="line">跟没有NAT一样</span><br></pre></td></tr></table></figure>
-<p>Address-Dependent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向同一地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086</span><br><span class="line"></span><br><span class="line">此时主机向 1.0.0.1:53 发送udp包,</span><br><span class="line"><span class="code">             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包</span></span><br><span class="line"><span class="code">主机又向   1.0.0.1:63 发送udp包,</span></span><br><span class="line"><span class="code">             NAT也将使用 1.1.1.1:2345 向 1.0.0.1:63 发包</span></span><br><span class="line"><span class="code">主机又向   8.8.8.8:53 发送udp包,</span></span><br><span class="line"><span class="code">             此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包</span></span><br><span class="line"><span class="code"></span></span><br><span class="line">这种依赖目标地址但不依赖端口的NAT映射行为就是 Address-Dependent Mapping</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<p>Address and Port-Dependent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向同一地址和同一端口发包时, NAT使用同一映射地址向外发包</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086</span><br><span class="line"></span><br><span class="line">此时主机向 1.0.0.1:53 发送udp包, </span><br><span class="line"><span class="code">            NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包</span></span><br><span class="line"><span class="code">主机又向   1.0.0.1:63 发送udp包,</span></span><br><span class="line"><span class="code">            NAT将使用一新映射地址 1.1.1.1:3789 向 1.0.0.1:63 发包</span></span><br><span class="line"><span class="code">主机又向   8.8.8.8:53 发送udp包,</span></span><br><span class="line"><span class="code">           此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包</span></span><br><span class="line"><span class="code">主机又向 1.0.0.1:53 发送udp包,</span></span><br><span class="line"><span class="code">            NAT使用相同地址 1.1.1.1:2345 向 1.0.0.1:53 发包</span></span><br><span class="line"><span class="code"></span></span><br><span class="line">这种同时依赖目标地址和端口的NAT映射行为就是 Address and Port-Dependent Mapping,</span><br><span class="line">这种NAT类型是没有办法进行NAT穿透的</span><br></pre></td></tr></table></figure>
-<h2 id="NAT-Filtering">NAT Filtering</h2>
-<p>描述当NAT为网络内主机映射一地址后，互联网内主机向映射地址发送数据时，将允许哪些地址通过的行为</p>
-<p>Endpoint-Independent Filtering</p>
-<p>A NAT device employing the combination of “Endpoint-Independent<br>
-Mapping” and “Endpoint-Independent Filtering” will accept incoming<br>
-traffic to a mapped public port from ANY external endpoint on the<br>
-public network.</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345</span><br><span class="line"></span><br><span class="line">无论外部任何地址和端口的主机向1.1.1.1:2345发包, NAT都将会将其转发到 192.168.100.2:30086</span><br></pre></td></tr></table></figure>
-<p>Address-Dependent Filtering<br>
-for receiving packets from a specific external endpoint, it is necessary for the internal endpoint to<br>
-send packets first to that specific external endpoint’s IP address.</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345</span><br><span class="line"></span><br><span class="line">如果需要NAT将外部数据包转发到主机上,</span><br><span class="line">必须先由主机向某一地址发包, </span><br><span class="line">NAT都会将收到的同一地址(所有端口)的数据包转发到主机上</span><br></pre></td></tr></table></figure>
-<p>Address and Port-Dependent Filtering</p>
-<p>for receiving  packets from a specific external endpoint, it is necessary for<br>
-the internal endpoint to send packets first to that external endpoint’s IP address and port.</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345</span><br><span class="line"></span><br><span class="line">如果需要NAT将外部数据包转发到主机上</span><br><span class="line">必须先由主机向某一地址和某一端口发包</span><br><span class="line">NAT都会将收到的同一地址和同一端口的数据包转发到主机上</span><br><span class="line"></span><br><span class="line">这种NAT类型是没发进行NAT穿透的</span><br></pre></td></tr></table></figure>
-<h2 id="NAT穿透">NAT穿透</h2>
-<p>是否可以进行NAT穿透, 同时依赖NAT Mapping和NAT Filtering</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">Mapping和Filtering都为Endpoint-Independent Mapping,</span><br><span class="line"><span class="code">         这种是百分之百可以进行穿透</span></span><br><span class="line"><span class="code">Mapping为Endpoint-Independent Mapping, Filtering为Address and Port-Dependent Filtering,</span></span><br><span class="line"><span class="code">         这种也是可以进行穿透的</span></span><br><span class="line"><span class="code">但如果Mapping和Filtering都为Address and Port-Dependent Filtering,</span></span><br><span class="line"><span class="code">         这种是必不可能穿透</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>UDP</tag>
-        <tag>NAT</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>NAT穿透</title>
     <url>/posts/1124a628/</url>
     <content><![CDATA[<h2 id="NAT-网络地址转换">NAT 网络地址转换</h2>
@@ -576,6 +532,92 @@ TURN是一个client-server协议。TURN的NAT穿透方法与STUN类似，都是�
       <tags>
         <tag>UDP</tag>
         <tag>NAT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NAT类型</title>
+    <url>/posts/14e0ef9e/</url>
+    <content><![CDATA[<h2 id="NAT-Mapping">NAT Mapping</h2>
+<p>描述NAT在映射网络内主机地址的行为</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">computer(192.168.100.2:30086) -&gt; NAT -&gt; 1.1.1.1:2345</span><br></pre></td></tr></table></figure>
+<p>Endpoint-Independent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向不同地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086</span><br><span class="line"></span><br><span class="line">此时主机向 1.0.0.1:53 发送udp包,</span><br><span class="line"><span class="code">             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包</span></span><br><span class="line"><span class="code">主机又向   1.0.0.1:63 发送udp包,</span></span><br><span class="line"><span class="code">             NAT也使用 1.1.1.1:2345 向 1.0.0.1:63 发包</span></span><br><span class="line"><span class="code">主机又向   8.8.8.8:53 发送udp包,</span></span><br><span class="line"><span class="code">             NAT也使用 1.1.1.1:2345 向 8.8.8.8:53 发包</span></span><br><span class="line"><span class="code"></span></span><br><span class="line">这种无论目标地址和端口是什么都使用同一地址进行发包的NAT行为就是 Endpoint-Independent Mapping,</span><br><span class="line">跟没有NAT一样</span><br></pre></td></tr></table></figure>
+<p>Address-Dependent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向同一地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086</span><br><span class="line"></span><br><span class="line">此时主机向 1.0.0.1:53 发送udp包,</span><br><span class="line"><span class="code">             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包</span></span><br><span class="line"><span class="code">主机又向   1.0.0.1:63 发送udp包,</span></span><br><span class="line"><span class="code">             NAT也将使用 1.1.1.1:2345 向 1.0.0.1:63 发包</span></span><br><span class="line"><span class="code">主机又向   8.8.8.8:53 发送udp包,</span></span><br><span class="line"><span class="code">             此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包</span></span><br><span class="line"><span class="code"></span></span><br><span class="line">这种依赖目标地址但不依赖端口的NAT映射行为就是 Address-Dependent Mapping</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>Address and Port-Dependent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向同一地址和同一端口发包时, NAT使用同一映射地址向外发包</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086</span><br><span class="line"></span><br><span class="line">此时主机向 1.0.0.1:53 发送udp包, </span><br><span class="line"><span class="code">            NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包</span></span><br><span class="line"><span class="code">主机又向   1.0.0.1:63 发送udp包,</span></span><br><span class="line"><span class="code">            NAT将使用一新映射地址 1.1.1.1:3789 向 1.0.0.1:63 发包</span></span><br><span class="line"><span class="code">主机又向   8.8.8.8:53 发送udp包,</span></span><br><span class="line"><span class="code">           此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包</span></span><br><span class="line"><span class="code">主机又向 1.0.0.1:53 发送udp包,</span></span><br><span class="line"><span class="code">            NAT使用相同地址 1.1.1.1:2345 向 1.0.0.1:53 发包</span></span><br><span class="line"><span class="code"></span></span><br><span class="line">这种同时依赖目标地址和端口的NAT映射行为就是 Address and Port-Dependent Mapping,</span><br><span class="line">这种NAT类型是没有办法进行NAT穿透的</span><br></pre></td></tr></table></figure>
+<h2 id="NAT-Filtering">NAT Filtering</h2>
+<p>描述当NAT为网络内主机映射一地址后，互联网内主机向映射地址发送数据时，将允许哪些地址通过的行为</p>
+<p>Endpoint-Independent Filtering</p>
+<p>A NAT device employing the combination of “Endpoint-Independent<br>
+Mapping” and “Endpoint-Independent Filtering” will accept incoming<br>
+traffic to a mapped public port from ANY external endpoint on the<br>
+public network.</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345</span><br><span class="line"></span><br><span class="line">无论外部任何地址和端口的主机向1.1.1.1:2345发包, NAT都将会将其转发到 192.168.100.2:30086</span><br></pre></td></tr></table></figure>
+<p>Address-Dependent Filtering<br>
+for receiving packets from a specific external endpoint, it is necessary for the internal endpoint to<br>
+send packets first to that specific external endpoint’s IP address.</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345</span><br><span class="line"></span><br><span class="line">如果需要NAT将外部数据包转发到主机上,</span><br><span class="line">必须先由主机向某一地址发包, </span><br><span class="line">NAT都会将收到的同一地址(所有端口)的数据包转发到主机上</span><br></pre></td></tr></table></figure>
+<p>Address and Port-Dependent Filtering</p>
+<p>for receiving  packets from a specific external endpoint, it is necessary for<br>
+the internal endpoint to send packets first to that external endpoint’s IP address and port.</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345</span><br><span class="line"></span><br><span class="line">如果需要NAT将外部数据包转发到主机上</span><br><span class="line">必须先由主机向某一地址和某一端口发包</span><br><span class="line">NAT都会将收到的同一地址和同一端口的数据包转发到主机上</span><br><span class="line"></span><br><span class="line">这种NAT类型是没发进行NAT穿透的</span><br></pre></td></tr></table></figure>
+<h2 id="NAT穿透">NAT穿透</h2>
+<p>是否可以进行NAT穿透, 同时依赖NAT Mapping和NAT Filtering</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">Mapping和Filtering都为Endpoint-Independent Mapping,</span><br><span class="line"><span class="code">         这种是百分之百可以进行穿透</span></span><br><span class="line"><span class="code">Mapping为Endpoint-Independent Mapping, Filtering为Address and Port-Dependent Filtering,</span></span><br><span class="line"><span class="code">         这种也是可以进行穿透的</span></span><br><span class="line"><span class="code">但如果Mapping和Filtering都为Address and Port-Dependent Filtering,</span></span><br><span class="line"><span class="code">         这种是必不可能穿透</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>UDP</tag>
+        <tag>NAT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OpenCV瞳孔定位</title>
+    <url>/posts/88967b7c/</url>
+    <content><![CDATA[<h2 id="利用OpenCV自带的分类器识别面部及眼睛">利用OpenCV自带的分类器识别面部及眼睛</h2>
+<p>OpenCV自带里许多分类器,可在<a href="https://github.com/opencv/opencv/tree/master/data/haarcascades">haarcascades</a>下载</p>
+<h3 id="获取面部">获取面部</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获取面部</span></span><br><span class="line"><span class="comment">// image 为输入的OpenCV的格式的图像</span></span><br><span class="line"><span class="comment">// out 为输出图像 &lt;- 此处输出图像为裁剪下来的矩形面部图像</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">get_face</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 将图像转为灰度图像,可提高识别精度</span></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    cv::<span class="built_in">cvtColor</span>(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 此处的rect为用来存储识别出的面部的定位 &lt;- 这里为vector是因为识别的面部可能不止为一个</span></span><br><span class="line">    std::vector&lt;cv::Rect&gt; rect;</span><br><span class="line">    <span class="comment">// 初始化OpenCV的分类器</span></span><br><span class="line">    cv::CascadeClassifier cas = cv::<span class="built_in">CascadeClassifier</span>(<span class="string">&quot;haarcascade_frontalface_default.xml&quot;</span>);</span><br><span class="line">    cas.<span class="built_in">detectMultiScale</span>(gray, rect, <span class="number">1.15</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="comment">// 判断rect是否为空,为空的话就是没有被识别的面部</span></span><br><span class="line">    <span class="keyword">if</span> (rect.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 输出图像,这里的rect可能不止为一个(因为可能不止一张脸),所以实际中应该使用for循环</span></span><br><span class="line">    <span class="comment">// 我这里用rect[0]为了简化</span></span><br><span class="line">    out = <span class="built_in">image</span>(rect[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h3 id="获取眼睛">获取眼睛</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这里与上面相同(这里我只识别左眼,OpenCV还提供了其他文件可获取右眼和双眼)</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">get_left_eye</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 之后与面部相同</span></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    cv::<span class="built_in">cvtColor</span>(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    std::vector&lt;cv::Rect&gt; rect;</span><br><span class="line">    cv::CascadeClassifier cas = cv::<span class="built_in">CascadeClassifier</span>(<span class="string">&quot;xml/haarcascade_lefteye_2splits.xml&quot;</span>);</span><br><span class="line">    cas.<span class="built_in">detectMultiScale</span>(gray, rect, <span class="number">1.15</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="keyword">if</span> (rect.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    out = <span class="built_in">image</span>(rect[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="瞳孔定位">瞳孔定位</h2>
+<ul>
+<li>获取的眼睛图像</li>
+<li>裁剪去除眉毛</li>
+<li>伽马矫正提高图像对比度</li>
+<li>转化为灰度图像</li>
+<li>利用threshold进行阈值操作(此处可能会改为inRange,目前还在测试)</li>
+<li>腐蚀</li>
+<li>膨胀</li>
+<li>medianBlur平滑图像</li>
+<li>检测关键点并画在图像上</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定位眼球 -&gt; 检测关键点</span></span><br><span class="line"><span class="function">std::vector&lt;cv::KeyPoint&gt; <span class="title">dector</span><span class="params">(cv::Mat image)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cv::SimpleBlobDetector::Params detector_params;</span><br><span class="line">    detector_params.filterByArea = <span class="literal">true</span>;</span><br><span class="line">    detector_params.maxArea = <span class="number">1500</span>;</span><br><span class="line">    cv::Ptr&lt;cv::SimpleBlobDetector&gt; blob_dector = cv::SimpleBlobDetector::<span class="built_in">create</span>(detector_params);</span><br><span class="line">    std::vector&lt;cv::KeyPoint&gt; keypoints;</span><br><span class="line">    blob_dector-&gt;<span class="built_in">detect</span>(image, keypoints);</span><br><span class="line">    <span class="keyword">return</span> keypoints;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">get_pupil</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// width -&gt; image.rows ;</span></span><br><span class="line">    <span class="comment">// height -&gt; image.cols;</span></span><br><span class="line">    <span class="comment">// cut eyebrow 裁剪 去除眉毛</span></span><br><span class="line">    image = <span class="built_in">image</span>(cv::<span class="built_in">Rect</span>(image.cols / <span class="number">10</span>, image.rows / <span class="number">2.5</span>, image.cols * <span class="number">8</span> / <span class="number">10</span>, image.rows / <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Gamma correction/gamma nonlinearity 伽马校正 -&gt; https://www.cnblogs.com/sdu20112013/p/11597171.html</span></span><br><span class="line">    <span class="function">cv::Mat <span class="title">look_up_table</span><span class="params">(<span class="number">1</span>, <span class="number">256</span>, CV_8U)</span></span>;</span><br><span class="line">    uchar *p = look_up_table.<span class="built_in">ptr</span>();</span><br><span class="line">    <span class="type">float</span> gamma = <span class="number">0.7</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; ++i)</span><br><span class="line">        p[i] = cv::<span class="built_in">saturate_cast</span>&lt;uchar&gt;(<span class="built_in">pow</span>(i / <span class="number">255.0</span>, gamma) * <span class="number">255.0</span>);</span><br><span class="line">    cv::<span class="built_in">LUT</span>(image, look_up_table, image);</span><br><span class="line"></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    <span class="comment">// 转化为灰度图像</span></span><br><span class="line">    cv::<span class="built_in">cvtColor</span>(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 阈值操作</span></span><br><span class="line">    cv::<span class="built_in">threshold</span>(gray, gray, inRange_threshold, <span class="number">255</span>, CV_THRESH_BINARY);</span><br><span class="line">    <span class="comment">//膨胀及腐蚀</span></span><br><span class="line">    cv::<span class="built_in">erode</span>(gray, gray, cv::<span class="built_in">Mat</span>(), cv::<span class="built_in">Point</span>(<span class="number">-1</span>, <span class="number">-1</span>), <span class="number">2</span>);</span><br><span class="line">    cv::<span class="built_in">dilate</span>(gray, gray, cv::<span class="built_in">Mat</span>(), cv::<span class="built_in">Point</span>(<span class="number">-1</span>, <span class="number">-1</span>), <span class="number">3</span>);</span><br><span class="line">    <span class="comment">// 平滑图像</span></span><br><span class="line">    cv ::<span class="built_in">medianBlur</span>(gray, gray, <span class="number">5</span>);</span><br><span class="line">    <span class="comment">// 检测并画出关键点</span></span><br><span class="line">    cv::<span class="built_in">drawKeypoints</span>(image, <span class="built_in">dector</span>(gray), image, cv::<span class="built_in">Scalar</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);</span><br><span class="line">    out = image;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="附录">附录</h2>
+<h3 id="OpenCV在ArchLinux上的使用">OpenCV在ArchLinux上的使用</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S opencv</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">vtk和hdf5为opencv的依赖,不安装编译会失败</span></span><br><span class="line">sudo pacman -S vtk</span><br><span class="line">sudo pacman -Ss hdf5</span><br></pre></td></tr></table></figure>
+<h3 id="Cmake文件">Cmake文件</h3>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.14</span>)</span><br><span class="line"><span class="keyword">project</span>(eyedector)</span><br><span class="line"><span class="keyword">add_definitions</span>(-std=c++<span class="number">11</span>)</span><br><span class="line"><span class="comment"># 这里只需要添加OpenCV的就能编译成功</span></span><br><span class="line"><span class="keyword">find_package</span>(OpenCV REQUIRED)</span><br><span class="line"><span class="keyword">link_libraries</span>(<span class="variable">$&#123;OpenCV_LIBS&#125;</span>)</span><br><span class="line"><span class="keyword">add_executable</span>(out opencvtest.cpp)</span><br></pre></td></tr></table></figure>
+<h3 id="利用安卓手机充当网络摄像头">利用安卓手机充当网络摄像头</h3>
+<p>手机安装这个<a href="https://play.google.com/store/apps/details?id=com.pas.webcam">IP Webcam</a>,使用时会显示局域网中的地址</p>
+<p>OpenCV中</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">cv::VideoCapture <span class="title">cap</span><span class="params">(<span class="string">&quot;http://192.168.0.xx:8080/video&quot;</span>)</span></span>; <span class="comment">// 这里为网络摄像头的地址,需要在后面加上/video</span></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">&#123;</span><br><span class="line">    cv::Mat frame;</span><br><span class="line">    cap &gt;&gt; frame;</span><br><span class="line">    cv::<span class="built_in">imshow</span>(<span class="string">&quot;test&quot;</span>, frame);</span><br><span class="line">    <span class="keyword">if</span> (cv::<span class="built_in">waitKey</span>(<span class="number">1</span>) == <span class="number">27</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Computer Graphics</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>OpenCV</tag>
+        <tag>archlinux</tag>
       </tags>
   </entry>
   <entry>
@@ -795,48 +837,6 @@ TURN是一个client-server协议。TURN的NAT穿透方法与STUN类似，都是�
       <tags>
         <tag>Crypto</tag>
         <tag>RSA</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>OpenCV瞳孔定位</title>
-    <url>/posts/88967b7c/</url>
-    <content><![CDATA[<h2 id="利用OpenCV自带的分类器识别面部及眼睛">利用OpenCV自带的分类器识别面部及眼睛</h2>
-<p>OpenCV自带里许多分类器,可在<a href="https://github.com/opencv/opencv/tree/master/data/haarcascades">haarcascades</a>下载</p>
-<h3 id="获取面部">获取面部</h3>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获取面部</span></span><br><span class="line"><span class="comment">// image 为输入的OpenCV的格式的图像</span></span><br><span class="line"><span class="comment">// out 为输出图像 &lt;- 此处输出图像为裁剪下来的矩形面部图像</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">get_face</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 将图像转为灰度图像,可提高识别精度</span></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    cv::<span class="built_in">cvtColor</span>(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 此处的rect为用来存储识别出的面部的定位 &lt;- 这里为vector是因为识别的面部可能不止为一个</span></span><br><span class="line">    std::vector&lt;cv::Rect&gt; rect;</span><br><span class="line">    <span class="comment">// 初始化OpenCV的分类器</span></span><br><span class="line">    cv::CascadeClassifier cas = cv::<span class="built_in">CascadeClassifier</span>(<span class="string">&quot;haarcascade_frontalface_default.xml&quot;</span>);</span><br><span class="line">    cas.<span class="built_in">detectMultiScale</span>(gray, rect, <span class="number">1.15</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="comment">// 判断rect是否为空,为空的话就是没有被识别的面部</span></span><br><span class="line">    <span class="keyword">if</span> (rect.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 输出图像,这里的rect可能不止为一个(因为可能不止一张脸),所以实际中应该使用for循环</span></span><br><span class="line">    <span class="comment">// 我这里用rect[0]为了简化</span></span><br><span class="line">    out = <span class="built_in">image</span>(rect[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h3 id="获取眼睛">获取眼睛</h3>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这里与上面相同(这里我只识别左眼,OpenCV还提供了其他文件可获取右眼和双眼)</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">get_left_eye</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 之后与面部相同</span></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    cv::<span class="built_in">cvtColor</span>(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    std::vector&lt;cv::Rect&gt; rect;</span><br><span class="line">    cv::CascadeClassifier cas = cv::<span class="built_in">CascadeClassifier</span>(<span class="string">&quot;xml/haarcascade_lefteye_2splits.xml&quot;</span>);</span><br><span class="line">    cas.<span class="built_in">detectMultiScale</span>(gray, rect, <span class="number">1.15</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="keyword">if</span> (rect.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    out = <span class="built_in">image</span>(rect[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="瞳孔定位">瞳孔定位</h2>
-<ul>
-<li>获取的眼睛图像</li>
-<li>裁剪去除眉毛</li>
-<li>伽马矫正提高图像对比度</li>
-<li>转化为灰度图像</li>
-<li>利用threshold进行阈值操作(此处可能会改为inRange,目前还在测试)</li>
-<li>腐蚀</li>
-<li>膨胀</li>
-<li>medianBlur平滑图像</li>
-<li>检测关键点并画在图像上</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定位眼球 -&gt; 检测关键点</span></span><br><span class="line"><span class="function">std::vector&lt;cv::KeyPoint&gt; <span class="title">dector</span><span class="params">(cv::Mat image)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cv::SimpleBlobDetector::Params detector_params;</span><br><span class="line">    detector_params.filterByArea = <span class="literal">true</span>;</span><br><span class="line">    detector_params.maxArea = <span class="number">1500</span>;</span><br><span class="line">    cv::Ptr&lt;cv::SimpleBlobDetector&gt; blob_dector = cv::SimpleBlobDetector::<span class="built_in">create</span>(detector_params);</span><br><span class="line">    std::vector&lt;cv::KeyPoint&gt; keypoints;</span><br><span class="line">    blob_dector-&gt;<span class="built_in">detect</span>(image, keypoints);</span><br><span class="line">    <span class="keyword">return</span> keypoints;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">get_pupil</span><span class="params">(cv::Mat image, cv::Mat &amp;out)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// width -&gt; image.rows ;</span></span><br><span class="line">    <span class="comment">// height -&gt; image.cols;</span></span><br><span class="line">    <span class="comment">// cut eyebrow 裁剪 去除眉毛</span></span><br><span class="line">    image = <span class="built_in">image</span>(cv::<span class="built_in">Rect</span>(image.cols / <span class="number">10</span>, image.rows / <span class="number">2.5</span>, image.cols * <span class="number">8</span> / <span class="number">10</span>, image.rows / <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Gamma correction/gamma nonlinearity 伽马校正 -&gt; https://www.cnblogs.com/sdu20112013/p/11597171.html</span></span><br><span class="line">    <span class="function">cv::Mat <span class="title">look_up_table</span><span class="params">(<span class="number">1</span>, <span class="number">256</span>, CV_8U)</span></span>;</span><br><span class="line">    uchar *p = look_up_table.<span class="built_in">ptr</span>();</span><br><span class="line">    <span class="type">float</span> gamma = <span class="number">0.7</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; ++i)</span><br><span class="line">        p[i] = cv::<span class="built_in">saturate_cast</span>&lt;uchar&gt;(<span class="built_in">pow</span>(i / <span class="number">255.0</span>, gamma) * <span class="number">255.0</span>);</span><br><span class="line">    cv::<span class="built_in">LUT</span>(image, look_up_table, image);</span><br><span class="line"></span><br><span class="line">    cv::Mat gray;</span><br><span class="line">    <span class="comment">// 转化为灰度图像</span></span><br><span class="line">    cv::<span class="built_in">cvtColor</span>(image, gray, CV_BGR2GRAY, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 阈值操作</span></span><br><span class="line">    cv::<span class="built_in">threshold</span>(gray, gray, inRange_threshold, <span class="number">255</span>, CV_THRESH_BINARY);</span><br><span class="line">    <span class="comment">//膨胀及腐蚀</span></span><br><span class="line">    cv::<span class="built_in">erode</span>(gray, gray, cv::<span class="built_in">Mat</span>(), cv::<span class="built_in">Point</span>(<span class="number">-1</span>, <span class="number">-1</span>), <span class="number">2</span>);</span><br><span class="line">    cv::<span class="built_in">dilate</span>(gray, gray, cv::<span class="built_in">Mat</span>(), cv::<span class="built_in">Point</span>(<span class="number">-1</span>, <span class="number">-1</span>), <span class="number">3</span>);</span><br><span class="line">    <span class="comment">// 平滑图像</span></span><br><span class="line">    cv ::<span class="built_in">medianBlur</span>(gray, gray, <span class="number">5</span>);</span><br><span class="line">    <span class="comment">// 检测并画出关键点</span></span><br><span class="line">    cv::<span class="built_in">drawKeypoints</span>(image, <span class="built_in">dector</span>(gray), image, cv::<span class="built_in">Scalar</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);</span><br><span class="line">    out = image;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="附录">附录</h2>
-<h3 id="OpenCV在ArchLinux上的使用">OpenCV在ArchLinux上的使用</h3>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pacman -S opencv</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">vtk和hdf5为opencv的依赖,不安装编译会失败</span></span><br><span class="line">sudo pacman -S vtk</span><br><span class="line">sudo pacman -Ss hdf5</span><br></pre></td></tr></table></figure>
-<h3 id="Cmake文件">Cmake文件</h3>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.14</span>)</span><br><span class="line"><span class="keyword">project</span>(eyedector)</span><br><span class="line"><span class="keyword">add_definitions</span>(-std=c++<span class="number">11</span>)</span><br><span class="line"><span class="comment"># 这里只需要添加OpenCV的就能编译成功</span></span><br><span class="line"><span class="keyword">find_package</span>(OpenCV REQUIRED)</span><br><span class="line"><span class="keyword">link_libraries</span>(<span class="variable">$&#123;OpenCV_LIBS&#125;</span>)</span><br><span class="line"><span class="keyword">add_executable</span>(out opencvtest.cpp)</span><br></pre></td></tr></table></figure>
-<h3 id="利用安卓手机充当网络摄像头">利用安卓手机充当网络摄像头</h3>
-<p>手机安装这个<a href="https://play.google.com/store/apps/details?id=com.pas.webcam">IP Webcam</a>,使用时会显示局域网中的地址</p>
-<p>OpenCV中</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">cv::VideoCapture <span class="title">cap</span><span class="params">(<span class="string">&quot;http://192.168.0.xx:8080/video&quot;</span>)</span></span>; <span class="comment">// 这里为网络摄像头的地址,需要在后面加上/video</span></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">&#123;</span><br><span class="line">    cv::Mat frame;</span><br><span class="line">    cap &gt;&gt; frame;</span><br><span class="line">    cv::<span class="built_in">imshow</span>(<span class="string">&quot;test&quot;</span>, frame);</span><br><span class="line">    <span class="keyword">if</span> (cv::<span class="built_in">waitKey</span>(<span class="number">1</span>) == <span class="number">27</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Computer Graphics</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>OpenCV</tag>
-        <tag>archlinux</tag>
       </tags>
   </entry>
   <entry>
@@ -1510,32 +1510,6 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </tags>
   </entry>
   <entry>
-    <title>iptables</title>
-    <url>/posts/736b1750/</url>
-    <content><![CDATA[<p>iptables chain</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="code">    +---------------------------------------------------------+</span></span><br><span class="line"><span class="code">    |                   Network Card                          |</span></span><br><span class="line"><span class="code">    +---------------------------------------------------------+</span></span><br><span class="line"><span class="code">      |                                                    ^</span></span><br><span class="line"><span class="code">      |                                                    |</span></span><br><span class="line"><span class="code">      v                                                    |</span></span><br><span class="line"><span class="code"> +----------+          is?      no    +-------+        +-----------+</span></span><br><span class="line"><span class="code"> |prerouting| ----&gt; localhost ------&gt; |forward| ----&gt;  |postrouting|</span></span><br><span class="line"><span class="code"> +----------+          |              +-------+        +-----------+ </span></span><br><span class="line"><span class="code">                       | yes                                 ^</span></span><br><span class="line"><span class="code">                       |                                     |</span></span><br><span class="line"><span class="code">                       v                                     |</span></span><br><span class="line"><span class="code">                    +---------+                        +-----------+</span></span><br><span class="line"><span class="code">                    |  input  |                        |   output  |</span></span><br><span class="line"><span class="code">                    +---------+                        +-----------+</span></span><br><span class="line"><span class="code">                         |                                   ^</span></span><br><span class="line"><span class="code">                         |                                   |</span></span><br><span class="line"><span class="code">                         |                                   |</span></span><br><span class="line"><span class="code">                         v                                   |</span></span><br><span class="line"><span class="code">    +----------------------------------------------------------+</span></span><br><span class="line"><span class="code">    |                        user                              |</span></span><br><span class="line"><span class="code">    +----------------------------------------------------------+</span></span><br><span class="line"><span class="code"></span></span><br><span class="line">out -&gt; localhost: prerouting -&gt; input</span><br><span class="line">forward:          prerouting -&gt; forward    -&gt; postrouting</span><br><span class="line">localhost -&gt; out: output     -&gt; postrouting</span><br></pre></td></tr></table></figure>
-<p>iptables table:</p>
-<ul>
-<li>filter:</li>
-<li>nat:</li>
-<li>magle:</li>
-<li>raw:</li>
-</ul>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">table &lt;-&gt; chain  </span><br><span class="line">raw: PREROUTING, OUTPUT  </span><br><span class="line">mangle: PREROUTING, INPUT, FORWARD, OUTPUT, POSTROUTING  </span><br><span class="line">nat: PREROUTING, OUTPUT, POSTROUTING, INPUT  </span><br><span class="line">filter: INPUT, FORWARD, OUTPUT</span><br><span class="line"></span><br><span class="line">raw –&gt; mangle –&gt; nat –&gt; filter  </span><br><span class="line"></span><br><span class="line">chain &lt;-&gt; table</span><br><span class="line">PREROUTING: raw, mangle, nat</span><br><span class="line">INPUT: mangle, filter, nat</span><br><span class="line">FORWARD: mangle, filter</span><br><span class="line">OUTPUT: raw, mangle, nat, filter</span><br><span class="line">POSTROUTING: mangle, nat</span><br></pre></td></tr></table></figure>
-<p>query</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">iptables -t &lt;table&gt; -nvL &lt;chain&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<p><a href="https://www.zsythink.net/archives/tag/iptables/page/2">iptables</a></p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>iptables</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>http Keep-Alive</title>
     <url>/posts/d91b7c06/</url>
     <content><![CDATA[<h2 id="http-keep-alive">http keep-alive</h2>
@@ -1563,6 +1537,32 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       <tags>
         <tag>HTTP</tag>
         <tag>proxy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>iptables</title>
+    <url>/posts/736b1750/</url>
+    <content><![CDATA[<p>iptables chain</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line"><span class="code">    +---------------------------------------------------------+</span></span><br><span class="line"><span class="code">    |                   Network Card                          |</span></span><br><span class="line"><span class="code">    +---------------------------------------------------------+</span></span><br><span class="line"><span class="code">      |                                                    ^</span></span><br><span class="line"><span class="code">      |                                                    |</span></span><br><span class="line"><span class="code">      v                                                    |</span></span><br><span class="line"><span class="code"> +----------+          is?      no    +-------+        +-----------+</span></span><br><span class="line"><span class="code"> |prerouting| ----&gt; localhost ------&gt; |forward| ----&gt;  |postrouting|</span></span><br><span class="line"><span class="code"> +----------+          |              +-------+        +-----------+ </span></span><br><span class="line"><span class="code">                       | yes                                 ^</span></span><br><span class="line"><span class="code">                       |                                     |</span></span><br><span class="line"><span class="code">                       v                                     |</span></span><br><span class="line"><span class="code">                    +---------+                        +-----------+</span></span><br><span class="line"><span class="code">                    |  input  |                        |   output  |</span></span><br><span class="line"><span class="code">                    +---------+                        +-----------+</span></span><br><span class="line"><span class="code">                         |                                   ^</span></span><br><span class="line"><span class="code">                         |                                   |</span></span><br><span class="line"><span class="code">                         |                                   |</span></span><br><span class="line"><span class="code">                         v                                   |</span></span><br><span class="line"><span class="code">    +----------------------------------------------------------+</span></span><br><span class="line"><span class="code">    |                        user                              |</span></span><br><span class="line"><span class="code">    +----------------------------------------------------------+</span></span><br><span class="line"><span class="code"></span></span><br><span class="line">out -&gt; localhost: prerouting -&gt; input</span><br><span class="line">forward:          prerouting -&gt; forward    -&gt; postrouting</span><br><span class="line">localhost -&gt; out: output     -&gt; postrouting</span><br></pre></td></tr></table></figure>
+<p>iptables table:</p>
+<ul>
+<li>filter:</li>
+<li>nat:</li>
+<li>magle:</li>
+<li>raw:</li>
+</ul>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">table &lt;-&gt; chain  </span><br><span class="line">raw: PREROUTING, OUTPUT  </span><br><span class="line">mangle: PREROUTING, INPUT, FORWARD, OUTPUT, POSTROUTING  </span><br><span class="line">nat: PREROUTING, OUTPUT, POSTROUTING, INPUT  </span><br><span class="line">filter: INPUT, FORWARD, OUTPUT</span><br><span class="line"></span><br><span class="line">raw –&gt; mangle –&gt; nat –&gt; filter  </span><br><span class="line"></span><br><span class="line">chain &lt;-&gt; table</span><br><span class="line">PREROUTING: raw, mangle, nat</span><br><span class="line">INPUT: mangle, filter, nat</span><br><span class="line">FORWARD: mangle, filter</span><br><span class="line">OUTPUT: raw, mangle, nat, filter</span><br><span class="line">POSTROUTING: mangle, nat</span><br></pre></td></tr></table></figure>
+<p>query</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">iptables -t &lt;table&gt; -nvL &lt;chain&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a href="https://www.zsythink.net/archives/tag/iptables/page/2">iptables</a></p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>iptables</tag>
       </tags>
   </entry>
   <entry>
@@ -2005,23 +2005,6 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </tags>
   </entry>
   <entry>
-    <title>利用结构体让函数返回多个值</title>
-    <url>/posts/c69434f1/</url>
-    <content><![CDATA[<h2 id="c语言">c语言</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &quot;stdio.h&quot;</span><br><span class="line">typedef struct test //建立结构体</span><br><span class="line">&#123;</span><br><span class="line">    int a;</span><br><span class="line">    int b;</span><br><span class="line">    int c;</span><br><span class="line">&#125;T;</span><br><span class="line"></span><br><span class="line">T testt(int aa,int bb,int cc) //建立函数</span><br><span class="line">&#123;</span><br><span class="line">    T aaa;</span><br><span class="line">    aaa.a=aa*bb;</span><br><span class="line">    aaa.b=aa*cc;</span><br><span class="line">    aaa.c=bb*cc;</span><br><span class="line">    return aaa; //返回结构</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    T b=testt(4,5,6);</span><br><span class="line">    printf(&quot;%d %d %d \n&quot;,b.a,b.b,b.c);</span><br><span class="line">    T *f=&amp;b;</span><br><span class="line">    printf(&quot;%d %d %d&quot;,f-&gt;a,f-&gt;b,f-&gt;c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="C">C++</h2>
-<span id="more"></span>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &quot;iostream&quot;</span><br><span class="line">typedef struct sss //建立结构体</span><br><span class="line">&#123;</span><br><span class="line">    int a;</span><br><span class="line">    int b;</span><br><span class="line">    int c;</span><br><span class="line">&#125;S;</span><br><span class="line"></span><br><span class="line">S s(double a,double b,double c) 建立函数</span><br><span class="line">&#123;</span><br><span class="line">    S d;</span><br><span class="line">    d.a=a*a;</span><br><span class="line">    d.b=b*b;</span><br><span class="line">    d.c=c*c;</span><br><span class="line">    return d;//返回结构体</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    S z=s(3,4,5);</span><br><span class="line">    std::cout&lt;&lt;z.a</span><br><span class="line">             &lt;&lt;std::endl</span><br><span class="line">             &lt;&lt;z.b</span><br><span class="line">             &lt;&lt;std::endl</span><br><span class="line">             &lt;&lt;z.c</span><br><span class="line">             &lt;&lt;std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>c语言利用char指针变量将int按字节打印地址</title>
     <url>/posts/43cb2931/</url>
     <content><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>
@@ -2042,6 +2025,23 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
         <category>Program</category>
       </categories>
       <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>利用结构体让函数返回多个值</title>
+    <url>/posts/c69434f1/</url>
+    <content><![CDATA[<h2 id="c语言">c语言</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &quot;stdio.h&quot;</span><br><span class="line">typedef struct test //建立结构体</span><br><span class="line">&#123;</span><br><span class="line">    int a;</span><br><span class="line">    int b;</span><br><span class="line">    int c;</span><br><span class="line">&#125;T;</span><br><span class="line"></span><br><span class="line">T testt(int aa,int bb,int cc) //建立函数</span><br><span class="line">&#123;</span><br><span class="line">    T aaa;</span><br><span class="line">    aaa.a=aa*bb;</span><br><span class="line">    aaa.b=aa*cc;</span><br><span class="line">    aaa.c=bb*cc;</span><br><span class="line">    return aaa; //返回结构</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    T b=testt(4,5,6);</span><br><span class="line">    printf(&quot;%d %d %d \n&quot;,b.a,b.b,b.c);</span><br><span class="line">    T *f=&amp;b;</span><br><span class="line">    printf(&quot;%d %d %d&quot;,f-&gt;a,f-&gt;b,f-&gt;c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="C">C++</h2>
+<span id="more"></span>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &quot;iostream&quot;</span><br><span class="line">typedef struct sss //建立结构体</span><br><span class="line">&#123;</span><br><span class="line">    int a;</span><br><span class="line">    int b;</span><br><span class="line">    int c;</span><br><span class="line">&#125;S;</span><br><span class="line"></span><br><span class="line">S s(double a,double b,double c) 建立函数</span><br><span class="line">&#123;</span><br><span class="line">    S d;</span><br><span class="line">    d.a=a*a;</span><br><span class="line">    d.b=b*b;</span><br><span class="line">    d.c=c*c;</span><br><span class="line">    return d;//返回结构体</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    S z=s(3,4,5);</span><br><span class="line">    std::cout&lt;&lt;z.a</span><br><span class="line">             &lt;&lt;std::endl</span><br><span class="line">             &lt;&lt;z.b</span><br><span class="line">             &lt;&lt;std::endl</span><br><span class="line">             &lt;&lt;z.c</span><br><span class="line">             &lt;&lt;std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
         <tag>C</tag>
       </tags>
   </entry>
@@ -2698,6 +2698,32 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </tags>
   </entry>
   <entry>
+    <title>用CIDR表示网段</title>
+    <url>/posts/e2b25bb8/</url>
+    <content><![CDATA[<p>我们知道一般CIDR(无类别域间路由)网段的表示为:<strong>192.168.0.0/24</strong>这种形式</p>
+<h2 id="IP地址">IP地址</h2>
+<p>首先我们得知道ip地址是如何来的<br>
+ipv4的地址是用32位二进制数表示的<br>
+如: 255.255.255.0 -&gt; 11111111.11111111.11111111.00000000</p>
+<h2 id="网络前缀">网络前缀</h2>
+<p><strong>192.168.0.0/24</strong>中的24就是网络前缀,网络前缀可转化为网络掩码,24表示网络掩码的前24位为1</p>
+<h2 id="网络掩码">网络掩码</h2>
+<p>「网络掩码」又叫「子网掩码」、「地址掩码」、「子網路遮罩」（subnet mask），它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。      --维基百科<span id="more"></span></p>
+<p>将网络前缀转化为网络掩码: 24 -&gt; 11111111.11111111.11111111.00000000 -&gt; 255.255.255.0<br>
+<em>255.255.255.0</em>就是网络掩码</p>
+<h2 id="CIDR">CIDR</h2>
+<p><em><strong>网络地址的计算方法为ip地址与网络掩码进行’与’运算</strong></em><br>
+通过上面的计算好的网络掩码可知这个ip地址的前24位是不变的  ,所以<strong>192.168.0.0/24</strong>表示的网段为: <strong>192.168.0.0 - 192.168.0.255</strong></p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>CIDR</tag>
+        <tag>IP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>深度学习之感知器的实现</title>
     <url>/posts/64e69c3e/</url>
     <content><![CDATA[<p>感知器的一个公式:<br>
@@ -2745,32 +2771,6 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </categories>
       <tags>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>用CIDR表示网段</title>
-    <url>/posts/e2b25bb8/</url>
-    <content><![CDATA[<p>我们知道一般CIDR(无类别域间路由)网段的表示为:<strong>192.168.0.0/24</strong>这种形式</p>
-<h2 id="IP地址">IP地址</h2>
-<p>首先我们得知道ip地址是如何来的<br>
-ipv4的地址是用32位二进制数表示的<br>
-如: 255.255.255.0 -&gt; 11111111.11111111.11111111.00000000</p>
-<h2 id="网络前缀">网络前缀</h2>
-<p><strong>192.168.0.0/24</strong>中的24就是网络前缀,网络前缀可转化为网络掩码,24表示网络掩码的前24位为1</p>
-<h2 id="网络掩码">网络掩码</h2>
-<p>「网络掩码」又叫「子网掩码」、「地址掩码」、「子網路遮罩」（subnet mask），它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。      --维基百科<span id="more"></span></p>
-<p>将网络前缀转化为网络掩码: 24 -&gt; 11111111.11111111.11111111.00000000 -&gt; 255.255.255.0<br>
-<em>255.255.255.0</em>就是网络掩码</p>
-<h2 id="CIDR">CIDR</h2>
-<p><em><strong>网络地址的计算方法为ip地址与网络掩码进行’与’运算</strong></em><br>
-通过上面的计算好的网络掩码可知这个ip地址的前24位是不变的  ,所以<strong>192.168.0.0/24</strong>表示的网段为: <strong>192.168.0.0 - 192.168.0.255</strong></p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>CIDR</tag>
-        <tag>IP</tag>
       </tags>
   </entry>
   <entry>
