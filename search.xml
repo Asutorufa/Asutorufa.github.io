@@ -397,6 +397,25 @@ x公司x高级架构师采用的是这样的方案:</p>
       </tags>
   </entry>
   <entry>
+    <title>JavaScript对字符串操作</title>
+    <url>/posts/86cfa6a/</url>
+    <content><![CDATA[<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name=<span class="string">&#x27;aaaa&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> age=<span class="string">&#x27;bbbb&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> change=<span class="string">&#x27;Hello javascript&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> message=<span class="string">`hello,<span class="subst">$&#123;name&#125;</span>,<span class="subst">$&#123;age&#125;</span>,`</span>+name+age;<span class="comment">//将多个字符串写成一句话</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> length=message.<span class="property">length</span>;<span class="comment">//获取字符串长度</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> upper=message.<span class="title function_">toUpperCase</span>();<span class="comment">//把字符串全部变成大写</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> lower=message.<span class="title function_">toLowerCase</span>();<span class="comment">//把字符串全部变成小写</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> search=message.<span class="title function_">indexOf</span>(<span class="string">&#x27;aaaa&#x27;</span>);<span class="comment">//搜索字符串位置</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> substr=message.<span class="title function_">substring</span>(<span class="number">9</span>, <span class="number">15</span>);<span class="comment">//返回区间内字符串</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">x=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;test&quot;</span>);  <span class="comment">//查找元素</span></span><br><span class="line">x.<span class="property">innerHTML</span>=<span class="string">&quot;Hello JavaScript&quot;</span>;    <span class="comment">//改变内容</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hyperledger Fabric组织更换证书</title>
     <url>/posts/afc6d6dd/</url>
     <content><![CDATA[<h2 id="前言">前言</h2>
@@ -439,25 +458,6 @@ signcerts &lt;- 节点/用户证书</p>
       <tags>
         <tag>blockchain</tag>
         <tag>Hyperledger Fabric</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JavaScript对字符串操作</title>
-    <url>/posts/86cfa6a/</url>
-    <content><![CDATA[<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name=<span class="string">&#x27;aaaa&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> age=<span class="string">&#x27;bbbb&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> change=<span class="string">&#x27;Hello javascript&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> message=<span class="string">`hello,<span class="subst">$&#123;name&#125;</span>,<span class="subst">$&#123;age&#125;</span>,`</span>+name+age;<span class="comment">//将多个字符串写成一句话</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> length=message.<span class="property">length</span>;<span class="comment">//获取字符串长度</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> upper=message.<span class="title function_">toUpperCase</span>();<span class="comment">//把字符串全部变成大写</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> lower=message.<span class="title function_">toLowerCase</span>();<span class="comment">//把字符串全部变成小写</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> search=message.<span class="title function_">indexOf</span>(<span class="string">&#x27;aaaa&#x27;</span>);<span class="comment">//搜索字符串位置</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> substr=message.<span class="title function_">substring</span>(<span class="number">9</span>, <span class="number">15</span>);<span class="comment">//返回区间内字符串</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">x=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;test&quot;</span>);  <span class="comment">//查找元素</span></span><br><span class="line">x.<span class="property">innerHTML</span>=<span class="string">&quot;Hello JavaScript&quot;</span>;    <span class="comment">//改变内容</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -619,6 +619,25 @@ the internal endpoint to send packets first to that external endpoint’s IP add
         <tag>OpenCV</tag>
         <tag>archlinux</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>TUF GAMING B550M-PLUS WIFI II lm_sensors</title>
+    <url>/posts/fe953398/</url>
+    <content><![CDATA[<p>the sensors not show fan and voltage<br>
+it’s a kernel bug now <a href="https://bugzilla.kernel.org/show_bug.cgi?id=204807">Hardware monitoring sensor nct6798d doesn’t work unless acpi_enforce_resources=lax is enabled</a><br>
+need wait add the motherboard name to linux kernel code list <a href="https://github.com/torvalds/linux/blob/4bbf3422df78029f03161640dcb1e9d1ed64d1ea/drivers/hwmon/nct6775-platform.c#L1044">linux/drivers/hwmon/nct6775-platform.c</a></p>
+<h2 id="temporary-measure">temporary measure</h2>
+<p>add</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">acpi<span class="emphasis">_enforce_</span>resources=lax</span><br></pre></td></tr></table></figure>
+<p>to linux boot parameter</p>
+<p>load nct6775 kernel module</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">modprobe -v nct6775</span><br></pre></td></tr></table></figure>
+<p>run <code>sensors-detect --auto</code>.</p>
+<p>finally, you will see nct6798-isa-* in sensors.</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
   </entry>
   <entry>
     <title>RSA加密</title>
@@ -840,25 +859,6 @@ the internal endpoint to send packets first to that external endpoint’s IP add
       </tags>
   </entry>
   <entry>
-    <title>TUF GAMING B550M-PLUS WIFI II lm_sensors</title>
-    <url>/posts/fe953398/</url>
-    <content><![CDATA[<p>the sensors not show fan and voltage<br>
-it’s a kernel bug now <a href="https://bugzilla.kernel.org/show_bug.cgi?id=204807">Hardware monitoring sensor nct6798d doesn’t work unless acpi_enforce_resources=lax is enabled</a><br>
-need wait add the motherboard name to linux kernel code list <a href="https://github.com/torvalds/linux/blob/4bbf3422df78029f03161640dcb1e9d1ed64d1ea/drivers/hwmon/nct6775-platform.c#L1044">linux/drivers/hwmon/nct6775-platform.c</a></p>
-<h2 id="temporary-measure">temporary measure</h2>
-<p>add</p>
-<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">acpi<span class="emphasis">_enforce_</span>resources=lax</span><br></pre></td></tr></table></figure>
-<p>to linux boot parameter</p>
-<p>load nct6775 kernel module</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">modprobe -v nct6775</span><br></pre></td></tr></table></figure>
-<p>run <code>sensors-detect --auto</code>.</p>
-<p>finally, you will see nct6798-isa-* in sensors.</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-  </entry>
-  <entry>
     <title>TUN网卡</title>
     <url>/posts/a67af13f/</url>
     <content><![CDATA[<h2 id="Golang-Tun-gVisor">Golang Tun (gVisor)</h2>
@@ -912,6 +912,48 @@ need wait add the motherboard name to linux kernel code list <a href="https://gi
       <tags>
         <tag>android</tag>
         <tag>adb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c语言中格式化字符的应用</title>
+    <url>/posts/b6b4601/</url>
+    <content><![CDATA[<h2 id="格式化规定符">格式化规定符</h2>
+<p>符号 作用<br>
+%d 十进制有符号整数<br>
+%u 十进制无符号整数<br>
+%f 浮点数<br>
+%s 字符串<br>
+%c 单个字符<br>
+%p 指针的值<br>
+%e 指数形式的浮点数<br>
+%x, %X 无符号以十六进制表示的整数<span id="more"></span><br>
+%0 无符号以八进制表示的整数<br>
+%g 自动选择合适的表示法</p>
+<p>说明:<br>
+(1). 可以在&quot;%“和字母之间插进数字表示最大场宽。<br>
+例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>
+%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>
+另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>
+例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>
+如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>
+例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>
+(2). 可以在”%“和字母之间加小写字母l, 表示输出的是长型数。<br>
+例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>
+(3). 可以控制输出左对齐或右对齐, 即在”%“和字母之间加入一个”-&quot; 号可说明输出为左对齐, 否则为右对齐。<br>
+例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
+<h2 id="一些特殊规定字符">一些特殊规定字符</h2>
+<p>字符 作用<br>
+/n   换行<br>
+/f   清屏并换页<br>
+/r   回车<br>
+/t   Tab符<br>
+/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -1177,48 +1219,6 @@ The process to change I/O scheduler, depending on whether the disk is rotating o
       </tags>
   </entry>
   <entry>
-    <title>c语言中格式化字符的应用</title>
-    <url>/posts/b6b4601/</url>
-    <content><![CDATA[<h2 id="格式化规定符">格式化规定符</h2>
-<p>符号 作用<br>
-%d 十进制有符号整数<br>
-%u 十进制无符号整数<br>
-%f 浮点数<br>
-%s 字符串<br>
-%c 单个字符<br>
-%p 指针的值<br>
-%e 指数形式的浮点数<br>
-%x, %X 无符号以十六进制表示的整数<span id="more"></span><br>
-%0 无符号以八进制表示的整数<br>
-%g 自动选择合适的表示法</p>
-<p>说明:<br>
-(1). 可以在&quot;%“和字母之间插进数字表示最大场宽。<br>
-例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>
-%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>
-另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>
-例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>
-如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>
-例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>
-(2). 可以在”%“和字母之间加小写字母l, 表示输出的是长型数。<br>
-例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>
-(3). 可以控制输出左对齐或右对齐, 即在”%“和字母之间加入一个”-&quot; 号可说明输出为左对齐, 否则为右对齐。<br>
-例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
-<h2 id="一些特殊规定字符">一些特殊规定字符</h2>
-<p>字符 作用<br>
-/n   换行<br>
-/f   清屏并换页<br>
-/r   回车<br>
-/t   Tab符<br>
-/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>c语言基本类型在内存中的存储方式</title>
     <url>/posts/e404489/</url>
     <content><![CDATA[<h2 id="浮点数">浮点数</h2>
@@ -1322,6 +1322,34 @@ a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
       </categories>
       <tags>
         <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>golang实现子进程后台</title>
+    <url>/posts/89c4c907/</url>
+    <content><![CDATA[<h2 id="系统的进程机制">系统的进程机制</h2>
+<h3 id="linux">linux</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">linux下的进程机制,当父进程被杀死之后,子进程就被系统接管</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程 -&gt; 父进程管理</span><br><span class="line"></span><br><span class="line">当父进程被杀死之后</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; 被杀死</span><br><span class="line">|--子进程 -&gt; system管理</span><br><span class="line"></span><br><span class="line">如果子进程被杀死,而且父进程没有处理子进程的善后工作,那么子进程就会变成僵尸进程</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程(被杀死) -&gt; 僵尸进程  </span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h3 id="windows">windows</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">windows下的进程机制就不太一样了,当父进程被杀死之后,子进程也会被杀死</span><br><span class="line">但是如果子进程还有子进程,杀死子进程但不杀死父进程,子进程的子进程就会被系统接管</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程 -&gt; 父进程管理</span><br><span class="line">|---孙进程 -&gt; 子进程管理</span><br><span class="line"></span><br><span class="line">当父进程被杀死</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; 被杀死</span><br><span class="line">|--子进程 -&gt; 被杀死  </span><br><span class="line">|---孙进程 -&gt; 被杀死</span><br><span class="line"></span><br><span class="line">当子进程被杀死</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; 系统管理</span><br><span class="line">|--子进程 -&gt; 被杀死</span><br><span class="line">|-孙进程 -&gt; 系统管理</span><br><span class="line"></span><br><span class="line">windows的机制和linux不太一样,如果子进程被杀死也不会有僵尸进程这种东西,所以子进程可以放心杀死</span><br></pre></td></tr></table></figure>
+<h2 id="实现golang的后台">实现golang的后台</h2>
+<p>如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现<br>
+如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程<br>
+golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
+<strong>通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程,这样就相当于创建了子进程,子进程创建孙进程</strong><br>
+<strong>实现就是给程序加参数,再次调用的时候加上这个参数再创建想要的进程</strong></p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">daemonF</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cmd := exec.Command(<span class="string">&quot;puthon&quot;</span>,<span class="string">&quot;-m&quot;</span>,<span class="string">&quot;http.server&quot;</span>)</span><br><span class="line">    cmd.Start()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    daemon := flag.Bool(<span class="string">&quot;d&quot;</span>, <span class="literal">false</span>, <span class="string">&quot;d&quot;</span>)</span><br><span class="line">    flag.Parse()</span><br><span class="line">    <span class="keyword">if</span> *daemon == <span class="literal">true</span> &#123;</span><br><span class="line">        daemonF()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        nowFunction, _ := filepath.Abs(os.Args[<span class="number">0</span>])</span><br><span class="line">        cmd := exec.Command(nowFunction,<span class="string">&quot;-d&quot;</span>)</span><br><span class="line">        cmd.Run()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">比如我们有一个程序叫makebk,有一个参数 -d</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-makebk(再次调用makebk并加上参数-d) -&gt; 父进程:system</span><br><span class="line">|--makebk -d(加上参数之后再创建想要的进程) -&gt; 父进程:makebk</span><br><span class="line">|---子进程 -&gt; 父进程:makebk -d</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这样就得到我们想要的三层结构了,这时候让父进程杀死make -d,就实现子进程被系统接管,实现子进程后台</p>
+]]></content>
+      <categories>
+        <category>golang</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>linux</tag>
+        <tag>windows</tag>
       </tags>
   </entry>
   <entry>
@@ -1445,34 +1473,6 @@ udp:<br>
       </tags>
   </entry>
   <entry>
-    <title>golang实现子进程后台</title>
-    <url>/posts/89c4c907/</url>
-    <content><![CDATA[<h2 id="系统的进程机制">系统的进程机制</h2>
-<h3 id="linux">linux</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">linux下的进程机制,当父进程被杀死之后,子进程就被系统接管</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程 -&gt; 父进程管理</span><br><span class="line"></span><br><span class="line">当父进程被杀死之后</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; 被杀死</span><br><span class="line">|--子进程 -&gt; system管理</span><br><span class="line"></span><br><span class="line">如果子进程被杀死,而且父进程没有处理子进程的善后工作,那么子进程就会变成僵尸进程</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程(被杀死) -&gt; 僵尸进程  </span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h3 id="windows">windows</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">windows下的进程机制就不太一样了,当父进程被杀死之后,子进程也会被杀死</span><br><span class="line">但是如果子进程还有子进程,杀死子进程但不杀死父进程,子进程的子进程就会被系统接管</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; system管理</span><br><span class="line">|--子进程 -&gt; 父进程管理</span><br><span class="line">|---孙进程 -&gt; 子进程管理</span><br><span class="line"></span><br><span class="line">当父进程被杀死</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; 被杀死</span><br><span class="line">|--子进程 -&gt; 被杀死  </span><br><span class="line">|---孙进程 -&gt; 被杀死</span><br><span class="line"></span><br><span class="line">当子进程被杀死</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-父进程 -&gt; 系统管理</span><br><span class="line">|--子进程 -&gt; 被杀死</span><br><span class="line">|-孙进程 -&gt; 系统管理</span><br><span class="line"></span><br><span class="line">windows的机制和linux不太一样,如果子进程被杀死也不会有僵尸进程这种东西,所以子进程可以放心杀死</span><br></pre></td></tr></table></figure>
-<h2 id="实现golang的后台">实现golang的后台</h2>
-<p>如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现<br>
-如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程<br>
-golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
-<strong>通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程,这样就相当于创建了子进程,子进程创建孙进程</strong><br>
-<strong>实现就是给程序加参数,再次调用的时候加上这个参数再创建想要的进程</strong></p>
-<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">daemonF</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cmd := exec.Command(<span class="string">&quot;puthon&quot;</span>,<span class="string">&quot;-m&quot;</span>,<span class="string">&quot;http.server&quot;</span>)</span><br><span class="line">    cmd.Start()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    daemon := flag.Bool(<span class="string">&quot;d&quot;</span>, <span class="literal">false</span>, <span class="string">&quot;d&quot;</span>)</span><br><span class="line">    flag.Parse()</span><br><span class="line">    <span class="keyword">if</span> *daemon == <span class="literal">true</span> &#123;</span><br><span class="line">        daemonF()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        nowFunction, _ := filepath.Abs(os.Args[<span class="number">0</span>])</span><br><span class="line">        cmd := exec.Command(nowFunction,<span class="string">&quot;-d&quot;</span>)</span><br><span class="line">        cmd.Run()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">比如我们有一个程序叫makebk,有一个参数 -d</span><br><span class="line"></span><br><span class="line">+系统</span><br><span class="line">|-makebk(再次调用makebk并加上参数-d) -&gt; 父进程:system</span><br><span class="line">|--makebk -d(加上参数之后再创建想要的进程) -&gt; 父进程:makebk</span><br><span class="line">|---子进程 -&gt; 父进程:makebk -d</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>这样就得到我们想要的三层结构了,这时候让父进程杀死make -d,就实现子进程被系统接管,实现子进程后台</p>
-]]></content>
-      <categories>
-        <category>golang</category>
-      </categories>
-      <tags>
-        <tag>golang</tag>
-        <tag>linux</tag>
-        <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>gpg使用</title>
     <url>/posts/7d547224/</url>
     <content><![CDATA[<p>生成一个密钥</p>
@@ -1563,6 +1563,74 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       <tags>
         <tag>linux</tag>
         <tag>iptables</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>langchaingoでRAGを試しました</title>
+    <url>/posts/95db8f9/</url>
+    <content><![CDATA[<blockquote>
+<p>日本語はまだ勉強中ですから、変などころあるなら、ぜひコメントしてください。</p>
+</blockquote>
+<h2 id="RAGとは">RAGとは</h2>
+<p>RAGはRetrieval augmented generationの略です。<br>
+大規模言語モデル内容生成する前に、promptによる外部のデーターベースに知識を検索、元のprompt組み合わせて、アウトプットを改善するための技術です。</p>
+<p>例えば：</p>
+<p>ユーザ：今日の注目の新聞は何ですか？</p>
+<p>gemini：</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">今日の注目の新聞記事については、リアルタイムで変化するため、特定の新聞社名を挙げて「今日の注目の記事はこれです」と断言することは難しいです。</span><br></pre></td></tr></table></figure>
+<p>chatgpt:</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">本日（2024年11月6日）の日本の注目ニュースは次のような内容が含まれている可能性があります：</span><br><span class="line"></span><br><span class="line">アメリカ大統領選挙の最新動向 - 特に若い世代の投票行動や政策への関心が注目されています。</span><br><span class="line">国内経済とインフレの動き - 日本の物価高騰が続き、家計への影響や政府の対応が議論されています。</span><br><span class="line">アジアの地政学的緊張 - 日本周辺地域の安全保障に関連する動向が続いています。</span><br><span class="line">以上の内容が注目ニュースとして考えられますが、詳細については直接ニュースソースで確認されるとよいでしょう。</span><br></pre></td></tr></table></figure>
+<p>geminiはリアルタイムによっての内容は回答できません。<br>
+chatgptはRAGか、Function Callingか、どちかを使えていると思います。<br>
+今回はgolang+langchaingo+ollama+qdrantでRAGに実験してみます。</p>
+<h2 id="準備">準備</h2>
+<span id="more"></span>
+<h3 id="ollamaをインストール">ollamaをインストール</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -fsSL https://ollama.com/install.sh | sh</span><br></pre></td></tr></table></figure>
+<h3 id="qdrantのコンテナを実行">qdrantのコンテナを実行</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir -p ~/.config/qdrant</span><br><span class="line">docker run -p 6333:6333 -p 6334:6334 \</span><br><span class="line">    -v ~/.config/qdrant:/qdrant/storage:z \</span><br><span class="line">    qdrant/qdrant</span><br></pre></td></tr></table></figure>
+<h3 id="bge-large-en-v1-5をollamaで実行">bge-large-en-v1.5をollamaで実行</h3>
+<p>知識をベクトルデータベースに保存してにはText Embedingモデルが必要です。今回はbge-large-en-v1.5を使うことになりました。</p>
+<p>ollamaのモデルライブラリーはbge-large-en-v1.5がありませんので、bge-large-en-v1.5をGGUFに変換することが必要です。</p>
+<p>git-lfsとcmakeをインストール</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install git-lfs cmake</span><br><span class="line">git lfs install</span><br><span class="line">git clone https://huggingface.co/BAAI/bge-large-en-v1.5</span><br></pre></td></tr></table></figure>
+<p>llama.cppをクローン</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/ggerganov/llama.cpp.git</span><br><span class="line">cd llama.cpp/</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">python仮想環境はおすすめです</span></span><br><span class="line">sudo apt install python3.12-venv</span><br><span class="line">python3 -m venv python-venv</span><br><span class="line">./python-venv/bin/pip3  install -r requirements.txt</span><br></pre></td></tr></table></figure>
+<p>GGUFに変換</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"> ./llama.cpp/python-venv/bin/python3 ./llama.cpp/convert_hf_to_gguf.py ./bge-large-en-v1.5/</span><br><span class="line">cd bge-large-en-v1.5/</span><br><span class="line">echo &quot;FROM ./bge-large-en-v1.5-F16.gguf&quot; &gt; Modelfile</span><br><span class="line">ollama create bge-large-en-v1.5-F16 -f Modelfile</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">embedingモデルはollamaで直接実行はできませんです</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Error: <span class="string">&quot;bge-large-en-v1.5-F16&quot;</span> does not support generate</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ここは試してみてだけです</span></span><br><span class="line">ollama run bge-large-en-v1.5-F16</span><br></pre></td></tr></table></figure>
+<h3 id="Qwen2-5をollamaで実行">Qwen2.5をollamaで実行</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">32bは20GBのGPUメモリ(VRAM)が必要です</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">CPUもできるですが、非常に重いですから</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">3bや7bや14bなどもぜひ使ってみてください</span></span><br><span class="line">ollama run qwen2.5:32b-instruct</span><br></pre></td></tr></table></figure>
+<h2 id="実現">実現</h2>
+<h3 id="text-embedder">text embedder</h3>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line"> <span class="string">&quot;github.com/tmc/langchaingo/embeddings&quot;</span></span><br><span class="line"> <span class="string">&quot;github.com/tmc/langchaingo/llms/ollama&quot;</span></span><br><span class="line"> <span class="string">&quot;github.com/tmc/langchaingo/vectorstores/qdrant&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"> llm, err := ollama.New(</span><br><span class="line">  ollama.WithModel(<span class="string">&quot;bge-large-en-v1.5-F16&quot;</span>),</span><br><span class="line">  ollama.WithServerURL(<span class="string">&quot;http://localhost:11434&quot;</span>),</span><br><span class="line"> )</span><br><span class="line"> <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line"> <span class="built_in">panic</span>(err)</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> embeder, err := embeddings.NewEmbedder(llm)</span><br><span class="line"> <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line"> <span class="built_in">panic</span>(err)</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">qu,err := url.Parse(<span class="string">&quot;http://localhost:6333&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line"> <span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> qd, err := qdrant.New(</span><br><span class="line">  qdrant.WithURL(*qu),</span><br><span class="line">  qdrant.WithCollectionName(<span class="string">&quot;test&quot;</span>),</span><br><span class="line">  qdrant.WithEmbedder(embeder),</span><br><span class="line"> )</span><br><span class="line"> <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>テキストを導入</p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// TextToChunks テキストを分割</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TextToChunks</span><span class="params">(r io.Reader, chunkSize, chunkOverlap <span class="type">int</span>)</span></span> ([]schema.Document, <span class="type">error</span>) &#123;</span><br><span class="line"> <span class="comment">// 新たなドキュメンタリーローダーを作成</span></span><br><span class="line"> docLoaded := documentloaders.NewText(r)</span><br><span class="line"> <span class="comment">// テキストを再帰的に分割し方法</span></span><br><span class="line"> split := textsplitter.NewRecursiveCharacter()</span><br><span class="line"> <span class="comment">// 分割サイズを設定</span></span><br><span class="line"> split.ChunkSize = chunkSize</span><br><span class="line"> <span class="comment">// 重なるサイズを設定</span></span><br><span class="line"> split.ChunkOverlap = chunkOverlap</span><br><span class="line"> <span class="comment">// ロードして分割する</span></span><br><span class="line"> docs, err := docLoaded.LoadAndSplit(context.Background(), split)</span><br><span class="line"> <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">  <span class="built_in">panic</span>(err)</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> docs, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">  docs, err := TextToChunks(strings.NewReader(<span class="string">`テストテキスト`</span>), <span class="number">300</span>, <span class="number">20</span>)</span><br><span class="line">  <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">  <span class="built_in">panic</span>(err)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// ベクトルデーターベースに導入</span></span><br><span class="line"> _, err := qd.AddDocuments(context.TODO(), docs)</span><br><span class="line"> <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">  <span class="built_in">panic</span>(err)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="RAG">RAG</h3>
+<p>知識を検索</p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">optionsVector := []vectorstores.Option&#123;</span><br><span class="line"> vectorstores.WithScoreThreshold(<span class="number">0.80</span>),</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">retriever := vectorstores.ToRetriever(qd, <span class="number">10</span>, optionsVector...)</span><br><span class="line"></span><br><span class="line">docRetrieved, err := retriever.GetRelevantDocuments(context.Background(), prompt)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line"> <span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>llmで予測する</p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">llm, err := ollama.New(</span><br><span class="line"> ollama.WithModel(<span class="string">&quot;qwen2.5:32b-instruct&quot;</span>),</span><br><span class="line"> ollama.WithServerURL(<span class="string">&quot;http://localhost:11434&quot;</span>),</span><br><span class="line">)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line"><span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> msgs []llms.MessageContent</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> _, doc := <span class="keyword">range</span> docRetrieved &#123;</span><br><span class="line"> msgs = <span class="built_in">append</span>(msgs, llms.TextParts(llms.ChatMessageTypeAI,  doc.PageContent))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">msgs = <span class="built_in">append</span>(msgs, llms.TextParts(llms.ChatMessageTypeHuman, prompt))</span><br><span class="line"></span><br><span class="line">_, err := llm.GenerateContent(ctx, msgs,</span><br><span class="line"> llms.WithTemperature(<span class="number">0.3</span>),</span><br><span class="line"> llms.WithStreamingFunc(<span class="function"><span class="keyword">func</span><span class="params">(ctx context.Context, chunk []<span class="type">byte</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line"><span class="comment">// 結果をストリームで標準出力に出力して</span></span><br><span class="line"> fmt.Print(<span class="type">string</span>(chunk))</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line"> &#125;),</span><br><span class="line">)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line"><span class="built_in">panic</span>(err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<!-- 
+
+標準出力：ひょうじゅんしゅつりょく 
+
+-->
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://tech.takuyakobayashi.jp/2024/06/14/526">https://tech.takuyakobayashi.jp/2024/06/14/526</a></li>
+<li><a href="https://aws.amazon.com/jp/what-is/retrieval-augmented-generation/">https://aws.amazon.com/jp/what-is/retrieval-augmented-generation/</a></li>
+<li><a href="https://wiki.eryajf.net/pages/6bd394/#%E5%89%8D%E7%BD%AE%E5%87%86%E5%A4%87">https://wiki.eryajf.net/pages/6bd394/#前置准备</a></li>
+<li><a href="https://forbesjapan.com/articles/detail/72042">https://forbesjapan.com/articles/detail/72042</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Retrieval-augmented_generation">https://en.wikipedia.org/wiki/Retrieval-augmented_generation</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>llm</category>
+      </categories>
+      <tags>
+        <tag>llm</tag>
+        <tag>rag</tag>
+        <tag>text embedding</tag>
       </tags>
   </entry>
   <entry>
