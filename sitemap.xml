@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/email/index.html</loc>
+    <loc>https://asutorufa.github.io/friends/index.html</loc>
     
     <lastmod>2024-11-07</lastmod>
     
@@ -56,7 +56,7 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/friends/index.html</loc>
+    <loc>https://asutorufa.github.io/email/index.html</loc>
     
     <lastmod>2024-11-07</lastmod>
     
@@ -130,7 +130,7 @@
   <url>
     <loc>https://asutorufa.github.io/posts/e3707853/</loc>
     
-    <lastmod>2022-10-24</lastmod>
+    <lastmod>2022-10-25</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -211,7 +211,7 @@
   <url>
     <loc>https://asutorufa.github.io/posts/d67c4794/</loc>
     
-    <lastmod>2021-03-19</lastmod>
+    <lastmod>2021-03-20</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -256,7 +256,7 @@
   <url>
     <loc>https://asutorufa.github.io/posts/3cb4313e/</loc>
     
-    <lastmod>2020-06-22</lastmod>
+    <lastmod>2020-06-23</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -265,7 +265,7 @@
   <url>
     <loc>https://asutorufa.github.io/posts/4b39445f/</loc>
     
-    <lastmod>2020-06-22</lastmod>
+    <lastmod>2020-06-23</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -274,7 +274,7 @@
   <url>
     <loc>https://asutorufa.github.io/posts/1751943e/</loc>
     
-    <lastmod>2020-06-22</lastmod>
+    <lastmod>2020-06-23</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -310,7 +310,7 @@
   <url>
     <loc>https://asutorufa.github.io/posts/c7816edc/</loc>
     
-    <lastmod>2020-05-29</lastmod>
+    <lastmod>2020-05-30</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -328,7 +328,7 @@
   <url>
     <loc>https://asutorufa.github.io/posts/f87fc9f0/</loc>
     
-    <lastmod>2020-05-03</lastmod>
+    <lastmod>2020-05-04</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -364,7 +364,7 @@
   <url>
     <loc>https://asutorufa.github.io/posts/fe7367b8/</loc>
     
-    <lastmod>2020-03-11</lastmod>
+    <lastmod>2020-03-12</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -436,7 +436,7 @@
   <url>
     <loc>https://asutorufa.github.io/posts/4f95e9f6/</loc>
     
-    <lastmod>2019-09-07</lastmod>
+    <lastmod>2019-09-08</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -499,7 +499,7 @@
   <url>
     <loc>https://asutorufa.github.io/posts/25303996/</loc>
     
-    <lastmod>2019-01-31</lastmod>
+    <lastmod>2019-02-01</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -517,7 +517,7 @@
   <url>
     <loc>https://asutorufa.github.io/posts/38868ade/</loc>
     
-    <lastmod>2018-12-08</lastmod>
+    <lastmod>2018-12-09</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -701,6 +701,13 @@
   </url>
   
   <url>
+    <loc>https://asutorufa.github.io/tags/DOH/</loc>
+    <lastmod>2024-11-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://asutorufa.github.io/tags/UDP/</loc>
     <lastmod>2024-11-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -709,13 +716,6 @@
   
   <url>
     <loc>https://asutorufa.github.io/tags/DNSSEC/</loc>
-    <lastmod>2024-11-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.github.io/tags/DOH/</loc>
     <lastmod>2024-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -890,13 +890,6 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/tags/socks5/</loc>
-    <lastmod>2024-11-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://asutorufa.github.io/tags/windows/</loc>
     <lastmod>2024-11-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -905,6 +898,13 @@
   
   <url>
     <loc>https://asutorufa.github.io/tags/encrypt/</loc>
+    <lastmod>2024-11-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/socks5/</loc>
     <lastmod>2024-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1072,6 +1072,13 @@
   </url>
   
   <url>
+    <loc>https://asutorufa.github.io/tags/java/</loc>
+    <lastmod>2024-11-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://asutorufa.github.io/tags/%E3%82%A2%E3%83%8B%E3%83%A1/</loc>
     <lastmod>2024-11-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -1087,13 +1094,6 @@
   
   <url>
     <loc>https://asutorufa.github.io/tags/%E5%BD%B1%E8%AF%84/</loc>
-    <lastmod>2024-11-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.github.io/tags/java/</loc>
     <lastmod>2024-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1228,14 +1228,14 @@
 
   
   <url>
-    <loc>https://asutorufa.github.io/categories/Network/</loc>
+    <loc>https://asutorufa.github.io/categories/%E6%97%A5%E5%B8%B8/</loc>
     <lastmod>2024-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/categories/%E6%97%A5%E5%B8%B8/</loc>
+    <loc>https://asutorufa.github.io/categories/Network/</loc>
     <lastmod>2024-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
