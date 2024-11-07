@@ -14,12 +14,13 @@ language: zh-Hans
 会发现好几个版本的文件夹。
 使用
 
-```
+```bash
 sudo snap remove core --revision xxx
 ```
+
 删除某个版本的core，xxx是软件的rev，使用
 
-```
+```bash
 snap list
 ```
 

@@ -18,7 +18,7 @@ OpenCV自带里许多分类器,可在[haarcascades](https://github.com/opencv/op
 
 ### 获取面部
 
-```c++
+```cpp
 // 获取面部
 // image 为输入的OpenCV的格式的图像
 // out 为输出图像 <- 此处输出图像为裁剪下来的矩形面部图像
@@ -46,7 +46,7 @@ bool get_face(cv::Mat image, cv::Mat &out)
 <!--more-->
 ### 获取眼睛
 
-```c++
+```cpp
 // 这里与上面相同(这里我只识别左眼,OpenCV还提供了其他文件可获取右眼和双眼)
 bool get_left_eye(cv::Mat image, cv::Mat &out)
 {
@@ -77,7 +77,7 @@ bool get_left_eye(cv::Mat image, cv::Mat &out)
 - medianBlur平滑图像
 - 检测关键点并画在图像上
 
-```c++
+```cpp
 // 定位眼球 -> 检测关键点
 std::vector<cv::KeyPoint> dector(cv::Mat image)
 {
@@ -151,7 +151,7 @@ add_executable(out opencvtest.cpp)
 
 OpenCV中
 
-```c++
+```cpp
 cv::VideoCapture cap("http://192.168.0.xx:8080/video"); // 这里为网络摄像头的地址,需要在后面加上/video
 while (true)
 {

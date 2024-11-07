@@ -18,13 +18,17 @@ language: zh-Hans
 
 首先从ubuntu进入/boot/efi/EFI
 **备份windwos的启动文件**（**切记一定要备份，否则只能从pe重新建立windwos启动项**）
-```
+
+```bash
 cp -arf Microsoft win10
 ```
+
 将ubuntu的grubx64.efi替换掉EFI/Microsoft/Boot/bootmgfw.efi文件 <!--more-->
-```
+
+```bash
 cp -arf ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi 
 ```
+
 这样替换之后grub就接管了系统的启动
 
 然后将/boot/grub/grub.cfg中关于windows的启动段复制到/etc/grub.d/40_custom中

@@ -4,14 +4,14 @@
 
 # Site
 title: アストルファの幻想郷
-subtitle: やりたくないこともやる
-description: アンドロイドです。
+subtitle: こんにちは
+description:
 author: アストルファ
 language:
   - en
   - ja
   - zh-Hans
-timezone: Asia/Shanghai
+timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -42,19 +42,17 @@ post_asset_folder: false
 relative_link: false
 future: true
 
-syntax_highlighter: highlight.js
+syntax_highlighter: prismjs
 prismjs:
-  enable: false
   preprocess: true
   line_number: false
-  tab_replace: ""
+  tab_replace: "    "
 highlight:
-  enable: true
   line_number: true
   auto_detect: false
   tab_replace: "    "
   wrap: true
-  hljs: false
+  hljs: true
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')

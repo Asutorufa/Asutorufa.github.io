@@ -88,7 +88,7 @@ Then create a systemd script with the following content:
 /etc/systemd/system/fix_headphones_audio.service
 ```
 
-```systemd
+```ini
 [Unit]
 Description=Fix headphones audio after boot & resume.
 After=multi-user.target suspend.target hibernate.target

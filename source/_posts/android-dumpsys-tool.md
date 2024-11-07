@@ -12,11 +12,14 @@ language: zh-Hans
 ---
 
 查看dumpsys所有的子命令:
-```
+
+```bash
 dumpsys | grep "DUMP OF SERVICE"
 ```
+
 output:
-```
+
+```bash
 DUMP OF SERVICE SurfaceFlinger:
 DUMP OF SERVICE accessibility:
 DUMP OF SERVICE account:
@@ -67,38 +70,54 @@ DUMP OF SERVICE wallpaper:
 DUMP OF SERVICE wifi:
 DUMP OF SERVICE window:
 ```
+
 <!--more-->
 eg:  
 1.得到电池的所有信息
-```
+
+```bash
 adb shell dumpsys battery
 ```
+
 2.得到wifi的所有信息
-```
+
+```bash
 adb shell dumpsys wifi
 ```
+
 3.得到cpu的所有信息
-```
+
+```bash
 adb shell dumpsys cpuinfo
 ```
+
 4.得到总的存储情况
-```
+
+```bash
 adb shell dumpsys meminfo
 ```
+
 5.得到某应用的存储情况
-```
+
+```bash
 adb shell dumpsys meminfo 'your apps package name'
 ```
+
 6.得到所有的服务列表
-```
+
+```bash
 adb shell service list
 ```
+
 7.得到所有的账户列表
-```
+
+```bash
 adb shell dumpsys account
 ```
+
 8.获得某子命令的帮助信息
-```
+
+```bash
 adb shell dumpsys account -h
 ```
 

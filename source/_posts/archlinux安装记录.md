@@ -150,7 +150,7 @@ systemctl enable bluetooth
 开机后自动启动:  
 修改 `/etc/bluetooth/main.conf`
 
-```conf
+```ini
 [Policy]
 # 这一句的注释删除 并将false改成true
 AutoEnable=true
@@ -252,7 +252,7 @@ The process to change I/O scheduler, depending on whether the disk is rotating o
   
 /etc/udev/rules.d/60-ioschedulers.rules
 
-```conf
+```ini
 # set scheduler for NVMe
 ACTION=="add|change", KERNEL=="nvme[0-9]n[0-9]", ATTR{queue/scheduler}="none"
 # set scheduler for SSD and eMMC

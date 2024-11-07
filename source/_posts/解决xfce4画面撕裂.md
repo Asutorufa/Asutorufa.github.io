@@ -13,13 +13,17 @@ language: zh-Hans
 
 
 ## 安装compton
-```
+
+```bash
 sudo apt install compton
 ```
+
 ## 修改配置文件
+
 compton的配置文件在~/.config/compton.conf  
 因为有些窗口的阴影有时候会变的很奇怪,大概你有可能需要修改一下,附上我的:<!--more-->  
-```
+
+```ini
 #################################
 #
 # Backend
@@ -244,19 +248,28 @@ wintypes:
     };
 };
 ```
+
 ## 关闭xfce4自带的合成器
+
 **设置管理器->窗口管理器微调->合成器**  
 
 ![](http://blog-1254450445.cossgp.myqcloud.com/compton.png)
+
 ## 启动compton
+
 ### 前台运行
-```
+
+```bash
 compton
 ```
+
 ### 后台运行
-```
+
+```bash
 compton -b
 ```
+
 ### 开机自启动
+
 修改~/.xprofile文件
 将```compton -b```直接加到新的一行就行了

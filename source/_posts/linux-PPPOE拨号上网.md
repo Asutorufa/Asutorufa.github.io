@@ -36,7 +36,7 @@ For Linux, it will be ethn, where 'n' is a number. :
 
 这里输入你链接网络的网卡,可以使用`ip addr`进行查看 比如`eth1`,`wlo1`.
 
-```shel
+```shell
 >>> Enter the demand value (default no):
 ```
 

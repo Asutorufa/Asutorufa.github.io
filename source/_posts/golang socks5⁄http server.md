@@ -32,7 +32,7 @@ udp:
 
 golang实现(_这里的地址我是本地socks5服务端_)
 
-```golang
+```go
 conn,err := net.Dial("tcp","127.0.0.1:1080")
 if err != nil{
     fmt.Println(err)
@@ -60,7 +60,7 @@ if err != nil{
 
 golang实现代码:  
 
-```golang
+```go
 sendData := []byte{0x05, 0x01, 0x00}
 if _, err := conn.Write(sendData); err != nil{
     return err
@@ -114,7 +114,7 @@ if getData[1] == 0x02 {
 
 golang实现代码
 
-```golang
+```go
 // 此处为向 www.google.com:443 发送请求
 domain := "www.google.com"
 serverPort := 443
@@ -140,7 +140,7 @@ if getData[0] != 0x05 || getData[1] != 0x00 {
 
 golang实现代码(_不太熟悉各种请求这里随便弄了一个_)
 
-```golang
+```go
 if _,err = conn.Write([]byte("GET /generate_204/ HTTP/2.0\r\n")); err!=nil{
     fmt.Println(err)
     return
@@ -149,7 +149,7 @@ if _,err = conn.Write([]byte("GET /generate_204/ HTTP/2.0\r\n")); err!=nil{
 
 ## 关闭TCP连接
 
-```golang
+```go
 conn.Close()
 ```
 

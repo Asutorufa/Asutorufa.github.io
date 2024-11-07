@@ -12,7 +12,7 @@ language: zh-Hans
 ---
 首先得引入lxml
 
-```
+```python
 #xpath为
 frome lxml import etree
 #cssselector为
@@ -21,7 +21,8 @@ import lxml.html
 ```
 
 cssselector
-```
+
+```python
 tree = lxml.html.fromstring('你获取的网页源代码文件或变量')
 css = tree.cssselect('要选择的内容')
 
@@ -36,6 +37,7 @@ css.attrib['要表示的标签属性']
 
 #如css.attrb['class']表示的就是所选择内容的class属性
 ```
+
 <!--more-->
 **如果选择的内容换行符太多可以使用split表示成list去除**
 
@@ -50,12 +52,13 @@ css.attrib['要表示的标签属性']
 |选择<a\>标签内部的所有<span\>标签|a span|
 |选择title属性为”Home”的所有<a\>标签|a[title=Home]|
 
-
 xpath
-```
+
+```python
 selector=etree.HTML('你获取的网页源代码文件或变量')
 css = selector.xpath('要选择的内容')
 #xpath可直接表示
 #xpath可选择并表示属性
 ```
+
 _xpath由于内容太多,可以直接参考官方文档_

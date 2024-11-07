@@ -11,29 +11,37 @@ language: zh-Hans
 ---
 安卓6.0引入了doze来节省电量,但某些国产ui(如锤子)阉割了这个菜单,可通过adb添加  
 
-
 添加应用到白名单：
-```
+
+```bash
 adb shell dumpsys deviceidle whitelist +<package>
 ```
+
 如:
-```
+
+```bash
 adb shell dumpsys deviceidle whitelist +com.google.android.gms
 ```
+
 删除白名单(把加号改成减号):  <!--more-->
-```
+
+```bash
 adb shell dumpsys deviceidle whitelist -<package>
 ```
+
 查看doze状态：  
-```
+
+```bash
 adb shell dumpsys deviceidle
 ```
 
 获取完整的帮助菜单:  
-```
+
+```bash
 adb shell dumpsys deviceidle -h
 ```
-```
+
+```bash
 Device idle controller (deviceidle) commands:
   help
     Print this help text.

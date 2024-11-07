@@ -138,7 +138,7 @@ SubNet的OPTION-CODE为8,
 
 先定义以下各种请求的OPTION-CODE
 
-```golang
+```go
 var (
 	Reserved         = EDNSOPT{0b00000000, 0b00000000} //0
 	LLQ              = EDNSOPT{0b00000000, 0b00000001} //1 Optional
@@ -163,7 +163,7 @@ var (
 
 然后完成SubNet的
 
-```golang
+```go
 func createEdnsClientSubnet(ip net.IP) []byte {
 	optionCode := []byte{EdnsClientSubnet[0], EdnsClientSubnet[1]}
 
@@ -185,7 +185,7 @@ func createEdnsClientSubnet(ip net.IP) []byte {
 
 再完成Additional,加上完整的请求头,注意这里我们要修改一下请求头中ArCount的大小
 
-```golang
+```go
 func createEDNSReq(domain string, reqType2 reqType, eDNS []byte) []byte {
 	normalReq := creatRequest(domain, reqType2)
 	normalReq[10] = 0b00000000
@@ -217,7 +217,7 @@ Header和Answer的解析我们上一篇已经完成了,这里需要完成Authori
 
 因为我们不需要Authority内的具体内容,这里我们就直接获取到Authority之后的数据就行了
 
-```golang
+```go
 func resolveAuthoritative(c []byte, nsCount int, b []byte) (left []byte) {
 	for nsCount != 0 {
 		nsCount--
@@ -235,7 +235,7 @@ func resolveAuthoritative(c []byte, nsCount int, b []byte) (left []byte) {
 
 Additional, SubNet
 
-```golang
+```go
 func resolveAdditional(b []byte, arCount int) {
 	for arCount != 0 {
 		arCount--

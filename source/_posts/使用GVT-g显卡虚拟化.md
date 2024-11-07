@@ -17,7 +17,7 @@ updated: 2021-01-17 20:53:29
 
 比如`grub`在`/etc/default/grub`的`GRUB_CMDLINE_LINUX_DEFAULT=`中添加
 
-```conf
+```ini
 intel_iommu=on i915.enable_gvt=1 i915.enable_guc=0
 ```
 
@@ -25,7 +25,7 @@ intel_iommu=on i915.enable_gvt=1 i915.enable_guc=0
 
 在`/etc/mkinitcpio.conf`的MODULES=()`中添加:
 
-```conf
+```ini
 # linux 5.14后，arch的linux内核模块已经不会勾选vfio-mdev，自测不影响gvt-g
 kvmgt vfio vfio-iommu-type1s
 ```

@@ -22,20 +22,20 @@ DOH主要有两种方式HTTP的GET请求和POST的请求
 
 GET请求需要使用BASE64对请求的字节数据进行序列化,然后作为参数传递,获取到的数据使用我们之前的解析进行解析就行了
 
-```golang
+```go
 func get(dReq []byte, server string) (body []byte, err error) {
-	query := strings.Replace(base64.URLEncoding.EncodeToString(dReq), "=", "", -1)
-	urls := "https://" + server + "/dns-query?dns=" + query
-	res, err := http.Get(urls)
-	if err != nil {
-		return nil, err
-	}
-	defer res.Body.Close()
-	body, err = ioutil.ReadAll(res.Body)
-	if err != nil {
-		return nil, err
-	}
-	return
+ query := strings.Replace(base64.URLEncoding.EncodeToString(dReq), "=", "", -1)
+ urls := "https://" + server + "/dns-query?dns=" + query
+ res, err := http.Get(urls)
+ if err != nil {
+  return nil, err
+ }
+ defer res.Body.Close()
+ body, err = ioutil.ReadAll(res.Body)
+ if err != nil {
+  return nil, err
+ }
+ return
 }
 ```
 
@@ -43,34 +43,34 @@ func get(dReq []byte, server string) (body []byte, err error) {
 
 POST并不需要进行序列化,直接把原始请求数据作为body就行了
 <!--more-->
-```golang
+```go
 func post(dReq []byte, server string) (body []byte, err error) {
-	client := &http.Client{Timeout: 5 * time.Second}
-	req, err := http.NewRequest(http.MethodPost, "", bytes.NewReader(dReq))
-	if err != nil {
-		return nil, fmt.Errorf("DOH:post() newReq -> %v", err)
-	}
-	urls, err := url.Parse("//" + server)
-	if err != nil {
-		return nil, fmt.Errorf("DOH:post() urlParse -> %v", err)
-	}
-	req.URL.Scheme = "https"
-	req.URL.Host = urls.Host
-	req.URL.Path = urls.Path + "/dns-query"
-	req.Header.Set("accept", "application/dns-message")
-	req.Header.Set("content-type", "application/dns-message")
-	req.ContentLength = int64(len(dReq))
+ client := &http.Client{Timeout: 5 * time.Second}
+ req, err := http.NewRequest(http.MethodPost, "", bytes.NewReader(dReq))
+ if err != nil {
+  return nil, fmt.Errorf("DOH:post() newReq -> %v", err)
+ }
+ urls, err := url.Parse("//" + server)
+ if err != nil {
+  return nil, fmt.Errorf("DOH:post() urlParse -> %v", err)
+ }
+ req.URL.Scheme = "https"
+ req.URL.Host = urls.Host
+ req.URL.Path = urls.Path + "/dns-query"
+ req.Header.Set("accept", "application/dns-message")
+ req.Header.Set("content-type", "application/dns-message")
+ req.ContentLength = int64(len(dReq))
 
-	resp, err := client.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("DOH:post() req -> %v", err)
-	}
-	defer resp.Body.Close()
-	body, err = ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("DOH:post() readBody -> %v", err)
-	}
-	return
+ resp, err := client.Do(req)
+ if err != nil {
+  return nil, fmt.Errorf("DOH:post() req -> %v", err)
+ }
+ defer resp.Body.Close()
+ body, err = ioutil.ReadAll(resp.Body)
+ if err != nil {
+  return nil, fmt.Errorf("DOH:post() readBody -> %v", err)
+ }
+ return
 }
 ```
 

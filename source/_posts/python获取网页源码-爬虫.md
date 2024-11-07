@@ -12,11 +12,14 @@ language: zh-Hans
 ---
 
 利用requrst,使用首先要
-```
+
+```python
 import requests
 ```
+
 使用方法
-```
+
+```python
 url = '要获取的网页地址'
 useragent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'#user-agent 可有可无,有些网页防爬虫就要模拟浏览器
 requests.get(url,headers={'User-Agent':useragent}))

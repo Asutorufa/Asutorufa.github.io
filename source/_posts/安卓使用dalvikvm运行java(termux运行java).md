@@ -15,24 +15,27 @@ language: zh-Hans
 
 ## 安装所需工具
 termux上安装 ecj 和 dx就可以了
-```
+
+```bash
 apt install ecj dx
 ```
 
 ## 编译为class文件
-```
+
+```bash
 ecj XXX.java
 ```
 <!--more-->
 ## 编译成dex文件
-```
+
+```bash
 dx --dex --output=XXX.dex XXX.class
 ```
 
 ## 使用dalvikvm运行
-```
+
+```bash
 dalvikvm -cp XXX.dex XXX
 ```
-
 
 参考: [使用 dalvikvm 执行一个运行于命令行的 Hello World](https://bbs.pediy.com/thread-184592.htm)

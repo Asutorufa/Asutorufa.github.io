@@ -30,29 +30,29 @@ DNSSEC也是使用了EDNS,而且只需要改一个字段,就是之前提到Z,具
 
 完成请求头
 <!--more-->
-```golang
+```go
 type eDNSHeader struct {
-	DnsHeader   []byte
-	Name        [1]byte
-	Type        [2]byte
-	PayloadSize [2]byte
-	ExtendRCode [1]byte
-	EDNSVersion [1]byte
-	Z           [2]byte
-	Data        []byte
+ DnsHeader   []byte
+ Name        [1]byte
+ Type        [2]byte
+ PayloadSize [2]byte
+ ExtendRCode [1]byte
+ EDNSVersion [1]byte
+ Z           [2]byte
+ Data        []byte
 }
 
 func createDNSSEC(domain string, reqType2 reqType) (header eDNSHeader, b []byte) {
-	//eDNSHeader := createEDNSReq(domain,reqType2,[]byte{})
-	header = eDNSHeader{}
-	header.DnsHeader = creatRequest(domain, reqType2)
-	header.Name[0] = 0b0
-	header.Type = [2]byte{0b00000000, 0b00101001}
-	header.PayloadSize = [2]byte{0b00010000, 0b00000000} //4096
-	header.ExtendRCode = [1]byte{0b00000000}
-	header.EDNSVersion = [1]byte{0b00000000}
-	header.Z = [2]byte{0b10000000, 0b00000000} // Do bit = 1
-	return header, createEDNSRequ(header)
+ //eDNSHeader := createEDNSReq(domain,reqType2,[]byte{})
+ header = eDNSHeader{}
+ header.DnsHeader = creatRequest(domain, reqType2)
+ header.Name[0] = 0b0
+ header.Type = [2]byte{0b00000000, 0b00101001}
+ header.PayloadSize = [2]byte{0b00010000, 0b00000000} //4096
+ header.ExtendRCode = [1]byte{0b00000000}
+ header.EDNSVersion = [1]byte{0b00000000}
+ header.Z = [2]byte{0b10000000, 0b00000000} // Do bit = 1
+ return header, createEDNSRequ(header)
 }
 ```
 

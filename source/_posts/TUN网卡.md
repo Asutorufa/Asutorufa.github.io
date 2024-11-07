@@ -14,7 +14,7 @@ language:
 
 ## Golang Tun (gVisor)
 
-```golang
+```go
 import "gvisor.dev/gvisor/pkg/tcpip/stack" // gvisor
 
 s := stack.New(stack.Options{

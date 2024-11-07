@@ -59,7 +59,7 @@ header在dns请求和应答中相同的,查询中有Query Section,应答中有an
 
 ## 查询
 
-```TXT
+```txt
                                 1  1  1  1  1  1
   0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
@@ -75,14 +75,14 @@ header在dns请求和应答中相同的,查询中有Query Section,应答中有an
 
 - QNAME：不定长,格式为域名以点分割的长度,末尾以0结尾,例如:
 
-    ```TXT
+    ```txt
         www.google.com -> 3www6google3com0
     ```
 
 - QTYPE:查询的类型  
     常用的我们需要知道A为IPV4,AAAA为IPV6
 
-    ```TXT
+    ```txt
     TYPE            value and meaning
     A               1 a host address
     NS              2 an authoritative name server
@@ -272,7 +272,7 @@ func resolveHeader(req []byte, answer []byte) (anCount int, answerSection []byte
 
 之后就是我们真正需要的数据,Answer section
 
-```TXT
+```txt
                                1  1  1  1  1  1
   0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+

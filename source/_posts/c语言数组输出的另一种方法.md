@@ -12,7 +12,7 @@ language: zh-Hans
 
 今天看到这样一种写法,原文链接:[一个有趣的C语言程序](http://blog.accut.cn/archives/173)
 
-```
+```c
 #include <stdio.h>
  
 int main()
@@ -23,7 +23,8 @@ int main()
     return 0;
 }
 ```
-```
+
+```shell
 output: 2
 ```
 
@@ -34,7 +35,8 @@ a[x]的等效写法是\*(a+&x).因为上面说了x实际上是x[0].
 所以就是x[1]对应的值：2
 
 由此我又想到了二位数组
-```
+
+```c
 #include <stdio.h>
  
 int main()
@@ -45,7 +47,9 @@ int main()
     return 0;
 }
 ```
-```
+
+```shell
 output: 4
 ```
+
 感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.

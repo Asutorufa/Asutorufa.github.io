@@ -1,13 +1,14 @@
 ---
 title: langchaingoでRAGを試しました
-date: 2024-11-06 10:37:12
-updated: 2024-11-06 10:37:12
 tags:
   - llm
   - rag
   - text embedding
 categories:
   - llm
+abbrlink: 95db8f9
+date: 2024-11-06 10:37:12
+updated: 2024-11-06 10:37:12
 language:
 ---
 
@@ -24,13 +25,13 @@ RAGはRetrieval augmented generationの略です。
 
 gemini：
 
-```md
+```txt
 今日の注目の新聞記事については、リアルタイムで変化するため、特定の新聞社名を挙げて「今日の注目の記事はこれです」と断言することは難しいです。
 ```
 
 chatgpt:
 
-```md
+```txt
 本日（2024年11月6日）の日本の注目ニュースは次のような内容が含まれている可能性があります：
 
 アメリカ大統領選挙の最新動向 - 特に若い世代の投票行動や政策への関心が注目されています。
@@ -47,13 +48,13 @@ chatgptはRAGか、Function Callingか、どちかを使えていると思いま
 <!--more-->
 ### ollamaをインストール
 
-```shell
+```bash
 curl -fsSL https://ollama.com/install.sh | sh
 ```
 
 ### qdrantのコンテナを実行
 
-```shell
+```bash
 mkdir -p ~/.config/qdrant
 docker run -p 6333:6333 -p 6334:6334 \
     -v ~/.config/qdrant:/qdrant/storage:z \
@@ -68,7 +69,7 @@ ollamaのモデルライブラリーはbge-large-en-v1.5がありませんので
 
 git-lfsとcmakeをインストール
 
-```shell
+```bash
 sudo apt install git-lfs cmake
 git lfs install
 git clone https://huggingface.co/BAAI/bge-large-en-v1.5
@@ -76,7 +77,7 @@ git clone https://huggingface.co/BAAI/bge-large-en-v1.5
 
 llama.cppをクローン
 
-```shell
+```bash
 git clone https://github.com/ggerganov/llama.cpp.git
 cd llama.cpp/
 # python仮想環境はおすすめです
@@ -87,7 +88,7 @@ python3 -m venv python-venv
 
 GGUFに変換
 
-```shell
+```bash
  ./llama.cpp/python-venv/bin/python3 ./llama.cpp/convert_hf_to_gguf.py ./bge-large-en-v1.5/
 cd bge-large-en-v1.5/
 echo "FROM ./bge-large-en-v1.5-F16.gguf" > Modelfile
@@ -100,7 +101,7 @@ ollama run bge-large-en-v1.5-F16
 
 ### Qwen2.5をollamaで実行
 
-```shell
+```bash
 # 32bは20GBのGPUメモリ(VRAM)が必要です
 # CPUもできるですが、非常に重いですから
 # 3bや7bや14bなどもぜひ使ってみてください
@@ -111,7 +112,7 @@ ollama run qwen2.5:32b-instruct
 
 ### text embedder
 
-```golang
+```go
 import (
  "github.com/tmc/langchaingo/embeddings"
  "github.com/tmc/langchaingo/llms/ollama"
@@ -148,7 +149,7 @@ if err != nil {
 
 テキストを導入
 
-```golang
+```go
 
 // TextToChunks テキストを分割
 func TextToChunks(r io.Reader, chunkSize, chunkOverlap int) ([]schema.Document, error) {
@@ -185,7 +186,7 @@ func TextToChunks(r io.Reader, chunkSize, chunkOverlap int) ([]schema.Document, 
 
 知識を検索
 
-```golang
+```go
  optionsVector := []vectorstores.Option{
   vectorstores.WithScoreThreshold(0.80),
  }
@@ -200,7 +201,7 @@ func TextToChunks(r io.Reader, chunkSize, chunkOverlap int) ([]schema.Document, 
 
 llmで予測する
 
-```golang
+```go
  llm, err := ollama.New(
   ollama.WithModel("qwen2.5:32b-instruct"),
   ollama.WithServerURL("http://localhost:11434"),

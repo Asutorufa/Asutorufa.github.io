@@ -100,7 +100,7 @@ trie树节点 我们可以这样写<!--more-->
 
 ## 使用golang实现
 
-```golang
+```go
 type node struct {
  isLast bool
     left   *node
@@ -121,7 +121,7 @@ func NewTrieTree() *TrieTree {
 对每一个CIDR的插入  
 注意: 此处传入的CIDR为CIDR前mask位的二进制形式
 
-```golang
+```go
 func (trie *TrieTree) Insert(str string) {
 	nodeTemp := trie.root
 	for i := 0; i < len(str); i++ {
@@ -149,7 +149,7 @@ func (trie *TrieTree) Insert(str string) {
 对ip的匹配  
 注意: 此处传入的ip为ip的二进制形式
 
-```golang
+```go
 func (trie *TrieTree) Search(str string) bool {
 	nodeTemp := trie.root
 	for i := 0; i < len(str); i++ {
