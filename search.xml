@@ -373,7 +373,7 @@ DOH主要有两种方式HTTP的GET请求和POST的请求</p>
 <ul>
 <li>
 <p>QNAME：不定长,格式为域名以点分割的长度,末尾以0结尾,例如:</p>
-  <pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">www.google.com -> 3www6google3com0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+  <pre class="language-txt" data-language="txt"><code class="language-txt">www.google.com -> 3www6google3com0</code></pre>
 </li>
 <li>
 <p>QTYPE:查询的类型<br>
@@ -970,76 +970,6 @@ next right index 2+1 = 3 is not null, continue search until end or null</p>
       </tags>
   </entry>
   <entry>
-    <title>HTTPS相关</title>
-    <url>/posts/11b2b8df/</url>
-    <content><![CDATA[<p>最近遇到了一件事, 让我又多熟悉了下HTTPS的相关内容, 先看看HTTPS的结构</p>
-<p>通常的HTTP网络结构如下</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+------+
-| HTTP |
-+------+
-| TCP  |
-+------+
-|  IP  |
-+------+
-  ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>HTTP的的相关内容是通过TCP明文传输的, 如果有中间监听者, 可以直接看结相关内容.</p>
-<p>HTTPS的结构</p>
-<span id="more"></span>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+------+
-| HTTP |
-+------+
-| TLS  |
-+------+
-| TCP  |
-+------+
-|  IP  |
-+------+
-  ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>TCP和HTTP之前多了一次处理, 会将HTTP的内容加密后再通过TCP传输.<br>
-TLS握手过程中, 会协商使用的TLS版本, 加密方式及密钥, 会通过证书确认身份, 生成的密钥也会加密, 不想被看见握手过程的话, 目前还可以采用ESNI.<br>
-这里并不能完全匿名, 因为还是能通过网络层知道你的目的地址, 但是具体请求的内容就不会被看见了.</p>
-<hr>
-<p><strong>以下案例纯虚假编造的, 如有雷同, 纯属巧合.</strong><br>
-客户需求大概是这样, 希望在前后端传输过程中密码等敏感内容不要明文暴露, 不被中间劫持获取.<br>
-x公司x高级架构师采用的是这样的方案:</p>
-<ul>
-<li>前后端使用HTTP通信</li>
-<li>前端对相关敏感内容对称加密后传给后端, 后端解密获取内容</li>
-</ul>
-<p>不采用TLS的理由如下:</p>
-<ul>
-<li>可以通过浏览器漏洞获取</li>
-<li>HTTPS可以被暴力破解</li>
-</ul>
-<p>先说下采用的方案和不合理, 目前产品是传统的BS模式, 也就是说网页会从后端获取.<br>
-因为网页是从后端获取的, 而且是HTTP, 也就是说中间劫持者也可以获取网页内容, 通过分析js就能获取具体的加密方式, 即使对js进行混淆也最多是花的时间稍微长那么一点, 所以说这个方案完全无用, 当然欺骗一下不懂技术的客户还是可以的, 但是从技术角度是完全不可行的.<br>
-这里我们可以改一下产品的模式还是可行的, 使用electron等类似的技术将网页包装成一个客户端, 不通过后端获取网页还是可行的, 可能在使用上麻烦了一点, 但是这才能真正让前端的加密具有意义.</p>
-<p>再分析下不采用TLS的理由:</p>
-<ul>
-<li>
-<p>可以通过浏览器漏洞获取<br>
-这句话是废话, 浏览器真有漏洞不管是HTTP还是HTTPS都无用的.</p>
-</li>
-<li>
-<p>HTTPS可以被暴力破解</p>
-</li>
-</ul>
-<p>这里我们先分析下, 目前HTTPS可能被破解的几种方式.</p>
-<ol>
-<li>第一种, 在握手阶段使用虚假的证书进行握手, 这里需要在浏览器或者是客户端的系统上导入虚假的证书, 不过我认为一个安全意识很高的公司是不会随意导入不认识的证书的.</li>
-<li>第二种, 暴力破解TLS的加密, 不计时间情况下当然能被破解, 但是现代密码学, 即使使用超级计算机暴力破解都要花费很长很长时间.</li>
-</ol>
-<p>总上所述, 这句话也是废话.</p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>HTTPS</tag>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HP Laptop linux 下intel&amp;amd双显卡</title>
     <url>/posts/34615c2d/</url>
     <content><![CDATA[<p>查看<code>双显卡</code>切换情况，正常情况下如果没有在用独显应该显示是<code>DynOff</code>，但是我这里即使是不开桌面也是<code>DynPwr</code></p>
@@ -1053,7 +983,7 @@ x公司x高级架构师采用的是这样的方案:</p>
 <span class="token punctuation">[</span>    <span class="token number">3.495741</span><span class="token punctuation">]</span> ATPX version <span class="token number">1</span><span class="token punctuation">,</span> functions <span class="token number">0x00000033</span>
 <span class="token punctuation">[</span>    <span class="token number">3.495873</span><span class="token punctuation">]</span> ATPX Hybrid Graphics<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>找到了调用的方法，网上搜了一圈都没有使用方法，然后使用<code>acpi_call</code>尝试了几个参数，最后找到</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">"\_SB_.PCI0.GFX0.ATPX 2 0"</span> <span class="token operator">></span>  /proc/acpi/call<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">"\_SB_.PCI0.GFX0.ATPX 2 0"</span> <span class="token operator">></span>  /proc/acpi/call</code></pre>
 <p>嗯，确实有用，但是实在是太暴力了，直接把整个显卡移除，可以看一下日志<span id="more"></span></p>
 <pre class="line-numbers language-log" data-language="log"><code class="language-log"><span class="token punctuation">[</span>drm<span class="token operator">:</span>amdgpu_pci_remove <span class="token punctuation">[</span>amdgpu<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">*</span><span class="token level error important">ERROR</span><span class="token operator">*</span> Hotplug removal is not supported
 <span class="token punctuation">[</span><span class="token number">11499.551786</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>drm<span class="token punctuation">]</span> <span class="token property">amdgpu:</span> finishing device<span class="token punctuation">.</span>
@@ -1131,6 +1061,76 @@ x公司x高级架构师采用的是这样的方案:</p>
       <tags>
         <tag>bios</tag>
         <tag>computer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HTTPS相关</title>
+    <url>/posts/11b2b8df/</url>
+    <content><![CDATA[<p>最近遇到了一件事, 让我又多熟悉了下HTTPS的相关内容, 先看看HTTPS的结构</p>
+<p>通常的HTTP网络结构如下</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+------+
+| HTTP |
++------+
+| TCP  |
++------+
+|  IP  |
++------+
+  ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>HTTP的的相关内容是通过TCP明文传输的, 如果有中间监听者, 可以直接看结相关内容.</p>
+<p>HTTPS的结构</p>
+<span id="more"></span>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+------+
+| HTTP |
++------+
+| TLS  |
++------+
+| TCP  |
++------+
+|  IP  |
++------+
+  ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>TCP和HTTP之前多了一次处理, 会将HTTP的内容加密后再通过TCP传输.<br>
+TLS握手过程中, 会协商使用的TLS版本, 加密方式及密钥, 会通过证书确认身份, 生成的密钥也会加密, 不想被看见握手过程的话, 目前还可以采用ESNI.<br>
+这里并不能完全匿名, 因为还是能通过网络层知道你的目的地址, 但是具体请求的内容就不会被看见了.</p>
+<hr>
+<p><strong>以下案例纯虚假编造的, 如有雷同, 纯属巧合.</strong><br>
+客户需求大概是这样, 希望在前后端传输过程中密码等敏感内容不要明文暴露, 不被中间劫持获取.<br>
+x公司x高级架构师采用的是这样的方案:</p>
+<ul>
+<li>前后端使用HTTP通信</li>
+<li>前端对相关敏感内容对称加密后传给后端, 后端解密获取内容</li>
+</ul>
+<p>不采用TLS的理由如下:</p>
+<ul>
+<li>可以通过浏览器漏洞获取</li>
+<li>HTTPS可以被暴力破解</li>
+</ul>
+<p>先说下采用的方案和不合理, 目前产品是传统的BS模式, 也就是说网页会从后端获取.<br>
+因为网页是从后端获取的, 而且是HTTP, 也就是说中间劫持者也可以获取网页内容, 通过分析js就能获取具体的加密方式, 即使对js进行混淆也最多是花的时间稍微长那么一点, 所以说这个方案完全无用, 当然欺骗一下不懂技术的客户还是可以的, 但是从技术角度是完全不可行的.<br>
+这里我们可以改一下产品的模式还是可行的, 使用electron等类似的技术将网页包装成一个客户端, 不通过后端获取网页还是可行的, 可能在使用上麻烦了一点, 但是这才能真正让前端的加密具有意义.</p>
+<p>再分析下不采用TLS的理由:</p>
+<ul>
+<li>
+<p>可以通过浏览器漏洞获取<br>
+这句话是废话, 浏览器真有漏洞不管是HTTP还是HTTPS都无用的.</p>
+</li>
+<li>
+<p>HTTPS可以被暴力破解</p>
+</li>
+</ul>
+<p>这里我们先分析下, 目前HTTPS可能被破解的几种方式.</p>
+<ol>
+<li>第一种, 在握手阶段使用虚假的证书进行握手, 这里需要在浏览器或者是客户端的系统上导入虚假的证书, 不过我认为一个安全意识很高的公司是不会随意导入不认识的证书的.</li>
+<li>第二种, 暴力破解TLS的加密, 不计时间情况下当然能被破解, 但是现代密码学, 即使使用超级计算机暴力破解都要花费很长很长时间.</li>
+</ol>
+<p>总上所述, 这句话也是废话.</p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>HTTPS</tag>
+        <tag>HTTP</tag>
       </tags>
   </entry>
   <entry>
@@ -1248,6 +1248,29 @@ signcerts &lt;- 节点/用户证书</p>
       </tags>
   </entry>
   <entry>
+    <title>JavaScript对字符串操作</title>
+    <url>/posts/86cfa6a/</url>
+    <content><![CDATA[<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> name<span class="token operator">=</span><span class="token string">'aaaa'</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> age<span class="token operator">=</span><span class="token string">'bbbb'</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> change<span class="token operator">=</span><span class="token string">'Hello javascript'</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> message<span class="token operator">=</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">hello,</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>name<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">,</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>age<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">,</span><span class="token template-punctuation string">`</span></span><span class="token operator">+</span>name<span class="token operator">+</span>age<span class="token punctuation">;</span><span class="token comment">//将多个字符串写成一句话</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> length<span class="token operator">=</span>message<span class="token punctuation">.</span>length<span class="token punctuation">;</span><span class="token comment">//获取字符串长度</span></code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> upper<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//把字符串全部变成大写</span></code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> lower<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//把字符串全部变成小写</span></code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> search<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">'aaaa'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//搜索字符串位置</span></code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> substr<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//返回区间内字符串</span></code></pre>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">x<span class="token operator">=</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//查找元素</span>
+x<span class="token punctuation">.</span>innerHTML<span class="token operator">=</span><span class="token string">"Hello JavaScript"</span><span class="token punctuation">;</span>    <span class="token comment">//改变内容</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>NAT穿透</title>
     <url>/posts/1124a628/</url>
     <content><![CDATA[<h2 id="NAT-网络地址转换">NAT 网络地址转换</h2>
@@ -1342,34 +1365,11 @@ TURN是一个client-server协议。TURN的NAT穿透方法与STUN类似，都是�
       </tags>
   </entry>
   <entry>
-    <title>JavaScript对字符串操作</title>
-    <url>/posts/86cfa6a/</url>
-    <content><![CDATA[<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> name<span class="token operator">=</span><span class="token string">'aaaa'</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> age<span class="token operator">=</span><span class="token string">'bbbb'</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> change<span class="token operator">=</span><span class="token string">'Hello javascript'</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> message<span class="token operator">=</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">hello,</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>name<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">,</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>age<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">,</span><span class="token template-punctuation string">`</span></span><span class="token operator">+</span>name<span class="token operator">+</span>age<span class="token punctuation">;</span><span class="token comment">//将多个字符串写成一句话</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> length<span class="token operator">=</span>message<span class="token punctuation">.</span>length<span class="token punctuation">;</span><span class="token comment">//获取字符串长度</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> upper<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//把字符串全部变成大写</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> lower<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//把字符串全部变成小写</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> search<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">'aaaa'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//搜索字符串位置</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> substr<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//返回区间内字符串</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">x<span class="token operator">=</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//查找元素</span>
-x<span class="token punctuation">.</span>innerHTML<span class="token operator">=</span><span class="token string">"Hello JavaScript"</span><span class="token punctuation">;</span>    <span class="token comment">//改变内容</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>NAT类型</title>
     <url>/posts/14e0ef9e/</url>
     <content><![CDATA[<h2 id="NAT-Mapping">NAT Mapping</h2>
 <p>描述NAT在映射网络内主机地址的行为</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">computer(192.168.100.2:30086) -> NAT -> 1.1.1.1:2345<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-markdown" data-language="markdown"><code class="language-markdown">computer(192.168.100.2:30086) -> NAT -> 1.1.1.1:2345</code></pre>
 <p>Endpoint-Independent Mapping</p>
 <p>网络内主机在通过同一监听udp地址向不同地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
 <pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
@@ -1711,7 +1711,7 @@ std<span class="token double-colon punctuation">::</span>vector<span class="toke
 <h2 id="模反元素">模反元素</h2>
 <p>模逆元也称为模倒数，或者模逆元。&lt;- 模反元素<br>
 如果两个正整数a和n互质，那么一定可以找到整数b，使得 ab-1 被n整除，或者说ab被n除的余数是1。这时，b就叫做a的“模反元素”。</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如3关于20的模反元素是7，(3*7)%20=1  <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-markdown" data-language="markdown"><code class="language-markdown">如3关于20的模反元素是7，(3*7)%20=1  </code></pre>
 <p><a href="https://zh.wikipedia.org/wiki/%E6%A8%A1%E5%8F%8D%E5%85%83%E7%B4%A0">https://zh.wikipedia.org/wiki/模反元素</a></p>
 <h3 id="拓展欧几里得算法">拓展欧几里得算法</h3>
 <p>计算欧几里得同时多计算<code>si-1 = qi *si + si+1</code>和<code>si-1 = qi *si + si+1</code>, 初始分别为<code>s0 = 1</code>,<code>s1 = 0</code>和<code>t0 = 0</code>, <code>t1 = 1</code>，<br>
@@ -1835,10 +1835,10 @@ it’s a kernel bug now <a href="https://bugzilla.kernel.org/show_bug.cgi?id=204
 need wait add the motherboard name to linux kernel code list <a href="https://github.com/torvalds/linux/blob/4bbf3422df78029f03161640dcb1e9d1ed64d1ea/drivers/hwmon/nct6775-platform.c#L1044">linux/drivers/hwmon/nct6775-platform.c</a></p>
 <h2 id="temporary-measure">temporary measure</h2>
 <p>add</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">acpi_enforce_resources=lax<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-markdown" data-language="markdown"><code class="language-markdown">acpi_enforce_resources=lax</code></pre>
 <p>to linux boot parameter</p>
 <p>load nct6775 kernel module</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">modprobe <span class="token parameter variable">-v</span> nct6775<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">modprobe <span class="token parameter variable">-v</span> nct6775</code></pre>
 <p>run <code>sensors-detect --auto</code>.</p>
 <p>finally, you will see nct6798-isa-* in sensors.</p>
 ]]></content>
@@ -1975,7 +1975,7 @@ ep <span class="token operator">:=</span> fdbased<span class="token punctuation"
     <title>android dumpsys tool</title>
     <url>/posts/25303996/</url>
     <content><![CDATA[<p>查看dumpsys所有的子命令:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">dumpsys <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"DUMP OF SERVICE"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dumpsys <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"DUMP OF SERVICE"</span></code></pre>
 <p>output:</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">DUMP OF SERVICE SurfaceFlinger:
 DUMP OF SERVICE accessibility:
@@ -2029,21 +2029,21 @@ DUMP OF SERVICE window:<span aria-hidden="true" class="line-numbers-rows"><span>
 <span id="more"></span>
 <p>eg:<br>
 1.得到电池的所有信息</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys battery<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys battery</code></pre>
 <p>2.得到wifi的所有信息</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys wifi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys wifi</code></pre>
 <p>3.得到cpu的所有信息</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys cpuinfo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys cpuinfo</code></pre>
 <p>4.得到总的存储情况</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys meminfo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys meminfo</code></pre>
 <p>5.得到某应用的存储情况</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys meminfo <span class="token string">'your apps package name'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys meminfo <span class="token string">'your apps package name'</span></code></pre>
 <p>6.得到所有的服务列表</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell <span class="token function">service</span> list<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell <span class="token function">service</span> list</code></pre>
 <p>7.得到所有的账户列表</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys account<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys account</code></pre>
 <p>8.获得某子命令的帮助信息</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys account <span class="token parameter variable">-h</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys account <span class="token parameter variable">-h</span></code></pre>
 <p>参考:<br>
 <a href="https://stackoverflow.com/questions/11201659/whats-the-android-adb-shell-dumpsys-tool-and-what-are-its-benefits">What’s the Android ADB shell “dumpsys” tool and what are its benefits?</a></p>
 ]]></content>
@@ -2064,9 +2064,9 @@ DUMP OF SERVICE window:<span aria-hidden="true" class="line-numbers-rows"><span>
 具体解决方法我已经写到archwiki里了,请看: <a href="https://wiki.archlinux.org/index.php?title=Laptop/HP#HP_Omen_15_ax210TX">Laptop/HP#HP_Omen_15_ax210TX</a></p>
 <hr>
 <p>grub更新菜单</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">grub-mkconfig</span> <span class="token parameter variable">-o</span> /boot/grub/grub.cfg  <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">grub-mkconfig</span> <span class="token parameter variable">-o</span> /boot/grub/grub.cfg  </code></pre>
 <p>安装os-prober让grub检测到其他系统并自动创建引导</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> os-prober<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> os-prober</code></pre>
 <p>使用system-boot(就是直接使用linux内核引导系统,不再需要grub,如果有多系统不推荐,会把efi分区搞得很乱):</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> efibootmgr dosfstools
 <span class="token comment"># 此处注意:此处要把efi分区挂载为/boot,而非平常的/boot/efi</span>
@@ -2074,13 +2074,13 @@ bootctl <span class="token function">install</span> <span class="token parameter
 <span id="more"></span>
 <p><strong>关于efi的部分可以看我的另一贴.</strong></p>
 <p>arch 安装应用后 应用菜单不刷新怎么办(这个正常情况是不会遇到的,只是刚装完有些功能不完整会这样,我就遇到了):</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kbuildsycoca5 <span class="token parameter variable">--noincremental</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">kbuildsycoca5 <span class="token parameter variable">--noincremental</span></code></pre>
 <hr>
 <p>新增用户<sup><a href='#1'><font color=red>[1]</font></a></sup>:<br>
 首先添加一个用户，并把它加到wheel组</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">useradd</span> <span class="token parameter variable">-m</span> <span class="token parameter variable">-G</span> wheel <span class="token parameter variable">-s</span> /bin/bash  <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">useradd</span> <span class="token parameter variable">-m</span> <span class="token parameter variable">-G</span> wheel <span class="token parameter variable">-s</span> /bin/bash  <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span></code></pre>
 <p>然后为这个用户设置密码</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">passwd</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">passwd</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span></code></pre>
 <p>最后设置wheel组的用户能用sudo获取root权限:</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">visudo
     <span class="token comment">#找到这样的一行,把前面的#去掉:</span>
@@ -2090,7 +2090,7 @@ bootctl <span class="token function">install</span> <span class="token parameter
 <p>关闭NetworkManager网络检查(ping.archlinux.org有时候会被墙-_-)<br>
 <a href="https://wiki.archlinux.org/title/NetworkManager#Checking_connectivity">NetworkManager#Checking_connectivity</a></p>
 <p>启用dhcp自动获取网络地址,不然开机无法自动联网</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl <span class="token builtin class-name">enable</span> dhcpcd.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">systemctl <span class="token builtin class-name">enable</span> dhcpcd.service</code></pre>
 <p>如果只使用有线网络 可以使用<a href="https://wiki.archlinux.org/index.php/Systemd-networkd">Systemd-networkd</a><br>
 ——以下已包含dhcp的功能,下面两条命令包括上面那个的功能——</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-s</span> networkmanager
@@ -2103,20 +2103,20 @@ systemctl mask NetworkManager-wait-online<span aria-hidden="true" class="line-nu
 systemctl start sddm.service  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>缩略图生成<br>
 若要在桌面和 Dolphin 内为媒体或文档文件生成缩略图，安装 <code>kdegraphics-thumbnailers</code>，<code>ffmpegthumbs</code>。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> kdegraphics-thumbnailers ffmpegthumbs<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> kdegraphics-thumbnailers ffmpegthumbs</code></pre>
 <p>一些gtk应用的plasma panel托盘图标模糊且右键菜单比较奇怪<br>
 解决方法: 安装libappindicator-gtk3 libappindicator-gtk2</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> libappindicator-gtk3 libappindicator-gtk2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> libappindicator-gtk3 libappindicator-gtk2</code></pre>
 <p>安装一个终端,不然进入图形界面只能进tty输入命令</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> konsole<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> konsole</code></pre>
 <hr>
 <p>无法检测到蓝牙适配器:<br>
 安装<code>bluez</code>,<code>bluez-utils</code></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> bluez bluez-utils<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> bluez bluez-utils</code></pre>
 <p>首先确定内核的蓝牙模块已载入</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">modinfo btusb<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">modinfo btusb</code></pre>
 <p>如果没有的话就是没载入,手动载入:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">modprobe btusb<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">modprobe btusb</code></pre>
 <p>开启bluetooth服务</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl start bluetooth
 <span class="token comment"># 开机自启</span>
@@ -2137,17 +2137,17 @@ Failure: Module initialization failed<span aria-hidden="true" class="line-number
 pactl   load-module  module-bluetooth-discover<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>长期解决方法<sup><a href='#2'><font color=red>[2]</font></a></sup>:</p>
 <p>Edit the file:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/etc/pulse/default.pa<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">/etc/pulse/default.pa</code></pre>
 <p>and comment out (with an # at the beginning of the line) the following line:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#load-module module-bluetooth-discover</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#load-module module-bluetooth-discover</span></code></pre>
 <p>now edit the file:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/usr/bin/start-pulseaudio-x11<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">/usr/bin/start-pulseaudio-x11</code></pre>
 <p>and after the lines:</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token keyword">if</span> <span class="token punctuation">[</span> x”<span class="token environment constant">$SESSION_MANAGER</span>” <span class="token operator">!=</span> x <span class="token punctuation">]</span> <span class="token punctuation">;</span> <span class="token keyword">then</span>
      /usr/bin/pactl load-module module-x11-xsmp “display<span class="token operator">=</span><span class="token environment constant">$DISPLAY</span> <span class="token assign-left variable">session_manager</span><span class="token operator">=</span><span class="token environment constant">$SESSION_MANAGER</span>” <span class="token operator">></span> /dev/null
  <span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>add the following line:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/usr/bin/pactl load-module module-bluetooth-discover<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">/usr/bin/pactl load-module module-bluetooth-discover</code></pre>
 <p>This way the Pulse audio’s Bluetooth modules will not be downloaded at boot time but after x11 is started.</p>
 <hr>
 <p>字体优化:<br>
@@ -2190,10 +2190,10 @@ The process to change I/O scheduler, depending on whether the disk is rotating o
 <hr>
 <p>deadbeef-git 打开提示<code>plugin cdda.so not found or failed to load</code><br>
 解决方法: 安装 libcddb libcdio</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> libcddb libcdio<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> libcddb libcdio</code></pre>
 <hr>
 <p>使用anime4k会提示缺少openCL库,安装ocl-icd</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> ocl-icd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> ocl-icd</code></pre>
 <hr>
 <p>开启powertop的自动优化节省电量:</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#安装powertop</span>
@@ -2225,24 +2225,24 @@ systemctl <span class="token builtin class-name">enable</span> powertop.service<
 <span class="token builtin class-name">echo</span> <span class="token string">'on'</span> <span class="token operator">></span> <span class="token string">'/sys/bus/usb/devices/1-7/power/control'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <hr>
 <p>rider 需要安装moon(.net framework/.net core)</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> moon<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> moon</code></pre>
 <p>服务端需要mono-xsp,使用aur安装:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yay <span class="token parameter variable">-S</span> xsp<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">yay <span class="token parameter variable">-S</span> xsp</code></pre>
 <hr>
 <p>vscode 开发<code>asp.net</code>:<br>
 安装 moon dotnet</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> moon dotnet-sdk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> moon dotnet-sdk</code></pre>
 <p>dotnet 安装 dotnet-dev-certs 生成证书:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">dotnet tool <span class="token function">install</span> <span class="token parameter variable">--global</span> dotnet-dev-certs<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dotnet tool <span class="token function">install</span> <span class="token parameter variable">--global</span> dotnet-dev-certs</code></pre>
 <p>export要加入.bashrc 或者每次开始前执行</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$PATH</span>:/home/[user]/.dotnet/tools"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$PATH</span>:/home/[user]/.dotnet/tools"</span></code></pre>
 <p>生成证书</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">dotnet dev-certs https<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dotnet dev-certs https</code></pre>
 <p>如果想卸载</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">dotnet tool uninstall <span class="token parameter variable">--global</span> dotnet-dev-certs<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dotnet tool uninstall <span class="token parameter variable">--global</span> dotnet-dev-certs</code></pre>
 <hr>
 <p>编译汇编语言 需要安装nasm</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> nasm<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> nasm</code></pre>
 <hr>
 <p>chrome/chromium 即使已经设置为默认浏览器也会提示设置为默认浏览器:<br>
 解决方法:</p>
@@ -2253,21 +2253,21 @@ systemctl <span class="token builtin class-name">enable</span> powertop.service<
 <hr>
 <p>archLinux进行openGl的开发<br>
 安装glfw-x11 glad-c-git</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yay <span class="token parameter variable">-S</span> glfw-x11 glad-c-git<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">yay <span class="token parameter variable">-S</span> glfw-x11 glad-c-git</code></pre>
 <p>open GL导入现有模型时需要安装assimp:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> assimp<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> assimp</code></pre>
 <p>顺便推荐一个glsl的教程: <a href="https://learnopengl-cn.github.io/">LearnOpenGL CN</a></p>
 <hr>
 <p>python使用tkinter需要安装tk库:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> tk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> tk</code></pre>
 <hr>
 <p>kde设置三指手势:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> gebaar xdotool<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> gebaar xdotool</code></pre>
 <hr>
 <p>手动安装mariadb:<br>
 运行<code>mariadb/scripts/mariadb-install-db</code></p>
 <p>设置路径(提示失败 路径更改成功):</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./mysqld <span class="token parameter variable">--datadir</span><span class="token operator">=</span><span class="token string">"./data"</span> <span class="token parameter variable">--langdir</span><span class="token operator">=</span><span class="token string">"./mysql/share"</span> <span class="token parameter variable">--basedir</span><span class="token operator">=</span><span class="token string">"./data/base"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">./mysqld <span class="token parameter variable">--datadir</span><span class="token operator">=</span><span class="token string">"./data"</span> <span class="token parameter variable">--langdir</span><span class="token operator">=</span><span class="token string">"./mysql/share"</span> <span class="token parameter variable">--basedir</span><span class="token operator">=</span><span class="token string">"./data/base"</span></code></pre>
 <p>最后</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">You can start the MariaDB daemon with:
 <span class="token builtin class-name">cd</span> <span class="token string">'.'</span> <span class="token punctuation">;</span> ./bin/mysqld_safe <span class="token parameter variable">--datadir</span><span class="token operator">=</span><span class="token string">'./data'</span>
@@ -2285,18 +2285,18 @@ pacman <span class="token parameter variable">-Rs</span> pwgen<span aria-hidden=
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Possibly missing firmware <span class="token keyword">for</span> module: aic94xx
  Possibly missing firmware <span class="token keyword">for</span> module: wd719x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>直接使用aur中提供的驱动:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yay <span class="token parameter variable">-S</span> aic94xx-firmware wd719x-firmware<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">yay <span class="token parameter variable">-S</span> aic94xx-firmware wd719x-firmware</code></pre>
 <hr>
 <p>为<code>kde spellChecker</code>添加字典:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pacman <span class="token parameter variable">-S</span> hunspell-en_US<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pacman <span class="token parameter variable">-S</span> hunspell-en_US</code></pre>
 <hr>
 <p>wine-wechat 数据文件:</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">==</span><span class="token operator">></span> WeChat data will be put into ~/.local/lib/wine-wechat when needed.
 <span class="token operator">==</span><span class="token operator">></span> run <span class="token string">'wechat --config'</span> <span class="token keyword">if</span> you want to adjust DPI settings.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>wine-wechat 运行要保证当前运行环境变量为中文,否则无法显示中文字体,即使wine装了中文字体:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable"><span class="token environment constant">LC_ALL</span></span><span class="token operator">=</span>zh_CN.UTF-8 wechat<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable"><span class="token environment constant">LC_ALL</span></span><span class="token operator">=</span>zh_CN.UTF-8 wechat</code></pre>
 <p>使用此<a href="https://github.com/askme765cs/Wine-QQ-TIM">Wine-QQ-TIM</a>项目的QQ或者TIM乱码,缺少字体:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pacman <span class="token parameter variable">-S</span> wqy-microhei<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pacman <span class="token parameter variable">-S</span> wqy-microhei</code></pre>
 <hr>
 <p>耳机电流声:</p>
 <blockquote>
@@ -2372,9 +2372,9 @@ pacman <span class="token parameter variable">-S</span> besttrace<span aria-hidd
 解决方法:<br>
 <code>sudo pacman -S lib32-mpg123</code></p>
 <p>包含中国国内软件的<a href="https://github.com/hillwoodroc/winetricks-zh">winetricks-zh</a></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> winetricks-zh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> winetricks-zh</code></pre>
 <p>qq軽聊版需要库:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pacman <span class="token parameter variable">-S</span> lib32-libpulse<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pacman <span class="token parameter variable">-S</span> lib32-libpulse</code></pre>
 <hr>
 <p>ark 解压7z和rar</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">查看可选依赖
@@ -2402,19 +2402,19 @@ This will change the cursor to the dark breeze, I don't know the name of the whi
 </blockquote>
 <hr>
 <p>plasma自带的虚拟桌面指示有些bug而且不好看,代替默认虚拟桌面的指示</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yay <span class="token parameter variable">-S</span> plasma5-applets-virtual-desktop-bar-git<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">yay <span class="token parameter variable">-S</span> plasma5-applets-virtual-desktop-bar-git</code></pre>
 <hr>
 <p>为arch添加command not found</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pacman <span class="token parameter variable">-S</span> pkgfile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pacman <span class="token parameter variable">-S</span> pkgfile</code></pre>
 <p>更新command-not-found数据库</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pkgfile <span class="token parameter variable">-U</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pkgfile <span class="token parameter variable">-U</span></code></pre>
 <p>最后在<code>~/.bashrc</code>添加</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">source</span> /usr/share/doc/pkgfile/command-not-found.bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">source</span> /usr/share/doc/pkgfile/command-not-found.bash</code></pre>
 <hr>
 <p>nethogs: 按进程查看流量占用</p>
 <hr>
 <p>coc中c语言自动补全,需要安装ccls:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pacman <span class="token parameter variable">-S</span> ccls<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pacman <span class="token parameter variable">-S</span> ccls</code></pre>
 <hr>
 <blockquote>
 <ol>
@@ -2469,6 +2469,45 @@ This will change the cursor to the dark breeze, I don't know the name of the whi
 /r   回车<br>
 /t   Tab符<br>
 /xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c语言数组输出的另一种方法</title>
+    <url>/posts/854ed6ec/</url>
+    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173">一个有趣的C语言程序</a></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+ 
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">2</span></code></pre>
+<span id="more"></span>
+<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>
+a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
+所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>
+所以就是x[1]对应的值：2</p>
+<p>由此我又想到了二位数组</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+ 
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">4</span></code></pre>
+<p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
 ]]></content>
       <categories>
         <category>Program</category>
@@ -2552,45 +2591,6 @@ This will change the cursor to the dark breeze, I don't know the name of the whi
 <li>整数:(1111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-(2^n-1) \leq x \leq 2^n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7477em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></strong> (01111…1)</li>
 <li>小数:(1.111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mi>n</mi></msup><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mrow><mo>−</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">-(1-2^n) \leq x \leq 1-2^{-n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7713em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span></strong> (0.111…1)</li>
 </ul>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言数组输出的另一种方法</title>
-    <url>/posts/854ed6ec/</url>
-    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173">一个有趣的C语言程序</a></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
- 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<span id="more"></span>
-<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>
-a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
-所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>
-所以就是x[1]对应的值：2</p>
-<p>由此我又想到了二位数组</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
- 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">4</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
 ]]></content>
       <categories>
         <category>Program</category>
@@ -2755,7 +2755,7 @@ getData <span class="token operator">:=</span> <span class="token function">make
     <span class="token keyword">return</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="关闭TCP连接">关闭TCP连接</h2>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go">conn<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-go" data-language="go"><code class="language-go">conn<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
 <h2 id="UDP">UDP</h2>
 <pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"> +----+------+------+----------+----------+----------+
  |RSV | FRAG | ATYP | DST.ADDR | DST.PORT |   DATA   |
@@ -2785,6 +2785,173 @@ The fields in the UDP request header are:
       <tags>
         <tag>golang</tag>
         <tag>socks5</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>golangとollamaでfunction calling</title>
+    <url>/posts/23567986/</url>
+    <content><![CDATA[<p>今回はollamaのオフィシャルクライアントでfuncation callingを使いたいです。　　<br>
+前回はlangchaingoで使っただけと、試してたらollamaの引数toolsは無効です、githubの実例<a href="https://github.com/tmc/langchaingo/blob/main/examples/ollama-functions-example/ollama_functions_example.go">ollama_functions_example</a>はsystem messageとtoolsのjsonを組み合わせて内容を生成する。例えば：</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">systemMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">&#123;</span>
+ bs<span class="token punctuation">,</span> err <span class="token operator">:=</span> json<span class="token punctuation">.</span><span class="token function">Marshal</span><span class="token punctuation">(</span>functions<span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+ <span class="token punctuation">&#125;</span>
+
+ <span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">`You have access to the following tools:
+
+%s
+
+To use a tool, respond with a JSON object with the following structure: 
+&#123;
+ "tool": &lt;name of the called tool>,
+ "tool_input": &lt;parameters for the tool matching the above JSON schema>
+&#125;
+`</span><span class="token punctuation">,</span> <span class="token function">string</span><span class="token punctuation">(</span>bs<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>これはちょっと優雅でない、<code>ollama/api</code>を使いたいと思います。</p>
+<h2 id="function-callingとは">function callingとは</h2>
+<p>llmのレスポンスが外部関数の呼び出しを検知し、関数の結果を組み合わせて内容を生成する機能です。　　<br>
+例えば：「東京の天気は？」はpromptをとして、「晴れです」と生成する。　　<br>
+大勢のllmはfunction callingをtoolと読んでいる、呼び出しどき引数として引き渡して内容を生成する。</p>
+<!-- 
+primjs can't support exclude languages,
+so we direct use hexo tag system
+ -->
+<pre>
+<code class="mermaid">
+sequenceDiagram
+actor ユーザ
+ユーザ-&gt;&gt;サーバー: 東京の天気は？
+サーバー-&gt;&gt;llm: promptとtools
+llm--)サーバー: 関数を呼び出し&lt;br&#x2F;&gt;引数（東京）を返す
+サーバー-&gt;&gt;外部サービス: 東京の天気を取得
+外部サービス--)サーバー: 天気を返す
+サーバー-&gt;&gt;llm: 天気をpromptに追加
+llm--&gt;&gt;サーバー: 生成する内容を返す
+サーバー-&gt;&gt;ユーザ: 内容を返す
+</code>
+</pre>
+<!-- 
+取得：しゅとく
+ -->
+<h2 id="goで実現">goで実現</h2>
+<p>関数と引数の説明(Description)は自然な言葉で良いです、一般的なプログラミングよりちょっと違うと思います。</p>
+<p>toolsの定義</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">import</span> <span class="token string">"github.com/ollama/ollama/api"</span>
+
+tools <span class="token operator">:=</span> api<span class="token punctuation">.</span>Tool<span class="token punctuation">&#123;</span>
+      Type<span class="token punctuation">:</span> <span class="token string">"function"</span><span class="token punctuation">,</span>
+      Function<span class="token punctuation">:</span> api<span class="token punctuation">.</span>ToolFunction<span class="token punctuation">&#123;</span>
+       Name<span class="token punctuation">:</span>        <span class="token string">"getCurrentWeather"</span><span class="token punctuation">,</span>
+       Description<span class="token punctuation">:</span> <span class="token string">"Get the current weather for a city"</span><span class="token punctuation">,</span>
+       Parameters<span class="token punctuation">:</span> <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+        Type       <span class="token builtin">string</span>   <span class="token string">"json:\"type\""</span>
+        Required   <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token string">"json:\"required\""</span>
+        Properties <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+         Type        <span class="token builtin">string</span>   <span class="token string">"json:\"type\""</span>
+         Description <span class="token builtin">string</span>   <span class="token string">"json:\"description\""</span>
+         Enum        <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token string">"json:\"enum,omitempty\""</span>
+        <span class="token punctuation">&#125;</span> <span class="token string">"json:\"properties\""</span>
+       <span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
+        Type<span class="token punctuation">:</span>     <span class="token string">"object"</span><span class="token punctuation">,</span>
+        Required<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">&#123;</span><span class="token string">"city"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        Properties<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+         Type        <span class="token builtin">string</span>   <span class="token string">"json:\"type\""</span>
+         Description <span class="token builtin">string</span>   <span class="token string">"json:\"description\""</span>
+         Enum        <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token string">"json:\"enum,omitempty\""</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
+         <span class="token string">"city"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+          Type<span class="token punctuation">:</span>        <span class="token string">"string"</span><span class="token punctuation">,</span>
+          Description<span class="token punctuation">:</span> <span class="token string">"The city to get the weather for"</span><span class="token punctuation">,</span>
+         <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+       <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+     <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>外部サービスの呼び出しを実現</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">processToolCall <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>cr api<span class="token punctuation">.</span>Chat<span class="token punctuation">.</span>Response<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> v <span class="token operator">:=</span> <span class="token keyword">range</span> cr<span class="token punctuation">.</span>Message<span class="token punctuation">.</span>ToolCalls <span class="token punctuation">&#123;</span>
+      <span class="token keyword">if</span> v<span class="token punctuation">.</span>Function<span class="token punctuation">.</span>Name <span class="token operator">==</span> <span class="token string">"getCurrentWeather"</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"the weather of %v is 64 and sunny"</span><span class="token punctuation">,</span> v<span class="token punctuation">.</span>Function<span class="token punctuation">.</span>Arguments<span class="token punctuation">[</span><span class="token string">"city"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+      <span class="token punctuation">&#125;</span>
+   <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">,</span> errors<span class="token punctuation">.</span>ErrUnsupported
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>chains を実現</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">uri<span class="token punctuation">,</span> err <span class="token operator">:=</span> url<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token string">"http://localhost:11434"</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+client <span class="token operator">:=</span> api<span class="token punctuation">.</span><span class="token function">NewClient</span><span class="token punctuation">(</span>uri<span class="token punctuation">,</span> <span class="token operator">&amp;</span>http<span class="token punctuation">.</span>Client<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+messages <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>api<span class="token punctuation">.</span>Message<span class="token punctuation">&#123;</span>
+  <span class="token punctuation">&#123;</span>
+   Role<span class="token punctuation">:</span>    <span class="token string">"user"</span><span class="token punctuation">,</span>
+   Content<span class="token punctuation">:</span> prompt<span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+
+ctx <span class="token operator">:=</span> context<span class="token punctuation">.</span><span class="token function">TODO</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+err <span class="token operator">:=</span> o<span class="token punctuation">.</span>llm<span class="token punctuation">.</span><span class="token function">Chat</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span>
+  <span class="token operator">&amp;</span>api<span class="token punctuation">.</span>ChatRequest<span class="token punctuation">&#123;</span>
+   Model<span class="token punctuation">:</span>    <span class="token string">"qwen2.5:32b-instruct"</span><span class="token punctuation">,</span>
+   Stream<span class="token punctuation">:</span>   lo<span class="token punctuation">.</span><span class="token function">ToPtr</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+   Messages<span class="token punctuation">:</span> messages<span class="token punctuation">,</span>
+   Options<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
+    <span class="token string">"temperature"</span><span class="token punctuation">:</span> <span class="token number">0.3</span><span class="token punctuation">,</span>
+   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+   Tools<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>api<span class="token punctuation">.</span>Tool<span class="token punctuation">&#123;</span>tools<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token keyword">func</span><span class="token punctuation">(</span>cr api<span class="token punctuation">.</span>ChatResponse<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">&#123;</span>
+      msg<span class="token punctuation">,</span>err <span class="token operator">:=</span> <span class="token function">processToolCall</span><span class="token punctuation">(</span>cr<span class="token punctuation">)</span>
+      <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> err
+      <span class="token punctuation">&#125;</span>
+
+     messages <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>messages<span class="token punctuation">,</span> api<span class="token punctuation">.</span>Message<span class="token punctuation">&#123;</span>
+      Role<span class="token punctuation">:</span>    <span class="token string">"tool"</span><span class="token punctuation">,</span>
+      Content<span class="token punctuation">:</span> msg<span class="token punctuation">,</span>
+     <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+   <span class="token keyword">return</span> <span class="token boolean">nil</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+err <span class="token operator">=</span> o<span class="token punctuation">.</span>llm<span class="token punctuation">.</span><span class="token function">Chat</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span>
+  <span class="token operator">&amp;</span>api<span class="token punctuation">.</span>ChatRequest<span class="token punctuation">&#123;</span>
+   Model<span class="token punctuation">:</span>    <span class="token string">"qwen2.5:32b-instruct"</span><span class="token punctuation">,</span>
+   Stream<span class="token punctuation">:</span>   lo<span class="token punctuation">.</span><span class="token function">ToPtr</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+   Messages<span class="token punctuation">:</span> messages<span class="token punctuation">,</span>
+   Options<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
+    <span class="token string">"temperature"</span><span class="token punctuation">:</span> <span class="token number">0.3</span><span class="token punctuation">,</span>
+   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token keyword">func</span><span class="token punctuation">(</span>cr api<span class="token punctuation">.</span>ChatResponse<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">&#123;</span>
+   fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span>cr<span class="token punctuation">.</span>Message<span class="token punctuation">.</span>Content<span class="token punctuation">)</span>
+   <span class="token keyword">return</span> <span class="token boolean">nil</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="実行">実行</h2>
+<p>prompt：<code>東京の天気は？</code><br>
+返事：　<code>東京の天気は晴れで、温度は約64°F（約18°C）です</code></p>
+<h2 id="参考">参考</h2>
+<p><a href="https://zenn.dev/kazuwombat/articles/1f39f003298028">https://zenn.dev/kazuwombat/articles/1f39f003298028</a></p>
+]]></content>
+      <categories>
+        <category>llm</category>
+      </categories>
+      <tags>
+        <tag>llm</tag>
+        <tag>function calling</tag>
+        <tag>text embedding</tag>
       </tags>
   </entry>
   <entry>
@@ -2877,7 +3044,7 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
     <title>gpg使用</title>
     <url>/posts/7d547224/</url>
     <content><![CDATA[<p>生成一个密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --full-gen-key<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg --full-gen-key</code></pre>
 <p>之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了.</p>
 <p>创建一个子密钥</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --edit-key <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
@@ -2888,9 +3055,9 @@ gpg<span class="token operator">></span> addkey
 gpg<span class="token operator">></span> save
 <span class="token comment"># 保存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>导出密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key --export-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key --export-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
 <p>导出子密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key.sub --export-secret-subkeys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key.sub --export-secret-subkeys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
 <p>导出吊销证书</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --generate-revocation <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
 <span class="token comment"># 输出是文本内容, 复制保存下来就行了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -2899,12 +3066,12 @@ gpg<span class="token operator">></span> save
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --delete-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
 gpg --delete-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>导入子密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">--import</span> /path/gpg_key.sub<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">--import</span> /path/gpg_key.sub</code></pre>
 <p>查看密钥</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-k</span>
 gpg <span class="token parameter variable">-K</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>加密文件</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-r</span> <span class="token punctuation">[</span>user name<span class="token punctuation">]</span> <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-e</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-r</span> <span class="token punctuation">[</span>user name<span class="token punctuation">]</span> <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-e</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span></code></pre>
 <p>解密</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 输出到文件</span>
 gpg <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 直接输出到终端</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -3002,7 +3169,7 @@ FORWARD: mangle, filter
 OUTPUT: raw, mangle, nat, filter
 POSTROUTING: mangle, nat<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>query</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">iptables <span class="token parameter variable">-t</span> <span class="token operator">&lt;</span>table<span class="token operator">></span> <span class="token parameter variable">-nvL</span> <span class="token operator">&lt;</span>chain<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">iptables <span class="token parameter variable">-t</span> <span class="token operator">&lt;</span>table<span class="token operator">></span> <span class="token parameter variable">-nvL</span> <span class="token operator">&lt;</span>chain<span class="token operator">></span></code></pre>
 <hr>
 <p><a href="https://www.zsythink.net/archives/tag/iptables/page/2">iptables</a></p>
 ]]></content>
@@ -3015,18 +3182,77 @@ POSTROUTING: mangle, nat<span aria-hidden="true" class="line-numbers-rows"><span
       </tags>
   </entry>
   <entry>
+    <title>linux PPPOE拨号上网</title>
+    <url>/posts/59c8ffd6/</url>
+    <content><![CDATA[<h2 id="安装rp-pppoe">安装rp-pppoe</h2>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> rp-pppoe</code></pre>
+<h2 id="配置">配置</h2>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pppoe-setup</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter your PPPoE user name:</code></pre>
+<p>这里输入网络运营商提供给你的用户名.</p>
+<span id="more"></span>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter the Ethernet interface connected to the DSL modem
+For Solaris, this is likely to be something like /dev/hme0.
+For Linux, it will be ethn, where <span class="token string">'n'</span> is a number. <span class="token builtin class-name">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>这里输入你链接网络的网卡,可以使用<code>ip addr</code>进行查看 比如<code>eth1</code>,<code>wlo1</code>.</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter the demand value <span class="token punctuation">(</span>default no<span class="token punctuation">)</span>:</code></pre>
+<p>这里可以直接回车</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter the DNS information here:</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter the secondary DNS server address here:</code></pre>
+<p>这里输入两个DNS,比如<code>1.1.1.1</code>,<code>8.8.8.8</code>.</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Please enter your PPPoE password:  </code></pre>
+<p>这里输入网络运营商提供给你的密码.</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">The firewall choices are:
+<span class="token number">0</span> - NONE: This script will not <span class="token builtin class-name">set</span> any firewall rules.  You are responsible
+          <span class="token keyword">for</span> ensuring the security of your machine.  You are STRONGLY
+          recommended to use some kind of firewall rules.
+<span class="token number">1</span> - STANDALONE: Appropriate <span class="token keyword">for</span> a basic stand-alone web-surfing workstation
+<span class="token number">2</span> - MASQUERADE: Appropriate <span class="token keyword">for</span> a machine acting as an Internet gateway
+                <span class="token keyword">for</span> a LAN
+<span class="token operator">>></span><span class="token operator">></span> Choose a <span class="token builtin class-name">type</span> of firewall <span class="token punctuation">(</span><span class="token number">0</span>-2<span class="token punctuation">)</span>:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里我使用1,可以按照自己的需求选择防火墙配置.</p>
+<h2 id="启用">启用</h2>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pppoe-start</code></pre>
+<p>可以使用<code>ip addr</code>进行查看,现在应该有一个<code>ppp0</code>的网络.</p>
+<h2 id="查看路由确认启用">查看路由确认启用</h2>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span> ~ <span class="token punctuation">]</span> route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         <span class="token number">0.0</span>.0.0         <span class="token number">0.0</span>.0.0         U     <span class="token number">0</span>      <span class="token number">0</span>        <span class="token number">0</span> ppp0
+                                <span class="token punctuation">..</span>.
+                                <span class="token punctuation">..</span>.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果没有default到ppp0的这条路由,需要手动创建:</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> route <span class="token function">add</span> default dev ppp0</code></pre>
+<h2 id="引用">引用</h2>
+<blockquote>
+<ul>
+<li><a href="https://www.cnblogs.com/viusuangio/p/7112674.html">archlinux pppoe拨号连接使用详解[转载]</a></li>
+<li><a href="https://www.librehat.com/guide-on-linux-ppp-over-wireless-network/">Linux下连接无线网络后拨号（即PPP over WiFi）</a></li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>archlinux</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>langchaingoでRAGを試しました</title>
     <url>/posts/95db8f9/</url>
     <content><![CDATA[<blockquote>
-<p>日本語はまだ勉強中ですから、変などころあるなら、ぜひコメントしてください。</p>
+<p>日本語はまだ勉強中ですから、変などころあったら、ぜひコメントしてください。</p>
 </blockquote>
 <h2 id="RAGとは">RAGとは</h2>
 <p>RAGはRetrieval augmented generationの略です。<br>
-大規模言語モデル内容生成する前に、promptによる外部のデーターベースに知識を検索、元のprompt組み合わせて、アウトプットを改善するための技術です。</p>
+大規模言語モデル内容を生成する前に、promptによる外部のデーターベースに知識を検索、元のpromptと組み合わせて、アウトプットを改善するための技術です。</p>
 <p>例えば：</p>
 <p>ユーザ：今日の注目の新聞は何ですか？</p>
 <p>gemini：</p>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">今日の注目の新聞記事については、リアルタイムで変化するため、特定の新聞社名を挙げて「今日の注目の記事はこれです」と断言することは難しいです。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-txt" data-language="txt"><code class="language-txt">今日の注目の新聞記事については、リアルタイムで変化するため、特定の新聞社名を挙げて「今日の注目の記事はこれです」と断言することは難しいです。</code></pre>
 <p>chatgpt:</p>
 <pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">本日（2024年11月6日）の日本の注目ニュースは次のような内容が含まれている可能性があります：
 
@@ -3035,20 +3261,20 @@ POSTROUTING: mangle, nat<span aria-hidden="true" class="line-numbers-rows"><span
 アジアの地政学的緊張 - 日本周辺地域の安全保障に関連する動向が続いています。
 以上の内容が注目ニュースとして考えられますが、詳細については直接ニュースソースで確認されるとよいでしょう。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>geminiはリアルタイムによっての内容は回答できません。<br>
-chatgptはRAGか、Function Callingか、どちかを使えていると思います。<br>
-今回はgolang+langchaingo+ollama+qdrantでRAGに実験してみます。</p>
+chatgptはRAGか、Function Callingか、どちらかを使っていると思います。<br>
+今回はgolang+langchaingo+ollama+qdrantでRAGを実験してみます。</p>
 <h2 id="準備">準備</h2>
 <span id="more"></span>
 <h3 id="ollamaをインストール">ollamaをインストール</h3>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">-fsSL</span> https://ollama.com/install.sh <span class="token operator">|</span> <span class="token function">sh</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">-fsSL</span> https://ollama.com/install.sh <span class="token operator">|</span> <span class="token function">sh</span></code></pre>
 <h3 id="qdrantのコンテナを実行">qdrantのコンテナを実行</h3>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> <span class="token parameter variable">-p</span> ~/.config/qdrant
 <span class="token function">docker</span> run <span class="token parameter variable">-p</span> <span class="token number">6333</span>:6333 <span class="token parameter variable">-p</span> <span class="token number">6334</span>:6334 <span class="token punctuation">\</span>
     <span class="token parameter variable">-v</span> ~/.config/qdrant:/qdrant/storage:z <span class="token punctuation">\</span>
     qdrant/qdrant<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="bge-large-en-v1-5をollamaで実行">bge-large-en-v1.5をollamaで実行</h3>
-<p>知識をベクトルデータベースに保存してにはText Embedingモデルが必要です。今回はbge-large-en-v1.5を使うことになりました。</p>
-<p>ollamaのモデルライブラリーはbge-large-en-v1.5がありませんので、bge-large-en-v1.5をGGUFに変換することが必要です。</p>
+<p>知識をベクトルデータベースに保存するにはText Embedingモデルが必要です。今回はbge-large-en-v1.5を使うことになりました。</p>
+<p>ollamaのモデルライブラリにはbge-large-en-v1.5がありませんので、bge-large-en-v1.5をGGUFに変換することが必要です。</p>
 <p>git-lfsとcmakeをインストール</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> git-lfs cmake
 <span class="token function">git</span> lfs <span class="token function">install</span>
@@ -3198,104 +3424,8 @@ msgs <span class="token operator">=</span> <span class="token function">append</
       </categories>
       <tags>
         <tag>llm</tag>
-        <tag>rag</tag>
         <tag>text embedding</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>linux PPPOE拨号上网</title>
-    <url>/posts/59c8ffd6/</url>
-    <content><![CDATA[<h2 id="安装rp-pppoe">安装rp-pppoe</h2>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> rp-pppoe<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="配置">配置</h2>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pppoe-setup<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter your PPPoE user name:<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这里输入网络运营商提供给你的用户名.</p>
-<span id="more"></span>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter the Ethernet interface connected to the DSL modem
-For Solaris, this is likely to be something like /dev/hme0.
-For Linux, it will be ethn, where <span class="token string">'n'</span> is a number. <span class="token builtin class-name">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>这里输入你链接网络的网卡,可以使用<code>ip addr</code>进行查看 比如<code>eth1</code>,<code>wlo1</code>.</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter the demand value <span class="token punctuation">(</span>default no<span class="token punctuation">)</span>:<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这里可以直接回车</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter the DNS information here:<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter the secondary DNS server address here:<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这里输入两个DNS,比如<code>1.1.1.1</code>,<code>8.8.8.8</code>.</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Please enter your PPPoE password:  <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这里输入网络运营商提供给你的密码.</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">The firewall choices are:
-<span class="token number">0</span> - NONE: This script will not <span class="token builtin class-name">set</span> any firewall rules.  You are responsible
-          <span class="token keyword">for</span> ensuring the security of your machine.  You are STRONGLY
-          recommended to use some kind of firewall rules.
-<span class="token number">1</span> - STANDALONE: Appropriate <span class="token keyword">for</span> a basic stand-alone web-surfing workstation
-<span class="token number">2</span> - MASQUERADE: Appropriate <span class="token keyword">for</span> a machine acting as an Internet gateway
-                <span class="token keyword">for</span> a LAN
-<span class="token operator">>></span><span class="token operator">></span> Choose a <span class="token builtin class-name">type</span> of firewall <span class="token punctuation">(</span><span class="token number">0</span>-2<span class="token punctuation">)</span>:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里我使用1,可以按照自己的需求选择防火墙配置.</p>
-<h2 id="启用">启用</h2>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pppoe-start<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>可以使用<code>ip addr</code>进行查看,现在应该有一个<code>ppp0</code>的网络.</p>
-<h2 id="查看路由确认启用">查看路由确认启用</h2>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span> ~ <span class="token punctuation">]</span> route
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-default         <span class="token number">0.0</span>.0.0         <span class="token number">0.0</span>.0.0         U     <span class="token number">0</span>      <span class="token number">0</span>        <span class="token number">0</span> ppp0
-                                <span class="token punctuation">..</span>.
-                                <span class="token punctuation">..</span>.
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>如果没有default到ppp0的这条路由,需要手动创建:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> route <span class="token function">add</span> default dev ppp0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="引用">引用</h2>
-<blockquote>
-<ul>
-<li><a href="https://www.cnblogs.com/viusuangio/p/7112674.html">archlinux pppoe拨号连接使用详解[转载]</a></li>
-<li><a href="https://www.librehat.com/guide-on-linux-ppp-over-wireless-network/">Linux下连接无线网络后拨号（即PPP over WiFi）</a></li>
-</ul>
-</blockquote>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>archlinux</tag>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>linux下intel&amp;AMD双显卡切换</title>
-    <url>/posts/3b8b96de/</url>
-    <content><![CDATA[<p>使用<strong>xrandr</strong>显示可支持的显卡</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--listproviders</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>输出类似以下内容</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Providers: number <span class="token builtin class-name">:</span> <span class="token number">2</span>
-Provider <span class="token number">0</span>: id: 0x6b cap: 0x9, Source Output, Sink Offload crtcs: <span class="token number">3</span> outputs: <span class="token number">7</span> associated providers: <span class="token number">1</span> name:modesetting
-Provider <span class="token number">1</span>: id: 0x41 cap: 0x6, Sink Output, Source Offload crtcs: <span class="token number">2</span> outputs: <span class="token number">0</span> associated providers: <span class="token number">1</span> name:OLAND @ pci:0000:01:00.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>To be able to render GPU-intensive applications by the more powerful discrete card use</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--setprovideroffloadsink</span> <span class="token number">1</span> <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>或者<span id="more"></span></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--setprovideroffloadsink</span> 0x41 0x6b<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>使用DRI_PRIME为某个应用选择使用哪一张显卡,使用glxinfo可以查看正在使用的显卡</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">0</span> glxinfo <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"OpenGL renderer"</span>
-<span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">1</span> glxinfo <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"OpenGL renderer"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>如为steam启用独显</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">1</span> steam<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>如果需要使用独显进行视频硬件播放,还需指定视频解码库,不然会乱码:<br>
-如AMD:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">1</span>            <span class="token comment"># for laptops with switchable graphics</span>
-<span class="token assign-left variable">LIBVA_DRIVER_NAME</span><span class="token operator">=</span>r600 <span class="token comment"># value depends on the driver, check /usr/lib/dri for possible options</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>使用mpv:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">1</span>  <span class="token assign-left variable">LIBVA_DRIVER_NAME</span><span class="token operator">=</span>r600 mpv <span class="token punctuation">[</span><span class="token punctuation">..</span>.<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>参考资料:<br>
-1.<a href="https://askubuntu.com/questions/1038271/intel-amd-hybrid-graphics-ubuntu-18-04">Intel/AMD Hybrid graphics Ubuntu 18.04</a><br>
-2.<a href="https://wiki.archlinux.org/index.php/PRIME">PRIME (简体中文)</a></p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>双显卡</tag>
-        <tag>amd</tag>
+        <tag>rag</tag>
       </tags>
   </entry>
   <entry>
@@ -3320,6 +3450,61 @@ Provider <span class="token number">1</span>: id: 0x41 cap: 0x6, Sink Output, So
       </categories>
       <tags>
         <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux下intel&amp;AMD双显卡切换</title>
+    <url>/posts/3b8b96de/</url>
+    <content><![CDATA[<p>使用<strong>xrandr</strong>显示可支持的显卡</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--listproviders</span></code></pre>
+<p>输出类似以下内容</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Providers: number <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Provider <span class="token number">0</span>: id: 0x6b cap: 0x9, Source Output, Sink Offload crtcs: <span class="token number">3</span> outputs: <span class="token number">7</span> associated providers: <span class="token number">1</span> name:modesetting
+Provider <span class="token number">1</span>: id: 0x41 cap: 0x6, Sink Output, Source Offload crtcs: <span class="token number">2</span> outputs: <span class="token number">0</span> associated providers: <span class="token number">1</span> name:OLAND @ pci:0000:01:00.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>To be able to render GPU-intensive applications by the more powerful discrete card use</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--setprovideroffloadsink</span> <span class="token number">1</span> <span class="token number">0</span></code></pre>
+<p>或者<span id="more"></span></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--setprovideroffloadsink</span> 0x41 0x6b</code></pre>
+<p>使用DRI_PRIME为某个应用选择使用哪一张显卡,使用glxinfo可以查看正在使用的显卡</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">0</span> glxinfo <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"OpenGL renderer"</span>
+<span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">1</span> glxinfo <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"OpenGL renderer"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如为steam启用独显</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">1</span> steam</code></pre>
+<p>如果需要使用独显进行视频硬件播放,还需指定视频解码库,不然会乱码:<br>
+如AMD:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">1</span>            <span class="token comment"># for laptops with switchable graphics</span>
+<span class="token assign-left variable">LIBVA_DRIVER_NAME</span><span class="token operator">=</span>r600 <span class="token comment"># value depends on the driver, check /usr/lib/dri for possible options</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>使用mpv:</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">1</span>  <span class="token assign-left variable">LIBVA_DRIVER_NAME</span><span class="token operator">=</span>r600 mpv <span class="token punctuation">[</span><span class="token punctuation">..</span>.<span class="token punctuation">]</span></code></pre>
+<p>参考资料:<br>
+1.<a href="https://askubuntu.com/questions/1038271/intel-amd-hybrid-graphics-ubuntu-18-04">Intel/AMD Hybrid graphics Ubuntu 18.04</a><br>
+2.<a href="https://wiki.archlinux.org/index.php/PRIME">PRIME (简体中文)</a></p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>双显卡</tag>
+        <tag>amd</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python获取网页源码(爬虫?)</title>
+    <url>/posts/cee10602/</url>
+    <content><![CDATA[<p>利用requrst,使用首先要</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests</code></pre>
+<p>使用方法</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">url <span class="token operator">=</span> <span class="token string">'要获取的网页地址'</span>
+useragent <span class="token operator">=</span> <span class="token string">'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'</span><span class="token comment">#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span>
+requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span>headers<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">'User-Agent'</span><span class="token punctuation">:</span>useragent<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
@@ -3405,72 +3590,14 @@ css <span class="token operator">=</span> selector<span class="token punctuation
       </tags>
   </entry>
   <entry>
-    <title>python获取网页源码(爬虫?)</title>
-    <url>/posts/cee10602/</url>
-    <content><![CDATA[<p>利用requrst,使用首先要</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>使用方法</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">url <span class="token operator">=</span> <span class="token string">'要获取的网页地址'</span>
-useragent <span class="token operator">=</span> <span class="token string">'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'</span><span class="token comment">#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span>
-requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span>headers<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">'User-Agent'</span><span class="token punctuation">:</span>useragent<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ubuntu终端下连接wifi</title>
-    <url>/posts/fb6d8628/</url>
-    <content><![CDATA[<h2 id="首先使用rfkill查看你的wifi设备是否被停用">首先使用rfkill查看你的wifi设备是否被停用</h2>
-<p>使用命令</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">rfkill list<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>获得设备列表，每个都包含与之关联的索引号，从 0 开始<br>
-查看设备是否被停用，要启用被停用的设备，请运行：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">rfkill unblock <span class="token operator">&lt;</span>索引号<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>要启用所有设备，请运行：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">rfkill unblock all<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<span id="more"></span>
-<p>您可以使用这个索引号让 rfkill 停使或者使用某个设备，例如：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">rfkill block <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>您还可以使用 rfkill 阻断某一类设备，或者所有启用了RFKill的设备。例如：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">rfkill block wifi <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>停用系统中的所有Wi-Fi设备</p>
-<h2 id="启用无线网卡">启用无线网卡</h2>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ifconfig</span> wlan0 up<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="使用iwconfig命令搜索无线网">使用iwconfig命令搜索无线网</h2>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">iwlist wlan0 scan<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>记下essid<br>
-连接无密码的无线网</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">iwconfig wlan0 essid essidname<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>其中essidname是搜索到的无线网essid<br>
-连接有密码的无线网</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">iwconfig wlan0 essid essidname key <span class="token operator">&lt;</span>密码<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="补充">补充</h2>
-<p>通过dhcp获取IP</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">dhclient wlan0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>或</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">dhcpcd wlan0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>snap删除旧的core(snap删除其他版本的软件)</title>
     <url>/posts/b6b8953/</url>
     <content><![CDATA[<p>偶尔发现snap会自动升级core且不删除旧版，在’/snap/core’<br>
 会发现好几个版本的文件夹。<br>
 使用</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> snap remove core <span class="token parameter variable">--revision</span> xxx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> snap remove core <span class="token parameter variable">--revision</span> xxx</code></pre>
 <p>删除某个版本的core，xxx是软件的rev，使用</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">snap list<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">snap list</code></pre>
 <p>可以查看软件的rev，其他软件也能用这个方法删除旧的版本哦。</p>
 <p>参考：<a href="https://askubuntu.com/questions/828859/how-to-unmount-and-possibly-delete-old-ubuntu-core-snap">How to unmount and possibly delete old Ubuntu Core snap</a></p>
 ]]></content>
@@ -3480,6 +3607,46 @@ requests<span class="token punctuation">.</span>get<span class="token punctuatio
       <tags>
         <tag>linux</tag>
         <tag>snap</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ubuntu终端下连接wifi</title>
+    <url>/posts/fb6d8628/</url>
+    <content><![CDATA[<h2 id="首先使用rfkill查看你的wifi设备是否被停用">首先使用rfkill查看你的wifi设备是否被停用</h2>
+<p>使用命令</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill list</code></pre>
+<p>获得设备列表，每个都包含与之关联的索引号，从 0 开始<br>
+查看设备是否被停用，要启用被停用的设备，请运行：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill unblock <span class="token operator">&lt;</span>索引号<span class="token operator">></span></code></pre>
+<p>要启用所有设备，请运行：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill unblock all</code></pre>
+<span id="more"></span>
+<p>您可以使用这个索引号让 rfkill 停使或者使用某个设备，例如：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill block <span class="token number">0</span></code></pre>
+<p>您还可以使用 rfkill 阻断某一类设备，或者所有启用了RFKill的设备。例如：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill block wifi </code></pre>
+<p>停用系统中的所有Wi-Fi设备</p>
+<h2 id="启用无线网卡">启用无线网卡</h2>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">ifconfig</span> wlan0 up</code></pre>
+<h2 id="使用iwconfig命令搜索无线网">使用iwconfig命令搜索无线网</h2>
+<pre class="language-bash" data-language="bash"><code class="language-bash">iwlist wlan0 scan</code></pre>
+<p>记下essid<br>
+连接无密码的无线网</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">iwconfig wlan0 essid essidname</code></pre>
+<p>其中essidname是搜索到的无线网essid<br>
+连接有密码的无线网</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">iwconfig wlan0 essid essidname key <span class="token operator">&lt;</span>密码<span class="token operator">></span></code></pre>
+<h2 id="补充">补充</h2>
+<p>通过dhcp获取IP</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dhclient wlan0</code></pre>
+<p>或</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dhcpcd wlan0</code></pre>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -3494,7 +3661,7 @@ requests<span class="token punctuation">.</span>get<span class="token punctuatio
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">parted</span> /dev/sd**
 <span class="token punctuation">(</span>parted<span class="token punctuation">)</span> <span class="token builtin class-name">set</span> <span class="token number">1</span> boot on<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>之后再格式化为fat32</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mkfs.vfat <span class="token parameter variable">-F</span> <span class="token number">32</span> /dev/sd**<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">mkfs.vfat <span class="token parameter variable">-F</span> <span class="token number">32</span> /dev/sd**</code></pre>
 <p>更新bios中的启动项应该在将启动文件安装到efi分区时还要向bios中的nvram存储器上写入相应的路径,在linux中可以使用efibootmgr完成相应的操作,当然如果你是安装grub,安装grub时会自动向nvram中写入内容,比如在bios更新后,会清除nvram中的内容,所有还要重新安装grub,或是使用efibootmgr写入引导文件路径.可参考<a href="https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface#efibootmgr">Unified_Extensible_Firmware_Interface#efibootmgr</a>,windows中也有相应的工具,具体操作方式可在网路上搜索.<br>
 如果是u盘的话,uefi 会查看所有 fat 分区，看看里面有没有 EFI/boot/bootx64.efi(目前还没有找到相应的文档表示是这个,这只是我个人的猜想,因为在我试过的无论是windows还是linux的iso镜像的efi文件都是这个地方) 引导文件,然后只要是 FAT32 文件系统就行,所以可以把 windows 或 ubuntu 的 iso 直接解压到一个 fat 分区（比如 fat 的 u 盘或移动硬盘）然后引导<br>
 <strong>有些UEFI系统只会识别 efi分区下的EFI/boot文件夹内的efi文件,有的甚至只会识别EFI/boot/bootx64.efi</strong></p>
@@ -3633,7 +3800,7 @@ fastboot boot twrp.img<span aria-hidden="true" class="line-numbers-rows"><span><
 </li>
 <li>
 <p>通过sideload刷入rom</p>
-  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb sideload xxxxx.ZIP<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+  <pre class="language-bash" data-language="bash"><code class="language-bash">adb sideload xxxxx.ZIP</code></pre>
 </li>
 </ul>
 <p>在百分之47的时候会结束，貌似是个bug，不过这个时候其实已经成功刷入了，直接重启进入系统即可。</p>
@@ -3652,13 +3819,13 @@ fastboot boot twrp.img<span aria-hidden="true" class="line-numbers-rows"><span><
     <url>/posts/3a1d136/</url>
     <content><![CDATA[<h2 id="为内核添加参数">为内核添加参数</h2>
 <p>比如<code>grub</code>在<code>/etc/default/grub</code>的<code>GRUB_CMDLINE_LINUX_DEFAULT=</code>中添加</p>
-<pre class="line-numbers language-ini" data-language="ini"><code class="language-ini"><span class="token key attr-name">intel_iommu</span><span class="token punctuation">=</span><span class="token value attr-value">on i915.enable_gvt=1 i915.enable_guc=0</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-ini" data-language="ini"><code class="language-ini"><span class="token key attr-name">intel_iommu</span><span class="token punctuation">=</span><span class="token value attr-value">on i915.enable_gvt=1 i915.enable_guc=0</span></code></pre>
 <h2 id="启用modules">启用modules</h2>
 <p>在<code>/etc/mkinitcpio.conf</code>的MODULES=()`中添加:</p>
 <pre class="line-numbers language-ini" data-language="ini"><code class="language-ini"><span class="token comment"># linux 5.14后，arch的linux内核模块已经不会勾选vfio-mdev，自测不影响gvt-g</span>
 kvmgt vfio vfio-iommu-type1s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>然后运行,我用的zen内核所以是linux-zen,默认内核是linux</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> mkinitcpio <span class="token parameter variable">-p</span> linux-zen<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> mkinitcpio <span class="token parameter variable">-p</span> linux-zen</code></pre>
 <p>重启计算机</p>
 <p>查看<code>/sys/devices/pci0000:00/0000:00:02.0/mdev_supported_types</code>可以看见类似如下的目录</p>
 <span id="more"></span>
@@ -3668,9 +3835,9 @@ i915-GVTg_V5_2  <span class="token comment"># Video memory: &lt;256MB, 1024MB>, 
 i915-GVTg_V5_4  <span class="token comment"># Video memory: &lt;128MB, 512MB>, resolution: up to 1920x1200</span>
 i915-GVTg_V5_8  <span class="token comment"># Video memory: &lt;64MB, 384MB>, resolution: up to 1024x768</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>向create文件中写入uuid(自己生成)就会创建相应的虚拟显卡</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$GVT_GUID</span>"</span> <span class="token operator">></span> <span class="token string">"/sys/devices/pci<span class="token variable">$&#123;GVT_DOM&#125;</span>/<span class="token variable">$GVT_PCI</span>/mdev_supported_types/<span class="token variable">$GVT_TYPE</span>/create"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$GVT_GUID</span>"</span> <span class="token operator">></span> <span class="token string">"/sys/devices/pci<span class="token variable">$&#123;GVT_DOM&#125;</span>/<span class="token variable">$GVT_PCI</span>/mdev_supported_types/<span class="token variable">$GVT_TYPE</span>/create"</span></code></pre>
 <p>移除</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token number">1</span> <span class="token operator">></span> /sys/bus/pci/devices/<span class="token variable">$GVT_PCI</span>/<span class="token variable">$GVT_GUID</span>/remove<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token number">1</span> <span class="token operator">></span> /sys/bus/pci/devices/<span class="token variable">$GVT_PCI</span>/<span class="token variable">$GVT_GUID</span>/remove</code></pre>
 <h2 id="qemu添加钩子-启动虚拟机时自动创建虚拟显卡">qemu添加钩子, 启动虚拟机时自动创建虚拟显卡</h2>
 <p><code>/etc/libvirt/hooks/qemu</code>中, 沒有则自己创建</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
@@ -4079,14 +4246,14 @@ Output: plaintext, or an error if the authentication tag does not match the supp
 发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些</p>
 <h2 id="安装所需工具">安装所需工具</h2>
 <p>termux上安装 ecj 和 dx就可以了</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt</span> <span class="token function">install</span> ecj dx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt</span> <span class="token function">install</span> ecj dx</code></pre>
 <h2 id="编译为class文件">编译为class文件</h2>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ecj XXX.java<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">ecj XXX.java</code></pre>
 <span id="more"></span>
 <h2 id="编译成dex文件">编译成dex文件</h2>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">dx <span class="token parameter variable">--dex</span> <span class="token parameter variable">--output</span><span class="token operator">=</span>XXX.dex XXX.class<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dx <span class="token parameter variable">--dex</span> <span class="token parameter variable">--output</span><span class="token operator">=</span>XXX.dex XXX.class</code></pre>
 <h2 id="使用dalvikvm运行">使用dalvikvm运行</h2>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">dalvikvm <span class="token parameter variable">-cp</span> XXX.dex XXX<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dalvikvm <span class="token parameter variable">-cp</span> XXX.dex XXX</code></pre>
 <p>参考: <a href="https://bbs.pediy.com/thread-184592.htm">使用 dalvikvm 执行一个运行于命令行的 Hello World</a></p>
 ]]></content>
       <categories>
@@ -4102,15 +4269,15 @@ Output: plaintext, or an error if the authentication tag does not match the supp
     <url>/posts/1e63e0e/</url>
     <content><![CDATA[<p>安卓6.0引入了doze来节省电量,但某些国产ui(如锤子)阉割了这个菜单,可通过adb添加</p>
 <p>添加应用到白名单：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys deviceidle whitelist +<span class="token operator">&lt;</span>package<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys deviceidle whitelist +<span class="token operator">&lt;</span>package<span class="token operator">></span></code></pre>
 <p>如:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys deviceidle whitelist +com.google.android.gms<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys deviceidle whitelist +com.google.android.gms</code></pre>
 <p>删除白名单(把加号改成减号):  <span id="more"></span></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys deviceidle whitelist -<span class="token operator">&lt;</span>package<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys deviceidle whitelist -<span class="token operator">&lt;</span>package<span class="token operator">></span></code></pre>
 <p>查看doze状态：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys deviceidle<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys deviceidle</code></pre>
 <p>获取完整的帮助菜单:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys deviceidle <span class="token parameter variable">-h</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys deviceidle <span class="token parameter variable">-h</span></code></pre>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Device idle controller <span class="token punctuation">(</span>deviceidle<span class="token punctuation">)</span> commands:
   <span class="token builtin class-name">help</span>
     Print this <span class="token builtin class-name">help</span> text.
@@ -4488,9 +4655,9 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说</p>
 <p>首先从ubuntu进入/boot/efi/EFI<br>
 <strong>备份windwos的启动文件</strong>（<strong>切记一定要备份，否则只能从pe重新建立windwos启动项</strong>）</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-arf</span> Microsoft win10<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-arf</span> Microsoft win10</code></pre>
 <p>将ubuntu的grubx64.efi替换掉EFI/Microsoft/Boot/bootmgfw.efi文件 <span id="more"></span></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-arf</span> ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-arf</span> ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi </code></pre>
 <p>这样替换之后grub就接管了系统的启动</p>
 <p>然后将/boot/grub/grub.cfg中关于windows的启动段复制到/etc/grub.d/40_custom中<br>
 将<strong>chainloader /EFI/Micorosoft/Boot/bootmgfw.efi</strong><br>
@@ -4635,7 +4802,7 @@ movq <span class="token operator">%</span><span class="token register variable">
 <hr>
 <p>接下来我们可以简单的实战一下:<br>
 给gcc开启O3级别的优化:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gcc <span class="token parameter variable">-O3</span> <span class="token parameter variable">-S</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gcc <span class="token parameter variable">-O3</span> <span class="token parameter variable">-S</span></code></pre>
 <p>生成的汇编码:</p>
 <pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm"> .file <span class="token string">"hello.c"</span>
  .text
@@ -5096,12 +5263,12 @@ ipv4的地址是用32位二进制数表示的<br>
     <url>/posts/4f3989f0/</url>
     <content><![CDATA[<h2 id="新建虚拟屏幕">新建虚拟屏幕</h2>
 <p>计算出拓展屏幕所需的信息.比如我想拓展1920x1200 60fps的虚拟屏幕:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gtf <span class="token number">1920</span> <span class="token number">1200</span> <span class="token number">60</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gtf <span class="token number">1920</span> <span class="token number">1200</span> <span class="token number">60</span></code></pre>
 <p>结果</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1920x1200 @ 60.00 Hz (GTF) hsync: 74.52 kHz; pclk: 193.16 MHz</span>
  Modeline <span class="token string">"1920x1200_60.00"</span>  <span class="token number">193.16</span>  <span class="token number">1920</span> <span class="token number">2048</span> <span class="token number">2256</span> <span class="token number">2592</span>  <span class="token number">1200</span> <span class="token number">1201</span> <span class="token number">1204</span> <span class="token number">1242</span>  <span class="token parameter variable">-HSync</span> +Vsync<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>使用xrandr添加新的mode,参数就是上面结果<code>Modeline</code>后面那些东西:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--newmode</span> <span class="token string">"1920x1200_60.00"</span>  <span class="token number">193.16</span>  <span class="token number">1920</span> <span class="token number">2048</span> <span class="token number">2256</span> <span class="token number">2592</span>  <span class="token number">1200</span> <span class="token number">1201</span> <span class="token number">1204</span> <span class="token number">1242</span>  <span class="token parameter variable">-HSync</span> +Vsync<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--newmode</span> <span class="token string">"1920x1200_60.00"</span>  <span class="token number">193.16</span>  <span class="token number">1920</span> <span class="token number">2048</span> <span class="token number">2256</span> <span class="token number">2592</span>  <span class="token number">1200</span> <span class="token number">1201</span> <span class="token number">1204</span> <span class="token number">1242</span>  <span class="token parameter variable">-HSync</span> +Vsync</code></pre>
 <p>使用xrandr查看空闲的接口:</p>
 <span id="more"></span>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span> ~ <span class="token punctuation">]</span> xrandr
@@ -5112,9 +5279,9 @@ HDMI1 disconnected <span class="token punctuation">(</span>normal left inverted 
 VIRTUAL1 disconnected <span class="token punctuation">(</span>normal left inverted right x axis y axis<span class="token punctuation">)</span>
 HDMI-1-2 disconnected <span class="token punctuation">(</span>normal left inverted right x axis y axis<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>比如我目前在使用的屏幕是eDP1,下面都为空闲,如果有虚拟的就用虚拟的,没有虚拟的用HDMI的也行:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--addmode</span> VIRTUAL1 1920x1200_60.00<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--addmode</span> VIRTUAL1 1920x1200_60.00</code></pre>
 <p>拓展屏幕到左面:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--output</span> VIRTUAL1 <span class="token parameter variable">--mode</span> 1920x1200_60.00 --left-of eDP1 <span class="token comment"># &lt;- 这里也可以使用--right-of,就是拓展到左边.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--output</span> VIRTUAL1 <span class="token parameter variable">--mode</span> 1920x1200_60.00 --left-of eDP1 <span class="token comment"># &lt;- 这里也可以使用--right-of,就是拓展到左边.</span></code></pre>
 <p>目前为止我们已经创建好了一个虚拟屏幕.</p>
 <p>如果想删除上面新建的东西,可以使用下面的指令(注意相关参数换成自己的)或者直接重启电脑就好了.</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--output</span> VIRTUAL1 <span class="token parameter variable">--off</span>
@@ -5123,14 +5290,14 @@ xrndr <span class="token parameter variable">--rmmode</span> 1920x1200_60.00<spa
 <h2 id="连接屏幕">连接屏幕</h2>
 <p>连接屏幕可以用teamviewer或者x11vnc,以及各种远程控制电脑的软件,这里我更建议使用teamviewer,更流畅,而且方法简单.</p>
 <h3 id="x11vnc">x11vnc</h3>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">x11vnc <span class="token parameter variable">-clip</span> 1920x1200+0+0 <span class="token comment"># &lt;-这里的两个0,分别是开始剪切的x和y的坐标,如果你拓展到了右边,这里就要加上相应的大小.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">x11vnc <span class="token parameter variable">-clip</span> 1920x1200+0+0 <span class="token comment"># &lt;-这里的两个0,分别是开始剪切的x和y的坐标,如果你拓展到了右边,这里就要加上相应的大小.</span></code></pre>
 <p>然后使用安卓上的连接vnc的软件即可,默认端口是5900.</p>
 <h2 id="使用usb加快传输速度">使用usb加快传输速度</h2>
 <p>把手机用usb连接到电脑上,然后用adb连接.</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb devices<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb devices</code></pre>
 <h3 id="x11vnc-2">x11vnc</h3>
 <p>这个的默认端口是5900,将电脑端口映射到android上.</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb reverse tcp:5900 tcp:5900<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb reverse tcp:5900 tcp:5900</code></pre>
 <p>然后手机上直接连接127.0.0.1:5900就可以</p>
 <h3 id="teamviewer">teamviewer</h3>
 <p>到teamviewer官网查询,可以知道默认端口为:</p>
@@ -5139,7 +5306,7 @@ xrndr <span class="token parameter variable">--rmmode</span> 1920x1200_60.00<spa
 TCP端口443<br>
 TCP端口80</p>
 </blockquote>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb reverse tcp:5938 tcp:5938<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb reverse tcp:5938 tcp:5938</code></pre>
 <p>后面的443和80也可做映射,不过我这里就使用了5938就成功了.<br>
 然后手机上的teamviewer连接127.0.0.1就可以了.</p>
 <h2 id="参考">参考</h2>
@@ -5153,6 +5320,91 @@ TCP端口80</p>
       <tags>
         <tag>android</tag>
         <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>离散对数问题</title>
+    <url>/posts/1f299eb2/</url>
+    <content><![CDATA[<p>前置知识 欧拉, 欧拉定理, 模反元素(模逆元) 可参见: <a href="/posts/f1a158c9/">RSA加密</a></p>
+<h2 id="阶">阶</h2>
+<p>由欧拉定理可知，若n,a为正整数，且n,a互素（即gcd(a,n)=1），则 a^phi(n) = 1 (mod n)。<br>
+因此满足同余式 a^m = 1 (mod n)的<strong>最小正整数m</strong>存在，这个m称作a模n的阶，记作delta(n,a)。</p>
+<h2 id="原根">原根</h2>
+<p>若n,a为正整数，且n,a互质，如果 gcd(a,n)=1 且 delta(n,a) = phi(n), 则称a为模n的原根.<br>
+简单来说，使该式成立的d可能有很多个值，又由欧拉定理可知delta(n,a) = phi(n)一定是满足的，如果此时所有delta(n,a)的可能取值中phi(n)是最小的，那么就称a为模n的原根。</p>
+<p>eg:</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">a=3, n=7
+可知 3,7互质, 所以phi(n) = 7 - 1 = 6
+可得 3^6 = 1 (mod 7)
+
+计算3^1, 3^2, 3^3, 3^4, 3^5 (mod 7) 都不等于1, 所以 6为满足 a^x = 1 (mod n)的最小正整数
+
+delta(7,3) = 6 = phi(7), 可得 3为模7的原根<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="性质">性质</h3>
+<span id="more"></span>
+<ul>
+<li>delta(n,a)一定能整除phi(n)</li>
+<li>若一个数m有原根, 则它的原根个数为phi(phi(m))</li>
+</ul>
+<h2 id="离散对数">离散对数</h2>
+<p>如果对于一个整数b和质数p的一个原根a，可以找到一个唯一的指数i，使得：<br>
+<strong>b= a^i (mod p), 其中 0 &lt;= i &lt;= p-1</strong><br>
+成立，那么指数i称为b的以a为基数的模p的离散对数。</p>
+<p>离散对数难题是指：<br>
+当已知一个大质数p和它的一个原根a，如果给定一个b，要计算i的值是相当困难的。<br>
+常将i作为私钥, b作为公钥，即使知道b和a也无法求出i。</p>
+<h2 id="应用">应用</h2>
+<ul>
+<li>DH密钥交换</li>
+</ul>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">取一质数 7, 计算出其原根 3, 同时质数7和其原根3是公开的
+
+Alice:
+  <span class="token list punctuation">-</span> 取一个随机数 3 作为自己的私钥
+  <span class="token list punctuation">-</span> 计算 3^3 (mod 7) = 6
+  <span class="token list punctuation">-</span> 将6作为公钥发送给Bob
+
+Bob:
+    <span class="token list punctuation">-</span> 取一个随机数 1 作为自己的私钥
+    <span class="token list punctuation">-</span> 计算 3^1 (mod 7) = 3
+    <span class="token list punctuation">-</span> 将3作为公钥发送给Alice
+
+Alice 使用 3 计算出共享密钥 3^3 (mod 7) = 6
+Bob 使用 6 计算出共享密钥 6^1 (mod 7) = 6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>Elgamal加密</li>
+</ul>
+<p>接上面DH密钥交换</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">获取到公共密钥6之后，Alice和Bob都可以使用公共密钥6来加密信息
+
+palintext: 6
+
+加密: 6<span class="token italic"><span class="token punctuation">*</span><span class="token content">6 (mod 7) = 1, 密文为 1
+解密: 1</span><span class="token punctuation">*</span></span>6^-1 (mod 7) = 6 &lt;- 6^-1 是指6关于模7的逆元<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面的写的感觉不太对,完整过程</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">Alice 取一质数 7, 计算出其原根 3, 选一数 3 作为自己的私钥, 3^3 (mod 7) = 6
+将 &#123;7,3,6&#125; 作为公钥公开
+
+Bob想传递信息 6 给 Alice
+
+Bob选一数 5 作为自己的私钥
+ <span class="token list punctuation">-</span> 加密密钥: 3^5 (mod 7) = 5
+ <span class="token list punctuation">-</span> 公钥: 3^5 (mod 7) = 5
+ <span class="token list punctuation">-</span> 密文: 6*(6^5) (mod 7) = 1
+ <span class="token list punctuation">-</span> 将 (5,1) 作为密文发送给Alice
+
+Alice解密
+ <span class="token list punctuation">-</span> 计算解密密钥: 5^3 (mod 7) = 6
+ <span class="token list punctuation">-</span> 解密: 1 * 6^-1 (mod 7) = 6 &lt;- 此处6^-1是指6关于模7的逆元(模反元素) <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>Crypto</category>
+      </categories>
+      <tags>
+        <tag>Crypto</tag>
+        <tag>离散对数</tag>
+        <tag>DH密钥交换</tag>
+        <tag>Elgamal</tag>
       </tags>
   </entry>
   <entry>
@@ -5336,91 +5588,6 @@ K = (k1 + k2 + k3) mod (4*5*11)
       </tags>
   </entry>
   <entry>
-    <title>离散对数问题</title>
-    <url>/posts/1f299eb2/</url>
-    <content><![CDATA[<p>前置知识 欧拉, 欧拉定理, 模反元素(模逆元) 可参见: <a href="/posts/f1a158c9/">RSA加密</a></p>
-<h2 id="阶">阶</h2>
-<p>由欧拉定理可知，若n,a为正整数，且n,a互素（即gcd(a,n)=1），则 a^phi(n) = 1 (mod n)。<br>
-因此满足同余式 a^m = 1 (mod n)的<strong>最小正整数m</strong>存在，这个m称作a模n的阶，记作delta(n,a)。</p>
-<h2 id="原根">原根</h2>
-<p>若n,a为正整数，且n,a互质，如果 gcd(a,n)=1 且 delta(n,a) = phi(n), 则称a为模n的原根.<br>
-简单来说，使该式成立的d可能有很多个值，又由欧拉定理可知delta(n,a) = phi(n)一定是满足的，如果此时所有delta(n,a)的可能取值中phi(n)是最小的，那么就称a为模n的原根。</p>
-<p>eg:</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">a=3, n=7
-可知 3,7互质, 所以phi(n) = 7 - 1 = 6
-可得 3^6 = 1 (mod 7)
-
-计算3^1, 3^2, 3^3, 3^4, 3^5 (mod 7) 都不等于1, 所以 6为满足 a^x = 1 (mod n)的最小正整数
-
-delta(7,3) = 6 = phi(7), 可得 3为模7的原根<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="性质">性质</h3>
-<span id="more"></span>
-<ul>
-<li>delta(n,a)一定能整除phi(n)</li>
-<li>若一个数m有原根, 则它的原根个数为phi(phi(m))</li>
-</ul>
-<h2 id="离散对数">离散对数</h2>
-<p>如果对于一个整数b和质数p的一个原根a，可以找到一个唯一的指数i，使得：<br>
-<strong>b= a^i (mod p), 其中 0 &lt;= i &lt;= p-1</strong><br>
-成立，那么指数i称为b的以a为基数的模p的离散对数。</p>
-<p>离散对数难题是指：<br>
-当已知一个大质数p和它的一个原根a，如果给定一个b，要计算i的值是相当困难的。<br>
-常将i作为私钥, b作为公钥，即使知道b和a也无法求出i。</p>
-<h2 id="应用">应用</h2>
-<ul>
-<li>DH密钥交换</li>
-</ul>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">取一质数 7, 计算出其原根 3, 同时质数7和其原根3是公开的
-
-Alice:
-  <span class="token list punctuation">-</span> 取一个随机数 3 作为自己的私钥
-  <span class="token list punctuation">-</span> 计算 3^3 (mod 7) = 6
-  <span class="token list punctuation">-</span> 将6作为公钥发送给Bob
-
-Bob:
-    <span class="token list punctuation">-</span> 取一个随机数 1 作为自己的私钥
-    <span class="token list punctuation">-</span> 计算 3^1 (mod 7) = 3
-    <span class="token list punctuation">-</span> 将3作为公钥发送给Alice
-
-Alice 使用 3 计算出共享密钥 3^3 (mod 7) = 6
-Bob 使用 6 计算出共享密钥 6^1 (mod 7) = 6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li>Elgamal加密</li>
-</ul>
-<p>接上面DH密钥交换</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">获取到公共密钥6之后，Alice和Bob都可以使用公共密钥6来加密信息
-
-palintext: 6
-
-加密: 6<span class="token italic"><span class="token punctuation">*</span><span class="token content">6 (mod 7) = 1, 密文为 1
-解密: 1</span><span class="token punctuation">*</span></span>6^-1 (mod 7) = 6 &lt;- 6^-1 是指6关于模7的逆元<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>上面的写的感觉不太对,完整过程</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">Alice 取一质数 7, 计算出其原根 3, 选一数 3 作为自己的私钥, 3^3 (mod 7) = 6
-将 &#123;7,3,6&#125; 作为公钥公开
-
-Bob想传递信息 6 给 Alice
-
-Bob选一数 5 作为自己的私钥
- <span class="token list punctuation">-</span> 加密密钥: 3^5 (mod 7) = 5
- <span class="token list punctuation">-</span> 公钥: 3^5 (mod 7) = 5
- <span class="token list punctuation">-</span> 密文: 6*(6^5) (mod 7) = 1
- <span class="token list punctuation">-</span> 将 (5,1) 作为密文发送给Alice
-
-Alice解密
- <span class="token list punctuation">-</span> 计算解密密钥: 5^3 (mod 7) = 6
- <span class="token list punctuation">-</span> 解密: 1 * 6^-1 (mod 7) = 6 &lt;- 此处6^-1是指6关于模7的逆元(模反元素) <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>Crypto</category>
-      </categories>
-      <tags>
-        <tag>Crypto</tag>
-        <tag>离散对数</tag>
-        <tag>DH密钥交换</tag>
-        <tag>Elgamal</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>翻译-C程序员所应该知道的内存</title>
     <url>/posts/f87fc9f0/</url>
     <content><![CDATA[<blockquote>
@@ -5556,7 +5723,7 @@ It can have both positive and negative connotations. The idea is that you should
 <li><a href="https://linux.die.net/man/3/malloc">malloc() family - portable libc memory allocator</a></li>
 </ul>
 <p>堆分配可以简单的看作是移动堆段的结束位置(<a href="https://linux.die.net/man/2/sbrk">program break</a>)和声明内存在旧位置和新位置之间。到了这一点，堆分配和栈分配一样快(没有分页，假设栈已锁定在内存中)。但是有一只猫(cat)，我的意思是捕获(catch)，该死的(dammit)。</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">char</span> <span class="token operator">*</span>block <span class="token operator">=</span> <span class="token function">sbrk</span><span class="token punctuation">(</span><span class="token number">1024</span> <span class="token operator">*</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-c" data-language="c"><code class="language-c"><span class="token keyword">char</span> <span class="token operator">*</span>block <span class="token operator">=</span> <span class="token function">sbrk</span><span class="token punctuation">(</span><span class="token number">1024</span> <span class="token operator">*</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>(1)我们不能重新声明未使用的内存块，(2)不是线程安全的，因为堆在线程之间共享，(3)接口很难移植，库不能接触到中断</p>
 <blockquote>
 <p>man 3 sbrk — Various systems use various types for the argument of sbrk(). Common are int, ssize_t, ptrdiff_t, intptr_t.</p>
@@ -5691,7 +5858,7 @@ For more technical details regarding this fix, see https://bugzilla.kernel.org/s
 
 <span class="token section"><span class="token punctuation">[</span><span class="token section-name selector">Install</span><span class="token punctuation">]</span></span>
 <span class="token key attr-name">WantedBy</span><span class="token punctuation">=</span><span class="token value attr-value">multi-user.target suspend.target hibernate.target</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">And finally, start and enable fix_headphones_audio.service.<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-markdown" data-language="markdown"><code class="language-markdown">And finally, start and enable fix_headphones_audio.service.</code></pre>
 <hr>
 <blockquote>
 <p><a href="https://bugzilla.kernel.org/show_bug.cgi?id=195457">Bug 195457 - Realtek ALC295 still unsupported</a><br>
@@ -5712,7 +5879,7 @@ For more technical details regarding this fix, see https://bugzilla.kernel.org/s
     <title>解决xfce4画面撕裂</title>
     <url>/posts/38868ade/</url>
     <content><![CDATA[<h2 id="安装compton">安装compton</h2>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> compton<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> compton</code></pre>
 <h2 id="修改配置文件">修改配置文件</h2>
 <p>compton的配置文件在~/.config/compton.conf<br>
 因为有些窗口的阴影有时候会变的很奇怪,大概你有可能需要修改一下,附上我的:<span id="more"></span></p>
@@ -5944,9 +6111,9 @@ wintypes:
 <p><img src="http://blog-1254450445.cossgp.myqcloud.com/compton.png" alt="" loading="lazy"></p>
 <h2 id="启动compton">启动compton</h2>
 <h3 id="前台运行">前台运行</h3>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">compton<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">compton</code></pre>
 <h3 id="后台运行">后台运行</h3>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">compton <span class="token parameter variable">-b</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">compton <span class="token parameter variable">-b</span></code></pre>
 <h3 id="开机自启动">开机自启动</h3>
 <p>修改~/.xprofile文件<br>
 将<code>compton -b</code>直接加到新的一行就行了</p>
