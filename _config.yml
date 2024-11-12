@@ -46,7 +46,7 @@ syntax_highlighter: prismjs
 prismjs:
   preprocess: true
   line_number: true
-  line_threshold: 0
+  line_threshold: 1
   tab_replace: "  "
 highlight:
   line_number: true

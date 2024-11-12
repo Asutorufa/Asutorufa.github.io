@@ -9,15 +9,25 @@ categories:
 abbrlink: 95db8f9
 date: 2024-11-06 10:37:12
 updated: 2024-11-06 10:37:12
-language:
+language: ja
 ---
 
-> 日本語はまだ勉強中ですから、変などころあるなら、ぜひコメントしてください。
+> 日本語はまだ勉強中ですから、変などころあったら、ぜひコメントしてください。
 
 ## RAGとは
 
 RAGはRetrieval augmented generationの略です。  
-大規模言語モデル内容生成する前に、promptによる外部のデーターベースに知識を検索、元のprompt組み合わせて、アウトプットを改善するための技術です。  
+大規模言語モデル内容を生成する前に、promptによる外部のデーターベースに知識を検索、元のpromptと組み合わせて、アウトプットを改善するための技術です。  
+
+{% mermaid sequenceDiagram %}
+    actor ユーザ
+    ユーザ->>サーバー: prompt: 今日の注目<br/>の新聞は何ですか？
+    サーバー->>ベクトルデータベース: promptをキーワードとして<br/>知識を検索
+    ベクトルデータベース--)サーバー: 知識を返す
+    サーバー->>llm: promptと知識を組み合わせて
+    llm-->>サーバー: 生成する内容を返す
+    サーバー->>ユーザ: 内容を返す
+{% endmermaid %}
 
 例えば：
 
@@ -41,8 +51,8 @@ chatgpt:
 ```
 
 geminiはリアルタイムによっての内容は回答できません。  
-chatgptはRAGか、Function Callingか、どちかを使えていると思います。  
-今回はgolang+langchaingo+ollama+qdrantでRAGに実験してみます。
+chatgptはRAGか、Function Callingか、どちらかを使っていると思います。  
+今回はgolang+langchaingo+ollama+qdrantでRAGを実験してみます。
 
 ## 準備
 <!--more-->
@@ -63,9 +73,9 @@ docker run -p 6333:6333 -p 6334:6334 \
 
 ### bge-large-en-v1.5をollamaで実行
 
-知識をベクトルデータベースに保存してにはText Embedingモデルが必要です。今回はbge-large-en-v1.5を使うことになりました。  
+知識をベクトルデータベースに保存するにはText Embedingモデルが必要です。今回はbge-large-en-v1.5を使うことになりました。  
 
-ollamaのモデルライブラリーはbge-large-en-v1.5がありませんので、bge-large-en-v1.5をGGUFに変換することが必要です。  
+ollamaのモデルライブラリにはbge-large-en-v1.5がありませんので、bge-large-en-v1.5をGGUFに変換することが必要です。  
 
 git-lfsとcmakeをインストール
 

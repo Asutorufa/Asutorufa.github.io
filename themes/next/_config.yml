@@ -335,6 +335,13 @@ font:
 katex:
   enable: true
 
+mermaid:
+  enable: true
+  # Available themes: default | dark | forest | neutral
+  theme:
+    light: default
+    dark: dark
+
 # MathJax Support
 mathjax:
   enable: false

@@ -142,6 +142,13 @@
       indexName: '{{ theme.algolia.indexName }}',
       hits: {{ theme.algolia_search.hits | json_encode }},
       labels: {{ theme.algolia_search.labels | json_encode }}
+    },
+    mermaid: {
+      enable: {{ theme.mermaid.enable }},
+      theme:{
+        light: '{{ theme.mermaid.theme.light }}',
+        dark: '{{ theme.mermaid.theme.dark }}'
+      }
     }
   };
 </script>
