@@ -14,7 +14,7 @@ To use a tool, respond with a JSON object with the following structure:
  "tool_input": &lt;parameters for the tool matching the above JSON schema>
 &#125;
 `</span><span class="token punctuation">,</span> <span class="token function">string</span><span class="token punctuation">(</span>bs<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>これはちょっと優雅でない、<code>ollama/api</code>を使いたいと思います。</p><h2 id="function-callingとは">function callingとは</h2><p>llmのレスポンスが外部関数の呼び出しを検知し、関数の結果を組み合わせて内容を生成する機能です。　　<br> 例えば：「東京の天気は？」はpromptをとして、「晴れです」と生成する。　　<br> 大勢のllmはfunction callingをtoolと読んでいる、呼び出しどき引数として引き渡して内容を生成する。</p><pre>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>これはちょっと優雅でない、<code>ollama/api</code>を使いたいと思います。</p><h2 id="function-callingとは">function callingとは</h2><span id="more"></span><p>llmのレスポンスが外部関数の呼び出しを検知し、関数の結果を組み合わせて内容を生成する機能です。　　<br> 例えば：「東京の天気は？」はpromptをとして、「晴れです」と生成する。　　<br> 大勢のllmはfunction callingをtoolと読んでいる、呼び出しどき引数として引き渡して内容を生成する。</p><pre>
 <code class="mermaid">
 sequenceDiagram
 actor ユーザ
