@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://asutorufa.github.io/schedule/index.html</loc>
+    
+    <lastmod>2024-11-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/index.html</loc>
+    
+    <lastmod>2024-11-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://asutorufa.github.io/about/index.html</loc>
     
     <lastmod>2024-11-12</lastmod>
@@ -29,15 +47,6 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/friends/index.html</loc>
-    
-    <lastmod>2024-11-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://asutorufa.github.io/email/index.html</loc>
     
     <lastmod>2024-11-12</lastmod>
@@ -47,16 +56,7 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/schedule/index.html</loc>
-    
-    <lastmod>2024-11-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.github.io/tags/index.html</loc>
+    <loc>https://asutorufa.github.io/friends/index.html</loc>
     
     <lastmod>2024-11-12</lastmod>
     
@@ -682,20 +682,6 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/tags/DNS/</loc>
-    <lastmod>2024-11-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.github.io/tags/DOH/</loc>
-    <lastmod>2024-11-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://asutorufa.github.io/tags/Kubernetes/</loc>
     <lastmod>2024-11-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -711,6 +697,20 @@
   
   <url>
     <loc>https://asutorufa.github.io/tags/container/</loc>
+    <lastmod>2024-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/DNS/</loc>
+    <lastmod>2024-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/DOH/</loc>
     <lastmod>2024-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -941,14 +941,14 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/tags/proxy/</loc>
+    <loc>https://asutorufa.github.io/tags/iptables/</loc>
     <lastmod>2024-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/tags/iptables/</loc>
+    <loc>https://asutorufa.github.io/tags/proxy/</loc>
     <lastmod>2024-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1144,13 +1144,6 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/tags/Deep-Learning/</loc>
-    <lastmod>2024-11-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://asutorufa.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/</loc>
     <lastmod>2024-11-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -1159,6 +1152,13 @@
   
   <url>
     <loc>https://asutorufa.github.io/tags/assembly/</loc>
+    <lastmod>2024-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/tags/Deep-Learning/</loc>
     <lastmod>2024-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1244,14 +1244,14 @@
 
   
   <url>
-    <loc>https://asutorufa.github.io/categories/%E6%97%A5%E5%B8%B8/</loc>
+    <loc>https://asutorufa.github.io/categories/Network/</loc>
     <lastmod>2024-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/categories/Network/</loc>
+    <loc>https://asutorufa.github.io/categories/%E6%97%A5%E5%B8%B8/</loc>
     <lastmod>2024-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1391,14 +1391,14 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/categories/Machine-Learning/</loc>
+    <loc>https://asutorufa.github.io/categories/assembly/</loc>
     <lastmod>2024-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/categories/assembly/</loc>
+    <loc>https://asutorufa.github.io/categories/Machine-Learning/</loc>
     <lastmod>2024-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

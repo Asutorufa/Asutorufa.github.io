@@ -27,7 +27,7 @@ llm--)サーバー: 関数を呼び出し&lt;br&#x2F;&gt;引数（東京）を�
 llm--&gt;&gt;サーバー: 生成する内容を返す
 サーバー-&gt;&gt;ユーザ: 内容を返す
 </code>
-</pre><h2 id="goで実現">goで実現</h2><p>関数と引数の説明(Description)は自然な言葉で良いです、一般的なプログラミングよりちょっと違うと思います。</p><p>toolsの定義</p><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">import</span> <span class="token string">"github.com/ollama/ollama/api"</span>
+</pre><h2 id="goで実現">goで実現</h2><p>関数と引数の説明(Description)は自然な言葉で良いです、一般的なプログラミングとはちょっと違うと思います。</p><p>toolsの定義</p><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">import</span> <span class="token string">"github.com/ollama/ollama/api"</span>
 
 tools <span class="token operator">:=</span> api<span class="token punctuation">.</span>Tool<span class="token punctuation">&#123;</span>
       Type<span class="token punctuation">:</span> <span class="token string">"function"</span><span class="token punctuation">,</span>
