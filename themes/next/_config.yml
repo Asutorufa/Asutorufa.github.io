@@ -120,6 +120,7 @@ scheme: Gemini
 social:
   GitHub: https://github.com/Asutorufa || github
   E-Mail: /email/ || envelope
+  # RSS: /atom.xml || fa fa-rss
 #  Google+: https:// || google
 #  Twitter: https:// || twitter
 #  FB Page: https:// || facebook
@@ -131,6 +132,7 @@ social:
 #  Bilibili: https:// || television
 #  Niconico: http:// || video-camera
 #  Skype: skype:yourname?call|chat || skype
+
 
 social_icons:
   enable: true
