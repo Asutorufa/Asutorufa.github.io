@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>2021-03-20 01:25AM</title>
+    <url>/posts/d67c4794/</url>
+    <content><![CDATA[<p>2021-03-20 01:25AM<span id="more"></span><br>
+第一次出来实习, 住的房子是同事转租给我的, 本来说是去出差, 但是没过几天就辞职了, 走的时候帮我出了500块房租, 还留了不少东西, 我还白住了半个多月没出钱, 我可以说是相当幸运, 第一次出来找工作就有不少人照顾我.<br>
+刚过来的时候刚好有个学长在这边, 挺照顾我的, 帮了我不少, 还给了我一些东西.<br>
+因为一直在学校食堂吃饭, 没怎么关注过学校食堂以外的饭馆的价格, 看到外面饭店里菜的价格, 真的是难以接受, 都是15块起步, 吃饱至少得20多, 跟学校里不到10块就能吃饱相比真的是差的很多, 而且自己还要交房租, 一开始我真的很担心实习的工资可能会导致我连饭都吃不起.<br>
+所以刚开始我都是能省一点就省一点, 除了中午饭, 都是自己在做, 10块钱买的菜可以吃很久, 不过过了一段时间之后就没那么担心了, 可能是因为渐渐对周围熟悉起来了, 也不太担心钱不够花的问题了, 因为在大学就想着省钱, 平时也不买水果啥的, 到了大三,大四得了一些生活习惯病, 飞蚊症,鼻炎,耳鸣… 都是些没法治的病, 刚开始还去医院花了不少钱, 到最后还没治好, 所以现在都是尽量吃的健康, 水果再贵我也要买一些吃.<br>
+因为大学的时候有了耳鸣, 虽然耳鸣的声音不是很大, 但是我对声音真的很敏感, 一有点声音就会醒的那种, 之前还敢睡觉的时候戴戴耳机, 自从得了耳鸣之后耳机也不敢多戴了, 一直想买一个sony的XM3, 但是好不容易攒的钱, 总是会因为各种原因花掉, 比如因为考试要回学校买机票了(因为现在机票比高铁便宜很多,所以还是买机票了), 而且学校本来给找工作同学发的助学金也发给考研的人了, 可能这就是国情吧, 贫苦生永远拿不到助学金, 拿到助学金的人全去买一双两三千的鞋了, 这正常吗?<br>
+刚来的时候, 我对面最大那个房间住着一家三口, 小孩还很小, 有时候会哭, 不过一般不到5分钟就不哭了, 感觉还好没那么吵. 现在对面换成一对情侣了, 真的很吵, 一直说话, 半夜12点1点不睡覺还在大笑, 还好签的合同就剩两个月了, 自己也买了新的隔音耳塞, 只能先坚持坚持了, 合同到期我一定要换一个好一点的房子, 贵点也行, 只要隔音比较好.<br>
+楼上还有一个敲架子鼓的, 这是我没想到的, 居民楼里敲架子鼓, 小区周围的环境也很差, 每天都有装修的, 要不是初来乍到, 我一定不会选择这里的.<br>
+来到这边基本哪里都没去过, 一部分原因是没钱, 还有一部分原因是自己想干的事太多, 又想学日语, 又想维护自己写的开源项目, 还想看看关注的youtuber新出的视频, 周末对我来说完全不够用, 最近上班摸鱼都有在搞自己的开源项目, 虽然可能一个用的人都没有, 但是我还是想弄好一点, 至少自己用的舒服点.<br>
+公司的话还好, 虽然没有想象中那么好, 但是还能接受. 主要是管理比较乱, 没有代码规范, 有些代码也写的很有问题, 如果不再改改的, 我相信只会越来越影响效率, 不少地方代码写的很有问题, 整个项目的架构也不太对, 至少从我这个大学还没毕业的来看问题还是不少的. 我不太会说话, 有时候会惹人不高兴或是事后觉得自己说的不对, 对于技术相关的问题有时我真的很想反驳, 但现在都尽量忍住了, 不想让别人觉得我这个后辈很无礼. 有时确实没有共同话题, 比如我现在真的很讨厌bilibili, 对于我来说变味太严重, 但是反而是因为出圈太严重了, 用的人越来越多, 周围同事总是会说昨天我在bilibili上看了什么, 我也不好说什么, 因为我现在已经基本不用它了.<br>
+自己的话, 除了多了工作和做饭, 习惯基本没什么变化, 平时瞎搞搞电脑, 看看youtube,twitter, 在笔记本上记录一下最近新知道的日语单词, 写写代码.</p>
+]]></content>
+      <categories>
+        <category>日常</category>
+      </categories>
+  </entry>
+  <entry>
     <title>CIDR匹配 域名匹配</title>
     <url>/posts/3cb4313e/</url>
     <content><![CDATA[<p>所有完整实现代码:<a href="https://github.com/Asutorufa/yuhaiin/tree/master/net/match">match</a></p>
@@ -137,25 +156,6 @@ com      com   mail    com   <span class="token punctuation">..</span>.
         <tag>CIDR</tag>
         <tag>golang</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>2021-03-20 01:25AM</title>
-    <url>/posts/d67c4794/</url>
-    <content><![CDATA[<p>2021-03-20 01:25AM<span id="more"></span><br>
-第一次出来实习, 住的房子是同事转租给我的, 本来说是去出差, 但是没过几天就辞职了, 走的时候帮我出了500块房租, 还留了不少东西, 我还白住了半个多月没出钱, 我可以说是相当幸运, 第一次出来找工作就有不少人照顾我.<br>
-刚过来的时候刚好有个学长在这边, 挺照顾我的, 帮了我不少, 还给了我一些东西.<br>
-因为一直在学校食堂吃饭, 没怎么关注过学校食堂以外的饭馆的价格, 看到外面饭店里菜的价格, 真的是难以接受, 都是15块起步, 吃饱至少得20多, 跟学校里不到10块就能吃饱相比真的是差的很多, 而且自己还要交房租, 一开始我真的很担心实习的工资可能会导致我连饭都吃不起.<br>
-所以刚开始我都是能省一点就省一点, 除了中午饭, 都是自己在做, 10块钱买的菜可以吃很久, 不过过了一段时间之后就没那么担心了, 可能是因为渐渐对周围熟悉起来了, 也不太担心钱不够花的问题了, 因为在大学就想着省钱, 平时也不买水果啥的, 到了大三,大四得了一些生活习惯病, 飞蚊症,鼻炎,耳鸣… 都是些没法治的病, 刚开始还去医院花了不少钱, 到最后还没治好, 所以现在都是尽量吃的健康, 水果再贵我也要买一些吃.<br>
-因为大学的时候有了耳鸣, 虽然耳鸣的声音不是很大, 但是我对声音真的很敏感, 一有点声音就会醒的那种, 之前还敢睡觉的时候戴戴耳机, 自从得了耳鸣之后耳机也不敢多戴了, 一直想买一个sony的XM3, 但是好不容易攒的钱, 总是会因为各种原因花掉, 比如因为考试要回学校买机票了(因为现在机票比高铁便宜很多,所以还是买机票了), 而且学校本来给找工作同学发的助学金也发给考研的人了, 可能这就是国情吧, 贫苦生永远拿不到助学金, 拿到助学金的人全去买一双两三千的鞋了, 这正常吗?<br>
-刚来的时候, 我对面最大那个房间住着一家三口, 小孩还很小, 有时候会哭, 不过一般不到5分钟就不哭了, 感觉还好没那么吵. 现在对面换成一对情侣了, 真的很吵, 一直说话, 半夜12点1点不睡覺还在大笑, 还好签的合同就剩两个月了, 自己也买了新的隔音耳塞, 只能先坚持坚持了, 合同到期我一定要换一个好一点的房子, 贵点也行, 只要隔音比较好.<br>
-楼上还有一个敲架子鼓的, 这是我没想到的, 居民楼里敲架子鼓, 小区周围的环境也很差, 每天都有装修的, 要不是初来乍到, 我一定不会选择这里的.<br>
-来到这边基本哪里都没去过, 一部分原因是没钱, 还有一部分原因是自己想干的事太多, 又想学日语, 又想维护自己写的开源项目, 还想看看关注的youtuber新出的视频, 周末对我来说完全不够用, 最近上班摸鱼都有在搞自己的开源项目, 虽然可能一个用的人都没有, 但是我还是想弄好一点, 至少自己用的舒服点.<br>
-公司的话还好, 虽然没有想象中那么好, 但是还能接受. 主要是管理比较乱, 没有代码规范, 有些代码也写的很有问题, 如果不再改改的, 我相信只会越来越影响效率, 不少地方代码写的很有问题, 整个项目的架构也不太对, 至少从我这个大学还没毕业的来看问题还是不少的. 我不太会说话, 有时候会惹人不高兴或是事后觉得自己说的不对, 对于技术相关的问题有时我真的很想反驳, 但现在都尽量忍住了, 不想让别人觉得我这个后辈很无礼. 有时确实没有共同话题, 比如我现在真的很讨厌bilibili, 对于我来说变味太严重, 但是反而是因为出圈太严重了, 用的人越来越多, 周围同事总是会说昨天我在bilibili上看了什么, 我也不好说什么, 因为我现在已经基本不用它了.<br>
-自己的话, 除了多了工作和做饭, 习惯基本没什么变化, 平时瞎搞搞电脑, 看看youtube,twitter, 在笔记本上记录一下最近新知道的日语单词, 写写代码.</p>
-]]></content>
-      <categories>
-        <category>日常</category>
-      </categories>
   </entry>
   <entry>
     <title>CRI 容器运行时接口</title>
@@ -660,6 +660,52 @@ log<span class="token punctuation">.</span><span class="token function">Println<
       </tags>
   </entry>
   <entry>
+    <title>GeoIP mmdb format</title>
+    <url>/posts/931c13a4/</url>
+    <content><![CDATA[<p>complete document <a href="https://maxmind.github.io/MaxMind-DB/">MaxMind DB File Format SpecificationDescription</a></p>
+<p>here is only how convert trie tree to array</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">0100, 1011 -> trie
+
+<span class="token code keyword">              root
+               |
+         +-----+------+
+        /              \
+       0                1
+     /   \             /  \</span>
+   null   1           0   null
+         / \        /   \
+        0 null     null   1
+       / \               / \
+       0 null         null  1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>trie -&gt; array<br>
+left is 0, right is 1<br>
+value is index of array<span id="more"></span></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"> left | right  byte/index
+2     |   4    0-1
+null  |   6    2-3
+8     |  null  4-5
+10    |  null  6-7
+null  |  12    8-9
+14    |  null  10-11
+null  |  16    11-12
+end   |  null  12-13
+null  |  end   13-14
+
+array: [2,4,null,6,8,null,10,null,null,12,14,null,null,16,end,null,null,end]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>for example:</p>
+<p>index 1:<br>
+next left index 2 is null, so 00* is not exist<br>
+next right index 2+1 = 3 is not null, continue search until end or null</p>
+<p>this is one byte as one child, but one byte max is 255, if node more than 255, we can use multiple byte as one child</p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>Network</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>EDNS</title>
     <url>/posts/668530ca/</url>
     <content><![CDATA[<p>这个DNS系列现在有以下几篇文章<br>
@@ -921,52 +967,6 @@ ADDRESS就是设置的SubNet的IP地址,依据上面的FAMILY</p>
         <tag>DNS</tag>
         <tag>UDP</tag>
         <tag>EDNS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GeoIP mmdb format</title>
-    <url>/posts/931c13a4/</url>
-    <content><![CDATA[<p>complete document <a href="https://maxmind.github.io/MaxMind-DB/">MaxMind DB File Format SpecificationDescription</a></p>
-<p>here is only how convert trie tree to array</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">0100, 1011 -> trie
-
-<span class="token code keyword">              root
-               |
-         +-----+------+
-        /              \
-       0                1
-     /   \             /  \</span>
-   null   1           0   null
-         / \        /   \
-        0 null     null   1
-       / \               / \
-       0 null         null  1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>trie -&gt; array<br>
-left is 0, right is 1<br>
-value is index of array<span id="more"></span></p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"> left | right  byte/index
-2     |   4    0-1
-null  |   6    2-3
-8     |  null  4-5
-10    |  null  6-7
-null  |  12    8-9
-14    |  null  10-11
-null  |  16    11-12
-end   |  null  12-13
-null  |  end   13-14
-
-array: [2,4,null,6,8,null,10,null,null,12,14,null,null,16,end,null,null,end]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>for example:</p>
-<p>index 1:<br>
-next left index 2 is null, so 00* is not exist<br>
-next right index 2+1 = 3 is not null, continue search until end or null</p>
-<p>this is one byte as one child, but one byte max is 255, if node more than 255, we can use multiple byte as one child</p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>Network</tag>
       </tags>
   </entry>
   <entry>
@@ -3089,70 +3089,6 @@ gpg <span class="token parameter variable">-d</span> <span class="token punctuat
       </tags>
   </entry>
   <entry>
-    <title>iptables</title>
-    <url>/posts/736b1750/</url>
-    <content><![CDATA[<p>iptables chain</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">    +---------------------------------------------------------+
-    |                   Network Card                          |
-    +---------------------------------------------------------+
-      |                                                    ^
-      |                                                    |
-      v                                                    |
- +----------+          is?      no    +-------+        +-----------+
- |prerouting| ----> localhost ------> |forward| ---->  |postrouting|
- +----------+          |              +-------+        +-----------+ 
-                       | yes                                 ^
-                       |                                     |
-                       v                                     |
-                    +---------+                        +-----------+
-                    |  input  |                        |   output  |
-                    +---------+                        +-----------+
-                         |                                   ^
-                         |                                   |
-                         |                                   |
-                         v                                   |
-    +----------------------------------------------------------+
-    |                        user                              |
-    +----------------------------------------------------------+
-
-out -> localhost: prerouting -> input
-forward:          prerouting -> forward    -> postrouting
-localhost -> out: output     -> postrouting<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>iptables table:</p>
-<ul>
-<li>filter:</li>
-<li>nat:</li>
-<li>magle:</li>
-<li>raw:</li>
-</ul>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">table <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span><span class="token punctuation">></span></span> chain  
-raw: PREROUTING, OUTPUT  
-mangle: PREROUTING, INPUT, FORWARD, OUTPUT, POSTROUTING  
-nat: PREROUTING, OUTPUT, POSTROUTING, INPUT  
-filter: INPUT, FORWARD, OUTPUT
-
-raw –> mangle –> nat –> filter  
-
-chain <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span><span class="token punctuation">></span></span> table
-PREROUTING: raw, mangle, nat
-INPUT: mangle, filter, nat
-FORWARD: mangle, filter
-OUTPUT: raw, mangle, nat, filter
-POSTROUTING: mangle, nat<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>query</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">iptables <span class="token parameter variable">-t</span> <span class="token operator">&lt;</span>table<span class="token operator">></span> <span class="token parameter variable">-nvL</span> <span class="token operator">&lt;</span>chain<span class="token operator">></span></code></pre>
-<hr>
-<p><a href="https://www.zsythink.net/archives/tag/iptables/page/2">iptables</a></p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>iptables</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>http Keep-Alive</title>
     <url>/posts/d91b7c06/</url>
     <content><![CDATA[<h2 id="http-keep-alive">http keep-alive</h2>
@@ -3380,6 +3316,70 @@ msgs <span class="token operator">=</span> <span class="token function">append</
         <tag>llm</tag>
         <tag>text embedding</tag>
         <tag>rag</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>iptables</title>
+    <url>/posts/736b1750/</url>
+    <content><![CDATA[<p>iptables chain</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">    +---------------------------------------------------------+
+    |                   Network Card                          |
+    +---------------------------------------------------------+
+      |                                                    ^
+      |                                                    |
+      v                                                    |
+ +----------+          is?      no    +-------+        +-----------+
+ |prerouting| ----> localhost ------> |forward| ---->  |postrouting|
+ +----------+          |              +-------+        +-----------+ 
+                       | yes                                 ^
+                       |                                     |
+                       v                                     |
+                    +---------+                        +-----------+
+                    |  input  |                        |   output  |
+                    +---------+                        +-----------+
+                         |                                   ^
+                         |                                   |
+                         |                                   |
+                         v                                   |
+    +----------------------------------------------------------+
+    |                        user                              |
+    +----------------------------------------------------------+
+
+out -> localhost: prerouting -> input
+forward:          prerouting -> forward    -> postrouting
+localhost -> out: output     -> postrouting<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>iptables table:</p>
+<ul>
+<li>filter:</li>
+<li>nat:</li>
+<li>magle:</li>
+<li>raw:</li>
+</ul>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">table <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span><span class="token punctuation">></span></span> chain  
+raw: PREROUTING, OUTPUT  
+mangle: PREROUTING, INPUT, FORWARD, OUTPUT, POSTROUTING  
+nat: PREROUTING, OUTPUT, POSTROUTING, INPUT  
+filter: INPUT, FORWARD, OUTPUT
+
+raw –> mangle –> nat –> filter  
+
+chain <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span><span class="token punctuation">></span></span> table
+PREROUTING: raw, mangle, nat
+INPUT: mangle, filter, nat
+FORWARD: mangle, filter
+OUTPUT: raw, mangle, nat, filter
+POSTROUTING: mangle, nat<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>query</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">iptables <span class="token parameter variable">-t</span> <span class="token operator">&lt;</span>table<span class="token operator">></span> <span class="token parameter variable">-nvL</span> <span class="token operator">&lt;</span>chain<span class="token operator">></span></code></pre>
+<hr>
+<p><a href="https://www.zsythink.net/archives/tag/iptables/page/2">iptables</a></p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>iptables</tag>
       </tags>
   </entry>
   <entry>
@@ -4359,6 +4359,38 @@ Zygote进程运行时, 会初始化Dalvik虚拟机, 并运行它. Android的应�
       </tags>
   </entry>
   <entry>
+    <title>常用等价无穷小的一般形式</title>
+    <url>/posts/10bb899d/</url>
+    <content><![CDATA[<p>当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>lim</mi><mo>⁡</mo></mrow><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>→</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\lim_{φ(x)\to0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0496em;vertical-align:-0.3552em;"></span><span class="mop"><span class="mop">lim</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span><span class="mrel mtight">→</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3552em;"><span></span></span></span></span></span></span></span></span></span>时,<br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>sin</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\sin φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>r</mi><mi>c</mi><mi>sin</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">arc\sin φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">rc</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>tan</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\tanφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">tan</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>r</mi><mi>c</mi><mi>tan</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">arc\tanφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">rc</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">tan</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ln</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\ln(1+φ(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">ln</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e^{φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9713em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a^{φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9713em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi>ln</mi><mo>⁡</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">φ(x)\ln a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">ln</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mroot><mrow><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mi>n</mi></mroot><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sqrt[n]{1+φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.305em;"></span><span class="mord sqrt"><span class="root"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.5933em;"><span style="top:-2.878em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size6 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mord" style="padding-left:1em;"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span><span style="top:-2.895em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.28em" viewBox="0 0 400000 1296" preserveAspectRatio="xMinYMin slice"><path d="M263,681c0.7,0,18,39.7,52,119
+c34,79.3,68.167,158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120
+c340,-704.7,510.7,-1060.3,512,-1067
+l0 -0
+c4.7,-7.3,11,-11,19,-11
+H40000v40H1012.3
+s-271.3,567,-271.3,567c-38.7,80.7,-84,175,-136,283c-52,108,-89.167,185.3,-111.5,232
+c-22.3,46.7,-33.8,70.3,-34.5,71c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1
+s-109,-253,-109,-253c-72.7,-168,-109.3,-252,-110,-252c-10.7,8,-22,16.7,-34,26
+c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26s76,-59,76,-59s76,-60,76,-60z
+M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.305em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>n</mi></mfrac><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\frac{1}{n}φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">)</mo><mrow><mi>μ</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(1+φ(x))^{\mu-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">μ</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\muφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">μ</span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>cos</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">1-\cosφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">cos</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{(φ(x))^2}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.4539em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1089em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span><span class="mclose mtight"><span class="mclose mtight">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.931em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+]]></content>
+      <categories>
+        <category>Math</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>实现一个简单的Kubernetes controller</title>
     <url>/posts/edf1c330/</url>
     <content><![CDATA[<h2 id="controller是什么">controller是什么</h2>
@@ -4558,38 +4590,6 @@ cli<span class="token punctuation">,</span> err <span class="token operator">:=<
         <tag>Kubernetes</tag>
         <tag>CRI</tag>
         <tag>container</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>常用等价无穷小的一般形式</title>
-    <url>/posts/10bb899d/</url>
-    <content><![CDATA[<p>当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>lim</mi><mo>⁡</mo></mrow><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>→</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\lim_{φ(x)\to0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0496em;vertical-align:-0.3552em;"></span><span class="mop"><span class="mop">lim</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span><span class="mrel mtight">→</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3552em;"><span></span></span></span></span></span></span></span></span></span>时,<br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>sin</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\sin φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>r</mi><mi>c</mi><mi>sin</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">arc\sin φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">rc</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>tan</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\tanφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">tan</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>r</mi><mi>c</mi><mi>tan</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">arc\tanφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">rc</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">tan</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ln</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\ln(1+φ(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">ln</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e^{φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9713em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a^{φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9713em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi>ln</mi><mo>⁡</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">φ(x)\ln a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">ln</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mroot><mrow><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mi>n</mi></mroot><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sqrt[n]{1+φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.305em;"></span><span class="mord sqrt"><span class="root"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.5933em;"><span style="top:-2.878em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size6 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mord" style="padding-left:1em;"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span><span style="top:-2.895em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.28em" viewBox="0 0 400000 1296" preserveAspectRatio="xMinYMin slice"><path d="M263,681c0.7,0,18,39.7,52,119
-c34,79.3,68.167,158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120
-c340,-704.7,510.7,-1060.3,512,-1067
-l0 -0
-c4.7,-7.3,11,-11,19,-11
-H40000v40H1012.3
-s-271.3,567,-271.3,567c-38.7,80.7,-84,175,-136,283c-52,108,-89.167,185.3,-111.5,232
-c-22.3,46.7,-33.8,70.3,-34.5,71c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1
-s-109,-253,-109,-253c-72.7,-168,-109.3,-252,-110,-252c-10.7,8,-22,16.7,-34,26
-c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26s76,-59,76,-59s76,-60,76,-60z
-M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.305em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>n</mi></mfrac><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\frac{1}{n}φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">)</mo><mrow><mi>μ</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(1+φ(x))^{\mu-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">μ</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\muφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">μ</span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>cos</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">1-\cosφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">cos</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{(φ(x))^2}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.4539em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1089em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span><span class="mclose mtight"><span class="mclose mtight">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.931em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
-]]></content>
-      <categories>
-        <category>Math</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
       </tags>
   </entry>
   <entry>
@@ -5272,70 +5272,6 @@ ipv4的地址是用32位二进制数表示的<br>
       </tags>
   </entry>
   <entry>
-    <title>用Android/PC为linux拓展屏幕</title>
-    <url>/posts/4f3989f0/</url>
-    <content><![CDATA[<h2 id="新建虚拟屏幕">新建虚拟屏幕</h2>
-<p>计算出拓展屏幕所需的信息.比如我想拓展1920x1200 60fps的虚拟屏幕:</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gtf <span class="token number">1920</span> <span class="token number">1200</span> <span class="token number">60</span></code></pre>
-<p>结果</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1920x1200 @ 60.00 Hz (GTF) hsync: 74.52 kHz; pclk: 193.16 MHz</span>
- Modeline <span class="token string">"1920x1200_60.00"</span>  <span class="token number">193.16</span>  <span class="token number">1920</span> <span class="token number">2048</span> <span class="token number">2256</span> <span class="token number">2592</span>  <span class="token number">1200</span> <span class="token number">1201</span> <span class="token number">1204</span> <span class="token number">1242</span>  <span class="token parameter variable">-HSync</span> +Vsync<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>使用xrandr添加新的mode,参数就是上面结果<code>Modeline</code>后面那些东西:</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--newmode</span> <span class="token string">"1920x1200_60.00"</span>  <span class="token number">193.16</span>  <span class="token number">1920</span> <span class="token number">2048</span> <span class="token number">2256</span> <span class="token number">2592</span>  <span class="token number">1200</span> <span class="token number">1201</span> <span class="token number">1204</span> <span class="token number">1242</span>  <span class="token parameter variable">-HSync</span> +Vsync</code></pre>
-<p>使用xrandr查看空闲的接口:</p>
-<span id="more"></span>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span> ~ <span class="token punctuation">]</span> xrandr
-Screen <span class="token number">0</span>: minimum <span class="token number">8</span> x <span class="token number">8</span>, current <span class="token number">1920</span> x <span class="token number">1080</span>, maximum <span class="token number">32767</span> x <span class="token number">32767</span>
-eDP1 connected primary 1920x1080+0+0 <span class="token punctuation">(</span>normal left inverted right x axis y axis<span class="token punctuation">)</span> 340mm x 190mm
-   1920x1080     <span class="token number">60.02</span>*+  <span class="token number">40.03</span>  
-HDMI1 disconnected <span class="token punctuation">(</span>normal left inverted right x axis y axis<span class="token punctuation">)</span>
-VIRTUAL1 disconnected <span class="token punctuation">(</span>normal left inverted right x axis y axis<span class="token punctuation">)</span>
-HDMI-1-2 disconnected <span class="token punctuation">(</span>normal left inverted right x axis y axis<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>比如我目前在使用的屏幕是eDP1,下面都为空闲,如果有虚拟的就用虚拟的,没有虚拟的用HDMI的也行:</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--addmode</span> VIRTUAL1 1920x1200_60.00</code></pre>
-<p>拓展屏幕到左面:</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--output</span> VIRTUAL1 <span class="token parameter variable">--mode</span> 1920x1200_60.00 --left-of eDP1 <span class="token comment"># &lt;- 这里也可以使用--right-of,就是拓展到左边.</span></code></pre>
-<p>目前为止我们已经创建好了一个虚拟屏幕.</p>
-<p>如果想删除上面新建的东西,可以使用下面的指令(注意相关参数换成自己的)或者直接重启电脑就好了.</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--output</span> VIRTUAL1 <span class="token parameter variable">--off</span>
-xrandr <span class="token parameter variable">--delmode</span> VIRTUAL1 1920x1200_60.00
-xrndr <span class="token parameter variable">--rmmode</span> 1920x1200_60.00<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h2 id="连接屏幕">连接屏幕</h2>
-<p>连接屏幕可以用teamviewer或者x11vnc,以及各种远程控制电脑的软件,这里我更建议使用teamviewer,更流畅,而且方法简单.</p>
-<h3 id="x11vnc">x11vnc</h3>
-<pre class="language-bash" data-language="bash"><code class="language-bash">x11vnc <span class="token parameter variable">-clip</span> 1920x1200+0+0 <span class="token comment"># &lt;-这里的两个0,分别是开始剪切的x和y的坐标,如果你拓展到了右边,这里就要加上相应的大小.</span></code></pre>
-<p>然后使用安卓上的连接vnc的软件即可,默认端口是5900.</p>
-<h2 id="使用usb加快传输速度">使用usb加快传输速度</h2>
-<p>把手机用usb连接到电脑上,然后用adb连接.</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb devices</code></pre>
-<h3 id="x11vnc-2">x11vnc</h3>
-<p>这个的默认端口是5900,将电脑端口映射到android上.</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb reverse tcp:5900 tcp:5900</code></pre>
-<p>然后手机上直接连接127.0.0.1:5900就可以</p>
-<h3 id="teamviewer">teamviewer</h3>
-<p>到teamviewer官网查询,可以知道默认端口为:</p>
-<blockquote>
-<p>TCP / UDP端口5938<br>
-TCP端口443<br>
-TCP端口80</p>
-</blockquote>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb reverse tcp:5938 tcp:5938</code></pre>
-<p>后面的443和80也可做映射,不过我这里就使用了5938就成功了.<br>
-然后手机上的teamviewer连接127.0.0.1就可以了.</p>
-<h2 id="参考">参考</h2>
-<blockquote>
-<p><a href="https://sangams.com.np/using-android-pc-as-a-second-monitor-in-linux/">Using Android/PC as a Second Monitor in Linux</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>android</tag>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>离散对数问题</title>
     <url>/posts/1f299eb2/</url>
     <content><![CDATA[<p>前置知识 欧拉, 欧拉定理, 模反元素(模逆元) 可参见: <a href="/posts/f1a158c9/">RSA加密</a></p>
@@ -5418,6 +5354,70 @@ Alice解密
         <tag>离散对数</tag>
         <tag>DH密钥交换</tag>
         <tag>Elgamal</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>用Android/PC为linux拓展屏幕</title>
+    <url>/posts/4f3989f0/</url>
+    <content><![CDATA[<h2 id="新建虚拟屏幕">新建虚拟屏幕</h2>
+<p>计算出拓展屏幕所需的信息.比如我想拓展1920x1200 60fps的虚拟屏幕:</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gtf <span class="token number">1920</span> <span class="token number">1200</span> <span class="token number">60</span></code></pre>
+<p>结果</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1920x1200 @ 60.00 Hz (GTF) hsync: 74.52 kHz; pclk: 193.16 MHz</span>
+ Modeline <span class="token string">"1920x1200_60.00"</span>  <span class="token number">193.16</span>  <span class="token number">1920</span> <span class="token number">2048</span> <span class="token number">2256</span> <span class="token number">2592</span>  <span class="token number">1200</span> <span class="token number">1201</span> <span class="token number">1204</span> <span class="token number">1242</span>  <span class="token parameter variable">-HSync</span> +Vsync<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>使用xrandr添加新的mode,参数就是上面结果<code>Modeline</code>后面那些东西:</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--newmode</span> <span class="token string">"1920x1200_60.00"</span>  <span class="token number">193.16</span>  <span class="token number">1920</span> <span class="token number">2048</span> <span class="token number">2256</span> <span class="token number">2592</span>  <span class="token number">1200</span> <span class="token number">1201</span> <span class="token number">1204</span> <span class="token number">1242</span>  <span class="token parameter variable">-HSync</span> +Vsync</code></pre>
+<p>使用xrandr查看空闲的接口:</p>
+<span id="more"></span>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span> ~ <span class="token punctuation">]</span> xrandr
+Screen <span class="token number">0</span>: minimum <span class="token number">8</span> x <span class="token number">8</span>, current <span class="token number">1920</span> x <span class="token number">1080</span>, maximum <span class="token number">32767</span> x <span class="token number">32767</span>
+eDP1 connected primary 1920x1080+0+0 <span class="token punctuation">(</span>normal left inverted right x axis y axis<span class="token punctuation">)</span> 340mm x 190mm
+   1920x1080     <span class="token number">60.02</span>*+  <span class="token number">40.03</span>  
+HDMI1 disconnected <span class="token punctuation">(</span>normal left inverted right x axis y axis<span class="token punctuation">)</span>
+VIRTUAL1 disconnected <span class="token punctuation">(</span>normal left inverted right x axis y axis<span class="token punctuation">)</span>
+HDMI-1-2 disconnected <span class="token punctuation">(</span>normal left inverted right x axis y axis<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>比如我目前在使用的屏幕是eDP1,下面都为空闲,如果有虚拟的就用虚拟的,没有虚拟的用HDMI的也行:</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--addmode</span> VIRTUAL1 1920x1200_60.00</code></pre>
+<p>拓展屏幕到左面:</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--output</span> VIRTUAL1 <span class="token parameter variable">--mode</span> 1920x1200_60.00 --left-of eDP1 <span class="token comment"># &lt;- 这里也可以使用--right-of,就是拓展到左边.</span></code></pre>
+<p>目前为止我们已经创建好了一个虚拟屏幕.</p>
+<p>如果想删除上面新建的东西,可以使用下面的指令(注意相关参数换成自己的)或者直接重启电脑就好了.</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--output</span> VIRTUAL1 <span class="token parameter variable">--off</span>
+xrandr <span class="token parameter variable">--delmode</span> VIRTUAL1 1920x1200_60.00
+xrndr <span class="token parameter variable">--rmmode</span> 1920x1200_60.00<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="连接屏幕">连接屏幕</h2>
+<p>连接屏幕可以用teamviewer或者x11vnc,以及各种远程控制电脑的软件,这里我更建议使用teamviewer,更流畅,而且方法简单.</p>
+<h3 id="x11vnc">x11vnc</h3>
+<pre class="language-bash" data-language="bash"><code class="language-bash">x11vnc <span class="token parameter variable">-clip</span> 1920x1200+0+0 <span class="token comment"># &lt;-这里的两个0,分别是开始剪切的x和y的坐标,如果你拓展到了右边,这里就要加上相应的大小.</span></code></pre>
+<p>然后使用安卓上的连接vnc的软件即可,默认端口是5900.</p>
+<h2 id="使用usb加快传输速度">使用usb加快传输速度</h2>
+<p>把手机用usb连接到电脑上,然后用adb连接.</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb devices</code></pre>
+<h3 id="x11vnc-2">x11vnc</h3>
+<p>这个的默认端口是5900,将电脑端口映射到android上.</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb reverse tcp:5900 tcp:5900</code></pre>
+<p>然后手机上直接连接127.0.0.1:5900就可以</p>
+<h3 id="teamviewer">teamviewer</h3>
+<p>到teamviewer官网查询,可以知道默认端口为:</p>
+<blockquote>
+<p>TCP / UDP端口5938<br>
+TCP端口443<br>
+TCP端口80</p>
+</blockquote>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb reverse tcp:5938 tcp:5938</code></pre>
+<p>后面的443和80也可做映射,不过我这里就使用了5938就成功了.<br>
+然后手机上的teamviewer连接127.0.0.1就可以了.</p>
+<h2 id="参考">参考</h2>
+<blockquote>
+<p><a href="https://sangams.com.np/using-android-pc-as-a-second-monitor-in-linux/">Using Android/PC as a Second Monitor in Linux</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>android</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
