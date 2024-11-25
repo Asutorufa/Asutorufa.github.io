@@ -36,5 +36,6 @@ OpenSource Contribution History
 - [netlink #911](https://github.com/vishvananda/netlink/pull/911)
 - [tailscale #11555](https://github.com/tailscale/tailscale/pull/11555)
 - [microsoft/clr-samples #23](https://github.com/microsoft/clr-samples/pull/23)
-- [containers/buildah #5455](https://github.com/containers/buildah/pull/5455)
+- [containers/buildah #5455](https://github.com/containers/buildah/pull/5455) - [release v1.38.0](https://github.com/containers/buildah/releases/tag/v1.38.0)
 - [google/nftables #271](https://github.com/google/nftables/pull/271)
+- [aliyun/aliyun-log-go-sdk #293](https://github.com/aliyun/aliyun-log-go-sdk/pull/293)
