@@ -924,6 +924,52 @@ ADDRESS就是设置的SubNet的IP地址,依据上面的FAMILY</p>
       </tags>
   </entry>
   <entry>
+    <title>GeoIP mmdb format</title>
+    <url>/posts/931c13a4/</url>
+    <content><![CDATA[<p>complete document <a href="https://maxmind.github.io/MaxMind-DB/">MaxMind DB File Format SpecificationDescription</a></p>
+<p>here is only how convert trie tree to array</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">0100, 1011 -> trie
+
+<span class="token code keyword">              root
+               |
+         +-----+------+
+        /              \
+       0                1
+     /   \             /  \</span>
+   null   1           0   null
+         / \        /   \
+        0 null     null   1
+       / \               / \
+       0 null         null  1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>trie -&gt; array<br>
+left is 0, right is 1<br>
+value is index of array<span id="more"></span></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"> left | right  byte/index
+2     |   4    0-1
+null  |   6    2-3
+8     |  null  4-5
+10    |  null  6-7
+null  |  12    8-9
+14    |  null  10-11
+null  |  16    11-12
+end   |  null  12-13
+null  |  end   13-14
+
+array: [2,4,null,6,8,null,10,null,null,12,14,null,null,16,end,null,null,end]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>for example:</p>
+<p>index 1:<br>
+next left index 2 is null, so 00* is not exist<br>
+next right index 2+1 = 3 is not null, continue search until end or null</p>
+<p>this is one byte as one child, but one byte max is 255, if node more than 255, we can use multiple byte as one child</p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>Network</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>HP Laptop linux 下intel&amp;amd双显卡</title>
     <url>/posts/34615c2d/</url>
     <content><![CDATA[<p>查看<code>双显卡</code>切换情况，正常情况下如果没有在用独显应该显示是<code>DynOff</code>，但是我这里即使是不开桌面也是<code>DynPwr</code></p>
@@ -1015,52 +1061,6 @@ ADDRESS就是设置的SubNet的IP地址,依据上面的FAMILY</p>
       <tags>
         <tag>bios</tag>
         <tag>computer</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GeoIP mmdb format</title>
-    <url>/posts/931c13a4/</url>
-    <content><![CDATA[<p>complete document <a href="https://maxmind.github.io/MaxMind-DB/">MaxMind DB File Format SpecificationDescription</a></p>
-<p>here is only how convert trie tree to array</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">0100, 1011 -> trie
-
-<span class="token code keyword">              root
-               |
-         +-----+------+
-        /              \
-       0                1
-     /   \             /  \</span>
-   null   1           0   null
-         / \        /   \
-        0 null     null   1
-       / \               / \
-       0 null         null  1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>trie -&gt; array<br>
-left is 0, right is 1<br>
-value is index of array<span id="more"></span></p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"> left | right  byte/index
-2     |   4    0-1
-null  |   6    2-3
-8     |  null  4-5
-10    |  null  6-7
-null  |  12    8-9
-14    |  null  10-11
-null  |  16    11-12
-end   |  null  12-13
-null  |  end   13-14
-
-array: [2,4,null,6,8,null,10,null,null,12,14,null,null,16,end,null,null,end]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>for example:</p>
-<p>index 1:<br>
-next left index 2 is null, so 00* is not exist<br>
-next right index 2+1 = 3 is not null, continue search until end or null</p>
-<p>this is one byte as one child, but one byte max is 255, if node more than 255, we can use multiple byte as one child</p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>Network</tag>
       </tags>
   </entry>
   <entry>
@@ -1271,98 +1271,6 @@ x<span class="token punctuation">.</span>innerHTML<span class="token operator">=
       </tags>
   </entry>
   <entry>
-    <title>NAT类型</title>
-    <url>/posts/14e0ef9e/</url>
-    <content><![CDATA[<h2 id="NAT-Mapping">NAT Mapping</h2>
-<p>描述NAT在映射网络内主机地址的行为</p>
-<pre class="language-markdown" data-language="markdown"><code class="language-markdown">computer(192.168.100.2:30086) -> NAT -> 1.1.1.1:2345</code></pre>
-<p>Endpoint-Independent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向不同地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
-
-此时主机向 1.0.0.1:53 发送udp包,
-             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
-主机又向   1.0.0.1:63 发送udp包,
-             NAT也使用 1.1.1.1:2345 向 1.0.0.1:63 发包
-主机又向   8.8.8.8:53 发送udp包,
-             NAT也使用 1.1.1.1:2345 向 8.8.8.8:53 发包
-
-这种无论目标地址和端口是什么都使用同一地址进行发包的NAT行为就是 Endpoint-Independent Mapping,
-跟没有NAT一样<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Address-Dependent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向同一地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
-
-此时主机向 1.0.0.1:53 发送udp包,
-             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
-主机又向   1.0.0.1:63 发送udp包,
-             NAT也将使用 1.1.1.1:2345 向 1.0.0.1:63 发包
-主机又向   8.8.8.8:53 发送udp包,
-             此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
-
-这种依赖目标地址但不依赖端口的NAT映射行为就是 Address-Dependent Mapping<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>Address and Port-Dependent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向同一地址和同一端口发包时, NAT使用同一映射地址向外发包</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
-
-此时主机向 1.0.0.1:53 发送udp包, 
-            NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
-主机又向   1.0.0.1:63 发送udp包,
-            NAT将使用一新映射地址 1.1.1.1:3789 向 1.0.0.1:63 发包
-主机又向   8.8.8.8:53 发送udp包,
-           此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
-主机又向 1.0.0.1:53 发送udp包,
-            NAT使用相同地址 1.1.1.1:2345 向 1.0.0.1:53 发包
-
-这种同时依赖目标地址和端口的NAT映射行为就是 Address and Port-Dependent Mapping,
-这种NAT类型是没有办法进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="NAT-Filtering">NAT Filtering</h2>
-<p>描述当NAT为网络内主机映射一地址后，互联网内主机向映射地址发送数据时，将允许哪些地址通过的行为</p>
-<p>Endpoint-Independent Filtering</p>
-<p>A NAT device employing the combination of “Endpoint-Independent<br>
-Mapping” and “Endpoint-Independent Filtering” will accept incoming<br>
-traffic to a mapped public port from ANY external endpoint on the<br>
-public network.</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
-
-无论外部任何地址和端口的主机向1.1.1.1:2345发包, NAT都将会将其转发到 192.168.100.2:30086<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>Address-Dependent Filtering<br>
-for receiving packets from a specific external endpoint, it is necessary for the internal endpoint to<br>
-send packets first to that specific external endpoint’s IP address.</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
-
-如果需要NAT将外部数据包转发到主机上,
-必须先由主机向某一地址发包, 
-NAT都会将收到的同一地址(所有端口)的数据包转发到主机上<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Address and Port-Dependent Filtering</p>
-<p>for receiving  packets from a specific external endpoint, it is necessary for<br>
-the internal endpoint to send packets first to that external endpoint’s IP address and port.</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
-
-如果需要NAT将外部数据包转发到主机上
-必须先由主机向某一地址和某一端口发包
-NAT都会将收到的同一地址和同一端口的数据包转发到主机上
-
-这种NAT类型是没发进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="NAT穿透">NAT穿透</h2>
-<p>是否可以进行NAT穿透, 同时依赖NAT Mapping和NAT Filtering</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">Mapping和Filtering都为Endpoint-Independent Mapping,
-         这种是百分之百可以进行穿透
-Mapping为Endpoint-Independent Mapping, Filtering为Address and Port-Dependent Filtering,
-         这种也是可以进行穿透的
-但如果Mapping和Filtering都为Address and Port-Dependent Filtering,
-         这种是必不可能穿透<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>UDP</tag>
-        <tag>NAT</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>NAT穿透</title>
     <url>/posts/1124a628/</url>
     <content><![CDATA[<h2 id="NAT-网络地址转换">NAT 网络地址转换</h2>
@@ -1447,6 +1355,98 @@ TURN是一个client-server协议。TURN的NAT穿透方法与STUN类似，都是�
 <a href="https://zhuanlan.zhihu.com/p/40816201">简单解释 P2P 技术之 UDP 打洞</a><br>
 <a href="http://www.52im.net/thread-50-1-1.html">P2P技术详解(一)：NAT详解——详细原理、P2P简介</a></p>
 </blockquote>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>UDP</tag>
+        <tag>NAT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NAT类型</title>
+    <url>/posts/14e0ef9e/</url>
+    <content><![CDATA[<h2 id="NAT-Mapping">NAT Mapping</h2>
+<p>描述NAT在映射网络内主机地址的行为</p>
+<pre class="language-markdown" data-language="markdown"><code class="language-markdown">computer(192.168.100.2:30086) -> NAT -> 1.1.1.1:2345</code></pre>
+<p>Endpoint-Independent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向不同地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
+
+此时主机向 1.0.0.1:53 发送udp包,
+             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
+主机又向   1.0.0.1:63 发送udp包,
+             NAT也使用 1.1.1.1:2345 向 1.0.0.1:63 发包
+主机又向   8.8.8.8:53 发送udp包,
+             NAT也使用 1.1.1.1:2345 向 8.8.8.8:53 发包
+
+这种无论目标地址和端口是什么都使用同一地址进行发包的NAT行为就是 Endpoint-Independent Mapping,
+跟没有NAT一样<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Address-Dependent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向同一地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
+
+此时主机向 1.0.0.1:53 发送udp包,
+             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
+主机又向   1.0.0.1:63 发送udp包,
+             NAT也将使用 1.1.1.1:2345 向 1.0.0.1:63 发包
+主机又向   8.8.8.8:53 发送udp包,
+             此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
+
+这种依赖目标地址但不依赖端口的NAT映射行为就是 Address-Dependent Mapping<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>Address and Port-Dependent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向同一地址和同一端口发包时, NAT使用同一映射地址向外发包</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
+
+此时主机向 1.0.0.1:53 发送udp包, 
+            NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
+主机又向   1.0.0.1:63 发送udp包,
+            NAT将使用一新映射地址 1.1.1.1:3789 向 1.0.0.1:63 发包
+主机又向   8.8.8.8:53 发送udp包,
+           此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
+主机又向 1.0.0.1:53 发送udp包,
+            NAT使用相同地址 1.1.1.1:2345 向 1.0.0.1:53 发包
+
+这种同时依赖目标地址和端口的NAT映射行为就是 Address and Port-Dependent Mapping,
+这种NAT类型是没有办法进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="NAT-Filtering">NAT Filtering</h2>
+<p>描述当NAT为网络内主机映射一地址后，互联网内主机向映射地址发送数据时，将允许哪些地址通过的行为</p>
+<p>Endpoint-Independent Filtering</p>
+<p>A NAT device employing the combination of “Endpoint-Independent<br>
+Mapping” and “Endpoint-Independent Filtering” will accept incoming<br>
+traffic to a mapped public port from ANY external endpoint on the<br>
+public network.</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
+
+无论外部任何地址和端口的主机向1.1.1.1:2345发包, NAT都将会将其转发到 192.168.100.2:30086<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>Address-Dependent Filtering<br>
+for receiving packets from a specific external endpoint, it is necessary for the internal endpoint to<br>
+send packets first to that specific external endpoint’s IP address.</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
+
+如果需要NAT将外部数据包转发到主机上,
+必须先由主机向某一地址发包, 
+NAT都会将收到的同一地址(所有端口)的数据包转发到主机上<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Address and Port-Dependent Filtering</p>
+<p>for receiving  packets from a specific external endpoint, it is necessary for<br>
+the internal endpoint to send packets first to that external endpoint’s IP address and port.</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
+
+如果需要NAT将外部数据包转发到主机上
+必须先由主机向某一地址和某一端口发包
+NAT都会将收到的同一地址和同一端口的数据包转发到主机上
+
+这种NAT类型是没发进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="NAT穿透">NAT穿透</h2>
+<p>是否可以进行NAT穿透, 同时依赖NAT Mapping和NAT Filtering</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">Mapping和Filtering都为Endpoint-Independent Mapping,
+         这种是百分之百可以进行穿透
+Mapping为Endpoint-Independent Mapping, Filtering为Address and Port-Dependent Filtering,
+         这种也是可以进行穿透的
+但如果Mapping和Filtering都为Address and Port-Dependent Filtering,
+         这种是必不可能穿透<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 ]]></content>
       <categories>
         <category>Network</category>
@@ -1969,6 +1969,375 @@ ep <span class="token operator">:=</span> fdbased<span class="token punctuation"
         <tag>Golang</tag>
         <tag>Tun</tag>
         <tag>Kotlin</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>UDPプロキシはFullcone NATを実現する</title>
+    <url>/posts/4893f166/</url>
+    <content><![CDATA[<h2 id="NATの種類">NATの種類</h2>
+<h3 id="Mappingの種類">Mappingの種類</h3>
+<p>マッピングはNAT内部から外部にパケットを送信時にアドレス変換する行為です。</p>
+<ul>
+<li>Endpoint-Independent Mapping</li>
+</ul>
+<p>NAT内部のネットワークの同じIPアドレスとポートで外部のそれぞれのUDPサーバ（IPアドレスとポートが違う）にパケットを送信すると、各個UDPサーバも同じIPアドレスとポートのパケットを受信する。<br>
+例えば：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">送信元アドレス</th>
+<th style="text-align:center">宛先アドレス</th>
+<th style="text-align:center">NATマッピングアドレス</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">192.168.1.1:3000</td>
+<td style="text-align:center">1.1.1.1:3000</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.1.1:3000</td>
+<td style="text-align:center">1.1.1.1:<strong>3001</strong></td>
+<td style="text-align:center">43.124.222.234:4500</td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.1.1:3000</td>
+<td style="text-align:center"><strong>1.1.1.3</strong>:<strong>3002</strong></td>
+<td style="text-align:center">43.124.222.234:4500</td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.1.1:3000</td>
+<td style="text-align:center"><strong>1.1.1.4</strong>:<strong>3004</strong></td>
+<td style="text-align:center">43.124.222.234:4500</td>
+</tr>
+</tbody>
+</table>
+<!-- 
+宛先　あてさき　target
+各個　かっこ
+受信　じゅしん
+ -->
+<ul>
+<li>Address-Dependent Mapping</li>
+</ul>
+<p>UDPサーバのアドレスが同じ（ポートが違う）なら受信したパケットのIPアドレスとポートを変換しない、そうしないと、IPアドレスやポートを変換する。<br>
+例えば：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">送信元アドレス</th>
+<th style="text-align:center">宛先アドレス</th>
+<th style="text-align:center">NATマッピングアドレス</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">192.168.1.1:3000</td>
+<td style="text-align:center">1.1.1.1:3000</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.1.1:3000</td>
+<td style="text-align:center">1.1.1.1:<strong>3001</strong></td>
+<td style="text-align:center">43.124.222.234:4500</td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.1.1:3000</td>
+<td style="text-align:center"><strong>1.1.1.2</strong>:3000</td>
+<td style="text-align:center">43.124.222.234:<strong>4501</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.1.1:3000</td>
+<td style="text-align:center"><strong>1.1.1.3</strong>:<strong>3003</strong></td>
+<td style="text-align:center">43.124.222.234:<strong>4502</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Address and Port-Dependent Mapping</li>
+</ul>
+<p>UDPサーバのアドレスとポートが同じなら受信したパケットのIPアドレスとポートを変換しない、そうしないと、IPアドレスやポートを変換する。<br>
+例えば：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">送信元アドレス</th>
+<th style="text-align:center">宛先アドレス</th>
+<th style="text-align:center">NATマッピングアドレス</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">192.168.1.1:3000</td>
+<td style="text-align:center">1.1.1.1:3000</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.1.1:3000</td>
+<td style="text-align:center">1.1.1.1:3000</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.1.1:3000</td>
+<td style="text-align:center">1.1.1.1:<strong>3001</strong></td>
+<td style="text-align:center">43.124.222.234:<strong>4501</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.1.1:3000</td>
+<td style="text-align:center"><strong>1.1.1.2</strong>:3000</td>
+<td style="text-align:center">43.124.222.234:<strong>4502</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.1.1:3000</td>
+<td style="text-align:center"><strong>1.1.1.3</strong>:<strong>3003</strong></td>
+<td style="text-align:center">43.124.222.234:<strong>4503</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Filteringの種類">Filteringの種類</h3>
+<p>フィルタリングはNAT外部から内部に送信するパケットをフィルタリングする行為です。</p>
+<ul>
+<li>Endpoint-Independent Filtering</li>
+</ul>
+<p>一旦内部アドレスを外部にマッピングすると、全ての外部サーバから内部に送信することが可能です。<br>
+例えば：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">内部アドレス</th>
+<th style="text-align:center">マッピング</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">192.168.1.1:3000</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">送信元アドレス</th>
+<th style="text-align:center">宛先アドレス</th>
+<th style="text-align:center">受信する?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1.1.1.1:3000</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+<td style="text-align:center">はい 🟢</td>
+</tr>
+<tr>
+<td style="text-align:center">1.1.1.1:3001</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+<td style="text-align:center">はい 🟢</td>
+</tr>
+<tr>
+<td style="text-align:center">1.1.1.2:3000</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+<td style="text-align:center">はい 🟢</td>
+</tr>
+<tr>
+<td style="text-align:center">1.1.1.3:3002</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+<td style="text-align:center">はい 🟢</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Address-Dependent Filtering</li>
+</ul>
+<p>内部から外部に送信したサーバ、且つアドレスも同じなら、サーバから内部に送信することが可能です。<br>
+例えば：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">内部アドレス</th>
+<th style="text-align:center">マッピング</th>
+<th style="text-align:center">送信歴史 宛先アドレス</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">192.168.1.1:3000</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+<td style="text-align:center">1.1.1.1:3000</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">送信元アドレス</th>
+<th style="text-align:center">宛先アドレス</th>
+<th style="text-align:center">受信する?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1.1.1.1:3000</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+<td style="text-align:center">はい 🟢</td>
+</tr>
+<tr>
+<td style="text-align:center">1.1.1.1:3001</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+<td style="text-align:center">はい 🟢</td>
+</tr>
+<tr>
+<td style="text-align:center">1.1.1.2:3000</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+<td style="text-align:center">ダメ ❌</td>
+</tr>
+<tr>
+<td style="text-align:center">1.1.1.3:3002</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+<td style="text-align:center">ダメ ❌</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Address and Port-Dependent Filtering</li>
+</ul>
+<p>内部から外部に送信したサーバ、且つアドレスとポートも同じなら、サーバから内部に送信することが可能です。</p>
+<p>例えば：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">内部アドレス</th>
+<th style="text-align:center">マッピング</th>
+<th style="text-align:center">送信歴史 宛先アドレス</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">192.168.1.1:3000</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+<td style="text-align:center">1.1.1.1:3000</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">送信元アドレス</th>
+<th style="text-align:center">宛先アドレス</th>
+<th style="text-align:center">受信する?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1.1.1.1:3000</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+<td style="text-align:center">はい 🟢</td>
+</tr>
+<tr>
+<td style="text-align:center">1.1.1.1:3001</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+<td style="text-align:center">ダメ ❌</td>
+</tr>
+<tr>
+<td style="text-align:center">1.1.1.2:3000</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+<td style="text-align:center">ダメ ❌</td>
+</tr>
+<tr>
+<td style="text-align:center">1.1.1.3:3002</td>
+<td style="text-align:center">43.124.222.234:4500</td>
+<td style="text-align:center">ダメ ❌</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Fullcone-NAT">Fullcone NAT</h3>
+<p>Fullcone NATはEndpoint-Independent FilteringとEndpoint-Independent Mappingです。</p>
+<h2 id="goで実現する">goで実現する</h2>
+<p>最も重要なのはNATテーブルの実現です。</p>
+<!-- 
+値　ち
+重要　じゅうよう
+ -->
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token comment">// NATテーブル</span>
+<span class="token comment">// キーはプロキシクライアントの送信元アドレス</span>
+<span class="token comment">// 値はマッピングしたUDPサーバ</span>
+<span class="token keyword">var</span> natTable <span class="token operator">=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span>net<span class="token punctuation">.</span>PacketConn<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+
+<span class="token keyword">var</span> getTargetAddress <span class="token operator">=</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>net<span class="token punctuation">.</span>UDPAddr<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// TODO implement proxy protocol</span>
+  <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+ <span class="token punctuation">&#125;</span>
+
+<span class="token keyword">var</span> packetResponse <span class="token operator">=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>net<span class="token punctuation">.</span>Addr<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// TODO implement proxy protocol</span>
+  <span class="token keyword">return</span> <span class="token boolean">nil</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// mockのUDPプロキシサーバ</span>
+pc<span class="token punctuation">,</span> err <span class="token operator">:=</span> net<span class="token punctuation">.</span><span class="token function">ListenPacket</span><span class="token punctuation">(</span><span class="token string">"udp"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+ <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">defer</span> pc<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// IPプロトコルによってパケット最大は65535です。</span>
+  buf <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> <span class="token number">65535</span><span class="token punctuation">)</span>
+  n<span class="token punctuation">,</span> addr<span class="token punctuation">,</span> err <span class="token operator">:=</span> pc<span class="token punctuation">.</span><span class="token function">ReadFrom</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span>
+  <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+   <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token comment">// クライアントのアドレスでマッピングサーバを保存して</span>
+  conn<span class="token punctuation">,</span> ok <span class="token operator">:=</span> natTable<span class="token punctuation">[</span>addr<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+  <span class="token keyword">if</span> <span class="token operator">!</span>ok <span class="token punctuation">&#123;</span>
+   <span class="token comment">// マッピングサーバを作ります</span>
+   conn<span class="token punctuation">,</span> err <span class="token operator">=</span> net<span class="token punctuation">.</span><span class="token function">ListenPacket</span><span class="token punctuation">(</span><span class="token string">"udp"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span>
+   <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+   <span class="token punctuation">&#125;</span>
+
+   <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">defer</span> conn<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> <span class="token punctuation">&#123;</span>
+     buf <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> <span class="token number">65535</span><span class="token punctuation">)</span>
+     <span class="token comment">// リモートサーバ(target)の返信を受信する</span>
+     n<span class="token punctuation">,</span> src<span class="token punctuation">,</span> err <span class="token operator">:=</span> conn<span class="token punctuation">.</span><span class="token function">ReadFrom</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span>
+     <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+     <span class="token punctuation">&#125;</span>
+     <span class="token comment">// レスポンスデータをクライアントに返信して</span>
+     <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">=</span> pc<span class="token punctuation">.</span><span class="token function">WriteTo</span><span class="token punctuation">(</span><span class="token function">packetResponse</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> buf<span class="token punctuation">[</span><span class="token punctuation">:</span>n<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> addr<span class="token punctuation">)</span>
+     <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+     <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+   <span class="token punctuation">&#125;</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+   <span class="token comment">// 初めてマッピングサーバをNATテーブルに保存して</span>
+   natTable<span class="token punctuation">[</span>addr<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> conn
+  <span class="token punctuation">&#125;</span>
+
+  target<span class="token punctuation">,</span> remain <span class="token operator">:=</span> <span class="token function">getTargetAddress</span><span class="token punctuation">(</span>buf<span class="token punctuation">[</span><span class="token punctuation">:</span>n<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// リモートサーバにデータを送信して</span>
+  <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">=</span> conn<span class="token punctuation">.</span><span class="token function">WriteTo</span><span class="token punctuation">(</span>remain<span class="token punctuation">,</span> target<span class="token punctuation">)</span>
+  <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+   <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>UDP</tag>
+        <tag>Network</tag>
+        <tag>NAT</tag>
+        <tag>Golang</tag>
+        <tag>Proxy</tag>
+        <tag>Go</tag>
       </tags>
   </entry>
   <entry>
@@ -2788,92 +3157,6 @@ The fields in the UDP request header are:
       </tags>
   </entry>
   <entry>
-    <title>golang实现子进程后台</title>
-    <url>/posts/89c4c907/</url>
-    <content><![CDATA[<h2 id="系统的进程机制">系统的进程机制</h2>
-<h3 id="linux">linux</h3>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">linux下的进程机制,当父进程被杀死之后,子进程就被系统接管
-
-+系统
-|-父进程 -> system管理
-|--子进程 -> 父进程管理
-
-当父进程被杀死之后
-
-+系统
-|-父进程 -> 被杀死
-|--子进程 -> system管理
-
-如果子进程被杀死,而且父进程没有处理子进程的善后工作,那么子进程就会变成僵尸进程
-
-+系统
-|-父进程 -> system管理
-|--子进程(被杀死) -> 僵尸进程  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<h3 id="windows">windows</h3>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">windows下的进程机制就不太一样了,当父进程被杀死之后,子进程也会被杀死
-但是如果子进程还有子进程,杀死子进程但不杀死父进程,子进程的子进程就会被系统接管
-
-+系统
-|-父进程 -> system管理
-|--子进程 -> 父进程管理
-|---孙进程 -> 子进程管理
-
-当父进程被杀死
-
-+系统
-|-父进程 -> 被杀死
-|--子进程 -> 被杀死  
-|---孙进程 -> 被杀死
-
-当子进程被杀死
-
-+系统
-|-父进程 -> 系统管理
-|--子进程 -> 被杀死
-|-孙进程 -> 系统管理
-
-windows的机制和linux不太一样,如果子进程被杀死也不会有僵尸进程这种东西,所以子进程可以放心杀死<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="实现golang的后台">实现golang的后台</h2>
-<p>如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现<br>
-如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程<br>
-golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
-<strong>通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程,这样就相当于创建了子进程,子进程创建孙进程</strong><br>
-<strong>实现就是给程序加参数,再次调用的时候加上这个参数再创建想要的进程</strong></p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">daemonF</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span><span class="token string">"puthon"</span><span class="token punctuation">,</span><span class="token string">"-m"</span><span class="token punctuation">,</span><span class="token string">"http.server"</span><span class="token punctuation">)</span>
-    cmd<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    daemon <span class="token operator">:=</span> flag<span class="token punctuation">.</span><span class="token function">Bool</span><span class="token punctuation">(</span><span class="token string">"d"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token string">"d"</span><span class="token punctuation">)</span>
-    flag<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> <span class="token operator">*</span>daemon <span class="token operator">==</span> <span class="token boolean">true</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">daemonF</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        nowFunction<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> filepath<span class="token punctuation">.</span><span class="token function">Abs</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span>nowFunction<span class="token punctuation">,</span><span class="token string">"-d"</span><span class="token punctuation">)</span>
-        cmd<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">比如我们有一个程序叫makebk,有一个参数 -d
-
-+系统
-|-makebk(再次调用makebk并加上参数-d) -> 父进程:system
-|--makebk -d(加上参数之后再创建想要的进程) -> 父进程:makebk
-|---子进程 -> 父进程:makebk -d
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这样就得到我们想要的三层结构了,这时候让父进程杀死make -d,就实现子进程被系统接管,实现子进程后台</p>
-]]></content>
-      <categories>
-        <category>golang</category>
-      </categories>
-      <tags>
-        <tag>golang</tag>
-        <tag>linux</tag>
-        <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>golangとollamaでfunction calling</title>
     <url>/posts/23567986/</url>
     <content><![CDATA[<p>今回はollamaのオフィシャルクライアントでfuncation callingを使いたいです。　　<br>
@@ -3042,6 +3325,92 @@ err <span class="token operator">=</span> o<span class="token punctuation">.</sp
       </tags>
   </entry>
   <entry>
+    <title>golang实现子进程后台</title>
+    <url>/posts/89c4c907/</url>
+    <content><![CDATA[<h2 id="系统的进程机制">系统的进程机制</h2>
+<h3 id="linux">linux</h3>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">linux下的进程机制,当父进程被杀死之后,子进程就被系统接管
+
++系统
+|-父进程 -> system管理
+|--子进程 -> 父进程管理
+
+当父进程被杀死之后
+
++系统
+|-父进程 -> 被杀死
+|--子进程 -> system管理
+
+如果子进程被杀死,而且父进程没有处理子进程的善后工作,那么子进程就会变成僵尸进程
+
++系统
+|-父进程 -> system管理
+|--子进程(被杀死) -> 僵尸进程  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<h3 id="windows">windows</h3>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">windows下的进程机制就不太一样了,当父进程被杀死之后,子进程也会被杀死
+但是如果子进程还有子进程,杀死子进程但不杀死父进程,子进程的子进程就会被系统接管
+
++系统
+|-父进程 -> system管理
+|--子进程 -> 父进程管理
+|---孙进程 -> 子进程管理
+
+当父进程被杀死
+
++系统
+|-父进程 -> 被杀死
+|--子进程 -> 被杀死  
+|---孙进程 -> 被杀死
+
+当子进程被杀死
+
++系统
+|-父进程 -> 系统管理
+|--子进程 -> 被杀死
+|-孙进程 -> 系统管理
+
+windows的机制和linux不太一样,如果子进程被杀死也不会有僵尸进程这种东西,所以子进程可以放心杀死<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="实现golang的后台">实现golang的后台</h2>
+<p>如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现<br>
+如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程<br>
+golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
+<strong>通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程,这样就相当于创建了子进程,子进程创建孙进程</strong><br>
+<strong>实现就是给程序加参数,再次调用的时候加上这个参数再创建想要的进程</strong></p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">daemonF</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span><span class="token string">"puthon"</span><span class="token punctuation">,</span><span class="token string">"-m"</span><span class="token punctuation">,</span><span class="token string">"http.server"</span><span class="token punctuation">)</span>
+    cmd<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    daemon <span class="token operator">:=</span> flag<span class="token punctuation">.</span><span class="token function">Bool</span><span class="token punctuation">(</span><span class="token string">"d"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token string">"d"</span><span class="token punctuation">)</span>
+    flag<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token operator">*</span>daemon <span class="token operator">==</span> <span class="token boolean">true</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">daemonF</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        nowFunction<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> filepath<span class="token punctuation">.</span><span class="token function">Abs</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span>nowFunction<span class="token punctuation">,</span><span class="token string">"-d"</span><span class="token punctuation">)</span>
+        cmd<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">比如我们有一个程序叫makebk,有一个参数 -d
+
++系统
+|-makebk(再次调用makebk并加上参数-d) -> 父进程:system
+|--makebk -d(加上参数之后再创建想要的进程) -> 父进程:makebk
+|---子进程 -> 父进程:makebk -d
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样就得到我们想要的三层结构了,这时候让父进程杀死make -d,就实现子进程被系统接管,实现子进程后台</p>
+]]></content>
+      <categories>
+        <category>golang</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>linux</tag>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>gpg使用</title>
     <url>/posts/7d547224/</url>
     <content><![CDATA[<p>生成一个密钥</p>
@@ -3086,6 +3455,36 @@ gpg <span class="token parameter variable">-d</span> <span class="token punctuat
       <tags>
         <tag>linux</tag>
         <tag>encrypt</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>http Keep-Alive</title>
+    <url>/posts/d91b7c06/</url>
+    <content><![CDATA[<h2 id="http-keep-alive">http keep-alive</h2>
+<p>http头部<code>Connection: Keep-Alive</code>代表连接请求保持长连接<br>
+<strong>如果是http代理,必须处理<code>Proxy-Connection: Keep-Alive</code>为<code>Connection: Keep-Alive</code>,如果代理没有实现<code>Keep-Alive</code>就不变或者将Connection设为close.</strong></p>
+<p>优点:减少握手次数,如下图(图来源文章最下面)<br>
+<img src="https://milestone-of-se.nesuke.com/wp-content/uploads/2018/12/http-keepalive-2v2.png" alt="keep-alive" loading="lazy"></p>
+<span id="more"></span>
+<h2 id="判断一次连接的传输结束">判断一次连接的传输结束</h2>
+<h3 id="使用消息首部字段Conent-Length">使用消息首部字段<code>Conent-Length</code></h3>
+<p><code>Conent-Length</code>表示实体内容长度，客户端（服务器）可以根据这个值来判断数据是否接收完成。</p>
+<h3 id="使用Transfer-Encoding-chunked">使用<code>Transfer-Encoding: chunked</code></h3>
+<p>chunk编码将数据分成一块一块的发生。Chunked编码将使用若干个Chunk串连而成，由一个标明长度为0的chunk标示结束。</p>
+<hr>
+<p>参考:</p>
+<ul>
+<li><a href="https://www.google.com/amp/s/milestone-of-se.nesuke.com/nw-basic/as-nw-engineer/keepalive-tcp-http/%3Famp=1">【図解】TCP Keep-Alive/http Keep-Aliveの仕組みと違い ～Client/Serverの挙動とメリット,設定～</a></li>
+<li><a href="https://www.cnblogs.com/skynet/archive/2010/12/11/1903347.html#!comments">HTTP头部详解</a></li>
+<li><a href="https://www.jianshu.com/p/49551bda6619">HTTP协议的Keep-Alive 模式</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+        <tag>proxy</tag>
       </tags>
   </entry>
   <entry>
@@ -3150,36 +3549,6 @@ POSTROUTING: mangle, nat<span aria-hidden="true" class="line-numbers-rows"><span
       <tags>
         <tag>linux</tag>
         <tag>iptables</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>http Keep-Alive</title>
-    <url>/posts/d91b7c06/</url>
-    <content><![CDATA[<h2 id="http-keep-alive">http keep-alive</h2>
-<p>http头部<code>Connection: Keep-Alive</code>代表连接请求保持长连接<br>
-<strong>如果是http代理,必须处理<code>Proxy-Connection: Keep-Alive</code>为<code>Connection: Keep-Alive</code>,如果代理没有实现<code>Keep-Alive</code>就不变或者将Connection设为close.</strong></p>
-<p>优点:减少握手次数,如下图(图来源文章最下面)<br>
-<img src="https://milestone-of-se.nesuke.com/wp-content/uploads/2018/12/http-keepalive-2v2.png" alt="keep-alive" loading="lazy"></p>
-<span id="more"></span>
-<h2 id="判断一次连接的传输结束">判断一次连接的传输结束</h2>
-<h3 id="使用消息首部字段Conent-Length">使用消息首部字段<code>Conent-Length</code></h3>
-<p><code>Conent-Length</code>表示实体内容长度，客户端（服务器）可以根据这个值来判断数据是否接收完成。</p>
-<h3 id="使用Transfer-Encoding-chunked">使用<code>Transfer-Encoding: chunked</code></h3>
-<p>chunk编码将数据分成一块一块的发生。Chunked编码将使用若干个Chunk串连而成，由一个标明长度为0的chunk标示结束。</p>
-<hr>
-<p>参考:</p>
-<ul>
-<li><a href="https://www.google.com/amp/s/milestone-of-se.nesuke.com/nw-basic/as-nw-engineer/keepalive-tcp-http/%3Famp=1">【図解】TCP Keep-Alive/http Keep-Aliveの仕組みと違い ～Client/Serverの挙動とメリット,設定～</a></li>
-<li><a href="https://www.cnblogs.com/skynet/archive/2010/12/11/1903347.html#!comments">HTTP头部详解</a></li>
-<li><a href="https://www.jianshu.com/p/49551bda6619">HTTP协议的Keep-Alive 模式</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-        <tag>proxy</tag>
       </tags>
   </entry>
   <entry>
