@@ -11,6 +11,7 @@ language: zh-Hans
 ---
 
 ## 首先使用rfkill查看你的wifi设备是否被停用
+
 使用命令
 
 ```bash
@@ -65,13 +66,14 @@ iwconfig wlan0 essid essidname
 ```
 
 其中essidname是搜索到的无线网essid
-连接有密码的无线网 
+连接有密码的无线网  
 
 ```bash
 iwconfig wlan0 essid essidname key <密码>
 ```
 
 ## 补充
+
 通过dhcp获取IP
 
 ```bash
