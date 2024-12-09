@@ -3416,36 +3416,6 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </tags>
   </entry>
   <entry>
-    <title>http Keep-Alive</title>
-    <url>/posts/d91b7c06/</url>
-    <content><![CDATA[<h2 id="http-keep-alive">http keep-alive</h2>
-<p>http头部<code>Connection: Keep-Alive</code>代表连接请求保持长连接<br>
-<strong>如果是http代理,必须处理<code>Proxy-Connection: Keep-Alive</code>为<code>Connection: Keep-Alive</code>,如果代理没有实现<code>Keep-Alive</code>就不变或者将Connection设为close.</strong></p>
-<p>优点:减少握手次数,如下图(图来源文章最下面)<br>
-<img src="https://milestone-of-se.nesuke.com/wp-content/uploads/2018/12/http-keepalive-2v2.png" alt="keep-alive" loading="lazy"></p>
-<span id="more"></span>
-<h2 id="判断一次连接的传输结束">判断一次连接的传输结束</h2>
-<h3 id="使用消息首部字段Conent-Length">使用消息首部字段<code>Conent-Length</code></h3>
-<p><code>Conent-Length</code>表示实体内容长度，客户端（服务器）可以根据这个值来判断数据是否接收完成。</p>
-<h3 id="使用Transfer-Encoding-chunked">使用<code>Transfer-Encoding: chunked</code></h3>
-<p>chunk编码将数据分成一块一块的发生。Chunked编码将使用若干个Chunk串连而成，由一个标明长度为0的chunk标示结束。</p>
-<hr>
-<p>参考:</p>
-<ul>
-<li><a href="https://www.google.com/amp/s/milestone-of-se.nesuke.com/nw-basic/as-nw-engineer/keepalive-tcp-http/%3Famp=1">【図解】TCP Keep-Alive/http Keep-Aliveの仕組みと違い ～Client/Serverの挙動とメリット,設定～</a></li>
-<li><a href="https://www.cnblogs.com/skynet/archive/2010/12/11/1903347.html#!comments">HTTP头部详解</a></li>
-<li><a href="https://www.jianshu.com/p/49551bda6619">HTTP协议的Keep-Alive 模式</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-        <tag>proxy</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>gpg使用</title>
     <url>/posts/7d547224/</url>
     <content><![CDATA[<p>生成一个密钥</p>
@@ -3490,6 +3460,36 @@ gpg <span class="token parameter variable">-d</span> <span class="token punctuat
       <tags>
         <tag>linux</tag>
         <tag>encrypt</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>http Keep-Alive</title>
+    <url>/posts/d91b7c06/</url>
+    <content><![CDATA[<h2 id="http-keep-alive">http keep-alive</h2>
+<p>http头部<code>Connection: Keep-Alive</code>代表连接请求保持长连接<br>
+<strong>如果是http代理,必须处理<code>Proxy-Connection: Keep-Alive</code>为<code>Connection: Keep-Alive</code>,如果代理没有实现<code>Keep-Alive</code>就不变或者将Connection设为close.</strong></p>
+<p>优点:减少握手次数,如下图(图来源文章最下面)<br>
+<img src="https://milestone-of-se.nesuke.com/wp-content/uploads/2018/12/http-keepalive-2v2.png" alt="keep-alive" loading="lazy"></p>
+<span id="more"></span>
+<h2 id="判断一次连接的传输结束">判断一次连接的传输结束</h2>
+<h3 id="使用消息首部字段Conent-Length">使用消息首部字段<code>Conent-Length</code></h3>
+<p><code>Conent-Length</code>表示实体内容长度，客户端（服务器）可以根据这个值来判断数据是否接收完成。</p>
+<h3 id="使用Transfer-Encoding-chunked">使用<code>Transfer-Encoding: chunked</code></h3>
+<p>chunk编码将数据分成一块一块的发生。Chunked编码将使用若干个Chunk串连而成，由一个标明长度为0的chunk标示结束。</p>
+<hr>
+<p>参考:</p>
+<ul>
+<li><a href="https://www.google.com/amp/s/milestone-of-se.nesuke.com/nw-basic/as-nw-engineer/keepalive-tcp-http/%3Famp=1">【図解】TCP Keep-Alive/http Keep-Aliveの仕組みと違い ～Client/Serverの挙動とメリット,設定～</a></li>
+<li><a href="https://www.cnblogs.com/skynet/archive/2010/12/11/1903347.html#!comments">HTTP头部详解</a></li>
+<li><a href="https://www.jianshu.com/p/49551bda6619">HTTP协议的Keep-Alive 模式</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+        <tag>proxy</tag>
       </tags>
   </entry>
   <entry>
@@ -4652,33 +4652,6 @@ Output: plaintext, or an error if the authentication tag does not match the supp
       </tags>
   </entry>
   <entry>
-    <title>安卓通过shell更改语言</title>
-    <url>/posts/f7f814df/</url>
-    <content><![CDATA[<p>对于Android M或更高版本，使用：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">setprop ro.product.locale xx-XX
-setprop persist.sys.locale xx-XX<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>xx是语言<br>
-XX是国家<br>
-改为日语为:xx=ja XX=JP</p>
-<p>其他安卓版本:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">setprop persist.sys.language xx
-setprop persist.sys.country XX
-setprop ctl.restart zygote<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>xx是语言<br>
-XX是国家  <span id="more"></span><br>
-Zygote进程运行时, 会初始化Dalvik虚拟机, 并运行它. Android的应用程序是由Java编写的, 它们不能直接运行在Linux上, 只能运行在Dalvik虚拟机中. 并且, 每个应用程序都运行在各自的虚拟机中, 应用程序每次运行都要重新初始化并启动虚拟机, 这个过程会消耗相当长时间, 是拖慢应用程序的原因之一. 因此, 在Android中, 应用程序运行前, 通过Zygote进程共享已运行的虚拟机的代码与内存信息, 缩短应用程序运行所耗费的时间. 也就是说, Zygote进程会事先将应用程序要使用的Android Framework中的类与资源加载到内存中, 并组织形成所用资源的链接信息. 这样, 新运行的Android应用程序在使用所需资源时不必每次形成资源的链接信息, 这样就大大提升了程序的运行时间.</p>
-<p>参考:<br>
-1.<a href="http://bbs.bugcode.cn/t/16729">通过ADB更改设备语言</a><br>
-2.<a href="https://www.jianshu.com/p/3dbe46439359">初识Zygote进程</a></p>
-]]></content>
-      <categories>
-        <category>android</category>
-      </categories>
-      <tags>
-        <tag>android</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>安卓通过adb添加电池用户白名单</title>
     <url>/posts/1e63e0e/</url>
     <content><![CDATA[<p>安卓6.0引入了doze来节省电量,但某些国产ui(如锤子)阉割了这个菜单,可通过adb添加</p>
@@ -4724,6 +4697,33 @@ Zygote进程运行时, 会初始化Dalvik虚拟机, 并运行它. Android的应�
   tempwhitelist <span class="token punctuation">[</span>-u <span class="token environment constant">USER</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>-d DURATION<span class="token punctuation">]</span> <span class="token punctuation">[</span>package <span class="token punctuation">..</span><span class="token punctuation">]</span>
     Temporarily place packages <span class="token keyword">in</span> whitelist <span class="token keyword">for</span> DURATION milliseconds.
     If no DURATION is specified, <span class="token number">10</span> seconds is used<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>android</category>
+      </categories>
+      <tags>
+        <tag>android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安卓通过shell更改语言</title>
+    <url>/posts/f7f814df/</url>
+    <content><![CDATA[<p>对于Android M或更高版本，使用：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">setprop ro.product.locale xx-XX
+setprop persist.sys.locale xx-XX<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>xx是语言<br>
+XX是国家<br>
+改为日语为:xx=ja XX=JP</p>
+<p>其他安卓版本:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">setprop persist.sys.language xx
+setprop persist.sys.country XX
+setprop ctl.restart zygote<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>xx是语言<br>
+XX是国家  <span id="more"></span><br>
+Zygote进程运行时, 会初始化Dalvik虚拟机, 并运行它. Android的应用程序是由Java编写的, 它们不能直接运行在Linux上, 只能运行在Dalvik虚拟机中. 并且, 每个应用程序都运行在各自的虚拟机中, 应用程序每次运行都要重新初始化并启动虚拟机, 这个过程会消耗相当长时间, 是拖慢应用程序的原因之一. 因此, 在Android中, 应用程序运行前, 通过Zygote进程共享已运行的虚拟机的代码与内存信息, 缩短应用程序运行所耗费的时间. 也就是说, Zygote进程会事先将应用程序要使用的Android Framework中的类与资源加载到内存中, 并组织形成所用资源的链接信息. 这样, 新运行的Android应用程序在使用所需资源时不必每次形成资源的链接信息, 这样就大大提升了程序的运行时间.</p>
+<p>参考:<br>
+1.<a href="http://bbs.bugcode.cn/t/16729">通过ADB更改设备语言</a><br>
+2.<a href="https://www.jianshu.com/p/3dbe46439359">初识Zygote进程</a></p>
 ]]></content>
       <categories>
         <category>android</category>
@@ -4967,37 +4967,6 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </tags>
   </entry>
   <entry>
-    <title>暗影精灵更改efi启动顺序</title>
-    <url>/posts/6683eff9/</url>
-    <content><![CDATA[<p>–2019-04-22 更新–<br>
-<strong>最新版bios已经可以调整启动顺序了(<a href="#jump">图在最下面</a>)</strong></p>
-<p>-------- 之 前 -------<br>
-暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说</p>
-<p>首先从ubuntu进入/boot/efi/EFI<br>
-<strong>备份windwos的启动文件</strong>（<strong>切记一定要备份，否则只能从pe重新建立windwos启动项</strong>）</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-arf</span> Microsoft win10</code></pre>
-<p>将ubuntu的grubx64.efi替换掉EFI/Microsoft/Boot/bootmgfw.efi文件 <span id="more"></span></p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-arf</span> ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi </code></pre>
-<p>这样替换之后grub就接管了系统的启动</p>
-<p>然后将/boot/grub/grub.cfg中关于windows的启动段复制到/etc/grub.d/40_custom中<br>
-将<strong>chainloader /EFI/Micorosoft/Boot/bootmgfw.efi</strong><br>
-改为<br>
-<strong>chainloader /EFI/win10/Boot/bootmgfw.efi</strong><br>
-就是把中间那个改为你备份的文件夹，可以改一改前面的启动名称<br>
-最后执行update-grub来更新启动项</p>
-<p>但是windwos有大更新的时候会把更改的覆盖掉，再来一遍就好了</p>
-<p><span id = "jump"><img src="http://blog-1254450445.cossgp.myqcloud.com/efi.jpg" alt="" loading="lazy"></span></p>
-<p>参考文章<a href="https://blog.csdn.net/zyix_0712/article/details/69675748">暗影精灵2pro安装win10+ubuntu16.10双系统</a></p>
-]]></content>
-      <categories>
-        <category>Computer</category>
-      </categories>
-      <tags>
-        <tag>EFI</tag>
-        <tag>BIOS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>感觉日语是一种很随意的语言</title>
     <url>/posts/190e8188/</url>
     <content><![CDATA[<p>首先推荐一个视频 <a href="https://www.youtube.com/watch?v=fSnh-gz3ncc&amp;list=PLAdD6WfVVRIW-sB2MmPSUtLG6lY2_TrVy">【文法「文の成分」】【10分間の国文法講座：ラーニング・ラボWeb講座】</a>, 大概讲了日本中学（初中）考试的一些文法。</p>
@@ -5062,6 +5031,37 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </categories>
       <tags>
         <tag>日本語</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>暗影精灵更改efi启动顺序</title>
+    <url>/posts/6683eff9/</url>
+    <content><![CDATA[<p>–2019-04-22 更新–<br>
+<strong>最新版bios已经可以调整启动顺序了(<a href="#jump">图在最下面</a>)</strong></p>
+<p>-------- 之 前 -------<br>
+暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说</p>
+<p>首先从ubuntu进入/boot/efi/EFI<br>
+<strong>备份windwos的启动文件</strong>（<strong>切记一定要备份，否则只能从pe重新建立windwos启动项</strong>）</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-arf</span> Microsoft win10</code></pre>
+<p>将ubuntu的grubx64.efi替换掉EFI/Microsoft/Boot/bootmgfw.efi文件 <span id="more"></span></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-arf</span> ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi </code></pre>
+<p>这样替换之后grub就接管了系统的启动</p>
+<p>然后将/boot/grub/grub.cfg中关于windows的启动段复制到/etc/grub.d/40_custom中<br>
+将<strong>chainloader /EFI/Micorosoft/Boot/bootmgfw.efi</strong><br>
+改为<br>
+<strong>chainloader /EFI/win10/Boot/bootmgfw.efi</strong><br>
+就是把中间那个改为你备份的文件夹，可以改一改前面的启动名称<br>
+最后执行update-grub来更新启动项</p>
+<p>但是windwos有大更新的时候会把更改的覆盖掉，再来一遍就好了</p>
+<p><span id = "jump"><img src="http://blog-1254450445.cossgp.myqcloud.com/efi.jpg" alt="" loading="lazy"></span></p>
+<p>参考文章<a href="https://blog.csdn.net/zyix_0712/article/details/69675748">暗影精灵2pro安装win10+ubuntu16.10双系统</a></p>
+]]></content>
+      <categories>
+        <category>Computer</category>
+      </categories>
+      <tags>
+        <tag>EFI</tag>
+        <tag>BIOS</tag>
       </tags>
   </entry>
   <entry>
@@ -5232,146 +5232,6 @@ movq <span class="token operator">%</span><span class="token register variable">
       <tags>
         <tag>汇编语言</tag>
         <tag>assembly</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深度学习之感知器的实现</title>
-    <url>/posts/64e69c3e/</url>
-    <content><![CDATA[<p>感知器的一个公式:<br>
-<strong>当 wx+b&gt;0 , f(x)=1,否则f(x)=0</strong></p>
-<ul>
-<li>x输入的向量</li>
-<li>w:是权重</li>
-<li>w*x是点积</li>
-<li>b是偏置(与权重类似,偏置可以认为是激励函数的偏移量，或者给神经元一个基础活跃等级。)</li>
-</ul>
-<p>对权重的调整公式,此处使用了梯度下降的方法: <strong>w=w+i*(t-count)*x</strong></p>
-<ul>
-<li>i是一个常数,i越小感知器学习越精确,当然耗费时间也最长</li>
-<li>t:本应该得到的值</li>
-<li>count:实际计算得到的值</li>
-<li>x:同上</li>
-</ul>
-<p>对偏置调整的公式: <em><em>b=b+i</em>(t-count)</em>*</p>
-<p>这次我们使用python来实现与和或<span id="more"></span></p>
-<pre class="line-numbers language-none"><code class="language-none">#因为与和或计算需要输入两个数,所以这里设置两个权重
-global w1,w2
-w1&#x3D;0.4
-w2&#x3D;0.6
-#偏置随便设一个
-global b
-b&#x3D;0.8
-#上面提到的常数
-global i
-i&#x3D;0.01<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>对感知器公式实现的函数:</p>
-<pre class="line-numbers language-none"><code class="language-none">def count(x,y):
-    if w1*x+w2*y+b&gt;0:
-        return 1
-    else:
-        return 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>对权重和偏置不断矫正的函数:</p>
-<pre class="line-numbers language-none"><code class="language-none">def update_all(r,x,y):
-    global w1,w2,b
-    temp &#x3D; count(x,y)
-    w1&#x3D;w1+i*(r-temp)*x
-    w2&#x3D;w2+i*(r-temp)*y
-    b&#x3D;b+i*(r-temp)
-    print(w1,w2,b)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>最后就是输入学习的资料和确认计算结果:</p>
-<pre class="line-numbers language-none"><code class="language-none">def main():
-    for _ in range(1,50):
-        update_all(1.0,1.0,1.0)
-        update_all(0.0,1.0,0.0)
-        update_all(0.0,0.0,1.0)
-        update_all(0.0,0.0,0.0)
-    
-    print(&#39;1 and 1 &#x3D;&#39;,count(1,1))
-    print(&#39;0 and 1 &#x3D;&#39;,count(0,1))
-    print(&#39;1 and 0 &#x3D;&#39;,count(1,0))
-    print(&#39;0 and 0 &#x3D;&#39;,count(0,0))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里我们先进行与的计算:<br>
-这里我前面代码写错了,所以说下面所有的结果会不一样…<br>
-进行25次学习的结果:</p>
-<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.8)
-(0.39, 0.6, 0.79)
-(0.39, 0.59, 0.78)
-(0.39, 0.59, 0.77)
-(0.39, 0.59, 0.77)
-.......省略........
-(0.1599999999999998, 0.35999999999999976, 0.08999999999999947)
-(0.1599999999999998, 0.35999999999999976, 0.07999999999999947)
-(&#39;1 and 1 &#x3D;&#39;, 1)
-(&#39;0 and 1 &#x3D;&#39;, 1)
-(&#39;1 and 0 &#x3D;&#39;, 1)
-(&#39;0 and 0 &#x3D;&#39;, 1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里我们明显发现结果是错误的,提升到50次:</p>
-<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.8)
-(0.39, 0.6, 0.79)
-(0.39, 0.59, 0.78)
-(0.39, 0.59, 0.77)
-(0.39, 0.59, 0.77)
-(0.38, 0.59, 0.76)
-(0.38, 0.58, 0.75)
-.......省略........
-(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
-(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
-(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
-(&#39;1 and 1 &#x3D;&#39;, 1)
-(&#39;0 and 1 &#x3D;&#39;, 0)
-(&#39;1 and 0 &#x3D;&#39;, 0)
-(&#39;0 and 0 &#x3D;&#39;, 0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>结果正确了,并且权重和偏置都稳定到一个值,是不是感觉很神奇<br>
-或运算也是相同的,这里我们将偏置改为b=0.4:<br>
-25次:</p>
-<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.38)
-(0.4, 0.6, 0.38)
-(0.4, 0.6, 0.38)
-.......省略........
-(0.4, 0.6, 0.16999999999999982)
-(0.4, 0.6, 0.16999999999999982)
-(0.4, 0.6, 0.16999999999999982)
-(0.4, 0.6, 0.16999999999999982)
-(0.4, 0.6, 0.1599999999999998)
-(&#39;1 and 1 &#x3D;&#39;, 1)
-(&#39;0 and 1 &#x3D;&#39;, 1)
-(&#39;1 and 0 &#x3D;&#39;, 1)
-(&#39;0 and 0 &#x3D;&#39;, 1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>50次:</p>
-<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.38)
-.......省略........
-(0.4, 0.6, -1.97758476261356e-16)
-(0.4, 0.6, -1.97758476261356e-16)
-(0.4, 0.6, -1.97758476261356e-16)
-(0.4, 0.6, -1.97758476261356e-16)
-(0.4, 0.6, -1.97758476261356e-16)
-(&#39;1 and 1 &#x3D;&#39;, 1)
-(&#39;0 and 1 &#x3D;&#39;, 1)
-(&#39;1 and 0 &#x3D;&#39;, 1)
-(&#39;0 and 0 &#x3D;&#39;, 0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>参考:<br>
-<a href="https://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8">感知器(维基百科)</a><br>
-<a href="https://www.zybuluo.com/hanbingtao/note/433855">零基础入门深度学习(1) - 感知器</a></p>
-]]></content>
-      <categories>
-        <category>Machine Learning</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -5617,6 +5477,146 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </categories>
       <tags>
         <tag>Deep Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深度学习之感知器的实现</title>
+    <url>/posts/64e69c3e/</url>
+    <content><![CDATA[<p>感知器的一个公式:<br>
+<strong>当 wx+b&gt;0 , f(x)=1,否则f(x)=0</strong></p>
+<ul>
+<li>x输入的向量</li>
+<li>w:是权重</li>
+<li>w*x是点积</li>
+<li>b是偏置(与权重类似,偏置可以认为是激励函数的偏移量，或者给神经元一个基础活跃等级。)</li>
+</ul>
+<p>对权重的调整公式,此处使用了梯度下降的方法: <strong>w=w+i*(t-count)*x</strong></p>
+<ul>
+<li>i是一个常数,i越小感知器学习越精确,当然耗费时间也最长</li>
+<li>t:本应该得到的值</li>
+<li>count:实际计算得到的值</li>
+<li>x:同上</li>
+</ul>
+<p>对偏置调整的公式: <em><em>b=b+i</em>(t-count)</em>*</p>
+<p>这次我们使用python来实现与和或<span id="more"></span></p>
+<pre class="line-numbers language-none"><code class="language-none">#因为与和或计算需要输入两个数,所以这里设置两个权重
+global w1,w2
+w1&#x3D;0.4
+w2&#x3D;0.6
+#偏置随便设一个
+global b
+b&#x3D;0.8
+#上面提到的常数
+global i
+i&#x3D;0.01<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对感知器公式实现的函数:</p>
+<pre class="line-numbers language-none"><code class="language-none">def count(x,y):
+    if w1*x+w2*y+b&gt;0:
+        return 1
+    else:
+        return 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对权重和偏置不断矫正的函数:</p>
+<pre class="line-numbers language-none"><code class="language-none">def update_all(r,x,y):
+    global w1,w2,b
+    temp &#x3D; count(x,y)
+    w1&#x3D;w1+i*(r-temp)*x
+    w2&#x3D;w2+i*(r-temp)*y
+    b&#x3D;b+i*(r-temp)
+    print(w1,w2,b)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最后就是输入学习的资料和确认计算结果:</p>
+<pre class="line-numbers language-none"><code class="language-none">def main():
+    for _ in range(1,50):
+        update_all(1.0,1.0,1.0)
+        update_all(0.0,1.0,0.0)
+        update_all(0.0,0.0,1.0)
+        update_all(0.0,0.0,0.0)
+    
+    print(&#39;1 and 1 &#x3D;&#39;,count(1,1))
+    print(&#39;0 and 1 &#x3D;&#39;,count(0,1))
+    print(&#39;1 and 0 &#x3D;&#39;,count(1,0))
+    print(&#39;0 and 0 &#x3D;&#39;,count(0,0))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里我们先进行与的计算:<br>
+这里我前面代码写错了,所以说下面所有的结果会不一样…<br>
+进行25次学习的结果:</p>
+<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.8)
+(0.39, 0.6, 0.79)
+(0.39, 0.59, 0.78)
+(0.39, 0.59, 0.77)
+(0.39, 0.59, 0.77)
+.......省略........
+(0.1599999999999998, 0.35999999999999976, 0.08999999999999947)
+(0.1599999999999998, 0.35999999999999976, 0.07999999999999947)
+(&#39;1 and 1 &#x3D;&#39;, 1)
+(&#39;0 and 1 &#x3D;&#39;, 1)
+(&#39;1 and 0 &#x3D;&#39;, 1)
+(&#39;0 and 0 &#x3D;&#39;, 1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里我们明显发现结果是错误的,提升到50次:</p>
+<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.8)
+(0.39, 0.6, 0.79)
+(0.39, 0.59, 0.78)
+(0.39, 0.59, 0.77)
+(0.39, 0.59, 0.77)
+(0.38, 0.59, 0.76)
+(0.38, 0.58, 0.75)
+.......省略........
+(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
+(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
+(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
+(&#39;1 and 1 &#x3D;&#39;, 1)
+(&#39;0 and 1 &#x3D;&#39;, 0)
+(&#39;1 and 0 &#x3D;&#39;, 0)
+(&#39;0 and 0 &#x3D;&#39;, 0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>结果正确了,并且权重和偏置都稳定到一个值,是不是感觉很神奇<br>
+或运算也是相同的,这里我们将偏置改为b=0.4:<br>
+25次:</p>
+<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.38)
+(0.4, 0.6, 0.38)
+(0.4, 0.6, 0.38)
+.......省略........
+(0.4, 0.6, 0.16999999999999982)
+(0.4, 0.6, 0.16999999999999982)
+(0.4, 0.6, 0.16999999999999982)
+(0.4, 0.6, 0.16999999999999982)
+(0.4, 0.6, 0.1599999999999998)
+(&#39;1 and 1 &#x3D;&#39;, 1)
+(&#39;0 and 1 &#x3D;&#39;, 1)
+(&#39;1 and 0 &#x3D;&#39;, 1)
+(&#39;0 and 0 &#x3D;&#39;, 1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>50次:</p>
+<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.38)
+.......省略........
+(0.4, 0.6, -1.97758476261356e-16)
+(0.4, 0.6, -1.97758476261356e-16)
+(0.4, 0.6, -1.97758476261356e-16)
+(0.4, 0.6, -1.97758476261356e-16)
+(0.4, 0.6, -1.97758476261356e-16)
+(&#39;1 and 1 &#x3D;&#39;, 1)
+(&#39;0 and 1 &#x3D;&#39;, 1)
+(&#39;1 and 0 &#x3D;&#39;, 1)
+(&#39;0 and 0 &#x3D;&#39;, 0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>参考:<br>
+<a href="https://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8">感知器(维基百科)</a><br>
+<a href="https://www.zybuluo.com/hanbingtao/note/433855">零基础入门深度学习(1) - 感知器</a></p>
+]]></content>
+      <categories>
+        <category>Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
