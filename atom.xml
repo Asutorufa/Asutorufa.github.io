@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>アストルファのブログ</title>
+  <title>Asutorufaのブログ</title>
   <icon>https://github.com/asutorufa.png</icon>
   <subtitle>こんにちは</subtitle>
   <link href="https://asutorufa.github.io/atom.xml" rel="self"/>
@@ -10,7 +10,7 @@
   <id>https://asutorufa.github.io/</id>
   
   <author>
-    <name>アストルファ</name>
+    <name>Asutorufa</name>
     
   </author>
   
@@ -1383,9 +1383,9 @@ NAT 路由器收到主机 B 发回的数据报时，知道数据报中的源地�
     <category term="linux" scheme="https://asutorufa.github.io/categories/linux/"/>
     
     
-    <category term="android" scheme="https://asutorufa.github.io/tags/android/"/>
-    
     <category term="linux" scheme="https://asutorufa.github.io/tags/linux/"/>
+    
+    <category term="android" scheme="https://asutorufa.github.io/tags/android/"/>
     
   </entry>
   
