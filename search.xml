@@ -1421,7 +1421,7 @@ cli<span class="token punctuation">,</span> err <span class="token operator">:=<
   <span class="token punctuation">)</span>
  <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>実行するたらServiceのステータスはPendingではなくなった、IPアドレスも割り当てられた。</p>
+<p>実行したらServiceのステータスはPendingではなくなった、IPアドレスも割り当てられた。</p>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -2031,25 +2031,6 @@ std<span class="token double-colon punctuation">::</span>vector<span class="toke
       </tags>
   </entry>
   <entry>
-    <title>TUF GAMING B550M-PLUS WIFI II lm_sensors</title>
-    <url>/posts/fe953398/</url>
-    <content><![CDATA[<p>the sensors not show fan and voltage<br>
-it’s a kernel bug now <a href="https://bugzilla.kernel.org/show_bug.cgi?id=204807">Hardware monitoring sensor nct6798d doesn’t work unless acpi_enforce_resources=lax is enabled</a><br>
-need wait add the motherboard name to linux kernel code list <a href="https://github.com/torvalds/linux/blob/4bbf3422df78029f03161640dcb1e9d1ed64d1ea/drivers/hwmon/nct6775-platform.c#L1044">linux/drivers/hwmon/nct6775-platform.c</a></p>
-<h2 id="temporary-measure">temporary measure</h2>
-<p>add</p>
-<pre class="language-markdown" data-language="markdown"><code class="language-markdown">acpi_enforce_resources=lax</code></pre>
-<p>to linux boot parameter</p>
-<p>load nct6775 kernel module</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">modprobe <span class="token parameter variable">-v</span> nct6775</code></pre>
-<p>run <code>sensors-detect --auto</code>.</p>
-<p>finally, you will see nct6798-isa-* in sensors.</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-  </entry>
-  <entry>
     <title>TUN网卡</title>
     <url>/posts/a67af13f/</url>
     <content><![CDATA[<h2 id="Golang-Tun-gVisor">Golang Tun (gVisor)</h2>
@@ -2173,6 +2154,25 @@ ep <span class="token operator">:=</span> fdbased<span class="token punctuation"
         <tag>Tun</tag>
         <tag>Kotlin</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>TUF GAMING B550M-PLUS WIFI II lm_sensors</title>
+    <url>/posts/fe953398/</url>
+    <content><![CDATA[<p>the sensors not show fan and voltage<br>
+it’s a kernel bug now <a href="https://bugzilla.kernel.org/show_bug.cgi?id=204807">Hardware monitoring sensor nct6798d doesn’t work unless acpi_enforce_resources=lax is enabled</a><br>
+need wait add the motherboard name to linux kernel code list <a href="https://github.com/torvalds/linux/blob/4bbf3422df78029f03161640dcb1e9d1ed64d1ea/drivers/hwmon/nct6775-platform.c#L1044">linux/drivers/hwmon/nct6775-platform.c</a></p>
+<h2 id="temporary-measure">temporary measure</h2>
+<p>add</p>
+<pre class="language-markdown" data-language="markdown"><code class="language-markdown">acpi_enforce_resources=lax</code></pre>
+<p>to linux boot parameter</p>
+<p>load nct6775 kernel module</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">modprobe <span class="token parameter variable">-v</span> nct6775</code></pre>
+<p>run <code>sensors-detect --auto</code>.</p>
+<p>finally, you will see nct6798-isa-* in sensors.</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
   </entry>
   <entry>
     <title>UDPプロキシはFullcone NATを実現する</title>
@@ -3533,53 +3533,6 @@ err <span class="token operator">=</span> o<span class="token punctuation">.</sp
       </tags>
   </entry>
   <entry>
-    <title>gpg使用</title>
-    <url>/posts/7d547224/</url>
-    <content><![CDATA[<p>生成一个密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg --full-gen-key</code></pre>
-<p>之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了.</p>
-<p>创建一个子密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --edit-key <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-
-gpg<span class="token operator">></span> addkey
-<span class="token comment">#只有与前面是相同的, 按需求选择.</span>
-
-gpg<span class="token operator">></span> save
-<span class="token comment"># 保存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>导出密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key --export-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
-<p>导出子密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key.sub --export-secret-subkeys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
-<p>导出吊销证书</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --generate-revocation <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-<span class="token comment"># 输出是文本内容, 复制保存下来就行了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>删除密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --delete-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-gpg --delete-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>导入子密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">--import</span> /path/gpg_key.sub</code></pre>
-<p>查看密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-k</span>
-gpg <span class="token parameter variable">-K</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>加密文件</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-r</span> <span class="token punctuation">[</span>user name<span class="token punctuation">]</span> <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-e</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span></code></pre>
-<p>解密</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 输出到文件</span>
-gpg <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 直接输出到终端</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<hr>
-<p><a href="https://gist.github.com/jhjguxin/6037564">GPG 加密解密简明教程</a><br>
-<a href="https://mogeko.me/2019/068/">GPG 的正确使用姿势</a></p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>encrypt</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>golang实现子进程后台</title>
     <url>/posts/89c4c907/</url>
     <content><![CDATA[<h2 id="系统的进程机制">系统的进程机制</h2>
@@ -3663,6 +3616,53 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
         <tag>golang</tag>
         <tag>linux</tag>
         <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>gpg使用</title>
+    <url>/posts/7d547224/</url>
+    <content><![CDATA[<p>生成一个密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg --full-gen-key</code></pre>
+<p>之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了.</p>
+<p>创建一个子密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --edit-key <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+
+gpg<span class="token operator">></span> addkey
+<span class="token comment">#只有与前面是相同的, 按需求选择.</span>
+
+gpg<span class="token operator">></span> save
+<span class="token comment"># 保存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>导出密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key --export-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
+<p>导出子密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key.sub --export-secret-subkeys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
+<p>导出吊销证书</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --generate-revocation <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+<span class="token comment"># 输出是文本内容, 复制保存下来就行了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>删除密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --delete-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+gpg --delete-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>导入子密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">--import</span> /path/gpg_key.sub</code></pre>
+<p>查看密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-k</span>
+gpg <span class="token parameter variable">-K</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>加密文件</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-r</span> <span class="token punctuation">[</span>user name<span class="token punctuation">]</span> <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-e</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span></code></pre>
+<p>解密</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 输出到文件</span>
+gpg <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 直接输出到终端</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<hr>
+<p><a href="https://gist.github.com/jhjguxin/6037564">GPG 加密解密简明教程</a><br>
+<a href="https://mogeko.me/2019/068/">GPG 的正确使用姿势</a></p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>encrypt</tag>
       </tags>
   </entry>
   <entry>
@@ -5683,6 +5683,32 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </tags>
   </entry>
   <entry>
+    <title>用CIDR表示网段</title>
+    <url>/posts/e2b25bb8/</url>
+    <content><![CDATA[<p>我们知道一般CIDR(无类别域间路由)网段的表示为:<strong>192.168.0.0/24</strong>这种形式</p>
+<h2 id="IP地址">IP地址</h2>
+<p>首先我们得知道ip地址是如何来的<br>
+ipv4的地址是用32位二进制数表示的<br>
+如: 255.255.255.0 -&gt; 11111111.11111111.11111111.00000000</p>
+<h2 id="网络前缀">网络前缀</h2>
+<p><strong>192.168.0.0/24</strong>中的24就是网络前缀,网络前缀可转化为网络掩码,24表示网络掩码的前24位为1</p>
+<h2 id="网络掩码">网络掩码</h2>
+<p>「网络掩码」又叫「子网掩码」、「地址掩码」、「子網路遮罩」（subnet mask），它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。      --维基百科<span id="more"></span></p>
+<p>将网络前缀转化为网络掩码: 24 -&gt; 11111111.11111111.11111111.00000000 -&gt; 255.255.255.0<br>
+<em>255.255.255.0</em>就是网络掩码</p>
+<h2 id="CIDR">CIDR</h2>
+<p><em><strong>网络地址的计算方法为ip地址与网络掩码进行’与’运算</strong></em><br>
+通过上面的计算好的网络掩码可知这个ip地址的前24位是不变的  ,所以<strong>192.168.0.0/24</strong>表示的网段为: <strong>192.168.0.0 - 192.168.0.255</strong></p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>CIDR</tag>
+        <tag>IP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>深度学习之感知器的实现</title>
     <url>/posts/64e69c3e/</url>
     <content><![CDATA[<p>感知器的一个公式:<br>
@@ -5820,32 +5846,6 @@ i&#x3D;0.01<span aria-hidden="true" class="line-numbers-rows"><span></span><span
       </categories>
       <tags>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>用CIDR表示网段</title>
-    <url>/posts/e2b25bb8/</url>
-    <content><![CDATA[<p>我们知道一般CIDR(无类别域间路由)网段的表示为:<strong>192.168.0.0/24</strong>这种形式</p>
-<h2 id="IP地址">IP地址</h2>
-<p>首先我们得知道ip地址是如何来的<br>
-ipv4的地址是用32位二进制数表示的<br>
-如: 255.255.255.0 -&gt; 11111111.11111111.11111111.00000000</p>
-<h2 id="网络前缀">网络前缀</h2>
-<p><strong>192.168.0.0/24</strong>中的24就是网络前缀,网络前缀可转化为网络掩码,24表示网络掩码的前24位为1</p>
-<h2 id="网络掩码">网络掩码</h2>
-<p>「网络掩码」又叫「子网掩码」、「地址掩码」、「子網路遮罩」（subnet mask），它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。      --维基百科<span id="more"></span></p>
-<p>将网络前缀转化为网络掩码: 24 -&gt; 11111111.11111111.11111111.00000000 -&gt; 255.255.255.0<br>
-<em>255.255.255.0</em>就是网络掩码</p>
-<h2 id="CIDR">CIDR</h2>
-<p><em><strong>网络地址的计算方法为ip地址与网络掩码进行’与’运算</strong></em><br>
-通过上面的计算好的网络掩码可知这个ip地址的前24位是不变的  ,所以<strong>192.168.0.0/24</strong>表示的网段为: <strong>192.168.0.0 - 192.168.0.255</strong></p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>CIDR</tag>
-        <tag>IP</tag>
       </tags>
   </entry>
   <entry>
