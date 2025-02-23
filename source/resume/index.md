@@ -68,21 +68,27 @@ language: ja
   - Helm
   - Prometheus, loki, Promtail, Opentemetry
 
-### 社内SaaSシステムの運用・保守
+### 社内ライセンスシステム
 
-- 技術
-  - Go, Gin
-  - Kubernetes, Helm
-  - Promtail, Prometheus
+- Goで開発
+- CRMと連携してライセンスを自動的に生成する
+- SaaSスシテムと連携してDeploymentを自動的に作成する・削除する
+
+### 社内SaaSシステム
+
+- KubernetesでSaaSシステムを運用(3 masters, 6 workers)
+- Prometheus, Grafana, Loki, Promtailなどでスシテムを監視・larkにアラート通知
+- GoでSaaSのコントローラを実現、主にKubernetesを操作
 
 #### タスク自動運行AIの開発
 
-- 技術
-  - Qwen2
-  - Go, Langchaingo
-  - Redis
-  - Qdrant
-  - Postgresql
+- Goで開発
+- Qwen2/Deepseekは基本のモデルとして
+- Redisで分散ロックを実現
+- 中国語と英語のシステムプロンプトのデザインと実現
+- Function Callingを実現
+- Clickhouseで歴史とキャッシュを保存
+- Terrafromでシステムを運用
 
 #### サンドボックスの開発
 

@@ -1,26 +1,25 @@
 ---
-title: 实现一个简单的Kubernetes controller
+title: Kubernetesのコントローラーを作ろう
+date: 2025-02-23 22:30:31
+updated: 2025-02-23 22:30:31
 tags:
   - Kubernetes
   - CRI
   - container
 categories:
   - Kubernetes
-language: zh-Hans
-abbrlink: edf1c330
-date: 2024-03-30 15:09:58
-updated: 2024-03-30 15:09:58
+language: ja
 ---
 
-## controller是什么
+## Kubernetesコントローラーとは
 
-简单来说，controller就是监听kubernetes的配置/状态变化，自动对资源进行调节。比如kubernetes内置的controller有Deployment、StatefulSet、DaemonSet。
+コントローラーはKubernetesのリソース設定を監視して変更があったら自動的にリソースを調整するプログラムです。ちなみに、Deployment、Statefulset、DaemonSetなどはKubernetesの内蔵コントローラーです。
 
-## 实现controller
+## コントローラーを実現
 
-这里我们实现一个简单的loadbalancer controller，使用kubernetes的client-go。  
+今回はGolangで簡単なLoadBalancerコントローラーを実現する。実際の機能はないですが、作成の流れはただしいと思います。
 
-先创建一个新的Serivce,并且指定Type为LoadBalancer。
+最初はTypeはLoadBalancerのServiceを作成
 
 ```yaml
 apiVersion: v1
@@ -38,9 +37,9 @@ spec:
   type: LoadBalancer
 ```
 
-这时Service的状态还是pending,因为还没有controller为其分配IP地址。
+この時はIPアドレスを割り当てのコントローラーがないので、ServiceのステータスはPendingです。
 
-创建新的client
+新たなKubernetesクライアントを作成
 <!--more-->
 ```go
 config, err := rest.InClusterConfig()
@@ -54,7 +53,7 @@ if err != nil {
 }
 ```
 
-创建一个新的对Service状态变化的监听
+Serviceの状態を監視して
 
 ```go
 wch, err := cli.CoreV1().Services(corev1.NamespaceAll).Watch(context.TODO(), metav1.ListOptions{Watch: true})
@@ -64,10 +63,10 @@ if err != nil {
 defer wch.Stop()
 ```
 
-如果是新建的Serivce,并且Type为LoadBalancer，则自动为其分配一个IP地址。
+コントローラーを作成して、IPアドレスをServiceに割り当てる。
 
 ```go
-// 端口分配范围
+// ポートの範囲
 var portRange = atomic.Uint32{}
 func init() {
  portRange.Store(30000)
@@ -90,17 +89,18 @@ for {
 
    switch obj.Type {
    case watch.Added:
-                // 判断是否是LoadBalancer
-                // 生成环境中还应结合Annotations进行判断，防止误更改错误的Service.
+   // ServiceのTypeはLoadBalancerかどうかを判断して
+   // プロダクション環境にはAnnotationsも判断する必要があると思います
     if svc.Spec.Type != corev1.ServiceTypeLoadBalancer {
      continue
     }
 
-                // 生成端口，并创建转发（只会打印，不会真正创建规则）
+    // ポートを生成して、転送ルールを設定して
+    // ここは本当の転送ではなく出力するだけ
     sport := portRange.Add(1)
     forward(svc, sport)
 
-                // 为service分配IP地址
+    // ServiceにIPアドレスを設定
     svc.Status.LoadBalancer.Ingress = []corev1.LoadBalancerIngress{
      {
       IP: svc.Spec.ClusterIP,
@@ -112,7 +112,7 @@ for {
      },
     }
 
-                // 更新service
+    // Serviceを更新して
     _, err := cli.
      CoreV1().
      Services(svc.Namespace).
@@ -134,7 +134,7 @@ for {
 // ...
 // ...
 
-// 模拟实现iptables自动创建转发
+// 転送ルールの作成をシミュレーション
 func forward(svc *corev1.Service, sport uint32) {
  ip, err := netip.ParseAddr(svc.Spec.ClusterIP)
  if err != nil {
@@ -179,7 +179,7 @@ func forward(svc *corev1.Service, sport uint32) {
 }
 ```
 
-运行这个简单程序，再观察Serivce, 就会发现Serivice已经不再处于pending状态，并也为其分配了一个IP地址，虽然不能真正使用此地址进行访问，因为我们并没有创建真正的转发规则。
+実行したらServiceのステータスはPendingではなくなった、IPアドレスも割り当てられた。
 
 ```yaml
 apiVersion: v1
@@ -201,7 +201,7 @@ status:
     - ip: 10.0.171.239
 ```
 
-k3s的[klipper-lb](https://github.com/k3s-io/klipper-lb)是一个很简单loadbalancer实现，代码只是几行脚本。
+k3sの[klipper-lb](https://github.com/k3s-io/klipper-lb)は簡単なLoadBalancerコントローラーの実現、コードほんの数行のスクリプト
 
 ```sh
 start_proxy() {
