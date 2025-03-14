@@ -138,3 +138,4 @@ language: ja
 - fix(deps): fix test/tools ginkgo typo [containers/buildah #5455](https://github.com/containers/buildah/pull/5455) - [release v1.38.0](https://github.com/containers/buildah/releases/tag/v1.38.0)
 - set: add set support auto-merge [google/nftables #271](https://github.com/google/nftables/pull/271)
 - consumer add support custom logger [aliyun/aliyun-log-go-sdk #293](https://github.com/aliyun/aliyun-log-go-sdk/pull/293)
+- add support set subPath for persistence [qdrant/qdrant-helm 271](https://github.com/qdrant/qdrant-helm/pull/271)
