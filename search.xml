@@ -1134,6 +1134,29 @@ x公司x高级架构师采用的是这样的方案:</p>
       </tags>
   </entry>
   <entry>
+    <title>JavaScript对字符串操作</title>
+    <url>/posts/86cfa6a/</url>
+    <content><![CDATA[<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> name<span class="token operator">=</span><span class="token string">'aaaa'</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> age<span class="token operator">=</span><span class="token string">'bbbb'</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> change<span class="token operator">=</span><span class="token string">'Hello javascript'</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> message<span class="token operator">=</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">hello,</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>name<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">,</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>age<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">,</span><span class="token template-punctuation string">`</span></span><span class="token operator">+</span>name<span class="token operator">+</span>age<span class="token punctuation">;</span><span class="token comment">//将多个字符串写成一句话</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> length<span class="token operator">=</span>message<span class="token punctuation">.</span>length<span class="token punctuation">;</span><span class="token comment">//获取字符串长度</span></code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> upper<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//把字符串全部变成大写</span></code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> lower<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//把字符串全部变成小写</span></code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> search<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">'aaaa'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//搜索字符串位置</span></code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> substr<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//返回区间内字符串</span></code></pre>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">x<span class="token operator">=</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//查找元素</span>
+x<span class="token punctuation">.</span>innerHTML<span class="token operator">=</span><span class="token string">"Hello JavaScript"</span><span class="token punctuation">;</span>    <span class="token comment">//改变内容</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hyperledger Fabric组织更换证书</title>
     <url>/posts/afc6d6dd/</url>
     <content><![CDATA[<h2 id="前言">前言</h2>
@@ -1245,29 +1268,6 @@ signcerts &lt;- 节点/用户证书</p>
       <tags>
         <tag>blockchain</tag>
         <tag>Hyperledger Fabric</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JavaScript对字符串操作</title>
-    <url>/posts/86cfa6a/</url>
-    <content><![CDATA[<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> name<span class="token operator">=</span><span class="token string">'aaaa'</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> age<span class="token operator">=</span><span class="token string">'bbbb'</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> change<span class="token operator">=</span><span class="token string">'Hello javascript'</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> message<span class="token operator">=</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">hello,</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>name<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">,</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>age<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">,</span><span class="token template-punctuation string">`</span></span><span class="token operator">+</span>name<span class="token operator">+</span>age<span class="token punctuation">;</span><span class="token comment">//将多个字符串写成一句话</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> length<span class="token operator">=</span>message<span class="token punctuation">.</span>length<span class="token punctuation">;</span><span class="token comment">//获取字符串长度</span></code></pre>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> upper<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//把字符串全部变成大写</span></code></pre>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> lower<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//把字符串全部变成小写</span></code></pre>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> search<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">'aaaa'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//搜索字符串位置</span></code></pre>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> substr<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//返回区间内字符串</span></code></pre>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">x<span class="token operator">=</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//查找元素</span>
-x<span class="token punctuation">.</span>innerHTML<span class="token operator">=</span><span class="token string">"Hello JavaScript"</span><span class="token punctuation">;</span>    <span class="token comment">//改变内容</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -3619,6 +3619,53 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </tags>
   </entry>
   <entry>
+    <title>gpg使用</title>
+    <url>/posts/7d547224/</url>
+    <content><![CDATA[<p>生成一个密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg --full-gen-key</code></pre>
+<p>之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了.</p>
+<p>创建一个子密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --edit-key <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+
+gpg<span class="token operator">></span> addkey
+<span class="token comment">#只有与前面是相同的, 按需求选择.</span>
+
+gpg<span class="token operator">></span> save
+<span class="token comment"># 保存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>导出密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key --export-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
+<p>导出子密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key.sub --export-secret-subkeys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
+<p>导出吊销证书</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --generate-revocation <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+<span class="token comment"># 输出是文本内容, 复制保存下来就行了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>删除密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --delete-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+gpg --delete-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>导入子密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">--import</span> /path/gpg_key.sub</code></pre>
+<p>查看密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-k</span>
+gpg <span class="token parameter variable">-K</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>加密文件</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-r</span> <span class="token punctuation">[</span>user name<span class="token punctuation">]</span> <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-e</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span></code></pre>
+<p>解密</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 输出到文件</span>
+gpg <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 直接输出到终端</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<hr>
+<p><a href="https://gist.github.com/jhjguxin/6037564">GPG 加密解密简明教程</a><br>
+<a href="https://mogeko.me/2019/068/">GPG 的正确使用姿势</a></p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>encrypt</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>http Keep-Alive</title>
     <url>/posts/d91b7c06/</url>
     <content><![CDATA[<h2 id="http-keep-alive">http keep-alive</h2>
@@ -3710,53 +3757,6 @@ POSTROUTING: mangle, nat<span aria-hidden="true" class="line-numbers-rows"><span
       <tags>
         <tag>linux</tag>
         <tag>iptables</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>gpg使用</title>
-    <url>/posts/7d547224/</url>
-    <content><![CDATA[<p>生成一个密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg --full-gen-key</code></pre>
-<p>之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了.</p>
-<p>创建一个子密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --edit-key <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-
-gpg<span class="token operator">></span> addkey
-<span class="token comment">#只有与前面是相同的, 按需求选择.</span>
-
-gpg<span class="token operator">></span> save
-<span class="token comment"># 保存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>导出密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key --export-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
-<p>导出子密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key.sub --export-secret-subkeys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
-<p>导出吊销证书</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --generate-revocation <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-<span class="token comment"># 输出是文本内容, 复制保存下来就行了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>删除密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --delete-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-gpg --delete-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>导入子密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">--import</span> /path/gpg_key.sub</code></pre>
-<p>查看密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-k</span>
-gpg <span class="token parameter variable">-K</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>加密文件</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-r</span> <span class="token punctuation">[</span>user name<span class="token punctuation">]</span> <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-e</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span></code></pre>
-<p>解密</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 输出到文件</span>
-gpg <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 直接输出到终端</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<hr>
-<p><a href="https://gist.github.com/jhjguxin/6037564">GPG 加密解密简明教程</a><br>
-<a href="https://mogeko.me/2019/068/">GPG 的正确使用姿势</a></p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>encrypt</tag>
       </tags>
   </entry>
   <entry>
@@ -5237,6 +5237,22 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </tags>
   </entry>
   <entry>
+    <title>更改绑定手机号</title>
+    <url>/posts/3fee5f2/</url>
+    <content><![CDATA[<p>绑定手机号：微信，网易云，淘宝原手机号及证件，支付宝，google<br>
+银行卡，贴吧，酷安，微博需要原手机号，bilibili（需要原手机号)<span id="more"></span><br>
+微软,欢喜云，京东（原手机号及银行卡，非我的实名认证）<br>
+天猫，银行卡，steam，小冰，yy(需要原手机号)<br>
+<img src="http://blog-1254450445.cossgp.myqcloud.com/%E6%8D%95%E8%8E%B72.PNG" alt="" loading="lazy"></p>
+]]></content>
+      <categories>
+        <category>Personally</category>
+      </categories>
+      <tags>
+        <tag>Personally</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>暗影精灵更改efi启动顺序</title>
     <url>/posts/6683eff9/</url>
     <content><![CDATA[<p>–2019-04-22 更新–<br>
@@ -5265,22 +5281,6 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       <tags>
         <tag>EFI</tag>
         <tag>BIOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>更改绑定手机号</title>
-    <url>/posts/3fee5f2/</url>
-    <content><![CDATA[<p>绑定手机号：微信，网易云，淘宝原手机号及证件，支付宝，google<br>
-银行卡，贴吧，酷安，微博需要原手机号，bilibili（需要原手机号)<span id="more"></span><br>
-微软,欢喜云，京东（原手机号及银行卡，非我的实名认证）<br>
-天猫，银行卡，steam，小冰，yy(需要原手机号)<br>
-<img src="http://blog-1254450445.cossgp.myqcloud.com/%E6%8D%95%E8%8E%B72.PNG" alt="" loading="lazy"></p>
-]]></content>
-      <categories>
-        <category>Personally</category>
-      </categories>
-      <tags>
-        <tag>Personally</tag>
       </tags>
   </entry>
   <entry>
