@@ -970,6 +970,76 @@ next right index 2+1 = 3 is not null, continue search until end or null</p>
       </tags>
   </entry>
   <entry>
+    <title>HTTPS相关</title>
+    <url>/posts/11b2b8df/</url>
+    <content><![CDATA[<p>最近遇到了一件事, 让我又多熟悉了下HTTPS的相关内容, 先看看HTTPS的结构</p>
+<p>通常的HTTP网络结构如下</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+------+
+| HTTP |
++------+
+| TCP  |
++------+
+|  IP  |
++------+
+  ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>HTTP的的相关内容是通过TCP明文传输的, 如果有中间监听者, 可以直接看结相关内容.</p>
+<p>HTTPS的结构</p>
+<span id="more"></span>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+------+
+| HTTP |
++------+
+| TLS  |
++------+
+| TCP  |
++------+
+|  IP  |
++------+
+  ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>TCP和HTTP之前多了一次处理, 会将HTTP的内容加密后再通过TCP传输.<br>
+TLS握手过程中, 会协商使用的TLS版本, 加密方式及密钥, 会通过证书确认身份, 生成的密钥也会加密, 不想被看见握手过程的话, 目前还可以采用ESNI.<br>
+这里并不能完全匿名, 因为还是能通过网络层知道你的目的地址, 但是具体请求的内容就不会被看见了.</p>
+<hr>
+<p><strong>以下案例纯虚假编造的, 如有雷同, 纯属巧合.</strong><br>
+客户需求大概是这样, 希望在前后端传输过程中密码等敏感内容不要明文暴露, 不被中间劫持获取.<br>
+x公司x高级架构师采用的是这样的方案:</p>
+<ul>
+<li>前后端使用HTTP通信</li>
+<li>前端对相关敏感内容对称加密后传给后端, 后端解密获取内容</li>
+</ul>
+<p>不采用TLS的理由如下:</p>
+<ul>
+<li>可以通过浏览器漏洞获取</li>
+<li>HTTPS可以被暴力破解</li>
+</ul>
+<p>先说下采用的方案和不合理, 目前产品是传统的BS模式, 也就是说网页会从后端获取.<br>
+因为网页是从后端获取的, 而且是HTTP, 也就是说中间劫持者也可以获取网页内容, 通过分析js就能获取具体的加密方式, 即使对js进行混淆也最多是花的时间稍微长那么一点, 所以说这个方案完全无用, 当然欺骗一下不懂技术的客户还是可以的, 但是从技术角度是完全不可行的.<br>
+这里我们可以改一下产品的模式还是可行的, 使用electron等类似的技术将网页包装成一个客户端, 不通过后端获取网页还是可行的, 可能在使用上麻烦了一点, 但是这才能真正让前端的加密具有意义.</p>
+<p>再分析下不采用TLS的理由:</p>
+<ul>
+<li>
+<p>可以通过浏览器漏洞获取<br>
+这句话是废话, 浏览器真有漏洞不管是HTTP还是HTTPS都无用的.</p>
+</li>
+<li>
+<p>HTTPS可以被暴力破解</p>
+</li>
+</ul>
+<p>这里我们先分析下, 目前HTTPS可能被破解的几种方式.</p>
+<ol>
+<li>第一种, 在握手阶段使用虚假的证书进行握手, 这里需要在浏览器或者是客户端的系统上导入虚假的证书, 不过我认为一个安全意识很高的公司是不会随意导入不认识的证书的.</li>
+<li>第二种, 暴力破解TLS的加密, 不计时间情况下当然能被破解, 但是现代密码学, 即使使用超级计算机暴力破解都要花费很长很长时间.</li>
+</ol>
+<p>总上所述, 这句话也是废话.</p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>HTTPS</tag>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>HP Laptop linux 下intel&amp;amd双显卡</title>
     <url>/posts/34615c2d/</url>
     <content><![CDATA[<p>查看<code>双显卡</code>切换情况，正常情况下如果没有在用独显应该显示是<code>DynOff</code>，但是我这里即使是不开桌面也是<code>DynPwr</code></p>
@@ -1061,76 +1131,6 @@ next right index 2+1 = 3 is not null, continue search until end or null</p>
       <tags>
         <tag>bios</tag>
         <tag>computer</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HTTPS相关</title>
-    <url>/posts/11b2b8df/</url>
-    <content><![CDATA[<p>最近遇到了一件事, 让我又多熟悉了下HTTPS的相关内容, 先看看HTTPS的结构</p>
-<p>通常的HTTP网络结构如下</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+------+
-| HTTP |
-+------+
-| TCP  |
-+------+
-|  IP  |
-+------+
-  ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>HTTP的的相关内容是通过TCP明文传输的, 如果有中间监听者, 可以直接看结相关内容.</p>
-<p>HTTPS的结构</p>
-<span id="more"></span>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+------+
-| HTTP |
-+------+
-| TLS  |
-+------+
-| TCP  |
-+------+
-|  IP  |
-+------+
-  ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>TCP和HTTP之前多了一次处理, 会将HTTP的内容加密后再通过TCP传输.<br>
-TLS握手过程中, 会协商使用的TLS版本, 加密方式及密钥, 会通过证书确认身份, 生成的密钥也会加密, 不想被看见握手过程的话, 目前还可以采用ESNI.<br>
-这里并不能完全匿名, 因为还是能通过网络层知道你的目的地址, 但是具体请求的内容就不会被看见了.</p>
-<hr>
-<p><strong>以下案例纯虚假编造的, 如有雷同, 纯属巧合.</strong><br>
-客户需求大概是这样, 希望在前后端传输过程中密码等敏感内容不要明文暴露, 不被中间劫持获取.<br>
-x公司x高级架构师采用的是这样的方案:</p>
-<ul>
-<li>前后端使用HTTP通信</li>
-<li>前端对相关敏感内容对称加密后传给后端, 后端解密获取内容</li>
-</ul>
-<p>不采用TLS的理由如下:</p>
-<ul>
-<li>可以通过浏览器漏洞获取</li>
-<li>HTTPS可以被暴力破解</li>
-</ul>
-<p>先说下采用的方案和不合理, 目前产品是传统的BS模式, 也就是说网页会从后端获取.<br>
-因为网页是从后端获取的, 而且是HTTP, 也就是说中间劫持者也可以获取网页内容, 通过分析js就能获取具体的加密方式, 即使对js进行混淆也最多是花的时间稍微长那么一点, 所以说这个方案完全无用, 当然欺骗一下不懂技术的客户还是可以的, 但是从技术角度是完全不可行的.<br>
-这里我们可以改一下产品的模式还是可行的, 使用electron等类似的技术将网页包装成一个客户端, 不通过后端获取网页还是可行的, 可能在使用上麻烦了一点, 但是这才能真正让前端的加密具有意义.</p>
-<p>再分析下不采用TLS的理由:</p>
-<ul>
-<li>
-<p>可以通过浏览器漏洞获取<br>
-这句话是废话, 浏览器真有漏洞不管是HTTP还是HTTPS都无用的.</p>
-</li>
-<li>
-<p>HTTPS可以被暴力破解</p>
-</li>
-</ul>
-<p>这里我们先分析下, 目前HTTPS可能被破解的几种方式.</p>
-<ol>
-<li>第一种, 在握手阶段使用虚假的证书进行握手, 这里需要在浏览器或者是客户端的系统上导入虚假的证书, 不过我认为一个安全意识很高的公司是不会随意导入不认识的证书的.</li>
-<li>第二种, 暴力破解TLS的加密, 不计时间情况下当然能被破解, 但是现代密码学, 即使使用超级计算机暴力破解都要花费很长很长时间.</li>
-</ol>
-<p>总上所述, 这句话也是废话.</p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>HTTPS</tag>
-        <tag>HTTP</tag>
       </tags>
   </entry>
   <entry>
@@ -4019,30 +4019,6 @@ default         <span class="token number">0.0</span>.0.0         <span class="t
       </tags>
   </entry>
   <entry>
-    <title>nodejs异步回调函数</title>
-    <url>/posts/5938ae8c/</url>
-    <content><![CDATA[<p>研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.<br>
-如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then.</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-
-<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>nodejs</category>
-      </categories>
-      <tags>
-        <tag>nodejs</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux下intel&amp;AMD双显卡切换</title>
     <url>/posts/3b8b96de/</url>
     <content><![CDATA[<p>使用<strong>xrandr</strong>显示可支持的显卡</p>
@@ -4077,6 +4053,30 @@ Provider <span class="token number">1</span>: id: 0x41 cap: 0x6, Sink Output, So
         <tag>linux</tag>
         <tag>双显卡</tag>
         <tag>amd</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nodejs异步回调函数</title>
+    <url>/posts/5938ae8c/</url>
+    <content><![CDATA[<p>研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.<br>
+如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then.</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+
+<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>nodejs</category>
+      </categories>
+      <tags>
+        <tag>nodejs</tag>
       </tags>
   </entry>
   <entry>
