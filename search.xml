@@ -1134,29 +1134,6 @@ x公司x高级架构师采用的是这样的方案:</p>
       </tags>
   </entry>
   <entry>
-    <title>JavaScript对字符串操作</title>
-    <url>/posts/86cfa6a/</url>
-    <content><![CDATA[<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> name<span class="token operator">=</span><span class="token string">'aaaa'</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> age<span class="token operator">=</span><span class="token string">'bbbb'</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> change<span class="token operator">=</span><span class="token string">'Hello javascript'</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> message<span class="token operator">=</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">hello,</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>name<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">,</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>age<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">,</span><span class="token template-punctuation string">`</span></span><span class="token operator">+</span>name<span class="token operator">+</span>age<span class="token punctuation">;</span><span class="token comment">//将多个字符串写成一句话</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> length<span class="token operator">=</span>message<span class="token punctuation">.</span>length<span class="token punctuation">;</span><span class="token comment">//获取字符串长度</span></code></pre>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> upper<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//把字符串全部变成大写</span></code></pre>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> lower<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//把字符串全部变成小写</span></code></pre>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> search<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">'aaaa'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//搜索字符串位置</span></code></pre>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> substr<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//返回区间内字符串</span></code></pre>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">x<span class="token operator">=</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//查找元素</span>
-x<span class="token punctuation">.</span>innerHTML<span class="token operator">=</span><span class="token string">"Hello JavaScript"</span><span class="token punctuation">;</span>    <span class="token comment">//改变内容</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hyperledger Fabric组织更换证书</title>
     <url>/posts/afc6d6dd/</url>
     <content><![CDATA[<h2 id="前言">前言</h2>
@@ -1268,6 +1245,29 @@ signcerts &lt;- 节点/用户证书</p>
       <tags>
         <tag>blockchain</tag>
         <tag>Hyperledger Fabric</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JavaScript对字符串操作</title>
+    <url>/posts/86cfa6a/</url>
+    <content><![CDATA[<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> name<span class="token operator">=</span><span class="token string">'aaaa'</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> age<span class="token operator">=</span><span class="token string">'bbbb'</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> change<span class="token operator">=</span><span class="token string">'Hello javascript'</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> message<span class="token operator">=</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">hello,</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>name<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">,</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>age<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">,</span><span class="token template-punctuation string">`</span></span><span class="token operator">+</span>name<span class="token operator">+</span>age<span class="token punctuation">;</span><span class="token comment">//将多个字符串写成一句话</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> length<span class="token operator">=</span>message<span class="token punctuation">.</span>length<span class="token punctuation">;</span><span class="token comment">//获取字符串长度</span></code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> upper<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//把字符串全部变成大写</span></code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> lower<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//把字符串全部变成小写</span></code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> search<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">'aaaa'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//搜索字符串位置</span></code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> substr<span class="token operator">=</span>message<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//返回区间内字符串</span></code></pre>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">x<span class="token operator">=</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//查找元素</span>
+x<span class="token punctuation">.</span>innerHTML<span class="token operator">=</span><span class="token string">"Hello JavaScript"</span><span class="token punctuation">;</span>    <span class="token comment">//改变内容</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -4019,6 +4019,30 @@ default         <span class="token number">0.0</span>.0.0         <span class="t
       </tags>
   </entry>
   <entry>
+    <title>nodejs异步回调函数</title>
+    <url>/posts/5938ae8c/</url>
+    <content><![CDATA[<p>研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.<br>
+如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then.</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+
+<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>nodejs</category>
+      </categories>
+      <tags>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>linux下intel&amp;AMD双显卡切换</title>
     <url>/posts/3b8b96de/</url>
     <content><![CDATA[<p>使用<strong>xrandr</strong>显示可支持的显卡</p>
@@ -4053,30 +4077,6 @@ Provider <span class="token number">1</span>: id: 0x41 cap: 0x6, Sink Output, So
         <tag>linux</tag>
         <tag>双显卡</tag>
         <tag>amd</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nodejs异步回调函数</title>
-    <url>/posts/5938ae8c/</url>
-    <content><![CDATA[<p>研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.<br>
-如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then.</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-
-<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>nodejs</category>
-      </categories>
-      <tags>
-        <tag>nodejs</tag>
       </tags>
   </entry>
   <entry>
@@ -5237,22 +5237,6 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </tags>
   </entry>
   <entry>
-    <title>更改绑定手机号</title>
-    <url>/posts/3fee5f2/</url>
-    <content><![CDATA[<p>绑定手机号：微信，网易云，淘宝原手机号及证件，支付宝，google<br>
-银行卡，贴吧，酷安，微博需要原手机号，bilibili（需要原手机号)<span id="more"></span><br>
-微软,欢喜云，京东（原手机号及银行卡，非我的实名认证）<br>
-天猫，银行卡，steam，小冰，yy(需要原手机号)<br>
-<img src="http://blog-1254450445.cossgp.myqcloud.com/%E6%8D%95%E8%8E%B72.PNG" alt="" loading="lazy"></p>
-]]></content>
-      <categories>
-        <category>Personally</category>
-      </categories>
-      <tags>
-        <tag>Personally</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>暗影精灵更改efi启动顺序</title>
     <url>/posts/6683eff9/</url>
     <content><![CDATA[<p>–2019-04-22 更新–<br>
@@ -5281,6 +5265,22 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       <tags>
         <tag>EFI</tag>
         <tag>BIOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>更改绑定手机号</title>
+    <url>/posts/3fee5f2/</url>
+    <content><![CDATA[<p>绑定手机号：微信，网易云，淘宝原手机号及证件，支付宝，google<br>
+银行卡，贴吧，酷安，微博需要原手机号，bilibili（需要原手机号)<span id="more"></span><br>
+微软,欢喜云，京东（原手机号及银行卡，非我的实名认证）<br>
+天猫，银行卡，steam，小冰，yy(需要原手机号)<br>
+<img src="http://blog-1254450445.cossgp.myqcloud.com/%E6%8D%95%E8%8E%B72.PNG" alt="" loading="lazy"></p>
+]]></content>
+      <categories>
+        <category>Personally</category>
+      </categories>
+      <tags>
+        <tag>Personally</tag>
       </tags>
   </entry>
   <entry>
