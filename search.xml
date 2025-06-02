@@ -1474,6 +1474,98 @@ cli<span class="token punctuation">,</span> err <span class="token operator">:=<
       </tags>
   </entry>
   <entry>
+    <title>NAT类型</title>
+    <url>/posts/14e0ef9e/</url>
+    <content><![CDATA[<h2 id="NAT-Mapping">NAT Mapping</h2>
+<p>描述NAT在映射网络内主机地址的行为</p>
+<pre class="language-markdown" data-language="markdown"><code class="language-markdown">computer(192.168.100.2:30086) -> NAT -> 1.1.1.1:2345</code></pre>
+<p>Endpoint-Independent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向不同地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
+
+此时主机向 1.0.0.1:53 发送udp包,
+             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
+主机又向   1.0.0.1:63 发送udp包,
+             NAT也使用 1.1.1.1:2345 向 1.0.0.1:63 发包
+主机又向   8.8.8.8:53 发送udp包,
+             NAT也使用 1.1.1.1:2345 向 8.8.8.8:53 发包
+
+这种无论目标地址和端口是什么都使用同一地址进行发包的NAT行为就是 Endpoint-Independent Mapping,
+跟没有NAT一样<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Address-Dependent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向同一地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
+
+此时主机向 1.0.0.1:53 发送udp包,
+             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
+主机又向   1.0.0.1:63 发送udp包,
+             NAT也将使用 1.1.1.1:2345 向 1.0.0.1:63 发包
+主机又向   8.8.8.8:53 发送udp包,
+             此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
+
+这种依赖目标地址但不依赖端口的NAT映射行为就是 Address-Dependent Mapping<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>Address and Port-Dependent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向同一地址和同一端口发包时, NAT使用同一映射地址向外发包</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
+
+此时主机向 1.0.0.1:53 发送udp包, 
+            NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
+主机又向   1.0.0.1:63 发送udp包,
+            NAT将使用一新映射地址 1.1.1.1:3789 向 1.0.0.1:63 发包
+主机又向   8.8.8.8:53 发送udp包,
+           此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
+主机又向 1.0.0.1:53 发送udp包,
+            NAT使用相同地址 1.1.1.1:2345 向 1.0.0.1:53 发包
+
+这种同时依赖目标地址和端口的NAT映射行为就是 Address and Port-Dependent Mapping,
+这种NAT类型是没有办法进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="NAT-Filtering">NAT Filtering</h2>
+<p>描述当NAT为网络内主机映射一地址后，互联网内主机向映射地址发送数据时，将允许哪些地址通过的行为</p>
+<p>Endpoint-Independent Filtering</p>
+<p>A NAT device employing the combination of “Endpoint-Independent<br>
+Mapping” and “Endpoint-Independent Filtering” will accept incoming<br>
+traffic to a mapped public port from ANY external endpoint on the<br>
+public network.</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
+
+无论外部任何地址和端口的主机向1.1.1.1:2345发包, NAT都将会将其转发到 192.168.100.2:30086<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>Address-Dependent Filtering<br>
+for receiving packets from a specific external endpoint, it is necessary for the internal endpoint to<br>
+send packets first to that specific external endpoint’s IP address.</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
+
+如果需要NAT将外部数据包转发到主机上,
+必须先由主机向某一地址发包, 
+NAT都会将收到的同一地址(所有端口)的数据包转发到主机上<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Address and Port-Dependent Filtering</p>
+<p>for receiving  packets from a specific external endpoint, it is necessary for<br>
+the internal endpoint to send packets first to that external endpoint’s IP address and port.</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
+
+如果需要NAT将外部数据包转发到主机上
+必须先由主机向某一地址和某一端口发包
+NAT都会将收到的同一地址和同一端口的数据包转发到主机上
+
+这种NAT类型是没发进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="NAT穿透">NAT穿透</h2>
+<p>是否可以进行NAT穿透, 同时依赖NAT Mapping和NAT Filtering</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">Mapping和Filtering都为Endpoint-Independent Mapping,
+         这种是百分之百可以进行穿透
+Mapping为Endpoint-Independent Mapping, Filtering为Address and Port-Dependent Filtering,
+         这种也是可以进行穿透的
+但如果Mapping和Filtering都为Address and Port-Dependent Filtering,
+         这种是必不可能穿透<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>UDP</tag>
+        <tag>NAT</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>NAT穿透</title>
     <url>/posts/1124a628/</url>
     <content><![CDATA[<h2 id="NAT-网络地址转换">NAT 网络地址转换</h2>
@@ -1558,98 +1650,6 @@ TURN是一个client-server协议。TURN的NAT穿透方法与STUN类似，都是�
 <a href="https://zhuanlan.zhihu.com/p/40816201">简单解释 P2P 技术之 UDP 打洞</a><br>
 <a href="http://www.52im.net/thread-50-1-1.html">P2P技术详解(一)：NAT详解——详细原理、P2P简介</a></p>
 </blockquote>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>UDP</tag>
-        <tag>NAT</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>NAT类型</title>
-    <url>/posts/14e0ef9e/</url>
-    <content><![CDATA[<h2 id="NAT-Mapping">NAT Mapping</h2>
-<p>描述NAT在映射网络内主机地址的行为</p>
-<pre class="language-markdown" data-language="markdown"><code class="language-markdown">computer(192.168.100.2:30086) -> NAT -> 1.1.1.1:2345</code></pre>
-<p>Endpoint-Independent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向不同地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
-
-此时主机向 1.0.0.1:53 发送udp包,
-             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
-主机又向   1.0.0.1:63 发送udp包,
-             NAT也使用 1.1.1.1:2345 向 1.0.0.1:63 发包
-主机又向   8.8.8.8:53 发送udp包,
-             NAT也使用 1.1.1.1:2345 向 8.8.8.8:53 发包
-
-这种无论目标地址和端口是什么都使用同一地址进行发包的NAT行为就是 Endpoint-Independent Mapping,
-跟没有NAT一样<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Address-Dependent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向同一地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
-
-此时主机向 1.0.0.1:53 发送udp包,
-             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
-主机又向   1.0.0.1:63 发送udp包,
-             NAT也将使用 1.1.1.1:2345 向 1.0.0.1:63 发包
-主机又向   8.8.8.8:53 发送udp包,
-             此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
-
-这种依赖目标地址但不依赖端口的NAT映射行为就是 Address-Dependent Mapping<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>Address and Port-Dependent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向同一地址和同一端口发包时, NAT使用同一映射地址向外发包</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
-
-此时主机向 1.0.0.1:53 发送udp包, 
-            NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
-主机又向   1.0.0.1:63 发送udp包,
-            NAT将使用一新映射地址 1.1.1.1:3789 向 1.0.0.1:63 发包
-主机又向   8.8.8.8:53 发送udp包,
-           此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
-主机又向 1.0.0.1:53 发送udp包,
-            NAT使用相同地址 1.1.1.1:2345 向 1.0.0.1:53 发包
-
-这种同时依赖目标地址和端口的NAT映射行为就是 Address and Port-Dependent Mapping,
-这种NAT类型是没有办法进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="NAT-Filtering">NAT Filtering</h2>
-<p>描述当NAT为网络内主机映射一地址后，互联网内主机向映射地址发送数据时，将允许哪些地址通过的行为</p>
-<p>Endpoint-Independent Filtering</p>
-<p>A NAT device employing the combination of “Endpoint-Independent<br>
-Mapping” and “Endpoint-Independent Filtering” will accept incoming<br>
-traffic to a mapped public port from ANY external endpoint on the<br>
-public network.</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
-
-无论外部任何地址和端口的主机向1.1.1.1:2345发包, NAT都将会将其转发到 192.168.100.2:30086<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>Address-Dependent Filtering<br>
-for receiving packets from a specific external endpoint, it is necessary for the internal endpoint to<br>
-send packets first to that specific external endpoint’s IP address.</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
-
-如果需要NAT将外部数据包转发到主机上,
-必须先由主机向某一地址发包, 
-NAT都会将收到的同一地址(所有端口)的数据包转发到主机上<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Address and Port-Dependent Filtering</p>
-<p>for receiving  packets from a specific external endpoint, it is necessary for<br>
-the internal endpoint to send packets first to that external endpoint’s IP address and port.</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
-
-如果需要NAT将外部数据包转发到主机上
-必须先由主机向某一地址和某一端口发包
-NAT都会将收到的同一地址和同一端口的数据包转发到主机上
-
-这种NAT类型是没发进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="NAT穿透">NAT穿透</h2>
-<p>是否可以进行NAT穿透, 同时依赖NAT Mapping和NAT Filtering</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">Mapping和Filtering都为Endpoint-Independent Mapping,
-         这种是百分之百可以进行穿透
-Mapping为Endpoint-Independent Mapping, Filtering为Address and Port-Dependent Filtering,
-         这种也是可以进行穿透的
-但如果Mapping和Filtering都为Address and Port-Dependent Filtering,
-         这种是必不可能穿透<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 ]]></content>
       <categories>
         <category>Network</category>
