@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://asutorufa.github.io/resume/index.html</loc>
+    <loc>https://asutorufa.github.io/tags/index.html</loc>
     
     <lastmod>2025-06-03</lastmod>
     
@@ -20,25 +20,7 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/tags/index.html</loc>
-    
-    <lastmod>2025-06-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.github.io/about/index.html</loc>
-    
-    <lastmod>2025-06-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.github.io/archives/index.html</loc>
+    <loc>https://asutorufa.github.io/resume/index.html</loc>
     
     <lastmod>2025-06-03</lastmod>
     
@@ -66,6 +48,24 @@
   
   <url>
     <loc>https://asutorufa.github.io/friends/index.html</loc>
+    
+    <lastmod>2025-06-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/about/index.html</loc>
+    
+    <lastmod>2025-06-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.github.io/archives/index.html</loc>
     
     <lastmod>2025-06-03</lastmod>
     
@@ -1404,14 +1404,14 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/categories/Linux/</loc>
+    <loc>https://asutorufa.github.io/categories/Personally/</loc>
     <lastmod>2025-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/categories/Personally/</loc>
+    <loc>https://asutorufa.github.io/categories/Linux/</loc>
     <lastmod>2025-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
