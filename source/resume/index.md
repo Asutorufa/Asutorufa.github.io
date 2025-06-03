@@ -138,4 +138,7 @@ language: ja
 - fix(deps): fix test/tools ginkgo typo [containers/buildah #5455](https://github.com/containers/buildah/pull/5455) - [release v1.38.0](https://github.com/containers/buildah/releases/tag/v1.38.0)
 - set: add set support auto-merge [google/nftables #271](https://github.com/google/nftables/pull/271)
 - consumer add support custom logger [aliyun/aliyun-log-go-sdk #293](https://github.com/aliyun/aliyun-log-go-sdk/pull/293)
-- add support set subPath for persistence [qdrant/qdrant-helm 271](https://github.com/qdrant/qdrant-helm/pull/271)
+- add support set subPath for persistence [qdrant/qdrant-helm #271](https://github.com/qdrant/qdrant-helm/pull/271)
+- add s3 UsePathStyle flag [tailscale/go-cache-plugin #12](https://github.com/tailscale/go-cache-plugin/pull/12)
+- Fix get client version [qdrant/go-client #74](https://github.com/qdrant/go-client/pull/74)
+- fix maxMapSize typo in aix, android, solaris [etcd-io/bbolt #988](https://github.com/etcd-io/bbolt/pull/988)

@@ -39,4 +39,7 @@ OpenSource Contribution History
 - [containers/buildah #5455](https://github.com/containers/buildah/pull/5455) - [release v1.38.0](https://github.com/containers/buildah/releases/tag/v1.38.0)
 - [google/nftables #271](https://github.com/google/nftables/pull/271)
 - [aliyun/aliyun-log-go-sdk #293](https://github.com/aliyun/aliyun-log-go-sdk/pull/293)
-- [qdrant/qdrant-helm 271](https://github.com/qdrant/qdrant-helm/pull/271)
+- [qdrant/qdrant-helm #271](https://github.com/qdrant/qdrant-helm/pull/271)
+- [tailscale/go-cache-plugin #12](https://github.com/tailscale/go-cache-plugin/pull/12)
+- [qdrant/go-client #74](https://github.com/qdrant/go-client/pull/74)
+- [etcd-io/bbolt #988](https://github.com/etcd-io/bbolt/pull/988)
