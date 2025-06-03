@@ -15,7 +15,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://Asutorufa.github.io/
+url: https://asutorufa.com/
 root: /
 permalink: posts/:abbrlink/ #:year/:month/:day/:title/
 permalink_defaults:
