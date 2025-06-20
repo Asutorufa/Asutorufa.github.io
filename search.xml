@@ -4200,6 +4200,188 @@ requests<span class="token punctuation">.</span>get<span class="token punctuatio
       </tags>
   </entry>
   <entry>
+    <title>terraformのモジュール</title>
+    <url>/posts/3395bae7/</url>
+    <content><![CDATA[<h2 id="WIP"><strong>WIP</strong></h2>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token list punctuation">-</span> +
+  <span class="token list punctuation">+</span> project1 -+
+  |           +- main.tf
+  |           +- variables.tf
+  |           +- pro.tfvars
+  |           +- debug.tfvars
+  |
+  +- modules -+
+              +- module1 -+
+              |            +- main.tf
+              |            +- variables.tf
+              |            +- outputs.tf
+              |
+              +- module2 -+
+                           +- main.tf
+                           +- variables.tf
+                           +- outputs.tf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p><a href="http://root-variable.tf">root-variable.tf</a></p>
+<pre class="line-numbers language-t" data-language="t"><code class="language-t">variable &quot;storageClass&quot; &#123;
+  type    &#x3D; string
+  default &#x3D; &quot;nfs-provisioner-sc&quot;
+&#125;
+
+variable &quot;imageDockerhubRegistryPrefix&quot; &#123;
+  type    &#x3D; string
+  default &#x3D; &quot;harborpro.secvision.local&#x2F;dockerhub&quot;
+&#125;
+
+variable &quot;imageQuayRegistryPrefix&quot; &#123;
+  type    &#x3D; string
+  default &#x3D; &quot;harborpro.secvision.local&#x2F;quay&quot;
+&#125;
+
+variable &quot;minioReplicas&quot; &#123;
+  type    &#x3D; number
+  default &#x3D; 3
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a href="http://redis.tf">redis.tf</a></p>
+<pre class="line-numbers language-t" data-language="t"><code class="language-t">resource &quot;kubernetes_stateful_set&quot; &quot;redis&quot; &#123;
+  metadata &#123;
+    name      &#x3D; &quot;redis&quot;
+    namespace &#x3D; var.namespace
+
+    labels &#x3D; &#123;
+      app &#x3D; &quot;redis&quot;
+    &#125;
+  &#125;
+
+  spec &#123;
+    replicas &#x3D; 1
+
+    selector &#123;
+      match_labels &#x3D; &#123;
+        app &#x3D; &quot;redis&quot;
+      &#125;
+    &#125;
+
+    template &#123;
+      metadata &#123;
+        name &#x3D; &quot;redis&quot;
+
+        labels &#x3D; &#123;
+          app &#x3D; &quot;redis&quot;
+        &#125;
+      &#125;
+
+      spec &#123;
+        container &#123;
+          name  &#x3D; &quot;redis&quot;
+          image &#x3D; var.image
+
+          port &#123;
+            name           &#x3D; &quot;redis&quot;
+            container_port &#x3D; 6379
+          &#125;
+        &#125;
+      &#125;
+    &#125;
+
+    service_name &#x3D; &quot;redis&quot;
+  &#125;
+&#125;
+
+resource &quot;kubernetes_service&quot; &quot;redis&quot; &#123;
+  metadata &#123;
+    name      &#x3D; &quot;redis&quot;
+    namespace &#x3D; var.namespace
+  &#125;
+
+  spec &#123;
+    port &#123;
+      name        &#x3D; &quot;redis&quot;
+      port        &#x3D; 6379
+      target_port &#x3D; kubernetes_stateful_set.redis.spec.0.template.0.spec.0.container.0.port.0.container_port
+    &#125;
+
+    selector &#x3D; &#123;
+      app &#x3D; &quot;redis&quot;
+    &#125;
+
+    type &#x3D; &quot;ClusterIP&quot;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a href="http://outputs.tf">outputs.tf</a></p>
+<pre class="line-numbers language-t" data-language="t"><code class="language-t">output &quot;metricsAccessKey&quot; &#123;
+  value &#x3D; var.metricsAccessKey
+&#125;
+
+output &quot;metricsSecretKey&quot; &#123;
+  value &#x3D; var.metricsSecretKey
+&#125;
+
+output &quot;lokiBucket&quot; &#123;
+  value &#x3D; var.lokiBucket
+&#125;
+
+output &quot;tempoBucket&quot; &#123;
+  value &#x3D; var.tempoBucket
+&#125;
+
+output &quot;host&quot; &#123;
+  value &#x3D; &quot;minio.metrics.svc.cluster.local:9000&quot;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a href="http://main.tf">main.tf</a></p>
+<pre class="line-numbers language-t" data-language="t"><code class="language-t">provider &quot;kubernetes&quot; &#123;
+  config_path &#x3D; &quot;$&#123;path.module&#125;&#x2F;..&#x2F;config.yaml&quot;
+&#125;
+
+
+module &quot;redis&quot; &#123;
+  source &#x3D; &quot;..&#x2F;modules&#x2F;redis&quot;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>apply</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">terraform init
+terraform apply --var-file<span class="token operator">=</span>debug.tfvars <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="再利用ダメ">再利用ダメ</h2>
+<p><a href="http://module1.tf">module1.tf</a></p>
+<pre class="line-numbers language-t" data-language="t"><code class="language-t">resource &quot;kubernetes_service&quot; &quot;module1&quot; &#123;
+  ...
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><a href="http://modules2.tf">modules2.tf</a></p>
+<pre class="line-numbers language-t" data-language="t"><code class="language-t">module &quot;module1&quot; &#123;
+  source &#x3D; &quot;..&#x2F;module1&quot;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><a href="http://modules3.tf">modules3.tf</a></p>
+<pre class="line-numbers language-t" data-language="t"><code class="language-t">module &quot;module1&quot; &#123;
+  source &#x3D; &quot;..&#x2F;module1&quot;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><a href="http://root-main.tf">root-main.tf</a></p>
+<pre class="line-numbers language-t" data-language="t"><code class="language-t">module &quot;module1&quot; &#123;
+  source &#x3D; &quot;..&#x2F;modules&#x2F;module1&quot;
+&#125;
+
+module &quot;module2&quot; &#123;
+  source &#x3D; &quot;..&#x2F;modules&#x2F;module2&quot;
+&#125;
+
+module &quot;module3&quot; &#123;
+  source &#x3D; &quot;..&#x2F;modules&#x2F;module3&quot;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> TD<span class="token punctuation">;</span>
+  module2 <span class="token arrow operator">--></span> module1<span class="token punctuation">;</span>
+  module3 <span class="token arrow operator">--></span> module1<span class="token punctuation">;</span>
+  root <span class="token arrow operator">--></span> module1<span class="token punctuation">;</span>
+  root <span class="token arrow operator">--></span> module2<span class="token punctuation">;</span>
+  root <span class="token arrow operator">--></span> module3<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>Kubernetes</tag>
+        <tag>container</tag>
+        <tag>Terraform</tag>
+        <tag>インフラ</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ubuntu终端下连接wifi</title>
     <url>/posts/fb6d8628/</url>
     <content><![CDATA[<h2 id="首先使用rfkill查看你的wifi设备是否被停用">首先使用rfkill查看你的wifi设备是否被停用</h2>
@@ -5265,22 +5447,6 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       <tags>
         <tag>EFI</tag>
         <tag>BIOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>更改绑定手机号</title>
-    <url>/posts/3fee5f2/</url>
-    <content><![CDATA[<p>绑定手机号：微信，网易云，淘宝原手机号及证件，支付宝，google<br>
-银行卡，贴吧，酷安，微博需要原手机号，bilibili（需要原手机号)<span id="more"></span><br>
-微软,欢喜云，京东（原手机号及银行卡，非我的实名认证）<br>
-天猫，银行卡，steam，小冰，yy(需要原手机号)<br>
-<img src="http://blog-1254450445.cossgp.myqcloud.com/%E6%8D%95%E8%8E%B72.PNG" alt="" loading="lazy"></p>
-]]></content>
-      <categories>
-        <category>Personally</category>
-      </categories>
-      <tags>
-        <tag>Personally</tag>
       </tags>
   </entry>
   <entry>
