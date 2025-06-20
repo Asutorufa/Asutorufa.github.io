@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/categories/index.html</loc>
+    <loc>https://asutorufa.github.io/archives/index.html</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/archives/index.html</loc>
+    <loc>https://asutorufa.github.io/categories/index.html</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -919,6 +919,13 @@
   </url>
   
   <url>
+    <loc>https://asutorufa.github.io/tags/C/</loc>
+    <lastmod>2025-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://asutorufa.github.io/tags/efi/</loc>
     <lastmod>2025-06-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -927,13 +934,6 @@
   
   <url>
     <loc>https://asutorufa.github.io/tags/linux/</loc>
-    <lastmod>2025-06-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.github.io/tags/C/</loc>
     <lastmod>2025-06-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1292,14 +1292,14 @@
 
   
   <url>
-    <loc>https://asutorufa.github.io/categories/%E6%97%A5%E5%B8%B8/</loc>
+    <loc>https://asutorufa.github.io/categories/Network/</loc>
     <lastmod>2025-06-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.github.io/categories/Network/</loc>
+    <loc>https://asutorufa.github.io/categories/%E6%97%A5%E5%B8%B8/</loc>
     <lastmod>2025-06-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
