@@ -3,11 +3,11 @@
   <title>Asutorufaのブログ</title>
   <icon>https://github.com/asutorufa.png</icon>
   <subtitle>こんにちは</subtitle>
-  <link href="https://asutorufa.github.io/atom.xml" rel="self"/>
+  <link href="https://asutorufa.com/atom.xml" rel="self"/>
   
-  <link href="https://asutorufa.github.io/"/>
+  <link href="https://asutorufa.com/"/>
   <updated>2025-02-27T19:29:27.000Z</updated>
-  <id>https://asutorufa.github.io/</id>
+  <id>https://asutorufa.com/</id>
   
   <author>
     <name>Asutorufa</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>terraformのモジュール</title>
-    <link href="https://asutorufa.github.io/posts/3395bae7/"/>
-    <id>https://asutorufa.github.io/posts/3395bae7/</id>
+    <link href="https://asutorufa.com/posts/3395bae7/"/>
+    <id>https://asutorufa.com/posts/3395bae7/</id>
     <published>2025-02-27T19:29:27.000Z</published>
     <updated>2025-02-27T19:29:27.000Z</updated>
     
@@ -47,23 +47,23 @@
     
     
     
-    <category term="Kubernetes" scheme="https://asutorufa.github.io/categories/Kubernetes/"/>
+    <category term="Kubernetes" scheme="https://asutorufa.com/categories/Kubernetes/"/>
     
     
-    <category term="Kubernetes" scheme="https://asutorufa.github.io/tags/Kubernetes/"/>
+    <category term="Kubernetes" scheme="https://asutorufa.com/tags/Kubernetes/"/>
     
-    <category term="container" scheme="https://asutorufa.github.io/tags/container/"/>
+    <category term="container" scheme="https://asutorufa.com/tags/container/"/>
     
-    <category term="Terraform" scheme="https://asutorufa.github.io/tags/Terraform/"/>
+    <category term="Terraform" scheme="https://asutorufa.com/tags/Terraform/"/>
     
-    <category term="インフラ" scheme="https://asutorufa.github.io/tags/%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9/"/>
+    <category term="インフラ" scheme="https://asutorufa.com/tags/%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9/"/>
     
   </entry>
   
   <entry>
     <title>Kubernetesのコントローラーを作ろう</title>
-    <link href="https://asutorufa.github.io/posts/70902a01/"/>
-    <id>https://asutorufa.github.io/posts/70902a01/</id>
+    <link href="https://asutorufa.com/posts/70902a01/"/>
+    <id>https://asutorufa.com/posts/70902a01/</id>
     <published>2025-02-23T22:30:31.000Z</published>
     <updated>2025-02-23T22:30:31.000Z</updated>
     
@@ -93,21 +93,21 @@
     
     
     
-    <category term="Kubernetes" scheme="https://asutorufa.github.io/categories/Kubernetes/"/>
+    <category term="Kubernetes" scheme="https://asutorufa.com/categories/Kubernetes/"/>
     
     
-    <category term="Kubernetes" scheme="https://asutorufa.github.io/tags/Kubernetes/"/>
+    <category term="Kubernetes" scheme="https://asutorufa.com/tags/Kubernetes/"/>
     
-    <category term="CRI" scheme="https://asutorufa.github.io/tags/CRI/"/>
+    <category term="CRI" scheme="https://asutorufa.com/tags/CRI/"/>
     
-    <category term="container" scheme="https://asutorufa.github.io/tags/container/"/>
+    <category term="container" scheme="https://asutorufa.com/tags/container/"/>
     
   </entry>
   
   <entry>
     <title>UDPプロキシはFullcone NATを実現する</title>
-    <link href="https://asutorufa.github.io/posts/4893f166/"/>
-    <id>https://asutorufa.github.io/posts/4893f166/</id>
+    <link href="https://asutorufa.com/posts/4893f166/"/>
+    <id>https://asutorufa.com/posts/4893f166/</id>
     <published>2024-11-18T19:49:40.000Z</published>
     <updated>2024-11-18T19:49:40.000Z</updated>
     
@@ -205,27 +205,27 @@ https://tech.zms.co.jp/nat%E3%81%82%E3%82%8C%E3%81%93%E3%82%8C/
     
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/categories/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="UDP" scheme="https://asutorufa.github.io/tags/UDP/"/>
+    <category term="UDP" scheme="https://asutorufa.com/tags/UDP/"/>
     
-    <category term="Network" scheme="https://asutorufa.github.io/tags/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/tags/Network/"/>
     
-    <category term="NAT" scheme="https://asutorufa.github.io/tags/NAT/"/>
+    <category term="NAT" scheme="https://asutorufa.com/tags/NAT/"/>
     
-    <category term="Golang" scheme="https://asutorufa.github.io/tags/Golang/"/>
+    <category term="Golang" scheme="https://asutorufa.com/tags/Golang/"/>
     
-    <category term="Proxy" scheme="https://asutorufa.github.io/tags/Proxy/"/>
+    <category term="Proxy" scheme="https://asutorufa.com/tags/Proxy/"/>
     
-    <category term="Go" scheme="https://asutorufa.github.io/tags/Go/"/>
+    <category term="Go" scheme="https://asutorufa.com/tags/Go/"/>
     
   </entry>
   
   <entry>
     <title>golangとollamaでfunction calling</title>
-    <link href="https://asutorufa.github.io/posts/23567986/"/>
-    <id>https://asutorufa.github.io/posts/23567986/</id>
+    <link href="https://asutorufa.com/posts/23567986/"/>
+    <id>https://asutorufa.com/posts/23567986/</id>
     <published>2024-11-11T19:11:06.000Z</published>
     <updated>2024-11-11T19:11:06.000Z</updated>
     
@@ -256,21 +256,21 @@ To use a tool, respond with a JSON object with the following structure:
     
     
     
-    <category term="llm" scheme="https://asutorufa.github.io/categories/llm/"/>
+    <category term="llm" scheme="https://asutorufa.com/categories/llm/"/>
     
     
-    <category term="llm" scheme="https://asutorufa.github.io/tags/llm/"/>
+    <category term="llm" scheme="https://asutorufa.com/tags/llm/"/>
     
-    <category term="function calling" scheme="https://asutorufa.github.io/tags/function-calling/"/>
+    <category term="function calling" scheme="https://asutorufa.com/tags/function-calling/"/>
     
-    <category term="text embedding" scheme="https://asutorufa.github.io/tags/text-embedding/"/>
+    <category term="text embedding" scheme="https://asutorufa.com/tags/text-embedding/"/>
     
   </entry>
   
   <entry>
     <title>langchaingoでRAGを試しました</title>
-    <link href="https://asutorufa.github.io/posts/95db8f9/"/>
-    <id>https://asutorufa.github.io/posts/95db8f9/</id>
+    <link href="https://asutorufa.com/posts/95db8f9/"/>
+    <id>https://asutorufa.com/posts/95db8f9/</id>
     <published>2024-11-06T10:37:12.000Z</published>
     <updated>2024-11-06T10:37:12.000Z</updated>
     
@@ -313,21 +313,21 @@ chatgptはRAGか、Function Callingか、どちらかを使っていると思い
     
     
     
-    <category term="llm" scheme="https://asutorufa.github.io/categories/llm/"/>
+    <category term="llm" scheme="https://asutorufa.com/categories/llm/"/>
     
     
-    <category term="llm" scheme="https://asutorufa.github.io/tags/llm/"/>
+    <category term="llm" scheme="https://asutorufa.com/tags/llm/"/>
     
-    <category term="text embedding" scheme="https://asutorufa.github.io/tags/text-embedding/"/>
+    <category term="text embedding" scheme="https://asutorufa.com/tags/text-embedding/"/>
     
-    <category term="rag" scheme="https://asutorufa.github.io/tags/rag/"/>
+    <category term="rag" scheme="https://asutorufa.com/tags/rag/"/>
     
   </entry>
   
   <entry>
     <title>感觉日语是一种很随意的语言</title>
-    <link href="https://asutorufa.github.io/posts/190e8188/"/>
-    <id>https://asutorufa.github.io/posts/190e8188/</id>
+    <link href="https://asutorufa.com/posts/190e8188/"/>
+    <id>https://asutorufa.com/posts/190e8188/</id>
     <published>2024-07-29T21:09:46.000Z</published>
     <updated>2024-07-29T21:09:46.000Z</updated>
     
@@ -348,17 +348,17 @@ chatgptはRAGか、Function Callingか、どちらかを使っていると思い
     
     
     
-    <category term="日本語" scheme="https://asutorufa.github.io/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/"/>
+    <category term="日本語" scheme="https://asutorufa.com/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/"/>
     
     
-    <category term="日本語" scheme="https://asutorufa.github.io/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/"/>
+    <category term="日本語" scheme="https://asutorufa.com/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/"/>
     
   </entry>
   
   <entry>
     <title>实现一个简单的Kubernetes controller</title>
-    <link href="https://asutorufa.github.io/posts/edf1c330/"/>
-    <id>https://asutorufa.github.io/posts/edf1c330/</id>
+    <link href="https://asutorufa.com/posts/edf1c330/"/>
+    <id>https://asutorufa.com/posts/edf1c330/</id>
     <published>2024-03-30T15:09:58.000Z</published>
     <updated>2024-03-30T15:09:58.000Z</updated>
     
@@ -388,21 +388,21 @@ chatgptはRAGか、Function Callingか、どちらかを使っていると思い
     
     
     
-    <category term="Kubernetes" scheme="https://asutorufa.github.io/categories/Kubernetes/"/>
+    <category term="Kubernetes" scheme="https://asutorufa.com/categories/Kubernetes/"/>
     
     
-    <category term="Kubernetes" scheme="https://asutorufa.github.io/tags/Kubernetes/"/>
+    <category term="Kubernetes" scheme="https://asutorufa.com/tags/Kubernetes/"/>
     
-    <category term="CRI" scheme="https://asutorufa.github.io/tags/CRI/"/>
+    <category term="CRI" scheme="https://asutorufa.com/tags/CRI/"/>
     
-    <category term="container" scheme="https://asutorufa.github.io/tags/container/"/>
+    <category term="container" scheme="https://asutorufa.com/tags/container/"/>
     
   </entry>
   
   <entry>
     <title>动漫影评</title>
-    <link href="https://asutorufa.github.io/posts/665020d8/"/>
-    <id>https://asutorufa.github.io/posts/665020d8/</id>
+    <link href="https://asutorufa.com/posts/665020d8/"/>
+    <id>https://asutorufa.com/posts/665020d8/</id>
     <published>2023-09-23T23:21:15.000Z</published>
     <updated>2023-09-23T23:21:15.000Z</updated>
     
@@ -425,21 +425,21 @@ chatgptはRAGか、Function Callingか、どちらかを使っていると思い
     
     
     
-    <category term="影评" scheme="https://asutorufa.github.io/categories/%E5%BD%B1%E8%AF%84/"/>
+    <category term="影评" scheme="https://asutorufa.com/categories/%E5%BD%B1%E8%AF%84/"/>
     
     
-    <category term="アニメ" scheme="https://asutorufa.github.io/tags/%E3%82%A2%E3%83%8B%E3%83%A1/"/>
+    <category term="アニメ" scheme="https://asutorufa.com/tags/%E3%82%A2%E3%83%8B%E3%83%A1/"/>
     
-    <category term="动漫" scheme="https://asutorufa.github.io/tags/%E5%8A%A8%E6%BC%AB/"/>
+    <category term="动漫" scheme="https://asutorufa.com/tags/%E5%8A%A8%E6%BC%AB/"/>
     
-    <category term="影评" scheme="https://asutorufa.github.io/tags/%E5%BD%B1%E8%AF%84/"/>
+    <category term="影评" scheme="https://asutorufa.com/tags/%E5%BD%B1%E8%AF%84/"/>
     
   </entry>
   
   <entry>
     <title>CRI 容器运行时接口</title>
-    <link href="https://asutorufa.github.io/posts/8144a111/"/>
-    <id>https://asutorufa.github.io/posts/8144a111/</id>
+    <link href="https://asutorufa.com/posts/8144a111/"/>
+    <id>https://asutorufa.com/posts/8144a111/</id>
     <published>2023-03-01T14:55:45.000Z</published>
     <updated>2023-03-01T14:55:45.000Z</updated>
     
@@ -456,21 +456,21 @@ chatgptはRAGか、Function Callingか、どちらかを使っていると思い
     
     
     
-    <category term="Kubernetes" scheme="https://asutorufa.github.io/categories/Kubernetes/"/>
+    <category term="Kubernetes" scheme="https://asutorufa.com/categories/Kubernetes/"/>
     
     
-    <category term="Kubernetes" scheme="https://asutorufa.github.io/tags/Kubernetes/"/>
+    <category term="Kubernetes" scheme="https://asutorufa.com/tags/Kubernetes/"/>
     
-    <category term="CRI" scheme="https://asutorufa.github.io/tags/CRI/"/>
+    <category term="CRI" scheme="https://asutorufa.com/tags/CRI/"/>
     
-    <category term="container" scheme="https://asutorufa.github.io/tags/container/"/>
+    <category term="container" scheme="https://asutorufa.com/tags/container/"/>
     
   </entry>
   
   <entry>
     <title>NAT类型</title>
-    <link href="https://asutorufa.github.io/posts/14e0ef9e/"/>
-    <id>https://asutorufa.github.io/posts/14e0ef9e/</id>
+    <link href="https://asutorufa.com/posts/14e0ef9e/"/>
+    <id>https://asutorufa.com/posts/14e0ef9e/</id>
     <published>2023-02-14T10:48:24.000Z</published>
     <updated>2023-02-14T10:48:24.000Z</updated>
     
@@ -508,19 +508,19 @@ chatgptはRAGか、Function Callingか、どちらかを使っていると思い
     
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/categories/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="UDP" scheme="https://asutorufa.github.io/tags/UDP/"/>
+    <category term="UDP" scheme="https://asutorufa.com/tags/UDP/"/>
     
-    <category term="NAT" scheme="https://asutorufa.github.io/tags/NAT/"/>
+    <category term="NAT" scheme="https://asutorufa.com/tags/NAT/"/>
     
   </entry>
   
   <entry>
     <title>TUF GAMING B550M-PLUS WIFI II lm_sensors</title>
-    <link href="https://asutorufa.github.io/posts/fe953398/"/>
-    <id>https://asutorufa.github.io/posts/fe953398/</id>
+    <link href="https://asutorufa.com/posts/fe953398/"/>
+    <id>https://asutorufa.com/posts/fe953398/</id>
     <published>2022-11-11T10:17:44.000Z</published>
     <updated>2022-11-11T10:17:44.000Z</updated>
     
@@ -538,15 +538,15 @@ it’s a kernel bug now &lt;a href=&quot;https://bugzilla.kernel.org/show_bug.cg
     
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/categories/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>秘密共享</title>
-    <link href="https://asutorufa.github.io/posts/ce6c7d90/"/>
-    <id>https://asutorufa.github.io/posts/ce6c7d90/</id>
+    <link href="https://asutorufa.com/posts/ce6c7d90/"/>
+    <id>https://asutorufa.com/posts/ce6c7d90/</id>
     <published>2022-10-10T11:05:22.000Z</published>
     <updated>2022-10-10T11:05:22.000Z</updated>
     
@@ -573,19 +573,19 @@ f(x) = l0+l1+l2 = 1/4(x^2-28x+136)&lt;span aria-hidden=&quot;true&quot; class=&q
     
     
     
-    <category term="Crypto" scheme="https://asutorufa.github.io/categories/Crypto/"/>
+    <category term="Crypto" scheme="https://asutorufa.com/categories/Crypto/"/>
     
     
-    <category term="Crypto" scheme="https://asutorufa.github.io/tags/Crypto/"/>
+    <category term="Crypto" scheme="https://asutorufa.com/tags/Crypto/"/>
     
-    <category term="Shamir" scheme="https://asutorufa.github.io/tags/Shamir/"/>
+    <category term="Shamir" scheme="https://asutorufa.com/tags/Shamir/"/>
     
   </entry>
   
   <entry>
     <title>离散对数问题</title>
-    <link href="https://asutorufa.github.io/posts/1f299eb2/"/>
-    <id>https://asutorufa.github.io/posts/1f299eb2/</id>
+    <link href="https://asutorufa.com/posts/1f299eb2/"/>
+    <id>https://asutorufa.com/posts/1f299eb2/</id>
     <published>2022-08-15T10:03:28.000Z</published>
     <updated>2022-08-15T10:03:28.000Z</updated>
     
@@ -611,23 +611,23 @@ delta(7,3) = 6 = phi(7), 可得 3为模7的原根&lt;span aria-hidden=&quot;true
     
     
     
-    <category term="Crypto" scheme="https://asutorufa.github.io/categories/Crypto/"/>
+    <category term="Crypto" scheme="https://asutorufa.com/categories/Crypto/"/>
     
     
-    <category term="Crypto" scheme="https://asutorufa.github.io/tags/Crypto/"/>
+    <category term="Crypto" scheme="https://asutorufa.com/tags/Crypto/"/>
     
-    <category term="离散对数" scheme="https://asutorufa.github.io/tags/%E7%A6%BB%E6%95%A3%E5%AF%B9%E6%95%B0/"/>
+    <category term="离散对数" scheme="https://asutorufa.com/tags/%E7%A6%BB%E6%95%A3%E5%AF%B9%E6%95%B0/"/>
     
-    <category term="DH密钥交换" scheme="https://asutorufa.github.io/tags/DH%E5%AF%86%E9%92%A5%E4%BA%A4%E6%8D%A2/"/>
+    <category term="DH密钥交换" scheme="https://asutorufa.com/tags/DH%E5%AF%86%E9%92%A5%E4%BA%A4%E6%8D%A2/"/>
     
-    <category term="Elgamal" scheme="https://asutorufa.github.io/tags/Elgamal/"/>
+    <category term="Elgamal" scheme="https://asutorufa.com/tags/Elgamal/"/>
     
   </entry>
   
   <entry>
     <title>加密模式</title>
-    <link href="https://asutorufa.github.io/posts/903c04f7/"/>
-    <id>https://asutorufa.github.io/posts/903c04f7/</id>
+    <link href="https://asutorufa.com/posts/903c04f7/"/>
+    <id>https://asutorufa.com/posts/903c04f7/</id>
     <published>2022-08-14T22:09:15.000Z</published>
     <updated>2022-08-14T22:09:15.000Z</updated>
     
@@ -653,25 +653,25 @@ delta(7,3) = 6 = phi(7), 可得 3为模7的原根&lt;span aria-hidden=&quot;true
     
     
     
-    <category term="Crypto" scheme="https://asutorufa.github.io/categories/Crypto/"/>
+    <category term="Crypto" scheme="https://asutorufa.com/categories/Crypto/"/>
     
     
-    <category term="Crypto" scheme="https://asutorufa.github.io/tags/Crypto/"/>
+    <category term="Crypto" scheme="https://asutorufa.com/tags/Crypto/"/>
     
-    <category term="AEAD" scheme="https://asutorufa.github.io/tags/AEAD/"/>
+    <category term="AEAD" scheme="https://asutorufa.com/tags/AEAD/"/>
     
-    <category term="流密码" scheme="https://asutorufa.github.io/tags/%E6%B5%81%E5%AF%86%E7%A0%81/"/>
+    <category term="流密码" scheme="https://asutorufa.com/tags/%E6%B5%81%E5%AF%86%E7%A0%81/"/>
     
-    <category term="块密码" scheme="https://asutorufa.github.io/tags/%E5%9D%97%E5%AF%86%E7%A0%81/"/>
+    <category term="块密码" scheme="https://asutorufa.com/tags/%E5%9D%97%E5%AF%86%E7%A0%81/"/>
     
-    <category term="chacha20-poly1305" scheme="https://asutorufa.github.io/tags/chacha20-poly1305/"/>
+    <category term="chacha20-poly1305" scheme="https://asutorufa.com/tags/chacha20-poly1305/"/>
     
   </entry>
   
   <entry>
     <title>TUN网卡</title>
-    <link href="https://asutorufa.github.io/posts/a67af13f/"/>
-    <id>https://asutorufa.github.io/posts/a67af13f/</id>
+    <link href="https://asutorufa.com/posts/a67af13f/"/>
+    <id>https://asutorufa.com/posts/a67af13f/</id>
     <published>2022-08-14T21:46:33.000Z</published>
     <updated>2022-08-14T21:46:33.000Z</updated>
     
@@ -689,21 +689,21 @@ delta(7,3) = 6 = phi(7), 可得 3为模7的原根&lt;span aria-hidden=&quot;true
     
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/categories/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="Golang" scheme="https://asutorufa.github.io/tags/Golang/"/>
+    <category term="Golang" scheme="https://asutorufa.com/tags/Golang/"/>
     
-    <category term="Tun" scheme="https://asutorufa.github.io/tags/Tun/"/>
+    <category term="Tun" scheme="https://asutorufa.com/tags/Tun/"/>
     
-    <category term="Kotlin" scheme="https://asutorufa.github.io/tags/Kotlin/"/>
+    <category term="Kotlin" scheme="https://asutorufa.com/tags/Kotlin/"/>
     
   </entry>
   
   <entry>
     <title>RSA加密</title>
-    <link href="https://asutorufa.github.io/posts/f1a158c9/"/>
-    <id>https://asutorufa.github.io/posts/f1a158c9/</id>
+    <link href="https://asutorufa.com/posts/f1a158c9/"/>
+    <id>https://asutorufa.com/posts/f1a158c9/</id>
     <published>2022-08-14T21:46:24.000Z</published>
     <updated>2022-08-14T21:46:24.000Z</updated>
     
@@ -721,19 +721,19 @@ delta(7,3) = 6 = phi(7), 可得 3为模7的原根&lt;span aria-hidden=&quot;true
     
     
     
-    <category term="Crypto" scheme="https://asutorufa.github.io/categories/Crypto/"/>
+    <category term="Crypto" scheme="https://asutorufa.com/categories/Crypto/"/>
     
     
-    <category term="Crypto" scheme="https://asutorufa.github.io/tags/Crypto/"/>
+    <category term="Crypto" scheme="https://asutorufa.com/tags/Crypto/"/>
     
-    <category term="RSA" scheme="https://asutorufa.github.io/tags/RSA/"/>
+    <category term="RSA" scheme="https://asutorufa.com/tags/RSA/"/>
     
   </entry>
   
   <entry>
     <title>为广告而生,从使用到干掉大陆版MIUI</title>
-    <link href="https://asutorufa.github.io/posts/6c3a98b5/"/>
-    <id>https://asutorufa.github.io/posts/6c3a98b5/</id>
+    <link href="https://asutorufa.com/posts/6c3a98b5/"/>
+    <id>https://asutorufa.com/posts/6c3a98b5/</id>
     <published>2021-09-25T11:40:35.000Z</published>
     <updated>2021-09-25T11:40:35.000Z</updated>
     
@@ -758,15 +758,15 @@ adb shell pm disable-user com.sohu.inputmethod.sogou.xiaomi&lt;span aria-hidden=
     
     
     
-    <category term="Personally" scheme="https://asutorufa.github.io/categories/Personally/"/>
+    <category term="Personally" scheme="https://asutorufa.com/categories/Personally/"/>
     
     
   </entry>
   
   <entry>
     <title>iptables</title>
-    <link href="https://asutorufa.github.io/posts/736b1750/"/>
-    <id>https://asutorufa.github.io/posts/736b1750/</id>
+    <link href="https://asutorufa.com/posts/736b1750/"/>
+    <id>https://asutorufa.com/posts/736b1750/</id>
     <published>2021-07-14T21:31:27.000Z</published>
     <updated>2021-07-14T21:31:27.000Z</updated>
     
@@ -784,19 +784,19 @@ adb shell pm disable-user com.sohu.inputmethod.sogou.xiaomi&lt;span aria-hidden=
     
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/categories/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/tags/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/tags/linux/"/>
     
-    <category term="iptables" scheme="https://asutorufa.github.io/tags/iptables/"/>
+    <category term="iptables" scheme="https://asutorufa.com/tags/iptables/"/>
     
   </entry>
   
   <entry>
     <title>HTTPS相关</title>
-    <link href="https://asutorufa.github.io/posts/11b2b8df/"/>
-    <id>https://asutorufa.github.io/posts/11b2b8df/</id>
+    <link href="https://asutorufa.com/posts/11b2b8df/"/>
+    <id>https://asutorufa.com/posts/11b2b8df/</id>
     <published>2021-04-18T18:16:58.000Z</published>
     <updated>2021-04-18T18:16:58.000Z</updated>
     
@@ -818,19 +818,19 @@ adb shell pm disable-user com.sohu.inputmethod.sogou.xiaomi&lt;span aria-hidden=
     
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/categories/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="HTTPS" scheme="https://asutorufa.github.io/tags/HTTPS/"/>
+    <category term="HTTPS" scheme="https://asutorufa.com/tags/HTTPS/"/>
     
-    <category term="HTTP" scheme="https://asutorufa.github.io/tags/HTTP/"/>
+    <category term="HTTP" scheme="https://asutorufa.com/tags/HTTP/"/>
     
   </entry>
   
   <entry>
     <title>2021-03-20 01:25AM</title>
-    <link href="https://asutorufa.github.io/posts/d67c4794/"/>
-    <id>https://asutorufa.github.io/posts/d67c4794/</id>
+    <link href="https://asutorufa.com/posts/d67c4794/"/>
+    <id>https://asutorufa.com/posts/d67c4794/</id>
     <published>2021-03-20T01:32:57.000Z</published>
     <updated>2021-03-20T01:32:57.000Z</updated>
     
@@ -841,15 +841,15 @@ adb shell pm disable-user com.sohu.inputmethod.sogou.xiaomi&lt;span aria-hidden=
     
     
     
-    <category term="日常" scheme="https://asutorufa.github.io/categories/%E6%97%A5%E5%B8%B8/"/>
+    <category term="日常" scheme="https://asutorufa.com/categories/%E6%97%A5%E5%B8%B8/"/>
     
     
   </entry>
   
   <entry>
     <title>Hyperledger Fabric组织更换证书</title>
-    <link href="https://asutorufa.github.io/posts/afc6d6dd/"/>
-    <id>https://asutorufa.github.io/posts/afc6d6dd/</id>
+    <link href="https://asutorufa.com/posts/afc6d6dd/"/>
+    <id>https://asutorufa.com/posts/afc6d6dd/</id>
     <published>2021-01-24T17:34:58.000Z</published>
     <updated>2021-01-24T17:34:58.000Z</updated>
     
@@ -934,19 +934,19 @@ adb shell pm disable-user com.sohu.inputmethod.sogou.xiaomi&lt;span aria-hidden=
     
     
     
-    <category term="Hyperledger fabric" scheme="https://asutorufa.github.io/categories/Hyperledger-fabric/"/>
+    <category term="Hyperledger fabric" scheme="https://asutorufa.com/categories/Hyperledger-fabric/"/>
     
     
-    <category term="blockchain" scheme="https://asutorufa.github.io/tags/blockchain/"/>
+    <category term="blockchain" scheme="https://asutorufa.com/tags/blockchain/"/>
     
-    <category term="Hyperledger Fabric" scheme="https://asutorufa.github.io/tags/Hyperledger-Fabric/"/>
+    <category term="Hyperledger Fabric" scheme="https://asutorufa.com/tags/Hyperledger-Fabric/"/>
     
   </entry>
   
   <entry>
     <title>使用GVT-g显卡虚拟化</title>
-    <link href="https://asutorufa.github.io/posts/3a1d136/"/>
-    <id>https://asutorufa.github.io/posts/3a1d136/</id>
+    <link href="https://asutorufa.com/posts/3a1d136/"/>
+    <id>https://asutorufa.com/posts/3a1d136/</id>
     <published>2021-01-17T20:53:29.000Z</published>
     <updated>2021-01-17T20:53:29.000Z</updated>
     
@@ -967,23 +967,23 @@ kvmgt vfio vfio-iommu-type1s&lt;span aria-hidden=&quot;true&quot; class=&quot;li
     
     
     
-    <category term="Linux" scheme="https://asutorufa.github.io/categories/Linux/"/>
+    <category term="Linux" scheme="https://asutorufa.com/categories/Linux/"/>
     
     
-    <category term="Linux" scheme="https://asutorufa.github.io/tags/Linux/"/>
+    <category term="Linux" scheme="https://asutorufa.com/tags/Linux/"/>
     
-    <category term="qemu" scheme="https://asutorufa.github.io/tags/qemu/"/>
+    <category term="qemu" scheme="https://asutorufa.com/tags/qemu/"/>
     
-    <category term="GVT-g" scheme="https://asutorufa.github.io/tags/GVT-g/"/>
+    <category term="GVT-g" scheme="https://asutorufa.com/tags/GVT-g/"/>
     
-    <category term="intel" scheme="https://asutorufa.github.io/tags/intel/"/>
+    <category term="intel" scheme="https://asutorufa.com/tags/intel/"/>
     
   </entry>
   
   <entry>
     <title>gpg使用</title>
-    <link href="https://asutorufa.github.io/posts/7d547224/"/>
-    <id>https://asutorufa.github.io/posts/7d547224/</id>
+    <link href="https://asutorufa.com/posts/7d547224/"/>
+    <id>https://asutorufa.com/posts/7d547224/</id>
     <published>2020-10-02T14:00:01.000Z</published>
     <updated>2020-10-02T14:00:01.000Z</updated>
     
@@ -1011,19 +1011,19 @@ gpg&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; save
     
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/categories/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/categories/linux/"/>
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/tags/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/tags/linux/"/>
     
-    <category term="encrypt" scheme="https://asutorufa.github.io/tags/encrypt/"/>
+    <category term="encrypt" scheme="https://asutorufa.com/tags/encrypt/"/>
     
   </entry>
   
   <entry>
     <title>GeoIP mmdb format</title>
-    <link href="https://asutorufa.github.io/posts/931c13a4/"/>
-    <id>https://asutorufa.github.io/posts/931c13a4/</id>
+    <link href="https://asutorufa.com/posts/931c13a4/"/>
+    <id>https://asutorufa.com/posts/931c13a4/</id>
     <published>2020-07-27T22:15:17.000Z</published>
     <updated>2020-07-27T22:15:17.000Z</updated>
     
@@ -1051,17 +1051,17 @@ value is index of array</summary>
     
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/categories/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/tags/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/tags/Network/"/>
     
   </entry>
   
   <entry>
     <title>DNS over HTTPS</title>
-    <link href="https://asutorufa.github.io/posts/4b39445f/"/>
-    <id>https://asutorufa.github.io/posts/4b39445f/</id>
+    <link href="https://asutorufa.com/posts/4b39445f/"/>
+    <id>https://asutorufa.com/posts/4b39445f/</id>
     <published>2020-06-23T00:30:08.000Z</published>
     <updated>2020-06-23T00:30:08.000Z</updated>
     
@@ -1095,21 +1095,21 @@ DOH主要有两种方式HTTP的GET请求和POST的请求&lt;/p&gt;
     
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/categories/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="golang" scheme="https://asutorufa.github.io/tags/golang/"/>
+    <category term="golang" scheme="https://asutorufa.com/tags/golang/"/>
     
-    <category term="DNS" scheme="https://asutorufa.github.io/tags/DNS/"/>
+    <category term="DNS" scheme="https://asutorufa.com/tags/DNS/"/>
     
-    <category term="DOH" scheme="https://asutorufa.github.io/tags/DOH/"/>
+    <category term="DOH" scheme="https://asutorufa.com/tags/DOH/"/>
     
   </entry>
   
   <entry>
     <title>DNSSEC</title>
-    <link href="https://asutorufa.github.io/posts/1751943e/"/>
-    <id>https://asutorufa.github.io/posts/1751943e/</id>
+    <link href="https://asutorufa.com/posts/1751943e/"/>
+    <id>https://asutorufa.com/posts/1751943e/</id>
     <published>2020-06-23T00:21:33.000Z</published>
     <updated>2020-06-23T00:21:33.000Z</updated>
     
@@ -1131,23 +1131,23 @@ DOH主要有两种方式HTTP的GET请求和POST的请求&lt;/p&gt;
     
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/categories/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="golang" scheme="https://asutorufa.github.io/tags/golang/"/>
+    <category term="golang" scheme="https://asutorufa.com/tags/golang/"/>
     
-    <category term="DNS" scheme="https://asutorufa.github.io/tags/DNS/"/>
+    <category term="DNS" scheme="https://asutorufa.com/tags/DNS/"/>
     
-    <category term="UDP" scheme="https://asutorufa.github.io/tags/UDP/"/>
+    <category term="UDP" scheme="https://asutorufa.com/tags/UDP/"/>
     
-    <category term="DNSSEC" scheme="https://asutorufa.github.io/tags/DNSSEC/"/>
+    <category term="DNSSEC" scheme="https://asutorufa.com/tags/DNSSEC/"/>
     
   </entry>
   
   <entry>
     <title>EDNS</title>
-    <link href="https://asutorufa.github.io/posts/668530ca/"/>
-    <id>https://asutorufa.github.io/posts/668530ca/</id>
+    <link href="https://asutorufa.com/posts/668530ca/"/>
+    <id>https://asutorufa.com/posts/668530ca/</id>
     <published>2020-06-22T23:09:49.000Z</published>
     <updated>2020-06-22T23:09:49.000Z</updated>
     
@@ -1175,23 +1175,23 @@ DOH主要有两种方式HTTP的GET请求和POST的请求&lt;/p&gt;
     
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/categories/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="golang" scheme="https://asutorufa.github.io/tags/golang/"/>
+    <category term="golang" scheme="https://asutorufa.com/tags/golang/"/>
     
-    <category term="DNS" scheme="https://asutorufa.github.io/tags/DNS/"/>
+    <category term="DNS" scheme="https://asutorufa.com/tags/DNS/"/>
     
-    <category term="UDP" scheme="https://asutorufa.github.io/tags/UDP/"/>
+    <category term="UDP" scheme="https://asutorufa.com/tags/UDP/"/>
     
-    <category term="EDNS" scheme="https://asutorufa.github.io/tags/EDNS/"/>
+    <category term="EDNS" scheme="https://asutorufa.com/tags/EDNS/"/>
     
   </entry>
   
   <entry>
     <title>HP Laptop linux 下intel&amp;amd双显卡</title>
-    <link href="https://asutorufa.github.io/posts/34615c2d/"/>
-    <id>https://asutorufa.github.io/posts/34615c2d/</id>
+    <link href="https://asutorufa.com/posts/34615c2d/"/>
+    <id>https://asutorufa.com/posts/34615c2d/</id>
     <published>2020-06-05T15:12:33.000Z</published>
     <updated>2020-06-05T15:12:33.000Z</updated>
     
@@ -1214,19 +1214,19 @@ DOH主要有两种方式HTTP的GET请求和POST的请求&lt;/p&gt;
     
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/categories/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/categories/linux/"/>
     
     
-    <category term="bios" scheme="https://asutorufa.github.io/tags/bios/"/>
+    <category term="bios" scheme="https://asutorufa.com/tags/bios/"/>
     
-    <category term="computer" scheme="https://asutorufa.github.io/tags/computer/"/>
+    <category term="computer" scheme="https://asutorufa.com/tags/computer/"/>
     
   </entry>
   
   <entry>
     <title>DNS客户端协议详解</title>
-    <link href="https://asutorufa.github.io/posts/f05986bf/"/>
-    <id>https://asutorufa.github.io/posts/f05986bf/</id>
+    <link href="https://asutorufa.com/posts/f05986bf/"/>
+    <id>https://asutorufa.com/posts/f05986bf/</id>
     <published>2020-05-31T18:44:37.000Z</published>
     <updated>2020-05-31T18:44:37.000Z</updated>
     
@@ -1273,21 +1273,21 @@ DOH主要有两种方式HTTP的GET请求和POST的请求&lt;/p&gt;
     
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/categories/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="golang" scheme="https://asutorufa.github.io/tags/golang/"/>
+    <category term="golang" scheme="https://asutorufa.com/tags/golang/"/>
     
-    <category term="DNS" scheme="https://asutorufa.github.io/tags/DNS/"/>
+    <category term="DNS" scheme="https://asutorufa.com/tags/DNS/"/>
     
-    <category term="UDP" scheme="https://asutorufa.github.io/tags/UDP/"/>
+    <category term="UDP" scheme="https://asutorufa.com/tags/UDP/"/>
     
   </entry>
   
   <entry>
     <title>翻译-C程序员所应该知道的内存</title>
-    <link href="https://asutorufa.github.io/posts/f87fc9f0/"/>
-    <id>https://asutorufa.github.io/posts/f87fc9f0/</id>
+    <link href="https://asutorufa.com/posts/f87fc9f0/"/>
+    <id>https://asutorufa.com/posts/f87fc9f0/</id>
     <published>2020-05-04T00:26:24.000Z</published>
     <updated>2020-05-04T00:26:24.000Z</updated>
     
@@ -1324,21 +1324,21 @@ the practical side
     
     
     
-    <category term="Program" scheme="https://asutorufa.github.io/categories/Program/"/>
+    <category term="Program" scheme="https://asutorufa.com/categories/Program/"/>
     
     
-    <category term="C" scheme="https://asutorufa.github.io/tags/C/"/>
+    <category term="C" scheme="https://asutorufa.com/tags/C/"/>
     
-    <category term="English" scheme="https://asutorufa.github.io/tags/English/"/>
+    <category term="English" scheme="https://asutorufa.com/tags/English/"/>
     
-    <category term="translate" scheme="https://asutorufa.github.io/tags/translate/"/>
+    <category term="translate" scheme="https://asutorufa.com/tags/translate/"/>
     
   </entry>
   
   <entry>
     <title>解决linux下Realtek ALC295的耳机炸裂声</title>
-    <link href="https://asutorufa.github.io/posts/67c8ee7f/"/>
-    <id>https://asutorufa.github.io/posts/67c8ee7f/</id>
+    <link href="https://asutorufa.com/posts/67c8ee7f/"/>
+    <id>https://asutorufa.com/posts/67c8ee7f/</id>
     <published>2020-04-25T22:57:40.000Z</published>
     <updated>2020-04-25T22:57:40.000Z</updated>
     
@@ -1367,19 +1367,19 @@ the practical side
     
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/categories/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/categories/linux/"/>
     
     
-    <category term="driver" scheme="https://asutorufa.github.io/tags/driver/"/>
+    <category term="driver" scheme="https://asutorufa.com/tags/driver/"/>
     
-    <category term="Realtek ALC295" scheme="https://asutorufa.github.io/tags/Realtek-ALC295/"/>
+    <category term="Realtek ALC295" scheme="https://asutorufa.com/tags/Realtek-ALC295/"/>
     
   </entry>
   
   <entry>
     <title>NAT穿透</title>
-    <link href="https://asutorufa.github.io/posts/1124a628/"/>
-    <id>https://asutorufa.github.io/posts/1124a628/</id>
+    <link href="https://asutorufa.com/posts/1124a628/"/>
+    <id>https://asutorufa.com/posts/1124a628/</id>
     <published>2020-04-22T11:33:26.000Z</published>
     <updated>2020-04-22T11:33:26.000Z</updated>
     
@@ -1408,19 +1408,19 @@ NAT 路由器收到主机 B 发回的数据报时，知道数据报中的源地�
     
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/categories/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="UDP" scheme="https://asutorufa.github.io/tags/UDP/"/>
+    <category term="UDP" scheme="https://asutorufa.com/tags/UDP/"/>
     
-    <category term="NAT" scheme="https://asutorufa.github.io/tags/NAT/"/>
+    <category term="NAT" scheme="https://asutorufa.com/tags/NAT/"/>
     
   </entry>
   
   <entry>
     <title>とある番組の記録</title>
-    <link href="https://asutorufa.github.io/posts/fe7367b8/"/>
-    <id>https://asutorufa.github.io/posts/fe7367b8/</id>
+    <link href="https://asutorufa.com/posts/fe7367b8/"/>
+    <id>https://asutorufa.com/posts/fe7367b8/</id>
     <published>2020-02-15T01:00:24.000Z</published>
     <updated>2020-03-12T01:00:24.000Z</updated>
     
@@ -1439,17 +1439,17 @@ NAT 路由器收到主机 B 发回的数据报时，知道数据报中的源地�
     
     
     
-    <category term="日本語" scheme="https://asutorufa.github.io/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/"/>
+    <category term="日本語" scheme="https://asutorufa.com/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/"/>
     
     
-    <category term="日本語" scheme="https://asutorufa.github.io/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/"/>
+    <category term="日本語" scheme="https://asutorufa.com/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/"/>
     
   </entry>
   
   <entry>
     <title>用Android/PC为linux拓展屏幕</title>
-    <link href="https://asutorufa.github.io/posts/4f3989f0/"/>
-    <id>https://asutorufa.github.io/posts/4f3989f0/</id>
+    <link href="https://asutorufa.com/posts/4f3989f0/"/>
+    <id>https://asutorufa.com/posts/4f3989f0/</id>
     <published>2020-02-12T18:42:51.000Z</published>
     <updated>2020-02-12T18:42:51.000Z</updated>
     
@@ -1468,19 +1468,19 @@ NAT 路由器收到主机 B 发回的数据报时，知道数据报中的源地�
     
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/categories/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/categories/linux/"/>
     
     
-    <category term="android" scheme="https://asutorufa.github.io/tags/android/"/>
+    <category term="android" scheme="https://asutorufa.com/tags/android/"/>
     
-    <category term="linux" scheme="https://asutorufa.github.io/tags/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/tags/linux/"/>
     
   </entry>
   
   <entry>
     <title>linux PPPOE拨号上网</title>
-    <link href="https://asutorufa.github.io/posts/59c8ffd6/"/>
-    <id>https://asutorufa.github.io/posts/59c8ffd6/</id>
+    <link href="https://asutorufa.com/posts/59c8ffd6/"/>
+    <id>https://asutorufa.com/posts/59c8ffd6/</id>
     <published>2020-02-08T16:26:57.000Z</published>
     <updated>2020-02-08T16:26:57.000Z</updated>
     
@@ -1496,19 +1496,19 @@ NAT 路由器收到主机 B 发回的数据报时，知道数据报中的源地�
     
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/categories/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/categories/linux/"/>
     
     
-    <category term="archlinux" scheme="https://asutorufa.github.io/tags/archlinux/"/>
+    <category term="archlinux" scheme="https://asutorufa.com/tags/archlinux/"/>
     
-    <category term="linux" scheme="https://asutorufa.github.io/tags/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/tags/linux/"/>
     
   </entry>
   
   <entry>
     <title>OpenCV瞳孔定位</title>
-    <link href="https://asutorufa.github.io/posts/88967b7c/"/>
-    <id>https://asutorufa.github.io/posts/88967b7c/</id>
+    <link href="https://asutorufa.com/posts/88967b7c/"/>
+    <id>https://asutorufa.com/posts/88967b7c/</id>
     <published>2020-02-06T18:15:35.000Z</published>
     <updated>2020-02-06T18:15:35.000Z</updated>
     
@@ -1544,21 +1544,21 @@ NAT 路由器收到主机 B 发回的数据报时，知道数据报中的源地�
     
     
     
-    <category term="Computer Graphics" scheme="https://asutorufa.github.io/categories/Computer-Graphics/"/>
+    <category term="Computer Graphics" scheme="https://asutorufa.com/categories/Computer-Graphics/"/>
     
     
-    <category term="C++" scheme="https://asutorufa.github.io/tags/C/"/>
+    <category term="C++" scheme="https://asutorufa.com/tags/C/"/>
     
-    <category term="OpenCV" scheme="https://asutorufa.github.io/tags/OpenCV/"/>
+    <category term="OpenCV" scheme="https://asutorufa.com/tags/OpenCV/"/>
     
-    <category term="archlinux" scheme="https://asutorufa.github.io/tags/archlinux/"/>
+    <category term="archlinux" scheme="https://asutorufa.com/tags/archlinux/"/>
     
   </entry>
   
   <entry>
     <title>http Keep-Alive</title>
-    <link href="https://asutorufa.github.io/posts/d91b7c06/"/>
-    <id>https://asutorufa.github.io/posts/d91b7c06/</id>
+    <link href="https://asutorufa.com/posts/d91b7c06/"/>
+    <id>https://asutorufa.com/posts/d91b7c06/</id>
     <published>2019-12-23T23:37:32.000Z</published>
     <updated>2019-12-23T23:37:32.000Z</updated>
     
@@ -1573,19 +1573,19 @@ NAT 路由器收到主机 B 发回的数据报时，知道数据报中的源地�
     
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/categories/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="HTTP" scheme="https://asutorufa.github.io/tags/HTTP/"/>
+    <category term="HTTP" scheme="https://asutorufa.com/tags/HTTP/"/>
     
-    <category term="proxy" scheme="https://asutorufa.github.io/tags/proxy/"/>
+    <category term="proxy" scheme="https://asutorufa.com/tags/proxy/"/>
     
   </entry>
   
   <entry>
     <title>深度学习</title>
-    <link href="https://asutorufa.github.io/posts/33115a55/"/>
-    <id>https://asutorufa.github.io/posts/33115a55/</id>
+    <link href="https://asutorufa.com/posts/33115a55/"/>
+    <id>https://asutorufa.com/posts/33115a55/</id>
     <published>2019-11-09T13:50:02.000Z</published>
     <updated>2019-11-14T13:50:02.000Z</updated>
     
@@ -1631,17 +1631,17 @@ Feature quantity &lt;span class=&quot;token function&quot;&gt;find&lt;/span&gt; 
     
     
     
-    <category term="Machine Learning" scheme="https://asutorufa.github.io/categories/Machine-Learning/"/>
+    <category term="Machine Learning" scheme="https://asutorufa.com/categories/Machine-Learning/"/>
     
     
-    <category term="Deep Learning" scheme="https://asutorufa.github.io/tags/Deep-Learning/"/>
+    <category term="Deep Learning" scheme="https://asutorufa.com/tags/Deep-Learning/"/>
     
   </entry>
   
   <entry>
     <title>汇编语言学习</title>
-    <link href="https://asutorufa.github.io/posts/4f95e9f6/"/>
-    <id>https://asutorufa.github.io/posts/4f95e9f6/</id>
+    <link href="https://asutorufa.com/posts/4f95e9f6/"/>
+    <id>https://asutorufa.com/posts/4f95e9f6/</id>
     <published>2019-09-01T13:57:00.000Z</published>
     <updated>2019-09-08T00:20:00.000Z</updated>
     
@@ -1705,19 +1705,19 @@ Feature quantity &lt;span class=&quot;token function&quot;&gt;find&lt;/span&gt; 
     
     
     
-    <category term="assembly" scheme="https://asutorufa.github.io/categories/assembly/"/>
+    <category term="assembly" scheme="https://asutorufa.com/categories/assembly/"/>
     
     
-    <category term="汇编语言" scheme="https://asutorufa.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+    <category term="汇编语言" scheme="https://asutorufa.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
     
-    <category term="assembly" scheme="https://asutorufa.github.io/tags/assembly/"/>
+    <category term="assembly" scheme="https://asutorufa.com/tags/assembly/"/>
     
   </entry>
   
   <entry>
     <title>nodejs异步回调函数</title>
-    <link href="https://asutorufa.github.io/posts/5938ae8c/"/>
-    <id>https://asutorufa.github.io/posts/5938ae8c/</id>
+    <link href="https://asutorufa.com/posts/5938ae8c/"/>
+    <id>https://asutorufa.com/posts/5938ae8c/</id>
     <published>2019-08-30T22:45:20.000Z</published>
     <updated>2019-08-30T22:45:20.000Z</updated>
     
@@ -1734,17 +1734,17 @@ Feature quantity &lt;span class=&quot;token function&quot;&gt;find&lt;/span&gt; 
     
     
     
-    <category term="nodejs" scheme="https://asutorufa.github.io/categories/nodejs/"/>
+    <category term="nodejs" scheme="https://asutorufa.com/categories/nodejs/"/>
     
     
-    <category term="nodejs" scheme="https://asutorufa.github.io/tags/nodejs/"/>
+    <category term="nodejs" scheme="https://asutorufa.com/tags/nodejs/"/>
     
   </entry>
   
   <entry>
     <title>archlinux安装记录</title>
-    <link href="https://asutorufa.github.io/posts/e3707853/"/>
-    <id>https://asutorufa.github.io/posts/e3707853/</id>
+    <link href="https://asutorufa.com/posts/e3707853/"/>
+    <id>https://asutorufa.com/posts/e3707853/</id>
     <published>2019-08-03T00:18:40.000Z</published>
     <updated>2022-10-25T04:45:00.000Z</updated>
     
@@ -1767,21 +1767,21 @@ bootctl &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; &lt;sp
     
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/categories/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/categories/linux/"/>
     
     
-    <category term="archlinux" scheme="https://asutorufa.github.io/tags/archlinux/"/>
+    <category term="archlinux" scheme="https://asutorufa.com/tags/archlinux/"/>
     
-    <category term="efi" scheme="https://asutorufa.github.io/tags/efi/"/>
+    <category term="efi" scheme="https://asutorufa.com/tags/efi/"/>
     
-    <category term="linux" scheme="https://asutorufa.github.io/tags/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/tags/linux/"/>
     
   </entry>
   
   <entry>
     <title>CIDR匹配 域名匹配</title>
-    <link href="https://asutorufa.github.io/posts/3cb4313e/"/>
-    <id>https://asutorufa.github.io/posts/3cb4313e/</id>
+    <link href="https://asutorufa.com/posts/3cb4313e/"/>
+    <id>https://asutorufa.com/posts/3cb4313e/</id>
     <published>2019-08-02T18:55:15.000Z</published>
     <updated>2020-06-23T00:55:15.000Z</updated>
     
@@ -1848,19 +1848,19 @@ com      com   mail    com   &lt;span class=&quot;token punctuation&quot;&gt;..&
     
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/categories/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="CIDR" scheme="https://asutorufa.github.io/tags/CIDR/"/>
+    <category term="CIDR" scheme="https://asutorufa.com/tags/CIDR/"/>
     
-    <category term="golang" scheme="https://asutorufa.github.io/tags/golang/"/>
+    <category term="golang" scheme="https://asutorufa.com/tags/golang/"/>
     
   </entry>
   
   <entry>
     <title>golang实现子进程后台</title>
-    <link href="https://asutorufa.github.io/posts/89c4c907/"/>
-    <id>https://asutorufa.github.io/posts/89c4c907/</id>
+    <link href="https://asutorufa.com/posts/89c4c907/"/>
+    <id>https://asutorufa.com/posts/89c4c907/</id>
     <published>2019-06-09T10:34:04.000Z</published>
     <updated>2019-06-09T10:34:04.000Z</updated>
     
@@ -1889,21 +1889,21 @@ com      com   mail    com   &lt;span class=&quot;token punctuation&quot;&gt;..&
     
     
     
-    <category term="golang" scheme="https://asutorufa.github.io/categories/golang/"/>
+    <category term="golang" scheme="https://asutorufa.com/categories/golang/"/>
     
     
-    <category term="golang" scheme="https://asutorufa.github.io/tags/golang/"/>
+    <category term="golang" scheme="https://asutorufa.com/tags/golang/"/>
     
-    <category term="linux" scheme="https://asutorufa.github.io/tags/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/tags/linux/"/>
     
-    <category term="windows" scheme="https://asutorufa.github.io/tags/windows/"/>
+    <category term="windows" scheme="https://asutorufa.com/tags/windows/"/>
     
   </entry>
   
   <entry>
     <title>uefi and efi</title>
-    <link href="https://asutorufa.github.io/posts/a99a60b1/"/>
-    <id>https://asutorufa.github.io/posts/a99a60b1/</id>
+    <link href="https://asutorufa.com/posts/a99a60b1/"/>
+    <id>https://asutorufa.com/posts/a99a60b1/</id>
     <published>2019-04-22T22:57:46.000Z</published>
     <updated>2020-04-29T22:57:46.000Z</updated>
     
@@ -1923,19 +1923,19 @@ com      com   mail    com   &lt;span class=&quot;token punctuation&quot;&gt;..&
     
     
     
-    <category term="Computer" scheme="https://asutorufa.github.io/categories/Computer/"/>
+    <category term="Computer" scheme="https://asutorufa.com/categories/Computer/"/>
     
     
-    <category term="efi" scheme="https://asutorufa.github.io/tags/efi/"/>
+    <category term="efi" scheme="https://asutorufa.com/tags/efi/"/>
     
-    <category term="uefi" scheme="https://asutorufa.github.io/tags/uefi/"/>
+    <category term="uefi" scheme="https://asutorufa.com/tags/uefi/"/>
     
   </entry>
   
   <entry>
     <title>深度学习之感知器的实现</title>
-    <link href="https://asutorufa.github.io/posts/64e69c3e/"/>
-    <id>https://asutorufa.github.io/posts/64e69c3e/</id>
+    <link href="https://asutorufa.com/posts/64e69c3e/"/>
+    <id>https://asutorufa.com/posts/64e69c3e/</id>
     <published>2019-03-08T22:18:41.000Z</published>
     <updated>2019-03-08T22:18:41.000Z</updated>
     
@@ -1962,17 +1962,17 @@ com      com   mail    com   &lt;span class=&quot;token punctuation&quot;&gt;..&
     
     
     
-    <category term="Machine Learning" scheme="https://asutorufa.github.io/categories/Machine-Learning/"/>
+    <category term="Machine Learning" scheme="https://asutorufa.com/categories/Machine-Learning/"/>
     
     
-    <category term="python" scheme="https://asutorufa.github.io/tags/python/"/>
+    <category term="python" scheme="https://asutorufa.com/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>golang socks5/http proxy</title>
-    <link href="https://asutorufa.github.io/posts/c7816edc/"/>
-    <id>https://asutorufa.github.io/posts/c7816edc/</id>
+    <link href="https://asutorufa.com/posts/c7816edc/"/>
+    <id>https://asutorufa.com/posts/c7816edc/</id>
     <published>2019-03-06T20:02:47.000Z</published>
     <updated>2020-05-30T00:00:00.000Z</updated>
     
@@ -2023,19 +2023,19 @@ udp:&lt;br&gt;
     
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/categories/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="golang" scheme="https://asutorufa.github.io/tags/golang/"/>
+    <category term="golang" scheme="https://asutorufa.com/tags/golang/"/>
     
-    <category term="socks5" scheme="https://asutorufa.github.io/tags/socks5/"/>
+    <category term="socks5" scheme="https://asutorufa.com/tags/socks5/"/>
     
   </entry>
   
   <entry>
     <title>安卓通过adb添加电池用户白名单</title>
-    <link href="https://asutorufa.github.io/posts/1e63e0e/"/>
-    <id>https://asutorufa.github.io/posts/1e63e0e/</id>
+    <link href="https://asutorufa.com/posts/1e63e0e/"/>
+    <id>https://asutorufa.com/posts/1e63e0e/</id>
     <published>2019-02-02T23:15:29.000Z</published>
     <updated>2019-02-02T23:15:29.000Z</updated>
     
@@ -2051,17 +2051,17 @@ udp:&lt;br&gt;
     
     
     
-    <category term="android" scheme="https://asutorufa.github.io/categories/android/"/>
+    <category term="android" scheme="https://asutorufa.com/categories/android/"/>
     
     
-    <category term="android" scheme="https://asutorufa.github.io/tags/android/"/>
+    <category term="android" scheme="https://asutorufa.com/tags/android/"/>
     
   </entry>
   
   <entry>
     <title>安卓使用dalvikvm运行java(termux运行java)</title>
-    <link href="https://asutorufa.github.io/posts/8b98169e/"/>
-    <id>https://asutorufa.github.io/posts/8b98169e/</id>
+    <link href="https://asutorufa.com/posts/8b98169e/"/>
+    <id>https://asutorufa.com/posts/8b98169e/</id>
     <published>2019-02-02T23:02:35.000Z</published>
     <updated>2019-02-02T23:02:35.000Z</updated>
     
@@ -2078,19 +2078,19 @@ udp:&lt;br&gt;
     
     
     
-    <category term="android" scheme="https://asutorufa.github.io/categories/android/"/>
+    <category term="android" scheme="https://asutorufa.com/categories/android/"/>
     
     
-    <category term="android" scheme="https://asutorufa.github.io/tags/android/"/>
+    <category term="android" scheme="https://asutorufa.com/tags/android/"/>
     
-    <category term="java" scheme="https://asutorufa.github.io/tags/java/"/>
+    <category term="java" scheme="https://asutorufa.com/tags/java/"/>
     
   </entry>
   
   <entry>
     <title>用CIDR表示网段</title>
-    <link href="https://asutorufa.github.io/posts/e2b25bb8/"/>
-    <id>https://asutorufa.github.io/posts/e2b25bb8/</id>
+    <link href="https://asutorufa.com/posts/e2b25bb8/"/>
+    <id>https://asutorufa.com/posts/e2b25bb8/</id>
     <published>2019-02-02T22:34:07.000Z</published>
     <updated>2019-02-02T22:34:07.000Z</updated>
     
@@ -2109,19 +2109,19 @@ ipv4的地址是用32位二进制数表示的&lt;br&gt;
     
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/categories/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="CIDR" scheme="https://asutorufa.github.io/tags/CIDR/"/>
+    <category term="CIDR" scheme="https://asutorufa.com/tags/CIDR/"/>
     
-    <category term="IP" scheme="https://asutorufa.github.io/tags/IP/"/>
+    <category term="IP" scheme="https://asutorufa.com/tags/IP/"/>
     
   </entry>
   
   <entry>
     <title>android dumpsys tool</title>
-    <link href="https://asutorufa.github.io/posts/25303996/"/>
-    <id>https://asutorufa.github.io/posts/25303996/</id>
+    <link href="https://asutorufa.com/posts/25303996/"/>
+    <id>https://asutorufa.com/posts/25303996/</id>
     <published>2019-02-01T00:00:02.000Z</published>
     <updated>2019-02-01T00:00:02.000Z</updated>
     
@@ -2183,19 +2183,19 @@ DUMP OF SERVICE window:&lt;span aria-hidden=&quot;true&quot; class=&quot;line-nu
     
     
     
-    <category term="android" scheme="https://asutorufa.github.io/categories/android/"/>
+    <category term="android" scheme="https://asutorufa.com/categories/android/"/>
     
     
-    <category term="android" scheme="https://asutorufa.github.io/tags/android/"/>
+    <category term="android" scheme="https://asutorufa.com/tags/android/"/>
     
-    <category term="adb" scheme="https://asutorufa.github.io/tags/adb/"/>
+    <category term="adb" scheme="https://asutorufa.com/tags/adb/"/>
     
   </entry>
   
   <entry>
     <title>安卓通过shell更改语言</title>
-    <link href="https://asutorufa.github.io/posts/f7f814df/"/>
-    <id>https://asutorufa.github.io/posts/f7f814df/</id>
+    <link href="https://asutorufa.com/posts/f7f814df/"/>
+    <id>https://asutorufa.com/posts/f7f814df/</id>
     <published>2019-01-23T19:15:44.000Z</published>
     <updated>2019-01-23T19:15:44.000Z</updated>
     
@@ -2217,17 +2217,17 @@ XX是国家</summary>
     
     
     
-    <category term="android" scheme="https://asutorufa.github.io/categories/android/"/>
+    <category term="android" scheme="https://asutorufa.com/categories/android/"/>
     
     
-    <category term="android" scheme="https://asutorufa.github.io/tags/android/"/>
+    <category term="android" scheme="https://asutorufa.com/tags/android/"/>
     
   </entry>
   
   <entry>
     <title>解决xfce4画面撕裂</title>
-    <link href="https://asutorufa.github.io/posts/38868ade/"/>
-    <id>https://asutorufa.github.io/posts/38868ade/</id>
+    <link href="https://asutorufa.com/posts/38868ade/"/>
+    <id>https://asutorufa.com/posts/38868ade/</id>
     <published>2018-12-09T00:04:38.000Z</published>
     <updated>2018-12-09T00:04:38.000Z</updated>
     
@@ -2242,19 +2242,19 @@ XX是国家</summary>
     
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/categories/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/categories/linux/"/>
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/tags/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/tags/linux/"/>
     
-    <category term="xfce4" scheme="https://asutorufa.github.io/tags/xfce4/"/>
+    <category term="xfce4" scheme="https://asutorufa.com/tags/xfce4/"/>
     
   </entry>
   
   <entry>
     <title>linux下intel&amp;AMD双显卡切换</title>
-    <link href="https://asutorufa.github.io/posts/3b8b96de/"/>
-    <id>https://asutorufa.github.io/posts/3b8b96de/</id>
+    <link href="https://asutorufa.com/posts/3b8b96de/"/>
+    <id>https://asutorufa.com/posts/3b8b96de/</id>
     <published>2018-09-08T19:02:47.000Z</published>
     <updated>2020-05-05T19:02:47.000Z</updated>
     
@@ -2273,21 +2273,21 @@ Provider &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;: id: 0x41 cap
     
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/categories/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/categories/linux/"/>
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/tags/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/tags/linux/"/>
     
-    <category term="双显卡" scheme="https://asutorufa.github.io/tags/%E5%8F%8C%E6%98%BE%E5%8D%A1/"/>
+    <category term="双显卡" scheme="https://asutorufa.com/tags/%E5%8F%8C%E6%98%BE%E5%8D%A1/"/>
     
-    <category term="amd" scheme="https://asutorufa.github.io/tags/amd/"/>
+    <category term="amd" scheme="https://asutorufa.com/tags/amd/"/>
     
   </entry>
   
   <entry>
     <title>python使用lxml分析网页</title>
-    <link href="https://asutorufa.github.io/posts/77d15527/"/>
-    <id>https://asutorufa.github.io/posts/77d15527/</id>
+    <link href="https://asutorufa.com/posts/77d15527/"/>
+    <id>https://asutorufa.com/posts/77d15527/</id>
     <published>2018-08-07T14:47:51.000Z</published>
     <updated>2018-08-07T14:47:51.000Z</updated>
     
@@ -2317,19 +2317,19 @@ css&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;attrib&lt;span 
     
     
     
-    <category term="python" scheme="https://asutorufa.github.io/categories/python/"/>
+    <category term="python" scheme="https://asutorufa.com/categories/python/"/>
     
     
-    <category term="python" scheme="https://asutorufa.github.io/tags/python/"/>
+    <category term="python" scheme="https://asutorufa.com/tags/python/"/>
     
-    <category term="编程" scheme="https://asutorufa.github.io/tags/%E7%BC%96%E7%A8%8B/"/>
+    <category term="编程" scheme="https://asutorufa.com/tags/%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>python获取网页源码(爬虫?)</title>
-    <link href="https://asutorufa.github.io/posts/cee10602/"/>
-    <id>https://asutorufa.github.io/posts/cee10602/</id>
+    <link href="https://asutorufa.com/posts/cee10602/"/>
+    <id>https://asutorufa.com/posts/cee10602/</id>
     <published>2018-08-07T14:35:06.000Z</published>
     <updated>2018-08-07T14:35:06.000Z</updated>
     
@@ -2347,19 +2347,19 @@ css&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;attrib&lt;span 
     
     
     
-    <category term="python" scheme="https://asutorufa.github.io/categories/python/"/>
+    <category term="python" scheme="https://asutorufa.com/categories/python/"/>
     
     
-    <category term="python" scheme="https://asutorufa.github.io/tags/python/"/>
+    <category term="python" scheme="https://asutorufa.com/tags/python/"/>
     
-    <category term="编程" scheme="https://asutorufa.github.io/tags/%E7%BC%96%E7%A8%8B/"/>
+    <category term="编程" scheme="https://asutorufa.com/tags/%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>snap删除旧的core(snap删除其他版本的软件)</title>
-    <link href="https://asutorufa.github.io/posts/b6b8953/"/>
-    <id>https://asutorufa.github.io/posts/b6b8953/</id>
+    <link href="https://asutorufa.com/posts/b6b8953/"/>
+    <id>https://asutorufa.com/posts/b6b8953/</id>
     <published>2018-06-28T13:43:41.000Z</published>
     <updated>2018-06-28T13:43:41.000Z</updated>
     
@@ -2379,19 +2379,19 @@ css&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;attrib&lt;span 
     
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/categories/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/categories/linux/"/>
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/tags/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/tags/linux/"/>
     
-    <category term="snap" scheme="https://asutorufa.github.io/tags/snap/"/>
+    <category term="snap" scheme="https://asutorufa.com/tags/snap/"/>
     
   </entry>
   
   <entry>
     <title>ubuntu终端下连接wifi</title>
-    <link href="https://asutorufa.github.io/posts/fb6d8628/"/>
-    <id>https://asutorufa.github.io/posts/fb6d8628/</id>
+    <link href="https://asutorufa.com/posts/fb6d8628/"/>
+    <id>https://asutorufa.com/posts/fb6d8628/</id>
     <published>2018-06-23T12:24:10.000Z</published>
     <updated>2018-06-23T12:24:10.000Z</updated>
     
@@ -2409,17 +2409,17 @@ css&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;attrib&lt;span 
     
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/categories/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/categories/linux/"/>
     
     
-    <category term="linux" scheme="https://asutorufa.github.io/tags/linux/"/>
+    <category term="linux" scheme="https://asutorufa.com/tags/linux/"/>
     
   </entry>
   
   <entry>
     <title>暗影精灵更改efi启动顺序</title>
-    <link href="https://asutorufa.github.io/posts/6683eff9/"/>
-    <id>https://asutorufa.github.io/posts/6683eff9/</id>
+    <link href="https://asutorufa.com/posts/6683eff9/"/>
+    <id>https://asutorufa.com/posts/6683eff9/</id>
     <published>2018-06-23T11:43:40.000Z</published>
     <updated>2018-06-23T11:43:40.000Z</updated>
     
@@ -2437,19 +2437,19 @@ css&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;attrib&lt;span 
     
     
     
-    <category term="Computer" scheme="https://asutorufa.github.io/categories/Computer/"/>
+    <category term="Computer" scheme="https://asutorufa.com/categories/Computer/"/>
     
     
-    <category term="EFI" scheme="https://asutorufa.github.io/tags/EFI/"/>
+    <category term="EFI" scheme="https://asutorufa.com/tags/EFI/"/>
     
-    <category term="BIOS" scheme="https://asutorufa.github.io/tags/BIOS/"/>
+    <category term="BIOS" scheme="https://asutorufa.com/tags/BIOS/"/>
     
   </entry>
   
   <entry>
     <title>関西弁コレクション</title>
-    <link href="https://asutorufa.github.io/posts/a4241e7/"/>
-    <id>https://asutorufa.github.io/posts/a4241e7/</id>
+    <link href="https://asutorufa.com/posts/a4241e7/"/>
+    <id>https://asutorufa.com/posts/a4241e7/</id>
     <published>2018-06-21T09:42:02.000Z</published>
     <updated>2020-01-30T09:42:02.000Z</updated>
     
@@ -2481,17 +2481,17 @@ css&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;attrib&lt;span 
     
     
     
-    <category term="日本語" scheme="https://asutorufa.github.io/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/"/>
+    <category term="日本語" scheme="https://asutorufa.com/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/"/>
     
     
-    <category term="関西弁" scheme="https://asutorufa.github.io/tags/%E9%96%A2%E8%A5%BF%E5%BC%81/"/>
+    <category term="関西弁" scheme="https://asutorufa.com/tags/%E9%96%A2%E8%A5%BF%E5%BC%81/"/>
     
   </entry>
   
   <entry>
     <title>JavaScript对字符串操作</title>
-    <link href="https://asutorufa.github.io/posts/86cfa6a/"/>
-    <id>https://asutorufa.github.io/posts/86cfa6a/</id>
+    <link href="https://asutorufa.com/posts/86cfa6a/"/>
+    <id>https://asutorufa.com/posts/86cfa6a/</id>
     <published>2018-03-24T23:17:58.000Z</published>
     <updated>2018-09-04T23:17:58.000Z</updated>
     
@@ -2508,19 +2508,19 @@ css&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;attrib&lt;span 
     
     
     
-    <category term="JavaScript" scheme="https://asutorufa.github.io/categories/JavaScript/"/>
+    <category term="JavaScript" scheme="https://asutorufa.com/categories/JavaScript/"/>
     
     
-    <category term="JavaScript" scheme="https://asutorufa.github.io/tags/JavaScript/"/>
+    <category term="JavaScript" scheme="https://asutorufa.com/tags/JavaScript/"/>
     
-    <category term="前端" scheme="https://asutorufa.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
+    <category term="前端" scheme="https://asutorufa.com/tags/%E5%89%8D%E7%AB%AF/"/>
     
   </entry>
   
   <entry>
     <title>让win10的UWP应用走代理</title>
-    <link href="https://asutorufa.github.io/posts/d22ffdb6/"/>
-    <id>https://asutorufa.github.io/posts/d22ffdb6/</id>
+    <link href="https://asutorufa.com/posts/d22ffdb6/"/>
+    <id>https://asutorufa.com/posts/d22ffdb6/</id>
     <published>2018-02-08T15:09:16.000Z</published>
     <updated>2020-03-01T15:09:16.000Z</updated>
     
@@ -2534,17 +2534,17 @@ css&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;attrib&lt;span 
     
     
     
-    <category term="Network" scheme="https://asutorufa.github.io/categories/Network/"/>
+    <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="proxy" scheme="https://asutorufa.github.io/tags/proxy/"/>
+    <category term="proxy" scheme="https://asutorufa.com/tags/proxy/"/>
     
   </entry>
   
   <entry>
     <title>c语言数组输出的另一种方法</title>
-    <link href="https://asutorufa.github.io/posts/854ed6ec/"/>
-    <id>https://asutorufa.github.io/posts/854ed6ec/</id>
+    <link href="https://asutorufa.com/posts/854ed6ec/"/>
+    <id>https://asutorufa.com/posts/854ed6ec/</id>
     <published>2017-12-10T10:39:54.000Z</published>
     <updated>2017-12-10T10:39:54.000Z</updated>
     
@@ -2565,17 +2565,17 @@ css&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;attrib&lt;span 
     
     
     
-    <category term="Program" scheme="https://asutorufa.github.io/categories/Program/"/>
+    <category term="Program" scheme="https://asutorufa.com/categories/Program/"/>
     
     
-    <category term="C" scheme="https://asutorufa.github.io/tags/C/"/>
+    <category term="C" scheme="https://asutorufa.com/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>利用结构体让函数返回多个值</title>
-    <link href="https://asutorufa.github.io/posts/c69434f1/"/>
-    <id>https://asutorufa.github.io/posts/c69434f1/</id>
+    <link href="https://asutorufa.com/posts/c69434f1/"/>
+    <id>https://asutorufa.com/posts/c69434f1/</id>
     <published>2017-11-29T14:39:27.000Z</published>
     <updated>2017-11-29T14:39:27.000Z</updated>
     
@@ -2611,19 +2611,19 @@ T &lt;span class=&quot;token function&quot;&gt;testt&lt;/span&gt;&lt;span class=
     
     
     
-    <category term="Program" scheme="https://asutorufa.github.io/categories/Program/"/>
+    <category term="Program" scheme="https://asutorufa.com/categories/Program/"/>
     
     
-    <category term="C++" scheme="https://asutorufa.github.io/tags/C/"/>
+    <category term="C++" scheme="https://asutorufa.com/tags/C/"/>
     
-    <category term="C" scheme="https://asutorufa.github.io/tags/C/"/>
+    <category term="C" scheme="https://asutorufa.com/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>c语言基本类型在内存中的存储方式</title>
-    <link href="https://asutorufa.github.io/posts/e404489/"/>
-    <id>https://asutorufa.github.io/posts/e404489/</id>
+    <link href="https://asutorufa.com/posts/e404489/"/>
+    <id>https://asutorufa.com/posts/e404489/</id>
     <published>2017-10-30T15:27:46.000Z</published>
     <updated>2017-10-30T15:27:46.000Z</updated>
     
@@ -2662,17 +2662,17 @@ T &lt;span class=&quot;token function&quot;&gt;testt&lt;/span&gt;&lt;span class=
     
     
     
-    <category term="Program" scheme="https://asutorufa.github.io/categories/Program/"/>
+    <category term="Program" scheme="https://asutorufa.com/categories/Program/"/>
     
     
-    <category term="C" scheme="https://asutorufa.github.io/tags/C/"/>
+    <category term="C" scheme="https://asutorufa.com/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>c语言利用char指针变量将int按字节打印地址</title>
-    <link href="https://asutorufa.github.io/posts/43cb2931/"/>
-    <id>https://asutorufa.github.io/posts/43cb2931/</id>
+    <link href="https://asutorufa.com/posts/43cb2931/"/>
+    <id>https://asutorufa.com/posts/43cb2931/</id>
     <published>2017-10-24T22:27:37.000Z</published>
     <updated>2017-10-24T22:27:37.000Z</updated>
     
@@ -2689,17 +2689,17 @@ T &lt;span class=&quot;token function&quot;&gt;testt&lt;/span&gt;&lt;span class=
     
     
     
-    <category term="Program" scheme="https://asutorufa.github.io/categories/Program/"/>
+    <category term="Program" scheme="https://asutorufa.com/categories/Program/"/>
     
     
-    <category term="C" scheme="https://asutorufa.github.io/tags/C/"/>
+    <category term="C" scheme="https://asutorufa.com/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>c语言中格式化字符的应用</title>
-    <link href="https://asutorufa.github.io/posts/b6b4601/"/>
-    <id>https://asutorufa.github.io/posts/b6b4601/</id>
+    <link href="https://asutorufa.com/posts/b6b4601/"/>
+    <id>https://asutorufa.com/posts/b6b4601/</id>
     <published>2017-10-10T13:03:15.000Z</published>
     <updated>2017-10-10T13:03:15.000Z</updated>
     
@@ -2719,17 +2719,17 @@ T &lt;span class=&quot;token function&quot;&gt;testt&lt;/span&gt;&lt;span class=
     
     
     
-    <category term="Program" scheme="https://asutorufa.github.io/categories/Program/"/>
+    <category term="Program" scheme="https://asutorufa.com/categories/Program/"/>
     
     
-    <category term="C" scheme="https://asutorufa.github.io/tags/C/"/>
+    <category term="C" scheme="https://asutorufa.com/tags/C/"/>
     
   </entry>
   
   <entry>
     <title>常用等价无穷小的一般形式</title>
-    <link href="https://asutorufa.github.io/posts/10bb899d/"/>
-    <id>https://asutorufa.github.io/posts/10bb899d/</id>
+    <link href="https://asutorufa.com/posts/10bb899d/"/>
+    <id>https://asutorufa.com/posts/10bb899d/</id>
     <published>2017-10-09T16:35:01.000Z</published>
     <updated>2017-10-09T16:35:01.000Z</updated>
     
@@ -2746,17 +2746,17 @@ T &lt;span class=&quot;token function&quot;&gt;testt&lt;/span&gt;&lt;span class=
     
     
     
-    <category term="Math" scheme="https://asutorufa.github.io/categories/Math/"/>
+    <category term="Math" scheme="https://asutorufa.com/categories/Math/"/>
     
     
-    <category term="Math" scheme="https://asutorufa.github.io/tags/Math/"/>
+    <category term="Math" scheme="https://asutorufa.com/tags/Math/"/>
     
   </entry>
   
   <entry>
     <title>三蛋空间自建贴吧云签到</title>
-    <link href="https://asutorufa.github.io/posts/8a291f21/"/>
-    <id>https://asutorufa.github.io/posts/8a291f21/</id>
+    <link href="https://asutorufa.com/posts/8a291f21/"/>
+    <id>https://asutorufa.com/posts/8a291f21/</id>
     <published>2017-10-08T15:16:56.000Z</published>
     <updated>2017-10-08T15:16:56.000Z</updated>
     
@@ -2771,12 +2771,12 @@ T &lt;span class=&quot;token function&quot;&gt;testt&lt;/span&gt;&lt;span class=
     
     
     
-    <category term="建站" scheme="https://asutorufa.github.io/categories/%E5%BB%BA%E7%AB%99/"/>
+    <category term="建站" scheme="https://asutorufa.com/categories/%E5%BB%BA%E7%AB%99/"/>
     
     
-    <category term="建站" scheme="https://asutorufa.github.io/tags/%E5%BB%BA%E7%AB%99/"/>
+    <category term="建站" scheme="https://asutorufa.com/tags/%E5%BB%BA%E7%AB%99/"/>
     
-    <category term="免费" scheme="https://asutorufa.github.io/tags/%E5%85%8D%E8%B4%B9/"/>
+    <category term="免费" scheme="https://asutorufa.com/tags/%E5%85%8D%E8%B4%B9/"/>
     
   </entry>
   
