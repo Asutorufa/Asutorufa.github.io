@@ -142,3 +142,4 @@ language: ja
 - add s3 UsePathStyle flag [tailscale/go-cache-plugin #12](https://github.com/tailscale/go-cache-plugin/pull/12)
 - Fix get client version [qdrant/go-client #74](https://github.com/qdrant/go-client/pull/74)
 - fix maxMapSize typo in aix, android, solaris [etcd-io/bbolt #988](https://github.com/etcd-io/bbolt/pull/988)
+- remove empty layer after delete or update value [coder/hnsw #11](https://github.com/coder/hnsw/pull/11)

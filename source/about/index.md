@@ -43,3 +43,4 @@ OpenSource Contribution History
 - [tailscale/go-cache-plugin #12](https://github.com/tailscale/go-cache-plugin/pull/12)
 - [qdrant/go-client #74](https://github.com/qdrant/go-client/pull/74)
 - [etcd-io/bbolt #988](https://github.com/etcd-io/bbolt/pull/988)
+- [coder/hnsw #11](https://github.com/coder/hnsw/pull/11)
