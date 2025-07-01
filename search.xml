@@ -20,38 +20,6 @@
       </categories>
   </entry>
   <entry>
-    <title>CRI 容器运行时接口</title>
-    <url>/posts/8144a111/</url>
-    <content><![CDATA[<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+----------------+       +-----------------+
-|  kubelet       |       |   CRI shim      |
-| +-----------+  |       |  +-----------+  |      +-----------+
-| |grpc client|<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-|-------|-</span><span class="token punctuation">></span></span>|grpc server|  |<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>----</span><span class="token punctuation">></span></span>| container |
-| +-----------+  |       |  +-----------+  |      |  runtime  |
-+----------------+       +-----------------+      +-----------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="CRI-shim">CRI shim</h2>
-<ul>
-<li>cri-o</li>
-<li>cri-containerd</li>
-<li>rkt</li>
-<li>frakti</li>
-<li>docker (cri-dockerd)</li>
-</ul>
-<h2 id="container-runtime">container runtime</h2>
-<ul>
-<li>gvisor</li>
-<li>kata containers</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>Kubernetes</tag>
-        <tag>CRI</tag>
-        <tag>container</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CIDR匹配 域名匹配</title>
     <url>/posts/3cb4313e/</url>
     <content><![CDATA[<p>所有完整实现代码:<a href="https://github.com/Asutorufa/yuhaiin/tree/master/net/match">match</a></p>
@@ -187,6 +155,38 @@ com      com   mail    com   <span class="token punctuation">..</span>.
       <tags>
         <tag>CIDR</tag>
         <tag>golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CRI 容器运行时接口</title>
+    <url>/posts/8144a111/</url>
+    <content><![CDATA[<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+----------------+       +-----------------+
+|  kubelet       |       |   CRI shim      |
+| +-----------+  |       |  +-----------+  |      +-----------+
+| |grpc client|<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-|-------|-</span><span class="token punctuation">></span></span>|grpc server|  |<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>----</span><span class="token punctuation">></span></span>| container |
+| +-----------+  |       |  +-----------+  |      |  runtime  |
++----------------+       +-----------------+      +-----------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="CRI-shim">CRI shim</h2>
+<ul>
+<li>cri-o</li>
+<li>cri-containerd</li>
+<li>rkt</li>
+<li>frakti</li>
+<li>docker (cri-dockerd)</li>
+</ul>
+<h2 id="container-runtime">container runtime</h2>
+<ul>
+<li>gvisor</li>
+<li>kata containers</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>Kubernetes</tag>
+        <tag>CRI</tag>
+        <tag>container</tag>
       </tags>
   </entry>
   <entry>
@@ -1064,6 +1064,76 @@ next right index 2+1 = 3 is not null, continue search until end or null</p>
       </tags>
   </entry>
   <entry>
+    <title>HTTPS相关</title>
+    <url>/posts/11b2b8df/</url>
+    <content><![CDATA[<p>最近遇到了一件事, 让我又多熟悉了下HTTPS的相关内容, 先看看HTTPS的结构</p>
+<p>通常的HTTP网络结构如下</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+------+
+| HTTP |
++------+
+| TCP  |
++------+
+|  IP  |
++------+
+  ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>HTTP的的相关内容是通过TCP明文传输的, 如果有中间监听者, 可以直接看结相关内容.</p>
+<p>HTTPS的结构</p>
+<span id="more"></span>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+------+
+| HTTP |
++------+
+| TLS  |
++------+
+| TCP  |
++------+
+|  IP  |
++------+
+  ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>TCP和HTTP之前多了一次处理, 会将HTTP的内容加密后再通过TCP传输.<br>
+TLS握手过程中, 会协商使用的TLS版本, 加密方式及密钥, 会通过证书确认身份, 生成的密钥也会加密, 不想被看见握手过程的话, 目前还可以采用ESNI.<br>
+这里并不能完全匿名, 因为还是能通过网络层知道你的目的地址, 但是具体请求的内容就不会被看见了.</p>
+<hr>
+<p><strong>以下案例纯虚假编造的, 如有雷同, 纯属巧合.</strong><br>
+客户需求大概是这样, 希望在前后端传输过程中密码等敏感内容不要明文暴露, 不被中间劫持获取.<br>
+x公司x高级架构师采用的是这样的方案:</p>
+<ul>
+<li>前后端使用HTTP通信</li>
+<li>前端对相关敏感内容对称加密后传给后端, 后端解密获取内容</li>
+</ul>
+<p>不采用TLS的理由如下:</p>
+<ul>
+<li>可以通过浏览器漏洞获取</li>
+<li>HTTPS可以被暴力破解</li>
+</ul>
+<p>先说下采用的方案和不合理, 目前产品是传统的BS模式, 也就是说网页会从后端获取.<br>
+因为网页是从后端获取的, 而且是HTTP, 也就是说中间劫持者也可以获取网页内容, 通过分析js就能获取具体的加密方式, 即使对js进行混淆也最多是花的时间稍微长那么一点, 所以说这个方案完全无用, 当然欺骗一下不懂技术的客户还是可以的, 但是从技术角度是完全不可行的.<br>
+这里我们可以改一下产品的模式还是可行的, 使用electron等类似的技术将网页包装成一个客户端, 不通过后端获取网页还是可行的, 可能在使用上麻烦了一点, 但是这才能真正让前端的加密具有意义.</p>
+<p>再分析下不采用TLS的理由:</p>
+<ul>
+<li>
+<p>可以通过浏览器漏洞获取<br>
+这句话是废话, 浏览器真有漏洞不管是HTTP还是HTTPS都无用的.</p>
+</li>
+<li>
+<p>HTTPS可以被暴力破解</p>
+</li>
+</ul>
+<p>这里我们先分析下, 目前HTTPS可能被破解的几种方式.</p>
+<ol>
+<li>第一种, 在握手阶段使用虚假的证书进行握手, 这里需要在浏览器或者是客户端的系统上导入虚假的证书, 不过我认为一个安全意识很高的公司是不会随意导入不认识的证书的.</li>
+<li>第二种, 暴力破解TLS的加密, 不计时间情况下当然能被破解, 但是现代密码学, 即使使用超级计算机暴力破解都要花费很长很长时间.</li>
+</ol>
+<p>总上所述, 这句话也是废话.</p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>HTTPS</tag>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hyperledger Fabric组织更换证书</title>
     <url>/posts/afc6d6dd/</url>
     <content><![CDATA[<h2 id="前言">前言</h2>
@@ -1175,76 +1245,6 @@ signcerts &lt;- 节点/用户证书</p>
       <tags>
         <tag>blockchain</tag>
         <tag>Hyperledger Fabric</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HTTPS相关</title>
-    <url>/posts/11b2b8df/</url>
-    <content><![CDATA[<p>最近遇到了一件事, 让我又多熟悉了下HTTPS的相关内容, 先看看HTTPS的结构</p>
-<p>通常的HTTP网络结构如下</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+------+
-| HTTP |
-+------+
-| TCP  |
-+------+
-|  IP  |
-+------+
-  ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>HTTP的的相关内容是通过TCP明文传输的, 如果有中间监听者, 可以直接看结相关内容.</p>
-<p>HTTPS的结构</p>
-<span id="more"></span>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+------+
-| HTTP |
-+------+
-| TLS  |
-+------+
-| TCP  |
-+------+
-|  IP  |
-+------+
-  ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>TCP和HTTP之前多了一次处理, 会将HTTP的内容加密后再通过TCP传输.<br>
-TLS握手过程中, 会协商使用的TLS版本, 加密方式及密钥, 会通过证书确认身份, 生成的密钥也会加密, 不想被看见握手过程的话, 目前还可以采用ESNI.<br>
-这里并不能完全匿名, 因为还是能通过网络层知道你的目的地址, 但是具体请求的内容就不会被看见了.</p>
-<hr>
-<p><strong>以下案例纯虚假编造的, 如有雷同, 纯属巧合.</strong><br>
-客户需求大概是这样, 希望在前后端传输过程中密码等敏感内容不要明文暴露, 不被中间劫持获取.<br>
-x公司x高级架构师采用的是这样的方案:</p>
-<ul>
-<li>前后端使用HTTP通信</li>
-<li>前端对相关敏感内容对称加密后传给后端, 后端解密获取内容</li>
-</ul>
-<p>不采用TLS的理由如下:</p>
-<ul>
-<li>可以通过浏览器漏洞获取</li>
-<li>HTTPS可以被暴力破解</li>
-</ul>
-<p>先说下采用的方案和不合理, 目前产品是传统的BS模式, 也就是说网页会从后端获取.<br>
-因为网页是从后端获取的, 而且是HTTP, 也就是说中间劫持者也可以获取网页内容, 通过分析js就能获取具体的加密方式, 即使对js进行混淆也最多是花的时间稍微长那么一点, 所以说这个方案完全无用, 当然欺骗一下不懂技术的客户还是可以的, 但是从技术角度是完全不可行的.<br>
-这里我们可以改一下产品的模式还是可行的, 使用electron等类似的技术将网页包装成一个客户端, 不通过后端获取网页还是可行的, 可能在使用上麻烦了一点, 但是这才能真正让前端的加密具有意义.</p>
-<p>再分析下不采用TLS的理由:</p>
-<ul>
-<li>
-<p>可以通过浏览器漏洞获取<br>
-这句话是废话, 浏览器真有漏洞不管是HTTP还是HTTPS都无用的.</p>
-</li>
-<li>
-<p>HTTPS可以被暴力破解</p>
-</li>
-</ul>
-<p>这里我们先分析下, 目前HTTPS可能被破解的几种方式.</p>
-<ol>
-<li>第一种, 在握手阶段使用虚假的证书进行握手, 这里需要在浏览器或者是客户端的系统上导入虚假的证书, 不过我认为一个安全意识很高的公司是不会随意导入不认识的证书的.</li>
-<li>第二种, 暴力破解TLS的加密, 不计时间情况下当然能被破解, 但是现代密码学, 即使使用超级计算机暴力破解都要花费很长很长时间.</li>
-</ol>
-<p>总上所述, 这句话也是废话.</p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>HTTPS</tag>
-        <tag>HTTP</tag>
       </tags>
   </entry>
   <entry>
@@ -3055,6 +3055,45 @@ This will change the cursor to the dark breeze, I don't know the name of the whi
       </tags>
   </entry>
   <entry>
+    <title>c语言数组输出的另一种方法</title>
+    <url>/posts/854ed6ec/</url>
+    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173">一个有趣的C语言程序</a></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+ 
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">2</span></code></pre>
+<span id="more"></span>
+<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>
+a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
+所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>
+所以就是x[1]对应的值：2</p>
+<p>由此我又想到了二位数组</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+ 
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">4</span></code></pre>
+<p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>c语言基本类型在内存中的存储方式</title>
     <url>/posts/e404489/</url>
     <content><![CDATA[<h2 id="浮点数">浮点数</h2>
@@ -3129,45 +3168,6 @@ This will change the cursor to the dark breeze, I don't know the name of the whi
 <li>整数:(1111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-(2^n-1) \leq x \leq 2^n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7477em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></strong> (01111…1)</li>
 <li>小数:(1.111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mi>n</mi></msup><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mrow><mo>−</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">-(1-2^n) \leq x \leq 1-2^{-n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7713em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span></strong> (0.111…1)</li>
 </ul>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言数组输出的另一种方法</title>
-    <url>/posts/854ed6ec/</url>
-    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173">一个有趣的C语言程序</a></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
- 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">2</span></code></pre>
-<span id="more"></span>
-<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>
-a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
-所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>
-所以就是x[1]对应的值：2</p>
-<p>由此我又想到了二位数组</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
- 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">4</span></code></pre>
-<p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
 ]]></content>
       <categories>
         <category>Program</category>
@@ -4481,6 +4481,67 @@ module &quot;module3&quot; &#123;
       </tags>
   </entry>
   <entry>
+    <title>为广告而生,从使用到干掉大陆版MIUI</title>
+    <url>/posts/6c3a98b5/</url>
+    <content><![CDATA[<p>使用四年多的锤子手机越来越不堪重负，我决定换一款新的手机，在精心挑选后，选定了今年年初发布的一款Red MI手机，其极高的性价比打动了我。</p>
+<h2 id="使用">使用</h2>
+<p>在收货当天就迫不及待下班回家开始把玩，有一个词可以形容我当时的体验：軽い。<br>
+换手机的契机也是如此，国产app越来越毒瘤，旧手机越来越卡，开启健康码和支付宝都要至少等待2秒。由于四年的落差，即使是一款性价比手机也让我觉得好流畅，还有120hz屏幕，令我爱不释手。</p>
+<h2 id="忍受">忍受</h2>
+<p>我知道MIUI是有广告的，但根据各种网上的说法，是有开关是可以关闭的。<br>
+所以我一入手就根据网上流传的各种方法将隐藏在系统不同角落的广告关闭了。<br>
+确实有效，APP和系统设置中的一些广告确实没有了，天真的我以为真的干掉了广告。<br>
+但是不定时广告推送，小米商城推送各种促销，系统自带浏览器也开始充当新闻客户端，各种推送傻逼新闻，而这一切的前提都是在我进入软件关闭各种推送的条件下，在了解后得知可以使用ADB冻结几个系统软件解决，我冻结了以下系统软件：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell pm disable-user com.xiaomi.ab
+adb shell pm disable-user com.miui.systemAdSolution
+adb shell pm disable-user com.miui.analytics
+adb shell pm disable-user com.sohu.inputmethod.sogou.xiaomi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>确实有效，而且连某些app的开屏广告都没了。</p>
+<h2 id="愤怒">愤怒</h2>
+<span id="more"></span>
+<p>虽然我不重度依赖谷歌，但我重度使用Twitter,Youtube,Reddit，在使用一段时间后，我发现推特的推送不灵了，每次开屏才会一堆一堆的推送，而在息屏的情况下根本收不到推送。<br>
+最初我一度认为是自己的设置有问题，毕竟连我的旧手机锤子都可以及时收到各种推送。<br>
+在对Google Play Service各种设置后，包括但不限于，取消应用黑名单，后台锁住app，但没有任何改变。<br>
+在了解后得知，大陆版MIUI会在息屏后断开FCM的连接，且强制设置在FCM断开后不再允许其重连，这一切我都可以理解，由于国内的环境，不断重试确实会导致耗电增加，在网友提醒下我通过ADB冻结了以下两个应用：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell pm disable-user com.miui.powerkeeper
+adb shell pm disable-user com.xiaomi.powerchecker<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>别说，还真有用，基本上能正常收到推送了，我以为我解决问题了。<br>
+<strong>但是</strong><br>
+我发现息屏情况下播放音乐，音乐会自动暂停，在上网搜索后，我发现不只我有这个问题，在各方打听后得知是冻结<code>com.miui.powerkeeper</code>导致的。<br>
+加上KDE connect会时不时的断开，我真的很愤怒，我能理解MIUI的做法，但我无法忍受不给用户任何开关一刀切的做法，所以我决定干掉自带的陆版MIUI。</p>
+<h2 id="成为“欧洲人”">成为“欧洲人”</h2>
+<p>在经过7天的忍受之后，备份好手机内的各种资料后，成功解锁了手机。<br>
+我决定刷入<code>XIAOMI.EU</code>，一个被小米官方和欧洲ABC经销商认可的官改系统。<br>
+在<a href="https://xiaomi.eu">xiaomi.eu</a>上提前下载适用于手机的twrp和ROM。</p>
+<ul>
+<li>
+<p>临时刷入TWRP并进入TWRP</p>
+  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">fastboot flash recovery twrp.img
+fastboot boot twrp.img<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>在TWRP内格式化DATA分区，<strong>注意不要清除System和Persist分区</strong>。</p>
+</li>
+<li>
+<p>在TWRP内开启sideload。</p>
+</li>
+<li>
+<p>通过sideload刷入rom</p>
+  <pre class="language-bash" data-language="bash"><code class="language-bash">adb sideload xxxxx.ZIP</code></pre>
+</li>
+</ul>
+<p>在百分之47的时候会结束，貌似是个bug，不过这个时候其实已经成功刷入了，直接重启进入系统即可。</p>
+<h2 id="享受">享受</h2>
+<p>没有了小米的各种广告推送，自带谷歌play商店，而不是小米应用商店，手动安装应用时不再要求你多次确认，正常的FCM推送，不再断开的KDE Connect，虽然缺失了一部分特有的功能，但此时此刻我感受到了成为“欧洲人”的优越感。</p>
+<h2 id="总结">总结</h2>
+<p>如果你喜欢折腾且会刷机，那么小米手机依旧可以在你的购机候选名单中，否贼就将其永久拉黑。<br>
+我不认同广告漫天飞的系统会符合用户习惯，包括所谓“符合中国用户习惯”。</p>
+]]></content>
+      <categories>
+        <category>Personally</category>
+      </categories>
+  </entry>
+  <entry>
     <title>三蛋空间自建贴吧云签到</title>
     <url>/posts/8a291f21/</url>
     <content><![CDATA[<h2 id="–">–</h2>
@@ -4618,67 +4679,6 @@ i915-GVTg_V5_8  <span class="token comment"># Video memory: &lt;64MB, 384MB>, re
         <tag>GVT-g</tag>
         <tag>intel</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>为广告而生,从使用到干掉大陆版MIUI</title>
-    <url>/posts/6c3a98b5/</url>
-    <content><![CDATA[<p>使用四年多的锤子手机越来越不堪重负，我决定换一款新的手机，在精心挑选后，选定了今年年初发布的一款Red MI手机，其极高的性价比打动了我。</p>
-<h2 id="使用">使用</h2>
-<p>在收货当天就迫不及待下班回家开始把玩，有一个词可以形容我当时的体验：軽い。<br>
-换手机的契机也是如此，国产app越来越毒瘤，旧手机越来越卡，开启健康码和支付宝都要至少等待2秒。由于四年的落差，即使是一款性价比手机也让我觉得好流畅，还有120hz屏幕，令我爱不释手。</p>
-<h2 id="忍受">忍受</h2>
-<p>我知道MIUI是有广告的，但根据各种网上的说法，是有开关是可以关闭的。<br>
-所以我一入手就根据网上流传的各种方法将隐藏在系统不同角落的广告关闭了。<br>
-确实有效，APP和系统设置中的一些广告确实没有了，天真的我以为真的干掉了广告。<br>
-但是不定时广告推送，小米商城推送各种促销，系统自带浏览器也开始充当新闻客户端，各种推送傻逼新闻，而这一切的前提都是在我进入软件关闭各种推送的条件下，在了解后得知可以使用ADB冻结几个系统软件解决，我冻结了以下系统软件：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell pm disable-user com.xiaomi.ab
-adb shell pm disable-user com.miui.systemAdSolution
-adb shell pm disable-user com.miui.analytics
-adb shell pm disable-user com.sohu.inputmethod.sogou.xiaomi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>确实有效，而且连某些app的开屏广告都没了。</p>
-<h2 id="愤怒">愤怒</h2>
-<span id="more"></span>
-<p>虽然我不重度依赖谷歌，但我重度使用Twitter,Youtube,Reddit，在使用一段时间后，我发现推特的推送不灵了，每次开屏才会一堆一堆的推送，而在息屏的情况下根本收不到推送。<br>
-最初我一度认为是自己的设置有问题，毕竟连我的旧手机锤子都可以及时收到各种推送。<br>
-在对Google Play Service各种设置后，包括但不限于，取消应用黑名单，后台锁住app，但没有任何改变。<br>
-在了解后得知，大陆版MIUI会在息屏后断开FCM的连接，且强制设置在FCM断开后不再允许其重连，这一切我都可以理解，由于国内的环境，不断重试确实会导致耗电增加，在网友提醒下我通过ADB冻结了以下两个应用：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell pm disable-user com.miui.powerkeeper
-adb shell pm disable-user com.xiaomi.powerchecker<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>别说，还真有用，基本上能正常收到推送了，我以为我解决问题了。<br>
-<strong>但是</strong><br>
-我发现息屏情况下播放音乐，音乐会自动暂停，在上网搜索后，我发现不只我有这个问题，在各方打听后得知是冻结<code>com.miui.powerkeeper</code>导致的。<br>
-加上KDE connect会时不时的断开，我真的很愤怒，我能理解MIUI的做法，但我无法忍受不给用户任何开关一刀切的做法，所以我决定干掉自带的陆版MIUI。</p>
-<h2 id="成为“欧洲人”">成为“欧洲人”</h2>
-<p>在经过7天的忍受之后，备份好手机内的各种资料后，成功解锁了手机。<br>
-我决定刷入<code>XIAOMI.EU</code>，一个被小米官方和欧洲ABC经销商认可的官改系统。<br>
-在<a href="https://xiaomi.eu">xiaomi.eu</a>上提前下载适用于手机的twrp和ROM。</p>
-<ul>
-<li>
-<p>临时刷入TWRP并进入TWRP</p>
-  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">fastboot flash recovery twrp.img
-fastboot boot twrp.img<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li>
-<p>在TWRP内格式化DATA分区，<strong>注意不要清除System和Persist分区</strong>。</p>
-</li>
-<li>
-<p>在TWRP内开启sideload。</p>
-</li>
-<li>
-<p>通过sideload刷入rom</p>
-  <pre class="language-bash" data-language="bash"><code class="language-bash">adb sideload xxxxx.ZIP</code></pre>
-</li>
-</ul>
-<p>在百分之47的时候会结束，貌似是个bug，不过这个时候其实已经成功刷入了，直接重启进入系统即可。</p>
-<h2 id="享受">享受</h2>
-<p>没有了小米的各种广告推送，自带谷歌play商店，而不是小米应用商店，手动安装应用时不再要求你多次确认，正常的FCM推送，不再断开的KDE Connect，虽然缺失了一部分特有的功能，但此时此刻我感受到了成为“欧洲人”的优越感。</p>
-<h2 id="总结">总结</h2>
-<p>如果你喜欢折腾且会刷机，那么小米手机依旧可以在你的购机候选名单中，否贼就将其永久拉黑。<br>
-我不认同广告漫天飞的系统会符合用户习惯，包括所谓“符合中国用户习惯”。</p>
-]]></content>
-      <categories>
-        <category>Personally</category>
-      </categories>
   </entry>
   <entry>
     <title>c语言利用char指针变量将int按字节打印地址</title>
