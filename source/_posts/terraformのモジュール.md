@@ -15,6 +15,20 @@ language: ja
 **WIP**
 ---
 
+terraform はIaC(Infrastructure as Code)のツールです、他のはpulumiなどかあります。
+
+## Infrastructure as Code とは？
+
+サーバやKubernetesなどの管理は全部コード化します、幾つのメリットがあります。
+
+- 管理を簡単になる
+- バージョンの管理可能、人のミスを防ぐ。　
+- 再利用可能、効率的利用をできる。
+- terraformでサービス間の依存関係を自動的に計算できます。
+- 構築は自動化する。
+
+## 使ったみた
+
 ```md
 - +
   + project1 -+
@@ -35,6 +49,20 @@ language: ja
                            +- outputs.tf
 ```
 
+プロジェクトは基本的には以上の形みたい。　　
+modulesは関数と似たようなものですが、グローバ変数作るはできない、状態もないです。実は関数よりtemplateと思います。　　
+例えproject1の`main.tf`で二つの`modules1`定義したらダブルの資源が消耗します。
+
+```t
+module "module1-1" {
+  source = "../modules/module1"
+}
+
+module "module1-2" {
+  source = "../modules/module1"
+}
+```
+
 <!--more-->
 
 root-variable.tf
@@ -42,22 +70,21 @@ root-variable.tf
 ```t
 variable "storageClass" {
   type    = string
-  default = "nfs-provisioner-sc"
-}
-
-variable "imageDockerhubRegistryPrefix" {
-  type    = string
-  default = "harborpro.secvision.local/dockerhub"
-}
-
-variable "imageQuayRegistryPrefix" {
-  type    = string
-  default = "harborpro.secvision.local/quay"
+  default = "my-sc"
 }
 
 variable "minioReplicas" {
   type    = number
   default = 3
+}
+```
+
+variableは変数です。モデル使用する時書き換え可能です。定義しないとdefaultを使えます。
+
+```t
+module "module1" {
+  source = "../modules/module1"
+  storageClass = "my-sc-2"
 }
 ```
 
@@ -134,16 +161,8 @@ resource "kubernetes_service" "redis" {
 outputs.tf
 
 ```t
-output "metricsAccessKey" {
-  value = var.metricsAccessKey
-}
-
-output "metricsSecretKey" {
-  value = var.metricsSecretKey
-}
-
-output "lokiBucket" {
-  value = var.lokiBucket
+output "redis_port" {
+  value = kubernetes_stateful_set.redis.spec.0.template.0.spec.0.container.0.port.0.container_port
 }
 
 output "tempoBucket" {
@@ -154,6 +173,9 @@ output "host" {
   value = "minio.metrics.svc.cluster.local:9000"
 }
 ```
+
+
+outputは関数の戻り値と似ている。変数、リソースなどを使える。
 
 main.tf
 
@@ -174,6 +196,8 @@ apply
 terraform init
 terraform apply --var-file=debug.tfvars 
 ```
+
+`main.tf`で全部のモデルやリソースを定義し、`terraform apply`は実際の変更を開始します。
 
 ## 再利用ダメ
 
