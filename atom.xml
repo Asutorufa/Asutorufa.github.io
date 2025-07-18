@@ -1098,11 +1098,11 @@ DOH主要有两种方式HTTP的GET请求和POST的请求&lt;/p&gt;
     <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="golang" scheme="https://asutorufa.com/tags/golang/"/>
-    
     <category term="DNS" scheme="https://asutorufa.com/tags/DNS/"/>
     
     <category term="DOH" scheme="https://asutorufa.com/tags/DOH/"/>
+    
+    <category term="golang" scheme="https://asutorufa.com/tags/golang/"/>
     
   </entry>
   
@@ -1134,9 +1134,9 @@ DOH主要有两种方式HTTP的GET请求和POST的请求&lt;/p&gt;
     <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="golang" scheme="https://asutorufa.com/tags/golang/"/>
-    
     <category term="DNS" scheme="https://asutorufa.com/tags/DNS/"/>
+    
+    <category term="golang" scheme="https://asutorufa.com/tags/golang/"/>
     
     <category term="UDP" scheme="https://asutorufa.com/tags/UDP/"/>
     
@@ -1178,9 +1178,9 @@ DOH主要有两种方式HTTP的GET请求和POST的请求&lt;/p&gt;
     <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="golang" scheme="https://asutorufa.com/tags/golang/"/>
-    
     <category term="DNS" scheme="https://asutorufa.com/tags/DNS/"/>
+    
+    <category term="golang" scheme="https://asutorufa.com/tags/golang/"/>
     
     <category term="UDP" scheme="https://asutorufa.com/tags/UDP/"/>
     
@@ -1276,9 +1276,9 @@ DOH主要有两种方式HTTP的GET请求和POST的请求&lt;/p&gt;
     <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="golang" scheme="https://asutorufa.com/tags/golang/"/>
-    
     <category term="DNS" scheme="https://asutorufa.com/tags/DNS/"/>
+    
+    <category term="golang" scheme="https://asutorufa.com/tags/golang/"/>
     
     <category term="UDP" scheme="https://asutorufa.com/tags/UDP/"/>
     
@@ -1851,9 +1851,9 @@ com      com   mail    com   &lt;span class=&quot;token punctuation&quot;&gt;..&
     <category term="Network" scheme="https://asutorufa.com/categories/Network/"/>
     
     
-    <category term="CIDR" scheme="https://asutorufa.com/tags/CIDR/"/>
-    
     <category term="golang" scheme="https://asutorufa.com/tags/golang/"/>
+    
+    <category term="CIDR" scheme="https://asutorufa.com/tags/CIDR/"/>
     
   </entry>
   

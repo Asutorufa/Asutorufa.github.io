@@ -20,6 +20,109 @@
       </categories>
   </entry>
   <entry>
+    <title>DNS over HTTPS</title>
+    <url>/posts/4b39445f/</url>
+    <content><![CDATA[<p>这个DNS系列现在有以下几篇文章<br>
+<a href="/posts/f05986bf/">DNS</a>  <a href="/posts/668530ca/">EDNS</a> <a href="/posts/1751943e/">DNSSEC</a> <a href="/posts/4b39445f/">DNS over HTTPS</a> 完整代码请看<a href="https://github.com/Asutorufa/yuhaiin/tree/master/net/dns">DNS</a></p>
+<hr>
+<p>DOH就比较简单了,因为DOH使用的请求数据和应答数据均为之前的DNS协议格式,包括DNS,EDNS,DNSSEC…当然是否支持EDNS,DNSSEC需要看DNS服务器的支持情况<br>
+DOH的最主要的区别是把DNS使用的UDP,换成了HTTPS,这样就能防止DNS污染了,而且可以使用DNSSEC加上ESNI来防止证书劫持,DOH的协议在<a href="https://tools.ietf.org/html/rfc8484">rfc8484</a>中有定义<br>
+DOH主要有两种方式HTTP的GET请求和POST的请求</p>
+<h2 id="GET">GET</h2>
+<p>GET请求需要使用BASE64对请求的字节数据进行序列化,然后作为参数传递,获取到的数据使用我们之前的解析进行解析就行了</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">get</span><span class="token punctuation">(</span>dReq <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> server <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>body <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+ query <span class="token operator">:=</span> strings<span class="token punctuation">.</span><span class="token function">Replace</span><span class="token punctuation">(</span>base64<span class="token punctuation">.</span>URLEncoding<span class="token punctuation">.</span><span class="token function">EncodeToString</span><span class="token punctuation">(</span>dReq<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"="</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+ urls <span class="token operator">:=</span> <span class="token string">"https://"</span> <span class="token operator">+</span> server <span class="token operator">+</span> <span class="token string">"/dns-query?dns="</span> <span class="token operator">+</span> query
+ res<span class="token punctuation">,</span> err <span class="token operator">:=</span> http<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span>urls<span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+ <span class="token punctuation">&#125;</span>
+ <span class="token keyword">defer</span> res<span class="token punctuation">.</span>Body<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ body<span class="token punctuation">,</span> err <span class="token operator">=</span> ioutil<span class="token punctuation">.</span><span class="token function">ReadAll</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>Body<span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+ <span class="token punctuation">&#125;</span>
+ <span class="token keyword">return</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="POST">POST</h2>
+<p>POST并不需要进行序列化,直接把原始请求数据作为body就行了</p>
+<span id="more"></span>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">post</span><span class="token punctuation">(</span>dReq <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> server <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>body <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+ client <span class="token operator">:=</span> <span class="token operator">&amp;</span>http<span class="token punctuation">.</span>Client<span class="token punctuation">&#123;</span>Timeout<span class="token punctuation">:</span> <span class="token number">5</span> <span class="token operator">*</span> time<span class="token punctuation">.</span>Second<span class="token punctuation">&#125;</span>
+ req<span class="token punctuation">,</span> err <span class="token operator">:=</span> http<span class="token punctuation">.</span><span class="token function">NewRequest</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>MethodPost<span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">,</span> bytes<span class="token punctuation">.</span><span class="token function">NewReader</span><span class="token punctuation">(</span>dReq<span class="token punctuation">)</span><span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">"DOH:post() newReq -> %v"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">&#125;</span>
+ urls<span class="token punctuation">,</span> err <span class="token operator">:=</span> url<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token string">"//"</span> <span class="token operator">+</span> server<span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">"DOH:post() urlParse -> %v"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">&#125;</span>
+ req<span class="token punctuation">.</span>URL<span class="token punctuation">.</span>Scheme <span class="token operator">=</span> <span class="token string">"https"</span>
+ req<span class="token punctuation">.</span>URL<span class="token punctuation">.</span>Host <span class="token operator">=</span> urls<span class="token punctuation">.</span>Host
+ req<span class="token punctuation">.</span>URL<span class="token punctuation">.</span>Path <span class="token operator">=</span> urls<span class="token punctuation">.</span>Path <span class="token operator">+</span> <span class="token string">"/dns-query"</span>
+ req<span class="token punctuation">.</span>Header<span class="token punctuation">.</span><span class="token function">Set</span><span class="token punctuation">(</span><span class="token string">"accept"</span><span class="token punctuation">,</span> <span class="token string">"application/dns-message"</span><span class="token punctuation">)</span>
+ req<span class="token punctuation">.</span>Header<span class="token punctuation">.</span><span class="token function">Set</span><span class="token punctuation">(</span><span class="token string">"content-type"</span><span class="token punctuation">,</span> <span class="token string">"application/dns-message"</span><span class="token punctuation">)</span>
+ req<span class="token punctuation">.</span>ContentLength <span class="token operator">=</span> <span class="token function">int64</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>dReq<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+ resp<span class="token punctuation">,</span> err <span class="token operator">:=</span> client<span class="token punctuation">.</span><span class="token function">Do</span><span class="token punctuation">(</span>req<span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">"DOH:post() req -> %v"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">&#125;</span>
+ <span class="token keyword">defer</span> resp<span class="token punctuation">.</span>Body<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ body<span class="token punctuation">,</span> err <span class="token operator">=</span> ioutil<span class="token punctuation">.</span><span class="token function">ReadAll</span><span class="token punctuation">(</span>resp<span class="token punctuation">.</span>Body<span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">"DOH:post() readBody -> %v"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">&#125;</span>
+ <span class="token keyword">return</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>完整代码请看开头</p>
+<hr>
+<blockquote>
+<p><a href="https://tools.ietf.org/html/rfc8484">rfc8484</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>DNS</tag>
+        <tag>DOH</tag>
+        <tag>golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CRI 容器运行时接口</title>
+    <url>/posts/8144a111/</url>
+    <content><![CDATA[<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+----------------+       +-----------------+
+|  kubelet       |       |   CRI shim      |
+| +-----------+  |       |  +-----------+  |      +-----------+
+| |grpc client|<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-|-------|-</span><span class="token punctuation">></span></span>|grpc server|  |<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>----</span><span class="token punctuation">></span></span>| container |
+| +-----------+  |       |  +-----------+  |      |  runtime  |
++----------------+       +-----------------+      +-----------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="CRI-shim">CRI shim</h2>
+<ul>
+<li>cri-o</li>
+<li>cri-containerd</li>
+<li>rkt</li>
+<li>frakti</li>
+<li>docker (cri-dockerd)</li>
+</ul>
+<h2 id="container-runtime">container runtime</h2>
+<ul>
+<li>gvisor</li>
+<li>kata containers</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>Kubernetes</tag>
+        <tag>CRI</tag>
+        <tag>container</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CIDR匹配 域名匹配</title>
     <url>/posts/3cb4313e/</url>
     <content><![CDATA[<p>所有完整实现代码:<a href="https://github.com/Asutorufa/yuhaiin/tree/master/net/match">match</a></p>
@@ -153,111 +256,8 @@ com      com   mail    com   <span class="token punctuation">..</span>.
         <category>Network</category>
       </categories>
       <tags>
+        <tag>golang</tag>
         <tag>CIDR</tag>
-        <tag>golang</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CRI 容器运行时接口</title>
-    <url>/posts/8144a111/</url>
-    <content><![CDATA[<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+----------------+       +-----------------+
-|  kubelet       |       |   CRI shim      |
-| +-----------+  |       |  +-----------+  |      +-----------+
-| |grpc client|<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-|-------|-</span><span class="token punctuation">></span></span>|grpc server|  |<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>----</span><span class="token punctuation">></span></span>| container |
-| +-----------+  |       |  +-----------+  |      |  runtime  |
-+----------------+       +-----------------+      +-----------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="CRI-shim">CRI shim</h2>
-<ul>
-<li>cri-o</li>
-<li>cri-containerd</li>
-<li>rkt</li>
-<li>frakti</li>
-<li>docker (cri-dockerd)</li>
-</ul>
-<h2 id="container-runtime">container runtime</h2>
-<ul>
-<li>gvisor</li>
-<li>kata containers</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>Kubernetes</tag>
-        <tag>CRI</tag>
-        <tag>container</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>DNS over HTTPS</title>
-    <url>/posts/4b39445f/</url>
-    <content><![CDATA[<p>这个DNS系列现在有以下几篇文章<br>
-<a href="/posts/f05986bf/">DNS</a>  <a href="/posts/668530ca/">EDNS</a> <a href="/posts/1751943e/">DNSSEC</a> <a href="/posts/4b39445f/">DNS over HTTPS</a> 完整代码请看<a href="https://github.com/Asutorufa/yuhaiin/tree/master/net/dns">DNS</a></p>
-<hr>
-<p>DOH就比较简单了,因为DOH使用的请求数据和应答数据均为之前的DNS协议格式,包括DNS,EDNS,DNSSEC…当然是否支持EDNS,DNSSEC需要看DNS服务器的支持情况<br>
-DOH的最主要的区别是把DNS使用的UDP,换成了HTTPS,这样就能防止DNS污染了,而且可以使用DNSSEC加上ESNI来防止证书劫持,DOH的协议在<a href="https://tools.ietf.org/html/rfc8484">rfc8484</a>中有定义<br>
-DOH主要有两种方式HTTP的GET请求和POST的请求</p>
-<h2 id="GET">GET</h2>
-<p>GET请求需要使用BASE64对请求的字节数据进行序列化,然后作为参数传递,获取到的数据使用我们之前的解析进行解析就行了</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">get</span><span class="token punctuation">(</span>dReq <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> server <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>body <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
- query <span class="token operator">:=</span> strings<span class="token punctuation">.</span><span class="token function">Replace</span><span class="token punctuation">(</span>base64<span class="token punctuation">.</span>URLEncoding<span class="token punctuation">.</span><span class="token function">EncodeToString</span><span class="token punctuation">(</span>dReq<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"="</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
- urls <span class="token operator">:=</span> <span class="token string">"https://"</span> <span class="token operator">+</span> server <span class="token operator">+</span> <span class="token string">"/dns-query?dns="</span> <span class="token operator">+</span> query
- res<span class="token punctuation">,</span> err <span class="token operator">:=</span> http<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span>urls<span class="token punctuation">)</span>
- <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
- <span class="token punctuation">&#125;</span>
- <span class="token keyword">defer</span> res<span class="token punctuation">.</span>Body<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
- body<span class="token punctuation">,</span> err <span class="token operator">=</span> ioutil<span class="token punctuation">.</span><span class="token function">ReadAll</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>Body<span class="token punctuation">)</span>
- <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
- <span class="token punctuation">&#125;</span>
- <span class="token keyword">return</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="POST">POST</h2>
-<p>POST并不需要进行序列化,直接把原始请求数据作为body就行了</p>
-<span id="more"></span>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">post</span><span class="token punctuation">(</span>dReq <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> server <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>body <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
- client <span class="token operator">:=</span> <span class="token operator">&amp;</span>http<span class="token punctuation">.</span>Client<span class="token punctuation">&#123;</span>Timeout<span class="token punctuation">:</span> <span class="token number">5</span> <span class="token operator">*</span> time<span class="token punctuation">.</span>Second<span class="token punctuation">&#125;</span>
- req<span class="token punctuation">,</span> err <span class="token operator">:=</span> http<span class="token punctuation">.</span><span class="token function">NewRequest</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>MethodPost<span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">,</span> bytes<span class="token punctuation">.</span><span class="token function">NewReader</span><span class="token punctuation">(</span>dReq<span class="token punctuation">)</span><span class="token punctuation">)</span>
- <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">"DOH:post() newReq -> %v"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
- <span class="token punctuation">&#125;</span>
- urls<span class="token punctuation">,</span> err <span class="token operator">:=</span> url<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token string">"//"</span> <span class="token operator">+</span> server<span class="token punctuation">)</span>
- <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">"DOH:post() urlParse -> %v"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
- <span class="token punctuation">&#125;</span>
- req<span class="token punctuation">.</span>URL<span class="token punctuation">.</span>Scheme <span class="token operator">=</span> <span class="token string">"https"</span>
- req<span class="token punctuation">.</span>URL<span class="token punctuation">.</span>Host <span class="token operator">=</span> urls<span class="token punctuation">.</span>Host
- req<span class="token punctuation">.</span>URL<span class="token punctuation">.</span>Path <span class="token operator">=</span> urls<span class="token punctuation">.</span>Path <span class="token operator">+</span> <span class="token string">"/dns-query"</span>
- req<span class="token punctuation">.</span>Header<span class="token punctuation">.</span><span class="token function">Set</span><span class="token punctuation">(</span><span class="token string">"accept"</span><span class="token punctuation">,</span> <span class="token string">"application/dns-message"</span><span class="token punctuation">)</span>
- req<span class="token punctuation">.</span>Header<span class="token punctuation">.</span><span class="token function">Set</span><span class="token punctuation">(</span><span class="token string">"content-type"</span><span class="token punctuation">,</span> <span class="token string">"application/dns-message"</span><span class="token punctuation">)</span>
- req<span class="token punctuation">.</span>ContentLength <span class="token operator">=</span> <span class="token function">int64</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>dReq<span class="token punctuation">)</span><span class="token punctuation">)</span>
-
- resp<span class="token punctuation">,</span> err <span class="token operator">:=</span> client<span class="token punctuation">.</span><span class="token function">Do</span><span class="token punctuation">(</span>req<span class="token punctuation">)</span>
- <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">"DOH:post() req -> %v"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
- <span class="token punctuation">&#125;</span>
- <span class="token keyword">defer</span> resp<span class="token punctuation">.</span>Body<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
- body<span class="token punctuation">,</span> err <span class="token operator">=</span> ioutil<span class="token punctuation">.</span><span class="token function">ReadAll</span><span class="token punctuation">(</span>resp<span class="token punctuation">.</span>Body<span class="token punctuation">)</span>
- <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">"DOH:post() readBody -> %v"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
- <span class="token punctuation">&#125;</span>
- <span class="token keyword">return</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>完整代码请看开头</p>
-<hr>
-<blockquote>
-<p><a href="https://tools.ietf.org/html/rfc8484">rfc8484</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>golang</tag>
-        <tag>DNS</tag>
-        <tag>DOH</tag>
       </tags>
   </entry>
   <entry>
@@ -305,8 +305,8 @@ DOH主要有两种方式HTTP的GET请求和POST的请求</p>
         <category>Network</category>
       </categories>
       <tags>
-        <tag>golang</tag>
         <tag>DNS</tag>
+        <tag>golang</tag>
         <tag>UDP</tag>
         <tag>DNSSEC</tag>
       </tags>
@@ -654,8 +654,8 @@ log<span class="token punctuation">.</span><span class="token function">Println<
         <category>Network</category>
       </categories>
       <tags>
-        <tag>golang</tag>
         <tag>DNS</tag>
+        <tag>golang</tag>
         <tag>UDP</tag>
       </tags>
   </entry>
@@ -917,8 +917,8 @@ ADDRESS就是设置的SubNet的IP地址,依据上面的FAMILY</p>
         <category>Network</category>
       </categories>
       <tags>
-        <tag>golang</tag>
         <tag>DNS</tag>
+        <tag>golang</tag>
         <tag>UDP</tag>
         <tag>EDNS</tag>
       </tags>
@@ -3055,45 +3055,6 @@ This will change the cursor to the dark breeze, I don't know the name of the whi
       </tags>
   </entry>
   <entry>
-    <title>c语言数组输出的另一种方法</title>
-    <url>/posts/854ed6ec/</url>
-    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173">一个有趣的C语言程序</a></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
- 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">2</span></code></pre>
-<span id="more"></span>
-<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>
-a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
-所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>
-所以就是x[1]对应的值：2</p>
-<p>由此我又想到了二位数组</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
- 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">4</span></code></pre>
-<p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>c语言基本类型在内存中的存储方式</title>
     <url>/posts/e404489/</url>
     <content><![CDATA[<h2 id="浮点数">浮点数</h2>
@@ -3168,6 +3129,45 @@ a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
 <li>整数:(1111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-(2^n-1) \leq x \leq 2^n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7477em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></strong> (01111…1)</li>
 <li>小数:(1.111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mi>n</mi></msup><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mrow><mo>−</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">-(1-2^n) \leq x \leq 1-2^{-n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7713em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span></strong> (0.111…1)</li>
 </ul>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c语言数组输出的另一种方法</title>
+    <url>/posts/854ed6ec/</url>
+    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173">一个有趣的C语言程序</a></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+ 
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">2</span></code></pre>
+<span id="more"></span>
+<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>
+a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
+所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>
+所以就是x[1]对应的值：2</p>
+<p>由此我又想到了二位数组</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+ 
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">4</span></code></pre>
+<p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
 ]]></content>
       <categories>
         <category>Program</category>
@@ -4481,6 +4481,51 @@ module &quot;module3&quot; &#123;
       </tags>
   </entry>
   <entry>
+    <title>三蛋空间自建贴吧云签到</title>
+    <url>/posts/8a291f21/</url>
+    <content><![CDATA[<h2 id="–">–</h2>
+<p>这是我自建的贴吧云签到:~~<a href="http://dmly.tk~~">http://dmly.tk~~</a>(已失效)<br>
+之后为教程</p>
+<h3 id="注册免费空间">注册免费空间</h3>
+<p>首先你得注册一个三蛋空间的账号,三蛋空间注册网址:<a href="https://www.000webhost.com/members/website/list">三蛋空间</a><span id="more"></span></p>
+<h3 id="创建网站">创建网站</h3>
+<p>注册完成之后点击这里 添加一个空模版,如图</p>
+<p><img src="http://blog-1254450445.cossgp.myqcloud.com/%E6%B3%A8%E5%86%8C.png" alt="" loading="lazy"></p>
+<p>写上名字和密码,点击create</p>
+<p><img src="http://blog-1254450445.cossgp.myqcloud.com/%E5%90%8D%E5%AD%97.png" alt="" loading="lazy"></p>
+<h3 id="ftp">ftp</h3>
+<p>下载SmartFTP Client或者其他你熟悉的ftp上传工具,这里百度就行了<br>
+进入三蛋空间的管理网站,点击这里,如图</p>
+<p><img src="http://blog-1254450445.cossgp.myqcloud.com/detile.png" alt="" loading="lazy"><br>
+<img src="http://blog-1254450445.cossgp.myqcloud.com/%5D%60$%603%29%284TGPPR%5DZDA8@60W8.png" alt="" loading="lazy"></p>
+<p>把这里的信息填入SmartFTP Client中</p>
+<p><img src="http://blog-1254450445.cossgp.myqcloud.com/NS0ID6B9@2EIS4%25%7D%7B%60KLQQ7.png" alt="" loading="lazy"><br>
+然后点ok</p>
+<h3 id="上传">上传</h3>
+<p>贴吧云签到源码github地址:<a href="https://github.com/MoeNetwork/Tieba-Cloud-Sign">Tieba-Cloud-Sign</a><br>
+点击这里下载zip并解压</p>
+<p><img src="http://blog-1254450445.cossgp.myqcloud.com/GA%5D3BI8Q77U8J%7DTW2%25PD%5D4L.png" alt="" loading="lazy"></p>
+<p>将解压得到的所有文件拖入ftp上的public_html文件夹中</p>
+<p><img src="http://blog-1254450445.cossgp.myqcloud.com/LR%7D$$65~BX37S2%29I%7DL%60Y309.png" alt="" loading="lazy"></p>
+<h3 id="创建数据库">创建数据库</h3>
+<p>然后进入三蛋空间创建数据库<br>
+三蛋空间会自动给你的数据库名字前加上数字,所以之后在贴吧安装中要注意</p>
+<p><img src="http://blog-1254450445.cossgp.myqcloud.com/4%25JP1V7TEKX4IE0~1UUQN%5DU.png" alt="" loading="lazy"></p>
+<h3 id="安装">安装</h3>
+<p>之后进入你的网站,然后安装就行了.</p>
+<h3 id="创建cron-job">创建cron job</h3>
+<p>安装完成后就要把do.php加入cron,否则是不会自动签到的,按图中的步骤进行<br>
+<img src="http://blog-1254450445.cossgp.myqcloud.com/P5LC1%7B%7D%7BQ%7B1_QCZ0%5DE@L0WO.png" alt="" loading="lazy"></p>
+]]></content>
+      <categories>
+        <category>建站</category>
+      </categories>
+      <tags>
+        <tag>建站</tag>
+        <tag>免费</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>为广告而生,从使用到干掉大陆版MIUI</title>
     <url>/posts/6c3a98b5/</url>
     <content><![CDATA[<p>使用四年多的锤子手机越来越不堪重负，我决定换一款新的手机，在精心挑选后，选定了今年年初发布的一款Red MI手机，其极高的性价比打动了我。</p>
@@ -4542,48 +4587,33 @@ fastboot boot twrp.img<span aria-hidden="true" class="line-numbers-rows"><span><
       </categories>
   </entry>
   <entry>
-    <title>三蛋空间自建贴吧云签到</title>
-    <url>/posts/8a291f21/</url>
-    <content><![CDATA[<h2 id="–">–</h2>
-<p>这是我自建的贴吧云签到:~~<a href="http://dmly.tk~~">http://dmly.tk~~</a>(已失效)<br>
-之后为教程</p>
-<h3 id="注册免费空间">注册免费空间</h3>
-<p>首先你得注册一个三蛋空间的账号,三蛋空间注册网址:<a href="https://www.000webhost.com/members/website/list">三蛋空间</a><span id="more"></span></p>
-<h3 id="创建网站">创建网站</h3>
-<p>注册完成之后点击这里 添加一个空模版,如图</p>
-<p><img src="http://blog-1254450445.cossgp.myqcloud.com/%E6%B3%A8%E5%86%8C.png" alt="" loading="lazy"></p>
-<p>写上名字和密码,点击create</p>
-<p><img src="http://blog-1254450445.cossgp.myqcloud.com/%E5%90%8D%E5%AD%97.png" alt="" loading="lazy"></p>
-<h3 id="ftp">ftp</h3>
-<p>下载SmartFTP Client或者其他你熟悉的ftp上传工具,这里百度就行了<br>
-进入三蛋空间的管理网站,点击这里,如图</p>
-<p><img src="http://blog-1254450445.cossgp.myqcloud.com/detile.png" alt="" loading="lazy"><br>
-<img src="http://blog-1254450445.cossgp.myqcloud.com/%5D%60$%603%29%284TGPPR%5DZDA8@60W8.png" alt="" loading="lazy"></p>
-<p>把这里的信息填入SmartFTP Client中</p>
-<p><img src="http://blog-1254450445.cossgp.myqcloud.com/NS0ID6B9@2EIS4%25%7D%7B%60KLQQ7.png" alt="" loading="lazy"><br>
-然后点ok</p>
-<h3 id="上传">上传</h3>
-<p>贴吧云签到源码github地址:<a href="https://github.com/MoeNetwork/Tieba-Cloud-Sign">Tieba-Cloud-Sign</a><br>
-点击这里下载zip并解压</p>
-<p><img src="http://blog-1254450445.cossgp.myqcloud.com/GA%5D3BI8Q77U8J%7DTW2%25PD%5D4L.png" alt="" loading="lazy"></p>
-<p>将解压得到的所有文件拖入ftp上的public_html文件夹中</p>
-<p><img src="http://blog-1254450445.cossgp.myqcloud.com/LR%7D$$65~BX37S2%29I%7DL%60Y309.png" alt="" loading="lazy"></p>
-<h3 id="创建数据库">创建数据库</h3>
-<p>然后进入三蛋空间创建数据库<br>
-三蛋空间会自动给你的数据库名字前加上数字,所以之后在贴吧安装中要注意</p>
-<p><img src="http://blog-1254450445.cossgp.myqcloud.com/4%25JP1V7TEKX4IE0~1UUQN%5DU.png" alt="" loading="lazy"></p>
-<h3 id="安装">安装</h3>
-<p>之后进入你的网站,然后安装就行了.</p>
-<h3 id="创建cron-job">创建cron job</h3>
-<p>安装完成后就要把do.php加入cron,否则是不会自动签到的,按图中的步骤进行<br>
-<img src="http://blog-1254450445.cossgp.myqcloud.com/P5LC1%7B%7D%7BQ%7B1_QCZ0%5DE@L0WO.png" alt="" loading="lazy"></p>
+    <title>c语言利用char指针变量将int按字节打印地址</title>
+    <url>/posts/43cb2931/</url>
+    <content><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>
+而char的大小刚好为一个字节,是我们想要的东西.<br>
+这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>
+代码如下</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p\n%p\n%p\n%p\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%02x\n%02x\n%02x\n%02x\n"</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>两者结合一下</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p %02x\n%p %02x\n%p %02x\n%p %02x\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>输出内容如图<br>
+<img src="http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png" alt="" loading="lazy"><br>
+<strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
 ]]></content>
       <categories>
-        <category>建站</category>
+        <category>Program</category>
       </categories>
       <tags>
-        <tag>建站</tag>
-        <tag>免费</tag>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -4678,36 +4708,6 @@ i915-GVTg_V5_8  <span class="token comment"># Video memory: &lt;64MB, 384MB>, re
         <tag>qemu</tag>
         <tag>GVT-g</tag>
         <tag>intel</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言利用char指针变量将int按字节打印地址</title>
-    <url>/posts/43cb2931/</url>
-    <content><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>
-而char的大小刚好为一个字节,是我们想要的东西.<br>
-这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>
-代码如下</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p\n%p\n%p\n%p\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%02x\n%02x\n%02x\n%02x\n"</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>两者结合一下</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p %02x\n%p %02x\n%p %02x\n%p %02x\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>输出内容如图<br>
-<img src="http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png" alt="" loading="lazy"><br>
-<strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
       </tags>
   </entry>
   <entry>
