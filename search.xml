@@ -158,38 +158,6 @@ com      com   mail    com   <span class="token punctuation">..</span>.
       </tags>
   </entry>
   <entry>
-    <title>CRI 容器运行时接口</title>
-    <url>/posts/8144a111/</url>
-    <content><![CDATA[<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+----------------+       +-----------------+
-|  kubelet       |       |   CRI shim      |
-| +-----------+  |       |  +-----------+  |      +-----------+
-| |grpc client|<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-|-------|-</span><span class="token punctuation">></span></span>|grpc server|  |<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>----</span><span class="token punctuation">></span></span>| container |
-| +-----------+  |       |  +-----------+  |      |  runtime  |
-+----------------+       +-----------------+      +-----------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="CRI-shim">CRI shim</h2>
-<ul>
-<li>cri-o</li>
-<li>cri-containerd</li>
-<li>rkt</li>
-<li>frakti</li>
-<li>docker (cri-dockerd)</li>
-</ul>
-<h2 id="container-runtime">container runtime</h2>
-<ul>
-<li>gvisor</li>
-<li>kata containers</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>Kubernetes</tag>
-        <tag>CRI</tag>
-        <tag>container</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>DNS over HTTPS</title>
     <url>/posts/4b39445f/</url>
     <content><![CDATA[<p>这个DNS系列现在有以下几篇文章<br>
@@ -258,6 +226,38 @@ DOH主要有两种方式HTTP的GET请求和POST的请求</p>
         <tag>golang</tag>
         <tag>DNS</tag>
         <tag>DOH</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CRI 容器运行时接口</title>
+    <url>/posts/8144a111/</url>
+    <content><![CDATA[<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+----------------+       +-----------------+
+|  kubelet       |       |   CRI shim      |
+| +-----------+  |       |  +-----------+  |      +-----------+
+| |grpc client|<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-|-------|-</span><span class="token punctuation">></span></span>|grpc server|  |<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>----</span><span class="token punctuation">></span></span>| container |
+| +-----------+  |       |  +-----------+  |      |  runtime  |
++----------------+       +-----------------+      +-----------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="CRI-shim">CRI shim</h2>
+<ul>
+<li>cri-o</li>
+<li>cri-containerd</li>
+<li>rkt</li>
+<li>frakti</li>
+<li>docker (cri-dockerd)</li>
+</ul>
+<h2 id="container-runtime">container runtime</h2>
+<ul>
+<li>gvisor</li>
+<li>kata containers</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>Kubernetes</tag>
+        <tag>CRI</tag>
+        <tag>container</tag>
       </tags>
   </entry>
   <entry>
@@ -1474,6 +1474,98 @@ cli<span class="token punctuation">,</span> err <span class="token operator">:=<
       </tags>
   </entry>
   <entry>
+    <title>NAT类型</title>
+    <url>/posts/14e0ef9e/</url>
+    <content><![CDATA[<h2 id="NAT-Mapping">NAT Mapping</h2>
+<p>描述NAT在映射网络内主机地址的行为</p>
+<pre class="language-markdown" data-language="markdown"><code class="language-markdown">computer(192.168.100.2:30086) -> NAT -> 1.1.1.1:2345</code></pre>
+<p>Endpoint-Independent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向不同地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
+
+此时主机向 1.0.0.1:53 发送udp包,
+             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
+主机又向   1.0.0.1:63 发送udp包,
+             NAT也使用 1.1.1.1:2345 向 1.0.0.1:63 发包
+主机又向   8.8.8.8:53 发送udp包,
+             NAT也使用 1.1.1.1:2345 向 8.8.8.8:53 发包
+
+这种无论目标地址和端口是什么都使用同一地址进行发包的NAT行为就是 Endpoint-Independent Mapping,
+跟没有NAT一样<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Address-Dependent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向同一地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
+
+此时主机向 1.0.0.1:53 发送udp包,
+             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
+主机又向   1.0.0.1:63 发送udp包,
+             NAT也将使用 1.1.1.1:2345 向 1.0.0.1:63 发包
+主机又向   8.8.8.8:53 发送udp包,
+             此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
+
+这种依赖目标地址但不依赖端口的NAT映射行为就是 Address-Dependent Mapping<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>Address and Port-Dependent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向同一地址和同一端口发包时, NAT使用同一映射地址向外发包</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
+
+此时主机向 1.0.0.1:53 发送udp包, 
+            NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
+主机又向   1.0.0.1:63 发送udp包,
+            NAT将使用一新映射地址 1.1.1.1:3789 向 1.0.0.1:63 发包
+主机又向   8.8.8.8:53 发送udp包,
+           此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
+主机又向 1.0.0.1:53 发送udp包,
+            NAT使用相同地址 1.1.1.1:2345 向 1.0.0.1:53 发包
+
+这种同时依赖目标地址和端口的NAT映射行为就是 Address and Port-Dependent Mapping,
+这种NAT类型是没有办法进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="NAT-Filtering">NAT Filtering</h2>
+<p>描述当NAT为网络内主机映射一地址后，互联网内主机向映射地址发送数据时，将允许哪些地址通过的行为</p>
+<p>Endpoint-Independent Filtering</p>
+<p>A NAT device employing the combination of “Endpoint-Independent<br>
+Mapping” and “Endpoint-Independent Filtering” will accept incoming<br>
+traffic to a mapped public port from ANY external endpoint on the<br>
+public network.</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
+
+无论外部任何地址和端口的主机向1.1.1.1:2345发包, NAT都将会将其转发到 192.168.100.2:30086<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>Address-Dependent Filtering<br>
+for receiving packets from a specific external endpoint, it is necessary for the internal endpoint to<br>
+send packets first to that specific external endpoint’s IP address.</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
+
+如果需要NAT将外部数据包转发到主机上,
+必须先由主机向某一地址发包, 
+NAT都会将收到的同一地址(所有端口)的数据包转发到主机上<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Address and Port-Dependent Filtering</p>
+<p>for receiving  packets from a specific external endpoint, it is necessary for<br>
+the internal endpoint to send packets first to that external endpoint’s IP address and port.</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
+
+如果需要NAT将外部数据包转发到主机上
+必须先由主机向某一地址和某一端口发包
+NAT都会将收到的同一地址和同一端口的数据包转发到主机上
+
+这种NAT类型是没发进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="NAT穿透">NAT穿透</h2>
+<p>是否可以进行NAT穿透, 同时依赖NAT Mapping和NAT Filtering</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">Mapping和Filtering都为Endpoint-Independent Mapping,
+         这种是百分之百可以进行穿透
+Mapping为Endpoint-Independent Mapping, Filtering为Address and Port-Dependent Filtering,
+         这种也是可以进行穿透的
+但如果Mapping和Filtering都为Address and Port-Dependent Filtering,
+         这种是必不可能穿透<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>UDP</tag>
+        <tag>NAT</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>NAT穿透</title>
     <url>/posts/1124a628/</url>
     <content><![CDATA[<h2 id="NAT-网络地址转换">NAT 网络地址转换</h2>
@@ -1558,98 +1650,6 @@ TURN是一个client-server协议。TURN的NAT穿透方法与STUN类似，都是�
 <a href="https://zhuanlan.zhihu.com/p/40816201">简单解释 P2P 技术之 UDP 打洞</a><br>
 <a href="http://www.52im.net/thread-50-1-1.html">P2P技术详解(一)：NAT详解——详细原理、P2P简介</a></p>
 </blockquote>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>UDP</tag>
-        <tag>NAT</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>NAT类型</title>
-    <url>/posts/14e0ef9e/</url>
-    <content><![CDATA[<h2 id="NAT-Mapping">NAT Mapping</h2>
-<p>描述NAT在映射网络内主机地址的行为</p>
-<pre class="language-markdown" data-language="markdown"><code class="language-markdown">computer(192.168.100.2:30086) -> NAT -> 1.1.1.1:2345</code></pre>
-<p>Endpoint-Independent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向不同地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
-
-此时主机向 1.0.0.1:53 发送udp包,
-             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
-主机又向   1.0.0.1:63 发送udp包,
-             NAT也使用 1.1.1.1:2345 向 1.0.0.1:63 发包
-主机又向   8.8.8.8:53 发送udp包,
-             NAT也使用 1.1.1.1:2345 向 8.8.8.8:53 发包
-
-这种无论目标地址和端口是什么都使用同一地址进行发包的NAT行为就是 Endpoint-Independent Mapping,
-跟没有NAT一样<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Address-Dependent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向同一地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
-
-此时主机向 1.0.0.1:53 发送udp包,
-             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
-主机又向   1.0.0.1:63 发送udp包,
-             NAT也将使用 1.1.1.1:2345 向 1.0.0.1:63 发包
-主机又向   8.8.8.8:53 发送udp包,
-             此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
-
-这种依赖目标地址但不依赖端口的NAT映射行为就是 Address-Dependent Mapping<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>Address and Port-Dependent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向同一地址和同一端口发包时, NAT使用同一映射地址向外发包</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
-
-此时主机向 1.0.0.1:53 发送udp包, 
-            NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
-主机又向   1.0.0.1:63 发送udp包,
-            NAT将使用一新映射地址 1.1.1.1:3789 向 1.0.0.1:63 发包
-主机又向   8.8.8.8:53 发送udp包,
-           此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
-主机又向 1.0.0.1:53 发送udp包,
-            NAT使用相同地址 1.1.1.1:2345 向 1.0.0.1:53 发包
-
-这种同时依赖目标地址和端口的NAT映射行为就是 Address and Port-Dependent Mapping,
-这种NAT类型是没有办法进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="NAT-Filtering">NAT Filtering</h2>
-<p>描述当NAT为网络内主机映射一地址后，互联网内主机向映射地址发送数据时，将允许哪些地址通过的行为</p>
-<p>Endpoint-Independent Filtering</p>
-<p>A NAT device employing the combination of “Endpoint-Independent<br>
-Mapping” and “Endpoint-Independent Filtering” will accept incoming<br>
-traffic to a mapped public port from ANY external endpoint on the<br>
-public network.</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
-
-无论外部任何地址和端口的主机向1.1.1.1:2345发包, NAT都将会将其转发到 192.168.100.2:30086<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>Address-Dependent Filtering<br>
-for receiving packets from a specific external endpoint, it is necessary for the internal endpoint to<br>
-send packets first to that specific external endpoint’s IP address.</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
-
-如果需要NAT将外部数据包转发到主机上,
-必须先由主机向某一地址发包, 
-NAT都会将收到的同一地址(所有端口)的数据包转发到主机上<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Address and Port-Dependent Filtering</p>
-<p>for receiving  packets from a specific external endpoint, it is necessary for<br>
-the internal endpoint to send packets first to that external endpoint’s IP address and port.</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
-
-如果需要NAT将外部数据包转发到主机上
-必须先由主机向某一地址和某一端口发包
-NAT都会将收到的同一地址和同一端口的数据包转发到主机上
-
-这种NAT类型是没发进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="NAT穿透">NAT穿透</h2>
-<p>是否可以进行NAT穿透, 同时依赖NAT Mapping和NAT Filtering</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">Mapping和Filtering都为Endpoint-Independent Mapping,
-         这种是百分之百可以进行穿透
-Mapping为Endpoint-Independent Mapping, Filtering为Address and Port-Dependent Filtering,
-         这种也是可以进行穿透的
-但如果Mapping和Filtering都为Address and Port-Dependent Filtering,
-         这种是必不可能穿透<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 ]]></content>
       <categories>
         <category>Network</category>
@@ -3138,45 +3138,6 @@ This will change the cursor to the dark breeze, I don't know the name of the whi
       </tags>
   </entry>
   <entry>
-    <title>c语言数组输出的另一种方法</title>
-    <url>/posts/854ed6ec/</url>
-    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173">一个有趣的C语言程序</a></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
- 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">2</span></code></pre>
-<span id="more"></span>
-<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>
-a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
-所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>
-所以就是x[1]对应的值：2</p>
-<p>由此我又想到了二位数组</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
- 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">4</span></code></pre>
-<p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>golang socks5/http proxy</title>
     <url>/posts/c7816edc/</url>
     <content><![CDATA[<p>完整实现代码:<br>
@@ -3365,6 +3326,131 @@ The fields in the UDP request header are:
       </tags>
   </entry>
   <entry>
+    <title>c语言数组输出的另一种方法</title>
+    <url>/posts/854ed6ec/</url>
+    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173">一个有趣的C语言程序</a></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+ 
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">2</span></code></pre>
+<span id="more"></span>
+<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>
+a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
+所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>
+所以就是x[1]对应的值：2</p>
+<p>由此我又想到了二位数组</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+ 
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">4</span></code></pre>
+<p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>golang实现子进程后台</title>
+    <url>/posts/89c4c907/</url>
+    <content><![CDATA[<h2 id="系统的进程机制">系统的进程机制</h2>
+<h3 id="linux">linux</h3>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">linux下的进程机制,当父进程被杀死之后,子进程就被系统接管
+
++系统
+|-父进程 -> system管理
+|--子进程 -> 父进程管理
+
+当父进程被杀死之后
+
++系统
+|-父进程 -> 被杀死
+|--子进程 -> system管理
+
+如果子进程被杀死,而且父进程没有处理子进程的善后工作,那么子进程就会变成僵尸进程
+
++系统
+|-父进程 -> system管理
+|--子进程(被杀死) -> 僵尸进程  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<h3 id="windows">windows</h3>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">windows下的进程机制就不太一样了,当父进程被杀死之后,子进程也会被杀死
+但是如果子进程还有子进程,杀死子进程但不杀死父进程,子进程的子进程就会被系统接管
+
++系统
+|-父进程 -> system管理
+|--子进程 -> 父进程管理
+|---孙进程 -> 子进程管理
+
+当父进程被杀死
+
++系统
+|-父进程 -> 被杀死
+|--子进程 -> 被杀死  
+|---孙进程 -> 被杀死
+
+当子进程被杀死
+
++系统
+|-父进程 -> 系统管理
+|--子进程 -> 被杀死
+|-孙进程 -> 系统管理
+
+windows的机制和linux不太一样,如果子进程被杀死也不会有僵尸进程这种东西,所以子进程可以放心杀死<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="实现golang的后台">实现golang的后台</h2>
+<p>如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现<br>
+如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程<br>
+golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
+<strong>通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程,这样就相当于创建了子进程,子进程创建孙进程</strong><br>
+<strong>实现就是给程序加参数,再次调用的时候加上这个参数再创建想要的进程</strong></p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">daemonF</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span><span class="token string">"puthon"</span><span class="token punctuation">,</span><span class="token string">"-m"</span><span class="token punctuation">,</span><span class="token string">"http.server"</span><span class="token punctuation">)</span>
+    cmd<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    daemon <span class="token operator">:=</span> flag<span class="token punctuation">.</span><span class="token function">Bool</span><span class="token punctuation">(</span><span class="token string">"d"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token string">"d"</span><span class="token punctuation">)</span>
+    flag<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token operator">*</span>daemon <span class="token operator">==</span> <span class="token boolean">true</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">daemonF</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        nowFunction<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> filepath<span class="token punctuation">.</span><span class="token function">Abs</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span>nowFunction<span class="token punctuation">,</span><span class="token string">"-d"</span><span class="token punctuation">)</span>
+        cmd<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">比如我们有一个程序叫makebk,有一个参数 -d
+
++系统
+|-makebk(再次调用makebk并加上参数-d) -> 父进程:system
+|--makebk -d(加上参数之后再创建想要的进程) -> 父进程:makebk
+|---子进程 -> 父进程:makebk -d
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样就得到我们想要的三层结构了,这时候让父进程杀死make -d,就实现子进程被系统接管,实现子进程后台</p>
+]]></content>
+      <categories>
+        <category>golang</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>linux</tag>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>golangとollamaでfunction calling</title>
     <url>/posts/23567986/</url>
     <content><![CDATA[<p>今回はollamaのオフィシャルクライアントでfuncation callingを使いたいです。　　<br>
@@ -3533,156 +3619,6 @@ err <span class="token operator">=</span> o<span class="token punctuation">.</sp
       </tags>
   </entry>
   <entry>
-    <title>golang实现子进程后台</title>
-    <url>/posts/89c4c907/</url>
-    <content><![CDATA[<h2 id="系统的进程机制">系统的进程机制</h2>
-<h3 id="linux">linux</h3>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">linux下的进程机制,当父进程被杀死之后,子进程就被系统接管
-
-+系统
-|-父进程 -> system管理
-|--子进程 -> 父进程管理
-
-当父进程被杀死之后
-
-+系统
-|-父进程 -> 被杀死
-|--子进程 -> system管理
-
-如果子进程被杀死,而且父进程没有处理子进程的善后工作,那么子进程就会变成僵尸进程
-
-+系统
-|-父进程 -> system管理
-|--子进程(被杀死) -> 僵尸进程  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<h3 id="windows">windows</h3>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">windows下的进程机制就不太一样了,当父进程被杀死之后,子进程也会被杀死
-但是如果子进程还有子进程,杀死子进程但不杀死父进程,子进程的子进程就会被系统接管
-
-+系统
-|-父进程 -> system管理
-|--子进程 -> 父进程管理
-|---孙进程 -> 子进程管理
-
-当父进程被杀死
-
-+系统
-|-父进程 -> 被杀死
-|--子进程 -> 被杀死  
-|---孙进程 -> 被杀死
-
-当子进程被杀死
-
-+系统
-|-父进程 -> 系统管理
-|--子进程 -> 被杀死
-|-孙进程 -> 系统管理
-
-windows的机制和linux不太一样,如果子进程被杀死也不会有僵尸进程这种东西,所以子进程可以放心杀死<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="实现golang的后台">实现golang的后台</h2>
-<p>如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现<br>
-如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程<br>
-golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
-<strong>通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程,这样就相当于创建了子进程,子进程创建孙进程</strong><br>
-<strong>实现就是给程序加参数,再次调用的时候加上这个参数再创建想要的进程</strong></p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">daemonF</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span><span class="token string">"puthon"</span><span class="token punctuation">,</span><span class="token string">"-m"</span><span class="token punctuation">,</span><span class="token string">"http.server"</span><span class="token punctuation">)</span>
-    cmd<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    daemon <span class="token operator">:=</span> flag<span class="token punctuation">.</span><span class="token function">Bool</span><span class="token punctuation">(</span><span class="token string">"d"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token string">"d"</span><span class="token punctuation">)</span>
-    flag<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> <span class="token operator">*</span>daemon <span class="token operator">==</span> <span class="token boolean">true</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">daemonF</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        nowFunction<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> filepath<span class="token punctuation">.</span><span class="token function">Abs</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span>nowFunction<span class="token punctuation">,</span><span class="token string">"-d"</span><span class="token punctuation">)</span>
-        cmd<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">比如我们有一个程序叫makebk,有一个参数 -d
-
-+系统
-|-makebk(再次调用makebk并加上参数-d) -> 父进程:system
-|--makebk -d(加上参数之后再创建想要的进程) -> 父进程:makebk
-|---子进程 -> 父进程:makebk -d
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这样就得到我们想要的三层结构了,这时候让父进程杀死make -d,就实现子进程被系统接管,实现子进程后台</p>
-]]></content>
-      <categories>
-        <category>golang</category>
-      </categories>
-      <tags>
-        <tag>golang</tag>
-        <tag>linux</tag>
-        <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>iptables</title>
-    <url>/posts/736b1750/</url>
-    <content><![CDATA[<p>iptables chain</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">    +---------------------------------------------------------+
-    |                   Network Card                          |
-    +---------------------------------------------------------+
-      |                                                    ^
-      |                                                    |
-      v                                                    |
- +----------+          is?      no    +-------+        +-----------+
- |prerouting| ----> localhost ------> |forward| ---->  |postrouting|
- +----------+          |              +-------+        +-----------+ 
-                       | yes                                 ^
-                       |                                     |
-                       v                                     |
-                    +---------+                        +-----------+
-                    |  input  |                        |   output  |
-                    +---------+                        +-----------+
-                         |                                   ^
-                         |                                   |
-                         |                                   |
-                         v                                   |
-    +----------------------------------------------------------+
-    |                        user                              |
-    +----------------------------------------------------------+
-
-out -> localhost: prerouting -> input
-forward:          prerouting -> forward    -> postrouting
-localhost -> out: output     -> postrouting<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>iptables table:</p>
-<ul>
-<li>filter:</li>
-<li>nat:</li>
-<li>magle:</li>
-<li>raw:</li>
-</ul>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">table <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span><span class="token punctuation">></span></span> chain  
-raw: PREROUTING, OUTPUT  
-mangle: PREROUTING, INPUT, FORWARD, OUTPUT, POSTROUTING  
-nat: PREROUTING, OUTPUT, POSTROUTING, INPUT  
-filter: INPUT, FORWARD, OUTPUT
-
-raw –> mangle –> nat –> filter  
-
-chain <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span><span class="token punctuation">></span></span> table
-PREROUTING: raw, mangle, nat
-INPUT: mangle, filter, nat
-FORWARD: mangle, filter
-OUTPUT: raw, mangle, nat, filter
-POSTROUTING: mangle, nat<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>query</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">iptables <span class="token parameter variable">-t</span> <span class="token operator">&lt;</span>table<span class="token operator">></span> <span class="token parameter variable">-nvL</span> <span class="token operator">&lt;</span>chain<span class="token operator">></span></code></pre>
-<hr>
-<p><a href="https://www.zsythink.net/archives/tag/iptables/page/2">iptables</a></p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>iptables</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>gpg使用</title>
     <url>/posts/7d547224/</url>
     <content><![CDATA[<p>生成一个密钥</p>
@@ -3757,6 +3693,70 @@ gpg <span class="token parameter variable">-d</span> <span class="token punctuat
       <tags>
         <tag>HTTP</tag>
         <tag>proxy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>iptables</title>
+    <url>/posts/736b1750/</url>
+    <content><![CDATA[<p>iptables chain</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">    +---------------------------------------------------------+
+    |                   Network Card                          |
+    +---------------------------------------------------------+
+      |                                                    ^
+      |                                                    |
+      v                                                    |
+ +----------+          is?      no    +-------+        +-----------+
+ |prerouting| ----> localhost ------> |forward| ---->  |postrouting|
+ +----------+          |              +-------+        +-----------+ 
+                       | yes                                 ^
+                       |                                     |
+                       v                                     |
+                    +---------+                        +-----------+
+                    |  input  |                        |   output  |
+                    +---------+                        +-----------+
+                         |                                   ^
+                         |                                   |
+                         |                                   |
+                         v                                   |
+    +----------------------------------------------------------+
+    |                        user                              |
+    +----------------------------------------------------------+
+
+out -> localhost: prerouting -> input
+forward:          prerouting -> forward    -> postrouting
+localhost -> out: output     -> postrouting<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>iptables table:</p>
+<ul>
+<li>filter:</li>
+<li>nat:</li>
+<li>magle:</li>
+<li>raw:</li>
+</ul>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">table <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span><span class="token punctuation">></span></span> chain  
+raw: PREROUTING, OUTPUT  
+mangle: PREROUTING, INPUT, FORWARD, OUTPUT, POSTROUTING  
+nat: PREROUTING, OUTPUT, POSTROUTING, INPUT  
+filter: INPUT, FORWARD, OUTPUT
+
+raw –> mangle –> nat –> filter  
+
+chain <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span><span class="token punctuation">></span></span> table
+PREROUTING: raw, mangle, nat
+INPUT: mangle, filter, nat
+FORWARD: mangle, filter
+OUTPUT: raw, mangle, nat, filter
+POSTROUTING: mangle, nat<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>query</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">iptables <span class="token parameter variable">-t</span> <span class="token operator">&lt;</span>table<span class="token operator">></span> <span class="token parameter variable">-nvL</span> <span class="token operator">&lt;</span>chain<span class="token operator">></span></code></pre>
+<hr>
+<p><a href="https://www.zsythink.net/archives/tag/iptables/page/2">iptables</a></p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>iptables</tag>
       </tags>
   </entry>
   <entry>
@@ -4777,6 +4777,101 @@ S <span class="token function">s</span><span class="token punctuation">(</span><
       </tags>
   </entry>
   <entry>
+    <title>动漫影评</title>
+    <url>/posts/665020d8/</url>
+    <content><![CDATA[<p>目前我只会记录最近看了个，有些看的比较早的就不记录了，记忆也比较模糊。</p>
+<h2 id="自定义神剧（个人主观决定）">自定义神剧（个人主观决定）</h2>
+<ul>
+<li>CLANNAD</li>
+<li>Kanon</li>
+<li>リトルバスターズ!</li>
+<li>Air</li>
+<li>Angel Beats! -1st beat-</li>
+<li>かぎなど</li>
+<li>true tears</li>
+<li>花咲くいろは</li>
+<li>TARI TARI</li>
+</ul>
+<span id="more"></span>
+<h2 id="Key">Key</h2>
+<p>key社的动漫作品我几乎全看了，大部分都很好看，推荐：</p>
+<ul>
+<li>CLANNAD</li>
+<li>Kanon</li>
+<li>リトルバスターズ!</li>
+<li>Air</li>
+<li>Angel Beats! -1st beat-</li>
+</ul>
+<h3 id="リトルバスターズ">リトルバスターズ!</h3>
+<p>主讲友情，第一季主要根据不同角色为引进行剧情引导，剧情引导也很自然。<br>
+第二季类似揭秘篇，来揭秘第一季剧情的真实面目及背景，当然也是key社的特点，真实中带有一点奇幻。<br>
+还有几集ova讲隐藏角色和后续剧情之类的。</p>
+<p>动画制作是 J.C. Staff, 对我来说很好，崛江由衣配的男主角我也很喜欢，很符合角色的形象。</p>
+<p>对我来说，与Kanon，CLANNAD略逊一筹，但也很好看，非常推荐，我是一天就看完了第一季20多集，第二天把剩下都看完了。</p>
+<h4 id="クドわふたー">クドわふたー</h4>
+<p>算是不同世界线的一个剧场版，女主角变成了クド，剧情也比较短，没有TV动画好看，但也能看，不影响主剧剧情。</p>
+<h3 id="Angel-Beats-1st-beat">Angel Beats! -1st beat-</h3>
+<p>与P.A. Works合作的第一部原创TV动画，剧情背景是死后世界，主讲男主一行人对女主的误解，及最后知道真相后对主角一行人的救赎。<br>
+剧情还是比较好看的，也没有硬伤，相信每个人看完之后都对人的一生的意义有不同看法，相信也能让不少人决定自己今后应该如何活下去。</p>
+<p>比不上Key社自己的作品，但也比另外两部原创动画好看且有意义，值得一看。</p>
+<h3 id="Kanon">Kanon</h3>
+<p>这部算是主讲男主对几位女主的救赎（除水瀬名雪），なゆき的剧情实在是太短了，也没有其他几位女主角的好看，至少TV动画是这样的。<br>
+让我印象最深刻的是沢渡真琴，尤其是飯塚雅弓的配音实在是太完美了，可能因为我家里也有养猫，所以会有同感，喜欢猫，但每次猫撒娇，不知道是因为他生病了，还是单纯的撒娇，很让人担心。<br>
+因为这部算是按照GAL的模式改编的，有些地方可能比较生硬，但我还是非常喜欢这部作品，比上面的リトルバスターズ和Angel Beats都要喜欢。</p>
+<h3 id="Air">Air</h3>
+<p>这部前期和Kanon比较像，也是讲对几位女主的救赎，但整个剧情的设定完全变了。<br>
+主题曲是很好听，也很出名，但后面的剧情，说实话，我有点难以接受。<br>
+且这部算是唯一一部Key社的TV动画中以悲剧结尾的动画，其他几部虽然也很感动，但都是喜剧结尾。<br>
+当然这部也值得一看，比大部分动画还是好看的。</p>
+<h3 id="神様になった日">神様になった日</h3>
+<p>与P.A. Works合作的第三部原创TV动画。<br>
+这部前期很正常，可以当作普通的日常动画，后期直接崩掉了，建议直接忽略后面几集，没有看的必要。<br>
+前面几集可以看，后面几集不推荐看。</p>
+<h3 id="かぎなど">かぎなど</h3>
+<p>Key社自己的泡面番。<br>
+主讲各种地狱笑话，声优梗，剧情梗什么的，相当推荐看，前提是是把Key自己作品的TV动画全部看完加上Angel Beats。</p>
+<h2 id="P-A-Works">P.A. Works</h2>
+<p>P.A. Works的几乎所有原创动画都很推荐：</p>
+<ul>
+<li>true tears</li>
+<li>花咲くいろは</li>
+<li>TARI TARI</li>
+<li>グラスリップ</li>
+<li>色づく世界の明日から</li>
+<li>サクラクエスト</li>
+<li>白い砂のアクアトープ</li>
+<li>凪のあすから</li>
+</ul>
+<h3 id="true-tears">true tears</h3>
+<p>true tears是PA的第一部原创动画，也是我目前看过的所有的PA的作品中最喜欢的一部。<br>
+剧情大概就是三女主都喜欢男主，最后某个人的胜利，而且结局对我来说是非常正常的一个走向，整个动画的制作都很精致，包括人物的动作细节，配音等我都很喜欢。<br>
+非常推荐的一部作品。</p>
+<h3 id="花咲くいろは">花咲くいろは</h3>
+<p>PA打工系列的第一部，主讲仲居这个职业，除了前面几集，后面是真的体现这个职业的魅力之处，也有youtube的评论说自己看完这部TV动画后决定成为仲居、并且最后真的实现了。<br>
+其中有几集关于女主的爱情比较硬，算是这部的硬伤，不过整部看起来是真的好看，我用了一整天就看完了，完全停不下来。<br>
+非常推荐。</p>
+<h3 id="TARI-TARI">TARI TARI</h3>
+<p>主讲友情，讲了主角一行人，面对自己未来何去何从的纠结，有人比较顺利，有人困难重重最后也没有放弃，但是比较短，只有13集，剧情无硬伤。</p>
+<h3 id="グラスリップ">グラスリップ</h3>
+<p>这部比较意识流，主讲爱情，比较看人，我是比较喜欢的。</p>
+<h3 id="色づく世界の明日から">色づく世界の明日から</h3>
+<p>这部有友情，有爱情，讲了女主被奶奶传送回奶奶高中时代之后，经历种种之后有所收获，且被男主拯救，虽然最后不得不回到自己所处的时代。<br>
+女主的人设也很可爱，这部我也非常喜欢。</p>
+<h3 id="白い砂のアクアトープ">白い砂のアクアトープ</h3>
+<p>打工系列的其中一部，是近几年的作品，也是那时一集一集追着看的。<br>
+主角一行人面对不得不作出的决定，最后走上自己道路，相信大家在人生中会遇到很多这种时候，尤其是工作后，相信不少人感受更深。<br>
+也是一部很有意义的TV动画，推荐看。</p>
+]]></content>
+      <categories>
+        <category>影评</category>
+      </categories>
+      <tags>
+        <tag>アニメ</tag>
+        <tag>动漫</tag>
+        <tag>影评</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>加密模式</title>
     <url>/posts/903c04f7/</url>
     <content><![CDATA[<h2 id="流密码">流密码</h2>
@@ -4914,101 +5009,6 @@ Output: plaintext, or an error if the authentication tag does not match the supp
         <tag>流密码</tag>
         <tag>块密码</tag>
         <tag>chacha20-poly1305</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>动漫影评</title>
-    <url>/posts/665020d8/</url>
-    <content><![CDATA[<p>目前我只会记录最近看了个，有些看的比较早的就不记录了，记忆也比较模糊。</p>
-<h2 id="自定义神剧（个人主观决定）">自定义神剧（个人主观决定）</h2>
-<ul>
-<li>CLANNAD</li>
-<li>Kanon</li>
-<li>リトルバスターズ!</li>
-<li>Air</li>
-<li>Angel Beats! -1st beat-</li>
-<li>かぎなど</li>
-<li>true tears</li>
-<li>花咲くいろは</li>
-<li>TARI TARI</li>
-</ul>
-<span id="more"></span>
-<h2 id="Key">Key</h2>
-<p>key社的动漫作品我几乎全看了，大部分都很好看，推荐：</p>
-<ul>
-<li>CLANNAD</li>
-<li>Kanon</li>
-<li>リトルバスターズ!</li>
-<li>Air</li>
-<li>Angel Beats! -1st beat-</li>
-</ul>
-<h3 id="リトルバスターズ">リトルバスターズ!</h3>
-<p>主讲友情，第一季主要根据不同角色为引进行剧情引导，剧情引导也很自然。<br>
-第二季类似揭秘篇，来揭秘第一季剧情的真实面目及背景，当然也是key社的特点，真实中带有一点奇幻。<br>
-还有几集ova讲隐藏角色和后续剧情之类的。</p>
-<p>动画制作是 J.C. Staff, 对我来说很好，崛江由衣配的男主角我也很喜欢，很符合角色的形象。</p>
-<p>对我来说，与Kanon，CLANNAD略逊一筹，但也很好看，非常推荐，我是一天就看完了第一季20多集，第二天把剩下都看完了。</p>
-<h4 id="クドわふたー">クドわふたー</h4>
-<p>算是不同世界线的一个剧场版，女主角变成了クド，剧情也比较短，没有TV动画好看，但也能看，不影响主剧剧情。</p>
-<h3 id="Angel-Beats-1st-beat">Angel Beats! -1st beat-</h3>
-<p>与P.A. Works合作的第一部原创TV动画，剧情背景是死后世界，主讲男主一行人对女主的误解，及最后知道真相后对主角一行人的救赎。<br>
-剧情还是比较好看的，也没有硬伤，相信每个人看完之后都对人的一生的意义有不同看法，相信也能让不少人决定自己今后应该如何活下去。</p>
-<p>比不上Key社自己的作品，但也比另外两部原创动画好看且有意义，值得一看。</p>
-<h3 id="Kanon">Kanon</h3>
-<p>这部算是主讲男主对几位女主的救赎（除水瀬名雪），なゆき的剧情实在是太短了，也没有其他几位女主角的好看，至少TV动画是这样的。<br>
-让我印象最深刻的是沢渡真琴，尤其是飯塚雅弓的配音实在是太完美了，可能因为我家里也有养猫，所以会有同感，喜欢猫，但每次猫撒娇，不知道是因为他生病了，还是单纯的撒娇，很让人担心。<br>
-因为这部算是按照GAL的模式改编的，有些地方可能比较生硬，但我还是非常喜欢这部作品，比上面的リトルバスターズ和Angel Beats都要喜欢。</p>
-<h3 id="Air">Air</h3>
-<p>这部前期和Kanon比较像，也是讲对几位女主的救赎，但整个剧情的设定完全变了。<br>
-主题曲是很好听，也很出名，但后面的剧情，说实话，我有点难以接受。<br>
-且这部算是唯一一部Key社的TV动画中以悲剧结尾的动画，其他几部虽然也很感动，但都是喜剧结尾。<br>
-当然这部也值得一看，比大部分动画还是好看的。</p>
-<h3 id="神様になった日">神様になった日</h3>
-<p>与P.A. Works合作的第三部原创TV动画。<br>
-这部前期很正常，可以当作普通的日常动画，后期直接崩掉了，建议直接忽略后面几集，没有看的必要。<br>
-前面几集可以看，后面几集不推荐看。</p>
-<h3 id="かぎなど">かぎなど</h3>
-<p>Key社自己的泡面番。<br>
-主讲各种地狱笑话，声优梗，剧情梗什么的，相当推荐看，前提是是把Key自己作品的TV动画全部看完加上Angel Beats。</p>
-<h2 id="P-A-Works">P.A. Works</h2>
-<p>P.A. Works的几乎所有原创动画都很推荐：</p>
-<ul>
-<li>true tears</li>
-<li>花咲くいろは</li>
-<li>TARI TARI</li>
-<li>グラスリップ</li>
-<li>色づく世界の明日から</li>
-<li>サクラクエスト</li>
-<li>白い砂のアクアトープ</li>
-<li>凪のあすから</li>
-</ul>
-<h3 id="true-tears">true tears</h3>
-<p>true tears是PA的第一部原创动画，也是我目前看过的所有的PA的作品中最喜欢的一部。<br>
-剧情大概就是三女主都喜欢男主，最后某个人的胜利，而且结局对我来说是非常正常的一个走向，整个动画的制作都很精致，包括人物的动作细节，配音等我都很喜欢。<br>
-非常推荐的一部作品。</p>
-<h3 id="花咲くいろは">花咲くいろは</h3>
-<p>PA打工系列的第一部，主讲仲居这个职业，除了前面几集，后面是真的体现这个职业的魅力之处，也有youtube的评论说自己看完这部TV动画后决定成为仲居、并且最后真的实现了。<br>
-其中有几集关于女主的爱情比较硬，算是这部的硬伤，不过整部看起来是真的好看，我用了一整天就看完了，完全停不下来。<br>
-非常推荐。</p>
-<h3 id="TARI-TARI">TARI TARI</h3>
-<p>主讲友情，讲了主角一行人，面对自己未来何去何从的纠结，有人比较顺利，有人困难重重最后也没有放弃，但是比较短，只有13集，剧情无硬伤。</p>
-<h3 id="グラスリップ">グラスリップ</h3>
-<p>这部比较意识流，主讲爱情，比较看人，我是比较喜欢的。</p>
-<h3 id="色づく世界の明日から">色づく世界の明日から</h3>
-<p>这部有友情，有爱情，讲了女主被奶奶传送回奶奶高中时代之后，经历种种之后有所收获，且被男主拯救，虽然最后不得不回到自己所处的时代。<br>
-女主的人设也很可爱，这部我也非常喜欢。</p>
-<h3 id="白い砂のアクアトープ">白い砂のアクアトープ</h3>
-<p>打工系列的其中一部，是近几年的作品，也是那时一集一集追着看的。<br>
-主角一行人面对不得不作出的决定，最后走上自己道路，相信大家在人生中会遇到很多这种时候，尤其是工作后，相信不少人感受更深。<br>
-也是一部很有意义的TV动画，推荐看。</p>
-]]></content>
-      <categories>
-        <category>影评</category>
-      </categories>
-      <tags>
-        <tag>アニメ</tag>
-        <tag>动漫</tag>
-        <tag>影评</tag>
       </tags>
   </entry>
   <entry>
