@@ -3619,83 +3619,6 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </tags>
   </entry>
   <entry>
-    <title>http Keep-Alive</title>
-    <url>/posts/d91b7c06/</url>
-    <content><![CDATA[<h2 id="http-keep-alive">http keep-alive</h2>
-<p>http头部<code>Connection: Keep-Alive</code>代表连接请求保持长连接<br>
-<strong>如果是http代理,必须处理<code>Proxy-Connection: Keep-Alive</code>为<code>Connection: Keep-Alive</code>,如果代理没有实现<code>Keep-Alive</code>就不变或者将Connection设为close.</strong></p>
-<p>优点:减少握手次数,如下图(图来源文章最下面)<br>
-<img src="https://milestone-of-se.nesuke.com/wp-content/uploads/2018/12/http-keepalive-2v2.png" alt="keep-alive" loading="lazy"></p>
-<span id="more"></span>
-<h2 id="判断一次连接的传输结束">判断一次连接的传输结束</h2>
-<h3 id="使用消息首部字段Conent-Length">使用消息首部字段<code>Conent-Length</code></h3>
-<p><code>Conent-Length</code>表示实体内容长度，客户端（服务器）可以根据这个值来判断数据是否接收完成。</p>
-<h3 id="使用Transfer-Encoding-chunked">使用<code>Transfer-Encoding: chunked</code></h3>
-<p>chunk编码将数据分成一块一块的发生。Chunked编码将使用若干个Chunk串连而成，由一个标明长度为0的chunk标示结束。</p>
-<hr>
-<p>参考:</p>
-<ul>
-<li><a href="https://www.google.com/amp/s/milestone-of-se.nesuke.com/nw-basic/as-nw-engineer/keepalive-tcp-http/%3Famp=1">【図解】TCP Keep-Alive/http Keep-Aliveの仕組みと違い ～Client/Serverの挙動とメリット,設定～</a></li>
-<li><a href="https://www.cnblogs.com/skynet/archive/2010/12/11/1903347.html#!comments">HTTP头部详解</a></li>
-<li><a href="https://www.jianshu.com/p/49551bda6619">HTTP协议的Keep-Alive 模式</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-        <tag>proxy</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>gpg使用</title>
-    <url>/posts/7d547224/</url>
-    <content><![CDATA[<p>生成一个密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg --full-gen-key</code></pre>
-<p>之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了.</p>
-<p>创建一个子密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --edit-key <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-
-gpg<span class="token operator">></span> addkey
-<span class="token comment">#只有与前面是相同的, 按需求选择.</span>
-
-gpg<span class="token operator">></span> save
-<span class="token comment"># 保存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>导出密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key --export-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
-<p>导出子密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key.sub --export-secret-subkeys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
-<p>导出吊销证书</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --generate-revocation <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-<span class="token comment"># 输出是文本内容, 复制保存下来就行了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>删除密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --delete-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-gpg --delete-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>导入子密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">--import</span> /path/gpg_key.sub</code></pre>
-<p>查看密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-k</span>
-gpg <span class="token parameter variable">-K</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>加密文件</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-r</span> <span class="token punctuation">[</span>user name<span class="token punctuation">]</span> <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-e</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span></code></pre>
-<p>解密</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 输出到文件</span>
-gpg <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 直接输出到终端</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<hr>
-<p><a href="https://gist.github.com/jhjguxin/6037564">GPG 加密解密简明教程</a><br>
-<a href="https://mogeko.me/2019/068/">GPG 的正确使用姿势</a></p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>encrypt</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>iptables</title>
     <url>/posts/736b1750/</url>
     <content><![CDATA[<p>iptables chain</p>
@@ -3757,6 +3680,83 @@ POSTROUTING: mangle, nat<span aria-hidden="true" class="line-numbers-rows"><span
       <tags>
         <tag>linux</tag>
         <tag>iptables</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>gpg使用</title>
+    <url>/posts/7d547224/</url>
+    <content><![CDATA[<p>生成一个密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg --full-gen-key</code></pre>
+<p>之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了.</p>
+<p>创建一个子密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --edit-key <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+
+gpg<span class="token operator">></span> addkey
+<span class="token comment">#只有与前面是相同的, 按需求选择.</span>
+
+gpg<span class="token operator">></span> save
+<span class="token comment"># 保存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>导出密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key --export-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
+<p>导出子密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key.sub --export-secret-subkeys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
+<p>导出吊销证书</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --generate-revocation <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+<span class="token comment"># 输出是文本内容, 复制保存下来就行了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>删除密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --delete-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+gpg --delete-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>导入子密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">--import</span> /path/gpg_key.sub</code></pre>
+<p>查看密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-k</span>
+gpg <span class="token parameter variable">-K</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>加密文件</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-r</span> <span class="token punctuation">[</span>user name<span class="token punctuation">]</span> <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-e</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span></code></pre>
+<p>解密</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 输出到文件</span>
+gpg <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 直接输出到终端</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<hr>
+<p><a href="https://gist.github.com/jhjguxin/6037564">GPG 加密解密简明教程</a><br>
+<a href="https://mogeko.me/2019/068/">GPG 的正确使用姿势</a></p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>encrypt</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>http Keep-Alive</title>
+    <url>/posts/d91b7c06/</url>
+    <content><![CDATA[<h2 id="http-keep-alive">http keep-alive</h2>
+<p>http头部<code>Connection: Keep-Alive</code>代表连接请求保持长连接<br>
+<strong>如果是http代理,必须处理<code>Proxy-Connection: Keep-Alive</code>为<code>Connection: Keep-Alive</code>,如果代理没有实现<code>Keep-Alive</code>就不变或者将Connection设为close.</strong></p>
+<p>优点:减少握手次数,如下图(图来源文章最下面)<br>
+<img src="https://milestone-of-se.nesuke.com/wp-content/uploads/2018/12/http-keepalive-2v2.png" alt="keep-alive" loading="lazy"></p>
+<span id="more"></span>
+<h2 id="判断一次连接的传输结束">判断一次连接的传输结束</h2>
+<h3 id="使用消息首部字段Conent-Length">使用消息首部字段<code>Conent-Length</code></h3>
+<p><code>Conent-Length</code>表示实体内容长度，客户端（服务器）可以根据这个值来判断数据是否接收完成。</p>
+<h3 id="使用Transfer-Encoding-chunked">使用<code>Transfer-Encoding: chunked</code></h3>
+<p>chunk编码将数据分成一块一块的发生。Chunked编码将使用若干个Chunk串连而成，由一个标明长度为0的chunk标示结束。</p>
+<hr>
+<p>参考:</p>
+<ul>
+<li><a href="https://www.google.com/amp/s/milestone-of-se.nesuke.com/nw-basic/as-nw-engineer/keepalive-tcp-http/%3Famp=1">【図解】TCP Keep-Alive/http Keep-Aliveの仕組みと違い ～Client/Serverの挙動とメリット,設定～</a></li>
+<li><a href="https://www.cnblogs.com/skynet/archive/2010/12/11/1903347.html#!comments">HTTP头部详解</a></li>
+<li><a href="https://www.jianshu.com/p/49551bda6619">HTTP协议的Keep-Alive 模式</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+        <tag>proxy</tag>
       </tags>
   </entry>
   <entry>
@@ -5118,38 +5118,6 @@ Zygote进程运行时, 会初始化Dalvik虚拟机, 并运行它. Android的应�
       </tags>
   </entry>
   <entry>
-    <title>常用等价无穷小的一般形式</title>
-    <url>/posts/10bb899d/</url>
-    <content><![CDATA[<p>当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>lim</mi><mo>⁡</mo></mrow><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>→</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\lim_{φ(x)\to0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0496em;vertical-align:-0.3552em;"></span><span class="mop"><span class="mop">lim</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span><span class="mrel mtight">→</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3552em;"><span></span></span></span></span></span></span></span></span></span>时,<br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>sin</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\sin φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>r</mi><mi>c</mi><mi>sin</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">arc\sin φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">rc</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>tan</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\tanφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">tan</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>r</mi><mi>c</mi><mi>tan</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">arc\tanφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">rc</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">tan</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ln</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\ln(1+φ(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">ln</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e^{φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9713em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a^{φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9713em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi>ln</mi><mo>⁡</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">φ(x)\ln a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">ln</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mroot><mrow><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mi>n</mi></mroot><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sqrt[n]{1+φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.305em;"></span><span class="mord sqrt"><span class="root"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.5933em;"><span style="top:-2.878em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size6 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mord" style="padding-left:1em;"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span><span style="top:-2.895em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.28em" viewBox="0 0 400000 1296" preserveAspectRatio="xMinYMin slice"><path d="M263,681c0.7,0,18,39.7,52,119
-c34,79.3,68.167,158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120
-c340,-704.7,510.7,-1060.3,512,-1067
-l0 -0
-c4.7,-7.3,11,-11,19,-11
-H40000v40H1012.3
-s-271.3,567,-271.3,567c-38.7,80.7,-84,175,-136,283c-52,108,-89.167,185.3,-111.5,232
-c-22.3,46.7,-33.8,70.3,-34.5,71c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1
-s-109,-253,-109,-253c-72.7,-168,-109.3,-252,-110,-252c-10.7,8,-22,16.7,-34,26
-c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26s76,-59,76,-59s76,-60,76,-60z
-M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.305em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>n</mi></mfrac><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\frac{1}{n}φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">)</mo><mrow><mi>μ</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(1+φ(x))^{\mu-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">μ</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\muφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">μ</span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>cos</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">1-\cosφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">cos</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{(φ(x))^2}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.4539em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1089em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span><span class="mclose mtight"><span class="mclose mtight">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.931em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
-]]></content>
-      <categories>
-        <category>Math</category>
-      </categories>
-      <tags>
-        <tag>Math</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>实现一个简单的Kubernetes controller</title>
     <url>/posts/edf1c330/</url>
     <content><![CDATA[<h2 id="controller是什么">controller是什么</h2>
@@ -5352,6 +5320,38 @@ cli<span class="token punctuation">,</span> err <span class="token operator">:=<
       </tags>
   </entry>
   <entry>
+    <title>常用等价无穷小的一般形式</title>
+    <url>/posts/10bb899d/</url>
+    <content><![CDATA[<p>当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>lim</mi><mo>⁡</mo></mrow><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>→</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\lim_{φ(x)\to0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0496em;vertical-align:-0.3552em;"></span><span class="mop"><span class="mop">lim</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span><span class="mrel mtight">→</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3552em;"><span></span></span></span></span></span></span></span></span></span>时,<br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>sin</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\sin φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>r</mi><mi>c</mi><mi>sin</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">arc\sin φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">rc</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>tan</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\tanφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">tan</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>r</mi><mi>c</mi><mi>tan</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">arc\tanφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">rc</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">tan</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ln</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\ln(1+φ(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">ln</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e^{φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9713em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a^{φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9713em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi>ln</mi><mo>⁡</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">φ(x)\ln a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">ln</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mroot><mrow><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mi>n</mi></mroot><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sqrt[n]{1+φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.305em;"></span><span class="mord sqrt"><span class="root"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.5933em;"><span style="top:-2.878em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size6 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mord" style="padding-left:1em;"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span><span style="top:-2.895em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.28em" viewBox="0 0 400000 1296" preserveAspectRatio="xMinYMin slice"><path d="M263,681c0.7,0,18,39.7,52,119
+c34,79.3,68.167,158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120
+c340,-704.7,510.7,-1060.3,512,-1067
+l0 -0
+c4.7,-7.3,11,-11,19,-11
+H40000v40H1012.3
+s-271.3,567,-271.3,567c-38.7,80.7,-84,175,-136,283c-52,108,-89.167,185.3,-111.5,232
+c-22.3,46.7,-33.8,70.3,-34.5,71c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1
+s-109,-253,-109,-253c-72.7,-168,-109.3,-252,-110,-252c-10.7,8,-22,16.7,-34,26
+c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26s76,-59,76,-59s76,-60,76,-60z
+M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.305em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>n</mi></mfrac><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\frac{1}{n}φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">)</mo><mrow><mi>μ</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(1+φ(x))^{\mu-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">μ</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\muφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">μ</span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>cos</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">1-\cosφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">cos</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{(φ(x))^2}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.4539em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1089em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span><span class="mclose mtight"><span class="mclose mtight">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.931em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+]]></content>
+      <categories>
+        <category>Math</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>感觉日语是一种很随意的语言</title>
     <url>/posts/190e8188/</url>
     <content><![CDATA[<p>首先推荐一个视频 <a href="https://www.youtube.com/watch?v=fSnh-gz3ncc&amp;list=PLAdD6WfVVRIW-sB2MmPSUtLG6lY2_TrVy">【文法「文の成分」】【10分間の国文法講座：ラーニング・ラボWeb講座】</a>, 大概讲了日本中学（初中）考试的一些文法。</p>
@@ -5447,6 +5447,160 @@ cli<span class="token punctuation">,</span> err <span class="token operator">:=<
       <tags>
         <tag>EFI</tag>
         <tag>BIOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>汇编语言学习</title>
+    <url>/posts/4f95e9f6/</url>
+    <content><![CDATA[<p>最近想了解一下c是如何编译为汇编语言的<br>
+首先写了一个相当简单的c</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"stdio.h"</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> b <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> c <span class="token operator">=</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> d <span class="token operator">=</span> <span class="token number">3</span> <span class="token operator">+</span> <span class="token number">4</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span>c<span class="token punctuation">,</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用<code>gcc -S</code>编译为汇编语言:</p>
+<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm"> .file <span class="token string">"hello.c"</span>
+ .text
+ .section .rodata
+<span class="token label function">.LC0:</span>
+ .string <span class="token string">"%d %d"</span>
+ .text
+ .globl main
+ .type main, @function
+<span class="token label function">main:</span>
+<span class="token label function">.LFB0:</span>
+ .cfi_startproc
+ pushq <span class="token operator">%</span><span class="token register variable">rbp</span>
+ .cfi_def_cfa_offset <span class="token number">16</span>
+ .cfi_offset <span class="token number">6</span>, <span class="token operator">-</span><span class="token number">16</span>
+ movq <span class="token operator">%</span><span class="token register variable">rsp</span>, <span class="token operator">%</span><span class="token register variable">rbp</span>
+ .cfi_def_cfa_register <span class="token number">6</span>
+ subq <span class="token number">$16</span>, <span class="token operator">%</span><span class="token register variable">rsp</span>
+ movl <span class="token number">$1</span>, <span class="token operator">-</span><span class="token number">16</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
+ movl <span class="token number">$2</span>, <span class="token operator">-</span><span class="token number">12</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
+ movl <span class="token operator">-</span><span class="token number">16</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">edx</span>
+ movl <span class="token operator">-</span><span class="token number">12</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">eax</span>
+ addl <span class="token operator">%</span><span class="token register variable">edx</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
+ movl <span class="token operator">%</span><span class="token register variable">eax</span>, <span class="token operator">-</span><span class="token number">8</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
+ movl <span class="token number">$7</span>, <span class="token operator">-</span><span class="token number">4</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
+ movl <span class="token operator">-</span><span class="token number">4</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">edx</span>
+ movl <span class="token operator">-</span><span class="token number">8</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">eax</span>
+ movl <span class="token operator">%</span><span class="token register variable">eax</span>, <span class="token operator">%</span><span class="token register variable">esi</span>
+ leaq .LC0(<span class="token operator">%</span>rip), <span class="token operator">%</span><span class="token register variable">rdi</span>
+ movl <span class="token number">$0</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
+ call printf@PLT
+ movl <span class="token number">$0</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
+ leave
+ .cfi_def_cfa <span class="token number">7</span>, <span class="token number">8</span>
+ ret
+ .cfi_endproc
+<span class="token label function">.LFE0:</span>
+ .size main, .<span class="token operator">-</span>main
+ .ident <span class="token string">"GCC: (GNU) 9.1.0"</span>
+ .section .note.GNU<span class="token operator">-</span>stack,<span class="token string">""</span>,@progbits<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以”点”做为前缀的指令都是用来指导汇编器的命令。<br>
+精简一下差不多这样:<span id="more"></span></p>
+<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm"><span class="token label function">.LC0:</span>
+ .string <span class="token string">"%d %d"</span>
+ .text
+ .globl main
+ .type main, @function
+
+<span class="token label function">main:</span>
+ pushq <span class="token operator">%</span><span class="token register variable">rbp</span>
+ movq <span class="token operator">%</span><span class="token register variable">rsp</span>, <span class="token operator">%</span><span class="token register variable">rbp</span>
+ movl <span class="token number">$1</span>, <span class="token operator">-</span><span class="token number">16</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
+ movl <span class="token number">$2</span>, <span class="token operator">-</span><span class="token number">12</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
+ movl <span class="token operator">-</span><span class="token number">16</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">edx</span>
+ movl <span class="token operator">-</span><span class="token number">12</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">eax</span>
+ addl <span class="token operator">%</span><span class="token register variable">edx</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
+ movl <span class="token operator">%</span><span class="token register variable">eax</span>, <span class="token operator">-</span><span class="token number">8</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
+ movl <span class="token number">$7</span>, <span class="token operator">-</span><span class="token number">4</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
+ movl <span class="token operator">-</span><span class="token number">4</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">edx</span>
+ movl <span class="token operator">-</span><span class="token number">8</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">eax</span>
+ movl <span class="token operator">%</span><span class="token register variable">eax</span>, <span class="token operator">%</span><span class="token register variable">esi</span>
+ leaq .LC0(<span class="token operator">%</span>rip), <span class="token operator">%</span><span class="token register variable">rdi</span>
+ movl <span class="token number">$0</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
+ call printf@PLT
+ movl <span class="token number">$0</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
+ leave
+ ret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>首先了解一下几个寄存器<sup><a href="#1"><font color=red>[1]</font></a></sup></p>
+<ul>
+<li>%rbp 是栈帧指针，用于标识当前栈帧的起始位置</li>
+<li>%rsp 是堆栈指针寄存器，通常会指向栈顶位置，堆栈的 pop 和push 操作就是通过改变 %rsp 的值即移动堆栈指针的位置来实现的。</li>
+<li>%eax 是&quot;累加器&quot;(accumulator), 它是很多加法乘法指令的缺省寄存器。</li>
+<li>%edx 则总是被用来放整数除法产生的余数。</li>
+<li>%rip 指令地址寄存器，用来存储 CPU 即将要执行的指令地址。每次 CPU 执行完相应的汇编指令之后，rip 寄存器的值就会自行累加；rip 无法直接赋值，call, ret, jmp 等指令可以修改 rip。</li>
+<li>%rdi，%rsi，%rdx，%rcx，%r8，%r9 用作函数参数，依次对应第1参数，第2参数。</li>
+<li>ESI/EDI 分别叫做&quot;源/目标索引寄存器&quot;(source/destination index),因为在很多字符串操作指令中, DS:ESI指向源串,而ES:EDI指向目标串.</li>
+</ul>
+<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm">pushq <span class="token operator">%</span><span class="token register variable">rbp</span>
+movq <span class="token operator">%</span><span class="token register variable">rsp</span>, <span class="token operator">%</span><span class="token register variable">rbp</span>
+确认栈<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><code>movl $1, -16(%rbp)</code> 把1移入寄存器rbq中-16是地址起始位置<br>
+<code>movl $2, -12(%rbp)</code> 跟上面相同<br>
+<code>movl -16(%rbp), %edx</code> 把<code>-16(%rbp)</code>移入寄存器edx中,上面可知就是把1移入edx中<br>
+<code>movl -12(%rbp), %eax</code> 跟上面类似 不过这次用的是寄存器eax<br>
+<code>addl %edx, %eax</code> 把edx和eax中的内容相加,并存入edx中<br>
+<code>movl %eax, -8(%rbp)</code> 把eax中的内容存入rbq中位置为-8<br>
+<code>movl $7, -4(%rbp)</code> 把7存入rbq位置为-4,对应c代码为<code>int d = 3 + 4</code>,由此可知编译器在编译时其实是会进行相应优化的<br>
+<code>.LC0(%rip)</code>は、printfが使うアドレス、前もってprintfで使用する書式を設定している(就是说设置printf使用的地址,并提前设置格式)<sup><a href="#2"><font color=red>[2]</font></a></sup><br>
+<code>call printf@PLT</code> 调用printf<br>
+<code>leave</code> 离开printf<br>
+<code>ret</code>:结束当前函数</p>
+<hr>
+<p>接下来我们可以简单的实战一下:<br>
+给gcc开启O3级别的优化:</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gcc <span class="token parameter variable">-O3</span> <span class="token parameter variable">-S</span></code></pre>
+<p>生成的汇编码:</p>
+<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm"> .file <span class="token string">"hello.c"</span>
+ .text
+ .section .rodata.str1<span class="token number">.1</span>,<span class="token string">"aMS"</span>,@progbits,<span class="token number">1</span>
+<span class="token label function">.LC0:</span>
+ .string <span class="token string">"%d %d"</span>
+ .section .text.startup,<span class="token string">"ax"</span>,@progbits
+ .p2align <span class="token number">4</span>
+ .globl main
+ .type main, @function
+<span class="token label function">main:</span>
+<span class="token label function">.LFB11:</span>
+ .cfi_startproc
+ subq <span class="token number">$8</span>, <span class="token operator">%</span><span class="token register variable">rsp</span>
+ .cfi_def_cfa_offset <span class="token number">16</span>
+ movl <span class="token number">$7</span>, <span class="token operator">%</span><span class="token register variable">edx</span>
+ movl <span class="token number">$3</span>, <span class="token operator">%</span><span class="token register variable">esi</span>
+ xorl <span class="token operator">%</span><span class="token register variable">eax</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
+ leaq .LC0(<span class="token operator">%</span>rip), <span class="token operator">%</span><span class="token register variable">rdi</span>
+ call printf@PLT
+ xorl <span class="token operator">%</span><span class="token register variable">eax</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
+ addq <span class="token number">$8</span>, <span class="token operator">%</span><span class="token register variable">rsp</span>
+ .cfi_def_cfa_offset <span class="token number">8</span>
+ ret
+ .cfi_endproc
+<span class="token label function">.LFE11:</span>
+ .size main, .<span class="token operator">-</span>main
+ .ident <span class="token string">"GCC: (GNU) 9.1.0"</span>
+ .section .note.GNU<span class="token operator">-</span>stack,<span class="token string">""</span>,@progbits<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>从以上汇编代码中我们可以发现,优化之后的汇编代码将最后相加的值给了内存,而不像之前那样先占用两个内存空间然后再相加.</p>
+<hr>
+<blockquote>
+<p>[1] <a id="1"><a href="https://zhuanlan.zhihu.com/p/27339191">x86-64 下函数调用及栈帧原理</a></a><br>
+[2] <a id="2"><a href="https://qiita.com/diggy-mo/items/fe56f6ea357e5928a8ca">アセンブラ学習log_1</a></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>assembly</category>
+      </categories>
+      <tags>
+        <tag>汇编语言</tag>
+        <tag>assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -5692,160 +5846,6 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </categories>
       <tags>
         <tag>Deep Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>汇编语言学习</title>
-    <url>/posts/4f95e9f6/</url>
-    <content><![CDATA[<p>最近想了解一下c是如何编译为汇编语言的<br>
-首先写了一个相当简单的c</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"stdio.h"</span></span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> b <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> c <span class="token operator">=</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> d <span class="token operator">=</span> <span class="token number">3</span> <span class="token operator">+</span> <span class="token number">4</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span>c<span class="token punctuation">,</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>使用<code>gcc -S</code>编译为汇编语言:</p>
-<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm"> .file <span class="token string">"hello.c"</span>
- .text
- .section .rodata
-<span class="token label function">.LC0:</span>
- .string <span class="token string">"%d %d"</span>
- .text
- .globl main
- .type main, @function
-<span class="token label function">main:</span>
-<span class="token label function">.LFB0:</span>
- .cfi_startproc
- pushq <span class="token operator">%</span><span class="token register variable">rbp</span>
- .cfi_def_cfa_offset <span class="token number">16</span>
- .cfi_offset <span class="token number">6</span>, <span class="token operator">-</span><span class="token number">16</span>
- movq <span class="token operator">%</span><span class="token register variable">rsp</span>, <span class="token operator">%</span><span class="token register variable">rbp</span>
- .cfi_def_cfa_register <span class="token number">6</span>
- subq <span class="token number">$16</span>, <span class="token operator">%</span><span class="token register variable">rsp</span>
- movl <span class="token number">$1</span>, <span class="token operator">-</span><span class="token number">16</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
- movl <span class="token number">$2</span>, <span class="token operator">-</span><span class="token number">12</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
- movl <span class="token operator">-</span><span class="token number">16</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">edx</span>
- movl <span class="token operator">-</span><span class="token number">12</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">eax</span>
- addl <span class="token operator">%</span><span class="token register variable">edx</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
- movl <span class="token operator">%</span><span class="token register variable">eax</span>, <span class="token operator">-</span><span class="token number">8</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
- movl <span class="token number">$7</span>, <span class="token operator">-</span><span class="token number">4</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
- movl <span class="token operator">-</span><span class="token number">4</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">edx</span>
- movl <span class="token operator">-</span><span class="token number">8</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">eax</span>
- movl <span class="token operator">%</span><span class="token register variable">eax</span>, <span class="token operator">%</span><span class="token register variable">esi</span>
- leaq .LC0(<span class="token operator">%</span>rip), <span class="token operator">%</span><span class="token register variable">rdi</span>
- movl <span class="token number">$0</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
- call printf@PLT
- movl <span class="token number">$0</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
- leave
- .cfi_def_cfa <span class="token number">7</span>, <span class="token number">8</span>
- ret
- .cfi_endproc
-<span class="token label function">.LFE0:</span>
- .size main, .<span class="token operator">-</span>main
- .ident <span class="token string">"GCC: (GNU) 9.1.0"</span>
- .section .note.GNU<span class="token operator">-</span>stack,<span class="token string">""</span>,@progbits<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>以”点”做为前缀的指令都是用来指导汇编器的命令。<br>
-精简一下差不多这样:<span id="more"></span></p>
-<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm"><span class="token label function">.LC0:</span>
- .string <span class="token string">"%d %d"</span>
- .text
- .globl main
- .type main, @function
-
-<span class="token label function">main:</span>
- pushq <span class="token operator">%</span><span class="token register variable">rbp</span>
- movq <span class="token operator">%</span><span class="token register variable">rsp</span>, <span class="token operator">%</span><span class="token register variable">rbp</span>
- movl <span class="token number">$1</span>, <span class="token operator">-</span><span class="token number">16</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
- movl <span class="token number">$2</span>, <span class="token operator">-</span><span class="token number">12</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
- movl <span class="token operator">-</span><span class="token number">16</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">edx</span>
- movl <span class="token operator">-</span><span class="token number">12</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">eax</span>
- addl <span class="token operator">%</span><span class="token register variable">edx</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
- movl <span class="token operator">%</span><span class="token register variable">eax</span>, <span class="token operator">-</span><span class="token number">8</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
- movl <span class="token number">$7</span>, <span class="token operator">-</span><span class="token number">4</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>)
- movl <span class="token operator">-</span><span class="token number">4</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">edx</span>
- movl <span class="token operator">-</span><span class="token number">8</span>(<span class="token operator">%</span><span class="token register variable">rbp</span>), <span class="token operator">%</span><span class="token register variable">eax</span>
- movl <span class="token operator">%</span><span class="token register variable">eax</span>, <span class="token operator">%</span><span class="token register variable">esi</span>
- leaq .LC0(<span class="token operator">%</span>rip), <span class="token operator">%</span><span class="token register variable">rdi</span>
- movl <span class="token number">$0</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
- call printf@PLT
- movl <span class="token number">$0</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
- leave
- ret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>首先了解一下几个寄存器<sup><a href="#1"><font color=red>[1]</font></a></sup></p>
-<ul>
-<li>%rbp 是栈帧指针，用于标识当前栈帧的起始位置</li>
-<li>%rsp 是堆栈指针寄存器，通常会指向栈顶位置，堆栈的 pop 和push 操作就是通过改变 %rsp 的值即移动堆栈指针的位置来实现的。</li>
-<li>%eax 是&quot;累加器&quot;(accumulator), 它是很多加法乘法指令的缺省寄存器。</li>
-<li>%edx 则总是被用来放整数除法产生的余数。</li>
-<li>%rip 指令地址寄存器，用来存储 CPU 即将要执行的指令地址。每次 CPU 执行完相应的汇编指令之后，rip 寄存器的值就会自行累加；rip 无法直接赋值，call, ret, jmp 等指令可以修改 rip。</li>
-<li>%rdi，%rsi，%rdx，%rcx，%r8，%r9 用作函数参数，依次对应第1参数，第2参数。</li>
-<li>ESI/EDI 分别叫做&quot;源/目标索引寄存器&quot;(source/destination index),因为在很多字符串操作指令中, DS:ESI指向源串,而ES:EDI指向目标串.</li>
-</ul>
-<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm">pushq <span class="token operator">%</span><span class="token register variable">rbp</span>
-movq <span class="token operator">%</span><span class="token register variable">rsp</span>, <span class="token operator">%</span><span class="token register variable">rbp</span>
-确认栈<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p><code>movl $1, -16(%rbp)</code> 把1移入寄存器rbq中-16是地址起始位置<br>
-<code>movl $2, -12(%rbp)</code> 跟上面相同<br>
-<code>movl -16(%rbp), %edx</code> 把<code>-16(%rbp)</code>移入寄存器edx中,上面可知就是把1移入edx中<br>
-<code>movl -12(%rbp), %eax</code> 跟上面类似 不过这次用的是寄存器eax<br>
-<code>addl %edx, %eax</code> 把edx和eax中的内容相加,并存入edx中<br>
-<code>movl %eax, -8(%rbp)</code> 把eax中的内容存入rbq中位置为-8<br>
-<code>movl $7, -4(%rbp)</code> 把7存入rbq位置为-4,对应c代码为<code>int d = 3 + 4</code>,由此可知编译器在编译时其实是会进行相应优化的<br>
-<code>.LC0(%rip)</code>は、printfが使うアドレス、前もってprintfで使用する書式を設定している(就是说设置printf使用的地址,并提前设置格式)<sup><a href="#2"><font color=red>[2]</font></a></sup><br>
-<code>call printf@PLT</code> 调用printf<br>
-<code>leave</code> 离开printf<br>
-<code>ret</code>:结束当前函数</p>
-<hr>
-<p>接下来我们可以简单的实战一下:<br>
-给gcc开启O3级别的优化:</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gcc <span class="token parameter variable">-O3</span> <span class="token parameter variable">-S</span></code></pre>
-<p>生成的汇编码:</p>
-<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm"> .file <span class="token string">"hello.c"</span>
- .text
- .section .rodata.str1<span class="token number">.1</span>,<span class="token string">"aMS"</span>,@progbits,<span class="token number">1</span>
-<span class="token label function">.LC0:</span>
- .string <span class="token string">"%d %d"</span>
- .section .text.startup,<span class="token string">"ax"</span>,@progbits
- .p2align <span class="token number">4</span>
- .globl main
- .type main, @function
-<span class="token label function">main:</span>
-<span class="token label function">.LFB11:</span>
- .cfi_startproc
- subq <span class="token number">$8</span>, <span class="token operator">%</span><span class="token register variable">rsp</span>
- .cfi_def_cfa_offset <span class="token number">16</span>
- movl <span class="token number">$7</span>, <span class="token operator">%</span><span class="token register variable">edx</span>
- movl <span class="token number">$3</span>, <span class="token operator">%</span><span class="token register variable">esi</span>
- xorl <span class="token operator">%</span><span class="token register variable">eax</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
- leaq .LC0(<span class="token operator">%</span>rip), <span class="token operator">%</span><span class="token register variable">rdi</span>
- call printf@PLT
- xorl <span class="token operator">%</span><span class="token register variable">eax</span>, <span class="token operator">%</span><span class="token register variable">eax</span>
- addq <span class="token number">$8</span>, <span class="token operator">%</span><span class="token register variable">rsp</span>
- .cfi_def_cfa_offset <span class="token number">8</span>
- ret
- .cfi_endproc
-<span class="token label function">.LFE11:</span>
- .size main, .<span class="token operator">-</span>main
- .ident <span class="token string">"GCC: (GNU) 9.1.0"</span>
- .section .note.GNU<span class="token operator">-</span>stack,<span class="token string">""</span>,@progbits<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>从以上汇编代码中我们可以发现,优化之后的汇编代码将最后相加的值给了内存,而不像之前那样先占用两个内存空间然后再相加.</p>
-<hr>
-<blockquote>
-<p>[1] <a id="1"><a href="https://zhuanlan.zhihu.com/p/27339191">x86-64 下函数调用及栈帧原理</a></a><br>
-[2] <a id="2"><a href="https://qiita.com/diggy-mo/items/fe56f6ea357e5928a8ca">アセンブラ学習log_1</a></a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>assembly</category>
-      </categories>
-      <tags>
-        <tag>汇编语言</tag>
-        <tag>assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -6632,146 +6632,6 @@ For more technical details regarding this fix, see https://bugzilla.kernel.org/s
       </tags>
   </entry>
   <entry>
-    <title>让win10的UWP应用走代理</title>
-    <url>/posts/d22ffdb6/</url>
-    <content><![CDATA[<h2 id="原因">原因</h2>
-<p>因为uwp应用的特殊性,即使使用proxifier和proxycap这种应用也无法让其走代理</p>
-<h2 id="现在可直接用WindowsLoopbackManager">现在可直接用WindowsLoopbackManager</h2>
-<p><a href="https://github.com/tiagonmas/Windows-Loopback-Exemption-Manager">WindowsLoopbackManager</a></p>
-<span id="more"></span>
-<h2 id="1-SSTAP">1.SSTAP</h2>
-<p>这个应用是创建虚拟网卡,让windows全局走代理.但其有弊端就是有一些国内的网站也会走代理,比如BILIBILI.虽然可以自己写规则但实在是麻烦无比.</p>
-<h2 id="2-fiddler">2.fiddler</h2>
-<p>利用fiddler的winconfig实现uwp应用走代理<br>
-<img src="http://blog-1254450445.cossgp.myqcloud.com/WK%290~%29WR%29N79$KZ4HZZTDQ2.png" alt="." loading="lazy"><br>
-把要走代理的应用勾上<br>
-<img src="http://blog-1254450445.cossgp.myqcloud.com/KT3%28H@%60C63P@2KH_X7C@QDI.png" alt="." loading="lazy"><br>
-但这不是全局代理,只能让uwp应用走代理</p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>proxy</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>関西弁コレクション</title>
-    <url>/posts/a4241e7/</url>
-    <content><![CDATA[<p>普段発見の関西弁ここで記録します。</p>
-<p>–<strong>2020年1月30日</strong>–<br>
-おらん とはどういう意味ですか?</p>
-<blockquote>
-<p>文からするとその方は関西の人ですかね。おらんは方言で、「いない」という意味です。<br>
-例文：<em>俺も一緒やな 3年ぐらいはおらん。</em></p>
-</blockquote>
-<p>–<strong>2019年2月1日</strong>–</p>
-<hr>
-<p>①関西弁の～ねんけど、～やねん、～ねんの意味を教えて下さい<br>
-②～ねやは～ですかの意味ですか？それ意外に意味、使い方等は有りますか？<br>
-③言葉の関西弁のアクセントを教えて下さい</p>
-<p>①・・・<br>
-～ねんけど ですけれど（〇〇なんですけれど）<br>
-～やねん、～ねん です（〇〇なんです）</p>
-<p>②・・・<br>
-～ねやは～（～やねん”わ”～ですね。）<br>
-〇○なんですよ。</p>
-<p>③・・・<br>
-～ねんけど（中中）<br>
-～やねん（高低）<br>
-～やねんわ～（高低中）</p>
-<span id="more"></span>  
-<hr>
-<p>関西弁で、「あんねんけど」と「あるねんけど」の違いはなんですか？</p>
-<p>意味の違いはない。<br>
-「あるねんけど」＝「あんねんけど」</p>
-<p>「る」が撥音化して「ん」になっただけ。日本語では語中の「ラ行音」が「ん」に変化する傾向がある。<br>
-・それで→そんで<br>
-・分からない→分かんない</p>
-<p>–<strong>2018年12月8日</strong>–</p>
-<hr>
-<p>せやからアカンてゆうたやろ<br>
-せやから 別表記：そやから<br>
-「だから」の意味。主に関西地方で用いる。「そやから」ともいう。</p>
-<p>アカン(あかん)<br>
-関西弁で「ダメ」の意味。</p>
-<p>『ゆうて』は『～言って』<br>
-##方言で だから ダメって 言ったでしょ</p>
-<p>–<strong>2018年8月29日</strong>–</p>
-<hr>
-<p>ビビり【名词】<br>
-1.颤动，振纹（机械）<br>
-2.胆小，大阪方言。関西弁</p>
-<hr>
-<p>女子|おなご</p>
-<ul>
-<li>名词
-<ul>
-<li>（女の子、女児）。</li>
-<li>（女の人、女性、婦人）。</li>
-<li>（召し使いの女、女中、はしため）。　&lt;-関西弁</li>
-</ul>
-</li>
-</ul>
-<p>–<strong>2018年8月7日</strong>–</p>
-<hr>
-<p>それアカンやつや<br>
-一字一句、分けてみましょう。「それ、アカン、やつ、や」になります。<br>
-「それ」はthatのことですよね。<br>
-「アカン」はNOのことです。その通り、関西弁です。<br>
-「やつ」は奴のことです。人を愚弄する言い方ですね。でも人以外に、ものに対しても指す場合があります。<br>
-「や」も関西弁です。<br>
-これを東京の人が話すと「それはいけない人だよね～」や「それはありえないよね～」という言い方になります。元ネタを想像すると、ここでは「やつ」はものを指していると思います。</p>
-<hr>
-<p>せ や な<br>
-同意を表明する語。関西弁。「そうだね」、「そうだな」などに相当する。</p>
-<hr>
-<p>しんどい</p>
-<ul>
-<li>骨が折れる。難儀だ。<br>
-例文：
-<ul>
-<li>この仕事はしんどい。</li>
-</ul>
-</li>
-<li>くたびれている。<br>
-例文：
-<ul>
-<li>しんどくてもこの仕事をやってしまおう。</li>
-<li>おお，しんどい。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>ほんま 【本真】（ 名 ・形動 ）<br>
-本当である・こと（さま）。真実。主に関西地方で用いる。 「 －の話やで」 「 －に驚いたわ」</p>
-<hr>
-<p>しゃあない<br>
-大阪弁で「しかたない」の意味である。</p>
-<hr>
-<p>アカン<br>
-（「埒らち明かぬ」の略。多く関西で使う）うまくいかない。だめだ。不可である。</p>
-<hr>
-<p>アホやん<br>
-ドジっ娘</p>
-<p>中国語：<br>
-跟冒失娘（ドジっ娘）类似，关西方言</p>
-<blockquote>
-<p>冒失娘（ドジっ娘），萌属性之一。此属性以女性为主，若是男性可用较中性的“ドジっ子”。<br>
-日文“どじ”或“どぢ”是指人或事的出错和失误。“ドジっ娘”就是指经常弄翻物件、行事笨拙、“大错不出，小错不断”，总是搞出呆呆笨笨事情的少女。<br>
-中文意译的“冒失”，是指做事有漏失，而不是为人鲁莽无礼的意思。<br>
-どじっ应该不写成汉字<br>
-参考自维基百科</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>日本語</category>
-      </categories>
-      <tags>
-        <tag>関西弁</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>解决xfce4画面撕裂</title>
     <url>/posts/38868ade/</url>
     <content><![CDATA[<h2 id="安装compton">安装compton</h2>
@@ -7020,6 +6880,146 @@ wintypes:
       <tags>
         <tag>linux</tag>
         <tag>xfce4</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>让win10的UWP应用走代理</title>
+    <url>/posts/d22ffdb6/</url>
+    <content><![CDATA[<h2 id="原因">原因</h2>
+<p>因为uwp应用的特殊性,即使使用proxifier和proxycap这种应用也无法让其走代理</p>
+<h2 id="现在可直接用WindowsLoopbackManager">现在可直接用WindowsLoopbackManager</h2>
+<p><a href="https://github.com/tiagonmas/Windows-Loopback-Exemption-Manager">WindowsLoopbackManager</a></p>
+<span id="more"></span>
+<h2 id="1-SSTAP">1.SSTAP</h2>
+<p>这个应用是创建虚拟网卡,让windows全局走代理.但其有弊端就是有一些国内的网站也会走代理,比如BILIBILI.虽然可以自己写规则但实在是麻烦无比.</p>
+<h2 id="2-fiddler">2.fiddler</h2>
+<p>利用fiddler的winconfig实现uwp应用走代理<br>
+<img src="http://blog-1254450445.cossgp.myqcloud.com/WK%290~%29WR%29N79$KZ4HZZTDQ2.png" alt="." loading="lazy"><br>
+把要走代理的应用勾上<br>
+<img src="http://blog-1254450445.cossgp.myqcloud.com/KT3%28H@%60C63P@2KH_X7C@QDI.png" alt="." loading="lazy"><br>
+但这不是全局代理,只能让uwp应用走代理</p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>proxy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>関西弁コレクション</title>
+    <url>/posts/a4241e7/</url>
+    <content><![CDATA[<p>普段発見の関西弁ここで記録します。</p>
+<p>–<strong>2020年1月30日</strong>–<br>
+おらん とはどういう意味ですか?</p>
+<blockquote>
+<p>文からするとその方は関西の人ですかね。おらんは方言で、「いない」という意味です。<br>
+例文：<em>俺も一緒やな 3年ぐらいはおらん。</em></p>
+</blockquote>
+<p>–<strong>2019年2月1日</strong>–</p>
+<hr>
+<p>①関西弁の～ねんけど、～やねん、～ねんの意味を教えて下さい<br>
+②～ねやは～ですかの意味ですか？それ意外に意味、使い方等は有りますか？<br>
+③言葉の関西弁のアクセントを教えて下さい</p>
+<p>①・・・<br>
+～ねんけど ですけれど（〇〇なんですけれど）<br>
+～やねん、～ねん です（〇〇なんです）</p>
+<p>②・・・<br>
+～ねやは～（～やねん”わ”～ですね。）<br>
+〇○なんですよ。</p>
+<p>③・・・<br>
+～ねんけど（中中）<br>
+～やねん（高低）<br>
+～やねんわ～（高低中）</p>
+<span id="more"></span>  
+<hr>
+<p>関西弁で、「あんねんけど」と「あるねんけど」の違いはなんですか？</p>
+<p>意味の違いはない。<br>
+「あるねんけど」＝「あんねんけど」</p>
+<p>「る」が撥音化して「ん」になっただけ。日本語では語中の「ラ行音」が「ん」に変化する傾向がある。<br>
+・それで→そんで<br>
+・分からない→分かんない</p>
+<p>–<strong>2018年12月8日</strong>–</p>
+<hr>
+<p>せやからアカンてゆうたやろ<br>
+せやから 別表記：そやから<br>
+「だから」の意味。主に関西地方で用いる。「そやから」ともいう。</p>
+<p>アカン(あかん)<br>
+関西弁で「ダメ」の意味。</p>
+<p>『ゆうて』は『～言って』<br>
+##方言で だから ダメって 言ったでしょ</p>
+<p>–<strong>2018年8月29日</strong>–</p>
+<hr>
+<p>ビビり【名词】<br>
+1.颤动，振纹（机械）<br>
+2.胆小，大阪方言。関西弁</p>
+<hr>
+<p>女子|おなご</p>
+<ul>
+<li>名词
+<ul>
+<li>（女の子、女児）。</li>
+<li>（女の人、女性、婦人）。</li>
+<li>（召し使いの女、女中、はしため）。　&lt;-関西弁</li>
+</ul>
+</li>
+</ul>
+<p>–<strong>2018年8月7日</strong>–</p>
+<hr>
+<p>それアカンやつや<br>
+一字一句、分けてみましょう。「それ、アカン、やつ、や」になります。<br>
+「それ」はthatのことですよね。<br>
+「アカン」はNOのことです。その通り、関西弁です。<br>
+「やつ」は奴のことです。人を愚弄する言い方ですね。でも人以外に、ものに対しても指す場合があります。<br>
+「や」も関西弁です。<br>
+これを東京の人が話すと「それはいけない人だよね～」や「それはありえないよね～」という言い方になります。元ネタを想像すると、ここでは「やつ」はものを指していると思います。</p>
+<hr>
+<p>せ や な<br>
+同意を表明する語。関西弁。「そうだね」、「そうだな」などに相当する。</p>
+<hr>
+<p>しんどい</p>
+<ul>
+<li>骨が折れる。難儀だ。<br>
+例文：
+<ul>
+<li>この仕事はしんどい。</li>
+</ul>
+</li>
+<li>くたびれている。<br>
+例文：
+<ul>
+<li>しんどくてもこの仕事をやってしまおう。</li>
+<li>おお，しんどい。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>ほんま 【本真】（ 名 ・形動 ）<br>
+本当である・こと（さま）。真実。主に関西地方で用いる。 「 －の話やで」 「 －に驚いたわ」</p>
+<hr>
+<p>しゃあない<br>
+大阪弁で「しかたない」の意味である。</p>
+<hr>
+<p>アカン<br>
+（「埒らち明かぬ」の略。多く関西で使う）うまくいかない。だめだ。不可である。</p>
+<hr>
+<p>アホやん<br>
+ドジっ娘</p>
+<p>中国語：<br>
+跟冒失娘（ドジっ娘）类似，关西方言</p>
+<blockquote>
+<p>冒失娘（ドジっ娘），萌属性之一。此属性以女性为主，若是男性可用较中性的“ドジっ子”。<br>
+日文“どじ”或“どぢ”是指人或事的出错和失误。“ドジっ娘”就是指经常弄翻物件、行事笨拙、“大错不出，小错不断”，总是搞出呆呆笨笨事情的少女。<br>
+中文意译的“冒失”，是指做事有漏失，而不是为人鲁莽无礼的意思。<br>
+どじっ应该不写成汉字<br>
+参考自维基百科</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>日本語</category>
+      </categories>
+      <tags>
+        <tag>関西弁</tag>
       </tags>
   </entry>
 </search>
