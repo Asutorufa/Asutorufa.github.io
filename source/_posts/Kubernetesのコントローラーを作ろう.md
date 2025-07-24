@@ -1,7 +1,5 @@
 ---
 title: Kubernetesのコントローラーを作ろう
-date: 2025-02-23 22:30:31
-updated: 2025-02-23 22:30:31
 tags:
   - Kubernetes
   - CRI
@@ -9,6 +7,9 @@ tags:
 categories:
   - Kubernetes
 language: ja
+abbrlink: 70902a01
+date: 2025-02-23 22:30:31
+updated: 2025-02-23 22:30:31
 ---
 
 ## Kubernetesコントローラーとは

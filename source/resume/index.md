@@ -143,3 +143,4 @@ language: ja
 - Fix get client version [qdrant/go-client #74](https://github.com/qdrant/go-client/pull/74)
 - fix maxMapSize typo in aix, android, solaris [etcd-io/bbolt #988](https://github.com/etcd-io/bbolt/pull/988)
 - remove empty layer after delete or update value [coder/hnsw #11](https://github.com/coder/hnsw/pull/11)
+- add discovery config to make iscsiadm discovery target [kubernetes-csi/csi-driver-iscsi #350](https://github.com/kubernetes-csi/csi-driver-iscsi/pull/350)

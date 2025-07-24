@@ -167,6 +167,6 @@ feed:
   content_limit: 140
   content_limit_delim: ' '
   order_by: -date
-  icon: https://github.com/asutorufa.png
+  icon: /images/bighead.svg
   autodiscovery: true
   template:

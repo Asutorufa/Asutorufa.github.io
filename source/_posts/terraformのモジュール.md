@@ -1,7 +1,5 @@
 ---
 title: terraformのモジュール
-date: 2025-02-27 19:29:27
-updated: 2025-02-27 19:29:27
 tags:
   - Kubernetes
   - Terraform
@@ -10,6 +8,9 @@ tags:
 categories:
   - Kubernetes
 language: ja
+abbrlink: 3395bae7
+date: 2025-02-27 19:29:27
+updated: 2025-02-27 19:29:27
 ---
 
 **WIP**

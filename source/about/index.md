@@ -44,3 +44,4 @@ OpenSource Contribution History
 - [qdrant/go-client #74](https://github.com/qdrant/go-client/pull/74)
 - [etcd-io/bbolt #988](https://github.com/etcd-io/bbolt/pull/988)
 - [coder/hnsw #11](https://github.com/coder/hnsw/pull/11)
+- [kubernetes-csi/csi-driver-iscsi #350](https://github.com/kubernetes-csi/csi-driver-iscsi/pull/350)
