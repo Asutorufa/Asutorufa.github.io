@@ -1,23 +1,27 @@
-$(document).ready(function() {
+const key = "scroll-cookie";
+// Set relative link path (without domain)
+var rpath = location.pathname;
 
-  // Set relative link path (without domain)
-  var rpath = window.location.href.replace(window.location.origin, "");
 
-  // Write position in cookie
-  var timeout;
-  $(window).on("scroll", function() {
-    clearTimeout(timeout);
-    timeout = setTimeout(function () {
-      Cookies.set("scroll-cookie", ($(window).scrollTop() + "|" + rpath), { expires: 365, path: '' });
-    }, 250);
-  });
+const fullKey = key + ":" + rpath;
 
+let saveTimeout = null;
+
+window.addEventListener("scroll", () => {
+  if (saveTimeout) clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(() => {
+    const y = window.scrollY || document.documentElement.scrollTop;
+    localStorage.setItem(fullKey, y);
+  }, 500);
+})
+
+document.addEventListener("DOMContentLoaded", () => {
   // Read position from cookie
-  if (Cookies.get("scroll-cookie") !== undefined) {
-    var cvalues = Cookies.get("scroll-cookie").split('|');
-      if (cvalues[1] == rpath) {
-        $(window).scrollTop(cvalues[0]);
-      }
+  const saved = localStorage.getItem(fullKey);
+  if (saved !== null) {
+    const y = parseInt(saved, 10);
+    if (!isNaN(y)) {
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
   }
-
-});
+})

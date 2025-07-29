@@ -1,4 +1,14 @@
 /* global NexT: true */
+function throttle(func, delay) {
+  let lastCall = 0;
+  return function (...args) {
+    const now = Date.now();
+    if (now - lastCall >= delay) {
+      lastCall = now;
+      func.apply(this, args);
+    }
+  };
+}
 
 NexT.utils = NexT.$u = {
   /**
@@ -14,7 +24,7 @@ NexT.utils = NexT.$u = {
         var $imageWrapLink = $image.parent('a');
 
         if ($imageWrapLink.size() < 1) {
-	        var imageLink = ($image.attr('data-original')) ? this.getAttribute('data-original') : this.getAttribute('src');
+          var imageLink = ($image.attr('data-original')) ? this.getAttribute('data-original') : this.getAttribute('src');
           $imageWrapLink = $image.wrap('<a href="' + imageLink + '"></a>').parent('a');
         }
 
@@ -42,7 +52,7 @@ NexT.utils = NexT.$u = {
     $('#posts').find('img').lazyload({
       //placeholder: '/images/loading.gif',
       effect: 'fadeIn',
-      threshold : 0
+      threshold: 0
     });
   },
 
@@ -53,8 +63,8 @@ NexT.utils = NexT.$u = {
     var tNav = '.tabs ul.nav-tabs ';
 
     // Binding `nav-tabs` & `tab-content` by real time permalink changing.
-    $(function() {
-      $(window).bind('hashchange', function() {
+    $(function () {
+      $(window).bind('hashchange', function () {
         var tHash = location.hash;
         if (tHash !== '') {
           $(tNav + 'li:has(a[href="' + tHash + '"])').addClass('active').siblings().removeClass('active');
@@ -66,7 +76,7 @@ NexT.utils = NexT.$u = {
     $(tNav + '.tab').on('click', function (href) {
       href.preventDefault();
       // Prevent selected tab to select again.
-      if(!$(this).hasClass('active')){
+      if (!$(this).hasClass('active')) {
 
         // Add & Remove active class on `nav-tabs` & `tab-content`.
         $(this).addClass('active').siblings().removeClass('active');
@@ -95,22 +105,22 @@ NexT.utils = NexT.$u = {
   },
 
   registerBackToTop: function () {
-    var THRESHOLD = 50;
-    var $top = $('.back-to-top');
+    const topBtn = document.querySelector('.back-to-top');
+    const scrollSpan = document.querySelector('#scrollpercent > span');
 
-    $(window).on('scroll', function () {
-      $top.toggleClass('back-to-top-on', window.pageYOffset > THRESHOLD);
+    function onScroll() {
+      const scrollTop = window.scrollY;
+      const contentHeight = NexT.utils.getContentVisibilityHeight();
+      const percent = Math.min(100, Math.round((scrollTop / contentHeight) * 100));
 
-      var scrollTop = $(window).scrollTop();
-      var contentVisibilityHeight = NexT.utils.getContentVisibilityHeight();
-      var scrollPercent = (scrollTop) / (contentVisibilityHeight);
-      var scrollPercentRounded = Math.round(scrollPercent*100);
-      var scrollPercentMaxed = (scrollPercentRounded > 100) ? 100 : scrollPercentRounded;
-      $('#scrollpercent>span').html(scrollPercentMaxed);
-    });
+      topBtn.classList.toggle('back-to-top-on', scrollTop > 50);
+      scrollSpan.textContent = percent;
+    }
 
-    $top.on('click', function () {
-      $('body').velocity('scroll');
+    window.addEventListener('scroll', throttle(onScroll, 200));
+
+    topBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   },
 
@@ -129,7 +139,7 @@ NexT.utils = NexT.$u = {
       'music.163.com',
       'www.tudou.com'
     ];
-    var pattern = new RegExp( SUPPORTED_PLAYERS.join('|') );
+    var pattern = new RegExp(SUPPORTED_PLAYERS.join('|'));
 
     $iframes.each(function () {
       var iframe = this;
@@ -172,7 +182,7 @@ NexT.utils = NexT.$u = {
         if (this.src.search('music.163.com') > 0) {
           newDimension = getDimension($iframe);
           var shouldRecalculateAspect = newDimension.width > oldDimension.width ||
-                                        newDimension.height < oldDimension.height;
+            newDimension.height < oldDimension.height;
 
           // 163 Music Player has a fixed height, so we need to reset the aspect radio
           if (shouldRecalculateAspect) {
@@ -265,8 +275,8 @@ NexT.utils = NexT.$u = {
 
   getContentVisibilityHeight: function () {
     var docHeight = $('#content').height(),
-        winHeight = $(window).height(),
-        contentVisibilityHeight = (docHeight > winHeight) ? (docHeight - winHeight) : ($(document).height() - winHeight);
+      winHeight = $(window).height(),
+      contentVisibilityHeight = (docHeight > winHeight) ? (docHeight - winHeight) : ($(document).height() - winHeight);
     return contentVisibilityHeight;
   },
 
@@ -279,11 +289,11 @@ NexT.utils = NexT.$u = {
 
   getSidebarSchemePadding: function () {
     var sidebarNavHeight = ($('.sidebar-nav').css('display') == 'block') ? $('.sidebar-nav').outerHeight(true) : 0,
-        sidebarInner = $('.sidebar-inner'),
-        sidebarPadding = sidebarInner.innerWidth() - sidebarInner.width(),
-        sidebarSchemePadding = this.isPisces() || this.isGemini() ?
-          ((sidebarPadding * 2) + sidebarNavHeight + (CONFIG.sidebar.offset * 2) + this.getSidebarb2tHeight()) :
-          ((sidebarPadding * 2) + (sidebarNavHeight / 2));
+      sidebarInner = $('.sidebar-inner'),
+      sidebarPadding = sidebarInner.innerWidth() - sidebarInner.width(),
+      sidebarSchemePadding = this.isPisces() || this.isGemini() ?
+        ((sidebarPadding * 2) + sidebarNavHeight + (CONFIG.sidebar.offset * 2) + this.getSidebarb2tHeight()) :
+        ((sidebarPadding * 2) + (sidebarNavHeight / 2));
     return sidebarSchemePadding;
   }
 
@@ -292,9 +302,9 @@ NexT.utils = NexT.$u = {
    *
    * @returns {Boolean}
    */
-//  needAffix: function () {
-//    return this.isPisces() || this.isGemini();
-//  }
+  //  needAffix: function () {
+  //    return this.isPisces() || this.isGemini();
+  //  }
 };
 
 $(document).ready(function () {
@@ -305,7 +315,7 @@ $(document).ready(function () {
    * Init Sidebar & TOC inner dimensions on all pages and for all schemes.
    * Need for Sidebar/TOC inner scrolling if content taller then viewport.
    */
-  function initSidebarDimension () {
+  function initSidebarDimension() {
     var updateSidebarHeightTimer;
 
     $(window).on('resize', function () {
@@ -320,16 +330,16 @@ $(document).ready(function () {
 
     // Initialize Sidebar & TOC Width.
     var scrollbarWidth = NexT.utils.getScrollbarWidth();
-      if ($('.sidebar-panel').height() > (document.body.clientHeight - NexT.utils.getSidebarSchemePadding())) {
-        $('.site-overview').css('width', 'calc(100% + ' + scrollbarWidth + 'px)');
-      }
+    if ($('.sidebar-panel').height() > (document.body.clientHeight - NexT.utils.getSidebarSchemePadding())) {
+      $('.site-overview').css('width', 'calc(100% + ' + scrollbarWidth + 'px)');
+    }
     $('.post-toc').css('width', 'calc(100% + ' + scrollbarWidth + 'px)');
 
     // Initialize Sidebar & TOC Height.
     updateSidebarHeight(document.body.clientHeight - NexT.utils.getSidebarSchemePadding());
   }
 
-  function updateSidebarHeight (height) {
+  function updateSidebarHeight(height) {
     height = height || 'auto';
     $('.site-overview, .post-toc').css('max-height', height);
   }
