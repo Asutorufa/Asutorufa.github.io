@@ -660,52 +660,6 @@ log<span class="token punctuation">.</span><span class="token function">Println<
       </tags>
   </entry>
   <entry>
-    <title>GeoIP mmdb format</title>
-    <url>/posts/931c13a4/</url>
-    <content><![CDATA[<p>complete document <a href="https://maxmind.github.io/MaxMind-DB/">MaxMind DB File Format SpecificationDescription</a></p>
-<p>here is only how convert trie tree to array</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">0100, 1011 -> trie
-
-<span class="token code keyword">              root
-               |
-         +-----+------+
-        /              \
-       0                1
-     /   \             /  \</span>
-   null   1           0   null
-         / \        /   \
-        0 null     null   1
-       / \               / \
-       0 null         null  1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>trie -&gt; array<br>
-left is 0, right is 1<br>
-value is index of array<span id="more"></span></p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"> left | right  byte/index
-2     |   4    0-1
-null  |   6    2-3
-8     |  null  4-5
-10    |  null  6-7
-null  |  12    8-9
-14    |  null  10-11
-null  |  16    11-12
-end   |  null  12-13
-null  |  end   13-14
-
-array: [2,4,null,6,8,null,10,null,null,12,14,null,null,16,end,null,null,end]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>for example:</p>
-<p>index 1:<br>
-next left index 2 is null, so 00* is not exist<br>
-next right index 2+1 = 3 is not null, continue search until end or null</p>
-<p>this is one byte as one child, but one byte max is 255, if node more than 255, we can use multiple byte as one child</p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>Network</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>EDNS</title>
     <url>/posts/668530ca/</url>
     <content><![CDATA[<p>这个DNS系列现在有以下几篇文章<br>
@@ -967,6 +921,52 @@ ADDRESS就是设置的SubNet的IP地址,依据上面的FAMILY</p>
         <tag>DNS</tag>
         <tag>UDP</tag>
         <tag>EDNS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GeoIP mmdb format</title>
+    <url>/posts/931c13a4/</url>
+    <content><![CDATA[<p>complete document <a href="https://maxmind.github.io/MaxMind-DB/">MaxMind DB File Format SpecificationDescription</a></p>
+<p>here is only how convert trie tree to array</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">0100, 1011 -> trie
+
+<span class="token code keyword">              root
+               |
+         +-----+------+
+        /              \
+       0                1
+     /   \             /  \</span>
+   null   1           0   null
+         / \        /   \
+        0 null     null   1
+       / \               / \
+       0 null         null  1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>trie -&gt; array<br>
+left is 0, right is 1<br>
+value is index of array<span id="more"></span></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"> left | right  byte/index
+2     |   4    0-1
+null  |   6    2-3
+8     |  null  4-5
+10    |  null  6-7
+null  |  12    8-9
+14    |  null  10-11
+null  |  16    11-12
+end   |  null  12-13
+null  |  end   13-14
+
+array: [2,4,null,6,8,null,10,null,null,12,14,null,null,16,end,null,null,end]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>for example:</p>
+<p>index 1:<br>
+next left index 2 is null, so 00* is not exist<br>
+next right index 2+1 = 3 is not null, continue search until end or null</p>
+<p>this is one byte as one child, but one byte max is 255, if node more than 255, we can use multiple byte as one child</p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>Network</tag>
       </tags>
   </entry>
   <entry>
@@ -2175,90 +2175,6 @@ ep <span class="token operator">:=</span> fdbased<span class="token punctuation"
       </tags>
   </entry>
   <entry>
-    <title>android dumpsys tool</title>
-    <url>/posts/25303996/</url>
-    <content><![CDATA[<p>查看dumpsys所有的子命令:</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">dumpsys <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"DUMP OF SERVICE"</span></code></pre>
-<p>output:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">DUMP OF SERVICE SurfaceFlinger:
-DUMP OF SERVICE accessibility:
-DUMP OF SERVICE account:
-DUMP OF SERVICE activity:
-DUMP OF SERVICE alarm:
-DUMP OF SERVICE appwidget:
-DUMP OF SERVICE audio:
-DUMP OF SERVICE backup:
-DUMP OF SERVICE battery:
-DUMP OF SERVICE batteryinfo:
-DUMP OF SERVICE clipboard:
-DUMP OF SERVICE connectivity:
-DUMP OF SERVICE content:
-DUMP OF SERVICE cpuinfo:
-DUMP OF SERVICE device_policy:
-DUMP OF SERVICE devicestoragemonitor:
-DUMP OF SERVICE diskstats:
-DUMP OF SERVICE dropbox:
-DUMP OF SERVICE entropy:
-DUMP OF SERVICE hardware:
-DUMP OF SERVICE input_method:
-DUMP OF SERVICE iphonesubinfo:
-DUMP OF SERVICE isms:
-DUMP OF SERVICE location:
-DUMP OF SERVICE media.audio_flinger:
-DUMP OF SERVICE media.audio_policy:
-DUMP OF SERVICE media.player:
-DUMP OF SERVICE meminfo:
-DUMP OF SERVICE mount:
-DUMP OF SERVICE netstat:
-DUMP OF SERVICE network_management:
-DUMP OF SERVICE notification:
-DUMP OF SERVICE package:
-DUMP OF SERVICE permission:
-DUMP OF SERVICE phone:
-DUMP OF SERVICE power:
-DUMP OF SERVICE reboot:
-DUMP OF SERVICE screenshot:
-DUMP OF SERVICE search:
-DUMP OF SERVICE sensor:
-DUMP OF SERVICE simphonebook:
-DUMP OF SERVICE statusbar:
-DUMP OF SERVICE telephony.registry:
-DUMP OF SERVICE throttle:
-DUMP OF SERVICE usagestats:
-DUMP OF SERVICE vibrator:
-DUMP OF SERVICE wallpaper:
-DUMP OF SERVICE wifi:
-DUMP OF SERVICE window:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>eg:<br>
-1.得到电池的所有信息</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys battery</code></pre>
-<p>2.得到wifi的所有信息</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys wifi</code></pre>
-<p>3.得到cpu的所有信息</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys cpuinfo</code></pre>
-<p>4.得到总的存储情况</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys meminfo</code></pre>
-<p>5.得到某应用的存储情况</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys meminfo <span class="token string">'your apps package name'</span></code></pre>
-<p>6.得到所有的服务列表</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell <span class="token function">service</span> list</code></pre>
-<p>7.得到所有的账户列表</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys account</code></pre>
-<p>8.获得某子命令的帮助信息</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys account <span class="token parameter variable">-h</span></code></pre>
-<p>参考:<br>
-<a href="https://stackoverflow.com/questions/11201659/whats-the-android-adb-shell-dumpsys-tool-and-what-are-its-benefits">What’s the Android ADB shell “dumpsys” tool and what are its benefits?</a></p>
-]]></content>
-      <categories>
-        <category>android</category>
-      </categories>
-      <tags>
-        <tag>android</tag>
-        <tag>adb</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>UDPプロキシはFullcone NATを実現する</title>
     <url>/posts/4893f166/</url>
     <content><![CDATA[<h2 id="NATの種類">NATの種類</h2>
@@ -2630,6 +2546,90 @@ pc<span class="token punctuation">,</span> err <span class="token operator">:=</
         <tag>Golang</tag>
         <tag>Proxy</tag>
         <tag>Go</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>android dumpsys tool</title>
+    <url>/posts/25303996/</url>
+    <content><![CDATA[<p>查看dumpsys所有的子命令:</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dumpsys <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"DUMP OF SERVICE"</span></code></pre>
+<p>output:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">DUMP OF SERVICE SurfaceFlinger:
+DUMP OF SERVICE accessibility:
+DUMP OF SERVICE account:
+DUMP OF SERVICE activity:
+DUMP OF SERVICE alarm:
+DUMP OF SERVICE appwidget:
+DUMP OF SERVICE audio:
+DUMP OF SERVICE backup:
+DUMP OF SERVICE battery:
+DUMP OF SERVICE batteryinfo:
+DUMP OF SERVICE clipboard:
+DUMP OF SERVICE connectivity:
+DUMP OF SERVICE content:
+DUMP OF SERVICE cpuinfo:
+DUMP OF SERVICE device_policy:
+DUMP OF SERVICE devicestoragemonitor:
+DUMP OF SERVICE diskstats:
+DUMP OF SERVICE dropbox:
+DUMP OF SERVICE entropy:
+DUMP OF SERVICE hardware:
+DUMP OF SERVICE input_method:
+DUMP OF SERVICE iphonesubinfo:
+DUMP OF SERVICE isms:
+DUMP OF SERVICE location:
+DUMP OF SERVICE media.audio_flinger:
+DUMP OF SERVICE media.audio_policy:
+DUMP OF SERVICE media.player:
+DUMP OF SERVICE meminfo:
+DUMP OF SERVICE mount:
+DUMP OF SERVICE netstat:
+DUMP OF SERVICE network_management:
+DUMP OF SERVICE notification:
+DUMP OF SERVICE package:
+DUMP OF SERVICE permission:
+DUMP OF SERVICE phone:
+DUMP OF SERVICE power:
+DUMP OF SERVICE reboot:
+DUMP OF SERVICE screenshot:
+DUMP OF SERVICE search:
+DUMP OF SERVICE sensor:
+DUMP OF SERVICE simphonebook:
+DUMP OF SERVICE statusbar:
+DUMP OF SERVICE telephony.registry:
+DUMP OF SERVICE throttle:
+DUMP OF SERVICE usagestats:
+DUMP OF SERVICE vibrator:
+DUMP OF SERVICE wallpaper:
+DUMP OF SERVICE wifi:
+DUMP OF SERVICE window:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>eg:<br>
+1.得到电池的所有信息</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys battery</code></pre>
+<p>2.得到wifi的所有信息</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys wifi</code></pre>
+<p>3.得到cpu的所有信息</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys cpuinfo</code></pre>
+<p>4.得到总的存储情况</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys meminfo</code></pre>
+<p>5.得到某应用的存储情况</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys meminfo <span class="token string">'your apps package name'</span></code></pre>
+<p>6.得到所有的服务列表</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell <span class="token function">service</span> list</code></pre>
+<p>7.得到所有的账户列表</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys account</code></pre>
+<p>8.获得某子命令的帮助信息</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys account <span class="token parameter variable">-h</span></code></pre>
+<p>参考:<br>
+<a href="https://stackoverflow.com/questions/11201659/whats-the-android-adb-shell-dumpsys-tool-and-what-are-its-benefits">What’s the Android ADB shell “dumpsys” tool and what are its benefits?</a></p>
+]]></content>
+      <categories>
+        <category>android</category>
+      </categories>
+      <tags>
+        <tag>android</tag>
+        <tag>adb</tag>
       </tags>
   </entry>
   <entry>
@@ -3619,33 +3619,50 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </tags>
   </entry>
   <entry>
-    <title>http Keep-Alive</title>
-    <url>/posts/d91b7c06/</url>
-    <content><![CDATA[<h2 id="http-keep-alive">http keep-alive</h2>
-<p>http头部<code>Connection: Keep-Alive</code>代表连接请求保持长连接<br>
-<strong>如果是http代理,必须处理<code>Proxy-Connection: Keep-Alive</code>为<code>Connection: Keep-Alive</code>,如果代理没有实现<code>Keep-Alive</code>就不变或者将Connection设为close.</strong></p>
-<p>优点:减少握手次数,如下图(图来源文章最下面)<br>
-<img src="https://milestone-of-se.nesuke.com/wp-content/uploads/2018/12/http-keepalive-2v2.png" alt="keep-alive" loading="lazy"></p>
+    <title>gpg使用</title>
+    <url>/posts/7d547224/</url>
+    <content><![CDATA[<p>生成一个密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg --full-gen-key</code></pre>
+<p>之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了.</p>
+<p>创建一个子密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --edit-key <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+
+gpg<span class="token operator">></span> addkey
+<span class="token comment">#只有与前面是相同的, 按需求选择.</span>
+
+gpg<span class="token operator">></span> save
+<span class="token comment"># 保存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>导出密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key --export-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
+<p>导出子密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key.sub --export-secret-subkeys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
+<p>导出吊销证书</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --generate-revocation <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+<span class="token comment"># 输出是文本内容, 复制保存下来就行了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <span id="more"></span>
-<h2 id="判断一次连接的传输结束">判断一次连接的传输结束</h2>
-<h3 id="使用消息首部字段Conent-Length">使用消息首部字段<code>Conent-Length</code></h3>
-<p><code>Conent-Length</code>表示实体内容长度，客户端（服务器）可以根据这个值来判断数据是否接收完成。</p>
-<h3 id="使用Transfer-Encoding-chunked">使用<code>Transfer-Encoding: chunked</code></h3>
-<p>chunk编码将数据分成一块一块的发生。Chunked编码将使用若干个Chunk串连而成，由一个标明长度为0的chunk标示结束。</p>
+<p>删除密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --delete-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+gpg --delete-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>导入子密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">--import</span> /path/gpg_key.sub</code></pre>
+<p>查看密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-k</span>
+gpg <span class="token parameter variable">-K</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>加密文件</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-r</span> <span class="token punctuation">[</span>user name<span class="token punctuation">]</span> <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-e</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span></code></pre>
+<p>解密</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 输出到文件</span>
+gpg <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 直接输出到终端</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <hr>
-<p>参考:</p>
-<ul>
-<li><a href="https://www.google.com/amp/s/milestone-of-se.nesuke.com/nw-basic/as-nw-engineer/keepalive-tcp-http/%3Famp=1">【図解】TCP Keep-Alive/http Keep-Aliveの仕組みと違い ～Client/Serverの挙動とメリット,設定～</a></li>
-<li><a href="https://www.cnblogs.com/skynet/archive/2010/12/11/1903347.html#!comments">HTTP头部详解</a></li>
-<li><a href="https://www.jianshu.com/p/49551bda6619">HTTP协议的Keep-Alive 模式</a></li>
-</ul>
+<p><a href="https://gist.github.com/jhjguxin/6037564">GPG 加密解密简明教程</a><br>
+<a href="https://mogeko.me/2019/068/">GPG 的正确使用姿势</a></p>
 ]]></content>
       <categories>
-        <category>Network</category>
+        <category>linux</category>
       </categories>
       <tags>
-        <tag>HTTP</tag>
-        <tag>proxy</tag>
+        <tag>linux</tag>
+        <tag>encrypt</tag>
       </tags>
   </entry>
   <entry>
@@ -3713,50 +3730,33 @@ POSTROUTING: mangle, nat<span aria-hidden="true" class="line-numbers-rows"><span
       </tags>
   </entry>
   <entry>
-    <title>gpg使用</title>
-    <url>/posts/7d547224/</url>
-    <content><![CDATA[<p>生成一个密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg --full-gen-key</code></pre>
-<p>之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了.</p>
-<p>创建一个子密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --edit-key <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-
-gpg<span class="token operator">></span> addkey
-<span class="token comment">#只有与前面是相同的, 按需求选择.</span>
-
-gpg<span class="token operator">></span> save
-<span class="token comment"># 保存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>导出密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key --export-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
-<p>导出子密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key.sub --export-secret-subkeys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
-<p>导出吊销证书</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --generate-revocation <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-<span class="token comment"># 输出是文本内容, 复制保存下来就行了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+    <title>http Keep-Alive</title>
+    <url>/posts/d91b7c06/</url>
+    <content><![CDATA[<h2 id="http-keep-alive">http keep-alive</h2>
+<p>http头部<code>Connection: Keep-Alive</code>代表连接请求保持长连接<br>
+<strong>如果是http代理,必须处理<code>Proxy-Connection: Keep-Alive</code>为<code>Connection: Keep-Alive</code>,如果代理没有实现<code>Keep-Alive</code>就不变或者将Connection设为close.</strong></p>
+<p>优点:减少握手次数,如下图(图来源文章最下面)<br>
+<img src="https://milestone-of-se.nesuke.com/wp-content/uploads/2018/12/http-keepalive-2v2.png" alt="keep-alive" loading="lazy"></p>
 <span id="more"></span>
-<p>删除密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --delete-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-gpg --delete-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>导入子密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">--import</span> /path/gpg_key.sub</code></pre>
-<p>查看密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-k</span>
-gpg <span class="token parameter variable">-K</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>加密文件</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-r</span> <span class="token punctuation">[</span>user name<span class="token punctuation">]</span> <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-e</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span></code></pre>
-<p>解密</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 输出到文件</span>
-gpg <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 直接输出到终端</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="判断一次连接的传输结束">判断一次连接的传输结束</h2>
+<h3 id="使用消息首部字段Conent-Length">使用消息首部字段<code>Conent-Length</code></h3>
+<p><code>Conent-Length</code>表示实体内容长度，客户端（服务器）可以根据这个值来判断数据是否接收完成。</p>
+<h3 id="使用Transfer-Encoding-chunked">使用<code>Transfer-Encoding: chunked</code></h3>
+<p>chunk编码将数据分成一块一块的发生。Chunked编码将使用若干个Chunk串连而成，由一个标明长度为0的chunk标示结束。</p>
 <hr>
-<p><a href="https://gist.github.com/jhjguxin/6037564">GPG 加密解密简明教程</a><br>
-<a href="https://mogeko.me/2019/068/">GPG 的正确使用姿势</a></p>
+<p>参考:</p>
+<ul>
+<li><a href="https://www.google.com/amp/s/milestone-of-se.nesuke.com/nw-basic/as-nw-engineer/keepalive-tcp-http/%3Famp=1">【図解】TCP Keep-Alive/http Keep-Aliveの仕組みと違い ～Client/Serverの挙動とメリット,設定～</a></li>
+<li><a href="https://www.cnblogs.com/skynet/archive/2010/12/11/1903347.html#!comments">HTTP头部详解</a></li>
+<li><a href="https://www.jianshu.com/p/49551bda6619">HTTP协议的Keep-Alive 模式</a></li>
+</ul>
 ]]></content>
       <categories>
-        <category>linux</category>
+        <category>Network</category>
       </categories>
       <tags>
-        <tag>linux</tag>
-        <tag>encrypt</tag>
+        <tag>HTTP</tag>
+        <tag>proxy</tag>
       </tags>
   </entry>
   <entry>
@@ -5328,6 +5328,38 @@ cli<span class="token punctuation">,</span> err <span class="token operator">:=<
       </tags>
   </entry>
   <entry>
+    <title>常用等价无穷小的一般形式</title>
+    <url>/posts/10bb899d/</url>
+    <content><![CDATA[<p>当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>lim</mi><mo>⁡</mo></mrow><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>→</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\lim_{φ(x)\to0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0496em;vertical-align:-0.3552em;"></span><span class="mop"><span class="mop">lim</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span><span class="mrel mtight">→</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3552em;"><span></span></span></span></span></span></span></span></span></span>时,<br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>sin</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\sin φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>r</mi><mi>c</mi><mi>sin</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">arc\sin φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">rc</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>tan</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\tanφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">tan</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>r</mi><mi>c</mi><mi>tan</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">arc\tanφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">rc</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">tan</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ln</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\ln(1+φ(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">ln</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e^{φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9713em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a^{φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9713em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi>ln</mi><mo>⁡</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">φ(x)\ln a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">ln</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mroot><mrow><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mi>n</mi></mroot><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sqrt[n]{1+φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.305em;"></span><span class="mord sqrt"><span class="root"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.5933em;"><span style="top:-2.878em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size6 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mord" style="padding-left:1em;"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span><span style="top:-2.895em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.28em" viewBox="0 0 400000 1296" preserveAspectRatio="xMinYMin slice"><path d="M263,681c0.7,0,18,39.7,52,119
+c34,79.3,68.167,158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120
+c340,-704.7,510.7,-1060.3,512,-1067
+l0 -0
+c4.7,-7.3,11,-11,19,-11
+H40000v40H1012.3
+s-271.3,567,-271.3,567c-38.7,80.7,-84,175,-136,283c-52,108,-89.167,185.3,-111.5,232
+c-22.3,46.7,-33.8,70.3,-34.5,71c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1
+s-109,-253,-109,-253c-72.7,-168,-109.3,-252,-110,-252c-10.7,8,-22,16.7,-34,26
+c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26s76,-59,76,-59s76,-60,76,-60z
+M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.305em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>n</mi></mfrac><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\frac{1}{n}φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">)</mo><mrow><mi>μ</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(1+φ(x))^{\mu-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">μ</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\muφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">μ</span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>cos</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">1-\cosφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">cos</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{(φ(x))^2}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.4539em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1089em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span><span class="mclose mtight"><span class="mclose mtight">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.931em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+]]></content>
+      <categories>
+        <category>Math</category>
+      </categories>
+      <tags>
+        <tag>Math</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>感觉日语是一种很随意的语言</title>
     <url>/posts/190e8188/</url>
     <content><![CDATA[<p>首先推荐一个视频 <a href="https://www.youtube.com/watch?v=fSnh-gz3ncc&amp;list=PLAdD6WfVVRIW-sB2MmPSUtLG6lY2_TrVy">【文法「文の成分」】【10分間の国文法講座：ラーニング・ラボWeb講座】</a>, 大概讲了日本中学（初中）考试的一些文法。</p>
@@ -5395,35 +5427,34 @@ cli<span class="token punctuation">,</span> err <span class="token operator">:=<
       </tags>
   </entry>
   <entry>
-    <title>常用等价无穷小的一般形式</title>
-    <url>/posts/10bb899d/</url>
-    <content><![CDATA[<p>当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>lim</mi><mo>⁡</mo></mrow><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>→</mo><mn>0</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\lim_{φ(x)\to0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0496em;vertical-align:-0.3552em;"></span><span class="mop"><span class="mop">lim</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span><span class="mrel mtight">→</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3552em;"><span></span></span></span></span></span></span></span></span></span>时,<br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>sin</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\sin φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>r</mi><mi>c</mi><mi>sin</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">arc\sin φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">rc</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>tan</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\tanφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">tan</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>r</mi><mi>c</mi><mi>tan</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">arc\tanφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">rc</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">tan</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ln</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\ln(1+φ(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">ln</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">e^{φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9713em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">a^{φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9713em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mi>ln</mi><mo>⁡</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">φ(x)\ln a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">ln</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">a</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mroot><mrow><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mi>n</mi></mroot><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sqrt[n]{1+φ(x)}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.305em;"></span><span class="mord sqrt"><span class="root"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.5933em;"><span style="top:-2.878em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size6 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mord" style="padding-left:1em;"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span><span style="top:-2.895em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.28em" viewBox="0 0 400000 1296" preserveAspectRatio="xMinYMin slice"><path d="M263,681c0.7,0,18,39.7,52,119
-c34,79.3,68.167,158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120
-c340,-704.7,510.7,-1060.3,512,-1067
-l0 -0
-c4.7,-7.3,11,-11,19,-11
-H40000v40H1012.3
-s-271.3,567,-271.3,567c-38.7,80.7,-84,175,-136,283c-52,108,-89.167,185.3,-111.5,232
-c-22.3,46.7,-33.8,70.3,-34.5,71c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1
-s-109,-253,-109,-253c-72.7,-168,-109.3,-252,-110,-252c-10.7,8,-22,16.7,-34,26
-c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26s76,-59,76,-59s76,-60,76,-60z
-M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.305em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>n</mi></mfrac><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\frac{1}{n}φ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">)</mo><mrow><mi>μ</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(1+φ(x))^{\mu-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">μ</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\muφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">μ</span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><br>
-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>cos</mi><mo>⁡</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">1-\cosφ(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">cos</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">φ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo stretchy="false">(</mo><mi>φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{(φ(x))^2}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.4539em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1089em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">φ</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span><span class="mclose mtight"><span class="mclose mtight">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.931em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+    <title>暗影精灵更改efi启动顺序</title>
+    <url>/posts/6683eff9/</url>
+    <content><![CDATA[<p>–2019-04-22 更新–<br>
+<strong>最新版bios已经可以调整启动顺序了(<a href="#jump">图在最下面</a>)</strong></p>
+<p>-------- 之 前 -------<br>
+暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说</p>
+<p>首先从ubuntu进入/boot/efi/EFI<br>
+<strong>备份windwos的启动文件</strong>（<strong>切记一定要备份，否则只能从pe重新建立windwos启动项</strong>）</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-arf</span> Microsoft win10</code></pre>
+<p>将ubuntu的grubx64.efi替换掉EFI/Microsoft/Boot/bootmgfw.efi文件 <span id="more"></span></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-arf</span> ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi </code></pre>
+<p>这样替换之后grub就接管了系统的启动</p>
+<p>然后将/boot/grub/grub.cfg中关于windows的启动段复制到/etc/grub.d/40_custom中<br>
+将<strong>chainloader /EFI/Micorosoft/Boot/bootmgfw.efi</strong><br>
+改为<br>
+<strong>chainloader /EFI/win10/Boot/bootmgfw.efi</strong><br>
+就是把中间那个改为你备份的文件夹，可以改一改前面的启动名称<br>
+最后执行update-grub来更新启动项</p>
+<p>但是windwos有大更新的时候会把更改的覆盖掉，再来一遍就好了</p>
+<p><span id = "jump"><img src="http://blog-1254450445.cossgp.myqcloud.com/efi.jpg" alt="" loading="lazy"></span></p>
+<p>参考文章<a href="https://blog.csdn.net/zyix_0712/article/details/69675748">暗影精灵2pro安装win10+ubuntu16.10双系统</a></p>
 ]]></content>
       <categories>
-        <category>Math</category>
+        <category>Computer</category>
       </categories>
       <tags>
-        <tag>Math</tag>
+        <tag>EFI</tag>
+        <tag>BIOS</tag>
       </tags>
   </entry>
   <entry>
@@ -5578,37 +5609,6 @@ movq <span class="token operator">%</span><span class="token register variable">
       <tags>
         <tag>汇编语言</tag>
         <tag>assembly</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>暗影精灵更改efi启动顺序</title>
-    <url>/posts/6683eff9/</url>
-    <content><![CDATA[<p>–2019-04-22 更新–<br>
-<strong>最新版bios已经可以调整启动顺序了(<a href="#jump">图在最下面</a>)</strong></p>
-<p>-------- 之 前 -------<br>
-暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说</p>
-<p>首先从ubuntu进入/boot/efi/EFI<br>
-<strong>备份windwos的启动文件</strong>（<strong>切记一定要备份，否则只能从pe重新建立windwos启动项</strong>）</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-arf</span> Microsoft win10</code></pre>
-<p>将ubuntu的grubx64.efi替换掉EFI/Microsoft/Boot/bootmgfw.efi文件 <span id="more"></span></p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-arf</span> ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi </code></pre>
-<p>这样替换之后grub就接管了系统的启动</p>
-<p>然后将/boot/grub/grub.cfg中关于windows的启动段复制到/etc/grub.d/40_custom中<br>
-将<strong>chainloader /EFI/Micorosoft/Boot/bootmgfw.efi</strong><br>
-改为<br>
-<strong>chainloader /EFI/win10/Boot/bootmgfw.efi</strong><br>
-就是把中间那个改为你备份的文件夹，可以改一改前面的启动名称<br>
-最后执行update-grub来更新启动项</p>
-<p>但是windwos有大更新的时候会把更改的覆盖掉，再来一遍就好了</p>
-<p><span id = "jump"><img src="http://blog-1254450445.cossgp.myqcloud.com/efi.jpg" alt="" loading="lazy"></span></p>
-<p>参考文章<a href="https://blog.csdn.net/zyix_0712/article/details/69675748">暗影精灵2pro安装win10+ubuntu16.10双系统</a></p>
-]]></content>
-      <categories>
-        <category>Computer</category>
-      </categories>
-      <tags>
-        <tag>EFI</tag>
-        <tag>BIOS</tag>
       </tags>
   </entry>
   <entry>
@@ -5997,6 +5997,32 @@ i&#x3D;0.01<span aria-hidden="true" class="line-numbers-rows"><span></span><span
       </tags>
   </entry>
   <entry>
+    <title>用CIDR表示网段</title>
+    <url>/posts/e2b25bb8/</url>
+    <content><![CDATA[<p>我们知道一般CIDR(无类别域间路由)网段的表示为:<strong>192.168.0.0/24</strong>这种形式</p>
+<h2 id="IP地址">IP地址</h2>
+<p>首先我们得知道ip地址是如何来的<br>
+ipv4的地址是用32位二进制数表示的<br>
+如: 255.255.255.0 -&gt; 11111111.11111111.11111111.00000000</p>
+<h2 id="网络前缀">网络前缀</h2>
+<p><strong>192.168.0.0/24</strong>中的24就是网络前缀,网络前缀可转化为网络掩码,24表示网络掩码的前24位为1</p>
+<h2 id="网络掩码">网络掩码</h2>
+<p>「网络掩码」又叫「子网掩码」、「地址掩码」、「子網路遮罩」（subnet mask），它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。      --维基百科<span id="more"></span></p>
+<p>将网络前缀转化为网络掩码: 24 -&gt; 11111111.11111111.11111111.00000000 -&gt; 255.255.255.0<br>
+<em>255.255.255.0</em>就是网络掩码</p>
+<h2 id="CIDR">CIDR</h2>
+<p><em><strong>网络地址的计算方法为ip地址与网络掩码进行’与’运算</strong></em><br>
+通过上面的计算好的网络掩码可知这个ip地址的前24位是不变的  ,所以<strong>192.168.0.0/24</strong>表示的网段为: <strong>192.168.0.0 - 192.168.0.255</strong></p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>CIDR</tag>
+        <tag>IP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>用Android/PC为linux拓展屏幕</title>
     <url>/posts/4f3989f0/</url>
     <content><![CDATA[<h2 id="新建虚拟屏幕">新建虚拟屏幕</h2>
@@ -6058,32 +6084,6 @@ TCP端口80</p>
       <tags>
         <tag>android</tag>
         <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>用CIDR表示网段</title>
-    <url>/posts/e2b25bb8/</url>
-    <content><![CDATA[<p>我们知道一般CIDR(无类别域间路由)网段的表示为:<strong>192.168.0.0/24</strong>这种形式</p>
-<h2 id="IP地址">IP地址</h2>
-<p>首先我们得知道ip地址是如何来的<br>
-ipv4的地址是用32位二进制数表示的<br>
-如: 255.255.255.0 -&gt; 11111111.11111111.11111111.00000000</p>
-<h2 id="网络前缀">网络前缀</h2>
-<p><strong>192.168.0.0/24</strong>中的24就是网络前缀,网络前缀可转化为网络掩码,24表示网络掩码的前24位为1</p>
-<h2 id="网络掩码">网络掩码</h2>
-<p>「网络掩码」又叫「子网掩码」、「地址掩码」、「子網路遮罩」（subnet mask），它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。      --维基百科<span id="more"></span></p>
-<p>将网络前缀转化为网络掩码: 24 -&gt; 11111111.11111111.11111111.00000000 -&gt; 255.255.255.0<br>
-<em>255.255.255.0</em>就是网络掩码</p>
-<h2 id="CIDR">CIDR</h2>
-<p><em><strong>网络地址的计算方法为ip地址与网络掩码进行’与’运算</strong></em><br>
-通过上面的计算好的网络掩码可知这个ip地址的前24位是不变的  ,所以<strong>192.168.0.0/24</strong>表示的网段为: <strong>192.168.0.0 - 192.168.0.255</strong></p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>CIDR</tag>
-        <tag>IP</tag>
       </tags>
   </entry>
   <entry>
@@ -7028,6 +7028,222 @@ wintypes:
       </categories>
       <tags>
         <tag>関西弁</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RustでTelegram BotをLambdaにデプロイする</title>
+    <url>/posts/1754556687621/</url>
+    <content><![CDATA[<p>Telegram BotにはサーバーとWebhookの二つの立ち上げる方法があります。Lambdaはサーバーレスだから、今回はWebhookで使用します。</p>
+<p>最初はCargoで新たなプロジェクトを作ります。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cargo</span> new telegram-bot</code></pre>
+<p>必要な依存を追加します。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">crgo <span class="token function">add</span> aws_lambda_events base64 lambda_runtime serde_json serde teloxide-macros tokio teloxide cargo-lambda</code></pre>
+<p>zigをインストール</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># macos</span>
+brew <span class="token function">install</span> zig
+<span class="token comment"># lambda cliでzigのインストール方法を出力して</span>
+<span class="token function">cargo</span> lambda system --install-zig<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Telegramのコマンドを宣言します</p>
+<!--チェックしてください　<==>　ご確認ください-->
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token attribute attr-name">#[derive(BotCommands, PartialEq, Clone, Debug)]</span>
+<span class="token comment">// いろんなパラメータに対応しています。公式ドキュメントをチェックしてください。</span>
+<span class="token attribute attr-name">#[command(
+    rename_rule = <span class="token string">"lowercase"</span>,
+    description = <span class="token string">"These commands are supported:"</span>
+)]</span>
+<span class="token keyword">pub</span> <span class="token keyword">enum</span> <span class="token type-definition class-name">Command</span> <span class="token punctuation">&#123;</span>
+    <span class="token attribute attr-name">#[command(description = <span class="token string">"get current user id"</span>)]</span>
+    <span class="token class-name">UserID</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Telegramの処理関数を定義します</p>
+<span id="more"></span>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">async</span> <span class="token keyword">fn</span> <span class="token function-definition function">answer</span><span class="token punctuation">(</span>
+    bot<span class="token punctuation">:</span> <span class="token namespace">teloxide<span class="token punctuation">::</span>prelude<span class="token punctuation">::</span></span><span class="token class-name">Bot</span><span class="token punctuation">,</span>
+    msg<span class="token punctuation">:</span> <span class="token class-name">Message</span><span class="token punctuation">,</span>
+    cmd<span class="token punctuation">:</span> <span class="token class-name">Command</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">RequestError</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> reply <span class="token operator">=</span> <span class="token keyword">match</span> cmd <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Command</span><span class="token punctuation">::</span><span class="token class-name">UserID</span> <span class="token operator">=></span> <span class="token macro property">format!</span><span class="token punctuation">(</span><span class="token string">"your id is: &#123;&#125;"</span><span class="token punctuation">,</span> from_user<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// 返事を送信し</span>
+    bot<span class="token punctuation">.</span><span class="token function">send_message</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>chat<span class="token punctuation">.</span>id<span class="token punctuation">,</span> v<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">reply_parameters</span><span class="token punctuation">(</span><span class="token class-name">ReplyParameters</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>id<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">parse_mode</span><span class="token punctuation">(</span><span class="token namespace">teloxide<span class="token punctuation">::</span>types<span class="token punctuation">::</span></span><span class="token class-name">ParseMode</span><span class="token punctuation">::</span><span class="token class-name">MarkdownV2</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">disable_link_preview</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+
+    <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Telegramのルートを定義します</p>
+<p>ここはちょっと難しいかもしれません</p>
+<ul>
+<li><code>Update::filter_message()</code>は一般的なメッセージ</li>
+<li><code>Update::filter_edited_message()</code>は更新したメッセージ</li>
+<li>他の種類のメッセージは<a href="https://docs.rs/teloxide/latest/teloxide/dispatching/trait.UpdateFilterExt.html">trait.UpdateFilterExt</a>にご確認ください。</li>
+</ul>
+<p><code>filter_command::&lt;Command&gt;()</code>はCommandによってメッセージをフィルターする。　　<br>
+例えば<code>filter_command</code>を削除して<code>dptree::entry().endpoint(answer)</code>になったら、これはすべてのメッセージをマッチする。</p>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Handler</span><span class="token operator">&lt;</span><span class="token lifetime-annotation symbol">'static</span><span class="token punctuation">,</span> <span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">RequestError</span><span class="token operator">></span><span class="token punctuation">,</span> <span class="token class-name">DpHandlerDescription</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token namespace">dptree<span class="token punctuation">::</span></span><span class="token function">entry</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">branch</span><span class="token punctuation">(</span>
+            <span class="token class-name">Update</span><span class="token punctuation">::</span><span class="token function">filter_message</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">branch</span><span class="token punctuation">(</span><span class="token namespace">dptree<span class="token punctuation">::</span></span><span class="token function">entry</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">filter_command</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">Command</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">endpoint</span><span class="token punctuation">(</span>answer<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">branch</span><span class="token punctuation">(</span>
+            <span class="token class-name">Update</span><span class="token punctuation">::</span><span class="token function">filter_edited_message</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">branch</span><span class="token punctuation">(</span><span class="token namespace">dptree<span class="token punctuation">::</span></span><span class="token function">entry</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">filter_command</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">Command</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">endpoint</span><span class="token punctuation">(</span>answer<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Telegram Botサーバーなら次のコードで実行できます。Lambdaには他の方法を使います。</p>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">struct</span> <span class="token type-definition class-name">TErrorHandler</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+
+<span class="token keyword">impl</span> <span class="token class-name">ErrorHandler</span><span class="token operator">&lt;</span><span class="token class-name">RequestError</span><span class="token operator">></span> <span class="token keyword">for</span> <span class="token class-name">TErrorHandler</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">handle_error</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">:</span> <span class="token namespace">std<span class="token punctuation">::</span>sync<span class="token punctuation">::</span></span><span class="token class-name">Arc</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">></span><span class="token punctuation">,</span> error<span class="token punctuation">:</span> <span class="token class-name">RequestError</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">BoxFuture</span><span class="token operator">&lt;</span><span class="token lifetime-annotation symbol">'static</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"error: &#123;&#125;"</span><span class="token punctuation">,</span> error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Box</span><span class="token punctuation">::</span><span class="token function">pin</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token keyword">move</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">pub</span> <span class="token keyword">async</span> <span class="token keyword">fn</span> <span class="token function-definition function">run_bot</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Dispatcher</span><span class="token operator">&lt;</span><span class="token class-name">Bot</span><span class="token punctuation">,</span> <span class="token class-name">RequestError</span><span class="token punctuation">,</span> <span class="token class-name">DefaultKey</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> bot <span class="token operator">=</span> <span class="token class-name">Bot</span><span class="token punctuation">::</span><span class="token function">from_env</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    bot<span class="token punctuation">.</span><span class="token function">set_my_commands</span><span class="token punctuation">(</span><span class="token class-name">Command</span><span class="token punctuation">::</span><span class="token function">bot_commands</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token keyword">await</span>
+        <span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">let</span> handler <span class="token operator">=</span> <span class="token function">handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+    <span class="token keyword">let</span> dispatcher<span class="token punctuation">:</span> <span class="token class-name">Dispatcher</span><span class="token operator">&lt;</span><span class="token class-name">Bot</span><span class="token punctuation">,</span> <span class="token class-name">RequestError</span><span class="token punctuation">,</span> <span class="token class-name">DefaultKey</span><span class="token operator">></span> <span class="token operator">=</span> <span class="token class-name">Dispatcher</span><span class="token punctuation">::</span><span class="token function">builder</span><span class="token punctuation">(</span>bot<span class="token punctuation">,</span> handler<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">enable_ctrlc_handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">error_handler</span><span class="token punctuation">(</span><span class="token class-name">Arc</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token class-name">TErrorHandler</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> dispatcher<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>まずLambdaのエントリー関数を作ります。</p>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token attribute attr-name">#[derive(Serialize, Deserialize)]</span>
+<span class="token keyword">struct</span> <span class="token type-definition class-name">Response</span> <span class="token punctuation">&#123;</span>
+    msg<span class="token punctuation">:</span> <span class="token class-name">String</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token attribute attr-name">#[derive(Serialize, Deserialize)]</span>
+<span class="token keyword">struct</span> <span class="token type-definition class-name">LambdaRequest</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+
+<span class="token keyword">async</span> <span class="token keyword">fn</span> <span class="token function-definition function">handler</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> event<span class="token punctuation">:</span> <span class="token class-name">LambdaEvent</span><span class="token operator">&lt;</span><span class="token class-name">Value</span><span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token class-name">Response</span><span class="token punctuation">,</span> <span class="token namespace">lambda_runtime<span class="token punctuation">::</span></span><span class="token class-name">Error</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">let</span> <span class="token punctuation">(</span>payload<span class="token punctuation">,</span> _<span class="token punctuation">)</span> <span class="token operator">=</span> event<span class="token punctuation">.</span><span class="token function">into_parts</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// Telegram WebhookはFunction Urlにアクセスするので、ここではLambdaFunctionUrlRequestを使います</span>
+        <span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">Ok</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token namespace">serde_json<span class="token punctuation">::</span></span><span class="token function">from_value</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">LambdaFunctionUrlRequest</span><span class="token operator">></span><span class="token punctuation">(</span>payload<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token function">bot_handler</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token punctuation">;</span>
+        <span class="token comment">// 他にはカスタマイズした構造体を使うこともできますので、自由に定義してください。</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">Ok</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token namespace">serde_json<span class="token punctuation">::</span></span><span class="token function">from_value</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">LambdaRequest</span><span class="token operator">></span><span class="token punctuation">(</span>payload<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token function">request_handler</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token class-name">Err</span><span class="token punctuation">(</span><span class="token namespace">lambda_runtime<span class="token punctuation">::</span></span><span class="token class-name">Error</span><span class="token punctuation">::</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token string">"Unknown request"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">async</span> <span class="token keyword">fn</span> <span class="token function-definition function">request_handler</span><span class="token punctuation">(</span>
+    <span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span>
+    request<span class="token punctuation">:</span> <span class="token class-name">LambdaRequest</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token class-name">Response</span><span class="token punctuation">,</span> <span class="token namespace">lambda_runtime<span class="token punctuation">::</span></span><span class="token class-name">Error</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// TODO ...</span>
+    <span class="token keyword">return</span> <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token class-name">Response</span> <span class="token punctuation">&#123;</span>
+        msg<span class="token punctuation">:</span> <span class="token string">"Send successful."</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Telegram Botのハンドラーを作ります。</p>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">async</span> <span class="token keyword">fn</span> <span class="token function-definition function">bot_handler</span><span class="token punctuation">(</span>event<span class="token punctuation">:</span> <span class="token class-name">LambdaFunctionUrlRequest</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token class-name">Response</span><span class="token punctuation">,</span> <span class="token namespace">lambda_runtime<span class="token punctuation">::</span></span><span class="token class-name">Error</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> bot <span class="token operator">=</span> <span class="token class-name">Bot</span><span class="token punctuation">::</span><span class="token function">from_env</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">let</span> me <span class="token operator">=</span> bot<span class="token punctuation">.</span><span class="token function">get_me</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"Bot: &#123;&#125;, &#123;&#125;"</span><span class="token punctuation">,</span> me<span class="token punctuation">.</span>username<span class="token punctuation">.</span><span class="token function">as_ref</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> me<span class="token punctuation">.</span>id<span class="token number">.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">match</span> event<span class="token punctuation">.</span>raw_path<span class="token punctuation">.</span><span class="token function">ok_or</span><span class="token punctuation">(</span><span class="token string">"Path is None"</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">.</span><span class="token function">as_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// Function UrlをTelegram BotのWebhookに設定し</span>
+        <span class="token string">"/tgbot/register"</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">// UrlのHostはHTTPリクエストのドメインです</span>
+            <span class="token keyword">let</span> url <span class="token operator">=</span> <span class="token macro property">format!</span><span class="token punctuation">(</span>
+                <span class="token string">"https://&#123;&#125;/tgbot"</span><span class="token punctuation">,</span>
+                event
+                    <span class="token punctuation">.</span>request_context
+                    <span class="token punctuation">.</span>domain_name
+                    <span class="token punctuation">.</span><span class="token function">ok_or</span><span class="token punctuation">(</span><span class="token string">"domain name is none"</span><span class="token punctuation">)</span><span class="token operator">?</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"Registering webhook: &#123;&#125;"</span><span class="token punctuation">,</span> url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment">// Commandを設定する</span>
+            <span class="token keyword">let</span> _ <span class="token operator">=</span> bot<span class="token punctuation">.</span><span class="token function">set_my_commands</span><span class="token punctuation">(</span><span class="token class-name">Command</span><span class="token punctuation">::</span><span class="token function">bot_commands</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token punctuation">;</span>
+            <span class="token comment">// Webhookを設定する</span>
+            <span class="token keyword">let</span> _ <span class="token operator">=</span> bot<span class="token punctuation">.</span><span class="token function">set_webhook</span><span class="token punctuation">(</span><span class="token namespace">url<span class="token punctuation">::</span></span><span class="token class-name">Url</span><span class="token punctuation">::</span><span class="token function">parse</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>url<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token operator">?</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">return</span> <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token class-name">Response</span> <span class="token punctuation">&#123;</span>
+                msg<span class="token punctuation">:</span> <span class="token macro property">format!</span><span class="token punctuation">(</span><span class="token string">"register telegram bot to &#123;&#125; successful"</span><span class="token punctuation">,</span> url<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token comment">// telegram Botのリクエストのhandler</span>
+        <span class="token string">"/tgbot"</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">let</span> bytes <span class="token operator">=</span> event<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">ok_or</span><span class="token punctuation">(</span><span class="token string">"body is none"</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+
+            <span class="token comment">// Function UrlのBodyはbase64エンコードされたものです</span>
+            <span class="token keyword">let</span> body <span class="token operator">=</span> <span class="token keyword">if</span> event<span class="token punctuation">.</span>is_base64_encoded <span class="token punctuation">&#123;</span>
+                <span class="token namespace">general_purpose<span class="token punctuation">::</span></span><span class="token constant">STANDARD</span><span class="token punctuation">.</span><span class="token function">decode</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span><span class="token operator">?</span>
+            <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+                bytes<span class="token punctuation">.</span><span class="token function">as_bytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">to_vec</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+            <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"body: &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">::</span><span class="token function">from_utf8_lossy</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>body<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment">// UpdateはTelegram Botのリクストの構造体です, teloxide::types::Update</span>
+            <span class="token keyword">let</span> update<span class="token punctuation">:</span> <span class="token class-name">Update</span> <span class="token operator">=</span> <span class="token namespace">serde_json<span class="token punctuation">::</span></span><span class="token function">from_slice</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>body<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>
+            <span class="token keyword">let</span> handler <span class="token operator">=</span> <span class="token function">handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">let</span> dependencies <span class="token operator">=</span> <span class="token namespace">dptree<span class="token punctuation">::</span></span><span class="token macro property">deps!</span><span class="token punctuation">[</span>me<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> bot<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> update<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token comment">// リクエスを処理する</span>
+            <span class="token keyword">let</span> result <span class="token operator">=</span> handler<span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span>dependencies<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">await</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">return</span> <span class="token keyword">match</span> result <span class="token punctuation">&#123;</span>
+                <span class="token class-name">ControlFlow</span><span class="token punctuation">::</span><span class="token class-name">Break</span><span class="token punctuation">(</span><span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token class-name">Response</span> <span class="token punctuation">&#123;</span>
+                    msg<span class="token punctuation">:</span> <span class="token string">"Update was handled by bot."</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token class-name">ControlFlow</span><span class="token punctuation">::</span><span class="token class-name">Break</span><span class="token punctuation">(</span><span class="token class-name">Err</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token class-name">Err</span><span class="token punctuation">(</span><span class="token namespace">lambda_runtime<span class="token punctuation">::</span></span><span class="token class-name">Error</span><span class="token punctuation">::</span><span class="token function">from</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token class-name">ControlFlow</span><span class="token punctuation">::</span><span class="token class-name">Continue</span><span class="token punctuation">(</span>_<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token class-name">Response</span> <span class="token punctuation">&#123;</span>
+                    msg<span class="token punctuation">:</span> <span class="token string">"Update was not handled by bot."</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        _ <span class="token operator">=></span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token class-name">Err</span><span class="token punctuation">(</span><span class="token namespace">lambda_runtime<span class="token punctuation">::</span></span><span class="token class-name">Error</span><span class="token punctuation">::</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token macro property">format!</span><span class="token punctuation">(</span><span class="token string">"404 NOT FOUND"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>次はTelegram Bot Fatherで新たなBotを作成して、Tokenを取得してください。<br>
+Lambdaに新たな環境変数を追加します</p>
+<pre class="language-markdown" data-language="markdown"><code class="language-markdown">TELOXIDE_TOKEN=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Telegram</span> <span class="token attr-name">Bot</span> <span class="token attr-name">Token</span><span class="token punctuation">></span></span></code></pre>
+<p>ビルド</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cargo</span> lambda build <span class="token parameter variable">--release</span> <span class="token parameter variable">--bin</span> lambda</code></pre>
+<p>デプロイ</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cargo</span> lambda deploy --binary-name lambda hj-telegram-bot</code></pre>
+<p>Webhookを登録します</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> https://<span class="token operator">&lt;</span>function url<span class="token operator">></span>/tgbot/register</code></pre>
+<p>これで完成しました。<br>
+Telegram Botに<code>/userid</code>を送信してテストしましょう。</p>
+]]></content>
+      <categories>
+        <category>Rust</category>
+        <category>Lambda</category>
+        <category>Telegram</category>
+      </categories>
+      <tags>
+        <tag>Telegram</tag>
+        <tag>Telegram Bot</tag>
+        <tag>Rust</tag>
+        <tag>Cargo</tag>
+        <tag>Teloxide</tag>
+        <tag>Lambda</tag>
       </tags>
   </entry>
   <entry>
