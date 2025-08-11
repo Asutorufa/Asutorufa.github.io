@@ -312,6 +312,270 @@ DOH主要有两种方式HTTP的GET请求和POST的请求</p>
       </tags>
   </entry>
   <entry>
+    <title>EDNS</title>
+    <url>/posts/668530ca/</url>
+    <content><![CDATA[<p>这个DNS系列现在有以下几篇文章<br>
+<a href="/posts/f05986bf/">DNS</a>  <a href="/posts/668530ca/">EDNS</a> <a href="/posts/1751943e/">DNSSEC</a> <a href="/posts/4b39445f/">DNS over HTTPS</a> 完整代码请看<a href="https://github.com/Asutorufa/yuhaiin/tree/master/net/dns">DNS</a></p>
+<h2 id="EDNS">EDNS</h2>
+<p>上一篇我们写了DNS,EDNS就是DNS的功能扩充.<br>
+上一篇的DNS里头部有ARCOUNT的计数,EDNS就包含在那个里面,EDNS发送的请求在请求头之后的Additional中,应答在Answer和Authoritative之后,我们可看以下图,跟清晰了吧</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+---------------------+
+|        Header       |
++---------------------+
+|       Question      | the question for the name server
++---------------------+
+|        Answer       | RRs answering the question
++---------------------+
+|      Authority      | RRs pointing toward an authority
++---------------------+
+|      Additional     | RRs holding additional information
++---------------------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="协议格式">协议格式</h2>
+<p>具体协议内容请看<a href="https://tools.ietf.org/html/rfc2671">rfc2671</a>,<a href="https://tools.ietf.org/html/rfc7871">rfc7871</a></p>
+<span id="more"></span>
+<p>Additinoal包含以下部分</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">     Field Name   Field Type     Description
+     <span class="token hr punctuation">------------------------------------------------------</span>
+     NAME         domain name    empty (root domain)
+     TYPE         u_int16_t      OPT
+     CLASS        u_int16_t      sender's UDP payload size
+     TTL          u_int32_t      extended RCODE and flags
+     RDLEN        u_int16_t      describes RDATA
+     RDATA        octet stream   &#123;attribute,value&#125; pairs
+
+
+TTL中的东西并不是我们之前说到的TTL,这里的TTL只是一个名称,没有具体的含义,TTL中包含以下内容
+
+<span class="token code keyword">                      +0 (MSB)                            +1 (LSB)
+      +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+</span>
+   0: |         EXTENDED-RCODE        |            VERSION            |
+      +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+   2: |                               Z                               |
+      +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+
+   EXTENDED-RCODE  Forms upper 8 bits of extended 12-bit RCODE.  Note
+                   that EXTENDED-RCODE value "0" indicates that an
+                   unextended RCODE is in use (values "0" through "15").
+   VERSION         EDNS VERSION
+   Z               Set to zero by senders and ignored by receivers,
+                   unless modified in a subsequent specification.
+
+这里Z我们之后会用到(不是这一篇文章)
+
+
+RDATA中就是对各种扩充功能的请求字段,而每个不同的功能又有着不同的请求协议
+RDATA的格式如下
+
+<span class="token code keyword">                +0 (MSB)                            +1 (LSB)
+     +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+</span>
+  0: |                          OPTION-CODE                          |
+     +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+  2: |                         OPTION-LENGTH                         |
+     +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+  4: |                                                               |
+     /                          OPTION-DATA                          /
+     /                                                               /
+     +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+   OPTION-CODE    (Assigned by IANA.)
+   OPTION-LENGTH  Size (in octets) of OPTION-DATA.
+   OPTION-DATA    Varies per OPTION-CODE.
+
+如SubNet中的请求字段就包含在其中RDATA中,所以我们要先完成SubNet的字节数组
+才能生成一个Additional,因为请求中需要数据的长度RDLEN<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>因为EDNS中扩展的协议非常多,这里我们就以常用的SubNet为例吧,更多其他类型请看<a href="https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-11">dns-parameters</a><br>
+因为我们以SubNet为例,所以先要了解下SubNet的具体协议格式</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">             +0 (MSB)                            +1 (LSB)
+   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+0: |                          OPTION-CODE                          |
+   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+2: |                         OPTION-LENGTH                         |
+   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+4: |                            FAMILY                             |
+   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+6: |     SOURCE PREFIX-LENGTH      |     SCOPE PREFIX-LENGTH       |
+   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+8: |                           ADDRESS...                          /
+   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+o  SOURCE PREFIX-LENGTH, an unsigned octet representing the leftmost
+   number of significant bits of ADDRESS to be used for the lookup.
+   In responses, it mirrors the same value as in the queries.
+
+o  SCOPE PREFIX-LENGTH, an unsigned octet representing the leftmost
+   number of significant bits of ADDRESS that the response covers.
+   In queries, it MUST be set to 0.
+
+o  ADDRESS, variable number of octets, contains either an IPv4 or
+   IPv6 address, depending on FAMILY, which MUST be truncated to the
+   number of bits indicated by the SOURCE PREFIX-LENGTH field,
+   padding with 0 bits to pad to the end of the last octet needed.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里前面三个字段就是我们之前RDATA中规定的协议格式,后面就是SubNet的格式<br>
+SubNet的OPTION-CODE为8,<br>
+OPTION-LENGTH就是完成之后的长度<br>
+FAMILY表示设置的IP的类型 IPv4为1,IPv6为2 更多类型请看<a href="https://www.iana.org/assignments/address-family-numbers/address-family-numbers.xhtml">address-family-numbers</a><br>
+SOURCE PREFIX-LENGTH为查询中位置偏移(就是CIDR中的mask),具体请了解CIDR,是计算机网络很基础的知识<br>
+SCOPE PREFIX-LENGTH是响应返回的位置偏移,在查询中应为0<br>
+ADDRESS就是设置的SubNet的IP地址,依据上面的FAMILY</p>
+<h2 id="请求">请求</h2>
+<p>看过具体协议格式规定后,我们就可以来完成代码了</p>
+<p>先定义以下各种请求的OPTION-CODE</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">var</span> <span class="token punctuation">(</span>
+  Reserved         <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000000</span><span class="token punctuation">&#125;</span> <span class="token comment">//0</span>
+  LLQ              <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000001</span><span class="token punctuation">&#125;</span> <span class="token comment">//1 Optional</span>
+  UL               <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000010</span><span class="token punctuation">&#125;</span> <span class="token comment">//2 On-hold</span>
+  NSID             <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000011</span><span class="token punctuation">&#125;</span> <span class="token comment">//3 Standard</span>
+  Reserved2        <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000100</span><span class="token punctuation">&#125;</span> <span class="token comment">//4</span>
+  DAU              <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000101</span><span class="token punctuation">&#125;</span> <span class="token comment">//5 Standard</span>
+  DHU              <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000110</span><span class="token punctuation">&#125;</span> <span class="token comment">//6 Standard</span>
+  N3U              <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000111</span><span class="token punctuation">&#125;</span> <span class="token comment">//7 Standard</span>
+  EdnsClientSubnet <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00001000</span><span class="token punctuation">&#125;</span> <span class="token comment">//8 Optional</span>
+  EDNSEXPIRE       <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00001001</span><span class="token punctuation">&#125;</span> <span class="token comment">//9 Optional</span>
+  COOKIE           <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00001010</span><span class="token punctuation">&#125;</span> <span class="token comment">//10 Standard</span>
+  TcpKeepalive     <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00001011</span><span class="token punctuation">&#125;</span> <span class="token comment">//11 Standard</span>
+  Padding          <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00001100</span><span class="token punctuation">&#125;</span> <span class="token comment">//12 Standard</span>
+  CHAIN            <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00001101</span><span class="token punctuation">&#125;</span> <span class="token comment">//13 Standard</span>
+  KEYTAG           <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00001110</span><span class="token punctuation">&#125;</span> <span class="token comment">//14 Optional</span>
+  ExtendedDNSError <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00001111</span><span class="token punctuation">&#125;</span> <span class="token comment">//15 Standard</span>
+  EDNSClientTag    <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00010000</span><span class="token punctuation">&#125;</span> <span class="token comment">//16 Optional</span>
+  EDNSServerTag    <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00010001</span><span class="token punctuation">&#125;</span> <span class="token comment">//17 Optional</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后完成SubNet的</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">createEdnsClientSubnet</span><span class="token punctuation">(</span>ip net<span class="token punctuation">.</span>IP<span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span> <span class="token punctuation">&#123;</span>
+  optionCode <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span>EdnsClientSubnet<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> EdnsClientSubnet<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span>
+
+  family <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000001</span><span class="token punctuation">&#125;</span> <span class="token comment">// 1:Ipv4 2:IPv6 https://www.iana.org/assignments/address-family-numbers/address-family-numbers.xhtml</span>
+  sourceNetmask <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00100000</span><span class="token punctuation">&#125;</span>      <span class="token comment">// 32</span>
+  scopeNetmask <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">&#125;</span>       <span class="token comment">//0 In queries, it MUST be set to 0.</span>
+  subnet <span class="token operator">:=</span> ip<span class="token punctuation">.</span><span class="token function">To4</span><span class="token punctuation">(</span><span class="token punctuation">)</span>                       <span class="token comment">//depending family</span>
+  <span class="token keyword">if</span> subnet <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+    subnet <span class="token operator">=</span> ip<span class="token punctuation">.</span><span class="token function">To16</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    family <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000010</span><span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+  optionData <span class="token operator">:=</span> bytes<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span>family<span class="token punctuation">,</span> sourceNetmask<span class="token punctuation">,</span> scopeNetmask<span class="token punctuation">,</span> subnet<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+  optionLength <span class="token operator">:=</span> <span class="token function">getLength</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>optionData<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">return</span> bytes<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span>optionCode<span class="token punctuation">,</span> optionLength<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> optionData<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>再完成Additional,加上完整的请求头,注意这里我们要修改一下请求头中ArCount的大小</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">createEDNSReq</span><span class="token punctuation">(</span>domain <span class="token builtin">string</span><span class="token punctuation">,</span> reqType2 reqType<span class="token punctuation">,</span> eDNS <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span> <span class="token punctuation">&#123;</span>
+  normalReq <span class="token operator">:=</span> <span class="token function">creatRequest</span><span class="token punctuation">(</span>domain<span class="token punctuation">,</span> reqType2<span class="token punctuation">)</span>
+  normalReq<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0b00000000</span>
+  normalReq<span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0b00000001</span>
+  name <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">&#125;</span>
+  typeR <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00101001</span><span class="token punctuation">&#125;</span>       <span class="token comment">//41</span>
+  payloadSize <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00010000</span><span class="token punctuation">,</span> <span class="token number">0b00000000</span><span class="token punctuation">&#125;</span> <span class="token comment">//4096</span>
+  extendRcode <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">&#125;</span>
+  eDNSVersion <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">&#125;</span>
+  z <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000000</span><span class="token punctuation">&#125;</span>
+  <span class="token keyword">var</span> dataLength <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token builtin">byte</span>
+  <span class="token keyword">if</span> eDNS <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+    dataLength <span class="token operator">=</span> <span class="token function">getLength</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>eDNS<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> bytes<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span>normalReq<span class="token punctuation">,</span> name<span class="token punctuation">,</span> typeR<span class="token punctuation">,</span> payloadSize<span class="token punctuation">,</span> extendRcode<span class="token punctuation">,</span> eDNSVersion<span class="token punctuation">,</span> z<span class="token punctuation">,</span> dataLength<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> eDNS<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="应答">应答</h2>
+<p>我们先分析一下应答的解析顺序,就跟最开始的一样</p>
+<ul>
+<li>Header</li>
+<li>Answer</li>
+<li>Authority</li>
+<li>Additional</li>
+</ul>
+<p>Header和Answer的解析我们上一篇已经完成了,这里需要完成Authority和Additional</p>
+<p>因为我们不需要Authority内的具体内容,这里我们就直接获取到Authority之后的数据就行了</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">resolveAuthoritative</span><span class="token punctuation">(</span>c <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> nsCount <span class="token builtin">int</span><span class="token punctuation">,</span> b <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>left <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">for</span> nsCount <span class="token operator">!=</span> <span class="token number">0</span> <span class="token punctuation">&#123;</span>
+    nsCount<span class="token operator">--</span>
+    <span class="token boolean">_</span><span class="token punctuation">,</span> <span class="token boolean">_</span><span class="token punctuation">,</span> c <span class="token operator">=</span> <span class="token function">getName</span><span class="token punctuation">(</span>c<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+    c <span class="token operator">=</span> c<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment">// type</span>
+    c <span class="token operator">=</span> c<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment">// class</span>
+    c <span class="token operator">=</span> c<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment">// ttl</span>
+    dataLength <span class="token operator">:=</span> <span class="token function">int</span><span class="token punctuation">(</span>c<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">&lt;&lt;</span><span class="token number">8</span> <span class="token operator">+</span> <span class="token function">int</span><span class="token punctuation">(</span>c<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    c <span class="token operator">=</span> c<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment">// data length</span>
+    c <span class="token operator">=</span> c<span class="token punctuation">[</span>dataLength<span class="token punctuation">:</span><span class="token punctuation">]</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> c
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Additional, SubNet</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">resolveAdditional</span><span class="token punctuation">(</span>b <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> arCount <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">for</span> arCount <span class="token operator">!=</span> <span class="token number">0</span> <span class="token punctuation">&#123;</span>
+    arCount<span class="token operator">--</span>
+    <span class="token comment">//name := b[:1]</span>
+    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+    typeE <span class="token operator">:=</span> b<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">]</span>
+    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+    <span class="token comment">//payLoadSize := b[:2]</span>
+    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+    <span class="token comment">//rCode := b[:1]</span>
+    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+    <span class="token comment">//version := b[:1]</span>
+    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+    <span class="token comment">//z := b[:2]</span>
+    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+    dataLength <span class="token operator">:=</span> <span class="token function">int</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">&lt;&lt;</span><span class="token number">8</span> <span class="token operator">+</span> <span class="token function">int</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+    <span class="token comment">//log.Println(name, typeE, payLoadSize, rCode, version, z, dataLength)</span>
+    <span class="token keyword">if</span> typeE<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token operator">||</span> typeE<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">41</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">//optData := b[:dataLength]</span>
+      b <span class="token operator">=</span> b<span class="token punctuation">[</span>dataLength<span class="token punctuation">:</span><span class="token punctuation">]</span>
+      <span class="token keyword">continue</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">if</span> dataLength <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">continue</span>
+    <span class="token punctuation">&#125;</span>
+    optCode <span class="token operator">:=</span> EDNSOPT<span class="token punctuation">&#123;</span>b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> b<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span>
+    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+    optionLength <span class="token operator">:=</span> <span class="token function">int</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">&lt;&lt;</span><span class="token number">8</span> <span class="token operator">+</span> <span class="token function">int</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+    <span class="token keyword">switch</span> optCode <span class="token punctuation">&#123;</span>
+    <span class="token keyword">case</span> EdnsClientSubnet<span class="token punctuation">:</span>
+      <span class="token comment">//family := b[:2]</span>
+      b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+      <span class="token comment">//sourceNetmask := b[:1]</span>
+      <span class="token comment">//log.Println("sourceNetmask", sourceNetmask)</span>
+      b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+      <span class="token comment">//scopeNetmask := b[:1]</span>
+      <span class="token comment">//log.Println("scopeNetmask", scopeNetmask)</span>
+      b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+      <span class="token comment">// Subnet IP</span>
+      <span class="token comment">//if family[0] == 0 &amp;&amp; family[1] == 1 &#123;</span>
+      <span class="token comment">//	log.Println(b[:4])</span>
+      <span class="token comment">//&#125;</span>
+      <span class="token comment">//if family[0] == 0 &amp;&amp; family[1] == 2 &#123;</span>
+      <span class="token comment">//	log.Println(b[:16])</span>
+      <span class="token comment">//&#125;</span>
+
+      b <span class="token operator">=</span> b<span class="token punctuation">[</span>optionLength<span class="token operator">-</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+    <span class="token keyword">default</span><span class="token punctuation">:</span>
+      <span class="token comment">//log.Println("opt data:", b[:optionLength])</span>
+      b <span class="token operator">=</span> b<span class="token punctuation">[</span>optionLength<span class="token punctuation">:</span><span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最后需要在之前的DNS分析加上这两个函数,完整代码请看开头</p>
+<hr>
+<blockquote>
+<p><a href="https://tools.ietf.org/html/rfc2671">rfc2671</a><br>
+<a href="https://tools.ietf.org/html/rfc7871">rfc7871</a><br>
+<a href="https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-11">dns-parameters</a><br>
+<a href="https://www.iana.org/assignments/address-family-numbers/address-family-numbers.xhtml">address-family-numbers</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>DNS</tag>
+        <tag>UDP</tag>
+        <tag>EDNS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>DNS客户端协议详解</title>
     <url>/posts/f05986bf/</url>
     <content><![CDATA[<p>这个DNS系列现在有以下几篇文章<br>
@@ -657,270 +921,6 @@ log<span class="token punctuation">.</span><span class="token function">Println<
         <tag>golang</tag>
         <tag>DNS</tag>
         <tag>UDP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>EDNS</title>
-    <url>/posts/668530ca/</url>
-    <content><![CDATA[<p>这个DNS系列现在有以下几篇文章<br>
-<a href="/posts/f05986bf/">DNS</a>  <a href="/posts/668530ca/">EDNS</a> <a href="/posts/1751943e/">DNSSEC</a> <a href="/posts/4b39445f/">DNS over HTTPS</a> 完整代码请看<a href="https://github.com/Asutorufa/yuhaiin/tree/master/net/dns">DNS</a></p>
-<h2 id="EDNS">EDNS</h2>
-<p>上一篇我们写了DNS,EDNS就是DNS的功能扩充.<br>
-上一篇的DNS里头部有ARCOUNT的计数,EDNS就包含在那个里面,EDNS发送的请求在请求头之后的Additional中,应答在Answer和Authoritative之后,我们可看以下图,跟清晰了吧</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+---------------------+
-|        Header       |
-+---------------------+
-|       Question      | the question for the name server
-+---------------------+
-|        Answer       | RRs answering the question
-+---------------------+
-|      Authority      | RRs pointing toward an authority
-+---------------------+
-|      Additional     | RRs holding additional information
-+---------------------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="协议格式">协议格式</h2>
-<p>具体协议内容请看<a href="https://tools.ietf.org/html/rfc2671">rfc2671</a>,<a href="https://tools.ietf.org/html/rfc7871">rfc7871</a></p>
-<span id="more"></span>
-<p>Additinoal包含以下部分</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">     Field Name   Field Type     Description
-     <span class="token hr punctuation">------------------------------------------------------</span>
-     NAME         domain name    empty (root domain)
-     TYPE         u_int16_t      OPT
-     CLASS        u_int16_t      sender's UDP payload size
-     TTL          u_int32_t      extended RCODE and flags
-     RDLEN        u_int16_t      describes RDATA
-     RDATA        octet stream   &#123;attribute,value&#125; pairs
-
-
-TTL中的东西并不是我们之前说到的TTL,这里的TTL只是一个名称,没有具体的含义,TTL中包含以下内容
-
-<span class="token code keyword">                      +0 (MSB)                            +1 (LSB)
-      +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+</span>
-   0: |         EXTENDED-RCODE        |            VERSION            |
-      +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-   2: |                               Z                               |
-      +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-
-
-   EXTENDED-RCODE  Forms upper 8 bits of extended 12-bit RCODE.  Note
-                   that EXTENDED-RCODE value "0" indicates that an
-                   unextended RCODE is in use (values "0" through "15").
-   VERSION         EDNS VERSION
-   Z               Set to zero by senders and ignored by receivers,
-                   unless modified in a subsequent specification.
-
-这里Z我们之后会用到(不是这一篇文章)
-
-
-RDATA中就是对各种扩充功能的请求字段,而每个不同的功能又有着不同的请求协议
-RDATA的格式如下
-
-<span class="token code keyword">                +0 (MSB)                            +1 (LSB)
-     +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+</span>
-  0: |                          OPTION-CODE                          |
-     +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-  2: |                         OPTION-LENGTH                         |
-     +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-  4: |                                                               |
-     /                          OPTION-DATA                          /
-     /                                                               /
-     +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-
-   OPTION-CODE    (Assigned by IANA.)
-   OPTION-LENGTH  Size (in octets) of OPTION-DATA.
-   OPTION-DATA    Varies per OPTION-CODE.
-
-如SubNet中的请求字段就包含在其中RDATA中,所以我们要先完成SubNet的字节数组
-才能生成一个Additional,因为请求中需要数据的长度RDLEN<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>因为EDNS中扩展的协议非常多,这里我们就以常用的SubNet为例吧,更多其他类型请看<a href="https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-11">dns-parameters</a><br>
-因为我们以SubNet为例,所以先要了解下SubNet的具体协议格式</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">             +0 (MSB)                            +1 (LSB)
-   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-0: |                          OPTION-CODE                          |
-   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-2: |                         OPTION-LENGTH                         |
-   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-4: |                            FAMILY                             |
-   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-6: |     SOURCE PREFIX-LENGTH      |     SCOPE PREFIX-LENGTH       |
-   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-8: |                           ADDRESS...                          /
-   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-
-o  SOURCE PREFIX-LENGTH, an unsigned octet representing the leftmost
-   number of significant bits of ADDRESS to be used for the lookup.
-   In responses, it mirrors the same value as in the queries.
-
-o  SCOPE PREFIX-LENGTH, an unsigned octet representing the leftmost
-   number of significant bits of ADDRESS that the response covers.
-   In queries, it MUST be set to 0.
-
-o  ADDRESS, variable number of octets, contains either an IPv4 or
-   IPv6 address, depending on FAMILY, which MUST be truncated to the
-   number of bits indicated by the SOURCE PREFIX-LENGTH field,
-   padding with 0 bits to pad to the end of the last octet needed.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里前面三个字段就是我们之前RDATA中规定的协议格式,后面就是SubNet的格式<br>
-SubNet的OPTION-CODE为8,<br>
-OPTION-LENGTH就是完成之后的长度<br>
-FAMILY表示设置的IP的类型 IPv4为1,IPv6为2 更多类型请看<a href="https://www.iana.org/assignments/address-family-numbers/address-family-numbers.xhtml">address-family-numbers</a><br>
-SOURCE PREFIX-LENGTH为查询中位置偏移(就是CIDR中的mask),具体请了解CIDR,是计算机网络很基础的知识<br>
-SCOPE PREFIX-LENGTH是响应返回的位置偏移,在查询中应为0<br>
-ADDRESS就是设置的SubNet的IP地址,依据上面的FAMILY</p>
-<h2 id="请求">请求</h2>
-<p>看过具体协议格式规定后,我们就可以来完成代码了</p>
-<p>先定义以下各种请求的OPTION-CODE</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">var</span> <span class="token punctuation">(</span>
-  Reserved         <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000000</span><span class="token punctuation">&#125;</span> <span class="token comment">//0</span>
-  LLQ              <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000001</span><span class="token punctuation">&#125;</span> <span class="token comment">//1 Optional</span>
-  UL               <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000010</span><span class="token punctuation">&#125;</span> <span class="token comment">//2 On-hold</span>
-  NSID             <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000011</span><span class="token punctuation">&#125;</span> <span class="token comment">//3 Standard</span>
-  Reserved2        <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000100</span><span class="token punctuation">&#125;</span> <span class="token comment">//4</span>
-  DAU              <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000101</span><span class="token punctuation">&#125;</span> <span class="token comment">//5 Standard</span>
-  DHU              <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000110</span><span class="token punctuation">&#125;</span> <span class="token comment">//6 Standard</span>
-  N3U              <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000111</span><span class="token punctuation">&#125;</span> <span class="token comment">//7 Standard</span>
-  EdnsClientSubnet <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00001000</span><span class="token punctuation">&#125;</span> <span class="token comment">//8 Optional</span>
-  EDNSEXPIRE       <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00001001</span><span class="token punctuation">&#125;</span> <span class="token comment">//9 Optional</span>
-  COOKIE           <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00001010</span><span class="token punctuation">&#125;</span> <span class="token comment">//10 Standard</span>
-  TcpKeepalive     <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00001011</span><span class="token punctuation">&#125;</span> <span class="token comment">//11 Standard</span>
-  Padding          <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00001100</span><span class="token punctuation">&#125;</span> <span class="token comment">//12 Standard</span>
-  CHAIN            <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00001101</span><span class="token punctuation">&#125;</span> <span class="token comment">//13 Standard</span>
-  KEYTAG           <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00001110</span><span class="token punctuation">&#125;</span> <span class="token comment">//14 Optional</span>
-  ExtendedDNSError <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00001111</span><span class="token punctuation">&#125;</span> <span class="token comment">//15 Standard</span>
-  EDNSClientTag    <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00010000</span><span class="token punctuation">&#125;</span> <span class="token comment">//16 Optional</span>
-  EDNSServerTag    <span class="token operator">=</span> EDNSOPT<span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00010001</span><span class="token punctuation">&#125;</span> <span class="token comment">//17 Optional</span>
-<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>然后完成SubNet的</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">createEdnsClientSubnet</span><span class="token punctuation">(</span>ip net<span class="token punctuation">.</span>IP<span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span> <span class="token punctuation">&#123;</span>
-  optionCode <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span>EdnsClientSubnet<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> EdnsClientSubnet<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span>
-
-  family <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000001</span><span class="token punctuation">&#125;</span> <span class="token comment">// 1:Ipv4 2:IPv6 https://www.iana.org/assignments/address-family-numbers/address-family-numbers.xhtml</span>
-  sourceNetmask <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00100000</span><span class="token punctuation">&#125;</span>      <span class="token comment">// 32</span>
-  scopeNetmask <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">&#125;</span>       <span class="token comment">//0 In queries, it MUST be set to 0.</span>
-  subnet <span class="token operator">:=</span> ip<span class="token punctuation">.</span><span class="token function">To4</span><span class="token punctuation">(</span><span class="token punctuation">)</span>                       <span class="token comment">//depending family</span>
-  <span class="token keyword">if</span> subnet <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-    subnet <span class="token operator">=</span> ip<span class="token punctuation">.</span><span class="token function">To16</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    family <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000010</span><span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span>
-  optionData <span class="token operator">:=</span> bytes<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span>family<span class="token punctuation">,</span> sourceNetmask<span class="token punctuation">,</span> scopeNetmask<span class="token punctuation">,</span> subnet<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-
-  optionLength <span class="token operator">:=</span> <span class="token function">getLength</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>optionData<span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">return</span> bytes<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span>optionCode<span class="token punctuation">,</span> optionLength<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> optionData<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>再完成Additional,加上完整的请求头,注意这里我们要修改一下请求头中ArCount的大小</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">createEDNSReq</span><span class="token punctuation">(</span>domain <span class="token builtin">string</span><span class="token punctuation">,</span> reqType2 reqType<span class="token punctuation">,</span> eDNS <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span> <span class="token punctuation">&#123;</span>
-  normalReq <span class="token operator">:=</span> <span class="token function">creatRequest</span><span class="token punctuation">(</span>domain<span class="token punctuation">,</span> reqType2<span class="token punctuation">)</span>
-  normalReq<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0b00000000</span>
-  normalReq<span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0b00000001</span>
-  name <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">&#125;</span>
-  typeR <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00101001</span><span class="token punctuation">&#125;</span>       <span class="token comment">//41</span>
-  payloadSize <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00010000</span><span class="token punctuation">,</span> <span class="token number">0b00000000</span><span class="token punctuation">&#125;</span> <span class="token comment">//4096</span>
-  extendRcode <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">&#125;</span>
-  eDNSVersion <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">&#125;</span>
-  z <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token number">0b00000000</span><span class="token punctuation">,</span> <span class="token number">0b00000000</span><span class="token punctuation">&#125;</span>
-  <span class="token keyword">var</span> dataLength <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token builtin">byte</span>
-  <span class="token keyword">if</span> eDNS <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-    dataLength <span class="token operator">=</span> <span class="token function">getLength</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>eDNS<span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token keyword">return</span> bytes<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span>normalReq<span class="token punctuation">,</span> name<span class="token punctuation">,</span> typeR<span class="token punctuation">,</span> payloadSize<span class="token punctuation">,</span> extendRcode<span class="token punctuation">,</span> eDNSVersion<span class="token punctuation">,</span> z<span class="token punctuation">,</span> dataLength<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> eDNS<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="应答">应答</h2>
-<p>我们先分析一下应答的解析顺序,就跟最开始的一样</p>
-<ul>
-<li>Header</li>
-<li>Answer</li>
-<li>Authority</li>
-<li>Additional</li>
-</ul>
-<p>Header和Answer的解析我们上一篇已经完成了,这里需要完成Authority和Additional</p>
-<p>因为我们不需要Authority内的具体内容,这里我们就直接获取到Authority之后的数据就行了</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">resolveAuthoritative</span><span class="token punctuation">(</span>c <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> nsCount <span class="token builtin">int</span><span class="token punctuation">,</span> b <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>left <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">for</span> nsCount <span class="token operator">!=</span> <span class="token number">0</span> <span class="token punctuation">&#123;</span>
-    nsCount<span class="token operator">--</span>
-    <span class="token boolean">_</span><span class="token punctuation">,</span> <span class="token boolean">_</span><span class="token punctuation">,</span> c <span class="token operator">=</span> <span class="token function">getName</span><span class="token punctuation">(</span>c<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
-    c <span class="token operator">=</span> c<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment">// type</span>
-    c <span class="token operator">=</span> c<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment">// class</span>
-    c <span class="token operator">=</span> c<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment">// ttl</span>
-    dataLength <span class="token operator">:=</span> <span class="token function">int</span><span class="token punctuation">(</span>c<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">&lt;&lt;</span><span class="token number">8</span> <span class="token operator">+</span> <span class="token function">int</span><span class="token punctuation">(</span>c<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    c <span class="token operator">=</span> c<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment">// data length</span>
-    c <span class="token operator">=</span> c<span class="token punctuation">[</span>dataLength<span class="token punctuation">:</span><span class="token punctuation">]</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token keyword">return</span> c
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Additional, SubNet</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">resolveAdditional</span><span class="token punctuation">(</span>b <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> arCount <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">for</span> arCount <span class="token operator">!=</span> <span class="token number">0</span> <span class="token punctuation">&#123;</span>
-    arCount<span class="token operator">--</span>
-    <span class="token comment">//name := b[:1]</span>
-    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
-    typeE <span class="token operator">:=</span> b<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">]</span>
-    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
-    <span class="token comment">//payLoadSize := b[:2]</span>
-    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
-    <span class="token comment">//rCode := b[:1]</span>
-    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
-    <span class="token comment">//version := b[:1]</span>
-    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
-    <span class="token comment">//z := b[:2]</span>
-    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
-    dataLength <span class="token operator">:=</span> <span class="token function">int</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">&lt;&lt;</span><span class="token number">8</span> <span class="token operator">+</span> <span class="token function">int</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
-    <span class="token comment">//log.Println(name, typeE, payLoadSize, rCode, version, z, dataLength)</span>
-    <span class="token keyword">if</span> typeE<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token operator">||</span> typeE<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">41</span> <span class="token punctuation">&#123;</span>
-      <span class="token comment">//optData := b[:dataLength]</span>
-      b <span class="token operator">=</span> b<span class="token punctuation">[</span>dataLength<span class="token punctuation">:</span><span class="token punctuation">]</span>
-      <span class="token keyword">continue</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token keyword">if</span> dataLength <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">&#123;</span>
-      <span class="token keyword">continue</span>
-    <span class="token punctuation">&#125;</span>
-    optCode <span class="token operator">:=</span> EDNSOPT<span class="token punctuation">&#123;</span>b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> b<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span>
-    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
-    optionLength <span class="token operator">:=</span> <span class="token function">int</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">&lt;&lt;</span><span class="token number">8</span> <span class="token operator">+</span> <span class="token function">int</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
-    <span class="token keyword">switch</span> optCode <span class="token punctuation">&#123;</span>
-    <span class="token keyword">case</span> EdnsClientSubnet<span class="token punctuation">:</span>
-      <span class="token comment">//family := b[:2]</span>
-      b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
-      <span class="token comment">//sourceNetmask := b[:1]</span>
-      <span class="token comment">//log.Println("sourceNetmask", sourceNetmask)</span>
-      b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
-      <span class="token comment">//scopeNetmask := b[:1]</span>
-      <span class="token comment">//log.Println("scopeNetmask", scopeNetmask)</span>
-      b <span class="token operator">=</span> b<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
-      <span class="token comment">// Subnet IP</span>
-      <span class="token comment">//if family[0] == 0 &amp;&amp; family[1] == 1 &#123;</span>
-      <span class="token comment">//	log.Println(b[:4])</span>
-      <span class="token comment">//&#125;</span>
-      <span class="token comment">//if family[0] == 0 &amp;&amp; family[1] == 2 &#123;</span>
-      <span class="token comment">//	log.Println(b[:16])</span>
-      <span class="token comment">//&#125;</span>
-
-      b <span class="token operator">=</span> b<span class="token punctuation">[</span>optionLength<span class="token operator">-</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
-    <span class="token keyword">default</span><span class="token punctuation">:</span>
-      <span class="token comment">//log.Println("opt data:", b[:optionLength])</span>
-      b <span class="token operator">=</span> b<span class="token punctuation">[</span>optionLength<span class="token punctuation">:</span><span class="token punctuation">]</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>最后需要在之前的DNS分析加上这两个函数,完整代码请看开头</p>
-<hr>
-<blockquote>
-<p><a href="https://tools.ietf.org/html/rfc2671">rfc2671</a><br>
-<a href="https://tools.ietf.org/html/rfc7871">rfc7871</a><br>
-<a href="https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-11">dns-parameters</a><br>
-<a href="https://www.iana.org/assignments/address-family-numbers/address-family-numbers.xhtml">address-family-numbers</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>golang</tag>
-        <tag>DNS</tag>
-        <tag>UDP</tag>
-        <tag>EDNS</tag>
       </tags>
   </entry>
   <entry>
@@ -4414,31 +4414,6 @@ module &quot;module3&quot; &#123;
       </tags>
   </entry>
   <entry>
-    <title>uefi and efi</title>
-    <url>/posts/a99a60b1/</url>
-    <content><![CDATA[<p>创建efi分区:</p>
-<p>创建efi分区要设置boot flag,而不是纯FAT32文件系统<br>
-使用gdisk</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gdisk /dev/sd**
-<span class="token comment">#这里要注意后面输入分区系统编号 要选择EFI分区,目前efi分区编号是 ef00</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>使用parted</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">parted</span> /dev/sd**
-<span class="token punctuation">(</span>parted<span class="token punctuation">)</span> <span class="token builtin class-name">set</span> <span class="token number">1</span> boot on<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>之后再格式化为fat32</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">mkfs.vfat <span class="token parameter variable">-F</span> <span class="token number">32</span> /dev/sd**</code></pre>
-<p>更新bios中的启动项应该在将启动文件安装到efi分区时还要向bios中的nvram存储器上写入相应的路径,在linux中可以使用efibootmgr完成相应的操作,当然如果你是安装grub,安装grub时会自动向nvram中写入内容,比如在bios更新后,会清除nvram中的内容,所有还要重新安装grub,或是使用efibootmgr写入引导文件路径.可参考<a href="https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface#efibootmgr">Unified_Extensible_Firmware_Interface#efibootmgr</a>,windows中也有相应的工具,具体操作方式可在网路上搜索.<br>
-如果是u盘的话,uefi 会查看所有 fat 分区，看看里面有没有 EFI/boot/bootx64.efi(目前还没有找到相应的文档表示是这个,这只是我个人的猜想,因为在我试过的无论是windows还是linux的iso镜像的efi文件都是这个地方) 引导文件,然后只要是 FAT32 文件系统就行,所以可以把 windows 或 ubuntu 的 iso 直接解压到一个 fat 分区（比如 fat 的 u 盘或移动硬盘）然后引导<br>
-<strong>有些UEFI系统只会识别 efi分区下的EFI/boot文件夹内的efi文件,有的甚至只会识别EFI/boot/bootx64.efi</strong></p>
-]]></content>
-      <categories>
-        <category>Computer</category>
-      </categories>
-      <tags>
-        <tag>efi</tag>
-        <tag>uefi</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>とある番組の記録</title>
     <url>/posts/fe7367b8/</url>
     <content><![CDATA[<p>最近わたくしはたくさん言葉知りました、記録したい、例えば：どこ見つかった、どうおもう。<br>
@@ -4515,6 +4490,31 @@ module &quot;module3&quot; &#123;
       <tags>
         <tag>建站</tag>
         <tag>免费</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>uefi and efi</title>
+    <url>/posts/a99a60b1/</url>
+    <content><![CDATA[<p>创建efi分区:</p>
+<p>创建efi分区要设置boot flag,而不是纯FAT32文件系统<br>
+使用gdisk</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gdisk /dev/sd**
+<span class="token comment">#这里要注意后面输入分区系统编号 要选择EFI分区,目前efi分区编号是 ef00</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>使用parted</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">parted</span> /dev/sd**
+<span class="token punctuation">(</span>parted<span class="token punctuation">)</span> <span class="token builtin class-name">set</span> <span class="token number">1</span> boot on<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>之后再格式化为fat32</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">mkfs.vfat <span class="token parameter variable">-F</span> <span class="token number">32</span> /dev/sd**</code></pre>
+<p>更新bios中的启动项应该在将启动文件安装到efi分区时还要向bios中的nvram存储器上写入相应的路径,在linux中可以使用efibootmgr完成相应的操作,当然如果你是安装grub,安装grub时会自动向nvram中写入内容,比如在bios更新后,会清除nvram中的内容,所有还要重新安装grub,或是使用efibootmgr写入引导文件路径.可参考<a href="https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface#efibootmgr">Unified_Extensible_Firmware_Interface#efibootmgr</a>,windows中也有相应的工具,具体操作方式可在网路上搜索.<br>
+如果是u盘的话,uefi 会查看所有 fat 分区，看看里面有没有 EFI/boot/bootx64.efi(目前还没有找到相应的文档表示是这个,这只是我个人的猜想,因为在我试过的无论是windows还是linux的iso镜像的efi文件都是这个地方) 引导文件,然后只要是 FAT32 文件系统就行,所以可以把 windows 或 ubuntu 的 iso 直接解压到一个 fat 分区（比如 fat 的 u 盘或移动硬盘）然后引导<br>
+<strong>有些UEFI系统只会识别 efi分区下的EFI/boot文件夹内的efi文件,有的甚至只会识别EFI/boot/bootx64.efi</strong></p>
+]]></content>
+      <categories>
+        <category>Computer</category>
+      </categories>
+      <tags>
+        <tag>efi</tag>
+        <tag>uefi</tag>
       </tags>
   </entry>
   <entry>

@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/index.html</loc>
+    <loc>https://asutorufa.com/schedule/index.html</loc>
     
     <lastmod>2025-08-11</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/schedule/index.html</loc>
+    <loc>https://asutorufa.com/tags/index.html</loc>
     
     <lastmod>2025-08-11</lastmod>
     
@@ -1077,13 +1077,6 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/uefi/</loc>
-    <lastmod>2025-08-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://asutorufa.com/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
     <lastmod>2025-08-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -1099,6 +1092,13 @@
   
   <url>
     <loc>https://asutorufa.com/tags/%E5%85%8D%E8%B4%B9/</loc>
+    <lastmod>2025-08-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/tags/uefi/</loc>
     <lastmod>2025-08-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1513,13 +1513,6 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/categories/Computer/</loc>
-    <lastmod>2025-08-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://asutorufa.com/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
     <lastmod>2025-08-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -1528,6 +1521,13 @@
   
   <url>
     <loc>https://asutorufa.com/categories/%E5%BB%BA%E7%AB%99/</loc>
+    <lastmod>2025-08-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/categories/Computer/</loc>
     <lastmod>2025-08-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
