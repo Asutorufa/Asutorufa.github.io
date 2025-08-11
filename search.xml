@@ -3396,20 +3396,16 @@ To use a tool, respond with a JSON object with the following structure:
 primjs can't support exclude languages,
 so we direct use hexo tag system
  -->
-<pre>
-<code class="mermaid">
-sequenceDiagram
-actor ユーザ
-ユーザ-&gt;&gt;サーバー: 東京の天気は？
-サーバー-&gt;&gt;llm: promptとtools
-llm--)サーバー: 関数を呼び出し&lt;br&#x2F;&gt;引数（東京）を返す
-サーバー-&gt;&gt;外部サービス: 東京の天気を取得
-外部サービス--)サーバー: 天気を返す
-サーバー-&gt;&gt;llm: 天気をpromptに追加
-llm--&gt;&gt;サーバー: 生成する内容を返す
-サーバー-&gt;&gt;ユーザ: 内容を返す
-</code>
-</pre>
+<pre><code class="mermaid">sequenceDiagram
+    actor ユーザ
+    ユーザ-&gt;&gt;サーバー: 東京の天気は？
+    サーバー-&gt;&gt;llm: promptとtools
+    llm--)サーバー: 関数を呼び出し&lt;br&#x2F;&gt;引数（東京）を返す
+    サーバー-&gt;&gt;外部サービス: 東京の天気を取得
+    外部サービス--)サーバー: 天気を返す
+    サーバー-&gt;&gt;llm: 天気をpromptに追加
+    llm--&gt;&gt;サーバー: 生成する内容を返す
+    サーバー-&gt;&gt;ユーザ: 内容を返す</code></pre>
 <!-- 
 取得：しゅとく
  -->
@@ -3666,6 +3662,36 @@ gpg <span class="token parameter variable">-d</span> <span class="token punctuat
       </tags>
   </entry>
   <entry>
+    <title>http Keep-Alive</title>
+    <url>/posts/d91b7c06/</url>
+    <content><![CDATA[<h2 id="http-keep-alive">http keep-alive</h2>
+<p>http头部<code>Connection: Keep-Alive</code>代表连接请求保持长连接<br>
+<strong>如果是http代理,必须处理<code>Proxy-Connection: Keep-Alive</code>为<code>Connection: Keep-Alive</code>,如果代理没有实现<code>Keep-Alive</code>就不变或者将Connection设为close.</strong></p>
+<p>优点:减少握手次数,如下图(图来源文章最下面)<br>
+<img src="https://milestone-of-se.nesuke.com/wp-content/uploads/2018/12/http-keepalive-2v2.png" alt="keep-alive" loading="lazy"></p>
+<span id="more"></span>
+<h2 id="判断一次连接的传输结束">判断一次连接的传输结束</h2>
+<h3 id="使用消息首部字段Conent-Length">使用消息首部字段<code>Conent-Length</code></h3>
+<p><code>Conent-Length</code>表示实体内容长度，客户端（服务器）可以根据这个值来判断数据是否接收完成。</p>
+<h3 id="使用Transfer-Encoding-chunked">使用<code>Transfer-Encoding: chunked</code></h3>
+<p>chunk编码将数据分成一块一块的发生。Chunked编码将使用若干个Chunk串连而成，由一个标明长度为0的chunk标示结束。</p>
+<hr>
+<p>参考:</p>
+<ul>
+<li><a href="https://www.google.com/amp/s/milestone-of-se.nesuke.com/nw-basic/as-nw-engineer/keepalive-tcp-http/%3Famp=1">【図解】TCP Keep-Alive/http Keep-Aliveの仕組みと違い ～Client/Serverの挙動とメリット,設定～</a></li>
+<li><a href="https://www.cnblogs.com/skynet/archive/2010/12/11/1903347.html#!comments">HTTP头部详解</a></li>
+<li><a href="https://www.jianshu.com/p/49551bda6619">HTTP协议的Keep-Alive 模式</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+        <tag>proxy</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>iptables</title>
     <url>/posts/736b1750/</url>
     <content><![CDATA[<p>iptables chain</p>
@@ -3730,36 +3756,6 @@ POSTROUTING: mangle, nat<span aria-hidden="true" class="line-numbers-rows"><span
       </tags>
   </entry>
   <entry>
-    <title>http Keep-Alive</title>
-    <url>/posts/d91b7c06/</url>
-    <content><![CDATA[<h2 id="http-keep-alive">http keep-alive</h2>
-<p>http头部<code>Connection: Keep-Alive</code>代表连接请求保持长连接<br>
-<strong>如果是http代理,必须处理<code>Proxy-Connection: Keep-Alive</code>为<code>Connection: Keep-Alive</code>,如果代理没有实现<code>Keep-Alive</code>就不变或者将Connection设为close.</strong></p>
-<p>优点:减少握手次数,如下图(图来源文章最下面)<br>
-<img src="https://milestone-of-se.nesuke.com/wp-content/uploads/2018/12/http-keepalive-2v2.png" alt="keep-alive" loading="lazy"></p>
-<span id="more"></span>
-<h2 id="判断一次连接的传输结束">判断一次连接的传输结束</h2>
-<h3 id="使用消息首部字段Conent-Length">使用消息首部字段<code>Conent-Length</code></h3>
-<p><code>Conent-Length</code>表示实体内容长度，客户端（服务器）可以根据这个值来判断数据是否接收完成。</p>
-<h3 id="使用Transfer-Encoding-chunked">使用<code>Transfer-Encoding: chunked</code></h3>
-<p>chunk编码将数据分成一块一块的发生。Chunked编码将使用若干个Chunk串连而成，由一个标明长度为0的chunk标示结束。</p>
-<hr>
-<p>参考:</p>
-<ul>
-<li><a href="https://www.google.com/amp/s/milestone-of-se.nesuke.com/nw-basic/as-nw-engineer/keepalive-tcp-http/%3Famp=1">【図解】TCP Keep-Alive/http Keep-Aliveの仕組みと違い ～Client/Serverの挙動とメリット,設定～</a></li>
-<li><a href="https://www.cnblogs.com/skynet/archive/2010/12/11/1903347.html#!comments">HTTP头部详解</a></li>
-<li><a href="https://www.jianshu.com/p/49551bda6619">HTTP协议的Keep-Alive 模式</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-        <tag>proxy</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>langchaingoでRAGを試しました</title>
     <url>/posts/95db8f9/</url>
     <content><![CDATA[<blockquote>
@@ -3768,18 +3764,14 @@ POSTROUTING: mangle, nat<span aria-hidden="true" class="line-numbers-rows"><span
 <h2 id="RAGとは">RAGとは</h2>
 <p>RAGはRetrieval augmented generationの略です。<br>
 大規模言語モデル内容を生成する前に、promptによる外部のデーターベースに知識を検索、元のpromptと組み合わせて、アウトプットを改善するための技術です。</p>
-<pre>
-<code class="mermaid">
-sequenceDiagram
-actor ユーザ
-ユーザ-&gt;&gt;サーバー: prompt: 今日の注目&lt;br&#x2F;&gt;の新聞は何ですか？
-サーバー-&gt;&gt;ベクトルデータベース: promptをキーワードとして&lt;br&#x2F;&gt;知識を検索
-ベクトルデータベース--)サーバー: 知識を返す
-サーバー-&gt;&gt;llm: promptと知識を組み合わせて
-llm--&gt;&gt;サーバー: 生成する内容を返す
-サーバー-&gt;&gt;ユーザ: 内容を返す
-</code>
-</pre>
+<pre><code class="mermaid">sequenceDiagram
+    actor ユーザ
+    ユーザ-&gt;&gt;サーバー: prompt: 今日の注目&lt;br&#x2F;&gt;の新聞は何ですか？
+    サーバー-&gt;&gt;ベクトルデータベース: promptをキーワードとして&lt;br&#x2F;&gt;知識を検索
+    ベクトルデータベース--)サーバー: 知識を返す
+    サーバー-&gt;&gt;llm: promptと知識を組み合わせて
+    llm--&gt;&gt;サーバー: 生成する内容を返す
+    サーバー-&gt;&gt;ユーザ: 内容を返す</code></pre>
 <p>例えば：</p>
 <p>ユーザ：今日の注目の新聞は何ですか？</p>
 <p>gemini：</p>
@@ -4364,12 +4356,12 @@ module &quot;module2&quot; &#123;
 module &quot;module3&quot; &#123;
   source &#x3D; &quot;..&#x2F;modules&#x2F;module3&quot;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">graph</span> TD<span class="token punctuation">;</span>
-  module2 <span class="token arrow operator">--></span> module1<span class="token punctuation">;</span>
-  module3 <span class="token arrow operator">--></span> module1<span class="token punctuation">;</span>
-  root <span class="token arrow operator">--></span> module1<span class="token punctuation">;</span>
-  root <span class="token arrow operator">--></span> module2<span class="token punctuation">;</span>
-  root <span class="token arrow operator">--></span> module3<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre><code class="mermaid">graph TD;
+  module2 --&gt; module1;
+  module3 --&gt; module1;
+  root --&gt; module1;
+  root --&gt; module2;
+  root --&gt; module3;</code></pre>
 ]]></content>
       <categories>
         <category>Kubernetes</category>
