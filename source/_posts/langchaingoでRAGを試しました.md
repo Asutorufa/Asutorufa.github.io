@@ -19,7 +19,8 @@ language: ja
 RAGはRetrieval augmented generationの略です。  
 大規模言語モデル内容を生成する前に、promptによる外部のデーターベースに知識を検索、元のpromptと組み合わせて、アウトプットを改善するための技術です。  
 
-{% mermaid sequenceDiagram %}
+```mermaid
+sequenceDiagram
     actor ユーザ
     ユーザ->>サーバー: prompt: 今日の注目<br/>の新聞は何ですか？
     サーバー->>ベクトルデータベース: promptをキーワードとして<br/>知識を検索
@@ -27,7 +28,7 @@ RAGはRetrieval augmented generationの略です。
     サーバー->>llm: promptと知識を組み合わせて
     llm-->>サーバー: 生成する内容を返す
     サーバー->>ユーザ: 内容を返す
-{% endmermaid %}
+```
 
 例えば：
 

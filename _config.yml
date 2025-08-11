@@ -48,6 +48,8 @@ prismjs:
   line_number: true
   line_threshold: 1
   tab_replace: "  "
+  exclude_languages:
+    - mermaid
 highlight:
   line_number: true
   auto_detect: false

@@ -10,12 +10,14 @@ function mermaid(args, content) {
   // Support mermaid inside backtick code block
   // Keep the same HTML structure
   // Fix issue #347 #797
-  return `<pre>
+  return `
+<pre>
 <code class="mermaid">
 ${args.join(' ')}
 ${escapeHTML(content)}
 </code>
-</pre>`;
+</pre>
+`;
 };
 
-hexo.extend.tag.register('mermaid', mermaid, {ends: true});
+hexo.extend.tag.register('mermaid', mermaid, { ends: true });

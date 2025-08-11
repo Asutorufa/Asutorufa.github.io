@@ -48,7 +48,8 @@ primjs can't support exclude languages,
 so we direct use hexo tag system
  -->
 
-{% mermaid sequenceDiagram %}
+```mermaid
+sequenceDiagram
     actor ユーザ
     ユーザ->>サーバー: 東京の天気は？
     サーバー->>llm: promptとtools
@@ -58,7 +59,7 @@ so we direct use hexo tag system
     サーバー->>llm: 天気をpromptに追加
     llm-->>サーバー: 生成する内容を返す
     サーバー->>ユーザ: 内容を返す
-{% endmermaid %}
+```
 
 <!-- 
 取得：しゅとく
