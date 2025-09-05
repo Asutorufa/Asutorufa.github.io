@@ -29,6 +29,15 @@
   </url>
   
   <url>
+    <loc>https://asutorufa.com/about/index.html</loc>
+    
+    <lastmod>2025-09-05</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://asutorufa.com/archives/index.html</loc>
     
     <lastmod>2025-09-05</lastmod>
@@ -57,15 +66,6 @@
   
   <url>
     <loc>https://asutorufa.com/friends/index.html</loc>
-    
-    <lastmod>2025-09-05</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.com/about/index.html</loc>
     
     <lastmod>2025-09-05</lastmod>
     
@@ -1072,13 +1072,6 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/snap/</loc>
-    <lastmod>2025-09-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://asutorufa.com/tags/python/</loc>
     <lastmod>2025-09-05</lastmod>
     <changefreq>weekly</changefreq>
@@ -1087,6 +1080,13 @@
   
   <url>
     <loc>https://asutorufa.com/tags/%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2025-09-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/tags/snap/</loc>
     <lastmod>2025-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1296,14 +1296,14 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/Deep-Learning/</loc>
+    <loc>https://asutorufa.com/tags/IP/</loc>
     <lastmod>2025-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/IP/</loc>
+    <loc>https://asutorufa.com/tags/Deep-Learning/</loc>
     <lastmod>2025-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
