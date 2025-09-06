@@ -1474,98 +1474,6 @@ cli<span class="token punctuation">,</span> err <span class="token operator">:=<
       </tags>
   </entry>
   <entry>
-    <title>NAT类型</title>
-    <url>/posts/14e0ef9e/</url>
-    <content><![CDATA[<h2 id="NAT-Mapping">NAT Mapping</h2>
-<p>描述NAT在映射网络内主机地址的行为</p>
-<pre class="language-markdown" data-language="markdown"><code class="language-markdown">computer(192.168.100.2:30086) -> NAT -> 1.1.1.1:2345</code></pre>
-<p>Endpoint-Independent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向不同地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
-
-此时主机向 1.0.0.1:53 发送udp包,
-             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
-主机又向   1.0.0.1:63 发送udp包,
-             NAT也使用 1.1.1.1:2345 向 1.0.0.1:63 发包
-主机又向   8.8.8.8:53 发送udp包,
-             NAT也使用 1.1.1.1:2345 向 8.8.8.8:53 发包
-
-这种无论目标地址和端口是什么都使用同一地址进行发包的NAT行为就是 Endpoint-Independent Mapping,
-跟没有NAT一样<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Address-Dependent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向同一地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
-
-此时主机向 1.0.0.1:53 发送udp包,
-             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
-主机又向   1.0.0.1:63 发送udp包,
-             NAT也将使用 1.1.1.1:2345 向 1.0.0.1:63 发包
-主机又向   8.8.8.8:53 发送udp包,
-             此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
-
-这种依赖目标地址但不依赖端口的NAT映射行为就是 Address-Dependent Mapping<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>Address and Port-Dependent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向同一地址和同一端口发包时, NAT使用同一映射地址向外发包</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
-
-此时主机向 1.0.0.1:53 发送udp包, 
-            NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
-主机又向   1.0.0.1:63 发送udp包,
-            NAT将使用一新映射地址 1.1.1.1:3789 向 1.0.0.1:63 发包
-主机又向   8.8.8.8:53 发送udp包,
-           此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
-主机又向 1.0.0.1:53 发送udp包,
-            NAT使用相同地址 1.1.1.1:2345 向 1.0.0.1:53 发包
-
-这种同时依赖目标地址和端口的NAT映射行为就是 Address and Port-Dependent Mapping,
-这种NAT类型是没有办法进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="NAT-Filtering">NAT Filtering</h2>
-<p>描述当NAT为网络内主机映射一地址后，互联网内主机向映射地址发送数据时，将允许哪些地址通过的行为</p>
-<p>Endpoint-Independent Filtering</p>
-<p>A NAT device employing the combination of “Endpoint-Independent<br>
-Mapping” and “Endpoint-Independent Filtering” will accept incoming<br>
-traffic to a mapped public port from ANY external endpoint on the<br>
-public network.</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
-
-无论外部任何地址和端口的主机向1.1.1.1:2345发包, NAT都将会将其转发到 192.168.100.2:30086<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>Address-Dependent Filtering<br>
-for receiving packets from a specific external endpoint, it is necessary for the internal endpoint to<br>
-send packets first to that specific external endpoint’s IP address.</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
-
-如果需要NAT将外部数据包转发到主机上,
-必须先由主机向某一地址发包, 
-NAT都会将收到的同一地址(所有端口)的数据包转发到主机上<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Address and Port-Dependent Filtering</p>
-<p>for receiving  packets from a specific external endpoint, it is necessary for<br>
-the internal endpoint to send packets first to that external endpoint’s IP address and port.</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
-
-如果需要NAT将外部数据包转发到主机上
-必须先由主机向某一地址和某一端口发包
-NAT都会将收到的同一地址和同一端口的数据包转发到主机上
-
-这种NAT类型是没发进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="NAT穿透">NAT穿透</h2>
-<p>是否可以进行NAT穿透, 同时依赖NAT Mapping和NAT Filtering</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">Mapping和Filtering都为Endpoint-Independent Mapping,
-         这种是百分之百可以进行穿透
-Mapping为Endpoint-Independent Mapping, Filtering为Address and Port-Dependent Filtering,
-         这种也是可以进行穿透的
-但如果Mapping和Filtering都为Address and Port-Dependent Filtering,
-         这种是必不可能穿透<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>UDP</tag>
-        <tag>NAT</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>NAT穿透</title>
     <url>/posts/1124a628/</url>
     <content><![CDATA[<h2 id="NAT-网络地址转换">NAT 网络地址转换</h2>
@@ -1650,6 +1558,98 @@ TURN是一个client-server协议。TURN的NAT穿透方法与STUN类似，都是�
 <a href="https://zhuanlan.zhihu.com/p/40816201">简单解释 P2P 技术之 UDP 打洞</a><br>
 <a href="http://www.52im.net/thread-50-1-1.html">P2P技术详解(一)：NAT详解——详细原理、P2P简介</a></p>
 </blockquote>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>UDP</tag>
+        <tag>NAT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NAT类型</title>
+    <url>/posts/14e0ef9e/</url>
+    <content><![CDATA[<h2 id="NAT-Mapping">NAT Mapping</h2>
+<p>描述NAT在映射网络内主机地址的行为</p>
+<pre class="language-markdown" data-language="markdown"><code class="language-markdown">computer(192.168.100.2:30086) -> NAT -> 1.1.1.1:2345</code></pre>
+<p>Endpoint-Independent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向不同地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
+
+此时主机向 1.0.0.1:53 发送udp包,
+             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
+主机又向   1.0.0.1:63 发送udp包,
+             NAT也使用 1.1.1.1:2345 向 1.0.0.1:63 发包
+主机又向   8.8.8.8:53 发送udp包,
+             NAT也使用 1.1.1.1:2345 向 8.8.8.8:53 发包
+
+这种无论目标地址和端口是什么都使用同一地址进行发包的NAT行为就是 Endpoint-Independent Mapping,
+跟没有NAT一样<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Address-Dependent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向同一地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
+
+此时主机向 1.0.0.1:53 发送udp包,
+             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
+主机又向   1.0.0.1:63 发送udp包,
+             NAT也将使用 1.1.1.1:2345 向 1.0.0.1:63 发包
+主机又向   8.8.8.8:53 发送udp包,
+             此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
+
+这种依赖目标地址但不依赖端口的NAT映射行为就是 Address-Dependent Mapping<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>Address and Port-Dependent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向同一地址和同一端口发包时, NAT使用同一映射地址向外发包</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
+
+此时主机向 1.0.0.1:53 发送udp包, 
+            NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
+主机又向   1.0.0.1:63 发送udp包,
+            NAT将使用一新映射地址 1.1.1.1:3789 向 1.0.0.1:63 发包
+主机又向   8.8.8.8:53 发送udp包,
+           此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
+主机又向 1.0.0.1:53 发送udp包,
+            NAT使用相同地址 1.1.1.1:2345 向 1.0.0.1:53 发包
+
+这种同时依赖目标地址和端口的NAT映射行为就是 Address and Port-Dependent Mapping,
+这种NAT类型是没有办法进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="NAT-Filtering">NAT Filtering</h2>
+<p>描述当NAT为网络内主机映射一地址后，互联网内主机向映射地址发送数据时，将允许哪些地址通过的行为</p>
+<p>Endpoint-Independent Filtering</p>
+<p>A NAT device employing the combination of “Endpoint-Independent<br>
+Mapping” and “Endpoint-Independent Filtering” will accept incoming<br>
+traffic to a mapped public port from ANY external endpoint on the<br>
+public network.</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
+
+无论外部任何地址和端口的主机向1.1.1.1:2345发包, NAT都将会将其转发到 192.168.100.2:30086<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>Address-Dependent Filtering<br>
+for receiving packets from a specific external endpoint, it is necessary for the internal endpoint to<br>
+send packets first to that specific external endpoint’s IP address.</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
+
+如果需要NAT将外部数据包转发到主机上,
+必须先由主机向某一地址发包, 
+NAT都会将收到的同一地址(所有端口)的数据包转发到主机上<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Address and Port-Dependent Filtering</p>
+<p>for receiving  packets from a specific external endpoint, it is necessary for<br>
+the internal endpoint to send packets first to that external endpoint’s IP address and port.</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
+
+如果需要NAT将外部数据包转发到主机上
+必须先由主机向某一地址和某一端口发包
+NAT都会将收到的同一地址和同一端口的数据包转发到主机上
+
+这种NAT类型是没发进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="NAT穿透">NAT穿透</h2>
+<p>是否可以进行NAT穿透, 同时依赖NAT Mapping和NAT Filtering</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">Mapping和Filtering都为Endpoint-Independent Mapping,
+         这种是百分之百可以进行穿透
+Mapping为Endpoint-Independent Mapping, Filtering为Address and Port-Dependent Filtering,
+         这种也是可以进行穿透的
+但如果Mapping和Filtering都为Address and Port-Dependent Filtering,
+         这种是必不可能穿透<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 ]]></content>
       <categories>
         <category>Network</category>
@@ -2834,6 +2834,131 @@ DUMP OF SERVICE window:<span aria-hidden="true" class="line-numbers-rows"><span>
       </tags>
   </entry>
   <entry>
+    <title>c语言中格式化字符的应用</title>
+    <url>/posts/b6b4601/</url>
+    <content><![CDATA[<h2 id="格式化规定符">格式化规定符</h2>
+<p>符号 作用<br>
+%d 十进制有符号整数<br>
+%u 十进制无符号整数<br>
+%f 浮点数<br>
+%s 字符串<br>
+%c 单个字符<br>
+%p 指针的值<br>
+%e 指数形式的浮点数<br>
+%x, %X 无符号以十六进制表示的整数<span id="more"></span><br>
+%0 无符号以八进制表示的整数<br>
+%g 自动选择合适的表示法</p>
+<p>说明:<br>
+(1). 可以在&quot;%“和字母之间插进数字表示最大场宽。<br>
+例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>
+%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>
+另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>
+例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>
+如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>
+例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>
+(2). 可以在”%“和字母之间加小写字母l, 表示输出的是长型数。<br>
+例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>
+(3). 可以控制输出左对齐或右对齐, 即在”%“和字母之间加入一个”-&quot; 号可说明输出为左对齐, 否则为右对齐。<br>
+例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
+<h2 id="一些特殊规定字符">一些特殊规定字符</h2>
+<p>字符 作用<br>
+/n   换行<br>
+/f   清屏并换页<br>
+/r   回车<br>
+/t   Tab符<br>
+/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c语言基本类型在内存中的存储方式</title>
+    <url>/posts/e404489/</url>
+    <content><![CDATA[<h2 id="浮点数">浮点数</h2>
+<h3 id="float">float</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号位</th>
+<th style="text-align:center">+</th>
+<th style="text-align:center">指数位</th>
+<th style="text-align:center">+</th>
+<th style="text-align:center">尾数位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">↑</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↑</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↑</td>
+</tr>
+<tr>
+<td style="text-align:center">第一位</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">8位</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">23位</td>
+</tr>
+</tbody>
+</table>
+<span id="more"></span>
+<h3 id="double">double</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号位</th>
+<th style="text-align:center">+</th>
+<th style="text-align:center">指数位</th>
+<th style="text-align:center">+</th>
+<th style="text-align:center">尾数位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">↑</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↑</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↑</td>
+</tr>
+<tr>
+<td style="text-align:center">第一位</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">11位</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">52位</td>
+</tr>
+</tbody>
+</table>
+<h2 id="整数">整数</h2>
+<p>整数在内存中是以补码的形式存储</p>
+<h3 id="正整数">正整数</h3>
+<p>原码=反码=补码</p>
+<h3 id="负整数">负整数</h3>
+<p>原码即为原码<br>
+反码=原码符号为不变,其余取反(注:第一位为符号位)<br>
+补码=反码+1</p>
+<p><strong>2019年4月3日更新</strong><br>
+原码范围:</p>
+<ul>
+<li>整数:(1111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-(2^n-1) \leq x \leq 2^n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7477em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></strong> (01111…1)</li>
+<li>小数:(1.111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mi>n</mi></msup><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mrow><mo>−</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">-(1-2^n) \leq x \leq 1-2^{-n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7713em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span></strong> (0.111…1)</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>archlinux安装记录</title>
     <url>/posts/e3707853/</url>
     <content><![CDATA[<p>详细安装教程请参考arch wiki <a href="https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">Installation guide (简体中文)</a>,此处只记录安装后遇到的问题.</p>
@@ -3211,131 +3336,6 @@ This will change the cursor to the dark breeze, I don't know the name of the whi
         <tag>archlinux</tag>
         <tag>efi</tag>
         <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言中格式化字符的应用</title>
-    <url>/posts/b6b4601/</url>
-    <content><![CDATA[<h2 id="格式化规定符">格式化规定符</h2>
-<p>符号 作用<br>
-%d 十进制有符号整数<br>
-%u 十进制无符号整数<br>
-%f 浮点数<br>
-%s 字符串<br>
-%c 单个字符<br>
-%p 指针的值<br>
-%e 指数形式的浮点数<br>
-%x, %X 无符号以十六进制表示的整数<span id="more"></span><br>
-%0 无符号以八进制表示的整数<br>
-%g 自动选择合适的表示法</p>
-<p>说明:<br>
-(1). 可以在&quot;%“和字母之间插进数字表示最大场宽。<br>
-例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>
-%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>
-另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>
-例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>
-如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>
-例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>
-(2). 可以在”%“和字母之间加小写字母l, 表示输出的是长型数。<br>
-例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>
-(3). 可以控制输出左对齐或右对齐, 即在”%“和字母之间加入一个”-&quot; 号可说明输出为左对齐, 否则为右对齐。<br>
-例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
-<h2 id="一些特殊规定字符">一些特殊规定字符</h2>
-<p>字符 作用<br>
-/n   换行<br>
-/f   清屏并换页<br>
-/r   回车<br>
-/t   Tab符<br>
-/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言基本类型在内存中的存储方式</title>
-    <url>/posts/e404489/</url>
-    <content><![CDATA[<h2 id="浮点数">浮点数</h2>
-<h3 id="float">float</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">符号位</th>
-<th style="text-align:center">+</th>
-<th style="text-align:center">指数位</th>
-<th style="text-align:center">+</th>
-<th style="text-align:center">尾数位</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">↑</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">↑</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">↑</td>
-</tr>
-<tr>
-<td style="text-align:center">第一位</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">8位</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">23位</td>
-</tr>
-</tbody>
-</table>
-<span id="more"></span>
-<h3 id="double">double</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">符号位</th>
-<th style="text-align:center">+</th>
-<th style="text-align:center">指数位</th>
-<th style="text-align:center">+</th>
-<th style="text-align:center">尾数位</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">↑</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">↑</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">↑</td>
-</tr>
-<tr>
-<td style="text-align:center">第一位</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">11位</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">52位</td>
-</tr>
-</tbody>
-</table>
-<h2 id="整数">整数</h2>
-<p>整数在内存中是以补码的形式存储</p>
-<h3 id="正整数">正整数</h3>
-<p>原码=反码=补码</p>
-<h3 id="负整数">负整数</h3>
-<p>原码即为原码<br>
-反码=原码符号为不变,其余取反(注:第一位为符号位)<br>
-补码=反码+1</p>
-<p><strong>2019年4月3日更新</strong><br>
-原码范围:</p>
-<ul>
-<li>整数:(1111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-(2^n-1) \leq x \leq 2^n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7477em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></strong> (01111…1)</li>
-<li>小数:(1.111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mi>n</mi></msup><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mrow><mo>−</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">-(1-2^n) \leq x \leq 1-2^{-n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7713em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span></strong> (0.111…1)</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -4273,6 +4273,24 @@ Provider <span class="token number">1</span>: id: 0x41 cap: 0x6, Sink Output, So
       </tags>
   </entry>
   <entry>
+    <title>python获取网页源码(爬虫?)</title>
+    <url>/posts/cee10602/</url>
+    <content><![CDATA[<p>利用requrst,使用首先要</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests</code></pre>
+<p>使用方法</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">url <span class="token operator">=</span> <span class="token string">'要获取的网页地址'</span>
+useragent <span class="token operator">=</span> <span class="token string">'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'</span><span class="token comment">#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span>
+requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span>headers<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">'User-Agent'</span><span class="token punctuation">:</span>useragent<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>编程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python使用lxml分析网页</title>
     <url>/posts/77d15527/</url>
     <content><![CDATA[<p>首先得引入lxml</p>
@@ -4345,24 +4363,6 @@ css <span class="token operator">=</span> selector<span class="token punctuation
 <span class="token comment">#xpath可直接表示</span>
 <span class="token comment">#xpath可选择并表示属性</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p><em>xpath由于内容太多,可以直接参考官方文档</em></p>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python获取网页源码(爬虫?)</title>
-    <url>/posts/cee10602/</url>
-    <content><![CDATA[<p>利用requrst,使用首先要</p>
-<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests</code></pre>
-<p>使用方法</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">url <span class="token operator">=</span> <span class="token string">'要获取的网页地址'</span>
-useragent <span class="token operator">=</span> <span class="token string">'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'</span><span class="token comment">#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span>
-requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span>headers<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">'User-Agent'</span><span class="token punctuation">:</span>useragent<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 ]]></content>
       <categories>
         <category>python</category>
@@ -4882,6 +4882,36 @@ i915-GVTg_V5_8  <span class="token comment"># Video memory: &lt;64MB, 384MB>, re
       </tags>
   </entry>
   <entry>
+    <title>c语言利用char指针变量将int按字节打印地址</title>
+    <url>/posts/43cb2931/</url>
+    <content><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>
+而char的大小刚好为一个字节,是我们想要的东西.<br>
+这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>
+代码如下</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p\n%p\n%p\n%p\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%02x\n%02x\n%02x\n%02x\n"</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>两者结合一下</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p %02x\n%p %02x\n%p %02x\n%p %02x\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>输出内容如图<br>
+<img src="http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png" alt="" loading="lazy"><br>
+<strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>利用结构体让函数返回多个值</title>
     <url>/posts/c69434f1/</url>
     <content><![CDATA[<h2 id="c语言">c语言</h2>
@@ -4944,36 +4974,6 @@ S <span class="token function">s</span><span class="token punctuation">(</span><
       </categories>
       <tags>
         <tag>C++</tag>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言利用char指针变量将int按字节打印地址</title>
-    <url>/posts/43cb2931/</url>
-    <content><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>
-而char的大小刚好为一个字节,是我们想要的东西.<br>
-这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>
-代码如下</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p\n%p\n%p\n%p\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%02x\n%02x\n%02x\n%02x\n"</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>两者结合一下</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p %02x\n%p %02x\n%p %02x\n%p %02x\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>输出内容如图<br>
-<img src="http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png" alt="" loading="lazy"><br>
-<strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
         <tag>C</tag>
       </tags>
   </entry>
@@ -5945,32 +5945,6 @@ i&#x3D;0.01<span aria-hidden="true" class="line-numbers-rows"><span></span><span
       </tags>
   </entry>
   <entry>
-    <title>用CIDR表示网段</title>
-    <url>/posts/e2b25bb8/</url>
-    <content><![CDATA[<p>我们知道一般CIDR(无类别域间路由)网段的表示为:<strong>192.168.0.0/24</strong>这种形式</p>
-<h2 id="IP地址">IP地址</h2>
-<p>首先我们得知道ip地址是如何来的<br>
-ipv4的地址是用32位二进制数表示的<br>
-如: 255.255.255.0 -&gt; 11111111.11111111.11111111.00000000</p>
-<h2 id="网络前缀">网络前缀</h2>
-<p><strong>192.168.0.0/24</strong>中的24就是网络前缀,网络前缀可转化为网络掩码,24表示网络掩码的前24位为1</p>
-<h2 id="网络掩码">网络掩码</h2>
-<p>「网络掩码」又叫「子网掩码」、「地址掩码」、「子網路遮罩」（subnet mask），它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。      --维基百科<span id="more"></span></p>
-<p>将网络前缀转化为网络掩码: 24 -&gt; 11111111.11111111.11111111.00000000 -&gt; 255.255.255.0<br>
-<em>255.255.255.0</em>就是网络掩码</p>
-<h2 id="CIDR">CIDR</h2>
-<p><em><strong>网络地址的计算方法为ip地址与网络掩码进行’与’运算</strong></em><br>
-通过上面的计算好的网络掩码可知这个ip地址的前24位是不变的  ,所以<strong>192.168.0.0/24</strong>表示的网段为: <strong>192.168.0.0 - 192.168.0.255</strong></p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>CIDR</tag>
-        <tag>IP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>深度学习</title>
     <url>/posts/33115a55/</url>
     <content><![CDATA[<p><strong>如果以下的表格及图像出现格式问题,请将你的浏览器中文字体的等宽字体设置好</strong></p>
@@ -6213,6 +6187,32 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </categories>
       <tags>
         <tag>Deep Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>用CIDR表示网段</title>
+    <url>/posts/e2b25bb8/</url>
+    <content><![CDATA[<p>我们知道一般CIDR(无类别域间路由)网段的表示为:<strong>192.168.0.0/24</strong>这种形式</p>
+<h2 id="IP地址">IP地址</h2>
+<p>首先我们得知道ip地址是如何来的<br>
+ipv4的地址是用32位二进制数表示的<br>
+如: 255.255.255.0 -&gt; 11111111.11111111.11111111.00000000</p>
+<h2 id="网络前缀">网络前缀</h2>
+<p><strong>192.168.0.0/24</strong>中的24就是网络前缀,网络前缀可转化为网络掩码,24表示网络掩码的前24位为1</p>
+<h2 id="网络掩码">网络掩码</h2>
+<p>「网络掩码」又叫「子网掩码」、「地址掩码」、「子網路遮罩」（subnet mask），它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。      --维基百科<span id="more"></span></p>
+<p>将网络前缀转化为网络掩码: 24 -&gt; 11111111.11111111.11111111.00000000 -&gt; 255.255.255.0<br>
+<em>255.255.255.0</em>就是网络掩码</p>
+<h2 id="CIDR">CIDR</h2>
+<p><em><strong>网络地址的计算方法为ip地址与网络掩码进行’与’运算</strong></em><br>
+通过上面的计算好的网络掩码可知这个ip地址的前24位是不变的  ,所以<strong>192.168.0.0/24</strong>表示的网段为: <strong>192.168.0.0 - 192.168.0.255</strong></p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>CIDR</tag>
+        <tag>IP</tag>
       </tags>
   </entry>
   <entry>
@@ -7111,6 +7111,13 @@ wintypes:
     <title>関西弁コレクション</title>
     <url>/posts/a4241e7/</url>
     <content><![CDATA[<p>普段発見の関西弁ここで記録します。</p>
+<p>–<strong>2025年9月6日</strong>–</p>
+<p>ほな</p>
+<p>大阪弁の「ほな」は、「それでは」「では」「それじゃあ」「じゃあ」といった意味で、接続詞としても、別れ際の挨拶としても使われます。また、前後の文脈によって「それなら」といった意味で使われることもあり、非常に汎用性の高い言葉です。</p>
+<hr>
+<p>しばく</p>
+<p>「しばく」には、物を棒などで強く叩くという意味と、大阪弁で軽い飲食や遊びに行くことを指す用法があります。前者は文字通り暴力的な意味合いですが、後者は「茶しばく」（お茶する）のように、親しい間柄での軽い誘いや日常的な表現として使われ、本気で殴るつもりはありません。</p>
+<hr>
 <p>–<strong>2020年1月30日</strong>–<br>
 おらん とはどういう意味ですか?</p>
 <blockquote>
