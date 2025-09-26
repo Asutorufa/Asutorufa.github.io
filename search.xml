@@ -2000,6 +2000,25 @@ sparseEmbeddings<span class="token punctuation">,</span> err <span class="token 
       </tags>
   </entry>
   <entry>
+    <title>TUF GAMING B550M-PLUS WIFI II lm_sensors</title>
+    <url>/posts/fe953398/</url>
+    <content><![CDATA[<p>the sensors not show fan and voltage<br>
+it’s a kernel bug now <a href="https://bugzilla.kernel.org/show_bug.cgi?id=204807">Hardware monitoring sensor nct6798d doesn’t work unless acpi_enforce_resources=lax is enabled</a><br>
+need wait add the motherboard name to linux kernel code list <a href="https://github.com/torvalds/linux/blob/4bbf3422df78029f03161640dcb1e9d1ed64d1ea/drivers/hwmon/nct6775-platform.c#L1044">linux/drivers/hwmon/nct6775-platform.c</a></p>
+<h2 id="temporary-measure">temporary measure</h2>
+<p>add</p>
+<pre class="language-markdown" data-language="markdown"><code class="language-markdown">acpi_enforce_resources=lax</code></pre>
+<p>to linux boot parameter</p>
+<p>load nct6775 kernel module</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">modprobe <span class="token parameter variable">-v</span> nct6775</code></pre>
+<p>run <code>sensors-detect --auto</code>.</p>
+<p>finally, you will see nct6798-isa-* in sensors.</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+  </entry>
+  <entry>
     <title>RSA加密</title>
     <url>/posts/f1a158c9/</url>
     <content><![CDATA[<h2 id="质数">质数</h2>
@@ -2230,25 +2249,6 @@ sparseEmbeddings<span class="token punctuation">,</span> err <span class="token 
         <tag>Crypto</tag>
         <tag>RSA</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>TUF GAMING B550M-PLUS WIFI II lm_sensors</title>
-    <url>/posts/fe953398/</url>
-    <content><![CDATA[<p>the sensors not show fan and voltage<br>
-it’s a kernel bug now <a href="https://bugzilla.kernel.org/show_bug.cgi?id=204807">Hardware monitoring sensor nct6798d doesn’t work unless acpi_enforce_resources=lax is enabled</a><br>
-need wait add the motherboard name to linux kernel code list <a href="https://github.com/torvalds/linux/blob/4bbf3422df78029f03161640dcb1e9d1ed64d1ea/drivers/hwmon/nct6775-platform.c#L1044">linux/drivers/hwmon/nct6775-platform.c</a></p>
-<h2 id="temporary-measure">temporary measure</h2>
-<p>add</p>
-<pre class="language-markdown" data-language="markdown"><code class="language-markdown">acpi_enforce_resources=lax</code></pre>
-<p>to linux boot parameter</p>
-<p>load nct6775 kernel module</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">modprobe <span class="token parameter variable">-v</span> nct6775</code></pre>
-<p>run <code>sensors-detect --auto</code>.</p>
-<p>finally, you will see nct6798-isa-* in sensors.</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
   </entry>
   <entry>
     <title>TUN网卡</title>
@@ -2834,131 +2834,6 @@ DUMP OF SERVICE window:<span aria-hidden="true" class="line-numbers-rows"><span>
       </tags>
   </entry>
   <entry>
-    <title>c语言中格式化字符的应用</title>
-    <url>/posts/b6b4601/</url>
-    <content><![CDATA[<h2 id="格式化规定符">格式化规定符</h2>
-<p>符号 作用<br>
-%d 十进制有符号整数<br>
-%u 十进制无符号整数<br>
-%f 浮点数<br>
-%s 字符串<br>
-%c 单个字符<br>
-%p 指针的值<br>
-%e 指数形式的浮点数<br>
-%x, %X 无符号以十六进制表示的整数<span id="more"></span><br>
-%0 无符号以八进制表示的整数<br>
-%g 自动选择合适的表示法</p>
-<p>说明:<br>
-(1). 可以在&quot;%“和字母之间插进数字表示最大场宽。<br>
-例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>
-%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>
-另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>
-例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>
-如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>
-例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>
-(2). 可以在”%“和字母之间加小写字母l, 表示输出的是长型数。<br>
-例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>
-(3). 可以控制输出左对齐或右对齐, 即在”%“和字母之间加入一个”-&quot; 号可说明输出为左对齐, 否则为右对齐。<br>
-例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
-<h2 id="一些特殊规定字符">一些特殊规定字符</h2>
-<p>字符 作用<br>
-/n   换行<br>
-/f   清屏并换页<br>
-/r   回车<br>
-/t   Tab符<br>
-/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言基本类型在内存中的存储方式</title>
-    <url>/posts/e404489/</url>
-    <content><![CDATA[<h2 id="浮点数">浮点数</h2>
-<h3 id="float">float</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">符号位</th>
-<th style="text-align:center">+</th>
-<th style="text-align:center">指数位</th>
-<th style="text-align:center">+</th>
-<th style="text-align:center">尾数位</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">↑</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">↑</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">↑</td>
-</tr>
-<tr>
-<td style="text-align:center">第一位</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">8位</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">23位</td>
-</tr>
-</tbody>
-</table>
-<span id="more"></span>
-<h3 id="double">double</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">符号位</th>
-<th style="text-align:center">+</th>
-<th style="text-align:center">指数位</th>
-<th style="text-align:center">+</th>
-<th style="text-align:center">尾数位</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">↑</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">↑</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">↑</td>
-</tr>
-<tr>
-<td style="text-align:center">第一位</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">11位</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">52位</td>
-</tr>
-</tbody>
-</table>
-<h2 id="整数">整数</h2>
-<p>整数在内存中是以补码的形式存储</p>
-<h3 id="正整数">正整数</h3>
-<p>原码=反码=补码</p>
-<h3 id="负整数">负整数</h3>
-<p>原码即为原码<br>
-反码=原码符号为不变,其余取反(注:第一位为符号位)<br>
-补码=反码+1</p>
-<p><strong>2019年4月3日更新</strong><br>
-原码范围:</p>
-<ul>
-<li>整数:(1111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-(2^n-1) \leq x \leq 2^n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7477em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></strong> (01111…1)</li>
-<li>小数:(1.111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mi>n</mi></msup><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mrow><mo>−</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">-(1-2^n) \leq x \leq 1-2^{-n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7713em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span></strong> (0.111…1)</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>archlinux安装记录</title>
     <url>/posts/e3707853/</url>
     <content><![CDATA[<p>详细安装教程请参考arch wiki <a href="https://wiki.archlinux.org/index.php/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">Installation guide (简体中文)</a>,此处只记录安装后遇到的问题.</p>
@@ -3339,6 +3214,48 @@ This will change the cursor to the dark breeze, I don't know the name of the whi
       </tags>
   </entry>
   <entry>
+    <title>c语言中格式化字符的应用</title>
+    <url>/posts/b6b4601/</url>
+    <content><![CDATA[<h2 id="格式化规定符">格式化规定符</h2>
+<p>符号 作用<br>
+%d 十进制有符号整数<br>
+%u 十进制无符号整数<br>
+%f 浮点数<br>
+%s 字符串<br>
+%c 单个字符<br>
+%p 指针的值<br>
+%e 指数形式的浮点数<br>
+%x, %X 无符号以十六进制表示的整数<span id="more"></span><br>
+%0 无符号以八进制表示的整数<br>
+%g 自动选择合适的表示法</p>
+<p>说明:<br>
+(1). 可以在&quot;%“和字母之间插进数字表示最大场宽。<br>
+例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>
+%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>
+另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>
+例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>
+如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>
+例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>
+(2). 可以在”%“和字母之间加小写字母l, 表示输出的是长型数。<br>
+例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>
+(3). 可以控制输出左对齐或右对齐, 即在”%“和字母之间加入一个”-&quot; 号可说明输出为左对齐, 否则为右对齐。<br>
+例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
+<h2 id="一些特殊规定字符">一些特殊规定字符</h2>
+<p>字符 作用<br>
+/n   换行<br>
+/f   清屏并换页<br>
+/r   回车<br>
+/t   Tab符<br>
+/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>c语言数组输出的另一种方法</title>
     <url>/posts/854ed6ec/</url>
     <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173">一个有趣的C语言程序</a></p>
@@ -3369,6 +3286,89 @@ a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">4</span></code></pre>
 <p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c语言基本类型在内存中的存储方式</title>
+    <url>/posts/e404489/</url>
+    <content><![CDATA[<h2 id="浮点数">浮点数</h2>
+<h3 id="float">float</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号位</th>
+<th style="text-align:center">+</th>
+<th style="text-align:center">指数位</th>
+<th style="text-align:center">+</th>
+<th style="text-align:center">尾数位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">↑</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↑</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↑</td>
+</tr>
+<tr>
+<td style="text-align:center">第一位</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">8位</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">23位</td>
+</tr>
+</tbody>
+</table>
+<span id="more"></span>
+<h3 id="double">double</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号位</th>
+<th style="text-align:center">+</th>
+<th style="text-align:center">指数位</th>
+<th style="text-align:center">+</th>
+<th style="text-align:center">尾数位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">↑</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↑</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">↑</td>
+</tr>
+<tr>
+<td style="text-align:center">第一位</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">11位</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">52位</td>
+</tr>
+</tbody>
+</table>
+<h2 id="整数">整数</h2>
+<p>整数在内存中是以补码的形式存储</p>
+<h3 id="正整数">正整数</h3>
+<p>原码=反码=补码</p>
+<h3 id="负整数">负整数</h3>
+<p>原码即为原码<br>
+反码=原码符号为不变,其余取反(注:第一位为符号位)<br>
+补码=反码+1</p>
+<p><strong>2019年4月3日更新</strong><br>
+原码范围:</p>
+<ul>
+<li>整数:(1111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-(2^n-1) \leq x \leq 2^n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7477em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></strong> (01111…1)</li>
+<li>小数:(1.111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mi>n</mi></msup><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mrow><mo>−</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">-(1-2^n) \leq x \leq 1-2^{-n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7713em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span></strong> (0.111…1)</li>
+</ul>
 ]]></content>
       <categories>
         <category>Program</category>
@@ -3566,6 +3566,92 @@ The fields in the UDP request header are:
       </tags>
   </entry>
   <entry>
+    <title>golang实现子进程后台</title>
+    <url>/posts/89c4c907/</url>
+    <content><![CDATA[<h2 id="系统的进程机制">系统的进程机制</h2>
+<h3 id="linux">linux</h3>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">linux下的进程机制,当父进程被杀死之后,子进程就被系统接管
+
++系统
+|-父进程 -> system管理
+|--子进程 -> 父进程管理
+
+当父进程被杀死之后
+
++系统
+|-父进程 -> 被杀死
+|--子进程 -> system管理
+
+如果子进程被杀死,而且父进程没有处理子进程的善后工作,那么子进程就会变成僵尸进程
+
++系统
+|-父进程 -> system管理
+|--子进程(被杀死) -> 僵尸进程  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<h3 id="windows">windows</h3>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">windows下的进程机制就不太一样了,当父进程被杀死之后,子进程也会被杀死
+但是如果子进程还有子进程,杀死子进程但不杀死父进程,子进程的子进程就会被系统接管
+
++系统
+|-父进程 -> system管理
+|--子进程 -> 父进程管理
+|---孙进程 -> 子进程管理
+
+当父进程被杀死
+
++系统
+|-父进程 -> 被杀死
+|--子进程 -> 被杀死  
+|---孙进程 -> 被杀死
+
+当子进程被杀死
+
++系统
+|-父进程 -> 系统管理
+|--子进程 -> 被杀死
+|-孙进程 -> 系统管理
+
+windows的机制和linux不太一样,如果子进程被杀死也不会有僵尸进程这种东西,所以子进程可以放心杀死<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="实现golang的后台">实现golang的后台</h2>
+<p>如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现<br>
+如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程<br>
+golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
+<strong>通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程,这样就相当于创建了子进程,子进程创建孙进程</strong><br>
+<strong>实现就是给程序加参数,再次调用的时候加上这个参数再创建想要的进程</strong></p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">daemonF</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span><span class="token string">"puthon"</span><span class="token punctuation">,</span><span class="token string">"-m"</span><span class="token punctuation">,</span><span class="token string">"http.server"</span><span class="token punctuation">)</span>
+    cmd<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    daemon <span class="token operator">:=</span> flag<span class="token punctuation">.</span><span class="token function">Bool</span><span class="token punctuation">(</span><span class="token string">"d"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token string">"d"</span><span class="token punctuation">)</span>
+    flag<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token operator">*</span>daemon <span class="token operator">==</span> <span class="token boolean">true</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">daemonF</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        nowFunction<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> filepath<span class="token punctuation">.</span><span class="token function">Abs</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span>nowFunction<span class="token punctuation">,</span><span class="token string">"-d"</span><span class="token punctuation">)</span>
+        cmd<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">比如我们有一个程序叫makebk,有一个参数 -d
+
++系统
+|-makebk(再次调用makebk并加上参数-d) -> 父进程:system
+|--makebk -d(加上参数之后再创建想要的进程) -> 父进程:makebk
+|---子进程 -> 父进程:makebk -d
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样就得到我们想要的三层结构了,这时候让父进程杀死make -d,就实现子进程被系统接管,实现子进程后台</p>
+]]></content>
+      <categories>
+        <category>golang</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>linux</tag>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>golangとollamaでfunction calling</title>
     <url>/posts/23567986/</url>
     <content><![CDATA[<p>今回はollamaのオフィシャルクライアントでfuncation callingを使いたいです。　　<br>
@@ -3727,92 +3813,6 @@ err <span class="token operator">=</span> o<span class="token punctuation">.</sp
         <tag>llm</tag>
         <tag>text embedding</tag>
         <tag>function calling</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>golang实现子进程后台</title>
-    <url>/posts/89c4c907/</url>
-    <content><![CDATA[<h2 id="系统的进程机制">系统的进程机制</h2>
-<h3 id="linux">linux</h3>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">linux下的进程机制,当父进程被杀死之后,子进程就被系统接管
-
-+系统
-|-父进程 -> system管理
-|--子进程 -> 父进程管理
-
-当父进程被杀死之后
-
-+系统
-|-父进程 -> 被杀死
-|--子进程 -> system管理
-
-如果子进程被杀死,而且父进程没有处理子进程的善后工作,那么子进程就会变成僵尸进程
-
-+系统
-|-父进程 -> system管理
-|--子进程(被杀死) -> 僵尸进程  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<h3 id="windows">windows</h3>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">windows下的进程机制就不太一样了,当父进程被杀死之后,子进程也会被杀死
-但是如果子进程还有子进程,杀死子进程但不杀死父进程,子进程的子进程就会被系统接管
-
-+系统
-|-父进程 -> system管理
-|--子进程 -> 父进程管理
-|---孙进程 -> 子进程管理
-
-当父进程被杀死
-
-+系统
-|-父进程 -> 被杀死
-|--子进程 -> 被杀死  
-|---孙进程 -> 被杀死
-
-当子进程被杀死
-
-+系统
-|-父进程 -> 系统管理
-|--子进程 -> 被杀死
-|-孙进程 -> 系统管理
-
-windows的机制和linux不太一样,如果子进程被杀死也不会有僵尸进程这种东西,所以子进程可以放心杀死<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="实现golang的后台">实现golang的后台</h2>
-<p>如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现<br>
-如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程<br>
-golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
-<strong>通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程,这样就相当于创建了子进程,子进程创建孙进程</strong><br>
-<strong>实现就是给程序加参数,再次调用的时候加上这个参数再创建想要的进程</strong></p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">daemonF</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span><span class="token string">"puthon"</span><span class="token punctuation">,</span><span class="token string">"-m"</span><span class="token punctuation">,</span><span class="token string">"http.server"</span><span class="token punctuation">)</span>
-    cmd<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    daemon <span class="token operator">:=</span> flag<span class="token punctuation">.</span><span class="token function">Bool</span><span class="token punctuation">(</span><span class="token string">"d"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token string">"d"</span><span class="token punctuation">)</span>
-    flag<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> <span class="token operator">*</span>daemon <span class="token operator">==</span> <span class="token boolean">true</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">daemonF</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        nowFunction<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> filepath<span class="token punctuation">.</span><span class="token function">Abs</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span>nowFunction<span class="token punctuation">,</span><span class="token string">"-d"</span><span class="token punctuation">)</span>
-        cmd<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">比如我们有一个程序叫makebk,有一个参数 -d
-
-+系统
-|-makebk(再次调用makebk并加上参数-d) -> 父进程:system
-|--makebk -d(加上参数之后再创建想要的进程) -> 父进程:makebk
-|---子进程 -> 父进程:makebk -d
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这样就得到我们想要的三层结构了,这时候让父进程杀死make -d,就实现子进程被系统接管,实现子进程后台</p>
-]]></content>
-      <categories>
-        <category>golang</category>
-      </categories>
-      <tags>
-        <tag>golang</tag>
-        <tag>linux</tag>
-        <tag>windows</tag>
       </tags>
   </entry>
   <entry>
@@ -4273,24 +4273,6 @@ Provider <span class="token number">1</span>: id: 0x41 cap: 0x6, Sink Output, So
       </tags>
   </entry>
   <entry>
-    <title>python获取网页源码(爬虫?)</title>
-    <url>/posts/cee10602/</url>
-    <content><![CDATA[<p>利用requrst,使用首先要</p>
-<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests</code></pre>
-<p>使用方法</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">url <span class="token operator">=</span> <span class="token string">'要获取的网页地址'</span>
-useragent <span class="token operator">=</span> <span class="token string">'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'</span><span class="token comment">#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span>
-requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span>headers<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">'User-Agent'</span><span class="token punctuation">:</span>useragent<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>python使用lxml分析网页</title>
     <url>/posts/77d15527/</url>
     <content><![CDATA[<p>首先得引入lxml</p>
@@ -4373,6 +4355,24 @@ css <span class="token operator">=</span> selector<span class="token punctuation
       </tags>
   </entry>
   <entry>
+    <title>python获取网页源码(爬虫?)</title>
+    <url>/posts/cee10602/</url>
+    <content><![CDATA[<p>利用requrst,使用首先要</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests</code></pre>
+<p>使用方法</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">url <span class="token operator">=</span> <span class="token string">'要获取的网页地址'</span>
+useragent <span class="token operator">=</span> <span class="token string">'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'</span><span class="token comment">#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span>
+requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span>headers<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">'User-Agent'</span><span class="token punctuation">:</span>useragent<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>编程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>snap删除旧的core(snap删除其他版本的软件)</title>
     <url>/posts/b6b8953/</url>
     <content><![CDATA[<p>偶尔发现snap会自动升级core且不删除旧版，在’/snap/core’<br>
@@ -4390,6 +4390,46 @@ css <span class="token operator">=</span> selector<span class="token punctuation
       <tags>
         <tag>linux</tag>
         <tag>snap</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ubuntu终端下连接wifi</title>
+    <url>/posts/fb6d8628/</url>
+    <content><![CDATA[<h2 id="首先使用rfkill查看你的wifi设备是否被停用">首先使用rfkill查看你的wifi设备是否被停用</h2>
+<p>使用命令</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill list</code></pre>
+<p>获得设备列表，每个都包含与之关联的索引号，从 0 开始<br>
+查看设备是否被停用，要启用被停用的设备，请运行：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill unblock <span class="token operator">&lt;</span>索引号<span class="token operator">></span></code></pre>
+<p>要启用所有设备，请运行：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill unblock all</code></pre>
+<span id="more"></span>
+<p>您可以使用这个索引号让 rfkill 停使或者使用某个设备，例如：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill block <span class="token number">0</span></code></pre>
+<p>您还可以使用 rfkill 阻断某一类设备，或者所有启用了RFKill的设备。例如：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill block wifi </code></pre>
+<p>停用系统中的所有Wi-Fi设备</p>
+<h2 id="启用无线网卡">启用无线网卡</h2>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">ifconfig</span> wlan0 up</code></pre>
+<h2 id="使用iwconfig命令搜索无线网">使用iwconfig命令搜索无线网</h2>
+<pre class="language-bash" data-language="bash"><code class="language-bash">iwlist wlan0 scan</code></pre>
+<p>记下essid<br>
+连接无密码的无线网</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">iwconfig wlan0 essid essidname</code></pre>
+<p>其中essidname是搜索到的无线网essid<br>
+连接有密码的无线网</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">iwconfig wlan0 essid essidname key <span class="token operator">&lt;</span>密码<span class="token operator">></span></code></pre>
+<h2 id="补充">补充</h2>
+<p>通过dhcp获取IP</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dhclient wlan0</code></pre>
+<p>或</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dhcpcd wlan0</code></pre>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -4575,46 +4615,6 @@ module &quot;module3&quot; &#123;
       </tags>
   </entry>
   <entry>
-    <title>ubuntu终端下连接wifi</title>
-    <url>/posts/fb6d8628/</url>
-    <content><![CDATA[<h2 id="首先使用rfkill查看你的wifi设备是否被停用">首先使用rfkill查看你的wifi设备是否被停用</h2>
-<p>使用命令</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill list</code></pre>
-<p>获得设备列表，每个都包含与之关联的索引号，从 0 开始<br>
-查看设备是否被停用，要启用被停用的设备，请运行：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill unblock <span class="token operator">&lt;</span>索引号<span class="token operator">></span></code></pre>
-<p>要启用所有设备，请运行：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill unblock all</code></pre>
-<span id="more"></span>
-<p>您可以使用这个索引号让 rfkill 停使或者使用某个设备，例如：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill block <span class="token number">0</span></code></pre>
-<p>您还可以使用 rfkill 阻断某一类设备，或者所有启用了RFKill的设备。例如：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill block wifi </code></pre>
-<p>停用系统中的所有Wi-Fi设备</p>
-<h2 id="启用无线网卡">启用无线网卡</h2>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">ifconfig</span> wlan0 up</code></pre>
-<h2 id="使用iwconfig命令搜索无线网">使用iwconfig命令搜索无线网</h2>
-<pre class="language-bash" data-language="bash"><code class="language-bash">iwlist wlan0 scan</code></pre>
-<p>记下essid<br>
-连接无密码的无线网</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">iwconfig wlan0 essid essidname</code></pre>
-<p>其中essidname是搜索到的无线网essid<br>
-连接有密码的无线网</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">iwconfig wlan0 essid essidname key <span class="token operator">&lt;</span>密码<span class="token operator">></span></code></pre>
-<h2 id="补充">补充</h2>
-<p>通过dhcp获取IP</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">dhclient wlan0</code></pre>
-<p>或</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">dhcpcd wlan0</code></pre>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>uefi and efi</title>
     <url>/posts/a99a60b1/</url>
     <content><![CDATA[<p>创建efi分区:</p>
@@ -4716,6 +4716,36 @@ module &quot;module3&quot; &#123;
       <tags>
         <tag>建站</tag>
         <tag>免费</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c语言利用char指针变量将int按字节打印地址</title>
+    <url>/posts/43cb2931/</url>
+    <content><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>
+而char的大小刚好为一个字节,是我们想要的东西.<br>
+这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>
+代码如下</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p\n%p\n%p\n%p\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%02x\n%02x\n%02x\n%02x\n"</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>两者结合一下</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p %02x\n%p %02x\n%p %02x\n%p %02x\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>输出内容如图<br>
+<img src="http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png" alt="" loading="lazy"><br>
+<strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -4879,36 +4909,6 @@ i915-GVTg_V5_8  <span class="token comment"># Video memory: &lt;64MB, 384MB>, re
         <tag>qemu</tag>
         <tag>GVT-g</tag>
         <tag>intel</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言利用char指针变量将int按字节打印地址</title>
-    <url>/posts/43cb2931/</url>
-    <content><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>
-而char的大小刚好为一个字节,是我们想要的东西.<br>
-这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>
-代码如下</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p\n%p\n%p\n%p\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%02x\n%02x\n%02x\n%02x\n"</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>两者结合一下</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p %02x\n%p %02x\n%p %02x\n%p %02x\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>输出内容如图<br>
-<img src="http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png" alt="" loading="lazy"><br>
-<strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -5805,146 +5805,6 @@ movq <span class="token operator">%</span><span class="token register variable">
       </tags>
   </entry>
   <entry>
-    <title>深度学习之感知器的实现</title>
-    <url>/posts/64e69c3e/</url>
-    <content><![CDATA[<p>感知器的一个公式:<br>
-<strong>当 wx+b&gt;0 , f(x)=1,否则f(x)=0</strong></p>
-<ul>
-<li>x输入的向量</li>
-<li>w:是权重</li>
-<li>w*x是点积</li>
-<li>b是偏置(与权重类似,偏置可以认为是激励函数的偏移量，或者给神经元一个基础活跃等级。)</li>
-</ul>
-<p>对权重的调整公式,此处使用了梯度下降的方法: <strong>w=w+i*(t-count)*x</strong></p>
-<ul>
-<li>i是一个常数,i越小感知器学习越精确,当然耗费时间也最长</li>
-<li>t:本应该得到的值</li>
-<li>count:实际计算得到的值</li>
-<li>x:同上</li>
-</ul>
-<p>对偏置调整的公式: <em><em>b=b+i</em>(t-count)</em>*</p>
-<p>这次我们使用python来实现与和或<span id="more"></span></p>
-<pre class="line-numbers language-none"><code class="language-none">#因为与和或计算需要输入两个数,所以这里设置两个权重
-global w1,w2
-w1&#x3D;0.4
-w2&#x3D;0.6
-#偏置随便设一个
-global b
-b&#x3D;0.8
-#上面提到的常数
-global i
-i&#x3D;0.01<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>对感知器公式实现的函数:</p>
-<pre class="line-numbers language-none"><code class="language-none">def count(x,y):
-    if w1*x+w2*y+b&gt;0:
-        return 1
-    else:
-        return 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>对权重和偏置不断矫正的函数:</p>
-<pre class="line-numbers language-none"><code class="language-none">def update_all(r,x,y):
-    global w1,w2,b
-    temp &#x3D; count(x,y)
-    w1&#x3D;w1+i*(r-temp)*x
-    w2&#x3D;w2+i*(r-temp)*y
-    b&#x3D;b+i*(r-temp)
-    print(w1,w2,b)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>最后就是输入学习的资料和确认计算结果:</p>
-<pre class="line-numbers language-none"><code class="language-none">def main():
-    for _ in range(1,50):
-        update_all(1.0,1.0,1.0)
-        update_all(0.0,1.0,0.0)
-        update_all(0.0,0.0,1.0)
-        update_all(0.0,0.0,0.0)
-    
-    print(&#39;1 and 1 &#x3D;&#39;,count(1,1))
-    print(&#39;0 and 1 &#x3D;&#39;,count(0,1))
-    print(&#39;1 and 0 &#x3D;&#39;,count(1,0))
-    print(&#39;0 and 0 &#x3D;&#39;,count(0,0))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里我们先进行与的计算:<br>
-这里我前面代码写错了,所以说下面所有的结果会不一样…<br>
-进行25次学习的结果:</p>
-<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.8)
-(0.39, 0.6, 0.79)
-(0.39, 0.59, 0.78)
-(0.39, 0.59, 0.77)
-(0.39, 0.59, 0.77)
-.......省略........
-(0.1599999999999998, 0.35999999999999976, 0.08999999999999947)
-(0.1599999999999998, 0.35999999999999976, 0.07999999999999947)
-(&#39;1 and 1 &#x3D;&#39;, 1)
-(&#39;0 and 1 &#x3D;&#39;, 1)
-(&#39;1 and 0 &#x3D;&#39;, 1)
-(&#39;0 and 0 &#x3D;&#39;, 1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里我们明显发现结果是错误的,提升到50次:</p>
-<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.8)
-(0.39, 0.6, 0.79)
-(0.39, 0.59, 0.78)
-(0.39, 0.59, 0.77)
-(0.39, 0.59, 0.77)
-(0.38, 0.59, 0.76)
-(0.38, 0.58, 0.75)
-.......省略........
-(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
-(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
-(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
-(&#39;1 and 1 &#x3D;&#39;, 1)
-(&#39;0 and 1 &#x3D;&#39;, 0)
-(&#39;1 and 0 &#x3D;&#39;, 0)
-(&#39;0 and 0 &#x3D;&#39;, 0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>结果正确了,并且权重和偏置都稳定到一个值,是不是感觉很神奇<br>
-或运算也是相同的,这里我们将偏置改为b=0.4:<br>
-25次:</p>
-<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.38)
-(0.4, 0.6, 0.38)
-(0.4, 0.6, 0.38)
-.......省略........
-(0.4, 0.6, 0.16999999999999982)
-(0.4, 0.6, 0.16999999999999982)
-(0.4, 0.6, 0.16999999999999982)
-(0.4, 0.6, 0.16999999999999982)
-(0.4, 0.6, 0.1599999999999998)
-(&#39;1 and 1 &#x3D;&#39;, 1)
-(&#39;0 and 1 &#x3D;&#39;, 1)
-(&#39;1 and 0 &#x3D;&#39;, 1)
-(&#39;0 and 0 &#x3D;&#39;, 1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>50次:</p>
-<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.38)
-.......省略........
-(0.4, 0.6, -1.97758476261356e-16)
-(0.4, 0.6, -1.97758476261356e-16)
-(0.4, 0.6, -1.97758476261356e-16)
-(0.4, 0.6, -1.97758476261356e-16)
-(0.4, 0.6, -1.97758476261356e-16)
-(&#39;1 and 1 &#x3D;&#39;, 1)
-(&#39;0 and 1 &#x3D;&#39;, 1)
-(&#39;1 and 0 &#x3D;&#39;, 1)
-(&#39;0 and 0 &#x3D;&#39;, 0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>参考:<br>
-<a href="https://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8">感知器(维基百科)</a><br>
-<a href="https://www.zybuluo.com/hanbingtao/note/433855">零基础入门深度学习(1) - 感知器</a></p>
-]]></content>
-      <categories>
-        <category>Machine Learning</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>深度学习</title>
     <url>/posts/33115a55/</url>
     <content><![CDATA[<p><strong>如果以下的表格及图像出现格式问题,请将你的浏览器中文字体的等宽字体设置好</strong></p>
@@ -6187,6 +6047,146 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </categories>
       <tags>
         <tag>Deep Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深度学习之感知器的实现</title>
+    <url>/posts/64e69c3e/</url>
+    <content><![CDATA[<p>感知器的一个公式:<br>
+<strong>当 wx+b&gt;0 , f(x)=1,否则f(x)=0</strong></p>
+<ul>
+<li>x输入的向量</li>
+<li>w:是权重</li>
+<li>w*x是点积</li>
+<li>b是偏置(与权重类似,偏置可以认为是激励函数的偏移量，或者给神经元一个基础活跃等级。)</li>
+</ul>
+<p>对权重的调整公式,此处使用了梯度下降的方法: <strong>w=w+i*(t-count)*x</strong></p>
+<ul>
+<li>i是一个常数,i越小感知器学习越精确,当然耗费时间也最长</li>
+<li>t:本应该得到的值</li>
+<li>count:实际计算得到的值</li>
+<li>x:同上</li>
+</ul>
+<p>对偏置调整的公式: <em><em>b=b+i</em>(t-count)</em>*</p>
+<p>这次我们使用python来实现与和或<span id="more"></span></p>
+<pre class="line-numbers language-none"><code class="language-none">#因为与和或计算需要输入两个数,所以这里设置两个权重
+global w1,w2
+w1&#x3D;0.4
+w2&#x3D;0.6
+#偏置随便设一个
+global b
+b&#x3D;0.8
+#上面提到的常数
+global i
+i&#x3D;0.01<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对感知器公式实现的函数:</p>
+<pre class="line-numbers language-none"><code class="language-none">def count(x,y):
+    if w1*x+w2*y+b&gt;0:
+        return 1
+    else:
+        return 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对权重和偏置不断矫正的函数:</p>
+<pre class="line-numbers language-none"><code class="language-none">def update_all(r,x,y):
+    global w1,w2,b
+    temp &#x3D; count(x,y)
+    w1&#x3D;w1+i*(r-temp)*x
+    w2&#x3D;w2+i*(r-temp)*y
+    b&#x3D;b+i*(r-temp)
+    print(w1,w2,b)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最后就是输入学习的资料和确认计算结果:</p>
+<pre class="line-numbers language-none"><code class="language-none">def main():
+    for _ in range(1,50):
+        update_all(1.0,1.0,1.0)
+        update_all(0.0,1.0,0.0)
+        update_all(0.0,0.0,1.0)
+        update_all(0.0,0.0,0.0)
+    
+    print(&#39;1 and 1 &#x3D;&#39;,count(1,1))
+    print(&#39;0 and 1 &#x3D;&#39;,count(0,1))
+    print(&#39;1 and 0 &#x3D;&#39;,count(1,0))
+    print(&#39;0 and 0 &#x3D;&#39;,count(0,0))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里我们先进行与的计算:<br>
+这里我前面代码写错了,所以说下面所有的结果会不一样…<br>
+进行25次学习的结果:</p>
+<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.8)
+(0.39, 0.6, 0.79)
+(0.39, 0.59, 0.78)
+(0.39, 0.59, 0.77)
+(0.39, 0.59, 0.77)
+.......省略........
+(0.1599999999999998, 0.35999999999999976, 0.08999999999999947)
+(0.1599999999999998, 0.35999999999999976, 0.07999999999999947)
+(&#39;1 and 1 &#x3D;&#39;, 1)
+(&#39;0 and 1 &#x3D;&#39;, 1)
+(&#39;1 and 0 &#x3D;&#39;, 1)
+(&#39;0 and 0 &#x3D;&#39;, 1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里我们明显发现结果是错误的,提升到50次:</p>
+<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.8)
+(0.39, 0.6, 0.79)
+(0.39, 0.59, 0.78)
+(0.39, 0.59, 0.77)
+(0.39, 0.59, 0.77)
+(0.38, 0.59, 0.76)
+(0.38, 0.58, 0.75)
+.......省略........
+(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
+(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
+(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
+(&#39;1 and 1 &#x3D;&#39;, 1)
+(&#39;0 and 1 &#x3D;&#39;, 0)
+(&#39;1 and 0 &#x3D;&#39;, 0)
+(&#39;0 and 0 &#x3D;&#39;, 0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>结果正确了,并且权重和偏置都稳定到一个值,是不是感觉很神奇<br>
+或运算也是相同的,这里我们将偏置改为b=0.4:<br>
+25次:</p>
+<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.38)
+(0.4, 0.6, 0.38)
+(0.4, 0.6, 0.38)
+.......省略........
+(0.4, 0.6, 0.16999999999999982)
+(0.4, 0.6, 0.16999999999999982)
+(0.4, 0.6, 0.16999999999999982)
+(0.4, 0.6, 0.16999999999999982)
+(0.4, 0.6, 0.1599999999999998)
+(&#39;1 and 1 &#x3D;&#39;, 1)
+(&#39;0 and 1 &#x3D;&#39;, 1)
+(&#39;1 and 0 &#x3D;&#39;, 1)
+(&#39;0 and 0 &#x3D;&#39;, 1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>50次:</p>
+<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.38)
+.......省略........
+(0.4, 0.6, -1.97758476261356e-16)
+(0.4, 0.6, -1.97758476261356e-16)
+(0.4, 0.6, -1.97758476261356e-16)
+(0.4, 0.6, -1.97758476261356e-16)
+(0.4, 0.6, -1.97758476261356e-16)
+(&#39;1 and 1 &#x3D;&#39;, 1)
+(&#39;0 and 1 &#x3D;&#39;, 1)
+(&#39;1 and 0 &#x3D;&#39;, 1)
+(&#39;0 and 0 &#x3D;&#39;, 0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>参考:<br>
+<a href="https://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8">感知器(维基百科)</a><br>
+<a href="https://www.zybuluo.com/hanbingtao/note/433855">零基础入门深度学习(1) - 感知器</a></p>
+]]></content>
+      <categories>
+        <category>Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -6637,7 +6637,7 @@ iff [if]
 这里有两个例子:</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> stairway <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
 <span class="token keyword">int</span> heaven<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">4</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>变量的有效性被范围所限制.在C语言中,这意味着:<code>&#123;&#125;</code>.所以每次出现右花括号时就意味着一个变量的结束.然后这里有<a href="https://linux.die.net/man/3/alloca">alloca()</a>,允许在当前的栈帧中动态分配内存.栈帧与内存框架(memory frame)(也被叫做物理页(physical page))不同,这是一个简单的可以被放入栈中的数据组(函数,参数,变量…).每当我们在栈顶时,我们可以使用剩余的内存直到达到栈的大小限制.<br>
+<p>变量的有效性被范围所限制.在C语言中,这意味着:<code>{}</code>.所以每次出现右花括号时就意味着一个变量的结束.然后这里有<a href="https://linux.die.net/man/3/alloca">alloca()</a>,允许在当前的栈帧中动态分配内存.栈帧与内存框架(memory frame)(也被叫做物理页(physical page))不同,这是一个简单的可以被放入栈中的数据组(函数,参数,变量…).每当我们在栈顶时,我们可以使用剩余的内存直到达到栈的大小限制.<br>
 这就是可变长数组(variable-length arrays=VLA),以及alloca()的工作方式,但是有一个不同-可变长的数组的有效性被范围限制,alloca将保留内存直到函数返回(或被释放).这不是单纯的语法警察(译者注:原文language lawyering,这节下面有详细翻译),这确实是一个问题如果你在循环中使用alloca,因为你没有任何手段去释放它.</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">laugh</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">unsigned</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> megatron<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -7108,129 +7108,6 @@ wintypes:
       </tags>
   </entry>
   <entry>
-    <title>関西弁コレクション</title>
-    <url>/posts/a4241e7/</url>
-    <content><![CDATA[<p>普段発見の関西弁ここで記録します。</p>
-<p>–<strong>2025年9月6日</strong>–</p>
-<p>ほな</p>
-<p>大阪弁の「ほな」は、「それでは」「では」「それじゃあ」「じゃあ」といった意味で、接続詞としても、別れ際の挨拶としても使われます。また、前後の文脈によって「それなら」といった意味で使われることもあり、非常に汎用性の高い言葉です。</p>
-<hr>
-<p>しばく</p>
-<p>「しばく」には、物を棒などで強く叩くという意味と、大阪弁で軽い飲食や遊びに行くことを指す用法があります。前者は文字通り暴力的な意味合いですが、後者は「茶しばく」（お茶する）のように、親しい間柄での軽い誘いや日常的な表現として使われ、本気で殴るつもりはありません。</p>
-<hr>
-<p>–<strong>2020年1月30日</strong>–<br>
-おらん とはどういう意味ですか?</p>
-<blockquote>
-<p>文からするとその方は関西の人ですかね。おらんは方言で、「いない」という意味です。<br>
-例文：<em>俺も一緒やな 3年ぐらいはおらん。</em></p>
-</blockquote>
-<p>–<strong>2019年2月1日</strong>–</p>
-<hr>
-<p>①関西弁の～ねんけど、～やねん、～ねんの意味を教えて下さい<br>
-②～ねやは～ですかの意味ですか？それ意外に意味、使い方等は有りますか？<br>
-③言葉の関西弁のアクセントを教えて下さい</p>
-<p>①・・・<br>
-～ねんけど ですけれど（〇〇なんですけれど）<br>
-～やねん、～ねん です（〇〇なんです）</p>
-<p>②・・・<br>
-～ねやは～（～やねん”わ”～ですね。）<br>
-〇○なんですよ。</p>
-<p>③・・・<br>
-～ねんけど（中中）<br>
-～やねん（高低）<br>
-～やねんわ～（高低中）</p>
-<span id="more"></span>  
-<hr>
-<p>関西弁で、「あんねんけど」と「あるねんけど」の違いはなんですか？</p>
-<p>意味の違いはない。<br>
-「あるねんけど」＝「あんねんけど」</p>
-<p>「る」が撥音化して「ん」になっただけ。日本語では語中の「ラ行音」が「ん」に変化する傾向がある。<br>
-・それで→そんで<br>
-・分からない→分かんない</p>
-<p>–<strong>2018年12月8日</strong>–</p>
-<hr>
-<p>せやからアカンてゆうたやろ<br>
-せやから 別表記：そやから<br>
-「だから」の意味。主に関西地方で用いる。「そやから」ともいう。</p>
-<p>アカン(あかん)<br>
-関西弁で「ダメ」の意味。</p>
-<p>『ゆうて』は『～言って』<br>
-##方言で だから ダメって 言ったでしょ</p>
-<p>–<strong>2018年8月29日</strong>–</p>
-<hr>
-<p>ビビり【名词】<br>
-1.颤动，振纹（机械）<br>
-2.胆小，大阪方言。関西弁</p>
-<hr>
-<p>女子|おなご</p>
-<ul>
-<li>名词
-<ul>
-<li>（女の子、女児）。</li>
-<li>（女の人、女性、婦人）。</li>
-<li>（召し使いの女、女中、はしため）。　&lt;-関西弁</li>
-</ul>
-</li>
-</ul>
-<p>–<strong>2018年8月7日</strong>–</p>
-<hr>
-<p>それアカンやつや<br>
-一字一句、分けてみましょう。「それ、アカン、やつ、や」になります。<br>
-「それ」はthatのことですよね。<br>
-「アカン」はNOのことです。その通り、関西弁です。<br>
-「やつ」は奴のことです。人を愚弄する言い方ですね。でも人以外に、ものに対しても指す場合があります。<br>
-「や」も関西弁です。<br>
-これを東京の人が話すと「それはいけない人だよね～」や「それはありえないよね～」という言い方になります。元ネタを想像すると、ここでは「やつ」はものを指していると思います。</p>
-<hr>
-<p>せ や な<br>
-同意を表明する語。関西弁。「そうだね」、「そうだな」などに相当する。</p>
-<hr>
-<p>しんどい</p>
-<ul>
-<li>骨が折れる。難儀だ。<br>
-例文：
-<ul>
-<li>この仕事はしんどい。</li>
-</ul>
-</li>
-<li>くたびれている。<br>
-例文：
-<ul>
-<li>しんどくてもこの仕事をやってしまおう。</li>
-<li>おお，しんどい。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>ほんま 【本真】（ 名 ・形動 ）<br>
-本当である・こと（さま）。真実。主に関西地方で用いる。 「 －の話やで」 「 －に驚いたわ」</p>
-<hr>
-<p>しゃあない<br>
-大阪弁で「しかたない」の意味である。</p>
-<hr>
-<p>アカン<br>
-（「埒らち明かぬ」の略。多く関西で使う）うまくいかない。だめだ。不可である。</p>
-<hr>
-<p>アホやん<br>
-ドジっ娘</p>
-<p>中国語：<br>
-跟冒失娘（ドジっ娘）类似，关西方言</p>
-<blockquote>
-<p>冒失娘（ドジっ娘），萌属性之一。此属性以女性为主，若是男性可用较中性的“ドジっ子”。<br>
-日文“どじ”或“どぢ”是指人或事的出错和失误。“ドジっ娘”就是指经常弄翻物件、行事笨拙、“大错不出，小错不断”，总是搞出呆呆笨笨事情的少女。<br>
-中文意译的“冒失”，是指做事有漏失，而不是为人鲁莽无礼的意思。<br>
-どじっ应该不写成汉字<br>
-参考自维基百科</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>日本語</category>
-      </categories>
-      <tags>
-        <tag>関西弁</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RustでTelegram BotをLambdaにデプロイする</title>
     <url>/posts/1754556687621/</url>
     <content><![CDATA[<p>Telegram BotにはサーバーとWebhookの二つの立ち上げる方法があります。Lambdaはサーバーレスだから、今回はWebhookで使用します。</p>
@@ -7444,6 +7321,129 @@ Telegram Botに<code>/userid</code>を送信してテストしましょう。</p
         <tag>Cargo</tag>
         <tag>Teloxide</tag>
         <tag>Lambda</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>関西弁コレクション</title>
+    <url>/posts/a4241e7/</url>
+    <content><![CDATA[<p>普段発見の関西弁ここで記録します。</p>
+<p>–<strong>2025年9月6日</strong>–</p>
+<p>ほな</p>
+<p>大阪弁の「ほな」は、「それでは」「では」「それじゃあ」「じゃあ」といった意味で、接続詞としても、別れ際の挨拶としても使われます。また、前後の文脈によって「それなら」といった意味で使われることもあり、非常に汎用性の高い言葉です。</p>
+<hr>
+<p>しばく</p>
+<p>「しばく」には、物を棒などで強く叩くという意味と、大阪弁で軽い飲食や遊びに行くことを指す用法があります。前者は文字通り暴力的な意味合いですが、後者は「茶しばく」（お茶する）のように、親しい間柄での軽い誘いや日常的な表現として使われ、本気で殴るつもりはありません。</p>
+<hr>
+<p>–<strong>2020年1月30日</strong>–<br>
+おらん とはどういう意味ですか?</p>
+<blockquote>
+<p>文からするとその方は関西の人ですかね。おらんは方言で、「いない」という意味です。<br>
+例文：<em>俺も一緒やな 3年ぐらいはおらん。</em></p>
+</blockquote>
+<p>–<strong>2019年2月1日</strong>–</p>
+<hr>
+<p>①関西弁の～ねんけど、～やねん、～ねんの意味を教えて下さい<br>
+②～ねやは～ですかの意味ですか？それ意外に意味、使い方等は有りますか？<br>
+③言葉の関西弁のアクセントを教えて下さい</p>
+<p>①・・・<br>
+～ねんけど ですけれど（〇〇なんですけれど）<br>
+～やねん、～ねん です（〇〇なんです）</p>
+<p>②・・・<br>
+～ねやは～（～やねん”わ”～ですね。）<br>
+〇○なんですよ。</p>
+<p>③・・・<br>
+～ねんけど（中中）<br>
+～やねん（高低）<br>
+～やねんわ～（高低中）</p>
+<span id="more"></span>  
+<hr>
+<p>関西弁で、「あんねんけど」と「あるねんけど」の違いはなんですか？</p>
+<p>意味の違いはない。<br>
+「あるねんけど」＝「あんねんけど」</p>
+<p>「る」が撥音化して「ん」になっただけ。日本語では語中の「ラ行音」が「ん」に変化する傾向がある。<br>
+・それで→そんで<br>
+・分からない→分かんない</p>
+<p>–<strong>2018年12月8日</strong>–</p>
+<hr>
+<p>せやからアカンてゆうたやろ<br>
+せやから 別表記：そやから<br>
+「だから」の意味。主に関西地方で用いる。「そやから」ともいう。</p>
+<p>アカン(あかん)<br>
+関西弁で「ダメ」の意味。</p>
+<p>『ゆうて』は『～言って』<br>
+##方言で だから ダメって 言ったでしょ</p>
+<p>–<strong>2018年8月29日</strong>–</p>
+<hr>
+<p>ビビり【名词】<br>
+1.颤动，振纹（机械）<br>
+2.胆小，大阪方言。関西弁</p>
+<hr>
+<p>女子|おなご</p>
+<ul>
+<li>名词
+<ul>
+<li>（女の子、女児）。</li>
+<li>（女の人、女性、婦人）。</li>
+<li>（召し使いの女、女中、はしため）。　&lt;-関西弁</li>
+</ul>
+</li>
+</ul>
+<p>–<strong>2018年8月7日</strong>–</p>
+<hr>
+<p>それアカンやつや<br>
+一字一句、分けてみましょう。「それ、アカン、やつ、や」になります。<br>
+「それ」はthatのことですよね。<br>
+「アカン」はNOのことです。その通り、関西弁です。<br>
+「やつ」は奴のことです。人を愚弄する言い方ですね。でも人以外に、ものに対しても指す場合があります。<br>
+「や」も関西弁です。<br>
+これを東京の人が話すと「それはいけない人だよね～」や「それはありえないよね～」という言い方になります。元ネタを想像すると、ここでは「やつ」はものを指していると思います。</p>
+<hr>
+<p>せ や な<br>
+同意を表明する語。関西弁。「そうだね」、「そうだな」などに相当する。</p>
+<hr>
+<p>しんどい</p>
+<ul>
+<li>骨が折れる。難儀だ。<br>
+例文：
+<ul>
+<li>この仕事はしんどい。</li>
+</ul>
+</li>
+<li>くたびれている。<br>
+例文：
+<ul>
+<li>しんどくてもこの仕事をやってしまおう。</li>
+<li>おお，しんどい。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>ほんま 【本真】（ 名 ・形動 ）<br>
+本当である・こと（さま）。真実。主に関西地方で用いる。 「 －の話やで」 「 －に驚いたわ」</p>
+<hr>
+<p>しゃあない<br>
+大阪弁で「しかたない」の意味である。</p>
+<hr>
+<p>アカン<br>
+（「埒らち明かぬ」の略。多く関西で使う）うまくいかない。だめだ。不可である。</p>
+<hr>
+<p>アホやん<br>
+ドジっ娘</p>
+<p>中国語：<br>
+跟冒失娘（ドジっ娘）类似，关西方言</p>
+<blockquote>
+<p>冒失娘（ドジっ娘），萌属性之一。此属性以女性为主，若是男性可用较中性的“ドジっ子”。<br>
+日文“どじ”或“どぢ”是指人或事的出错和失误。“ドジっ娘”就是指经常弄翻物件、行事笨拙、“大错不出，小错不断”，总是搞出呆呆笨笨事情的少女。<br>
+中文意译的“冒失”，是指做事有漏失，而不是为人鲁莽无礼的意思。<br>
+どじっ应该不写成汉字<br>
+参考自维基百科</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>日本語</category>
+      </categories>
+      <tags>
+        <tag>関西弁</tag>
       </tags>
   </entry>
   <entry>
