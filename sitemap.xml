@@ -29,15 +29,6 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/friends/index.html</loc>
-    
-    <lastmod>2025-10-26</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://asutorufa.com/about/index.html</loc>
     
     <lastmod>2025-10-26</lastmod>
@@ -66,6 +57,15 @@
   
   <url>
     <loc>https://asutorufa.com/email/index.html</loc>
+    
+    <lastmod>2025-10-26</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/friends/index.html</loc>
     
     <lastmod>2025-10-26</lastmod>
     
@@ -862,27 +862,6 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/C/</loc>
-    <lastmod>2025-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.com/tags/OpenCV/</loc>
-    <lastmod>2025-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.com/tags/archlinux/</loc>
-    <lastmod>2025-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://asutorufa.com/tags/llm/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -919,6 +898,27 @@
   
   <url>
     <loc>https://asutorufa.com/tags/hybrid-search/</loc>
+    <lastmod>2025-10-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/tags/C/</loc>
+    <lastmod>2025-10-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/tags/OpenCV/</loc>
+    <lastmod>2025-10-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/tags/archlinux/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1009,14 +1009,14 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/function-calling/</loc>
+    <loc>https://asutorufa.com/tags/socks5/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/socks5/</loc>
+    <loc>https://asutorufa.com/tags/function-calling/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1037,14 +1037,14 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/iptables/</loc>
+    <loc>https://asutorufa.com/tags/encrypt/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/encrypt/</loc>
+    <loc>https://asutorufa.com/tags/iptables/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1107,14 +1107,14 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/uefi/</loc>
+    <loc>https://asutorufa.com/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
+    <loc>https://asutorufa.com/tags/uefi/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1129,34 +1129,6 @@
   
   <url>
     <loc>https://asutorufa.com/tags/%E5%85%8D%E8%B4%B9/</loc>
-    <lastmod>2025-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.com/tags/Linux/</loc>
-    <lastmod>2025-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.com/tags/qemu/</loc>
-    <lastmod>2025-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.com/tags/GVT-g/</loc>
-    <lastmod>2025-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.com/tags/intel/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1199,6 +1171,34 @@
   
   <url>
     <loc>https://asutorufa.com/tags/%E8%A7%A3%E9%94%81/</loc>
+    <lastmod>2025-10-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/tags/Linux/</loc>
+    <lastmod>2025-10-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/tags/qemu/</loc>
+    <lastmod>2025-10-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/tags/GVT-g/</loc>
+    <lastmod>2025-10-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/tags/intel/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1373,6 +1373,13 @@
   </url>
   
   <url>
+    <loc>https://asutorufa.com/tags/%E9%96%A2%E8%A5%BF%E5%BC%81/</loc>
+    <lastmod>2025-10-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://asutorufa.com/tags/Telegram/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -1409,13 +1416,6 @@
   
   <url>
     <loc>https://asutorufa.com/tags/Lambda/</loc>
-    <lastmod>2025-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.com/tags/%E9%96%A2%E8%A5%BF%E5%BC%81/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1487,14 +1487,14 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/categories/Computer-Graphics/</loc>
+    <loc>https://asutorufa.com/categories/llm/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.com/categories/llm/</loc>
+    <loc>https://asutorufa.com/categories/Computer-Graphics/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1543,14 +1543,14 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/categories/Computer/</loc>
+    <loc>https://asutorufa.com/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.com/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
+    <loc>https://asutorufa.com/categories/Computer/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1564,14 +1564,14 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/categories/Linux/</loc>
+    <loc>https://asutorufa.com/categories/Personally/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.com/categories/Personally/</loc>
+    <loc>https://asutorufa.com/categories/Linux/</loc>
     <lastmod>2025-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

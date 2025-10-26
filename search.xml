@@ -1474,100 +1474,6 @@ cli<span class="token punctuation">,</span> err <span class="token operator">:=<
       </tags>
   </entry>
   <entry>
-    <title>NAT穿透</title>
-    <url>/posts/1124a628/</url>
-    <content><![CDATA[<h2 id="NAT-网络地址转换">NAT 网络地址转换</h2>
-<p>网络地址转换 NAT (Network Address Translation)  方法于1994年提出。<br>
-需要在专用网连接到互联网的路由器上安装 NAT 软件。装有 NAT 软件的路由器叫作 NAT路由器，它至少有一个有效的外部全球IP地址。<br>
-所有使用本地地址的主机在和外界通信时，都要在 NAT 路由器上将其本地地址转换成全球 IP 地址，才能和互联网连接。</p>
-<h3 id="网络地址转换的过程">网络地址转换的过程</h3>
-<p>内部主机 A 用本地地址 IPA 和互联网上主机 B 通信所发送的数据报必须经过 NAT 路由器。<br>
-NAT 路由器将数据报的源地址 IPA 转换成全球地址 IPG，<strong>并把转换结果记录到NAT地址转换表中</strong>，目的地址 IPB 保持不变，然后发送到互联网。<br>
-NAT 路由器收到主机 B 发回的数据报时，知道数据报中的源地址是 IPB 而目的地址是 IPG。<br>
-根据 NAT 转换表，NAT 路由器将目的地址 IPG 转换为 IPA，转发给最终的内部主机 A。</p>
-<p>网络地址转换表例子:</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+-------------+---------------+
-| private IP  |   public IP   |
-+-------------+---------------+
-| 192.168.1.55|219.152.168.222|
-+-------------+---------------+
-| 192.168.1.59|219.152.168.223|
-+-------------+---------------+
-|192.168.1.155|219.152.168.224|
-+-------------+---------------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<h3 id="NAPT-网络地址与端口号转换">NAPT 网络地址与端口号转换</h3>
-<p>为了更加有效地利用 NAT 路由器上的全球IP地址，现在常用的 NAT 转换表把运输层的端口号也利用上。这样，就可以使多个拥有本地地址的主机，共用一个 NAT 路由器上的全球 IP 地址，因而可以同时和互联网上的不同主机进行通信。<br>
-使用端口号的 NAT 叫作网络地址与端口号转换NAPT (Network Address and Port Translation)，而不使用端口号的 NAT 就叫作传统的 NAT (traditional NAT)。</p>
-<p>带端口的网络地址转换表例子:</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+-----------------+--------------------+
-|   private IP    |     public IP      |
-+-----------------+--------------------+
-|192.168.1.55:5566|219.152.168.222:9200|
-+-----------------+--------------------+
-| 192.168.1.59:80 |219.152.168.222:9201|
-+-----------------+--------------------+
-|192.168.1.59:4465|219.152.168.222:9202|
-+-----------------+--------------------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="不同类型的NAT">不同类型的NAT</h3>
-<p>来自Wikipedia</p>
-<ul>
-<li>完全圆锥型NAT（Full cone NAT），即一对一（one-to-one）NAT<br>
-一旦一个内部地址（iAddr:port）映射到外部地址（eAddr:port），所有发自iAddr:port的包都经由eAddr:port向外发送。任意外部主机都能通过给eAddr:port发包到达iAddr:port（注：port不需要一样）</li>
-<li>受限圆锥型NAT（Address-Restricted cone NAT）<br>
-内部客户端必须首先发送数据包到对方（IP=X.X.X.X），然后才能接收来自X.X.X.X的数据包。在限制方面，唯一的要求是数据包是来自X.X.X.X。<br>
-内部地址（iAddr:port1）映射到外部地址（eAddr:port2），所有发自iAddr:port1的包都经由eAddr:port2向外发送。外部主机（hostAddr:any）能通过给eAddr:port2发包到达iAddr:port1。（注：any指外部主机源端口不受限制，但是目的端口必须是port2。只有外部主机数据包的目的IP 为 内部客户端的所映射的外部ip，且目的端口为port2时数据包才被放行。）</li>
-<li>端口受限圆锥型NAT（Port-Restricted cone NAT）<br>
-类似受限制锥形NAT（Restricted cone NAT），但是还有端口限制。<br>
-一旦一个内部地址（iAddr:port1）映射到外部地址（eAddr:port2），所有发自iAddr:port1的包都经由eAddr:port2向外发送。<br>
-在受限圆锥型NAT基础上增加了外部主机源端口必须是固定的。</li>
-<li>对称NAT（Symmetric NAT）<br>
-每一个来自相同内部IP与端口，到一个特定目的地地址和端口的请求，都映射到一个独特的外部IP地址和端口。<br>
-同一内部IP与端口发到不同的目的地和端口的信息包，都使用不同的映射<br>
-只有曾经收到过内部主机数据的外部主机，才能够把数据包发回</li>
-</ul>
-<h2 id="UDP打洞">UDP打洞</h2>
-<p>UDP打洞就是利用了NAT地址转换表.</p>
-<h3 id="正常访问一台具有公网IP的主机">正常访问一台具有公网IP的主机</h3>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">      +-----+
-A <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span>  <span class="token attr-name">|</span> <span class="token attr-name">NAT</span> <span class="token attr-name">|</span>  <span class="token attr-name">-----Public</span> <span class="token attr-name">INTERNET</span> <span class="token attr-name">-</span><span class="token punctuation">></span></span> B
-      +-----+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>由主机A向主机B发起请求.<br>
-NAT将内网地址转换为公网地址,并存在NAT转换表中,这样NAT就知道了来自B的访问应该发给A.</p>
-<h3 id="两台都在NAT中的主机建立连接">两台都在NAT中的主机建立连接</h3>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">      +-----+                              +-----+
-A <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span>  <span class="token attr-name">|NATA</span> <span class="token attr-name">|</span>  <span class="token attr-name">-----</span> <span class="token attr-name">Public</span> <span class="token attr-name">INTERNET</span> <span class="token attr-name">-----</span> <span class="token attr-name">|</span> <span class="token attr-name">NATB|</span>  <span class="token attr-name">-</span><span class="token punctuation">></span></span> B
-      +-----+                              +-----+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>首先我们需要知道两台NAT的公网地址和主机A,B的端口.<br>
-假设NATA的公网地址为1.1.1.1,主机A的端口为1000,NATB的公网地址为1.0.0.1,主机B的端口为1001.<br>
-然后由A向1.0.0.1:1001发起UDP请求,这样NATA就会记住来自1.0.0.1:1001的请求应该发给A.<br>
-B也进行同样的操作向1.1.1.1:1000,发起UDP请求.<br>
-这样A和B就建立起了一条连接.</p>
-<p>为了知道主机A和主机B所在网络公网地址,我们需要有一台在公网中的主机来存储A和B的公网地址和端口.</p>
-<h3 id="STUN">STUN</h3>
-<p>STUN（Session Traversal Utilities for NAT，NAT会话穿越应用程序）是一种网络协议，它允许位于NAT（或多重NAT）后的客户端找出自己的公网地址，查出自己位于哪种类型的NAT之后以及NAT为某一个本地端口所绑定的Internet端端口。这些信息被用来在两个同时处于NAT路由器之后的主机之间创建UDP通信。该协议由<a href="https://tools.ietf.org/html/rfc5389">RFC 5389</a>定义。</p>
-<h3 id="TURN">TURN</h3>
-<p>TURN（全名Traversal Using Relay NAT），是一种数据传输协议（data-transfer protocol）。允许在TCP或UDP的连在线跨越NAT或防火墙。<br>
-TURN是一个client-server协议。TURN的NAT穿透方法与STUN类似，都是通过获取应用层中的公有地址达到NAT穿透。但实现TURN client的终端必须在通信开始前与TURN server进行交互，并要求TURN server产生&quot;relay port&quot;，也就是relayed-transport-address。这时TURN server会创建peer，即远程端点（remote endpoints），开始进行中继（relay）的动作，TURN client利用relay port将数据发送至peer，再由peer转传到另一方的TURN client。该协议由<a href="https://tools.ietf.org/html/rfc5766">RFC 5766</a>定义。</p>
-<hr>
-<blockquote>
-<p><a href="https://zh.wikipedia.org/wiki/STUN">STUN</a><br>
-<a href="https://zh.wikipedia.org/wiki/TURN">TURN</a><br>
-<a href="https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2">网络地址转换</a><br>
-<a href="https://blog.csdn.net/ustcgy/article/details/5655050">NAT与NAT穿透(二)</a><br>
-<a href="https://zhuanlan.zhihu.com/p/40816201">简单解释 P2P 技术之 UDP 打洞</a><br>
-<a href="http://www.52im.net/thread-50-1-1.html">P2P技术详解(一)：NAT详解——详细原理、P2P简介</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>UDP</tag>
-        <tag>NAT</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>NAT类型</title>
     <url>/posts/14e0ef9e/</url>
     <content><![CDATA[<h2 id="NAT-Mapping">NAT Mapping</h2>
@@ -1660,142 +1566,97 @@ Mapping为Endpoint-Independent Mapping, Filtering为Address and Port-Dependent F
       </tags>
   </entry>
   <entry>
-    <title>OpenCV瞳孔定位</title>
-    <url>/posts/88967b7c/</url>
-    <content><![CDATA[<h2 id="利用OpenCV自带的分类器识别面部及眼睛">利用OpenCV自带的分类器识别面部及眼睛</h2>
-<p>OpenCV自带里许多分类器,可在<a href="https://github.com/opencv/opencv/tree/master/data/haarcascades">haarcascades</a>下载</p>
-<h3 id="获取面部">获取面部</h3>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 获取面部</span>
-<span class="token comment">// image 为输入的OpenCV的格式的图像</span>
-<span class="token comment">// out 为输出图像 &lt;- 此处输出图像为裁剪下来的矩形面部图像</span>
-<span class="token keyword">bool</span> <span class="token function">get_face</span><span class="token punctuation">(</span>cv<span class="token double-colon punctuation">::</span>Mat image<span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span>Mat <span class="token operator">&amp;</span>out<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token comment">// 将图像转为灰度图像,可提高识别精度</span>
-    cv<span class="token double-colon punctuation">::</span>Mat gray<span class="token punctuation">;</span>
-    cv<span class="token double-colon punctuation">::</span><span class="token function">cvtColor</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> gray<span class="token punctuation">,</span> CV_BGR2GRAY<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 此处的rect为用来存储识别出的面部的定位 &lt;- 这里为vector是因为识别的面部可能不止为一个</span>
-    std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>cv<span class="token double-colon punctuation">::</span>Rect<span class="token operator">></span> rect<span class="token punctuation">;</span>
-    <span class="token comment">// 初始化OpenCV的分类器</span>
-    cv<span class="token double-colon punctuation">::</span>CascadeClassifier cas <span class="token operator">=</span> cv<span class="token double-colon punctuation">::</span><span class="token function">CascadeClassifier</span><span class="token punctuation">(</span><span class="token string">"haarcascade_frontalface_default.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cas<span class="token punctuation">.</span><span class="token function">detectMultiScale</span><span class="token punctuation">(</span>gray<span class="token punctuation">,</span> rect<span class="token punctuation">,</span> <span class="token number">1.15</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 判断rect是否为空,为空的话就是没有被识别的面部</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>rect<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token comment">// 输出图像,这里的rect可能不止为一个(因为可能不止一张脸),所以实际中应该使用for循环</span>
-    <span class="token comment">// 我这里用rect[0]为了简化</span>
-    out <span class="token operator">=</span> <span class="token function">image</span><span class="token punctuation">(</span>rect<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <title>NAT穿透</title>
+    <url>/posts/1124a628/</url>
+    <content><![CDATA[<h2 id="NAT-网络地址转换">NAT 网络地址转换</h2>
+<p>网络地址转换 NAT (Network Address Translation)  方法于1994年提出。<br>
+需要在专用网连接到互联网的路由器上安装 NAT 软件。装有 NAT 软件的路由器叫作 NAT路由器，它至少有一个有效的外部全球IP地址。<br>
+所有使用本地地址的主机在和外界通信时，都要在 NAT 路由器上将其本地地址转换成全球 IP 地址，才能和互联网连接。</p>
+<h3 id="网络地址转换的过程">网络地址转换的过程</h3>
+<p>内部主机 A 用本地地址 IPA 和互联网上主机 B 通信所发送的数据报必须经过 NAT 路由器。<br>
+NAT 路由器将数据报的源地址 IPA 转换成全球地址 IPG，<strong>并把转换结果记录到NAT地址转换表中</strong>，目的地址 IPB 保持不变，然后发送到互联网。<br>
+NAT 路由器收到主机 B 发回的数据报时，知道数据报中的源地址是 IPB 而目的地址是 IPG。<br>
+根据 NAT 转换表，NAT 路由器将目的地址 IPG 转换为 IPA，转发给最终的内部主机 A。</p>
+<p>网络地址转换表例子:</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+-------------+---------------+
+| private IP  |   public IP   |
++-------------+---------------+
+| 192.168.1.55|219.152.168.222|
++-------------+---------------+
+| 192.168.1.59|219.152.168.223|
++-------------+---------------+
+|192.168.1.155|219.152.168.224|
++-------------+---------------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <span id="more"></span>
-<h3 id="获取眼睛">获取眼睛</h3>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 这里与上面相同(这里我只识别左眼,OpenCV还提供了其他文件可获取右眼和双眼)</span>
-<span class="token keyword">bool</span> <span class="token function">get_left_eye</span><span class="token punctuation">(</span>cv<span class="token double-colon punctuation">::</span>Mat image<span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span>Mat <span class="token operator">&amp;</span>out<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token comment">// 之后与面部相同</span>
-    cv<span class="token double-colon punctuation">::</span>Mat gray<span class="token punctuation">;</span>
-    cv<span class="token double-colon punctuation">::</span><span class="token function">cvtColor</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> gray<span class="token punctuation">,</span> CV_BGR2GRAY<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>cv<span class="token double-colon punctuation">::</span>Rect<span class="token operator">></span> rect<span class="token punctuation">;</span>
-    cv<span class="token double-colon punctuation">::</span>CascadeClassifier cas <span class="token operator">=</span> cv<span class="token double-colon punctuation">::</span><span class="token function">CascadeClassifier</span><span class="token punctuation">(</span><span class="token string">"xml/haarcascade_lefteye_2splits.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cas<span class="token punctuation">.</span><span class="token function">detectMultiScale</span><span class="token punctuation">(</span>gray<span class="token punctuation">,</span> rect<span class="token punctuation">,</span> <span class="token number">1.15</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>rect<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    out <span class="token operator">=</span> <span class="token function">image</span><span class="token punctuation">(</span>rect<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="瞳孔定位">瞳孔定位</h2>
+<h3 id="NAPT-网络地址与端口号转换">NAPT 网络地址与端口号转换</h3>
+<p>为了更加有效地利用 NAT 路由器上的全球IP地址，现在常用的 NAT 转换表把运输层的端口号也利用上。这样，就可以使多个拥有本地地址的主机，共用一个 NAT 路由器上的全球 IP 地址，因而可以同时和互联网上的不同主机进行通信。<br>
+使用端口号的 NAT 叫作网络地址与端口号转换NAPT (Network Address and Port Translation)，而不使用端口号的 NAT 就叫作传统的 NAT (traditional NAT)。</p>
+<p>带端口的网络地址转换表例子:</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+-----------------+--------------------+
+|   private IP    |     public IP      |
++-----------------+--------------------+
+|192.168.1.55:5566|219.152.168.222:9200|
++-----------------+--------------------+
+| 192.168.1.59:80 |219.152.168.222:9201|
++-----------------+--------------------+
+|192.168.1.59:4465|219.152.168.222:9202|
++-----------------+--------------------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="不同类型的NAT">不同类型的NAT</h3>
+<p>来自Wikipedia</p>
 <ul>
-<li>获取的眼睛图像</li>
-<li>裁剪去除眉毛</li>
-<li>伽马矫正提高图像对比度</li>
-<li>转化为灰度图像</li>
-<li>利用threshold进行阈值操作(此处可能会改为inRange,目前还在测试)</li>
-<li>腐蚀</li>
-<li>膨胀</li>
-<li>medianBlur平滑图像</li>
-<li>检测关键点并画在图像上</li>
+<li>完全圆锥型NAT（Full cone NAT），即一对一（one-to-one）NAT<br>
+一旦一个内部地址（iAddr:port）映射到外部地址（eAddr:port），所有发自iAddr:port的包都经由eAddr:port向外发送。任意外部主机都能通过给eAddr:port发包到达iAddr:port（注：port不需要一样）</li>
+<li>受限圆锥型NAT（Address-Restricted cone NAT）<br>
+内部客户端必须首先发送数据包到对方（IP=X.X.X.X），然后才能接收来自X.X.X.X的数据包。在限制方面，唯一的要求是数据包是来自X.X.X.X。<br>
+内部地址（iAddr:port1）映射到外部地址（eAddr:port2），所有发自iAddr:port1的包都经由eAddr:port2向外发送。外部主机（hostAddr:any）能通过给eAddr:port2发包到达iAddr:port1。（注：any指外部主机源端口不受限制，但是目的端口必须是port2。只有外部主机数据包的目的IP 为 内部客户端的所映射的外部ip，且目的端口为port2时数据包才被放行。）</li>
+<li>端口受限圆锥型NAT（Port-Restricted cone NAT）<br>
+类似受限制锥形NAT（Restricted cone NAT），但是还有端口限制。<br>
+一旦一个内部地址（iAddr:port1）映射到外部地址（eAddr:port2），所有发自iAddr:port1的包都经由eAddr:port2向外发送。<br>
+在受限圆锥型NAT基础上增加了外部主机源端口必须是固定的。</li>
+<li>对称NAT（Symmetric NAT）<br>
+每一个来自相同内部IP与端口，到一个特定目的地地址和端口的请求，都映射到一个独特的外部IP地址和端口。<br>
+同一内部IP与端口发到不同的目的地和端口的信息包，都使用不同的映射<br>
+只有曾经收到过内部主机数据的外部主机，才能够把数据包发回</li>
 </ul>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 定位眼球 -> 检测关键点</span>
-std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>cv<span class="token double-colon punctuation">::</span>KeyPoint<span class="token operator">></span> <span class="token function">dector</span><span class="token punctuation">(</span>cv<span class="token double-colon punctuation">::</span>Mat image<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    cv<span class="token double-colon punctuation">::</span>SimpleBlobDetector<span class="token double-colon punctuation">::</span>Params detector_params<span class="token punctuation">;</span>
-    detector_params<span class="token punctuation">.</span>filterByArea <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    detector_params<span class="token punctuation">.</span>maxArea <span class="token operator">=</span> <span class="token number">1500</span><span class="token punctuation">;</span>
-    cv<span class="token double-colon punctuation">::</span>Ptr<span class="token operator">&lt;</span>cv<span class="token double-colon punctuation">::</span>SimpleBlobDetector<span class="token operator">></span> blob_dector <span class="token operator">=</span> cv<span class="token double-colon punctuation">::</span><span class="token class-name">SimpleBlobDetector</span><span class="token double-colon punctuation">::</span><span class="token function">create</span><span class="token punctuation">(</span>detector_params<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>cv<span class="token double-colon punctuation">::</span>KeyPoint<span class="token operator">></span> keypoints<span class="token punctuation">;</span>
-    blob_dector<span class="token operator">-></span><span class="token function">detect</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> keypoints<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> keypoints<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">bool</span> <span class="token function">get_pupil</span><span class="token punctuation">(</span>cv<span class="token double-colon punctuation">::</span>Mat image<span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span>Mat <span class="token operator">&amp;</span>out<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token comment">// width -> image.rows ;</span>
-    <span class="token comment">// height -> image.cols;</span>
-    <span class="token comment">// cut eyebrow 裁剪 去除眉毛</span>
-    image <span class="token operator">=</span> <span class="token function">image</span><span class="token punctuation">(</span>cv<span class="token double-colon punctuation">::</span><span class="token function">Rect</span><span class="token punctuation">(</span>image<span class="token punctuation">.</span>cols <span class="token operator">/</span> <span class="token number">10</span><span class="token punctuation">,</span> image<span class="token punctuation">.</span>rows <span class="token operator">/</span> <span class="token number">2.5</span><span class="token punctuation">,</span> image<span class="token punctuation">.</span>cols <span class="token operator">*</span> <span class="token number">8</span> <span class="token operator">/</span> <span class="token number">10</span><span class="token punctuation">,</span> image<span class="token punctuation">.</span>rows <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// Gamma correction/gamma nonlinearity 伽马校正 -> https://www.cnblogs.com/sdu20112013/p/11597171.html</span>
-    cv<span class="token double-colon punctuation">::</span>Mat <span class="token function">look_up_table</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">256</span><span class="token punctuation">,</span> CV_8U<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    uchar <span class="token operator">*</span>p <span class="token operator">=</span> look_up_table<span class="token punctuation">.</span><span class="token function">ptr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">float</span> gamma <span class="token operator">=</span> <span class="token number">0.7</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">256</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span>
-        p<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> cv<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">saturate_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>uchar<span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token function">pow</span><span class="token punctuation">(</span>i <span class="token operator">/</span> <span class="token number">255.0</span><span class="token punctuation">,</span> gamma<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">255.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cv<span class="token double-colon punctuation">::</span><span class="token function">LUT</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> look_up_table<span class="token punctuation">,</span> image<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    cv<span class="token double-colon punctuation">::</span>Mat gray<span class="token punctuation">;</span>
-    <span class="token comment">// 转化为灰度图像</span>
-    cv<span class="token double-colon punctuation">::</span><span class="token function">cvtColor</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> gray<span class="token punctuation">,</span> CV_BGR2GRAY<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 阈值操作</span>
-    cv<span class="token double-colon punctuation">::</span><span class="token function">threshold</span><span class="token punctuation">(</span>gray<span class="token punctuation">,</span> gray<span class="token punctuation">,</span> inRange_threshold<span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">,</span> CV_THRESH_BINARY<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">//膨胀及腐蚀</span>
-    cv<span class="token double-colon punctuation">::</span><span class="token function">erode</span><span class="token punctuation">(</span>gray<span class="token punctuation">,</span> gray<span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span><span class="token function">Mat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span><span class="token function">Point</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cv<span class="token double-colon punctuation">::</span><span class="token function">dilate</span><span class="token punctuation">(</span>gray<span class="token punctuation">,</span> gray<span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span><span class="token function">Mat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span><span class="token function">Point</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 平滑图像</span>
-    cv <span class="token double-colon punctuation">::</span><span class="token function">medianBlur</span><span class="token punctuation">(</span>gray<span class="token punctuation">,</span> gray<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 检测并画出关键点</span>
-    cv<span class="token double-colon punctuation">::</span><span class="token function">drawKeypoints</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> <span class="token function">dector</span><span class="token punctuation">(</span>gray<span class="token punctuation">)</span><span class="token punctuation">,</span> image<span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span><span class="token function">Scalar</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">)</span><span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span>DrawMatchesFlags<span class="token double-colon punctuation">::</span>DRAW_RICH_KEYPOINTS<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    out <span class="token operator">=</span> image<span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="附录">附录</h2>
-<h3 id="OpenCV在ArchLinux上的使用">OpenCV在ArchLinux上的使用</h3>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> opencv
-<span class="token comment"># vtk和hdf5为opencv的依赖,不安装编译会失败</span>
-<span class="token function">sudo</span> pacman <span class="token parameter variable">-S</span> vtk
-<span class="token function">sudo</span> pacman <span class="token parameter variable">-Ss</span> hdf5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="Cmake文件">Cmake文件</h3>
-<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token keyword">cmake_minimum_required</span><span class="token punctuation">(</span><span class="token property">VERSION</span> <span class="token number">3.14</span><span class="token punctuation">)</span>
-<span class="token keyword">project</span><span class="token punctuation">(</span>eyedector<span class="token punctuation">)</span>
-<span class="token keyword">add_definitions</span><span class="token punctuation">(</span>-std=c++<span class="token number">11</span><span class="token punctuation">)</span>
-<span class="token comment"># 这里只需要添加OpenCV的就能编译成功</span>
-<span class="token keyword">find_package</span><span class="token punctuation">(</span>OpenCV REQUIRED<span class="token punctuation">)</span>
-<span class="token keyword">link_libraries</span><span class="token punctuation">(</span><span class="token punctuation">$&#123;</span>OpenCV_LIBS<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-<span class="token keyword">add_executable</span><span class="token punctuation">(</span>out opencvtest.cpp<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="利用安卓手机充当网络摄像头">利用安卓手机充当网络摄像头</h3>
-<p>手机安装这个<a href="https://play.google.com/store/apps/details?id=com.pas.webcam">IP Webcam</a>,使用时会显示局域网中的地址</p>
-<p>OpenCV中</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">cv<span class="token double-colon punctuation">::</span>VideoCapture <span class="token function">cap</span><span class="token punctuation">(</span><span class="token string">"http://192.168.0.xx:8080/video"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 这里为网络摄像头的地址,需要在后面加上/video</span>
-<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    cv<span class="token double-colon punctuation">::</span>Mat frame<span class="token punctuation">;</span>
-    cap <span class="token operator">>></span> frame<span class="token punctuation">;</span>
-    cv<span class="token double-colon punctuation">::</span><span class="token function">imshow</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">,</span> frame<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>cv<span class="token double-colon punctuation">::</span><span class="token function">waitKey</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">27</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="UDP打洞">UDP打洞</h2>
+<p>UDP打洞就是利用了NAT地址转换表.</p>
+<h3 id="正常访问一台具有公网IP的主机">正常访问一台具有公网IP的主机</h3>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">      +-----+
+A <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span>  <span class="token attr-name">|</span> <span class="token attr-name">NAT</span> <span class="token attr-name">|</span>  <span class="token attr-name">-----Public</span> <span class="token attr-name">INTERNET</span> <span class="token attr-name">-</span><span class="token punctuation">></span></span> B
+      +-----+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>由主机A向主机B发起请求.<br>
+NAT将内网地址转换为公网地址,并存在NAT转换表中,这样NAT就知道了来自B的访问应该发给A.</p>
+<h3 id="两台都在NAT中的主机建立连接">两台都在NAT中的主机建立连接</h3>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">      +-----+                              +-----+
+A <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span>  <span class="token attr-name">|NATA</span> <span class="token attr-name">|</span>  <span class="token attr-name">-----</span> <span class="token attr-name">Public</span> <span class="token attr-name">INTERNET</span> <span class="token attr-name">-----</span> <span class="token attr-name">|</span> <span class="token attr-name">NATB|</span>  <span class="token attr-name">-</span><span class="token punctuation">></span></span> B
+      +-----+                              +-----+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>首先我们需要知道两台NAT的公网地址和主机A,B的端口.<br>
+假设NATA的公网地址为1.1.1.1,主机A的端口为1000,NATB的公网地址为1.0.0.1,主机B的端口为1001.<br>
+然后由A向1.0.0.1:1001发起UDP请求,这样NATA就会记住来自1.0.0.1:1001的请求应该发给A.<br>
+B也进行同样的操作向1.1.1.1:1000,发起UDP请求.<br>
+这样A和B就建立起了一条连接.</p>
+<p>为了知道主机A和主机B所在网络公网地址,我们需要有一台在公网中的主机来存储A和B的公网地址和端口.</p>
+<h3 id="STUN">STUN</h3>
+<p>STUN（Session Traversal Utilities for NAT，NAT会话穿越应用程序）是一种网络协议，它允许位于NAT（或多重NAT）后的客户端找出自己的公网地址，查出自己位于哪种类型的NAT之后以及NAT为某一个本地端口所绑定的Internet端端口。这些信息被用来在两个同时处于NAT路由器之后的主机之间创建UDP通信。该协议由<a href="https://tools.ietf.org/html/rfc5389">RFC 5389</a>定义。</p>
+<h3 id="TURN">TURN</h3>
+<p>TURN（全名Traversal Using Relay NAT），是一种数据传输协议（data-transfer protocol）。允许在TCP或UDP的连在线跨越NAT或防火墙。<br>
+TURN是一个client-server协议。TURN的NAT穿透方法与STUN类似，都是通过获取应用层中的公有地址达到NAT穿透。但实现TURN client的终端必须在通信开始前与TURN server进行交互，并要求TURN server产生&quot;relay port&quot;，也就是relayed-transport-address。这时TURN server会创建peer，即远程端点（remote endpoints），开始进行中继（relay）的动作，TURN client利用relay port将数据发送至peer，再由peer转传到另一方的TURN client。该协议由<a href="https://tools.ietf.org/html/rfc5766">RFC 5766</a>定义。</p>
+<hr>
+<blockquote>
+<p><a href="https://zh.wikipedia.org/wiki/STUN">STUN</a><br>
+<a href="https://zh.wikipedia.org/wiki/TURN">TURN</a><br>
+<a href="https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2">网络地址转换</a><br>
+<a href="https://blog.csdn.net/ustcgy/article/details/5655050">NAT与NAT穿透(二)</a><br>
+<a href="https://zhuanlan.zhihu.com/p/40816201">简单解释 P2P 技术之 UDP 打洞</a><br>
+<a href="http://www.52im.net/thread-50-1-1.html">P2P技术详解(一)：NAT详解——详细原理、P2P简介</a></p>
+</blockquote>
 ]]></content>
       <categories>
-        <category>Computer Graphics</category>
+        <category>Network</category>
       </categories>
       <tags>
-        <tag>C++</tag>
-        <tag>OpenCV</tag>
-        <tag>archlinux</tag>
+        <tag>UDP</tag>
+        <tag>NAT</tag>
       </tags>
   </entry>
   <entry>
@@ -1997,6 +1858,145 @@ sparseEmbeddings<span class="token punctuation">,</span> err <span class="token 
         <tag>sparse vector</tag>
         <tag>vector database</tag>
         <tag>hybrid search</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OpenCV瞳孔定位</title>
+    <url>/posts/88967b7c/</url>
+    <content><![CDATA[<h2 id="利用OpenCV自带的分类器识别面部及眼睛">利用OpenCV自带的分类器识别面部及眼睛</h2>
+<p>OpenCV自带里许多分类器,可在<a href="https://github.com/opencv/opencv/tree/master/data/haarcascades">haarcascades</a>下载</p>
+<h3 id="获取面部">获取面部</h3>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 获取面部</span>
+<span class="token comment">// image 为输入的OpenCV的格式的图像</span>
+<span class="token comment">// out 为输出图像 &lt;- 此处输出图像为裁剪下来的矩形面部图像</span>
+<span class="token keyword">bool</span> <span class="token function">get_face</span><span class="token punctuation">(</span>cv<span class="token double-colon punctuation">::</span>Mat image<span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span>Mat <span class="token operator">&amp;</span>out<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token comment">// 将图像转为灰度图像,可提高识别精度</span>
+    cv<span class="token double-colon punctuation">::</span>Mat gray<span class="token punctuation">;</span>
+    cv<span class="token double-colon punctuation">::</span><span class="token function">cvtColor</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> gray<span class="token punctuation">,</span> CV_BGR2GRAY<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 此处的rect为用来存储识别出的面部的定位 &lt;- 这里为vector是因为识别的面部可能不止为一个</span>
+    std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>cv<span class="token double-colon punctuation">::</span>Rect<span class="token operator">></span> rect<span class="token punctuation">;</span>
+    <span class="token comment">// 初始化OpenCV的分类器</span>
+    cv<span class="token double-colon punctuation">::</span>CascadeClassifier cas <span class="token operator">=</span> cv<span class="token double-colon punctuation">::</span><span class="token function">CascadeClassifier</span><span class="token punctuation">(</span><span class="token string">"haarcascade_frontalface_default.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cas<span class="token punctuation">.</span><span class="token function">detectMultiScale</span><span class="token punctuation">(</span>gray<span class="token punctuation">,</span> rect<span class="token punctuation">,</span> <span class="token number">1.15</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 判断rect是否为空,为空的话就是没有被识别的面部</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>rect<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">// 输出图像,这里的rect可能不止为一个(因为可能不止一张脸),所以实际中应该使用for循环</span>
+    <span class="token comment">// 我这里用rect[0]为了简化</span>
+    out <span class="token operator">=</span> <span class="token function">image</span><span class="token punctuation">(</span>rect<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<h3 id="获取眼睛">获取眼睛</h3>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 这里与上面相同(这里我只识别左眼,OpenCV还提供了其他文件可获取右眼和双眼)</span>
+<span class="token keyword">bool</span> <span class="token function">get_left_eye</span><span class="token punctuation">(</span>cv<span class="token double-colon punctuation">::</span>Mat image<span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span>Mat <span class="token operator">&amp;</span>out<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token comment">// 之后与面部相同</span>
+    cv<span class="token double-colon punctuation">::</span>Mat gray<span class="token punctuation">;</span>
+    cv<span class="token double-colon punctuation">::</span><span class="token function">cvtColor</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> gray<span class="token punctuation">,</span> CV_BGR2GRAY<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>cv<span class="token double-colon punctuation">::</span>Rect<span class="token operator">></span> rect<span class="token punctuation">;</span>
+    cv<span class="token double-colon punctuation">::</span>CascadeClassifier cas <span class="token operator">=</span> cv<span class="token double-colon punctuation">::</span><span class="token function">CascadeClassifier</span><span class="token punctuation">(</span><span class="token string">"xml/haarcascade_lefteye_2splits.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cas<span class="token punctuation">.</span><span class="token function">detectMultiScale</span><span class="token punctuation">(</span>gray<span class="token punctuation">,</span> rect<span class="token punctuation">,</span> <span class="token number">1.15</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>rect<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    out <span class="token operator">=</span> <span class="token function">image</span><span class="token punctuation">(</span>rect<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="瞳孔定位">瞳孔定位</h2>
+<ul>
+<li>获取的眼睛图像</li>
+<li>裁剪去除眉毛</li>
+<li>伽马矫正提高图像对比度</li>
+<li>转化为灰度图像</li>
+<li>利用threshold进行阈值操作(此处可能会改为inRange,目前还在测试)</li>
+<li>腐蚀</li>
+<li>膨胀</li>
+<li>medianBlur平滑图像</li>
+<li>检测关键点并画在图像上</li>
+</ul>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 定位眼球 -> 检测关键点</span>
+std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>cv<span class="token double-colon punctuation">::</span>KeyPoint<span class="token operator">></span> <span class="token function">dector</span><span class="token punctuation">(</span>cv<span class="token double-colon punctuation">::</span>Mat image<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    cv<span class="token double-colon punctuation">::</span>SimpleBlobDetector<span class="token double-colon punctuation">::</span>Params detector_params<span class="token punctuation">;</span>
+    detector_params<span class="token punctuation">.</span>filterByArea <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    detector_params<span class="token punctuation">.</span>maxArea <span class="token operator">=</span> <span class="token number">1500</span><span class="token punctuation">;</span>
+    cv<span class="token double-colon punctuation">::</span>Ptr<span class="token operator">&lt;</span>cv<span class="token double-colon punctuation">::</span>SimpleBlobDetector<span class="token operator">></span> blob_dector <span class="token operator">=</span> cv<span class="token double-colon punctuation">::</span><span class="token class-name">SimpleBlobDetector</span><span class="token double-colon punctuation">::</span><span class="token function">create</span><span class="token punctuation">(</span>detector_params<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    std<span class="token double-colon punctuation">::</span>vector<span class="token operator">&lt;</span>cv<span class="token double-colon punctuation">::</span>KeyPoint<span class="token operator">></span> keypoints<span class="token punctuation">;</span>
+    blob_dector<span class="token operator">-></span><span class="token function">detect</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> keypoints<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> keypoints<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">bool</span> <span class="token function">get_pupil</span><span class="token punctuation">(</span>cv<span class="token double-colon punctuation">::</span>Mat image<span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span>Mat <span class="token operator">&amp;</span>out<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token comment">// width -> image.rows ;</span>
+    <span class="token comment">// height -> image.cols;</span>
+    <span class="token comment">// cut eyebrow 裁剪 去除眉毛</span>
+    image <span class="token operator">=</span> <span class="token function">image</span><span class="token punctuation">(</span>cv<span class="token double-colon punctuation">::</span><span class="token function">Rect</span><span class="token punctuation">(</span>image<span class="token punctuation">.</span>cols <span class="token operator">/</span> <span class="token number">10</span><span class="token punctuation">,</span> image<span class="token punctuation">.</span>rows <span class="token operator">/</span> <span class="token number">2.5</span><span class="token punctuation">,</span> image<span class="token punctuation">.</span>cols <span class="token operator">*</span> <span class="token number">8</span> <span class="token operator">/</span> <span class="token number">10</span><span class="token punctuation">,</span> image<span class="token punctuation">.</span>rows <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Gamma correction/gamma nonlinearity 伽马校正 -> https://www.cnblogs.com/sdu20112013/p/11597171.html</span>
+    cv<span class="token double-colon punctuation">::</span>Mat <span class="token function">look_up_table</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">256</span><span class="token punctuation">,</span> CV_8U<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    uchar <span class="token operator">*</span>p <span class="token operator">=</span> look_up_table<span class="token punctuation">.</span><span class="token function">ptr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">float</span> gamma <span class="token operator">=</span> <span class="token number">0.7</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">256</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span>
+        p<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> cv<span class="token double-colon punctuation">::</span><span class="token generic-function"><span class="token function">saturate_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span>uchar<span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token function">pow</span><span class="token punctuation">(</span>i <span class="token operator">/</span> <span class="token number">255.0</span><span class="token punctuation">,</span> gamma<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">255.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cv<span class="token double-colon punctuation">::</span><span class="token function">LUT</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> look_up_table<span class="token punctuation">,</span> image<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    cv<span class="token double-colon punctuation">::</span>Mat gray<span class="token punctuation">;</span>
+    <span class="token comment">// 转化为灰度图像</span>
+    cv<span class="token double-colon punctuation">::</span><span class="token function">cvtColor</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> gray<span class="token punctuation">,</span> CV_BGR2GRAY<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 阈值操作</span>
+    cv<span class="token double-colon punctuation">::</span><span class="token function">threshold</span><span class="token punctuation">(</span>gray<span class="token punctuation">,</span> gray<span class="token punctuation">,</span> inRange_threshold<span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">,</span> CV_THRESH_BINARY<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//膨胀及腐蚀</span>
+    cv<span class="token double-colon punctuation">::</span><span class="token function">erode</span><span class="token punctuation">(</span>gray<span class="token punctuation">,</span> gray<span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span><span class="token function">Mat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span><span class="token function">Point</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cv<span class="token double-colon punctuation">::</span><span class="token function">dilate</span><span class="token punctuation">(</span>gray<span class="token punctuation">,</span> gray<span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span><span class="token function">Mat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span><span class="token function">Point</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 平滑图像</span>
+    cv <span class="token double-colon punctuation">::</span><span class="token function">medianBlur</span><span class="token punctuation">(</span>gray<span class="token punctuation">,</span> gray<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 检测并画出关键点</span>
+    cv<span class="token double-colon punctuation">::</span><span class="token function">drawKeypoints</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> <span class="token function">dector</span><span class="token punctuation">(</span>gray<span class="token punctuation">)</span><span class="token punctuation">,</span> image<span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span><span class="token function">Scalar</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">)</span><span class="token punctuation">,</span> cv<span class="token double-colon punctuation">::</span>DrawMatchesFlags<span class="token double-colon punctuation">::</span>DRAW_RICH_KEYPOINTS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    out <span class="token operator">=</span> image<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="附录">附录</h2>
+<h3 id="OpenCV在ArchLinux上的使用">OpenCV在ArchLinux上的使用</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> opencv
+<span class="token comment"># vtk和hdf5为opencv的依赖,不安装编译会失败</span>
+<span class="token function">sudo</span> pacman <span class="token parameter variable">-S</span> vtk
+<span class="token function">sudo</span> pacman <span class="token parameter variable">-Ss</span> hdf5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Cmake文件">Cmake文件</h3>
+<pre class="line-numbers language-cmake" data-language="cmake"><code class="language-cmake"><span class="token keyword">cmake_minimum_required</span><span class="token punctuation">(</span><span class="token property">VERSION</span> <span class="token number">3.14</span><span class="token punctuation">)</span>
+<span class="token keyword">project</span><span class="token punctuation">(</span>eyedector<span class="token punctuation">)</span>
+<span class="token keyword">add_definitions</span><span class="token punctuation">(</span>-std=c++<span class="token number">11</span><span class="token punctuation">)</span>
+<span class="token comment"># 这里只需要添加OpenCV的就能编译成功</span>
+<span class="token keyword">find_package</span><span class="token punctuation">(</span>OpenCV REQUIRED<span class="token punctuation">)</span>
+<span class="token keyword">link_libraries</span><span class="token punctuation">(</span><span class="token punctuation">$&#123;</span>OpenCV_LIBS<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token keyword">add_executable</span><span class="token punctuation">(</span>out opencvtest.cpp<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="利用安卓手机充当网络摄像头">利用安卓手机充当网络摄像头</h3>
+<p>手机安装这个<a href="https://play.google.com/store/apps/details?id=com.pas.webcam">IP Webcam</a>,使用时会显示局域网中的地址</p>
+<p>OpenCV中</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">cv<span class="token double-colon punctuation">::</span>VideoCapture <span class="token function">cap</span><span class="token punctuation">(</span><span class="token string">"http://192.168.0.xx:8080/video"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 这里为网络摄像头的地址,需要在后面加上/video</span>
+<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    cv<span class="token double-colon punctuation">::</span>Mat frame<span class="token punctuation">;</span>
+    cap <span class="token operator">>></span> frame<span class="token punctuation">;</span>
+    cv<span class="token double-colon punctuation">::</span><span class="token function">imshow</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">,</span> frame<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>cv<span class="token double-colon punctuation">::</span><span class="token function">waitKey</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">27</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>Computer Graphics</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>OpenCV</tag>
+        <tag>archlinux</tag>
       </tags>
   </entry>
   <entry>
@@ -3256,6 +3256,45 @@ This will change the cursor to the dark breeze, I don't know the name of the whi
       </tags>
   </entry>
   <entry>
+    <title>c语言数组输出的另一种方法</title>
+    <url>/posts/854ed6ec/</url>
+    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173">一个有趣的C语言程序</a></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+ 
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">2</span></code></pre>
+<span id="more"></span>
+<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>
+a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
+所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>
+所以就是x[1]对应的值：2</p>
+<p>由此我又想到了二位数组</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+ 
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">4</span></code></pre>
+<p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>c语言基本类型在内存中的存储方式</title>
     <url>/posts/e404489/</url>
     <content><![CDATA[<h2 id="浮点数">浮点数</h2>
@@ -3336,209 +3375,6 @@ This will change the cursor to the dark breeze, I don't know the name of the whi
       </categories>
       <tags>
         <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言数组输出的另一种方法</title>
-    <url>/posts/854ed6ec/</url>
-    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173">一个有趣的C语言程序</a></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
- 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">2</span></code></pre>
-<span id="more"></span>
-<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>
-a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
-所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>
-所以就是x[1]对应的值：2</p>
-<p>由此我又想到了二位数组</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
- 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">4</span></code></pre>
-<p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>golangとollamaでfunction calling</title>
-    <url>/posts/23567986/</url>
-    <content><![CDATA[<p>今回はollamaのオフィシャルクライアントでfuncation callingを使いたいです。　　<br>
-前回はlangchaingoで使っただけと、試してたらollamaの引数toolsは無効です、githubの実例<a href="https://github.com/tmc/langchaingo/blob/main/examples/ollama-functions-example/ollama_functions_example.go">ollama_functions_example</a>はsystem messageとtoolsのjsonを組み合わせて内容を生成する。例えば：</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">systemMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">&#123;</span>
- bs<span class="token punctuation">,</span> err <span class="token operator">:=</span> json<span class="token punctuation">.</span><span class="token function">Marshal</span><span class="token punctuation">(</span>functions<span class="token punctuation">)</span>
- <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-  log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
- <span class="token punctuation">&#125;</span>
-
- <span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">`You have access to the following tools:
-
-%s
-
-To use a tool, respond with a JSON object with the following structure: 
-&#123;
- "tool": &lt;name of the called tool>,
- "tool_input": &lt;parameters for the tool matching the above JSON schema>
-&#125;
-`</span><span class="token punctuation">,</span> <span class="token function">string</span><span class="token punctuation">(</span>bs<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>これはちょっと優雅でない、<code>ollama/api</code>を使いたいと思います。</p>
-<h2 id="function-callingとは">function callingとは</h2>
-<span id="more"></span>
-<p>llmのレスポンスが外部関数の呼び出しを検知し、関数の結果を組み合わせて内容を生成する機能です。　　<br>
-例えば：「東京の天気は？」はpromptをとして、「晴れです」と生成する。　　<br>
-大勢のllmはfunction callingをtoolと読んでいる、呼び出しどき引数として引き渡して内容を生成する。</p>
-<!-- 
-primjs can't support exclude languages,
-so we direct use hexo tag system
- -->
-<pre><code class="mermaid">sequenceDiagram
-    actor ユーザ
-    ユーザ-&gt;&gt;サーバー: 東京の天気は？
-    サーバー-&gt;&gt;llm: promptとtools
-    llm--)サーバー: 関数を呼び出し&lt;br&#x2F;&gt;引数（東京）を返す
-    サーバー-&gt;&gt;外部サービス: 東京の天気を取得
-    外部サービス--)サーバー: 天気を返す
-    サーバー-&gt;&gt;llm: 天気をpromptに追加
-    llm--&gt;&gt;サーバー: 生成する内容を返す
-    サーバー-&gt;&gt;ユーザ: 内容を返す</code></pre>
-<!-- 
-取得：しゅとく
- -->
-<h2 id="goで実現">goで実現</h2>
-<p>関数と引数の説明(Description)は自然な言葉で良いです、一般的なプログラミングとはちょっと違うと思います。</p>
-<p>toolsの定義</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">import</span> <span class="token string">"github.com/ollama/ollama/api"</span>
-
-tools <span class="token operator">:=</span> api<span class="token punctuation">.</span>Tool<span class="token punctuation">&#123;</span>
-      Type<span class="token punctuation">:</span> <span class="token string">"function"</span><span class="token punctuation">,</span>
-      Function<span class="token punctuation">:</span> api<span class="token punctuation">.</span>ToolFunction<span class="token punctuation">&#123;</span>
-       Name<span class="token punctuation">:</span>        <span class="token string">"getCurrentWeather"</span><span class="token punctuation">,</span>
-       Description<span class="token punctuation">:</span> <span class="token string">"Get the current weather for a city"</span><span class="token punctuation">,</span>
-       Parameters<span class="token punctuation">:</span> <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
-        Type       <span class="token builtin">string</span>   <span class="token string">"json:\"type\""</span>
-        Required   <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token string">"json:\"required\""</span>
-        Properties <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
-         Type        <span class="token builtin">string</span>   <span class="token string">"json:\"type\""</span>
-         Description <span class="token builtin">string</span>   <span class="token string">"json:\"description\""</span>
-         Enum        <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token string">"json:\"enum,omitempty\""</span>
-        <span class="token punctuation">&#125;</span> <span class="token string">"json:\"properties\""</span>
-       <span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
-        Type<span class="token punctuation">:</span>     <span class="token string">"object"</span><span class="token punctuation">,</span>
-        Required<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">&#123;</span><span class="token string">"city"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-        Properties<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
-         Type        <span class="token builtin">string</span>   <span class="token string">"json:\"type\""</span>
-         Description <span class="token builtin">string</span>   <span class="token string">"json:\"description\""</span>
-         Enum        <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token string">"json:\"enum,omitempty\""</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
-         <span class="token string">"city"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
-          Type<span class="token punctuation">:</span>        <span class="token string">"string"</span><span class="token punctuation">,</span>
-          Description<span class="token punctuation">:</span> <span class="token string">"The city to get the weather for"</span><span class="token punctuation">,</span>
-         <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-       <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-     <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>外部サービスの呼び出しを実現</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go">processToolCall <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>cr api<span class="token punctuation">.</span>Chat<span class="token punctuation">.</span>Response<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-   <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> v <span class="token operator">:=</span> <span class="token keyword">range</span> cr<span class="token punctuation">.</span>Message<span class="token punctuation">.</span>ToolCalls <span class="token punctuation">&#123;</span>
-      <span class="token keyword">if</span> v<span class="token punctuation">.</span>Function<span class="token punctuation">.</span>Name <span class="token operator">==</span> <span class="token string">"getCurrentWeather"</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"the weather of %v is 64 and sunny"</span><span class="token punctuation">,</span> v<span class="token punctuation">.</span>Function<span class="token punctuation">.</span>Arguments<span class="token punctuation">[</span><span class="token string">"city"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
-      <span class="token punctuation">&#125;</span>
-   <span class="token punctuation">&#125;</span>
-  <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">,</span> errors<span class="token punctuation">.</span>ErrUnsupported
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>chains を実現</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go">uri<span class="token punctuation">,</span> err <span class="token operator">:=</span> url<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token string">"http://localhost:11434"</span><span class="token punctuation">)</span>
-<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-client <span class="token operator">:=</span> api<span class="token punctuation">.</span><span class="token function">NewClient</span><span class="token punctuation">(</span>uri<span class="token punctuation">,</span> <span class="token operator">&amp;</span>http<span class="token punctuation">.</span>Client<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-
-messages <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>api<span class="token punctuation">.</span>Message<span class="token punctuation">&#123;</span>
-  <span class="token punctuation">&#123;</span>
-   Role<span class="token punctuation">:</span>    <span class="token string">"user"</span><span class="token punctuation">,</span>
-   Content<span class="token punctuation">:</span> prompt<span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-<span class="token punctuation">&#125;</span>
-
-ctx <span class="token operator">:=</span> context<span class="token punctuation">.</span><span class="token function">TODO</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-err <span class="token operator">:=</span> o<span class="token punctuation">.</span>llm<span class="token punctuation">.</span><span class="token function">Chat</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span>
-  <span class="token operator">&amp;</span>api<span class="token punctuation">.</span>ChatRequest<span class="token punctuation">&#123;</span>
-   Model<span class="token punctuation">:</span>    <span class="token string">"qwen2.5:32b-instruct"</span><span class="token punctuation">,</span>
-   Stream<span class="token punctuation">:</span>   lo<span class="token punctuation">.</span><span class="token function">ToPtr</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-   Messages<span class="token punctuation">:</span> messages<span class="token punctuation">,</span>
-   Options<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
-    <span class="token string">"temperature"</span><span class="token punctuation">:</span> <span class="token number">0.3</span><span class="token punctuation">,</span>
-   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-   Tools<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>api<span class="token punctuation">.</span>Tool<span class="token punctuation">&#123;</span>tools<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token keyword">func</span><span class="token punctuation">(</span>cr api<span class="token punctuation">.</span>ChatResponse<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">&#123;</span>
-      msg<span class="token punctuation">,</span>err <span class="token operator">:=</span> <span class="token function">processToolCall</span><span class="token punctuation">(</span>cr<span class="token punctuation">)</span>
-      <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> err
-      <span class="token punctuation">&#125;</span>
-
-     messages <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>messages<span class="token punctuation">,</span> api<span class="token punctuation">.</span>Message<span class="token punctuation">&#123;</span>
-      Role<span class="token punctuation">:</span>    <span class="token string">"tool"</span><span class="token punctuation">,</span>
-      Content<span class="token punctuation">:</span> msg<span class="token punctuation">,</span>
-     <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-   <span class="token keyword">return</span> <span class="token boolean">nil</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span>
-<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-err <span class="token operator">=</span> o<span class="token punctuation">.</span>llm<span class="token punctuation">.</span><span class="token function">Chat</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span>
-  <span class="token operator">&amp;</span>api<span class="token punctuation">.</span>ChatRequest<span class="token punctuation">&#123;</span>
-   Model<span class="token punctuation">:</span>    <span class="token string">"qwen2.5:32b-instruct"</span><span class="token punctuation">,</span>
-   Stream<span class="token punctuation">:</span>   lo<span class="token punctuation">.</span><span class="token function">ToPtr</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-   Messages<span class="token punctuation">:</span> messages<span class="token punctuation">,</span>
-   Options<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
-    <span class="token string">"temperature"</span><span class="token punctuation">:</span> <span class="token number">0.3</span><span class="token punctuation">,</span>
-   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token keyword">func</span><span class="token punctuation">(</span>cr api<span class="token punctuation">.</span>ChatResponse<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">&#123;</span>
-   fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span>cr<span class="token punctuation">.</span>Message<span class="token punctuation">.</span>Content<span class="token punctuation">)</span>
-   <span class="token keyword">return</span> <span class="token boolean">nil</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span>
-<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="実行">実行</h2>
-<p>prompt：<code>東京の天気は？</code><br>
-返事：　<code>東京の天気は晴れで、温度は約64°F（約18°C）です</code></p>
-<h2 id="参考">参考</h2>
-<p><a href="https://zenn.dev/kazuwombat/articles/1f39f003298028">https://zenn.dev/kazuwombat/articles/1f39f003298028</a></p>
-]]></content>
-      <categories>
-        <category>llm</category>
-      </categories>
-      <tags>
-        <tag>llm</tag>
-        <tag>text embedding</tag>
-        <tag>function calling</tag>
       </tags>
   </entry>
   <entry>
@@ -3730,6 +3566,170 @@ The fields in the UDP request header are:
       </tags>
   </entry>
   <entry>
+    <title>golangとollamaでfunction calling</title>
+    <url>/posts/23567986/</url>
+    <content><![CDATA[<p>今回はollamaのオフィシャルクライアントでfuncation callingを使いたいです。　　<br>
+前回はlangchaingoで使っただけと、試してたらollamaの引数toolsは無効です、githubの実例<a href="https://github.com/tmc/langchaingo/blob/main/examples/ollama-functions-example/ollama_functions_example.go">ollama_functions_example</a>はsystem messageとtoolsのjsonを組み合わせて内容を生成する。例えば：</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">systemMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">&#123;</span>
+ bs<span class="token punctuation">,</span> err <span class="token operator">:=</span> json<span class="token punctuation">.</span><span class="token function">Marshal</span><span class="token punctuation">(</span>functions<span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+ <span class="token punctuation">&#125;</span>
+
+ <span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">`You have access to the following tools:
+
+%s
+
+To use a tool, respond with a JSON object with the following structure: 
+&#123;
+ "tool": &lt;name of the called tool>,
+ "tool_input": &lt;parameters for the tool matching the above JSON schema>
+&#125;
+`</span><span class="token punctuation">,</span> <span class="token function">string</span><span class="token punctuation">(</span>bs<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>これはちょっと優雅でない、<code>ollama/api</code>を使いたいと思います。</p>
+<h2 id="function-callingとは">function callingとは</h2>
+<span id="more"></span>
+<p>llmのレスポンスが外部関数の呼び出しを検知し、関数の結果を組み合わせて内容を生成する機能です。　　<br>
+例えば：「東京の天気は？」はpromptをとして、「晴れです」と生成する。　　<br>
+大勢のllmはfunction callingをtoolと読んでいる、呼び出しどき引数として引き渡して内容を生成する。</p>
+<!-- 
+primjs can't support exclude languages,
+so we direct use hexo tag system
+ -->
+<pre><code class="mermaid">sequenceDiagram
+    actor ユーザ
+    ユーザ-&gt;&gt;サーバー: 東京の天気は？
+    サーバー-&gt;&gt;llm: promptとtools
+    llm--)サーバー: 関数を呼び出し&lt;br&#x2F;&gt;引数（東京）を返す
+    サーバー-&gt;&gt;外部サービス: 東京の天気を取得
+    外部サービス--)サーバー: 天気を返す
+    サーバー-&gt;&gt;llm: 天気をpromptに追加
+    llm--&gt;&gt;サーバー: 生成する内容を返す
+    サーバー-&gt;&gt;ユーザ: 内容を返す</code></pre>
+<!-- 
+取得：しゅとく
+ -->
+<h2 id="goで実現">goで実現</h2>
+<p>関数と引数の説明(Description)は自然な言葉で良いです、一般的なプログラミングとはちょっと違うと思います。</p>
+<p>toolsの定義</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">import</span> <span class="token string">"github.com/ollama/ollama/api"</span>
+
+tools <span class="token operator">:=</span> api<span class="token punctuation">.</span>Tool<span class="token punctuation">&#123;</span>
+      Type<span class="token punctuation">:</span> <span class="token string">"function"</span><span class="token punctuation">,</span>
+      Function<span class="token punctuation">:</span> api<span class="token punctuation">.</span>ToolFunction<span class="token punctuation">&#123;</span>
+       Name<span class="token punctuation">:</span>        <span class="token string">"getCurrentWeather"</span><span class="token punctuation">,</span>
+       Description<span class="token punctuation">:</span> <span class="token string">"Get the current weather for a city"</span><span class="token punctuation">,</span>
+       Parameters<span class="token punctuation">:</span> <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+        Type       <span class="token builtin">string</span>   <span class="token string">"json:\"type\""</span>
+        Required   <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token string">"json:\"required\""</span>
+        Properties <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+         Type        <span class="token builtin">string</span>   <span class="token string">"json:\"type\""</span>
+         Description <span class="token builtin">string</span>   <span class="token string">"json:\"description\""</span>
+         Enum        <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token string">"json:\"enum,omitempty\""</span>
+        <span class="token punctuation">&#125;</span> <span class="token string">"json:\"properties\""</span>
+       <span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
+        Type<span class="token punctuation">:</span>     <span class="token string">"object"</span><span class="token punctuation">,</span>
+        Required<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">&#123;</span><span class="token string">"city"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        Properties<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+         Type        <span class="token builtin">string</span>   <span class="token string">"json:\"type\""</span>
+         Description <span class="token builtin">string</span>   <span class="token string">"json:\"description\""</span>
+         Enum        <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token string">"json:\"enum,omitempty\""</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
+         <span class="token string">"city"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+          Type<span class="token punctuation">:</span>        <span class="token string">"string"</span><span class="token punctuation">,</span>
+          Description<span class="token punctuation">:</span> <span class="token string">"The city to get the weather for"</span><span class="token punctuation">,</span>
+         <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+       <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+     <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>外部サービスの呼び出しを実現</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">processToolCall <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>cr api<span class="token punctuation">.</span>Chat<span class="token punctuation">.</span>Response<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> v <span class="token operator">:=</span> <span class="token keyword">range</span> cr<span class="token punctuation">.</span>Message<span class="token punctuation">.</span>ToolCalls <span class="token punctuation">&#123;</span>
+      <span class="token keyword">if</span> v<span class="token punctuation">.</span>Function<span class="token punctuation">.</span>Name <span class="token operator">==</span> <span class="token string">"getCurrentWeather"</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"the weather of %v is 64 and sunny"</span><span class="token punctuation">,</span> v<span class="token punctuation">.</span>Function<span class="token punctuation">.</span>Arguments<span class="token punctuation">[</span><span class="token string">"city"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+      <span class="token punctuation">&#125;</span>
+   <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">,</span> errors<span class="token punctuation">.</span>ErrUnsupported
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>chains を実現</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">uri<span class="token punctuation">,</span> err <span class="token operator">:=</span> url<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token string">"http://localhost:11434"</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+client <span class="token operator">:=</span> api<span class="token punctuation">.</span><span class="token function">NewClient</span><span class="token punctuation">(</span>uri<span class="token punctuation">,</span> <span class="token operator">&amp;</span>http<span class="token punctuation">.</span>Client<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+messages <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>api<span class="token punctuation">.</span>Message<span class="token punctuation">&#123;</span>
+  <span class="token punctuation">&#123;</span>
+   Role<span class="token punctuation">:</span>    <span class="token string">"user"</span><span class="token punctuation">,</span>
+   Content<span class="token punctuation">:</span> prompt<span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+
+ctx <span class="token operator">:=</span> context<span class="token punctuation">.</span><span class="token function">TODO</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+err <span class="token operator">:=</span> o<span class="token punctuation">.</span>llm<span class="token punctuation">.</span><span class="token function">Chat</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span>
+  <span class="token operator">&amp;</span>api<span class="token punctuation">.</span>ChatRequest<span class="token punctuation">&#123;</span>
+   Model<span class="token punctuation">:</span>    <span class="token string">"qwen2.5:32b-instruct"</span><span class="token punctuation">,</span>
+   Stream<span class="token punctuation">:</span>   lo<span class="token punctuation">.</span><span class="token function">ToPtr</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+   Messages<span class="token punctuation">:</span> messages<span class="token punctuation">,</span>
+   Options<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
+    <span class="token string">"temperature"</span><span class="token punctuation">:</span> <span class="token number">0.3</span><span class="token punctuation">,</span>
+   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+   Tools<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>api<span class="token punctuation">.</span>Tool<span class="token punctuation">&#123;</span>tools<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token keyword">func</span><span class="token punctuation">(</span>cr api<span class="token punctuation">.</span>ChatResponse<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">&#123;</span>
+      msg<span class="token punctuation">,</span>err <span class="token operator">:=</span> <span class="token function">processToolCall</span><span class="token punctuation">(</span>cr<span class="token punctuation">)</span>
+      <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> err
+      <span class="token punctuation">&#125;</span>
+
+     messages <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>messages<span class="token punctuation">,</span> api<span class="token punctuation">.</span>Message<span class="token punctuation">&#123;</span>
+      Role<span class="token punctuation">:</span>    <span class="token string">"tool"</span><span class="token punctuation">,</span>
+      Content<span class="token punctuation">:</span> msg<span class="token punctuation">,</span>
+     <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+   <span class="token keyword">return</span> <span class="token boolean">nil</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+err <span class="token operator">=</span> o<span class="token punctuation">.</span>llm<span class="token punctuation">.</span><span class="token function">Chat</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span>
+  <span class="token operator">&amp;</span>api<span class="token punctuation">.</span>ChatRequest<span class="token punctuation">&#123;</span>
+   Model<span class="token punctuation">:</span>    <span class="token string">"qwen2.5:32b-instruct"</span><span class="token punctuation">,</span>
+   Stream<span class="token punctuation">:</span>   lo<span class="token punctuation">.</span><span class="token function">ToPtr</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+   Messages<span class="token punctuation">:</span> messages<span class="token punctuation">,</span>
+   Options<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
+    <span class="token string">"temperature"</span><span class="token punctuation">:</span> <span class="token number">0.3</span><span class="token punctuation">,</span>
+   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token keyword">func</span><span class="token punctuation">(</span>cr api<span class="token punctuation">.</span>ChatResponse<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">&#123;</span>
+   fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span>cr<span class="token punctuation">.</span>Message<span class="token punctuation">.</span>Content<span class="token punctuation">)</span>
+   <span class="token keyword">return</span> <span class="token boolean">nil</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="実行">実行</h2>
+<p>prompt：<code>東京の天気は？</code><br>
+返事：　<code>東京の天気は晴れで、温度は約64°F（約18°C）です</code></p>
+<h2 id="参考">参考</h2>
+<p><a href="https://zenn.dev/kazuwombat/articles/1f39f003298028">https://zenn.dev/kazuwombat/articles/1f39f003298028</a></p>
+]]></content>
+      <categories>
+        <category>llm</category>
+      </categories>
+      <tags>
+        <tag>llm</tag>
+        <tag>text embedding</tag>
+        <tag>function calling</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>golang实现子进程后台</title>
     <url>/posts/89c4c907/</url>
     <content><![CDATA[<h2 id="系统的进程机制">系统的进程机制</h2>
@@ -3846,6 +3846,53 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
       </tags>
   </entry>
   <entry>
+    <title>gpg使用</title>
+    <url>/posts/7d547224/</url>
+    <content><![CDATA[<p>生成一个密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg --full-gen-key</code></pre>
+<p>之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了.</p>
+<p>创建一个子密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --edit-key <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+
+gpg<span class="token operator">></span> addkey
+<span class="token comment">#只有与前面是相同的, 按需求选择.</span>
+
+gpg<span class="token operator">></span> save
+<span class="token comment"># 保存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>导出密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key --export-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
+<p>导出子密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key.sub --export-secret-subkeys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
+<p>导出吊销证书</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --generate-revocation <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+<span class="token comment"># 输出是文本内容, 复制保存下来就行了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>删除密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --delete-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+gpg --delete-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>导入子密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">--import</span> /path/gpg_key.sub</code></pre>
+<p>查看密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-k</span>
+gpg <span class="token parameter variable">-K</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>加密文件</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-r</span> <span class="token punctuation">[</span>user name<span class="token punctuation">]</span> <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-e</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span></code></pre>
+<p>解密</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 输出到文件</span>
+gpg <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 直接输出到终端</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<hr>
+<p><a href="https://gist.github.com/jhjguxin/6037564">GPG 加密解密简明教程</a><br>
+<a href="https://mogeko.me/2019/068/">GPG 的正确使用姿势</a></p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>encrypt</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>iptables</title>
     <url>/posts/736b1750/</url>
     <content><![CDATA[<p>iptables chain</p>
@@ -3907,53 +3954,6 @@ POSTROUTING: mangle, nat<span aria-hidden="true" class="line-numbers-rows"><span
       <tags>
         <tag>linux</tag>
         <tag>iptables</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>gpg使用</title>
-    <url>/posts/7d547224/</url>
-    <content><![CDATA[<p>生成一个密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg --full-gen-key</code></pre>
-<p>之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了.</p>
-<p>创建一个子密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --edit-key <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-
-gpg<span class="token operator">></span> addkey
-<span class="token comment">#只有与前面是相同的, 按需求选择.</span>
-
-gpg<span class="token operator">></span> save
-<span class="token comment"># 保存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>导出密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key --export-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
-<p>导出子密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key.sub --export-secret-subkeys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
-<p>导出吊销证书</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --generate-revocation <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-<span class="token comment"># 输出是文本内容, 复制保存下来就行了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>删除密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --delete-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-gpg --delete-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>导入子密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">--import</span> /path/gpg_key.sub</code></pre>
-<p>查看密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-k</span>
-gpg <span class="token parameter variable">-K</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>加密文件</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-r</span> <span class="token punctuation">[</span>user name<span class="token punctuation">]</span> <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-e</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span></code></pre>
-<p>解密</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 输出到文件</span>
-gpg <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 直接输出到终端</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<hr>
-<p><a href="https://gist.github.com/jhjguxin/6037564">GPG 加密解密简明教程</a><br>
-<a href="https://mogeko.me/2019/068/">GPG 的正确使用姿势</a></p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>encrypt</tag>
       </tags>
   </entry>
   <entry>
@@ -4153,43 +4153,6 @@ msgs <span class="token operator">=</span> <span class="token function">append</
       </tags>
   </entry>
   <entry>
-    <title>linux下intel&amp;AMD双显卡切换</title>
-    <url>/posts/3b8b96de/</url>
-    <content><![CDATA[<p>使用<strong>xrandr</strong>显示可支持的显卡</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--listproviders</span></code></pre>
-<p>输出类似以下内容</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Providers: number <span class="token builtin class-name">:</span> <span class="token number">2</span>
-Provider <span class="token number">0</span>: id: 0x6b cap: 0x9, Source Output, Sink Offload crtcs: <span class="token number">3</span> outputs: <span class="token number">7</span> associated providers: <span class="token number">1</span> name:modesetting
-Provider <span class="token number">1</span>: id: 0x41 cap: 0x6, Sink Output, Source Offload crtcs: <span class="token number">2</span> outputs: <span class="token number">0</span> associated providers: <span class="token number">1</span> name:OLAND @ pci:0000:01:00.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>To be able to render GPU-intensive applications by the more powerful discrete card use</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--setprovideroffloadsink</span> <span class="token number">1</span> <span class="token number">0</span></code></pre>
-<p>或者<span id="more"></span></p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--setprovideroffloadsink</span> 0x41 0x6b</code></pre>
-<p>使用DRI_PRIME为某个应用选择使用哪一张显卡,使用glxinfo可以查看正在使用的显卡</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">0</span> glxinfo <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"OpenGL renderer"</span>
-<span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">1</span> glxinfo <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"OpenGL renderer"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>如为steam启用独显</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">1</span> steam</code></pre>
-<p>如果需要使用独显进行视频硬件播放,还需指定视频解码库,不然会乱码:<br>
-如AMD:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">1</span>            <span class="token comment"># for laptops with switchable graphics</span>
-<span class="token assign-left variable">LIBVA_DRIVER_NAME</span><span class="token operator">=</span>r600 <span class="token comment"># value depends on the driver, check /usr/lib/dri for possible options</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>使用mpv:</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">1</span>  <span class="token assign-left variable">LIBVA_DRIVER_NAME</span><span class="token operator">=</span>r600 mpv <span class="token punctuation">[</span><span class="token punctuation">..</span>.<span class="token punctuation">]</span></code></pre>
-<p>参考资料:<br>
-1.<a href="https://askubuntu.com/questions/1038271/intel-amd-hybrid-graphics-ubuntu-18-04">Intel/AMD Hybrid graphics Ubuntu 18.04</a><br>
-2.<a href="https://wiki.archlinux.org/index.php/PRIME">PRIME (简体中文)</a></p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>双显卡</tag>
-        <tag>amd</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux PPPOE拨号上网</title>
     <url>/posts/59c8ffd6/</url>
     <content><![CDATA[<h2 id="安装rp-pppoe">安装rp-pppoe</h2>
@@ -4246,6 +4209,43 @@ default         <span class="token number">0.0</span>.0.0         <span class="t
       <tags>
         <tag>archlinux</tag>
         <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux下intel&amp;AMD双显卡切换</title>
+    <url>/posts/3b8b96de/</url>
+    <content><![CDATA[<p>使用<strong>xrandr</strong>显示可支持的显卡</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--listproviders</span></code></pre>
+<p>输出类似以下内容</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Providers: number <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Provider <span class="token number">0</span>: id: 0x6b cap: 0x9, Source Output, Sink Offload crtcs: <span class="token number">3</span> outputs: <span class="token number">7</span> associated providers: <span class="token number">1</span> name:modesetting
+Provider <span class="token number">1</span>: id: 0x41 cap: 0x6, Sink Output, Source Offload crtcs: <span class="token number">2</span> outputs: <span class="token number">0</span> associated providers: <span class="token number">1</span> name:OLAND @ pci:0000:01:00.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>To be able to render GPU-intensive applications by the more powerful discrete card use</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--setprovideroffloadsink</span> <span class="token number">1</span> <span class="token number">0</span></code></pre>
+<p>或者<span id="more"></span></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">xrandr <span class="token parameter variable">--setprovideroffloadsink</span> 0x41 0x6b</code></pre>
+<p>使用DRI_PRIME为某个应用选择使用哪一张显卡,使用glxinfo可以查看正在使用的显卡</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">0</span> glxinfo <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"OpenGL renderer"</span>
+<span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">1</span> glxinfo <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"OpenGL renderer"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如为steam启用独显</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">1</span> steam</code></pre>
+<p>如果需要使用独显进行视频硬件播放,还需指定视频解码库,不然会乱码:<br>
+如AMD:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">1</span>            <span class="token comment"># for laptops with switchable graphics</span>
+<span class="token assign-left variable">LIBVA_DRIVER_NAME</span><span class="token operator">=</span>r600 <span class="token comment"># value depends on the driver, check /usr/lib/dri for possible options</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>使用mpv:</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">DRI_PRIME</span><span class="token operator">=</span><span class="token number">1</span>  <span class="token assign-left variable">LIBVA_DRIVER_NAME</span><span class="token operator">=</span>r600 mpv <span class="token punctuation">[</span><span class="token punctuation">..</span>.<span class="token punctuation">]</span></code></pre>
+<p>参考资料:<br>
+1.<a href="https://askubuntu.com/questions/1038271/intel-amd-hybrid-graphics-ubuntu-18-04">Intel/AMD Hybrid graphics Ubuntu 18.04</a><br>
+2.<a href="https://wiki.archlinux.org/index.php/PRIME">PRIME (简体中文)</a></p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>双显卡</tag>
+        <tag>amd</tag>
       </tags>
   </entry>
   <entry>
@@ -4615,31 +4615,6 @@ module &quot;module3&quot; &#123;
       </tags>
   </entry>
   <entry>
-    <title>uefi and efi</title>
-    <url>/posts/a99a60b1/</url>
-    <content><![CDATA[<p>创建efi分区:</p>
-<p>创建efi分区要设置boot flag,而不是纯FAT32文件系统<br>
-使用gdisk</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gdisk /dev/sd**
-<span class="token comment">#这里要注意后面输入分区系统编号 要选择EFI分区,目前efi分区编号是 ef00</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>使用parted</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">parted</span> /dev/sd**
-<span class="token punctuation">(</span>parted<span class="token punctuation">)</span> <span class="token builtin class-name">set</span> <span class="token number">1</span> boot on<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>之后再格式化为fat32</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">mkfs.vfat <span class="token parameter variable">-F</span> <span class="token number">32</span> /dev/sd**</code></pre>
-<p>更新bios中的启动项应该在将启动文件安装到efi分区时还要向bios中的nvram存储器上写入相应的路径,在linux中可以使用efibootmgr完成相应的操作,当然如果你是安装grub,安装grub时会自动向nvram中写入内容,比如在bios更新后,会清除nvram中的内容,所有还要重新安装grub,或是使用efibootmgr写入引导文件路径.可参考<a href="https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface#efibootmgr">Unified_Extensible_Firmware_Interface#efibootmgr</a>,windows中也有相应的工具,具体操作方式可在网路上搜索.<br>
-如果是u盘的话,uefi 会查看所有 fat 分区，看看里面有没有 EFI/boot/bootx64.efi(目前还没有找到相应的文档表示是这个,这只是我个人的猜想,因为在我试过的无论是windows还是linux的iso镜像的efi文件都是这个地方) 引导文件,然后只要是 FAT32 文件系统就行,所以可以把 windows 或 ubuntu 的 iso 直接解压到一个 fat 分区（比如 fat 的 u 盘或移动硬盘）然后引导<br>
-<strong>有些UEFI系统只会识别 efi分区下的EFI/boot文件夹内的efi文件,有的甚至只会识别EFI/boot/bootx64.efi</strong></p>
-]]></content>
-      <categories>
-        <category>Computer</category>
-      </categories>
-      <tags>
-        <tag>efi</tag>
-        <tag>uefi</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>とある番組の記録</title>
     <url>/posts/fe7367b8/</url>
     <content><![CDATA[<p>最近わたくしはたくさん言葉知りました、記録したい、例えば：どこ見つかった、どうおもう。<br>
@@ -4671,6 +4646,31 @@ module &quot;module3&quot; &#123;
       </categories>
       <tags>
         <tag>日本語</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>uefi and efi</title>
+    <url>/posts/a99a60b1/</url>
+    <content><![CDATA[<p>创建efi分区:</p>
+<p>创建efi分区要设置boot flag,而不是纯FAT32文件系统<br>
+使用gdisk</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gdisk /dev/sd**
+<span class="token comment">#这里要注意后面输入分区系统编号 要选择EFI分区,目前efi分区编号是 ef00</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>使用parted</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">parted</span> /dev/sd**
+<span class="token punctuation">(</span>parted<span class="token punctuation">)</span> <span class="token builtin class-name">set</span> <span class="token number">1</span> boot on<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>之后再格式化为fat32</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">mkfs.vfat <span class="token parameter variable">-F</span> <span class="token number">32</span> /dev/sd**</code></pre>
+<p>更新bios中的启动项应该在将启动文件安装到efi分区时还要向bios中的nvram存储器上写入相应的路径,在linux中可以使用efibootmgr完成相应的操作,当然如果你是安装grub,安装grub时会自动向nvram中写入内容,比如在bios更新后,会清除nvram中的内容,所有还要重新安装grub,或是使用efibootmgr写入引导文件路径.可参考<a href="https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface#efibootmgr">Unified_Extensible_Firmware_Interface#efibootmgr</a>,windows中也有相应的工具,具体操作方式可在网路上搜索.<br>
+如果是u盘的话,uefi 会查看所有 fat 分区，看看里面有没有 EFI/boot/bootx64.efi(目前还没有找到相应的文档表示是这个,这只是我个人的猜想,因为在我试过的无论是windows还是linux的iso镜像的efi文件都是这个地方) 引导文件,然后只要是 FAT32 文件系统就行,所以可以把 windows 或 ubuntu 的 iso 直接解压到一个 fat 分区（比如 fat 的 u 盘或移动硬盘）然后引导<br>
+<strong>有些UEFI系统只会识别 efi分区下的EFI/boot文件夹内的efi文件,有的甚至只会识别EFI/boot/bootx64.efi</strong></p>
+]]></content>
+      <categories>
+        <category>Computer</category>
+      </categories>
+      <tags>
+        <tag>efi</tag>
+        <tag>uefi</tag>
       </tags>
   </entry>
   <entry>
@@ -4716,6 +4716,75 @@ module &quot;module3&quot; &#123;
       <tags>
         <tag>建站</tag>
         <tag>免费</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>为广告而生,从使用到干掉大陆版MIUI</title>
+    <url>/posts/6c3a98b5/</url>
+    <content><![CDATA[<p>使用四年多的锤子手机越来越不堪重负，我决定换一款新的手机，在精心挑选后，选定了今年年初发布的一款Red MI手机，其极高的性价比打动了我。</p>
+<h2 id="使用">使用</h2>
+<p>在收货当天就迫不及待下班回家开始把玩，有一个词可以形容我当时的体验：軽い。<br>
+换手机的契机也是如此，国产app越来越毒瘤，旧手机越来越卡，开启健康码和支付宝都要至少等待2秒。由于四年的落差，即使是一款性价比手机也让我觉得好流畅，还有120hz屏幕，令我爱不释手。</p>
+<h2 id="忍受">忍受</h2>
+<p>我知道MIUI是有广告的，但根据各种网上的说法，是有开关是可以关闭的。<br>
+所以我一入手就根据网上流传的各种方法将隐藏在系统不同角落的广告关闭了。<br>
+确实有效，APP和系统设置中的一些广告确实没有了，天真的我以为真的干掉了广告。<br>
+但是不定时广告推送，小米商城推送各种促销，系统自带浏览器也开始充当新闻客户端，各种推送傻逼新闻，而这一切的前提都是在我进入软件关闭各种推送的条件下，在了解后得知可以使用ADB冻结几个系统软件解决，我冻结了以下系统软件：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell pm disable-user com.xiaomi.ab
+adb shell pm disable-user com.miui.systemAdSolution
+adb shell pm disable-user com.miui.analytics
+adb shell pm disable-user com.sohu.inputmethod.sogou.xiaomi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>确实有效，而且连某些app的开屏广告都没了。</p>
+<h2 id="愤怒">愤怒</h2>
+<span id="more"></span>
+<p>虽然我不重度依赖谷歌，但我重度使用Twitter,Youtube,Reddit，在使用一段时间后，我发现推特的推送不灵了，每次开屏才会一堆一堆的推送，而在息屏的情况下根本收不到推送。<br>
+最初我一度认为是自己的设置有问题，毕竟连我的旧手机锤子都可以及时收到各种推送。<br>
+在对Google Play Service各种设置后，包括但不限于，取消应用黑名单，后台锁住app，但没有任何改变。<br>
+在了解后得知，大陆版MIUI会在息屏后断开FCM的连接，且强制设置在FCM断开后不再允许其重连，这一切我都可以理解，由于国内的环境，不断重试确实会导致耗电增加，在网友提醒下我通过ADB冻结了以下两个应用：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell pm disable-user com.miui.powerkeeper
+adb shell pm disable-user com.xiaomi.powerchecker<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>别说，还真有用，基本上能正常收到推送了，我以为我解决问题了。<br>
+<strong>但是</strong><br>
+我发现息屏情况下播放音乐，音乐会自动暂停，在上网搜索后，我发现不只我有这个问题，在各方打听后得知是冻结<code>com.miui.powerkeeper</code>导致的。<br>
+加上KDE connect会时不时的断开，我真的很愤怒，我能理解MIUI的做法，但我无法忍受不给用户任何开关一刀切的做法，所以我决定干掉自带的陆版MIUI。</p>
+<h2 id="成为“欧洲人”">成为“欧洲人”</h2>
+<p>在经过7天的忍受之后，备份好手机内的各种资料后，成功解锁了手机。<br>
+我决定刷入<code>XIAOMI.EU</code>，一个被小米官方和欧洲ABC经销商认可的官改系统。<br>
+在<a href="https://xiaomi.eu">xiaomi.eu</a>上提前下载适用于手机的twrp和ROM。</p>
+<ul>
+<li>
+<p>临时刷入TWRP并进入TWRP</p>
+  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">fastboot flash recovery twrp.img
+fastboot boot twrp.img<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li>
+<p>在TWRP内格式化DATA分区，<strong>注意不要清除System和Persist分区</strong>。</p>
+</li>
+<li>
+<p>在TWRP内开启sideload。</p>
+</li>
+<li>
+<p>通过sideload刷入rom</p>
+  <pre class="language-bash" data-language="bash"><code class="language-bash">adb sideload xxxxx.ZIP</code></pre>
+</li>
+</ul>
+<p>在百分之47的时候会结束，貌似是个bug，不过这个时候其实已经成功刷入了，直接重启进入系统即可。</p>
+<h2 id="享受">享受</h2>
+<p>没有了小米的各种广告推送，自带谷歌play商店，而不是小米应用商店，手动安装应用时不再要求你多次确认，正常的FCM推送，不再断开的KDE Connect，虽然缺失了一部分特有的功能，但此时此刻我感受到了成为“欧洲人”的优越感。</p>
+<h2 id="总结">总结</h2>
+<p>如果你喜欢折腾且会刷机，那么小米手机依旧可以在你的购机候选名单中，否贼就将其永久拉黑。<br>
+我不认同广告漫天飞的系统会符合用户习惯，包括所谓“符合中国用户习惯”。</p>
+]]></content>
+      <categories>
+        <category>Personally</category>
+      </categories>
+      <tags>
+        <tag>小米</tag>
+        <tag>刷机</tag>
+        <tag>广告</tag>
+        <tag>MIUI</tag>
+        <tag>系统</tag>
+        <tag>解锁</tag>
       </tags>
   </entry>
   <entry>
@@ -4810,75 +4879,6 @@ i915-GVTg_V5_8  <span class="token comment"># Video memory: &lt;64MB, 384MB>, re
         <tag>qemu</tag>
         <tag>GVT-g</tag>
         <tag>intel</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>为广告而生,从使用到干掉大陆版MIUI</title>
-    <url>/posts/6c3a98b5/</url>
-    <content><![CDATA[<p>使用四年多的锤子手机越来越不堪重负，我决定换一款新的手机，在精心挑选后，选定了今年年初发布的一款Red MI手机，其极高的性价比打动了我。</p>
-<h2 id="使用">使用</h2>
-<p>在收货当天就迫不及待下班回家开始把玩，有一个词可以形容我当时的体验：軽い。<br>
-换手机的契机也是如此，国产app越来越毒瘤，旧手机越来越卡，开启健康码和支付宝都要至少等待2秒。由于四年的落差，即使是一款性价比手机也让我觉得好流畅，还有120hz屏幕，令我爱不释手。</p>
-<h2 id="忍受">忍受</h2>
-<p>我知道MIUI是有广告的，但根据各种网上的说法，是有开关是可以关闭的。<br>
-所以我一入手就根据网上流传的各种方法将隐藏在系统不同角落的广告关闭了。<br>
-确实有效，APP和系统设置中的一些广告确实没有了，天真的我以为真的干掉了广告。<br>
-但是不定时广告推送，小米商城推送各种促销，系统自带浏览器也开始充当新闻客户端，各种推送傻逼新闻，而这一切的前提都是在我进入软件关闭各种推送的条件下，在了解后得知可以使用ADB冻结几个系统软件解决，我冻结了以下系统软件：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell pm disable-user com.xiaomi.ab
-adb shell pm disable-user com.miui.systemAdSolution
-adb shell pm disable-user com.miui.analytics
-adb shell pm disable-user com.sohu.inputmethod.sogou.xiaomi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>确实有效，而且连某些app的开屏广告都没了。</p>
-<h2 id="愤怒">愤怒</h2>
-<span id="more"></span>
-<p>虽然我不重度依赖谷歌，但我重度使用Twitter,Youtube,Reddit，在使用一段时间后，我发现推特的推送不灵了，每次开屏才会一堆一堆的推送，而在息屏的情况下根本收不到推送。<br>
-最初我一度认为是自己的设置有问题，毕竟连我的旧手机锤子都可以及时收到各种推送。<br>
-在对Google Play Service各种设置后，包括但不限于，取消应用黑名单，后台锁住app，但没有任何改变。<br>
-在了解后得知，大陆版MIUI会在息屏后断开FCM的连接，且强制设置在FCM断开后不再允许其重连，这一切我都可以理解，由于国内的环境，不断重试确实会导致耗电增加，在网友提醒下我通过ADB冻结了以下两个应用：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adb shell pm disable-user com.miui.powerkeeper
-adb shell pm disable-user com.xiaomi.powerchecker<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>别说，还真有用，基本上能正常收到推送了，我以为我解决问题了。<br>
-<strong>但是</strong><br>
-我发现息屏情况下播放音乐，音乐会自动暂停，在上网搜索后，我发现不只我有这个问题，在各方打听后得知是冻结<code>com.miui.powerkeeper</code>导致的。<br>
-加上KDE connect会时不时的断开，我真的很愤怒，我能理解MIUI的做法，但我无法忍受不给用户任何开关一刀切的做法，所以我决定干掉自带的陆版MIUI。</p>
-<h2 id="成为“欧洲人”">成为“欧洲人”</h2>
-<p>在经过7天的忍受之后，备份好手机内的各种资料后，成功解锁了手机。<br>
-我决定刷入<code>XIAOMI.EU</code>，一个被小米官方和欧洲ABC经销商认可的官改系统。<br>
-在<a href="https://xiaomi.eu">xiaomi.eu</a>上提前下载适用于手机的twrp和ROM。</p>
-<ul>
-<li>
-<p>临时刷入TWRP并进入TWRP</p>
-  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">fastboot flash recovery twrp.img
-fastboot boot twrp.img<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li>
-<p>在TWRP内格式化DATA分区，<strong>注意不要清除System和Persist分区</strong>。</p>
-</li>
-<li>
-<p>在TWRP内开启sideload。</p>
-</li>
-<li>
-<p>通过sideload刷入rom</p>
-  <pre class="language-bash" data-language="bash"><code class="language-bash">adb sideload xxxxx.ZIP</code></pre>
-</li>
-</ul>
-<p>在百分之47的时候会结束，貌似是个bug，不过这个时候其实已经成功刷入了，直接重启进入系统即可。</p>
-<h2 id="享受">享受</h2>
-<p>没有了小米的各种广告推送，自带谷歌play商店，而不是小米应用商店，手动安装应用时不再要求你多次确认，正常的FCM推送，不再断开的KDE Connect，虽然缺失了一部分特有的功能，但此时此刻我感受到了成为“欧洲人”的优越感。</p>
-<h2 id="总结">总结</h2>
-<p>如果你喜欢折腾且会刷机，那么小米手机依旧可以在你的购机候选名单中，否贼就将其永久拉黑。<br>
-我不认同广告漫天飞的系统会符合用户习惯，包括所谓“符合中国用户习惯”。</p>
-]]></content>
-      <categories>
-        <category>Personally</category>
-      </categories>
-      <tags>
-        <tag>小米</tag>
-        <tag>刷机</tag>
-        <tag>广告</tag>
-        <tag>MIUI</tag>
-        <tag>系统</tag>
-        <tag>解锁</tag>
       </tags>
   </entry>
   <entry>
@@ -5213,31 +5213,6 @@ Output: plaintext, or an error if the authentication tag does not match the supp
       </tags>
   </entry>
   <entry>
-    <title>安卓使用dalvikvm运行java(termux运行java)</title>
-    <url>/posts/8b98169e/</url>
-    <content><![CDATA[<p>一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件<br>
-发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些</p>
-<h2 id="安装所需工具">安装所需工具</h2>
-<p>termux上安装 ecj 和 dx就可以了</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt</span> <span class="token function">install</span> ecj dx</code></pre>
-<h2 id="编译为class文件">编译为class文件</h2>
-<pre class="language-bash" data-language="bash"><code class="language-bash">ecj XXX.java</code></pre>
-<span id="more"></span>
-<h2 id="编译成dex文件">编译成dex文件</h2>
-<pre class="language-bash" data-language="bash"><code class="language-bash">dx <span class="token parameter variable">--dex</span> <span class="token parameter variable">--output</span><span class="token operator">=</span>XXX.dex XXX.class</code></pre>
-<h2 id="使用dalvikvm运行">使用dalvikvm运行</h2>
-<pre class="language-bash" data-language="bash"><code class="language-bash">dalvikvm <span class="token parameter variable">-cp</span> XXX.dex XXX</code></pre>
-<p>参考: <a href="https://bbs.pediy.com/thread-184592.htm">使用 dalvikvm 执行一个运行于命令行的 Hello World</a></p>
-]]></content>
-      <categories>
-        <category>android</category>
-      </categories>
-      <tags>
-        <tag>android</tag>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>安卓通过adb添加电池用户白名单</title>
     <url>/posts/1e63e0e/</url>
     <content><![CDATA[<p>安卓6.0引入了doze来节省电量,但某些国产ui(如锤子)阉割了这个菜单,可通过adb添加</p>
@@ -5289,6 +5264,31 @@ Output: plaintext, or an error if the authentication tag does not match the supp
       </categories>
       <tags>
         <tag>android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安卓使用dalvikvm运行java(termux运行java)</title>
+    <url>/posts/8b98169e/</url>
+    <content><![CDATA[<p>一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件<br>
+发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些</p>
+<h2 id="安装所需工具">安装所需工具</h2>
+<p>termux上安装 ecj 和 dx就可以了</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt</span> <span class="token function">install</span> ecj dx</code></pre>
+<h2 id="编译为class文件">编译为class文件</h2>
+<pre class="language-bash" data-language="bash"><code class="language-bash">ecj XXX.java</code></pre>
+<span id="more"></span>
+<h2 id="编译成dex文件">编译成dex文件</h2>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dx <span class="token parameter variable">--dex</span> <span class="token parameter variable">--output</span><span class="token operator">=</span>XXX.dex XXX.class</code></pre>
+<h2 id="使用dalvikvm运行">使用dalvikvm运行</h2>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dalvikvm <span class="token parameter variable">-cp</span> XXX.dex XXX</code></pre>
+<p>参考: <a href="https://bbs.pediy.com/thread-184592.htm">使用 dalvikvm 执行一个运行于命令行的 Hello World</a></p>
+]]></content>
+      <categories>
+        <category>android</category>
+      </categories>
+      <tags>
+        <tag>android</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -7108,6 +7108,129 @@ wintypes:
       </tags>
   </entry>
   <entry>
+    <title>関西弁コレクション</title>
+    <url>/posts/a4241e7/</url>
+    <content><![CDATA[<p>普段発見の関西弁ここで記録します。</p>
+<p>–<strong>2025年9月6日</strong>–</p>
+<p>ほな</p>
+<p>大阪弁の「ほな」は、「それでは」「では」「それじゃあ」「じゃあ」といった意味で、接続詞としても、別れ際の挨拶としても使われます。また、前後の文脈によって「それなら」といった意味で使われることもあり、非常に汎用性の高い言葉です。</p>
+<hr>
+<p>しばく</p>
+<p>「しばく」には、物を棒などで強く叩くという意味と、大阪弁で軽い飲食や遊びに行くことを指す用法があります。前者は文字通り暴力的な意味合いですが、後者は「茶しばく」（お茶する）のように、親しい間柄での軽い誘いや日常的な表現として使われ、本気で殴るつもりはありません。</p>
+<hr>
+<p>–<strong>2020年1月30日</strong>–<br>
+おらん とはどういう意味ですか?</p>
+<blockquote>
+<p>文からするとその方は関西の人ですかね。おらんは方言で、「いない」という意味です。<br>
+例文：<em>俺も一緒やな 3年ぐらいはおらん。</em></p>
+</blockquote>
+<p>–<strong>2019年2月1日</strong>–</p>
+<hr>
+<p>①関西弁の～ねんけど、～やねん、～ねんの意味を教えて下さい<br>
+②～ねやは～ですかの意味ですか？それ意外に意味、使い方等は有りますか？<br>
+③言葉の関西弁のアクセントを教えて下さい</p>
+<p>①・・・<br>
+～ねんけど ですけれど（〇〇なんですけれど）<br>
+～やねん、～ねん です（〇〇なんです）</p>
+<p>②・・・<br>
+～ねやは～（～やねん”わ”～ですね。）<br>
+〇○なんですよ。</p>
+<p>③・・・<br>
+～ねんけど（中中）<br>
+～やねん（高低）<br>
+～やねんわ～（高低中）</p>
+<span id="more"></span>  
+<hr>
+<p>関西弁で、「あんねんけど」と「あるねんけど」の違いはなんですか？</p>
+<p>意味の違いはない。<br>
+「あるねんけど」＝「あんねんけど」</p>
+<p>「る」が撥音化して「ん」になっただけ。日本語では語中の「ラ行音」が「ん」に変化する傾向がある。<br>
+・それで→そんで<br>
+・分からない→分かんない</p>
+<p>–<strong>2018年12月8日</strong>–</p>
+<hr>
+<p>せやからアカンてゆうたやろ<br>
+せやから 別表記：そやから<br>
+「だから」の意味。主に関西地方で用いる。「そやから」ともいう。</p>
+<p>アカン(あかん)<br>
+関西弁で「ダメ」の意味。</p>
+<p>『ゆうて』は『～言って』<br>
+##方言で だから ダメって 言ったでしょ</p>
+<p>–<strong>2018年8月29日</strong>–</p>
+<hr>
+<p>ビビり【名词】<br>
+1.颤动，振纹（机械）<br>
+2.胆小，大阪方言。関西弁</p>
+<hr>
+<p>女子|おなご</p>
+<ul>
+<li>名词
+<ul>
+<li>（女の子、女児）。</li>
+<li>（女の人、女性、婦人）。</li>
+<li>（召し使いの女、女中、はしため）。　&lt;-関西弁</li>
+</ul>
+</li>
+</ul>
+<p>–<strong>2018年8月7日</strong>–</p>
+<hr>
+<p>それアカンやつや<br>
+一字一句、分けてみましょう。「それ、アカン、やつ、や」になります。<br>
+「それ」はthatのことですよね。<br>
+「アカン」はNOのことです。その通り、関西弁です。<br>
+「やつ」は奴のことです。人を愚弄する言い方ですね。でも人以外に、ものに対しても指す場合があります。<br>
+「や」も関西弁です。<br>
+これを東京の人が話すと「それはいけない人だよね～」や「それはありえないよね～」という言い方になります。元ネタを想像すると、ここでは「やつ」はものを指していると思います。</p>
+<hr>
+<p>せ や な<br>
+同意を表明する語。関西弁。「そうだね」、「そうだな」などに相当する。</p>
+<hr>
+<p>しんどい</p>
+<ul>
+<li>骨が折れる。難儀だ。<br>
+例文：
+<ul>
+<li>この仕事はしんどい。</li>
+</ul>
+</li>
+<li>くたびれている。<br>
+例文：
+<ul>
+<li>しんどくてもこの仕事をやってしまおう。</li>
+<li>おお，しんどい。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>ほんま 【本真】（ 名 ・形動 ）<br>
+本当である・こと（さま）。真実。主に関西地方で用いる。 「 －の話やで」 「 －に驚いたわ」</p>
+<hr>
+<p>しゃあない<br>
+大阪弁で「しかたない」の意味である。</p>
+<hr>
+<p>アカン<br>
+（「埒らち明かぬ」の略。多く関西で使う）うまくいかない。だめだ。不可である。</p>
+<hr>
+<p>アホやん<br>
+ドジっ娘</p>
+<p>中国語：<br>
+跟冒失娘（ドジっ娘）类似，关西方言</p>
+<blockquote>
+<p>冒失娘（ドジっ娘），萌属性之一。此属性以女性为主，若是男性可用较中性的“ドジっ子”。<br>
+日文“どじ”或“どぢ”是指人或事的出错和失误。“ドジっ娘”就是指经常弄翻物件、行事笨拙、“大错不出，小错不断”，总是搞出呆呆笨笨事情的少女。<br>
+中文意译的“冒失”，是指做事有漏失，而不是为人鲁莽无礼的意思。<br>
+どじっ应该不写成汉字<br>
+参考自维基百科</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>日本語</category>
+      </categories>
+      <tags>
+        <tag>関西弁</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RustでTelegram BotをLambdaにデプロイする</title>
     <url>/posts/1754556687621/</url>
     <content><![CDATA[<p>Telegram BotにはサーバーとWebhookの二つの立ち上げる方法があります。Lambdaはサーバーレスだから、今回はWebhookで使用します。</p>
@@ -7321,129 +7444,6 @@ Telegram Botに<code>/userid</code>を送信してテストしましょう。</p
         <tag>Cargo</tag>
         <tag>Teloxide</tag>
         <tag>Lambda</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>関西弁コレクション</title>
-    <url>/posts/a4241e7/</url>
-    <content><![CDATA[<p>普段発見の関西弁ここで記録します。</p>
-<p>–<strong>2025年9月6日</strong>–</p>
-<p>ほな</p>
-<p>大阪弁の「ほな」は、「それでは」「では」「それじゃあ」「じゃあ」といった意味で、接続詞としても、別れ際の挨拶としても使われます。また、前後の文脈によって「それなら」といった意味で使われることもあり、非常に汎用性の高い言葉です。</p>
-<hr>
-<p>しばく</p>
-<p>「しばく」には、物を棒などで強く叩くという意味と、大阪弁で軽い飲食や遊びに行くことを指す用法があります。前者は文字通り暴力的な意味合いですが、後者は「茶しばく」（お茶する）のように、親しい間柄での軽い誘いや日常的な表現として使われ、本気で殴るつもりはありません。</p>
-<hr>
-<p>–<strong>2020年1月30日</strong>–<br>
-おらん とはどういう意味ですか?</p>
-<blockquote>
-<p>文からするとその方は関西の人ですかね。おらんは方言で、「いない」という意味です。<br>
-例文：<em>俺も一緒やな 3年ぐらいはおらん。</em></p>
-</blockquote>
-<p>–<strong>2019年2月1日</strong>–</p>
-<hr>
-<p>①関西弁の～ねんけど、～やねん、～ねんの意味を教えて下さい<br>
-②～ねやは～ですかの意味ですか？それ意外に意味、使い方等は有りますか？<br>
-③言葉の関西弁のアクセントを教えて下さい</p>
-<p>①・・・<br>
-～ねんけど ですけれど（〇〇なんですけれど）<br>
-～やねん、～ねん です（〇〇なんです）</p>
-<p>②・・・<br>
-～ねやは～（～やねん”わ”～ですね。）<br>
-〇○なんですよ。</p>
-<p>③・・・<br>
-～ねんけど（中中）<br>
-～やねん（高低）<br>
-～やねんわ～（高低中）</p>
-<span id="more"></span>  
-<hr>
-<p>関西弁で、「あんねんけど」と「あるねんけど」の違いはなんですか？</p>
-<p>意味の違いはない。<br>
-「あるねんけど」＝「あんねんけど」</p>
-<p>「る」が撥音化して「ん」になっただけ。日本語では語中の「ラ行音」が「ん」に変化する傾向がある。<br>
-・それで→そんで<br>
-・分からない→分かんない</p>
-<p>–<strong>2018年12月8日</strong>–</p>
-<hr>
-<p>せやからアカンてゆうたやろ<br>
-せやから 別表記：そやから<br>
-「だから」の意味。主に関西地方で用いる。「そやから」ともいう。</p>
-<p>アカン(あかん)<br>
-関西弁で「ダメ」の意味。</p>
-<p>『ゆうて』は『～言って』<br>
-##方言で だから ダメって 言ったでしょ</p>
-<p>–<strong>2018年8月29日</strong>–</p>
-<hr>
-<p>ビビり【名词】<br>
-1.颤动，振纹（机械）<br>
-2.胆小，大阪方言。関西弁</p>
-<hr>
-<p>女子|おなご</p>
-<ul>
-<li>名词
-<ul>
-<li>（女の子、女児）。</li>
-<li>（女の人、女性、婦人）。</li>
-<li>（召し使いの女、女中、はしため）。　&lt;-関西弁</li>
-</ul>
-</li>
-</ul>
-<p>–<strong>2018年8月7日</strong>–</p>
-<hr>
-<p>それアカンやつや<br>
-一字一句、分けてみましょう。「それ、アカン、やつ、や」になります。<br>
-「それ」はthatのことですよね。<br>
-「アカン」はNOのことです。その通り、関西弁です。<br>
-「やつ」は奴のことです。人を愚弄する言い方ですね。でも人以外に、ものに対しても指す場合があります。<br>
-「や」も関西弁です。<br>
-これを東京の人が話すと「それはいけない人だよね～」や「それはありえないよね～」という言い方になります。元ネタを想像すると、ここでは「やつ」はものを指していると思います。</p>
-<hr>
-<p>せ や な<br>
-同意を表明する語。関西弁。「そうだね」、「そうだな」などに相当する。</p>
-<hr>
-<p>しんどい</p>
-<ul>
-<li>骨が折れる。難儀だ。<br>
-例文：
-<ul>
-<li>この仕事はしんどい。</li>
-</ul>
-</li>
-<li>くたびれている。<br>
-例文：
-<ul>
-<li>しんどくてもこの仕事をやってしまおう。</li>
-<li>おお，しんどい。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>ほんま 【本真】（ 名 ・形動 ）<br>
-本当である・こと（さま）。真実。主に関西地方で用いる。 「 －の話やで」 「 －に驚いたわ」</p>
-<hr>
-<p>しゃあない<br>
-大阪弁で「しかたない」の意味である。</p>
-<hr>
-<p>アカン<br>
-（「埒らち明かぬ」の略。多く関西で使う）うまくいかない。だめだ。不可である。</p>
-<hr>
-<p>アホやん<br>
-ドジっ娘</p>
-<p>中国語：<br>
-跟冒失娘（ドジっ娘）类似，关西方言</p>
-<blockquote>
-<p>冒失娘（ドジっ娘），萌属性之一。此属性以女性为主，若是男性可用较中性的“ドジっ子”。<br>
-日文“どじ”或“どぢ”是指人或事的出错和失误。“ドジっ娘”就是指经常弄翻物件、行事笨拙、“大错不出，小错不断”，总是搞出呆呆笨笨事情的少女。<br>
-中文意译的“冒失”，是指做事有漏失，而不是为人鲁莽无礼的意思。<br>
-どじっ应该不写成汉字<br>
-参考自维基百科</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>日本語</category>
-      </categories>
-      <tags>
-        <tag>関西弁</tag>
       </tags>
   </entry>
   <entry>
