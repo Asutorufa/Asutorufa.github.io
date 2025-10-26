@@ -3378,6 +3378,170 @@ a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
       </tags>
   </entry>
   <entry>
+    <title>golangとollamaでfunction calling</title>
+    <url>/posts/23567986/</url>
+    <content><![CDATA[<p>今回はollamaのオフィシャルクライアントでfuncation callingを使いたいです。　　<br>
+前回はlangchaingoで使っただけと、試してたらollamaの引数toolsは無効です、githubの実例<a href="https://github.com/tmc/langchaingo/blob/main/examples/ollama-functions-example/ollama_functions_example.go">ollama_functions_example</a>はsystem messageとtoolsのjsonを組み合わせて内容を生成する。例えば：</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">systemMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">&#123;</span>
+ bs<span class="token punctuation">,</span> err <span class="token operator">:=</span> json<span class="token punctuation">.</span><span class="token function">Marshal</span><span class="token punctuation">(</span>functions<span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+ <span class="token punctuation">&#125;</span>
+
+ <span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">`You have access to the following tools:
+
+%s
+
+To use a tool, respond with a JSON object with the following structure: 
+&#123;
+ "tool": &lt;name of the called tool>,
+ "tool_input": &lt;parameters for the tool matching the above JSON schema>
+&#125;
+`</span><span class="token punctuation">,</span> <span class="token function">string</span><span class="token punctuation">(</span>bs<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>これはちょっと優雅でない、<code>ollama/api</code>を使いたいと思います。</p>
+<h2 id="function-callingとは">function callingとは</h2>
+<span id="more"></span>
+<p>llmのレスポンスが外部関数の呼び出しを検知し、関数の結果を組み合わせて内容を生成する機能です。　　<br>
+例えば：「東京の天気は？」はpromptをとして、「晴れです」と生成する。　　<br>
+大勢のllmはfunction callingをtoolと読んでいる、呼び出しどき引数として引き渡して内容を生成する。</p>
+<!-- 
+primjs can't support exclude languages,
+so we direct use hexo tag system
+ -->
+<pre><code class="mermaid">sequenceDiagram
+    actor ユーザ
+    ユーザ-&gt;&gt;サーバー: 東京の天気は？
+    サーバー-&gt;&gt;llm: promptとtools
+    llm--)サーバー: 関数を呼び出し&lt;br&#x2F;&gt;引数（東京）を返す
+    サーバー-&gt;&gt;外部サービス: 東京の天気を取得
+    外部サービス--)サーバー: 天気を返す
+    サーバー-&gt;&gt;llm: 天気をpromptに追加
+    llm--&gt;&gt;サーバー: 生成する内容を返す
+    サーバー-&gt;&gt;ユーザ: 内容を返す</code></pre>
+<!-- 
+取得：しゅとく
+ -->
+<h2 id="goで実現">goで実現</h2>
+<p>関数と引数の説明(Description)は自然な言葉で良いです、一般的なプログラミングとはちょっと違うと思います。</p>
+<p>toolsの定義</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">import</span> <span class="token string">"github.com/ollama/ollama/api"</span>
+
+tools <span class="token operator">:=</span> api<span class="token punctuation">.</span>Tool<span class="token punctuation">&#123;</span>
+      Type<span class="token punctuation">:</span> <span class="token string">"function"</span><span class="token punctuation">,</span>
+      Function<span class="token punctuation">:</span> api<span class="token punctuation">.</span>ToolFunction<span class="token punctuation">&#123;</span>
+       Name<span class="token punctuation">:</span>        <span class="token string">"getCurrentWeather"</span><span class="token punctuation">,</span>
+       Description<span class="token punctuation">:</span> <span class="token string">"Get the current weather for a city"</span><span class="token punctuation">,</span>
+       Parameters<span class="token punctuation">:</span> <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+        Type       <span class="token builtin">string</span>   <span class="token string">"json:\"type\""</span>
+        Required   <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token string">"json:\"required\""</span>
+        Properties <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+         Type        <span class="token builtin">string</span>   <span class="token string">"json:\"type\""</span>
+         Description <span class="token builtin">string</span>   <span class="token string">"json:\"description\""</span>
+         Enum        <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token string">"json:\"enum,omitempty\""</span>
+        <span class="token punctuation">&#125;</span> <span class="token string">"json:\"properties\""</span>
+       <span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
+        Type<span class="token punctuation">:</span>     <span class="token string">"object"</span><span class="token punctuation">,</span>
+        Required<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">&#123;</span><span class="token string">"city"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        Properties<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
+         Type        <span class="token builtin">string</span>   <span class="token string">"json:\"type\""</span>
+         Description <span class="token builtin">string</span>   <span class="token string">"json:\"description\""</span>
+         Enum        <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token string">"json:\"enum,omitempty\""</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
+         <span class="token string">"city"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+          Type<span class="token punctuation">:</span>        <span class="token string">"string"</span><span class="token punctuation">,</span>
+          Description<span class="token punctuation">:</span> <span class="token string">"The city to get the weather for"</span><span class="token punctuation">,</span>
+         <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+       <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+     <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>外部サービスの呼び出しを実現</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">processToolCall <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>cr api<span class="token punctuation">.</span>Chat<span class="token punctuation">.</span>Response<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> v <span class="token operator">:=</span> <span class="token keyword">range</span> cr<span class="token punctuation">.</span>Message<span class="token punctuation">.</span>ToolCalls <span class="token punctuation">&#123;</span>
+      <span class="token keyword">if</span> v<span class="token punctuation">.</span>Function<span class="token punctuation">.</span>Name <span class="token operator">==</span> <span class="token string">"getCurrentWeather"</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"the weather of %v is 64 and sunny"</span><span class="token punctuation">,</span> v<span class="token punctuation">.</span>Function<span class="token punctuation">.</span>Arguments<span class="token punctuation">[</span><span class="token string">"city"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+      <span class="token punctuation">&#125;</span>
+   <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">,</span> errors<span class="token punctuation">.</span>ErrUnsupported
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>chains を実現</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">uri<span class="token punctuation">,</span> err <span class="token operator">:=</span> url<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token string">"http://localhost:11434"</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+client <span class="token operator">:=</span> api<span class="token punctuation">.</span><span class="token function">NewClient</span><span class="token punctuation">(</span>uri<span class="token punctuation">,</span> <span class="token operator">&amp;</span>http<span class="token punctuation">.</span>Client<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+messages <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>api<span class="token punctuation">.</span>Message<span class="token punctuation">&#123;</span>
+  <span class="token punctuation">&#123;</span>
+   Role<span class="token punctuation">:</span>    <span class="token string">"user"</span><span class="token punctuation">,</span>
+   Content<span class="token punctuation">:</span> prompt<span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+
+ctx <span class="token operator">:=</span> context<span class="token punctuation">.</span><span class="token function">TODO</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+err <span class="token operator">:=</span> o<span class="token punctuation">.</span>llm<span class="token punctuation">.</span><span class="token function">Chat</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span>
+  <span class="token operator">&amp;</span>api<span class="token punctuation">.</span>ChatRequest<span class="token punctuation">&#123;</span>
+   Model<span class="token punctuation">:</span>    <span class="token string">"qwen2.5:32b-instruct"</span><span class="token punctuation">,</span>
+   Stream<span class="token punctuation">:</span>   lo<span class="token punctuation">.</span><span class="token function">ToPtr</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+   Messages<span class="token punctuation">:</span> messages<span class="token punctuation">,</span>
+   Options<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
+    <span class="token string">"temperature"</span><span class="token punctuation">:</span> <span class="token number">0.3</span><span class="token punctuation">,</span>
+   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+   Tools<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>api<span class="token punctuation">.</span>Tool<span class="token punctuation">&#123;</span>tools<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token keyword">func</span><span class="token punctuation">(</span>cr api<span class="token punctuation">.</span>ChatResponse<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">&#123;</span>
+      msg<span class="token punctuation">,</span>err <span class="token operator">:=</span> <span class="token function">processToolCall</span><span class="token punctuation">(</span>cr<span class="token punctuation">)</span>
+      <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> err
+      <span class="token punctuation">&#125;</span>
+
+     messages <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>messages<span class="token punctuation">,</span> api<span class="token punctuation">.</span>Message<span class="token punctuation">&#123;</span>
+      Role<span class="token punctuation">:</span>    <span class="token string">"tool"</span><span class="token punctuation">,</span>
+      Content<span class="token punctuation">:</span> msg<span class="token punctuation">,</span>
+     <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+   <span class="token keyword">return</span> <span class="token boolean">nil</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+err <span class="token operator">=</span> o<span class="token punctuation">.</span>llm<span class="token punctuation">.</span><span class="token function">Chat</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span>
+  <span class="token operator">&amp;</span>api<span class="token punctuation">.</span>ChatRequest<span class="token punctuation">&#123;</span>
+   Model<span class="token punctuation">:</span>    <span class="token string">"qwen2.5:32b-instruct"</span><span class="token punctuation">,</span>
+   Stream<span class="token punctuation">:</span>   lo<span class="token punctuation">.</span><span class="token function">ToPtr</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+   Messages<span class="token punctuation">:</span> messages<span class="token punctuation">,</span>
+   Options<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
+    <span class="token string">"temperature"</span><span class="token punctuation">:</span> <span class="token number">0.3</span><span class="token punctuation">,</span>
+   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token keyword">func</span><span class="token punctuation">(</span>cr api<span class="token punctuation">.</span>ChatResponse<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">&#123;</span>
+   fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span>cr<span class="token punctuation">.</span>Message<span class="token punctuation">.</span>Content<span class="token punctuation">)</span>
+   <span class="token keyword">return</span> <span class="token boolean">nil</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="実行">実行</h2>
+<p>prompt：<code>東京の天気は？</code><br>
+返事：　<code>東京の天気は晴れで、温度は約64°F（約18°C）です</code></p>
+<h2 id="参考">参考</h2>
+<p><a href="https://zenn.dev/kazuwombat/articles/1f39f003298028">https://zenn.dev/kazuwombat/articles/1f39f003298028</a></p>
+]]></content>
+      <categories>
+        <category>llm</category>
+      </categories>
+      <tags>
+        <tag>llm</tag>
+        <tag>text embedding</tag>
+        <tag>function calling</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>golang socks5/http proxy</title>
     <url>/posts/c7816edc/</url>
     <content><![CDATA[<p>完整实现代码:<br>
@@ -3566,170 +3730,6 @@ The fields in the UDP request header are:
       </tags>
   </entry>
   <entry>
-    <title>golangとollamaでfunction calling</title>
-    <url>/posts/23567986/</url>
-    <content><![CDATA[<p>今回はollamaのオフィシャルクライアントでfuncation callingを使いたいです。　　<br>
-前回はlangchaingoで使っただけと、試してたらollamaの引数toolsは無効です、githubの実例<a href="https://github.com/tmc/langchaingo/blob/main/examples/ollama-functions-example/ollama_functions_example.go">ollama_functions_example</a>はsystem messageとtoolsのjsonを組み合わせて内容を生成する。例えば：</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">systemMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">&#123;</span>
- bs<span class="token punctuation">,</span> err <span class="token operator">:=</span> json<span class="token punctuation">.</span><span class="token function">Marshal</span><span class="token punctuation">(</span>functions<span class="token punctuation">)</span>
- <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-  log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
- <span class="token punctuation">&#125;</span>
-
- <span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">`You have access to the following tools:
-
-%s
-
-To use a tool, respond with a JSON object with the following structure: 
-&#123;
- "tool": &lt;name of the called tool>,
- "tool_input": &lt;parameters for the tool matching the above JSON schema>
-&#125;
-`</span><span class="token punctuation">,</span> <span class="token function">string</span><span class="token punctuation">(</span>bs<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>これはちょっと優雅でない、<code>ollama/api</code>を使いたいと思います。</p>
-<h2 id="function-callingとは">function callingとは</h2>
-<span id="more"></span>
-<p>llmのレスポンスが外部関数の呼び出しを検知し、関数の結果を組み合わせて内容を生成する機能です。　　<br>
-例えば：「東京の天気は？」はpromptをとして、「晴れです」と生成する。　　<br>
-大勢のllmはfunction callingをtoolと読んでいる、呼び出しどき引数として引き渡して内容を生成する。</p>
-<!-- 
-primjs can't support exclude languages,
-so we direct use hexo tag system
- -->
-<pre><code class="mermaid">sequenceDiagram
-    actor ユーザ
-    ユーザ-&gt;&gt;サーバー: 東京の天気は？
-    サーバー-&gt;&gt;llm: promptとtools
-    llm--)サーバー: 関数を呼び出し&lt;br&#x2F;&gt;引数（東京）を返す
-    サーバー-&gt;&gt;外部サービス: 東京の天気を取得
-    外部サービス--)サーバー: 天気を返す
-    サーバー-&gt;&gt;llm: 天気をpromptに追加
-    llm--&gt;&gt;サーバー: 生成する内容を返す
-    サーバー-&gt;&gt;ユーザ: 内容を返す</code></pre>
-<!-- 
-取得：しゅとく
- -->
-<h2 id="goで実現">goで実現</h2>
-<p>関数と引数の説明(Description)は自然な言葉で良いです、一般的なプログラミングとはちょっと違うと思います。</p>
-<p>toolsの定義</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">import</span> <span class="token string">"github.com/ollama/ollama/api"</span>
-
-tools <span class="token operator">:=</span> api<span class="token punctuation">.</span>Tool<span class="token punctuation">&#123;</span>
-      Type<span class="token punctuation">:</span> <span class="token string">"function"</span><span class="token punctuation">,</span>
-      Function<span class="token punctuation">:</span> api<span class="token punctuation">.</span>ToolFunction<span class="token punctuation">&#123;</span>
-       Name<span class="token punctuation">:</span>        <span class="token string">"getCurrentWeather"</span><span class="token punctuation">,</span>
-       Description<span class="token punctuation">:</span> <span class="token string">"Get the current weather for a city"</span><span class="token punctuation">,</span>
-       Parameters<span class="token punctuation">:</span> <span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
-        Type       <span class="token builtin">string</span>   <span class="token string">"json:\"type\""</span>
-        Required   <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token string">"json:\"required\""</span>
-        Properties <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
-         Type        <span class="token builtin">string</span>   <span class="token string">"json:\"type\""</span>
-         Description <span class="token builtin">string</span>   <span class="token string">"json:\"description\""</span>
-         Enum        <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token string">"json:\"enum,omitempty\""</span>
-        <span class="token punctuation">&#125;</span> <span class="token string">"json:\"properties\""</span>
-       <span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
-        Type<span class="token punctuation">:</span>     <span class="token string">"object"</span><span class="token punctuation">,</span>
-        Required<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">&#123;</span><span class="token string">"city"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-        Properties<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">struct</span> <span class="token punctuation">&#123;</span>
-         Type        <span class="token builtin">string</span>   <span class="token string">"json:\"type\""</span>
-         Description <span class="token builtin">string</span>   <span class="token string">"json:\"description\""</span>
-         Enum        <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token string">"json:\"enum,omitempty\""</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
-         <span class="token string">"city"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
-          Type<span class="token punctuation">:</span>        <span class="token string">"string"</span><span class="token punctuation">,</span>
-          Description<span class="token punctuation">:</span> <span class="token string">"The city to get the weather for"</span><span class="token punctuation">,</span>
-         <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-       <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-     <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>外部サービスの呼び出しを実現</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go">processToolCall <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>cr api<span class="token punctuation">.</span>Chat<span class="token punctuation">.</span>Response<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-   <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> v <span class="token operator">:=</span> <span class="token keyword">range</span> cr<span class="token punctuation">.</span>Message<span class="token punctuation">.</span>ToolCalls <span class="token punctuation">&#123;</span>
-      <span class="token keyword">if</span> v<span class="token punctuation">.</span>Function<span class="token punctuation">.</span>Name <span class="token operator">==</span> <span class="token string">"getCurrentWeather"</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"the weather of %v is 64 and sunny"</span><span class="token punctuation">,</span> v<span class="token punctuation">.</span>Function<span class="token punctuation">.</span>Arguments<span class="token punctuation">[</span><span class="token string">"city"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
-      <span class="token punctuation">&#125;</span>
-   <span class="token punctuation">&#125;</span>
-  <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">,</span> errors<span class="token punctuation">.</span>ErrUnsupported
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>chains を実現</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go">uri<span class="token punctuation">,</span> err <span class="token operator">:=</span> url<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token string">"http://localhost:11434"</span><span class="token punctuation">)</span>
-<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-client <span class="token operator">:=</span> api<span class="token punctuation">.</span><span class="token function">NewClient</span><span class="token punctuation">(</span>uri<span class="token punctuation">,</span> <span class="token operator">&amp;</span>http<span class="token punctuation">.</span>Client<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-
-messages <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>api<span class="token punctuation">.</span>Message<span class="token punctuation">&#123;</span>
-  <span class="token punctuation">&#123;</span>
-   Role<span class="token punctuation">:</span>    <span class="token string">"user"</span><span class="token punctuation">,</span>
-   Content<span class="token punctuation">:</span> prompt<span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-<span class="token punctuation">&#125;</span>
-
-ctx <span class="token operator">:=</span> context<span class="token punctuation">.</span><span class="token function">TODO</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-err <span class="token operator">:=</span> o<span class="token punctuation">.</span>llm<span class="token punctuation">.</span><span class="token function">Chat</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span>
-  <span class="token operator">&amp;</span>api<span class="token punctuation">.</span>ChatRequest<span class="token punctuation">&#123;</span>
-   Model<span class="token punctuation">:</span>    <span class="token string">"qwen2.5:32b-instruct"</span><span class="token punctuation">,</span>
-   Stream<span class="token punctuation">:</span>   lo<span class="token punctuation">.</span><span class="token function">ToPtr</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-   Messages<span class="token punctuation">:</span> messages<span class="token punctuation">,</span>
-   Options<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
-    <span class="token string">"temperature"</span><span class="token punctuation">:</span> <span class="token number">0.3</span><span class="token punctuation">,</span>
-   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-   Tools<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>api<span class="token punctuation">.</span>Tool<span class="token punctuation">&#123;</span>tools<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token keyword">func</span><span class="token punctuation">(</span>cr api<span class="token punctuation">.</span>ChatResponse<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">&#123;</span>
-      msg<span class="token punctuation">,</span>err <span class="token operator">:=</span> <span class="token function">processToolCall</span><span class="token punctuation">(</span>cr<span class="token punctuation">)</span>
-      <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> err
-      <span class="token punctuation">&#125;</span>
-
-     messages <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>messages<span class="token punctuation">,</span> api<span class="token punctuation">.</span>Message<span class="token punctuation">&#123;</span>
-      Role<span class="token punctuation">:</span>    <span class="token string">"tool"</span><span class="token punctuation">,</span>
-      Content<span class="token punctuation">:</span> msg<span class="token punctuation">,</span>
-     <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-   <span class="token keyword">return</span> <span class="token boolean">nil</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span>
-<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-err <span class="token operator">=</span> o<span class="token punctuation">.</span>llm<span class="token punctuation">.</span><span class="token function">Chat</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span>
-  <span class="token operator">&amp;</span>api<span class="token punctuation">.</span>ChatRequest<span class="token punctuation">&#123;</span>
-   Model<span class="token punctuation">:</span>    <span class="token string">"qwen2.5:32b-instruct"</span><span class="token punctuation">,</span>
-   Stream<span class="token punctuation">:</span>   lo<span class="token punctuation">.</span><span class="token function">ToPtr</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-   Messages<span class="token punctuation">:</span> messages<span class="token punctuation">,</span>
-   Options<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span>
-    <span class="token string">"temperature"</span><span class="token punctuation">:</span> <span class="token number">0.3</span><span class="token punctuation">,</span>
-   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token keyword">func</span><span class="token punctuation">(</span>cr api<span class="token punctuation">.</span>ChatResponse<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">&#123;</span>
-   fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span>cr<span class="token punctuation">.</span>Message<span class="token punctuation">.</span>Content<span class="token punctuation">)</span>
-   <span class="token keyword">return</span> <span class="token boolean">nil</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span>
-<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="実行">実行</h2>
-<p>prompt：<code>東京の天気は？</code><br>
-返事：　<code>東京の天気は晴れで、温度は約64°F（約18°C）です</code></p>
-<h2 id="参考">参考</h2>
-<p><a href="https://zenn.dev/kazuwombat/articles/1f39f003298028">https://zenn.dev/kazuwombat/articles/1f39f003298028</a></p>
-]]></content>
-      <categories>
-        <category>llm</category>
-      </categories>
-      <tags>
-        <tag>llm</tag>
-        <tag>text embedding</tag>
-        <tag>function calling</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>golang实现子进程后台</title>
     <url>/posts/89c4c907/</url>
     <content><![CDATA[<h2 id="系统的进程机制">系统的进程机制</h2>
@@ -3813,53 +3813,6 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
         <tag>golang</tag>
         <tag>linux</tag>
         <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>gpg使用</title>
-    <url>/posts/7d547224/</url>
-    <content><![CDATA[<p>生成一个密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg --full-gen-key</code></pre>
-<p>之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了.</p>
-<p>创建一个子密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --edit-key <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-
-gpg<span class="token operator">></span> addkey
-<span class="token comment">#只有与前面是相同的, 按需求选择.</span>
-
-gpg<span class="token operator">></span> save
-<span class="token comment"># 保存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>导出密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key --export-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
-<p>导出子密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key.sub --export-secret-subkeys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
-<p>导出吊销证书</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --generate-revocation <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-<span class="token comment"># 输出是文本内容, 复制保存下来就行了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>删除密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --delete-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-gpg --delete-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>导入子密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">--import</span> /path/gpg_key.sub</code></pre>
-<p>查看密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-k</span>
-gpg <span class="token parameter variable">-K</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>加密文件</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-r</span> <span class="token punctuation">[</span>user name<span class="token punctuation">]</span> <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-e</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span></code></pre>
-<p>解密</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 输出到文件</span>
-gpg <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 直接输出到终端</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<hr>
-<p><a href="https://gist.github.com/jhjguxin/6037564">GPG 加密解密简明教程</a><br>
-<a href="https://mogeko.me/2019/068/">GPG 的正确使用姿势</a></p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>encrypt</tag>
       </tags>
   </entry>
   <entry>
@@ -3957,62 +3910,50 @@ POSTROUTING: mangle, nat<span aria-hidden="true" class="line-numbers-rows"><span
       </tags>
   </entry>
   <entry>
-    <title>linux PPPOE拨号上网</title>
-    <url>/posts/59c8ffd6/</url>
-    <content><![CDATA[<h2 id="安装rp-pppoe">安装rp-pppoe</h2>
-<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> rp-pppoe</code></pre>
-<h2 id="配置">配置</h2>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pppoe-setup</code></pre>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter your PPPoE user name:</code></pre>
-<p>这里输入网络运营商提供给你的用户名.</p>
+    <title>gpg使用</title>
+    <url>/posts/7d547224/</url>
+    <content><![CDATA[<p>生成一个密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg --full-gen-key</code></pre>
+<p>之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了.</p>
+<p>创建一个子密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --edit-key <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+
+gpg<span class="token operator">></span> addkey
+<span class="token comment">#只有与前面是相同的, 按需求选择.</span>
+
+gpg<span class="token operator">></span> save
+<span class="token comment"># 保存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>导出密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key --export-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
+<p>导出子密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key.sub --export-secret-subkeys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
+<p>导出吊销证书</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --generate-revocation <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+<span class="token comment"># 输出是文本内容, 复制保存下来就行了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <span id="more"></span>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter the Ethernet interface connected to the DSL modem
-For Solaris, this is likely to be something like /dev/hme0.
-For Linux, it will be ethn, where <span class="token string">'n'</span> is a number. <span class="token builtin class-name">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>这里输入你链接网络的网卡,可以使用<code>ip addr</code>进行查看 比如<code>eth1</code>,<code>wlo1</code>.</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter the demand value <span class="token punctuation">(</span>default no<span class="token punctuation">)</span>:</code></pre>
-<p>这里可以直接回车</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter the DNS information here:</code></pre>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter the secondary DNS server address here:</code></pre>
-<p>这里输入两个DNS,比如<code>1.1.1.1</code>,<code>8.8.8.8</code>.</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Please enter your PPPoE password:  </code></pre>
-<p>这里输入网络运营商提供给你的密码.</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">The firewall choices are:
-<span class="token number">0</span> - NONE: This script will not <span class="token builtin class-name">set</span> any firewall rules.  You are responsible
-          <span class="token keyword">for</span> ensuring the security of your machine.  You are STRONGLY
-          recommended to use some kind of firewall rules.
-<span class="token number">1</span> - STANDALONE: Appropriate <span class="token keyword">for</span> a basic stand-alone web-surfing workstation
-<span class="token number">2</span> - MASQUERADE: Appropriate <span class="token keyword">for</span> a machine acting as an Internet gateway
-                <span class="token keyword">for</span> a LAN
-<span class="token operator">>></span><span class="token operator">></span> Choose a <span class="token builtin class-name">type</span> of firewall <span class="token punctuation">(</span><span class="token number">0</span>-2<span class="token punctuation">)</span>:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里我使用1,可以按照自己的需求选择防火墙配置.</p>
-<h2 id="启用">启用</h2>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pppoe-start</code></pre>
-<p>可以使用<code>ip addr</code>进行查看,现在应该有一个<code>ppp0</code>的网络.</p>
-<h2 id="查看路由确认启用">查看路由确认启用</h2>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span> ~ <span class="token punctuation">]</span> route
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-default         <span class="token number">0.0</span>.0.0         <span class="token number">0.0</span>.0.0         U     <span class="token number">0</span>      <span class="token number">0</span>        <span class="token number">0</span> ppp0
-                                <span class="token punctuation">..</span>.
-                                <span class="token punctuation">..</span>.
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>如果没有default到ppp0的这条路由,需要手动创建:</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> route <span class="token function">add</span> default dev ppp0</code></pre>
-<h2 id="引用">引用</h2>
-<blockquote>
-<ul>
-<li><a href="https://www.cnblogs.com/viusuangio/p/7112674.html">archlinux pppoe拨号连接使用详解[转载]</a></li>
-<li><a href="https://www.librehat.com/guide-on-linux-ppp-over-wireless-network/">Linux下连接无线网络后拨号（即PPP over WiFi）</a></li>
-</ul>
-</blockquote>
+<p>删除密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --delete-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+gpg --delete-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>导入子密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">--import</span> /path/gpg_key.sub</code></pre>
+<p>查看密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-k</span>
+gpg <span class="token parameter variable">-K</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>加密文件</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-r</span> <span class="token punctuation">[</span>user name<span class="token punctuation">]</span> <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-e</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span></code></pre>
+<p>解密</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 输出到文件</span>
+gpg <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 直接输出到终端</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<hr>
+<p><a href="https://gist.github.com/jhjguxin/6037564">GPG 加密解密简明教程</a><br>
+<a href="https://mogeko.me/2019/068/">GPG 的正确使用姿势</a></p>
 ]]></content>
       <categories>
         <category>linux</category>
       </categories>
       <tags>
-        <tag>archlinux</tag>
         <tag>linux</tag>
+        <tag>encrypt</tag>
       </tags>
   </entry>
   <entry>
@@ -4249,6 +4190,189 @@ Provider <span class="token number">1</span>: id: 0x41 cap: 0x6, Sink Output, So
       </tags>
   </entry>
   <entry>
+    <title>linux PPPOE拨号上网</title>
+    <url>/posts/59c8ffd6/</url>
+    <content><![CDATA[<h2 id="安装rp-pppoe">安装rp-pppoe</h2>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pacman <span class="token parameter variable">-S</span> rp-pppoe</code></pre>
+<h2 id="配置">配置</h2>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pppoe-setup</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter your PPPoE user name:</code></pre>
+<p>这里输入网络运营商提供给你的用户名.</p>
+<span id="more"></span>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter the Ethernet interface connected to the DSL modem
+For Solaris, this is likely to be something like /dev/hme0.
+For Linux, it will be ethn, where <span class="token string">'n'</span> is a number. <span class="token builtin class-name">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>这里输入你链接网络的网卡,可以使用<code>ip addr</code>进行查看 比如<code>eth1</code>,<code>wlo1</code>.</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter the demand value <span class="token punctuation">(</span>default no<span class="token punctuation">)</span>:</code></pre>
+<p>这里可以直接回车</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter the DNS information here:</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Enter the secondary DNS server address here:</code></pre>
+<p>这里输入两个DNS,比如<code>1.1.1.1</code>,<code>8.8.8.8</code>.</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">>></span><span class="token operator">></span> Please enter your PPPoE password:  </code></pre>
+<p>这里输入网络运营商提供给你的密码.</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">The firewall choices are:
+<span class="token number">0</span> - NONE: This script will not <span class="token builtin class-name">set</span> any firewall rules.  You are responsible
+          <span class="token keyword">for</span> ensuring the security of your machine.  You are STRONGLY
+          recommended to use some kind of firewall rules.
+<span class="token number">1</span> - STANDALONE: Appropriate <span class="token keyword">for</span> a basic stand-alone web-surfing workstation
+<span class="token number">2</span> - MASQUERADE: Appropriate <span class="token keyword">for</span> a machine acting as an Internet gateway
+                <span class="token keyword">for</span> a LAN
+<span class="token operator">>></span><span class="token operator">></span> Choose a <span class="token builtin class-name">type</span> of firewall <span class="token punctuation">(</span><span class="token number">0</span>-2<span class="token punctuation">)</span>:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里我使用1,可以按照自己的需求选择防火墙配置.</p>
+<h2 id="启用">启用</h2>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pppoe-start</code></pre>
+<p>可以使用<code>ip addr</code>进行查看,现在应该有一个<code>ppp0</code>的网络.</p>
+<h2 id="查看路由确认启用">查看路由确认启用</h2>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span> ~ <span class="token punctuation">]</span> route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         <span class="token number">0.0</span>.0.0         <span class="token number">0.0</span>.0.0         U     <span class="token number">0</span>      <span class="token number">0</span>        <span class="token number">0</span> ppp0
+                                <span class="token punctuation">..</span>.
+                                <span class="token punctuation">..</span>.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果没有default到ppp0的这条路由,需要手动创建:</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> route <span class="token function">add</span> default dev ppp0</code></pre>
+<h2 id="引用">引用</h2>
+<blockquote>
+<ul>
+<li><a href="https://www.cnblogs.com/viusuangio/p/7112674.html">archlinux pppoe拨号连接使用详解[转载]</a></li>
+<li><a href="https://www.librehat.com/guide-on-linux-ppp-over-wireless-network/">Linux下连接无线网络后拨号（即PPP over WiFi）</a></li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>archlinux</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nodejs异步回调函数</title>
+    <url>/posts/5938ae8c/</url>
+    <content><![CDATA[<p>研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.<br>
+如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then.</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+
+<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>nodejs</category>
+      </categories>
+      <tags>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python使用lxml分析网页</title>
+    <url>/posts/77d15527/</url>
+    <content><![CDATA[<p>首先得引入lxml</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#xpath为</span>
+frome lxml <span class="token keyword">import</span> etree
+<span class="token comment">#cssselector为</span>
+<span class="token keyword">import</span> lxml<span class="token punctuation">.</span>html
+<span class="token comment">#cssselector使用起来简单但功能比xpath少</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>cssselector</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tree <span class="token operator">=</span> lxml<span class="token punctuation">.</span>html<span class="token punctuation">.</span>fromstring<span class="token punctuation">(</span><span class="token string">'你获取的网页源代码文件或变量'</span><span class="token punctuation">)</span>
+css <span class="token operator">=</span> tree<span class="token punctuation">.</span>cssselect<span class="token punctuation">(</span><span class="token string">'要选择的内容'</span><span class="token punctuation">)</span>
+
+<span class="token comment">#例如tree.cssselect('div.word-info > div.pronounces > span.word-audio')</span>
+<span class="token comment">#选择器选择的结果为list</span>
+
+css<span class="token punctuation">.</span>text_content<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment">#表示选择的内容</span>
+
+css<span class="token punctuation">.</span>attrib<span class="token punctuation">[</span><span class="token string">'要表示的标签属性'</span><span class="token punctuation">]</span>
+
+<span class="token comment">#如css.attrb['class']表示的就是所选择内容的class属性</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p><strong>如果选择的内容换行符太多可以使用split表示成list去除</strong></p>
+<table>
+<thead>
+<tr>
+<th>说明</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>选择所有标签</td>
+<td>*</td>
+</tr>
+<tr>
+<td>选择&lt;a&gt;标签</td>
+<td>a</td>
+</tr>
+<tr>
+<td>选择所有class=&quot;link&quot;的标签</td>
+<td>.link</td>
+</tr>
+<tr>
+<td>选择class=&quot;link&quot;的&lt;a&gt;标签</td>
+<td>a.link</td>
+</tr>
+<tr>
+<td>选择id=&quot;home&quot;的&lt;a&gt;标签</td>
+<td>a#home</td>
+</tr>
+<tr>
+<td>选择父元素为&lt;a&gt;标签的所有&lt;span&gt;标签</td>
+<td>a &gt; span</td>
+</tr>
+<tr>
+<td>选择&lt;a&gt;标签内部的所有&lt;span&gt;标签</td>
+<td>a span</td>
+</tr>
+<tr>
+<td>选择title属性为”Home”的所有&lt;a&gt;标签</td>
+<td>a[title=Home]</td>
+</tr>
+</tbody>
+</table>
+<p>xpath</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">selector<span class="token operator">=</span>etree<span class="token punctuation">.</span>HTML<span class="token punctuation">(</span><span class="token string">'你获取的网页源代码文件或变量'</span><span class="token punctuation">)</span>
+css <span class="token operator">=</span> selector<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'要选择的内容'</span><span class="token punctuation">)</span>
+<span class="token comment">#xpath可直接表示</span>
+<span class="token comment">#xpath可选择并表示属性</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><em>xpath由于内容太多,可以直接参考官方文档</em></p>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>编程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python获取网页源码(爬虫?)</title>
+    <url>/posts/cee10602/</url>
+    <content><![CDATA[<p>利用requrst,使用首先要</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests</code></pre>
+<p>使用方法</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">url <span class="token operator">=</span> <span class="token string">'要获取的网页地址'</span>
+useragent <span class="token operator">=</span> <span class="token string">'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'</span><span class="token comment">#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span>
+requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span>headers<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">'User-Agent'</span><span class="token punctuation">:</span>useragent<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>编程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>snap删除旧的core(snap删除其他版本的软件)</title>
     <url>/posts/b6b8953/</url>
     <content><![CDATA[<p>偶尔发现snap会自动升级core且不删除旧版，在’/snap/core’<br>
@@ -4451,30 +4575,6 @@ module &quot;module3&quot; &#123;
       </tags>
   </entry>
   <entry>
-    <title>nodejs异步回调函数</title>
-    <url>/posts/5938ae8c/</url>
-    <content><![CDATA[<p>研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.<br>
-如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then.</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-
-<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>nodejs</category>
-      </categories>
-      <tags>
-        <tag>nodejs</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ubuntu终端下连接wifi</title>
     <url>/posts/fb6d8628/</url>
     <content><![CDATA[<h2 id="首先使用rfkill查看你的wifi设备是否被停用">首先使用rfkill查看你的wifi设备是否被停用</h2>
@@ -4619,6 +4719,100 @@ module &quot;module3&quot; &#123;
       </tags>
   </entry>
   <entry>
+    <title>使用GVT-g显卡虚拟化</title>
+    <url>/posts/3a1d136/</url>
+    <content><![CDATA[<h2 id="为内核添加参数">为内核添加参数</h2>
+<p>比如<code>grub</code>在<code>/etc/default/grub</code>的<code>GRUB_CMDLINE_LINUX_DEFAULT=</code>中添加</p>
+<pre class="language-ini" data-language="ini"><code class="language-ini"><span class="token key attr-name">intel_iommu</span><span class="token punctuation">=</span><span class="token value attr-value">on i915.enable_gvt=1 i915.enable_guc=0</span></code></pre>
+<h2 id="启用modules">启用modules</h2>
+<p>在<code>/etc/mkinitcpio.conf</code>的MODULES=()`中添加:</p>
+<pre class="line-numbers language-ini" data-language="ini"><code class="language-ini"><span class="token comment"># linux 5.14后，arch的linux内核模块已经不会勾选vfio-mdev，自测不影响gvt-g</span>
+kvmgt vfio vfio-iommu-type1s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>然后运行,我用的zen内核所以是linux-zen,默认内核是linux</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> mkinitcpio <span class="token parameter variable">-p</span> linux-zen</code></pre>
+<p>重启计算机</p>
+<p>查看<code>/sys/devices/pci0000:00/0000:00:02.0/mdev_supported_types</code>可以看见类似如下的目录</p>
+<span id="more"></span>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># ls /sys/devices/pci$&#123;GVT_DOM&#125;/$GVT_PCI/mdev_supported_types</span>
+i915-GVTg_V5_1  <span class="token comment"># Video memory: &lt;512MB, 2048MB>, resolution: up to 1920x1200</span>
+i915-GVTg_V5_2  <span class="token comment"># Video memory: &lt;256MB, 1024MB>, resolution: up to 1920x1200</span>
+i915-GVTg_V5_4  <span class="token comment"># Video memory: &lt;128MB, 512MB>, resolution: up to 1920x1200</span>
+i915-GVTg_V5_8  <span class="token comment"># Video memory: &lt;64MB, 384MB>, resolution: up to 1024x768</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>向create文件中写入uuid(自己生成)就会创建相应的虚拟显卡</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$GVT_GUID</span>"</span> <span class="token operator">></span> <span class="token string">"/sys/devices/pci<span class="token variable">$&#123;GVT_DOM&#125;</span>/<span class="token variable">$GVT_PCI</span>/mdev_supported_types/<span class="token variable">$GVT_TYPE</span>/create"</span></code></pre>
+<p>移除</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token number">1</span> <span class="token operator">></span> /sys/bus/pci/devices/<span class="token variable">$GVT_PCI</span>/<span class="token variable">$GVT_GUID</span>/remove</code></pre>
+<h2 id="qemu添加钩子-启动虚拟机时自动创建虚拟显卡">qemu添加钩子, 启动虚拟机时自动创建虚拟显卡</h2>
+<p><code>/etc/libvirt/hooks/qemu</code>中, 沒有则自己创建</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token assign-left variable">GVT_PCI</span><span class="token operator">=</span><span class="token operator">&lt;</span>GVT_PCI<span class="token operator">></span> <span class="token comment"># 这里为显卡的地址, 比如 0000:00:02.0</span>
+<span class="token assign-left variable">GVT_GUID</span><span class="token operator">=</span><span class="token operator">&lt;</span>GVT_GUID<span class="token operator">></span> <span class="token comment"># 这里为自己生成的uuid</span>
+<span class="token assign-left variable">MDEV_TYPE</span><span class="token operator">=</span><span class="token operator">&lt;</span>GVT_TYPE<span class="token operator">></span> <span class="token comment"># 这里为要使用的虚拟的类型, 比如 i915-GVTg_V5_8</span>
+<span class="token assign-left variable">DOMAIN</span><span class="token operator">=</span><span class="token operator">&lt;</span>DOMAIN name<span class="token operator">></span> <span class="token comment"># qemu虚拟机的名字</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">$#</span> <span class="token parameter variable">-ge</span> <span class="token number">3</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">$1</span> <span class="token operator">=</span> <span class="token string">"<span class="token variable">$DOMAIN</span>"</span> <span class="token parameter variable">-a</span> <span class="token variable">$2</span> <span class="token operator">=</span> <span class="token string">"prepare"</span> <span class="token parameter variable">-a</span> <span class="token variable">$3</span> <span class="token operator">=</span> <span class="token string">"begin"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+        <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$GVT_GUID</span>"</span> <span class="token operator">></span> <span class="token string">"/sys/bus/pci/devices/<span class="token variable">$GVT_PCI</span>/mdev_supported_types/<span class="token variable">$MDEV_TYPE</span>/create"</span>
+    <span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token variable">$1</span> <span class="token operator">=</span> <span class="token string">"<span class="token variable">$DOMAIN</span>"</span> <span class="token parameter variable">-a</span> <span class="token variable">$2</span> <span class="token operator">=</span> <span class="token string">"release"</span> <span class="token parameter variable">-a</span> <span class="token variable">$3</span> <span class="token operator">=</span> <span class="token string">"end"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+        <span class="token builtin class-name">echo</span> <span class="token number">1</span> <span class="token operator">></span> /sys/bus/pci/devices/<span class="token variable">$GVT_PCI</span>/<span class="token variable">$GVT_GUID</span>/remove
+    <span class="token keyword">fi</span>
+<span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样启动虚拟机时会自动创建, 停止后会自动删除</p>
+<h2 id="生成虚拟机配置">生成虚拟机配置</h2>
+<p>可以使用<code>virt-manager</code>先生成一个虚拟机, 再修改相应的配置, 默认配置文件在<code>/etc/libvirt/qemu/</code><br>
+需要添加/修改的配置:</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">qemu:</span>commandline</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">qemu:</span>arg</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>-set<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">qemu:</span>arg</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>device.hostdev0.x-igd-opregion=on<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">qemu:</span>arg</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>-set<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">qemu:</span>arg</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>device.hostdev0.ramfb=on<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">qemu:</span>arg</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>-set<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">qemu:</span>arg</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>device.hostdev0.driver=vfio-pci-nohotplug<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">qemu:</span>env</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>MESA_LOADER_DRIVER_OVERRIDE<span class="token punctuation">'</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>i965<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span> <span class="token comment"><!--intel启用OpenGL可能会花屏, 不会就不要加这一条--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">qemu:</span>commandline</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>hostdev配置可以在添加硬件(PCI HOST Devices)的界面直接修改xml, 更方便一点</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>hostdev</span> <span class="token attr-name">mode</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>subsystem<span class="token punctuation">'</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>mdev<span class="token punctuation">'</span></span> <span class="token attr-name">managed</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>no<span class="token punctuation">'</span></span> <span class="token attr-name">model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>vfio-pci<span class="token punctuation">'</span></span> <span class="token attr-name">display</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>on<span class="token punctuation">'</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>source</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>address</span> <span class="token attr-name">uuid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>93397e71-15bf-4889-98b7-aa2d735e6260<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>source</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>address</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>pci<span class="token punctuation">'</span></span> <span class="token attr-name">domain</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>0x0000<span class="token punctuation">'</span></span> <span class="token attr-name">bus</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>0x00<span class="token punctuation">'</span></span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>0x09<span class="token punctuation">'</span></span> <span class="token attr-name">function</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>0x0<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>hostdev</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>video</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>model</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>none<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>video</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>graphics</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>spice<span class="token punctuation">'</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>listen</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>none<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>image</span> <span class="token attr-name">compression</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>off<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>jpeg</span> <span class="token attr-name">compression</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>never<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>zlib</span> <span class="token attr-name">compression</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>never<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>playback</span> <span class="token attr-name">compression</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>off<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>streaming</span> <span class="token attr-name">mode</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>off<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>gl</span> <span class="token attr-name">enable</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>yes<span class="token punctuation">'</span></span> <span class="token attr-name">rendernode</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>/dev/dri/by-path/pci-0000:00:02.0-render<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>graphics</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vcpu</span> <span class="token attr-name">placement</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>static<span class="token punctuation">'</span></span><span class="token punctuation">></span></span>2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>vcpu</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cputune</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vcpupin</span> <span class="token attr-name">vcpu</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>0<span class="token punctuation">'</span></span> <span class="token attr-name">cpuset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>1<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vcpupin</span> <span class="token attr-name">vcpu</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>1<span class="token punctuation">'</span></span> <span class="token attr-name">cpuset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>2<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>cputune</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="结尾">结尾</h2>
+<p>启动虚拟机后, 进入虚拟机安装相应的显卡驱动就行了.<br>
+这样就快很多了, 比软件渲染快多了, 这样用linux也能愉快的使用其他系统了.</p>
+<hr>
+<p><a href="https://wiki.archlinux.org/index.php/Intel_GVT-g">Intel_GVT-g</a><br>
+<a href="https://medium.com/@langleyhouge/%E8%AE%A9-kvm-%E4%B8%8A%E7%9A%84-windows-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%8F%92%E4%B8%8Agvt-g-%E7%9A%84%E7%BF%85%E8%86%80-ac0ac28b73b8">让 KVM 上的 Windows 虚拟机插上GVT-g 的翅膀</a><br>
+<a href="https://www.libvirt.org/hooks.html">libvirt hooks</a><br>
+<a href="https://blog.bepbep.co/posts/gvt/">Intel Gvt</a></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>qemu</tag>
+        <tag>GVT-g</tag>
+        <tag>intel</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>为广告而生,从使用到干掉大陆版MIUI</title>
     <url>/posts/6c3a98b5/</url>
     <content><![CDATA[<p>使用四年多的锤子手机越来越不堪重负，我决定换一款新的手机，在精心挑选后，选定了今年年初发布的一款Red MI手机，其极高的性价比打动了我。</p>
@@ -4685,100 +4879,6 @@ fastboot boot twrp.img<span aria-hidden="true" class="line-numbers-rows"><span><
         <tag>MIUI</tag>
         <tag>系统</tag>
         <tag>解锁</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用GVT-g显卡虚拟化</title>
-    <url>/posts/3a1d136/</url>
-    <content><![CDATA[<h2 id="为内核添加参数">为内核添加参数</h2>
-<p>比如<code>grub</code>在<code>/etc/default/grub</code>的<code>GRUB_CMDLINE_LINUX_DEFAULT=</code>中添加</p>
-<pre class="language-ini" data-language="ini"><code class="language-ini"><span class="token key attr-name">intel_iommu</span><span class="token punctuation">=</span><span class="token value attr-value">on i915.enable_gvt=1 i915.enable_guc=0</span></code></pre>
-<h2 id="启用modules">启用modules</h2>
-<p>在<code>/etc/mkinitcpio.conf</code>的MODULES=()`中添加:</p>
-<pre class="line-numbers language-ini" data-language="ini"><code class="language-ini"><span class="token comment"># linux 5.14后，arch的linux内核模块已经不会勾选vfio-mdev，自测不影响gvt-g</span>
-kvmgt vfio vfio-iommu-type1s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>然后运行,我用的zen内核所以是linux-zen,默认内核是linux</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> mkinitcpio <span class="token parameter variable">-p</span> linux-zen</code></pre>
-<p>重启计算机</p>
-<p>查看<code>/sys/devices/pci0000:00/0000:00:02.0/mdev_supported_types</code>可以看见类似如下的目录</p>
-<span id="more"></span>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># ls /sys/devices/pci$&#123;GVT_DOM&#125;/$GVT_PCI/mdev_supported_types</span>
-i915-GVTg_V5_1  <span class="token comment"># Video memory: &lt;512MB, 2048MB>, resolution: up to 1920x1200</span>
-i915-GVTg_V5_2  <span class="token comment"># Video memory: &lt;256MB, 1024MB>, resolution: up to 1920x1200</span>
-i915-GVTg_V5_4  <span class="token comment"># Video memory: &lt;128MB, 512MB>, resolution: up to 1920x1200</span>
-i915-GVTg_V5_8  <span class="token comment"># Video memory: &lt;64MB, 384MB>, resolution: up to 1024x768</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>向create文件中写入uuid(自己生成)就会创建相应的虚拟显卡</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$GVT_GUID</span>"</span> <span class="token operator">></span> <span class="token string">"/sys/devices/pci<span class="token variable">$&#123;GVT_DOM&#125;</span>/<span class="token variable">$GVT_PCI</span>/mdev_supported_types/<span class="token variable">$GVT_TYPE</span>/create"</span></code></pre>
-<p>移除</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token number">1</span> <span class="token operator">></span> /sys/bus/pci/devices/<span class="token variable">$GVT_PCI</span>/<span class="token variable">$GVT_GUID</span>/remove</code></pre>
-<h2 id="qemu添加钩子-启动虚拟机时自动创建虚拟显卡">qemu添加钩子, 启动虚拟机时自动创建虚拟显卡</h2>
-<p><code>/etc/libvirt/hooks/qemu</code>中, 沒有则自己创建</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
-<span class="token assign-left variable">GVT_PCI</span><span class="token operator">=</span><span class="token operator">&lt;</span>GVT_PCI<span class="token operator">></span> <span class="token comment"># 这里为显卡的地址, 比如 0000:00:02.0</span>
-<span class="token assign-left variable">GVT_GUID</span><span class="token operator">=</span><span class="token operator">&lt;</span>GVT_GUID<span class="token operator">></span> <span class="token comment"># 这里为自己生成的uuid</span>
-<span class="token assign-left variable">MDEV_TYPE</span><span class="token operator">=</span><span class="token operator">&lt;</span>GVT_TYPE<span class="token operator">></span> <span class="token comment"># 这里为要使用的虚拟的类型, 比如 i915-GVTg_V5_8</span>
-<span class="token assign-left variable">DOMAIN</span><span class="token operator">=</span><span class="token operator">&lt;</span>DOMAIN name<span class="token operator">></span> <span class="token comment"># qemu虚拟机的名字</span>
-<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">$#</span> <span class="token parameter variable">-ge</span> <span class="token number">3</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
-    <span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">$1</span> <span class="token operator">=</span> <span class="token string">"<span class="token variable">$DOMAIN</span>"</span> <span class="token parameter variable">-a</span> <span class="token variable">$2</span> <span class="token operator">=</span> <span class="token string">"prepare"</span> <span class="token parameter variable">-a</span> <span class="token variable">$3</span> <span class="token operator">=</span> <span class="token string">"begin"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
-        <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$GVT_GUID</span>"</span> <span class="token operator">></span> <span class="token string">"/sys/bus/pci/devices/<span class="token variable">$GVT_PCI</span>/mdev_supported_types/<span class="token variable">$MDEV_TYPE</span>/create"</span>
-    <span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token variable">$1</span> <span class="token operator">=</span> <span class="token string">"<span class="token variable">$DOMAIN</span>"</span> <span class="token parameter variable">-a</span> <span class="token variable">$2</span> <span class="token operator">=</span> <span class="token string">"release"</span> <span class="token parameter variable">-a</span> <span class="token variable">$3</span> <span class="token operator">=</span> <span class="token string">"end"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
-        <span class="token builtin class-name">echo</span> <span class="token number">1</span> <span class="token operator">></span> /sys/bus/pci/devices/<span class="token variable">$GVT_PCI</span>/<span class="token variable">$GVT_GUID</span>/remove
-    <span class="token keyword">fi</span>
-<span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这样启动虚拟机时会自动创建, 停止后会自动删除</p>
-<h2 id="生成虚拟机配置">生成虚拟机配置</h2>
-<p>可以使用<code>virt-manager</code>先生成一个虚拟机, 再修改相应的配置, 默认配置文件在<code>/etc/libvirt/qemu/</code><br>
-需要添加/修改的配置:</p>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">qemu:</span>commandline</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">qemu:</span>arg</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>-set<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">qemu:</span>arg</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>device.hostdev0.x-igd-opregion=on<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">qemu:</span>arg</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>-set<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">qemu:</span>arg</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>device.hostdev0.ramfb=on<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">qemu:</span>arg</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>-set<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">qemu:</span>arg</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>device.hostdev0.driver=vfio-pci-nohotplug<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">qemu:</span>env</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>MESA_LOADER_DRIVER_OVERRIDE<span class="token punctuation">'</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>i965<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span> <span class="token comment">&lt;!--intel启用OpenGL可能会花屏, 不会就不要加这一条--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">qemu:</span>commandline</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>hostdev配置可以在添加硬件(PCI HOST Devices)的界面直接修改xml, 更方便一点</p>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>hostdev</span> <span class="token attr-name">mode</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>subsystem<span class="token punctuation">'</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>mdev<span class="token punctuation">'</span></span> <span class="token attr-name">managed</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>no<span class="token punctuation">'</span></span> <span class="token attr-name">model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>vfio-pci<span class="token punctuation">'</span></span> <span class="token attr-name">display</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>on<span class="token punctuation">'</span></span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>source</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>address</span> <span class="token attr-name">uuid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>93397e71-15bf-4889-98b7-aa2d735e6260<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>source</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>address</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>pci<span class="token punctuation">'</span></span> <span class="token attr-name">domain</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>0x0000<span class="token punctuation">'</span></span> <span class="token attr-name">bus</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>0x00<span class="token punctuation">'</span></span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>0x09<span class="token punctuation">'</span></span> <span class="token attr-name">function</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>0x0<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>hostdev</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>video</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>model</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>none<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>video</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>graphics</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>spice<span class="token punctuation">'</span></span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>listen</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>none<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>image</span> <span class="token attr-name">compression</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>off<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>jpeg</span> <span class="token attr-name">compression</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>never<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>zlib</span> <span class="token attr-name">compression</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>never<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>playback</span> <span class="token attr-name">compression</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>off<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>streaming</span> <span class="token attr-name">mode</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>off<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>gl</span> <span class="token attr-name">enable</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>yes<span class="token punctuation">'</span></span> <span class="token attr-name">rendernode</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>/dev/dri/by-path/pci-0000:00:02.0-render<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>graphics</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vcpu</span> <span class="token attr-name">placement</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>static<span class="token punctuation">'</span></span><span class="token punctuation">></span></span>2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>vcpu</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cputune</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vcpupin</span> <span class="token attr-name">vcpu</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>0<span class="token punctuation">'</span></span> <span class="token attr-name">cpuset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>1<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vcpupin</span> <span class="token attr-name">vcpu</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>1<span class="token punctuation">'</span></span> <span class="token attr-name">cpuset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>2<span class="token punctuation">'</span></span><span class="token punctuation">/></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>cputune</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="结尾">结尾</h2>
-<p>启动虚拟机后, 进入虚拟机安装相应的显卡驱动就行了.<br>
-这样就快很多了, 比软件渲染快多了, 这样用linux也能愉快的使用其他系统了.</p>
-<hr>
-<p><a href="https://wiki.archlinux.org/index.php/Intel_GVT-g">Intel_GVT-g</a><br>
-<a href="https://medium.com/@langleyhouge/%E8%AE%A9-kvm-%E4%B8%8A%E7%9A%84-windows-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%8F%92%E4%B8%8Agvt-g-%E7%9A%84%E7%BF%85%E8%86%80-ac0ac28b73b8">让 KVM 上的 Windows 虚拟机插上GVT-g 的翅膀</a><br>
-<a href="https://www.libvirt.org/hooks.html">libvirt hooks</a><br>
-<a href="https://blog.bepbep.co/posts/gvt/">Intel Gvt</a></p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>qemu</tag>
-        <tag>GVT-g</tag>
-        <tag>intel</tag>
       </tags>
   </entry>
   <entry>
@@ -5520,6 +5620,37 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </tags>
   </entry>
   <entry>
+    <title>暗影精灵更改efi启动顺序</title>
+    <url>/posts/6683eff9/</url>
+    <content><![CDATA[<p>–2019-04-22 更新–<br>
+<strong>最新版bios已经可以调整启动顺序了(<a href="#jump">图在最下面</a>)</strong></p>
+<p>-------- 之 前 -------<br>
+暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说</p>
+<p>首先从ubuntu进入/boot/efi/EFI<br>
+<strong>备份windwos的启动文件</strong>（<strong>切记一定要备份，否则只能从pe重新建立windwos启动项</strong>）</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-arf</span> Microsoft win10</code></pre>
+<p>将ubuntu的grubx64.efi替换掉EFI/Microsoft/Boot/bootmgfw.efi文件 <span id="more"></span></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-arf</span> ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi </code></pre>
+<p>这样替换之后grub就接管了系统的启动</p>
+<p>然后将/boot/grub/grub.cfg中关于windows的启动段复制到/etc/grub.d/40_custom中<br>
+将<strong>chainloader /EFI/Micorosoft/Boot/bootmgfw.efi</strong><br>
+改为<br>
+<strong>chainloader /EFI/win10/Boot/bootmgfw.efi</strong><br>
+就是把中间那个改为你备份的文件夹，可以改一改前面的启动名称<br>
+最后执行update-grub来更新启动项</p>
+<p>但是windwos有大更新的时候会把更改的覆盖掉，再来一遍就好了</p>
+<p><span id = "jump"><img src="http://blog-1254450445.cossgp.myqcloud.com/efi.jpg" alt="" loading="lazy"></span></p>
+<p>参考文章<a href="https://blog.csdn.net/zyix_0712/article/details/69675748">暗影精灵2pro安装win10+ubuntu16.10双系统</a></p>
+]]></content>
+      <categories>
+        <category>Computer</category>
+      </categories>
+      <tags>
+        <tag>EFI</tag>
+        <tag>BIOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>汇编语言学习</title>
     <url>/posts/4f95e9f6/</url>
     <content><![CDATA[<p>最近想了解一下c是如何编译为汇编语言的<br>
@@ -5671,37 +5802,6 @@ movq <span class="token operator">%</span><span class="token register variable">
       <tags>
         <tag>汇编语言</tag>
         <tag>assembly</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>暗影精灵更改efi启动顺序</title>
-    <url>/posts/6683eff9/</url>
-    <content><![CDATA[<p>–2019-04-22 更新–<br>
-<strong>最新版bios已经可以调整启动顺序了(<a href="#jump">图在最下面</a>)</strong></p>
-<p>-------- 之 前 -------<br>
-暗影精灵安装完ubuntu之后只能开机按esc+f9进入ubuntu，否则会直接启动windows,虽然可以使用但及其不方便的说</p>
-<p>首先从ubuntu进入/boot/efi/EFI<br>
-<strong>备份windwos的启动文件</strong>（<strong>切记一定要备份，否则只能从pe重新建立windwos启动项</strong>）</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-arf</span> Microsoft win10</code></pre>
-<p>将ubuntu的grubx64.efi替换掉EFI/Microsoft/Boot/bootmgfw.efi文件 <span id="more"></span></p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token parameter variable">-arf</span> ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi </code></pre>
-<p>这样替换之后grub就接管了系统的启动</p>
-<p>然后将/boot/grub/grub.cfg中关于windows的启动段复制到/etc/grub.d/40_custom中<br>
-将<strong>chainloader /EFI/Micorosoft/Boot/bootmgfw.efi</strong><br>
-改为<br>
-<strong>chainloader /EFI/win10/Boot/bootmgfw.efi</strong><br>
-就是把中间那个改为你备份的文件夹，可以改一改前面的启动名称<br>
-最后执行update-grub来更新启动项</p>
-<p>但是windwos有大更新的时候会把更改的覆盖掉，再来一遍就好了</p>
-<p><span id = "jump"><img src="http://blog-1254450445.cossgp.myqcloud.com/efi.jpg" alt="" loading="lazy"></span></p>
-<p>参考文章<a href="https://blog.csdn.net/zyix_0712/article/details/69675748">暗影精灵2pro安装win10+ubuntu16.10双系统</a></p>
-]]></content>
-      <categories>
-        <category>Computer</category>
-      </categories>
-      <tags>
-        <tag>EFI</tag>
-        <tag>BIOS</tag>
       </tags>
   </entry>
   <entry>
@@ -7008,129 +7108,6 @@ wintypes:
       </tags>
   </entry>
   <entry>
-    <title>関西弁コレクション</title>
-    <url>/posts/a4241e7/</url>
-    <content><![CDATA[<p>普段発見の関西弁ここで記録します。</p>
-<p>–<strong>2025年9月6日</strong>–</p>
-<p>ほな</p>
-<p>大阪弁の「ほな」は、「それでは」「では」「それじゃあ」「じゃあ」といった意味で、接続詞としても、別れ際の挨拶としても使われます。また、前後の文脈によって「それなら」といった意味で使われることもあり、非常に汎用性の高い言葉です。</p>
-<hr>
-<p>しばく</p>
-<p>「しばく」には、物を棒などで強く叩くという意味と、大阪弁で軽い飲食や遊びに行くことを指す用法があります。前者は文字通り暴力的な意味合いですが、後者は「茶しばく」（お茶する）のように、親しい間柄での軽い誘いや日常的な表現として使われ、本気で殴るつもりはありません。</p>
-<hr>
-<p>–<strong>2020年1月30日</strong>–<br>
-おらん とはどういう意味ですか?</p>
-<blockquote>
-<p>文からするとその方は関西の人ですかね。おらんは方言で、「いない」という意味です。<br>
-例文：<em>俺も一緒やな 3年ぐらいはおらん。</em></p>
-</blockquote>
-<p>–<strong>2019年2月1日</strong>–</p>
-<hr>
-<p>①関西弁の～ねんけど、～やねん、～ねんの意味を教えて下さい<br>
-②～ねやは～ですかの意味ですか？それ意外に意味、使い方等は有りますか？<br>
-③言葉の関西弁のアクセントを教えて下さい</p>
-<p>①・・・<br>
-～ねんけど ですけれど（〇〇なんですけれど）<br>
-～やねん、～ねん です（〇〇なんです）</p>
-<p>②・・・<br>
-～ねやは～（～やねん”わ”～ですね。）<br>
-〇○なんですよ。</p>
-<p>③・・・<br>
-～ねんけど（中中）<br>
-～やねん（高低）<br>
-～やねんわ～（高低中）</p>
-<span id="more"></span>  
-<hr>
-<p>関西弁で、「あんねんけど」と「あるねんけど」の違いはなんですか？</p>
-<p>意味の違いはない。<br>
-「あるねんけど」＝「あんねんけど」</p>
-<p>「る」が撥音化して「ん」になっただけ。日本語では語中の「ラ行音」が「ん」に変化する傾向がある。<br>
-・それで→そんで<br>
-・分からない→分かんない</p>
-<p>–<strong>2018年12月8日</strong>–</p>
-<hr>
-<p>せやからアカンてゆうたやろ<br>
-せやから 別表記：そやから<br>
-「だから」の意味。主に関西地方で用いる。「そやから」ともいう。</p>
-<p>アカン(あかん)<br>
-関西弁で「ダメ」の意味。</p>
-<p>『ゆうて』は『～言って』<br>
-##方言で だから ダメって 言ったでしょ</p>
-<p>–<strong>2018年8月29日</strong>–</p>
-<hr>
-<p>ビビり【名词】<br>
-1.颤动，振纹（机械）<br>
-2.胆小，大阪方言。関西弁</p>
-<hr>
-<p>女子|おなご</p>
-<ul>
-<li>名词
-<ul>
-<li>（女の子、女児）。</li>
-<li>（女の人、女性、婦人）。</li>
-<li>（召し使いの女、女中、はしため）。　&lt;-関西弁</li>
-</ul>
-</li>
-</ul>
-<p>–<strong>2018年8月7日</strong>–</p>
-<hr>
-<p>それアカンやつや<br>
-一字一句、分けてみましょう。「それ、アカン、やつ、や」になります。<br>
-「それ」はthatのことですよね。<br>
-「アカン」はNOのことです。その通り、関西弁です。<br>
-「やつ」は奴のことです。人を愚弄する言い方ですね。でも人以外に、ものに対しても指す場合があります。<br>
-「や」も関西弁です。<br>
-これを東京の人が話すと「それはいけない人だよね～」や「それはありえないよね～」という言い方になります。元ネタを想像すると、ここでは「やつ」はものを指していると思います。</p>
-<hr>
-<p>せ や な<br>
-同意を表明する語。関西弁。「そうだね」、「そうだな」などに相当する。</p>
-<hr>
-<p>しんどい</p>
-<ul>
-<li>骨が折れる。難儀だ。<br>
-例文：
-<ul>
-<li>この仕事はしんどい。</li>
-</ul>
-</li>
-<li>くたびれている。<br>
-例文：
-<ul>
-<li>しんどくてもこの仕事をやってしまおう。</li>
-<li>おお，しんどい。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>ほんま 【本真】（ 名 ・形動 ）<br>
-本当である・こと（さま）。真実。主に関西地方で用いる。 「 －の話やで」 「 －に驚いたわ」</p>
-<hr>
-<p>しゃあない<br>
-大阪弁で「しかたない」の意味である。</p>
-<hr>
-<p>アカン<br>
-（「埒らち明かぬ」の略。多く関西で使う）うまくいかない。だめだ。不可である。</p>
-<hr>
-<p>アホやん<br>
-ドジっ娘</p>
-<p>中国語：<br>
-跟冒失娘（ドジっ娘）类似，关西方言</p>
-<blockquote>
-<p>冒失娘（ドジっ娘），萌属性之一。此属性以女性为主，若是男性可用较中性的“ドジっ子”。<br>
-日文“どじ”或“どぢ”是指人或事的出错和失误。“ドジっ娘”就是指经常弄翻物件、行事笨拙、“大错不出，小错不断”，总是搞出呆呆笨笨事情的少女。<br>
-中文意译的“冒失”，是指做事有漏失，而不是为人鲁莽无礼的意思。<br>
-どじっ应该不写成汉字<br>
-参考自维基百科</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>日本語</category>
-      </categories>
-      <tags>
-        <tag>関西弁</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RustでTelegram BotをLambdaにデプロイする</title>
     <url>/posts/1754556687621/</url>
     <content><![CDATA[<p>Telegram BotにはサーバーとWebhookの二つの立ち上げる方法があります。Lambdaはサーバーレスだから、今回はWebhookで使用します。</p>
@@ -7347,6 +7324,129 @@ Telegram Botに<code>/userid</code>を送信してテストしましょう。</p
       </tags>
   </entry>
   <entry>
+    <title>関西弁コレクション</title>
+    <url>/posts/a4241e7/</url>
+    <content><![CDATA[<p>普段発見の関西弁ここで記録します。</p>
+<p>–<strong>2025年9月6日</strong>–</p>
+<p>ほな</p>
+<p>大阪弁の「ほな」は、「それでは」「では」「それじゃあ」「じゃあ」といった意味で、接続詞としても、別れ際の挨拶としても使われます。また、前後の文脈によって「それなら」といった意味で使われることもあり、非常に汎用性の高い言葉です。</p>
+<hr>
+<p>しばく</p>
+<p>「しばく」には、物を棒などで強く叩くという意味と、大阪弁で軽い飲食や遊びに行くことを指す用法があります。前者は文字通り暴力的な意味合いですが、後者は「茶しばく」（お茶する）のように、親しい間柄での軽い誘いや日常的な表現として使われ、本気で殴るつもりはありません。</p>
+<hr>
+<p>–<strong>2020年1月30日</strong>–<br>
+おらん とはどういう意味ですか?</p>
+<blockquote>
+<p>文からするとその方は関西の人ですかね。おらんは方言で、「いない」という意味です。<br>
+例文：<em>俺も一緒やな 3年ぐらいはおらん。</em></p>
+</blockquote>
+<p>–<strong>2019年2月1日</strong>–</p>
+<hr>
+<p>①関西弁の～ねんけど、～やねん、～ねんの意味を教えて下さい<br>
+②～ねやは～ですかの意味ですか？それ意外に意味、使い方等は有りますか？<br>
+③言葉の関西弁のアクセントを教えて下さい</p>
+<p>①・・・<br>
+～ねんけど ですけれど（〇〇なんですけれど）<br>
+～やねん、～ねん です（〇〇なんです）</p>
+<p>②・・・<br>
+～ねやは～（～やねん”わ”～ですね。）<br>
+〇○なんですよ。</p>
+<p>③・・・<br>
+～ねんけど（中中）<br>
+～やねん（高低）<br>
+～やねんわ～（高低中）</p>
+<span id="more"></span>  
+<hr>
+<p>関西弁で、「あんねんけど」と「あるねんけど」の違いはなんですか？</p>
+<p>意味の違いはない。<br>
+「あるねんけど」＝「あんねんけど」</p>
+<p>「る」が撥音化して「ん」になっただけ。日本語では語中の「ラ行音」が「ん」に変化する傾向がある。<br>
+・それで→そんで<br>
+・分からない→分かんない</p>
+<p>–<strong>2018年12月8日</strong>–</p>
+<hr>
+<p>せやからアカンてゆうたやろ<br>
+せやから 別表記：そやから<br>
+「だから」の意味。主に関西地方で用いる。「そやから」ともいう。</p>
+<p>アカン(あかん)<br>
+関西弁で「ダメ」の意味。</p>
+<p>『ゆうて』は『～言って』<br>
+##方言で だから ダメって 言ったでしょ</p>
+<p>–<strong>2018年8月29日</strong>–</p>
+<hr>
+<p>ビビり【名词】<br>
+1.颤动，振纹（机械）<br>
+2.胆小，大阪方言。関西弁</p>
+<hr>
+<p>女子|おなご</p>
+<ul>
+<li>名词
+<ul>
+<li>（女の子、女児）。</li>
+<li>（女の人、女性、婦人）。</li>
+<li>（召し使いの女、女中、はしため）。　&lt;-関西弁</li>
+</ul>
+</li>
+</ul>
+<p>–<strong>2018年8月7日</strong>–</p>
+<hr>
+<p>それアカンやつや<br>
+一字一句、分けてみましょう。「それ、アカン、やつ、や」になります。<br>
+「それ」はthatのことですよね。<br>
+「アカン」はNOのことです。その通り、関西弁です。<br>
+「やつ」は奴のことです。人を愚弄する言い方ですね。でも人以外に、ものに対しても指す場合があります。<br>
+「や」も関西弁です。<br>
+これを東京の人が話すと「それはいけない人だよね～」や「それはありえないよね～」という言い方になります。元ネタを想像すると、ここでは「やつ」はものを指していると思います。</p>
+<hr>
+<p>せ や な<br>
+同意を表明する語。関西弁。「そうだね」、「そうだな」などに相当する。</p>
+<hr>
+<p>しんどい</p>
+<ul>
+<li>骨が折れる。難儀だ。<br>
+例文：
+<ul>
+<li>この仕事はしんどい。</li>
+</ul>
+</li>
+<li>くたびれている。<br>
+例文：
+<ul>
+<li>しんどくてもこの仕事をやってしまおう。</li>
+<li>おお，しんどい。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>ほんま 【本真】（ 名 ・形動 ）<br>
+本当である・こと（さま）。真実。主に関西地方で用いる。 「 －の話やで」 「 －に驚いたわ」</p>
+<hr>
+<p>しゃあない<br>
+大阪弁で「しかたない」の意味である。</p>
+<hr>
+<p>アカン<br>
+（「埒らち明かぬ」の略。多く関西で使う）うまくいかない。だめだ。不可である。</p>
+<hr>
+<p>アホやん<br>
+ドジっ娘</p>
+<p>中国語：<br>
+跟冒失娘（ドジっ娘）类似，关西方言</p>
+<blockquote>
+<p>冒失娘（ドジっ娘），萌属性之一。此属性以女性为主，若是男性可用较中性的“ドジっ子”。<br>
+日文“どじ”或“どぢ”是指人或事的出错和失误。“ドジっ娘”就是指经常弄翻物件、行事笨拙、“大错不出，小错不断”，总是搞出呆呆笨笨事情的少女。<br>
+中文意译的“冒失”，是指做事有漏失，而不是为人鲁莽无礼的意思。<br>
+どじっ应该不写成汉字<br>
+参考自维基百科</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>日本語</category>
+      </categories>
+      <tags>
+        <tag>関西弁</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>告别小米，投奔三星</title>
     <url>/posts/1753552481855/</url>
     <content><![CDATA[<p>使用三星的一部分生态已经接近半年多了，同时为了未来的准备，渐渐把自己的一些老旧设备都换新了，没用的东西要么送人了要么卖二手，顺便记录一下目前的状态。</p>
@@ -7446,106 +7546,6 @@ Telegram Botに<code>/userid</code>を送信してテストしましょう。</p
         <tag>三星</tag>
         <tag>澎湃OS</tag>
         <tag>ONEUI</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python获取网页源码(爬虫?)</title>
-    <url>/posts/cee10602/</url>
-    <content><![CDATA[<p>利用requrst,使用首先要</p>
-<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests</code></pre>
-<p>使用方法</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">url <span class="token operator">=</span> <span class="token string">'要获取的网页地址'</span>
-useragent <span class="token operator">=</span> <span class="token string">'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'</span><span class="token comment">#user-agent 可有可无,有些网页防爬虫就要模拟浏览器</span>
-requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span>headers<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">'User-Agent'</span><span class="token punctuation">:</span>useragent<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python使用lxml分析网页</title>
-    <url>/posts/77d15527/</url>
-    <content><![CDATA[<p>首先得引入lxml</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#xpath为</span>
-frome lxml <span class="token keyword">import</span> etree
-<span class="token comment">#cssselector为</span>
-<span class="token keyword">import</span> lxml<span class="token punctuation">.</span>html
-<span class="token comment">#cssselector使用起来简单但功能比xpath少</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>cssselector</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">tree <span class="token operator">=</span> lxml<span class="token punctuation">.</span>html<span class="token punctuation">.</span>fromstring<span class="token punctuation">(</span><span class="token string">'你获取的网页源代码文件或变量'</span><span class="token punctuation">)</span>
-css <span class="token operator">=</span> tree<span class="token punctuation">.</span>cssselect<span class="token punctuation">(</span><span class="token string">'要选择的内容'</span><span class="token punctuation">)</span>
-
-<span class="token comment">#例如tree.cssselect('div.word-info > div.pronounces > span.word-audio')</span>
-<span class="token comment">#选择器选择的结果为list</span>
-
-css<span class="token punctuation">.</span>text_content<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-<span class="token comment">#表示选择的内容</span>
-
-css<span class="token punctuation">.</span>attrib<span class="token punctuation">[</span><span class="token string">'要表示的标签属性'</span><span class="token punctuation">]</span>
-
-<span class="token comment">#如css.attrb['class']表示的就是所选择内容的class属性</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p><strong>如果选择的内容换行符太多可以使用split表示成list去除</strong></p>
-<table>
-<thead>
-<tr>
-<th>说明</th>
-<th>例子</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>选择所有标签</td>
-<td>*</td>
-</tr>
-<tr>
-<td>选择&lt;a&gt;标签</td>
-<td>a</td>
-</tr>
-<tr>
-<td>选择所有class=&quot;link&quot;的标签</td>
-<td>.link</td>
-</tr>
-<tr>
-<td>选择class=&quot;link&quot;的&lt;a&gt;标签</td>
-<td>a.link</td>
-</tr>
-<tr>
-<td>选择id=&quot;home&quot;的&lt;a&gt;标签</td>
-<td>a#home</td>
-</tr>
-<tr>
-<td>选择父元素为&lt;a&gt;标签的所有&lt;span&gt;标签</td>
-<td>a &gt; span</td>
-</tr>
-<tr>
-<td>选择&lt;a&gt;标签内部的所有&lt;span&gt;标签</td>
-<td>a span</td>
-</tr>
-<tr>
-<td>选择title属性为”Home”的所有&lt;a&gt;标签</td>
-<td>a[title=Home]</td>
-</tr>
-</tbody>
-</table>
-<p>xpath</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">selector<span class="token operator">=</span>etree<span class="token punctuation">.</span>HTML<span class="token punctuation">(</span><span class="token string">'你获取的网页源代码文件或变量'</span><span class="token punctuation">)</span>
-css <span class="token operator">=</span> selector<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'要选择的内容'</span><span class="token punctuation">)</span>
-<span class="token comment">#xpath可直接表示</span>
-<span class="token comment">#xpath可选择并表示属性</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p><em>xpath由于内容太多,可以直接参考官方文档</em></p>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>编程</tag>
       </tags>
   </entry>
 </search>
