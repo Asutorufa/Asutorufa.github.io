@@ -660,52 +660,6 @@ log<span class="token punctuation">.</span><span class="token function">Println<
       </tags>
   </entry>
   <entry>
-    <title>GeoIP mmdb format</title>
-    <url>/posts/931c13a4/</url>
-    <content><![CDATA[<p>complete document <a href="https://maxmind.github.io/MaxMind-DB/">MaxMind DB File Format SpecificationDescription</a></p>
-<p>here is only how convert trie tree to array</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">0100, 1011 -> trie
-
-<span class="token code keyword">              root
-               |
-         +-----+------+
-        /              \
-       0                1
-     /   \             /  \</span>
-   null   1           0   null
-         / \        /   \
-        0 null     null   1
-       / \               / \
-       0 null         null  1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>trie -&gt; array<br>
-left is 0, right is 1<br>
-value is index of array<span id="more"></span></p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"> left | right  byte/index
-2     |   4    0-1
-null  |   6    2-3
-8     |  null  4-5
-10    |  null  6-7
-null  |  12    8-9
-14    |  null  10-11
-null  |  16    11-12
-end   |  null  12-13
-null  |  end   13-14
-
-array: [2,4,null,6,8,null,10,null,null,12,14,null,null,16,end,null,null,end]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>for example:</p>
-<p>index 1:<br>
-next left index 2 is null, so 00* is not exist<br>
-next right index 2+1 = 3 is not null, continue search until end or null</p>
-<p>this is one byte as one child, but one byte max is 255, if node more than 255, we can use multiple byte as one child</p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>Network</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>EDNS</title>
     <url>/posts/668530ca/</url>
     <content><![CDATA[<p>这个DNS系列现在有以下几篇文章<br>
@@ -967,6 +921,52 @@ ADDRESS就是设置的SubNet的IP地址,依据上面的FAMILY</p>
         <tag>DNS</tag>
         <tag>UDP</tag>
         <tag>EDNS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GeoIP mmdb format</title>
+    <url>/posts/931c13a4/</url>
+    <content><![CDATA[<p>complete document <a href="https://maxmind.github.io/MaxMind-DB/">MaxMind DB File Format SpecificationDescription</a></p>
+<p>here is only how convert trie tree to array</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">0100, 1011 -> trie
+
+<span class="token code keyword">              root
+               |
+         +-----+------+
+        /              \
+       0                1
+     /   \             /  \</span>
+   null   1           0   null
+         / \        /   \
+        0 null     null   1
+       / \               / \
+       0 null         null  1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>trie -&gt; array<br>
+left is 0, right is 1<br>
+value is index of array<span id="more"></span></p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"> left | right  byte/index
+2     |   4    0-1
+null  |   6    2-3
+8     |  null  4-5
+10    |  null  6-7
+null  |  12    8-9
+14    |  null  10-11
+null  |  16    11-12
+end   |  null  12-13
+null  |  end   13-14
+
+array: [2,4,null,6,8,null,10,null,null,12,14,null,null,16,end,null,null,end]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>for example:</p>
+<p>index 1:<br>
+next left index 2 is null, so 00* is not exist<br>
+next right index 2+1 = 3 is not null, continue search until end or null</p>
+<p>this is one byte as one child, but one byte max is 255, if node more than 255, we can use multiple byte as one child</p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>Network</tag>
       </tags>
   </entry>
   <entry>
@@ -1271,98 +1271,6 @@ x<span class="token punctuation">.</span>innerHTML<span class="token operator">=
       </tags>
   </entry>
   <entry>
-    <title>NAT类型</title>
-    <url>/posts/14e0ef9e/</url>
-    <content><![CDATA[<h2 id="NAT-Mapping">NAT Mapping</h2>
-<p>描述NAT在映射网络内主机地址的行为</p>
-<pre class="language-markdown" data-language="markdown"><code class="language-markdown">computer(192.168.100.2:30086) -> NAT -> 1.1.1.1:2345</code></pre>
-<p>Endpoint-Independent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向不同地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
-
-此时主机向 1.0.0.1:53 发送udp包,
-             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
-主机又向   1.0.0.1:63 发送udp包,
-             NAT也使用 1.1.1.1:2345 向 1.0.0.1:63 发包
-主机又向   8.8.8.8:53 发送udp包,
-             NAT也使用 1.1.1.1:2345 向 8.8.8.8:53 发包
-
-这种无论目标地址和端口是什么都使用同一地址进行发包的NAT行为就是 Endpoint-Independent Mapping,
-跟没有NAT一样<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Address-Dependent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向同一地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
-
-此时主机向 1.0.0.1:53 发送udp包,
-             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
-主机又向   1.0.0.1:63 发送udp包,
-             NAT也将使用 1.1.1.1:2345 向 1.0.0.1:63 发包
-主机又向   8.8.8.8:53 发送udp包,
-             此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
-
-这种依赖目标地址但不依赖端口的NAT映射行为就是 Address-Dependent Mapping<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>Address and Port-Dependent Mapping</p>
-<p>网络内主机在通过同一监听udp地址向同一地址和同一端口发包时, NAT使用同一映射地址向外发包</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
-
-此时主机向 1.0.0.1:53 发送udp包, 
-            NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
-主机又向   1.0.0.1:63 发送udp包,
-            NAT将使用一新映射地址 1.1.1.1:3789 向 1.0.0.1:63 发包
-主机又向   8.8.8.8:53 发送udp包,
-           此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
-主机又向 1.0.0.1:53 发送udp包,
-            NAT使用相同地址 1.1.1.1:2345 向 1.0.0.1:53 发包
-
-这种同时依赖目标地址和端口的NAT映射行为就是 Address and Port-Dependent Mapping,
-这种NAT类型是没有办法进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="NAT-Filtering">NAT Filtering</h2>
-<p>描述当NAT为网络内主机映射一地址后，互联网内主机向映射地址发送数据时，将允许哪些地址通过的行为</p>
-<p>Endpoint-Independent Filtering</p>
-<p>A NAT device employing the combination of “Endpoint-Independent<br>
-Mapping” and “Endpoint-Independent Filtering” will accept incoming<br>
-traffic to a mapped public port from ANY external endpoint on the<br>
-public network.</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
-
-无论外部任何地址和端口的主机向1.1.1.1:2345发包, NAT都将会将其转发到 192.168.100.2:30086<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>Address-Dependent Filtering<br>
-for receiving packets from a specific external endpoint, it is necessary for the internal endpoint to<br>
-send packets first to that specific external endpoint’s IP address.</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
-
-如果需要NAT将外部数据包转发到主机上,
-必须先由主机向某一地址发包, 
-NAT都会将收到的同一地址(所有端口)的数据包转发到主机上<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Address and Port-Dependent Filtering</p>
-<p>for receiving  packets from a specific external endpoint, it is necessary for<br>
-the internal endpoint to send packets first to that external endpoint’s IP address and port.</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
-
-如果需要NAT将外部数据包转发到主机上
-必须先由主机向某一地址和某一端口发包
-NAT都会将收到的同一地址和同一端口的数据包转发到主机上
-
-这种NAT类型是没发进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="NAT穿透">NAT穿透</h2>
-<p>是否可以进行NAT穿透, 同时依赖NAT Mapping和NAT Filtering</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">Mapping和Filtering都为Endpoint-Independent Mapping,
-         这种是百分之百可以进行穿透
-Mapping为Endpoint-Independent Mapping, Filtering为Address and Port-Dependent Filtering,
-         这种也是可以进行穿透的
-但如果Mapping和Filtering都为Address and Port-Dependent Filtering,
-         这种是必不可能穿透<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>UDP</tag>
-        <tag>NAT</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Kubernetesのコントローラーを作ろう</title>
     <url>/posts/70902a01/</url>
     <content><![CDATA[<h2 id="Kubernetesコントローラーとは">Kubernetesコントローラーとは</h2>
@@ -1566,6 +1474,192 @@ cli<span class="token punctuation">,</span> err <span class="token operator">:=<
       </tags>
   </entry>
   <entry>
+    <title>NAT穿透</title>
+    <url>/posts/1124a628/</url>
+    <content><![CDATA[<h2 id="NAT-网络地址转换">NAT 网络地址转换</h2>
+<p>网络地址转换 NAT (Network Address Translation)  方法于1994年提出。<br>
+需要在专用网连接到互联网的路由器上安装 NAT 软件。装有 NAT 软件的路由器叫作 NAT路由器，它至少有一个有效的外部全球IP地址。<br>
+所有使用本地地址的主机在和外界通信时，都要在 NAT 路由器上将其本地地址转换成全球 IP 地址，才能和互联网连接。</p>
+<h3 id="网络地址转换的过程">网络地址转换的过程</h3>
+<p>内部主机 A 用本地地址 IPA 和互联网上主机 B 通信所发送的数据报必须经过 NAT 路由器。<br>
+NAT 路由器将数据报的源地址 IPA 转换成全球地址 IPG，<strong>并把转换结果记录到NAT地址转换表中</strong>，目的地址 IPB 保持不变，然后发送到互联网。<br>
+NAT 路由器收到主机 B 发回的数据报时，知道数据报中的源地址是 IPB 而目的地址是 IPG。<br>
+根据 NAT 转换表，NAT 路由器将目的地址 IPG 转换为 IPA，转发给最终的内部主机 A。</p>
+<p>网络地址转换表例子:</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+-------------+---------------+
+| private IP  |   public IP   |
++-------------+---------------+
+| 192.168.1.55|219.152.168.222|
++-------------+---------------+
+| 192.168.1.59|219.152.168.223|
++-------------+---------------+
+|192.168.1.155|219.152.168.224|
++-------------+---------------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<h3 id="NAPT-网络地址与端口号转换">NAPT 网络地址与端口号转换</h3>
+<p>为了更加有效地利用 NAT 路由器上的全球IP地址，现在常用的 NAT 转换表把运输层的端口号也利用上。这样，就可以使多个拥有本地地址的主机，共用一个 NAT 路由器上的全球 IP 地址，因而可以同时和互联网上的不同主机进行通信。<br>
+使用端口号的 NAT 叫作网络地址与端口号转换NAPT (Network Address and Port Translation)，而不使用端口号的 NAT 就叫作传统的 NAT (traditional NAT)。</p>
+<p>带端口的网络地址转换表例子:</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+-----------------+--------------------+
+|   private IP    |     public IP      |
++-----------------+--------------------+
+|192.168.1.55:5566|219.152.168.222:9200|
++-----------------+--------------------+
+| 192.168.1.59:80 |219.152.168.222:9201|
++-----------------+--------------------+
+|192.168.1.59:4465|219.152.168.222:9202|
++-----------------+--------------------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="不同类型的NAT">不同类型的NAT</h3>
+<p>来自Wikipedia</p>
+<ul>
+<li>完全圆锥型NAT（Full cone NAT），即一对一（one-to-one）NAT<br>
+一旦一个内部地址（iAddr:port）映射到外部地址（eAddr:port），所有发自iAddr:port的包都经由eAddr:port向外发送。任意外部主机都能通过给eAddr:port发包到达iAddr:port（注：port不需要一样）</li>
+<li>受限圆锥型NAT（Address-Restricted cone NAT）<br>
+内部客户端必须首先发送数据包到对方（IP=X.X.X.X），然后才能接收来自X.X.X.X的数据包。在限制方面，唯一的要求是数据包是来自X.X.X.X。<br>
+内部地址（iAddr:port1）映射到外部地址（eAddr:port2），所有发自iAddr:port1的包都经由eAddr:port2向外发送。外部主机（hostAddr:any）能通过给eAddr:port2发包到达iAddr:port1。（注：any指外部主机源端口不受限制，但是目的端口必须是port2。只有外部主机数据包的目的IP 为 内部客户端的所映射的外部ip，且目的端口为port2时数据包才被放行。）</li>
+<li>端口受限圆锥型NAT（Port-Restricted cone NAT）<br>
+类似受限制锥形NAT（Restricted cone NAT），但是还有端口限制。<br>
+一旦一个内部地址（iAddr:port1）映射到外部地址（eAddr:port2），所有发自iAddr:port1的包都经由eAddr:port2向外发送。<br>
+在受限圆锥型NAT基础上增加了外部主机源端口必须是固定的。</li>
+<li>对称NAT（Symmetric NAT）<br>
+每一个来自相同内部IP与端口，到一个特定目的地地址和端口的请求，都映射到一个独特的外部IP地址和端口。<br>
+同一内部IP与端口发到不同的目的地和端口的信息包，都使用不同的映射<br>
+只有曾经收到过内部主机数据的外部主机，才能够把数据包发回</li>
+</ul>
+<h2 id="UDP打洞">UDP打洞</h2>
+<p>UDP打洞就是利用了NAT地址转换表.</p>
+<h3 id="正常访问一台具有公网IP的主机">正常访问一台具有公网IP的主机</h3>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">      +-----+
+A <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span>  <span class="token attr-name">|</span> <span class="token attr-name">NAT</span> <span class="token attr-name">|</span>  <span class="token attr-name">-----Public</span> <span class="token attr-name">INTERNET</span> <span class="token attr-name">-</span><span class="token punctuation">></span></span> B
+      +-----+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>由主机A向主机B发起请求.<br>
+NAT将内网地址转换为公网地址,并存在NAT转换表中,这样NAT就知道了来自B的访问应该发给A.</p>
+<h3 id="两台都在NAT中的主机建立连接">两台都在NAT中的主机建立连接</h3>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">      +-----+                              +-----+
+A <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span>  <span class="token attr-name">|NATA</span> <span class="token attr-name">|</span>  <span class="token attr-name">-----</span> <span class="token attr-name">Public</span> <span class="token attr-name">INTERNET</span> <span class="token attr-name">-----</span> <span class="token attr-name">|</span> <span class="token attr-name">NATB|</span>  <span class="token attr-name">-</span><span class="token punctuation">></span></span> B
+      +-----+                              +-----+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>首先我们需要知道两台NAT的公网地址和主机A,B的端口.<br>
+假设NATA的公网地址为1.1.1.1,主机A的端口为1000,NATB的公网地址为1.0.0.1,主机B的端口为1001.<br>
+然后由A向1.0.0.1:1001发起UDP请求,这样NATA就会记住来自1.0.0.1:1001的请求应该发给A.<br>
+B也进行同样的操作向1.1.1.1:1000,发起UDP请求.<br>
+这样A和B就建立起了一条连接.</p>
+<p>为了知道主机A和主机B所在网络公网地址,我们需要有一台在公网中的主机来存储A和B的公网地址和端口.</p>
+<h3 id="STUN">STUN</h3>
+<p>STUN（Session Traversal Utilities for NAT，NAT会话穿越应用程序）是一种网络协议，它允许位于NAT（或多重NAT）后的客户端找出自己的公网地址，查出自己位于哪种类型的NAT之后以及NAT为某一个本地端口所绑定的Internet端端口。这些信息被用来在两个同时处于NAT路由器之后的主机之间创建UDP通信。该协议由<a href="https://tools.ietf.org/html/rfc5389">RFC 5389</a>定义。</p>
+<h3 id="TURN">TURN</h3>
+<p>TURN（全名Traversal Using Relay NAT），是一种数据传输协议（data-transfer protocol）。允许在TCP或UDP的连在线跨越NAT或防火墙。<br>
+TURN是一个client-server协议。TURN的NAT穿透方法与STUN类似，都是通过获取应用层中的公有地址达到NAT穿透。但实现TURN client的终端必须在通信开始前与TURN server进行交互，并要求TURN server产生&quot;relay port&quot;，也就是relayed-transport-address。这时TURN server会创建peer，即远程端点（remote endpoints），开始进行中继（relay）的动作，TURN client利用relay port将数据发送至peer，再由peer转传到另一方的TURN client。该协议由<a href="https://tools.ietf.org/html/rfc5766">RFC 5766</a>定义。</p>
+<hr>
+<blockquote>
+<p><a href="https://zh.wikipedia.org/wiki/STUN">STUN</a><br>
+<a href="https://zh.wikipedia.org/wiki/TURN">TURN</a><br>
+<a href="https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2">网络地址转换</a><br>
+<a href="https://blog.csdn.net/ustcgy/article/details/5655050">NAT与NAT穿透(二)</a><br>
+<a href="https://zhuanlan.zhihu.com/p/40816201">简单解释 P2P 技术之 UDP 打洞</a><br>
+<a href="http://www.52im.net/thread-50-1-1.html">P2P技术详解(一)：NAT详解——详细原理、P2P简介</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>UDP</tag>
+        <tag>NAT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NAT类型</title>
+    <url>/posts/14e0ef9e/</url>
+    <content><![CDATA[<h2 id="NAT-Mapping">NAT Mapping</h2>
+<p>描述NAT在映射网络内主机地址的行为</p>
+<pre class="language-markdown" data-language="markdown"><code class="language-markdown">computer(192.168.100.2:30086) -> NAT -> 1.1.1.1:2345</code></pre>
+<p>Endpoint-Independent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向不同地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
+
+此时主机向 1.0.0.1:53 发送udp包,
+             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
+主机又向   1.0.0.1:63 发送udp包,
+             NAT也使用 1.1.1.1:2345 向 1.0.0.1:63 发包
+主机又向   8.8.8.8:53 发送udp包,
+             NAT也使用 1.1.1.1:2345 向 8.8.8.8:53 发包
+
+这种无论目标地址和端口是什么都使用同一地址进行发包的NAT行为就是 Endpoint-Independent Mapping,
+跟没有NAT一样<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Address-Dependent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向同一地址和不同端口发包时, NAT使用同一映射地址向外发包</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
+
+此时主机向 1.0.0.1:53 发送udp包,
+             NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
+主机又向   1.0.0.1:63 发送udp包,
+             NAT也将使用 1.1.1.1:2345 向 1.0.0.1:63 发包
+主机又向   8.8.8.8:53 发送udp包,
+             此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
+
+这种依赖目标地址但不依赖端口的NAT映射行为就是 Address-Dependent Mapping<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>Address and Port-Dependent Mapping</p>
+<p>网络内主机在通过同一监听udp地址向同一地址和同一端口发包时, NAT使用同一映射地址向外发包</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086
+
+此时主机向 1.0.0.1:53 发送udp包, 
+            NAT使用 1.1.1.1:2345 向 1.0.0.1:53 发包
+主机又向   1.0.0.1:63 发送udp包,
+            NAT将使用一新映射地址 1.1.1.1:3789 向 1.0.0.1:63 发包
+主机又向   8.8.8.8:53 发送udp包,
+           此时NAT将使用一新映射地址 1.1.1.1:5678 向 8.8.8.8:53 发包
+主机又向 1.0.0.1:53 发送udp包,
+            NAT使用相同地址 1.1.1.1:2345 向 1.0.0.1:53 发包
+
+这种同时依赖目标地址和端口的NAT映射行为就是 Address and Port-Dependent Mapping,
+这种NAT类型是没有办法进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="NAT-Filtering">NAT Filtering</h2>
+<p>描述当NAT为网络内主机映射一地址后，互联网内主机向映射地址发送数据时，将允许哪些地址通过的行为</p>
+<p>Endpoint-Independent Filtering</p>
+<p>A NAT device employing the combination of “Endpoint-Independent<br>
+Mapping” and “Endpoint-Independent Filtering” will accept incoming<br>
+traffic to a mapped public port from ANY external endpoint on the<br>
+public network.</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
+
+无论外部任何地址和端口的主机向1.1.1.1:2345发包, NAT都将会将其转发到 192.168.100.2:30086<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>Address-Dependent Filtering<br>
+for receiving packets from a specific external endpoint, it is necessary for the internal endpoint to<br>
+send packets first to that specific external endpoint’s IP address.</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
+
+如果需要NAT将外部数据包转发到主机上,
+必须先由主机向某一地址发包, 
+NAT都会将收到的同一地址(所有端口)的数据包转发到主机上<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Address and Port-Dependent Filtering</p>
+<p>for receiving  packets from a specific external endpoint, it is necessary for<br>
+the internal endpoint to send packets first to that external endpoint’s IP address and port.</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">如 网络内一主机监听了一udp地址 192.168.100.2:30086, NAT将其映射到 1.1.1.1:2345
+
+如果需要NAT将外部数据包转发到主机上
+必须先由主机向某一地址和某一端口发包
+NAT都会将收到的同一地址和同一端口的数据包转发到主机上
+
+这种NAT类型是没发进行NAT穿透的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="NAT穿透">NAT穿透</h2>
+<p>是否可以进行NAT穿透, 同时依赖NAT Mapping和NAT Filtering</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">Mapping和Filtering都为Endpoint-Independent Mapping,
+         这种是百分之百可以进行穿透
+Mapping为Endpoint-Independent Mapping, Filtering为Address and Port-Dependent Filtering,
+         这种也是可以进行穿透的
+但如果Mapping和Filtering都为Address and Port-Dependent Filtering,
+         这种是必不可能穿透<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>UDP</tag>
+        <tag>NAT</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>OpenCV瞳孔定位</title>
     <url>/posts/88967b7c/</url>
     <content><![CDATA[<h2 id="利用OpenCV自带的分类器识别面部及眼睛">利用OpenCV自带的分类器识别面部及眼睛</h2>
@@ -1702,100 +1796,6 @@ std<span class="token double-colon punctuation">::</span>vector<span class="toke
         <tag>C++</tag>
         <tag>OpenCV</tag>
         <tag>archlinux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>NAT穿透</title>
-    <url>/posts/1124a628/</url>
-    <content><![CDATA[<h2 id="NAT-网络地址转换">NAT 网络地址转换</h2>
-<p>网络地址转换 NAT (Network Address Translation)  方法于1994年提出。<br>
-需要在专用网连接到互联网的路由器上安装 NAT 软件。装有 NAT 软件的路由器叫作 NAT路由器，它至少有一个有效的外部全球IP地址。<br>
-所有使用本地地址的主机在和外界通信时，都要在 NAT 路由器上将其本地地址转换成全球 IP 地址，才能和互联网连接。</p>
-<h3 id="网络地址转换的过程">网络地址转换的过程</h3>
-<p>内部主机 A 用本地地址 IPA 和互联网上主机 B 通信所发送的数据报必须经过 NAT 路由器。<br>
-NAT 路由器将数据报的源地址 IPA 转换成全球地址 IPG，<strong>并把转换结果记录到NAT地址转换表中</strong>，目的地址 IPB 保持不变，然后发送到互联网。<br>
-NAT 路由器收到主机 B 发回的数据报时，知道数据报中的源地址是 IPB 而目的地址是 IPG。<br>
-根据 NAT 转换表，NAT 路由器将目的地址 IPG 转换为 IPA，转发给最终的内部主机 A。</p>
-<p>网络地址转换表例子:</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+-------------+---------------+
-| private IP  |   public IP   |
-+-------------+---------------+
-| 192.168.1.55|219.152.168.222|
-+-------------+---------------+
-| 192.168.1.59|219.152.168.223|
-+-------------+---------------+
-|192.168.1.155|219.152.168.224|
-+-------------+---------------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<h3 id="NAPT-网络地址与端口号转换">NAPT 网络地址与端口号转换</h3>
-<p>为了更加有效地利用 NAT 路由器上的全球IP地址，现在常用的 NAT 转换表把运输层的端口号也利用上。这样，就可以使多个拥有本地地址的主机，共用一个 NAT 路由器上的全球 IP 地址，因而可以同时和互联网上的不同主机进行通信。<br>
-使用端口号的 NAT 叫作网络地址与端口号转换NAPT (Network Address and Port Translation)，而不使用端口号的 NAT 就叫作传统的 NAT (traditional NAT)。</p>
-<p>带端口的网络地址转换表例子:</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+-----------------+--------------------+
-|   private IP    |     public IP      |
-+-----------------+--------------------+
-|192.168.1.55:5566|219.152.168.222:9200|
-+-----------------+--------------------+
-| 192.168.1.59:80 |219.152.168.222:9201|
-+-----------------+--------------------+
-|192.168.1.59:4465|219.152.168.222:9202|
-+-----------------+--------------------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="不同类型的NAT">不同类型的NAT</h3>
-<p>来自Wikipedia</p>
-<ul>
-<li>完全圆锥型NAT（Full cone NAT），即一对一（one-to-one）NAT<br>
-一旦一个内部地址（iAddr:port）映射到外部地址（eAddr:port），所有发自iAddr:port的包都经由eAddr:port向外发送。任意外部主机都能通过给eAddr:port发包到达iAddr:port（注：port不需要一样）</li>
-<li>受限圆锥型NAT（Address-Restricted cone NAT）<br>
-内部客户端必须首先发送数据包到对方（IP=X.X.X.X），然后才能接收来自X.X.X.X的数据包。在限制方面，唯一的要求是数据包是来自X.X.X.X。<br>
-内部地址（iAddr:port1）映射到外部地址（eAddr:port2），所有发自iAddr:port1的包都经由eAddr:port2向外发送。外部主机（hostAddr:any）能通过给eAddr:port2发包到达iAddr:port1。（注：any指外部主机源端口不受限制，但是目的端口必须是port2。只有外部主机数据包的目的IP 为 内部客户端的所映射的外部ip，且目的端口为port2时数据包才被放行。）</li>
-<li>端口受限圆锥型NAT（Port-Restricted cone NAT）<br>
-类似受限制锥形NAT（Restricted cone NAT），但是还有端口限制。<br>
-一旦一个内部地址（iAddr:port1）映射到外部地址（eAddr:port2），所有发自iAddr:port1的包都经由eAddr:port2向外发送。<br>
-在受限圆锥型NAT基础上增加了外部主机源端口必须是固定的。</li>
-<li>对称NAT（Symmetric NAT）<br>
-每一个来自相同内部IP与端口，到一个特定目的地地址和端口的请求，都映射到一个独特的外部IP地址和端口。<br>
-同一内部IP与端口发到不同的目的地和端口的信息包，都使用不同的映射<br>
-只有曾经收到过内部主机数据的外部主机，才能够把数据包发回</li>
-</ul>
-<h2 id="UDP打洞">UDP打洞</h2>
-<p>UDP打洞就是利用了NAT地址转换表.</p>
-<h3 id="正常访问一台具有公网IP的主机">正常访问一台具有公网IP的主机</h3>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">      +-----+
-A <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span>  <span class="token attr-name">|</span> <span class="token attr-name">NAT</span> <span class="token attr-name">|</span>  <span class="token attr-name">-----Public</span> <span class="token attr-name">INTERNET</span> <span class="token attr-name">-</span><span class="token punctuation">></span></span> B
-      +-----+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>由主机A向主机B发起请求.<br>
-NAT将内网地址转换为公网地址,并存在NAT转换表中,这样NAT就知道了来自B的访问应该发给A.</p>
-<h3 id="两台都在NAT中的主机建立连接">两台都在NAT中的主机建立连接</h3>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">      +-----+                              +-----+
-A <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span>  <span class="token attr-name">|NATA</span> <span class="token attr-name">|</span>  <span class="token attr-name">-----</span> <span class="token attr-name">Public</span> <span class="token attr-name">INTERNET</span> <span class="token attr-name">-----</span> <span class="token attr-name">|</span> <span class="token attr-name">NATB|</span>  <span class="token attr-name">-</span><span class="token punctuation">></span></span> B
-      +-----+                              +-----+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>首先我们需要知道两台NAT的公网地址和主机A,B的端口.<br>
-假设NATA的公网地址为1.1.1.1,主机A的端口为1000,NATB的公网地址为1.0.0.1,主机B的端口为1001.<br>
-然后由A向1.0.0.1:1001发起UDP请求,这样NATA就会记住来自1.0.0.1:1001的请求应该发给A.<br>
-B也进行同样的操作向1.1.1.1:1000,发起UDP请求.<br>
-这样A和B就建立起了一条连接.</p>
-<p>为了知道主机A和主机B所在网络公网地址,我们需要有一台在公网中的主机来存储A和B的公网地址和端口.</p>
-<h3 id="STUN">STUN</h3>
-<p>STUN（Session Traversal Utilities for NAT，NAT会话穿越应用程序）是一种网络协议，它允许位于NAT（或多重NAT）后的客户端找出自己的公网地址，查出自己位于哪种类型的NAT之后以及NAT为某一个本地端口所绑定的Internet端端口。这些信息被用来在两个同时处于NAT路由器之后的主机之间创建UDP通信。该协议由<a href="https://tools.ietf.org/html/rfc5389">RFC 5389</a>定义。</p>
-<h3 id="TURN">TURN</h3>
-<p>TURN（全名Traversal Using Relay NAT），是一种数据传输协议（data-transfer protocol）。允许在TCP或UDP的连在线跨越NAT或防火墙。<br>
-TURN是一个client-server协议。TURN的NAT穿透方法与STUN类似，都是通过获取应用层中的公有地址达到NAT穿透。但实现TURN client的终端必须在通信开始前与TURN server进行交互，并要求TURN server产生&quot;relay port&quot;，也就是relayed-transport-address。这时TURN server会创建peer，即远程端点（remote endpoints），开始进行中继（relay）的动作，TURN client利用relay port将数据发送至peer，再由peer转传到另一方的TURN client。该协议由<a href="https://tools.ietf.org/html/rfc5766">RFC 5766</a>定义。</p>
-<hr>
-<blockquote>
-<p><a href="https://zh.wikipedia.org/wiki/STUN">STUN</a><br>
-<a href="https://zh.wikipedia.org/wiki/TURN">TURN</a><br>
-<a href="https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2">网络地址转换</a><br>
-<a href="https://blog.csdn.net/ustcgy/article/details/5655050">NAT与NAT穿透(二)</a><br>
-<a href="https://zhuanlan.zhihu.com/p/40816201">简单解释 P2P 技术之 UDP 打洞</a><br>
-<a href="http://www.52im.net/thread-50-1-1.html">P2P技术详解(一)：NAT详解——详细原理、P2P简介</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>UDP</tag>
-        <tag>NAT</tag>
       </tags>
   </entry>
   <entry>
@@ -2376,6 +2376,90 @@ ep <span class="token operator">:=</span> fdbased<span class="token punctuation"
       </tags>
   </entry>
   <entry>
+    <title>android dumpsys tool</title>
+    <url>/posts/25303996/</url>
+    <content><![CDATA[<p>查看dumpsys所有的子命令:</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dumpsys <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"DUMP OF SERVICE"</span></code></pre>
+<p>output:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">DUMP OF SERVICE SurfaceFlinger:
+DUMP OF SERVICE accessibility:
+DUMP OF SERVICE account:
+DUMP OF SERVICE activity:
+DUMP OF SERVICE alarm:
+DUMP OF SERVICE appwidget:
+DUMP OF SERVICE audio:
+DUMP OF SERVICE backup:
+DUMP OF SERVICE battery:
+DUMP OF SERVICE batteryinfo:
+DUMP OF SERVICE clipboard:
+DUMP OF SERVICE connectivity:
+DUMP OF SERVICE content:
+DUMP OF SERVICE cpuinfo:
+DUMP OF SERVICE device_policy:
+DUMP OF SERVICE devicestoragemonitor:
+DUMP OF SERVICE diskstats:
+DUMP OF SERVICE dropbox:
+DUMP OF SERVICE entropy:
+DUMP OF SERVICE hardware:
+DUMP OF SERVICE input_method:
+DUMP OF SERVICE iphonesubinfo:
+DUMP OF SERVICE isms:
+DUMP OF SERVICE location:
+DUMP OF SERVICE media.audio_flinger:
+DUMP OF SERVICE media.audio_policy:
+DUMP OF SERVICE media.player:
+DUMP OF SERVICE meminfo:
+DUMP OF SERVICE mount:
+DUMP OF SERVICE netstat:
+DUMP OF SERVICE network_management:
+DUMP OF SERVICE notification:
+DUMP OF SERVICE package:
+DUMP OF SERVICE permission:
+DUMP OF SERVICE phone:
+DUMP OF SERVICE power:
+DUMP OF SERVICE reboot:
+DUMP OF SERVICE screenshot:
+DUMP OF SERVICE search:
+DUMP OF SERVICE sensor:
+DUMP OF SERVICE simphonebook:
+DUMP OF SERVICE statusbar:
+DUMP OF SERVICE telephony.registry:
+DUMP OF SERVICE throttle:
+DUMP OF SERVICE usagestats:
+DUMP OF SERVICE vibrator:
+DUMP OF SERVICE wallpaper:
+DUMP OF SERVICE wifi:
+DUMP OF SERVICE window:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>eg:<br>
+1.得到电池的所有信息</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys battery</code></pre>
+<p>2.得到wifi的所有信息</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys wifi</code></pre>
+<p>3.得到cpu的所有信息</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys cpuinfo</code></pre>
+<p>4.得到总的存储情况</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys meminfo</code></pre>
+<p>5.得到某应用的存储情况</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys meminfo <span class="token string">'your apps package name'</span></code></pre>
+<p>6.得到所有的服务列表</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell <span class="token function">service</span> list</code></pre>
+<p>7.得到所有的账户列表</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys account</code></pre>
+<p>8.获得某子命令的帮助信息</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys account <span class="token parameter variable">-h</span></code></pre>
+<p>参考:<br>
+<a href="https://stackoverflow.com/questions/11201659/whats-the-android-adb-shell-dumpsys-tool-and-what-are-its-benefits">What’s the Android ADB shell “dumpsys” tool and what are its benefits?</a></p>
+]]></content>
+      <categories>
+        <category>android</category>
+      </categories>
+      <tags>
+        <tag>android</tag>
+        <tag>adb</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>UDPプロキシはFullcone NATを実現する</title>
     <url>/posts/4893f166/</url>
     <content><![CDATA[<h2 id="NATの種類">NATの種類</h2>
@@ -2750,87 +2834,45 @@ pc<span class="token punctuation">,</span> err <span class="token operator">:=</
       </tags>
   </entry>
   <entry>
-    <title>android dumpsys tool</title>
-    <url>/posts/25303996/</url>
-    <content><![CDATA[<p>查看dumpsys所有的子命令:</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">dumpsys <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"DUMP OF SERVICE"</span></code></pre>
-<p>output:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">DUMP OF SERVICE SurfaceFlinger:
-DUMP OF SERVICE accessibility:
-DUMP OF SERVICE account:
-DUMP OF SERVICE activity:
-DUMP OF SERVICE alarm:
-DUMP OF SERVICE appwidget:
-DUMP OF SERVICE audio:
-DUMP OF SERVICE backup:
-DUMP OF SERVICE battery:
-DUMP OF SERVICE batteryinfo:
-DUMP OF SERVICE clipboard:
-DUMP OF SERVICE connectivity:
-DUMP OF SERVICE content:
-DUMP OF SERVICE cpuinfo:
-DUMP OF SERVICE device_policy:
-DUMP OF SERVICE devicestoragemonitor:
-DUMP OF SERVICE diskstats:
-DUMP OF SERVICE dropbox:
-DUMP OF SERVICE entropy:
-DUMP OF SERVICE hardware:
-DUMP OF SERVICE input_method:
-DUMP OF SERVICE iphonesubinfo:
-DUMP OF SERVICE isms:
-DUMP OF SERVICE location:
-DUMP OF SERVICE media.audio_flinger:
-DUMP OF SERVICE media.audio_policy:
-DUMP OF SERVICE media.player:
-DUMP OF SERVICE meminfo:
-DUMP OF SERVICE mount:
-DUMP OF SERVICE netstat:
-DUMP OF SERVICE network_management:
-DUMP OF SERVICE notification:
-DUMP OF SERVICE package:
-DUMP OF SERVICE permission:
-DUMP OF SERVICE phone:
-DUMP OF SERVICE power:
-DUMP OF SERVICE reboot:
-DUMP OF SERVICE screenshot:
-DUMP OF SERVICE search:
-DUMP OF SERVICE sensor:
-DUMP OF SERVICE simphonebook:
-DUMP OF SERVICE statusbar:
-DUMP OF SERVICE telephony.registry:
-DUMP OF SERVICE throttle:
-DUMP OF SERVICE usagestats:
-DUMP OF SERVICE vibrator:
-DUMP OF SERVICE wallpaper:
-DUMP OF SERVICE wifi:
-DUMP OF SERVICE window:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>eg:<br>
-1.得到电池的所有信息</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys battery</code></pre>
-<p>2.得到wifi的所有信息</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys wifi</code></pre>
-<p>3.得到cpu的所有信息</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys cpuinfo</code></pre>
-<p>4.得到总的存储情况</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys meminfo</code></pre>
-<p>5.得到某应用的存储情况</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys meminfo <span class="token string">'your apps package name'</span></code></pre>
-<p>6.得到所有的服务列表</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell <span class="token function">service</span> list</code></pre>
-<p>7.得到所有的账户列表</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys account</code></pre>
-<p>8.获得某子命令的帮助信息</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys account <span class="token parameter variable">-h</span></code></pre>
-<p>参考:<br>
-<a href="https://stackoverflow.com/questions/11201659/whats-the-android-adb-shell-dumpsys-tool-and-what-are-its-benefits">What’s the Android ADB shell “dumpsys” tool and what are its benefits?</a></p>
+    <title>c语言中格式化字符的应用</title>
+    <url>/posts/b6b4601/</url>
+    <content><![CDATA[<h2 id="格式化规定符">格式化规定符</h2>
+<p>符号 作用<br>
+%d 十进制有符号整数<br>
+%u 十进制无符号整数<br>
+%f 浮点数<br>
+%s 字符串<br>
+%c 单个字符<br>
+%p 指针的值<br>
+%e 指数形式的浮点数<br>
+%x, %X 无符号以十六进制表示的整数<span id="more"></span><br>
+%0 无符号以八进制表示的整数<br>
+%g 自动选择合适的表示法</p>
+<p>说明:<br>
+(1). 可以在&quot;%“和字母之间插进数字表示最大场宽。<br>
+例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>
+%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>
+另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>
+例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>
+如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>
+例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>
+(2). 可以在”%“和字母之间加小写字母l, 表示输出的是长型数。<br>
+例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>
+(3). 可以控制输出左对齐或右对齐, 即在”%“和字母之间加入一个”-&quot; 号可说明输出为左对齐, 否则为右对齐。<br>
+例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
+<h2 id="一些特殊规定字符">一些特殊规定字符</h2>
+<p>字符 作用<br>
+/n   换行<br>
+/f   清屏并换页<br>
+/r   回车<br>
+/t   Tab符<br>
+/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
 ]]></content>
       <categories>
-        <category>android</category>
+        <category>Program</category>
       </categories>
       <tags>
-        <tag>android</tag>
-        <tag>adb</tag>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -3214,48 +3256,6 @@ This will change the cursor to the dark breeze, I don't know the name of the whi
       </tags>
   </entry>
   <entry>
-    <title>c语言中格式化字符的应用</title>
-    <url>/posts/b6b4601/</url>
-    <content><![CDATA[<h2 id="格式化规定符">格式化规定符</h2>
-<p>符号 作用<br>
-%d 十进制有符号整数<br>
-%u 十进制无符号整数<br>
-%f 浮点数<br>
-%s 字符串<br>
-%c 单个字符<br>
-%p 指针的值<br>
-%e 指数形式的浮点数<br>
-%x, %X 无符号以十六进制表示的整数<span id="more"></span><br>
-%0 无符号以八进制表示的整数<br>
-%g 自动选择合适的表示法</p>
-<p>说明:<br>
-(1). 可以在&quot;%“和字母之间插进数字表示最大场宽。<br>
-例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>
-%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>
-另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>
-例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>
-如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>
-例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>
-(2). 可以在”%“和字母之间加小写字母l, 表示输出的是长型数。<br>
-例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>
-(3). 可以控制输出左对齐或右对齐, 即在”%“和字母之间加入一个”-&quot; 号可说明输出为左对齐, 否则为右对齐。<br>
-例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
-<h2 id="一些特殊规定字符">一些特殊规定字符</h2>
-<p>字符 作用<br>
-/n   换行<br>
-/f   清屏并换页<br>
-/r   回车<br>
-/t   Tab符<br>
-/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>c语言基本类型在内存中的存储方式</title>
     <url>/posts/e404489/</url>
     <content><![CDATA[<h2 id="浮点数">浮点数</h2>
@@ -3330,6 +3330,45 @@ This will change the cursor to the dark breeze, I don't know the name of the whi
 <li>整数:(1111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><msup><mn>2</mn><mi>n</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-(2^n-1) \leq x \leq 2^n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7477em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></strong> (01111…1)</li>
 <li>小数:(1.111…1) <strong><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mi>n</mi></msup><mo stretchy="false">)</mo><mo>≤</mo><mi>x</mi><mo>≤</mo><mn>1</mn><mo>−</mo><msup><mn>2</mn><mrow><mo>−</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">-(1-2^n) \leq x \leq 1-2^{-n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7713em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span></strong> (0.111…1)</li>
 </ul>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c语言数组输出的另一种方法</title>
+    <url>/posts/854ed6ec/</url>
+    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173">一个有趣的C语言程序</a></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+ 
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">2</span></code></pre>
+<span id="more"></span>
+<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>
+a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
+所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>
+所以就是x[1]对应的值：2</p>
+<p>由此我又想到了二位数组</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+ 
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">4</span></code></pre>
+<p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
 ]]></content>
       <categories>
         <category>Program</category>
@@ -3527,45 +3566,6 @@ The fields in the UDP request header are:
       </tags>
   </entry>
   <entry>
-    <title>c语言数组输出的另一种方法</title>
-    <url>/posts/854ed6ec/</url>
-    <content><![CDATA[<p>今天看到这样一种写法,原文链接:<a href="http://blog.accut.cn/archives/173">一个有趣的C语言程序</a></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
- 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">2</span></code></pre>
-<span id="more"></span>
-<p>int x[5],x实际上保存的是这个数组首元素的地址也就是&amp;x[0].<br>
-a[x]的等效写法是*(a+&amp;x).因为上面说了x实际上是x[0].<br>
-所以可以进一步写成*(a+&amp;x[0]),又因为a=1所以可以替换成*(&amp;x[0]+1),也就是x[1].<br>
-所以就是x[1]对应的值：2</p>
-<p>由此我又想到了二位数组</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
- 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span>a<span class="token punctuation">[</span>a<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="language-bash" data-language="bash"><code class="language-bash">output: <span class="token number">4</span></code></pre>
-<p>感觉好神奇,而且在之前不知道在哪看到__c语言的数组其实就是指针的合集__,而且最近要用链表,更觉得链表和数组差不多.</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>golangとollamaでfunction calling</title>
     <url>/posts/23567986/</url>
     <content><![CDATA[<p>今回はollamaのオフィシャルクライアントでfuncation callingを使いたいです。　　<br>
@@ -3730,53 +3730,6 @@ err <span class="token operator">=</span> o<span class="token punctuation">.</sp
       </tags>
   </entry>
   <entry>
-    <title>gpg使用</title>
-    <url>/posts/7d547224/</url>
-    <content><![CDATA[<p>生成一个密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg --full-gen-key</code></pre>
-<p>之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了.</p>
-<p>创建一个子密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --edit-key <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-
-gpg<span class="token operator">></span> addkey
-<span class="token comment">#只有与前面是相同的, 按需求选择.</span>
-
-gpg<span class="token operator">></span> save
-<span class="token comment"># 保存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>导出密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key --export-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
-<p>导出子密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key.sub --export-secret-subkeys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
-<p>导出吊销证书</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --generate-revocation <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-<span class="token comment"># 输出是文本内容, 复制保存下来就行了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>删除密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --delete-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
-gpg --delete-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>导入子密钥</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">--import</span> /path/gpg_key.sub</code></pre>
-<p>查看密钥</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-k</span>
-gpg <span class="token parameter variable">-K</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>加密文件</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-r</span> <span class="token punctuation">[</span>user name<span class="token punctuation">]</span> <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-e</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span></code></pre>
-<p>解密</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 输出到文件</span>
-gpg <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 直接输出到终端</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<hr>
-<p><a href="https://gist.github.com/jhjguxin/6037564">GPG 加密解密简明教程</a><br>
-<a href="https://mogeko.me/2019/068/">GPG 的正确使用姿势</a></p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>encrypt</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>golang实现子进程后台</title>
     <url>/posts/89c4c907/</url>
     <content><![CDATA[<h2 id="系统的进程机制">系统的进程机制</h2>
@@ -3860,6 +3813,53 @@ golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
         <tag>golang</tag>
         <tag>linux</tag>
         <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>gpg使用</title>
+    <url>/posts/7d547224/</url>
+    <content><![CDATA[<p>生成一个密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg --full-gen-key</code></pre>
+<p>之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了.</p>
+<p>创建一个子密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --edit-key <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+
+gpg<span class="token operator">></span> addkey
+<span class="token comment">#只有与前面是相同的, 按需求选择.</span>
+
+gpg<span class="token operator">></span> save
+<span class="token comment"># 保存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>导出密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key --export-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
+<p>导出子密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> /path/gpg_key.sub --export-secret-subkeys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span></code></pre>
+<p>导出吊销证书</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --generate-revocation <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+<span class="token comment"># 输出是文本内容, 复制保存下来就行了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>删除密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg --delete-secret-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span>
+gpg --delete-keys <span class="token punctuation">[</span>key hash<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>导入子密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">--import</span> /path/gpg_key.sub</code></pre>
+<p>查看密钥</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-k</span>
+gpg <span class="token parameter variable">-K</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>加密文件</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-r</span> <span class="token punctuation">[</span>user name<span class="token punctuation">]</span> <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-e</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span></code></pre>
+<p>解密</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gpg <span class="token parameter variable">-o</span> <span class="token punctuation">[</span>output file<span class="token punctuation">]</span> <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 输出到文件</span>
+gpg <span class="token parameter variable">-d</span> <span class="token punctuation">[</span>filename<span class="token punctuation">]</span> <span class="token comment"># 直接输出到终端</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<hr>
+<p><a href="https://gist.github.com/jhjguxin/6037564">GPG 加密解密简明教程</a><br>
+<a href="https://mogeko.me/2019/068/">GPG 的正确使用姿势</a></p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>encrypt</tag>
       </tags>
   </entry>
   <entry>
@@ -4212,6 +4212,30 @@ default         <span class="token number">0.0</span>.0.0         <span class="t
       </tags>
   </entry>
   <entry>
+    <title>nodejs异步回调函数</title>
+    <url>/posts/5938ae8c/</url>
+    <content><![CDATA[<p>研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.<br>
+如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then.</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+
+<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>nodejs</category>
+      </categories>
+      <tags>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>linux下intel&amp;AMD双显卡切换</title>
     <url>/posts/3b8b96de/</url>
     <content><![CDATA[<p>使用<strong>xrandr</strong>显示可支持的显卡</p>
@@ -4246,30 +4270,6 @@ Provider <span class="token number">1</span>: id: 0x41 cap: 0x6, Sink Output, So
         <tag>linux</tag>
         <tag>双显卡</tag>
         <tag>amd</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nodejs异步回调函数</title>
-    <url>/posts/5938ae8c/</url>
-    <content><![CDATA[<p>研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.<br>
-如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then.</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-
-<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>nodejs</category>
-      </categories>
-      <tags>
-        <tag>nodejs</tag>
       </tags>
   </entry>
   <entry>
@@ -4640,6 +4640,40 @@ module &quot;module3&quot; &#123;
       </tags>
   </entry>
   <entry>
+    <title>とある番組の記録</title>
+    <url>/posts/fe7367b8/</url>
+    <content><![CDATA[<p>最近わたくしはたくさん言葉知りました、記録したい、例えば：どこ見つかった、どうおもう。<br>
+今回は「２２・７　計算中」、この番組すごくおもしろい、ぜひ見てください。</p>
+<h2 id="ツッコミ・漫才・呆け">ツッコミ・漫才・呆け</h2>
+<p>この番組のMCは三四郎さん、おふたりはお笑い芸人ですね、この前に私は全然しらなかった、いつも「ツッコミ」を言うで、知りたいですからしらべました。</p>
+<h2 id="パクリ">パクリ</h2>
+<p>「滝川みうのテンションが上がる動画選手権」で都ちゃんの得点は０点、理由は彼女作りASMR動画は最初みうちゃんの自己PR動画のなかのひとつのパクリ。ここがわたくし知りました。</p>
+<h2 id="醍醐味">醍醐味</h2>
+<p>相田さんはとある回あるVTRの評価です。</p>
+<h2 id="屁理屈">屁理屈</h2>
+<p>桜ちゃんたくさん屁理屈を言った、でもかわいいです。</p>
+<h2 id="キャバクラ">キャバクラ</h2>
+<p>「誰かキャバクラに誘うたらどうですか？」は第７３回と７４回でひとつ問題です。神木みかみ優しすぎる、結果受ける。</p>
+<h2 id="ため口">ため口</h2>
+<p>じつはわたくしは日本の上下関係理解不能。なんで「先輩に対してため口なんであり得ないだろう。」、堅苦しい過ぎるじゃないか。</p>
+<h2 id="オラオラ">オラオラ</h2>
+<p>わたくし今覚えるのはこれは相田さん誰に評価です。</p>
+<h2 id="オフショット・グラビア">オフショット・グラビア</h2>
+<p>１．いつもの写真<br>
+２．アイドルの写真</p>
+<h2 id="ロケ">ロケ</h2>
+<p>多分VTRです。外へ出てに撮影すること。</p>
+<hr>
+<p>まだまだあるです。</p>
+]]></content>
+      <categories>
+        <category>日本語</category>
+      </categories>
+      <tags>
+        <tag>日本語</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>三蛋空间自建贴吧云签到</title>
     <url>/posts/8a291f21/</url>
     <content><![CDATA[<h2 id="–">–</h2>
@@ -4682,40 +4716,6 @@ module &quot;module3&quot; &#123;
       <tags>
         <tag>建站</tag>
         <tag>免费</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>とある番組の記録</title>
-    <url>/posts/fe7367b8/</url>
-    <content><![CDATA[<p>最近わたくしはたくさん言葉知りました、記録したい、例えば：どこ見つかった、どうおもう。<br>
-今回は「２２・７　計算中」、この番組すごくおもしろい、ぜひ見てください。</p>
-<h2 id="ツッコミ・漫才・呆け">ツッコミ・漫才・呆け</h2>
-<p>この番組のMCは三四郎さん、おふたりはお笑い芸人ですね、この前に私は全然しらなかった、いつも「ツッコミ」を言うで、知りたいですからしらべました。</p>
-<h2 id="パクリ">パクリ</h2>
-<p>「滝川みうのテンションが上がる動画選手権」で都ちゃんの得点は０点、理由は彼女作りASMR動画は最初みうちゃんの自己PR動画のなかのひとつのパクリ。ここがわたくし知りました。</p>
-<h2 id="醍醐味">醍醐味</h2>
-<p>相田さんはとある回あるVTRの評価です。</p>
-<h2 id="屁理屈">屁理屈</h2>
-<p>桜ちゃんたくさん屁理屈を言った、でもかわいいです。</p>
-<h2 id="キャバクラ">キャバクラ</h2>
-<p>「誰かキャバクラに誘うたらどうですか？」は第７３回と７４回でひとつ問題です。神木みかみ優しすぎる、結果受ける。</p>
-<h2 id="ため口">ため口</h2>
-<p>じつはわたくしは日本の上下関係理解不能。なんで「先輩に対してため口なんであり得ないだろう。」、堅苦しい過ぎるじゃないか。</p>
-<h2 id="オラオラ">オラオラ</h2>
-<p>わたくし今覚えるのはこれは相田さん誰に評価です。</p>
-<h2 id="オフショット・グラビア">オフショット・グラビア</h2>
-<p>１．いつもの写真<br>
-２．アイドルの写真</p>
-<h2 id="ロケ">ロケ</h2>
-<p>多分VTRです。外へ出てに撮影すること。</p>
-<hr>
-<p>まだまだあるです。</p>
-]]></content>
-      <categories>
-        <category>日本語</category>
-      </categories>
-      <tags>
-        <tag>日本語</tag>
       </tags>
   </entry>
   <entry>
@@ -4882,6 +4882,36 @@ i915-GVTg_V5_8  <span class="token comment"># Video memory: &lt;64MB, 384MB>, re
       </tags>
   </entry>
   <entry>
+    <title>c语言利用char指针变量将int按字节打印地址</title>
+    <url>/posts/43cb2931/</url>
+    <content><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>
+而char的大小刚好为一个字节,是我们想要的东西.<br>
+这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>
+代码如下</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p\n%p\n%p\n%p\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%02x\n%02x\n%02x\n%02x\n"</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>两者结合一下</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p %02x\n%p %02x\n%p %02x\n%p %02x\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>输出内容如图<br>
+<img src="http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png" alt="" loading="lazy"><br>
+<strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>利用结构体让函数返回多个值</title>
     <url>/posts/c69434f1/</url>
     <content><![CDATA[<h2 id="c语言">c语言</h2>
@@ -4944,36 +4974,6 @@ S <span class="token function">s</span><span class="token punctuation">(</span><
       </categories>
       <tags>
         <tag>C++</tag>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言利用char指针变量将int按字节打印地址</title>
-    <url>/posts/43cb2931/</url>
-    <content><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>
-而char的大小刚好为一个字节,是我们想要的东西.<br>
-这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>
-代码如下</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p\n%p\n%p\n%p\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%02x\n%02x\n%02x\n%02x\n"</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>两者结合一下</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p %02x\n%p %02x\n%p %02x\n%p %02x\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>输出内容如图<br>
-<img src="http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png" alt="" loading="lazy"><br>
-<strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
         <tag>C</tag>
       </tags>
   </entry>
@@ -5292,6 +5292,33 @@ Output: plaintext, or an error if the authentication tag does not match the supp
       </tags>
   </entry>
   <entry>
+    <title>安卓通过shell更改语言</title>
+    <url>/posts/f7f814df/</url>
+    <content><![CDATA[<p>对于Android M或更高版本，使用：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">setprop ro.product.locale xx-XX
+setprop persist.sys.locale xx-XX<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>xx是语言<br>
+XX是国家<br>
+改为日语为:xx=ja XX=JP</p>
+<p>其他安卓版本:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">setprop persist.sys.language xx
+setprop persist.sys.country XX
+setprop ctl.restart zygote<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>xx是语言<br>
+XX是国家  <span id="more"></span><br>
+Zygote进程运行时, 会初始化Dalvik虚拟机, 并运行它. Android的应用程序是由Java编写的, 它们不能直接运行在Linux上, 只能运行在Dalvik虚拟机中. 并且, 每个应用程序都运行在各自的虚拟机中, 应用程序每次运行都要重新初始化并启动虚拟机, 这个过程会消耗相当长时间, 是拖慢应用程序的原因之一. 因此, 在Android中, 应用程序运行前, 通过Zygote进程共享已运行的虚拟机的代码与内存信息, 缩短应用程序运行所耗费的时间. 也就是说, Zygote进程会事先将应用程序要使用的Android Framework中的类与资源加载到内存中, 并组织形成所用资源的链接信息. 这样, 新运行的Android应用程序在使用所需资源时不必每次形成资源的链接信息, 这样就大大提升了程序的运行时间.</p>
+<p>参考:<br>
+1.<a href="http://bbs.bugcode.cn/t/16729">通过ADB更改设备语言</a><br>
+2.<a href="https://www.jianshu.com/p/3dbe46439359">初识Zygote进程</a></p>
+]]></content>
+      <categories>
+        <category>android</category>
+      </categories>
+      <tags>
+        <tag>android</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>实现一个简单的Kubernetes controller</title>
     <url>/posts/edf1c330/</url>
     <content><![CDATA[<h2 id="controller是什么">controller是什么</h2>
@@ -5491,33 +5518,6 @@ cli<span class="token punctuation">,</span> err <span class="token operator">:=<
         <tag>Kubernetes</tag>
         <tag>CRI</tag>
         <tag>container</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>安卓通过shell更改语言</title>
-    <url>/posts/f7f814df/</url>
-    <content><![CDATA[<p>对于Android M或更高版本，使用：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">setprop ro.product.locale xx-XX
-setprop persist.sys.locale xx-XX<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>xx是语言<br>
-XX是国家<br>
-改为日语为:xx=ja XX=JP</p>
-<p>其他安卓版本:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">setprop persist.sys.language xx
-setprop persist.sys.country XX
-setprop ctl.restart zygote<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>xx是语言<br>
-XX是国家  <span id="more"></span><br>
-Zygote进程运行时, 会初始化Dalvik虚拟机, 并运行它. Android的应用程序是由Java编写的, 它们不能直接运行在Linux上, 只能运行在Dalvik虚拟机中. 并且, 每个应用程序都运行在各自的虚拟机中, 应用程序每次运行都要重新初始化并启动虚拟机, 这个过程会消耗相当长时间, 是拖慢应用程序的原因之一. 因此, 在Android中, 应用程序运行前, 通过Zygote进程共享已运行的虚拟机的代码与内存信息, 缩短应用程序运行所耗费的时间. 也就是说, Zygote进程会事先将应用程序要使用的Android Framework中的类与资源加载到内存中, 并组织形成所用资源的链接信息. 这样, 新运行的Android应用程序在使用所需资源时不必每次形成资源的链接信息, 这样就大大提升了程序的运行时间.</p>
-<p>参考:<br>
-1.<a href="http://bbs.bugcode.cn/t/16729">通过ADB更改设备语言</a><br>
-2.<a href="https://www.jianshu.com/p/3dbe46439359">初识Zygote进程</a></p>
-]]></content>
-      <categories>
-        <category>android</category>
-      </categories>
-      <tags>
-        <tag>android</tag>
       </tags>
   </entry>
   <entry>
@@ -6280,91 +6280,6 @@ TCP端口80</p>
       </tags>
   </entry>
   <entry>
-    <title>离散对数问题</title>
-    <url>/posts/1f299eb2/</url>
-    <content><![CDATA[<p>前置知识 欧拉, 欧拉定理, 模反元素(模逆元) 可参见: <a href="/posts/f1a158c9/">RSA加密</a></p>
-<h2 id="阶">阶</h2>
-<p>由欧拉定理可知，若n,a为正整数，且n,a互素（即gcd(a,n)=1），则 a^phi(n) = 1 (mod n)。<br>
-因此满足同余式 a^m = 1 (mod n)的<strong>最小正整数m</strong>存在，这个m称作a模n的阶，记作delta(n,a)。</p>
-<h2 id="原根">原根</h2>
-<p>若n,a为正整数，且n,a互质，如果 gcd(a,n)=1 且 delta(n,a) = phi(n), 则称a为模n的原根.<br>
-简单来说，使该式成立的d可能有很多个值，又由欧拉定理可知delta(n,a) = phi(n)一定是满足的，如果此时所有delta(n,a)的可能取值中phi(n)是最小的，那么就称a为模n的原根。</p>
-<p>eg:</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">a=3, n=7
-可知 3,7互质, 所以phi(n) = 7 - 1 = 6
-可得 3^6 = 1 (mod 7)
-
-计算3^1, 3^2, 3^3, 3^4, 3^5 (mod 7) 都不等于1, 所以 6为满足 a^x = 1 (mod n)的最小正整数
-
-delta(7,3) = 6 = phi(7), 可得 3为模7的原根<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="性质">性质</h3>
-<span id="more"></span>
-<ul>
-<li>delta(n,a)一定能整除phi(n)</li>
-<li>若一个数m有原根, 则它的原根个数为phi(phi(m))</li>
-</ul>
-<h2 id="离散对数">离散对数</h2>
-<p>如果对于一个整数b和质数p的一个原根a，可以找到一个唯一的指数i，使得：<br>
-<strong>b= a^i (mod p), 其中 0 &lt;= i &lt;= p-1</strong><br>
-成立，那么指数i称为b的以a为基数的模p的离散对数。</p>
-<p>离散对数难题是指：<br>
-当已知一个大质数p和它的一个原根a，如果给定一个b，要计算i的值是相当困难的。<br>
-常将i作为私钥, b作为公钥，即使知道b和a也无法求出i。</p>
-<h2 id="应用">应用</h2>
-<ul>
-<li>DH密钥交换</li>
-</ul>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">取一质数 7, 计算出其原根 3, 同时质数7和其原根3是公开的
-
-Alice:
-  <span class="token list punctuation">-</span> 取一个随机数 3 作为自己的私钥
-  <span class="token list punctuation">-</span> 计算 3^3 (mod 7) = 6
-  <span class="token list punctuation">-</span> 将6作为公钥发送给Bob
-
-Bob:
-    <span class="token list punctuation">-</span> 取一个随机数 1 作为自己的私钥
-    <span class="token list punctuation">-</span> 计算 3^1 (mod 7) = 3
-    <span class="token list punctuation">-</span> 将3作为公钥发送给Alice
-
-Alice 使用 3 计算出共享密钥 3^3 (mod 7) = 6
-Bob 使用 6 计算出共享密钥 6^1 (mod 7) = 6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li>Elgamal加密</li>
-</ul>
-<p>接上面DH密钥交换</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">获取到公共密钥6之后，Alice和Bob都可以使用公共密钥6来加密信息
-
-palintext: 6
-
-加密: 6<span class="token italic"><span class="token punctuation">*</span><span class="token content">6 (mod 7) = 1, 密文为 1
-解密: 1</span><span class="token punctuation">*</span></span>6^-1 (mod 7) = 6 &lt;- 6^-1 是指6关于模7的逆元<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>上面的写的感觉不太对,完整过程</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">Alice 取一质数 7, 计算出其原根 3, 选一数 3 作为自己的私钥, 3^3 (mod 7) = 6
-将 &#123;7,3,6&#125; 作为公钥公开
-
-Bob想传递信息 6 给 Alice
-
-Bob选一数 5 作为自己的私钥
- <span class="token list punctuation">-</span> 加密密钥: 3^5 (mod 7) = 5
- <span class="token list punctuation">-</span> 公钥: 3^5 (mod 7) = 5
- <span class="token list punctuation">-</span> 密文: 6*(6^5) (mod 7) = 1
- <span class="token list punctuation">-</span> 将 (5,1) 作为密文发送给Alice
-
-Alice解密
- <span class="token list punctuation">-</span> 计算解密密钥: 5^3 (mod 7) = 6
- <span class="token list punctuation">-</span> 解密: 1 * 6^-1 (mod 7) = 6 &lt;- 此处6^-1是指6关于模7的逆元(模反元素) <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>Crypto</category>
-      </categories>
-      <tags>
-        <tag>Crypto</tag>
-        <tag>离散对数</tag>
-        <tag>DH密钥交换</tag>
-        <tag>Elgamal</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>秘密共享</title>
     <url>/posts/ce6c7d90/</url>
     <content><![CDATA[<h2 id="拉格朗日插值法">拉格朗日插值法</h2>
@@ -6542,6 +6457,91 @@ K = (k1 + k2 + k3) mod (4*5*11)
       <tags>
         <tag>Crypto</tag>
         <tag>Shamir</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>离散对数问题</title>
+    <url>/posts/1f299eb2/</url>
+    <content><![CDATA[<p>前置知识 欧拉, 欧拉定理, 模反元素(模逆元) 可参见: <a href="/posts/f1a158c9/">RSA加密</a></p>
+<h2 id="阶">阶</h2>
+<p>由欧拉定理可知，若n,a为正整数，且n,a互素（即gcd(a,n)=1），则 a^phi(n) = 1 (mod n)。<br>
+因此满足同余式 a^m = 1 (mod n)的<strong>最小正整数m</strong>存在，这个m称作a模n的阶，记作delta(n,a)。</p>
+<h2 id="原根">原根</h2>
+<p>若n,a为正整数，且n,a互质，如果 gcd(a,n)=1 且 delta(n,a) = phi(n), 则称a为模n的原根.<br>
+简单来说，使该式成立的d可能有很多个值，又由欧拉定理可知delta(n,a) = phi(n)一定是满足的，如果此时所有delta(n,a)的可能取值中phi(n)是最小的，那么就称a为模n的原根。</p>
+<p>eg:</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">a=3, n=7
+可知 3,7互质, 所以phi(n) = 7 - 1 = 6
+可得 3^6 = 1 (mod 7)
+
+计算3^1, 3^2, 3^3, 3^4, 3^5 (mod 7) 都不等于1, 所以 6为满足 a^x = 1 (mod n)的最小正整数
+
+delta(7,3) = 6 = phi(7), 可得 3为模7的原根<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="性质">性质</h3>
+<span id="more"></span>
+<ul>
+<li>delta(n,a)一定能整除phi(n)</li>
+<li>若一个数m有原根, 则它的原根个数为phi(phi(m))</li>
+</ul>
+<h2 id="离散对数">离散对数</h2>
+<p>如果对于一个整数b和质数p的一个原根a，可以找到一个唯一的指数i，使得：<br>
+<strong>b= a^i (mod p), 其中 0 &lt;= i &lt;= p-1</strong><br>
+成立，那么指数i称为b的以a为基数的模p的离散对数。</p>
+<p>离散对数难题是指：<br>
+当已知一个大质数p和它的一个原根a，如果给定一个b，要计算i的值是相当困难的。<br>
+常将i作为私钥, b作为公钥，即使知道b和a也无法求出i。</p>
+<h2 id="应用">应用</h2>
+<ul>
+<li>DH密钥交换</li>
+</ul>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">取一质数 7, 计算出其原根 3, 同时质数7和其原根3是公开的
+
+Alice:
+  <span class="token list punctuation">-</span> 取一个随机数 3 作为自己的私钥
+  <span class="token list punctuation">-</span> 计算 3^3 (mod 7) = 6
+  <span class="token list punctuation">-</span> 将6作为公钥发送给Bob
+
+Bob:
+    <span class="token list punctuation">-</span> 取一个随机数 1 作为自己的私钥
+    <span class="token list punctuation">-</span> 计算 3^1 (mod 7) = 3
+    <span class="token list punctuation">-</span> 将3作为公钥发送给Alice
+
+Alice 使用 3 计算出共享密钥 3^3 (mod 7) = 6
+Bob 使用 6 计算出共享密钥 6^1 (mod 7) = 6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>Elgamal加密</li>
+</ul>
+<p>接上面DH密钥交换</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">获取到公共密钥6之后，Alice和Bob都可以使用公共密钥6来加密信息
+
+palintext: 6
+
+加密: 6<span class="token italic"><span class="token punctuation">*</span><span class="token content">6 (mod 7) = 1, 密文为 1
+解密: 1</span><span class="token punctuation">*</span></span>6^-1 (mod 7) = 6 &lt;- 6^-1 是指6关于模7的逆元<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面的写的感觉不太对,完整过程</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">Alice 取一质数 7, 计算出其原根 3, 选一数 3 作为自己的私钥, 3^3 (mod 7) = 6
+将 &#123;7,3,6&#125; 作为公钥公开
+
+Bob想传递信息 6 给 Alice
+
+Bob选一数 5 作为自己的私钥
+ <span class="token list punctuation">-</span> 加密密钥: 3^5 (mod 7) = 5
+ <span class="token list punctuation">-</span> 公钥: 3^5 (mod 7) = 5
+ <span class="token list punctuation">-</span> 密文: 6*(6^5) (mod 7) = 1
+ <span class="token list punctuation">-</span> 将 (5,1) 作为密文发送给Alice
+
+Alice解密
+ <span class="token list punctuation">-</span> 计算解密密钥: 5^3 (mod 7) = 6
+ <span class="token list punctuation">-</span> 解密: 1 * 6^-1 (mod 7) = 6 &lt;- 此处6^-1是指6关于模7的逆元(模反元素) <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>Crypto</category>
+      </categories>
+      <tags>
+        <tag>Crypto</tag>
+        <tag>离散对数</tag>
+        <tag>DH密钥交换</tag>
+        <tag>Elgamal</tag>
       </tags>
   </entry>
   <entry>
