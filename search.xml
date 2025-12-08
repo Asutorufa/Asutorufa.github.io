@@ -970,6 +970,76 @@ next right index 2+1 = 3 is not null, continue search until end or null</p>
       </tags>
   </entry>
   <entry>
+    <title>HTTPS相关</title>
+    <url>/posts/11b2b8df/</url>
+    <content><![CDATA[<p>最近遇到了一件事, 让我又多熟悉了下HTTPS的相关内容, 先看看HTTPS的结构</p>
+<p>通常的HTTP网络结构如下</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+------+
+| HTTP |
++------+
+| TCP  |
++------+
+|  IP  |
++------+
+  ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>HTTP的的相关内容是通过TCP明文传输的, 如果有中间监听者, 可以直接看结相关内容.</p>
+<p>HTTPS的结构</p>
+<span id="more"></span>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+------+
+| HTTP |
++------+
+| TLS  |
++------+
+| TCP  |
++------+
+|  IP  |
++------+
+  ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>TCP和HTTP之前多了一次处理, 会将HTTP的内容加密后再通过TCP传输.<br>
+TLS握手过程中, 会协商使用的TLS版本, 加密方式及密钥, 会通过证书确认身份, 生成的密钥也会加密, 不想被看见握手过程的话, 目前还可以采用ESNI.<br>
+这里并不能完全匿名, 因为还是能通过网络层知道你的目的地址, 但是具体请求的内容就不会被看见了.</p>
+<hr>
+<p><strong>以下案例纯虚假编造的, 如有雷同, 纯属巧合.</strong><br>
+客户需求大概是这样, 希望在前后端传输过程中密码等敏感内容不要明文暴露, 不被中间劫持获取.<br>
+x公司x高级架构师采用的是这样的方案:</p>
+<ul>
+<li>前后端使用HTTP通信</li>
+<li>前端对相关敏感内容对称加密后传给后端, 后端解密获取内容</li>
+</ul>
+<p>不采用TLS的理由如下:</p>
+<ul>
+<li>可以通过浏览器漏洞获取</li>
+<li>HTTPS可以被暴力破解</li>
+</ul>
+<p>先说下采用的方案和不合理, 目前产品是传统的BS模式, 也就是说网页会从后端获取.<br>
+因为网页是从后端获取的, 而且是HTTP, 也就是说中间劫持者也可以获取网页内容, 通过分析js就能获取具体的加密方式, 即使对js进行混淆也最多是花的时间稍微长那么一点, 所以说这个方案完全无用, 当然欺骗一下不懂技术的客户还是可以的, 但是从技术角度是完全不可行的.<br>
+这里我们可以改一下产品的模式还是可行的, 使用electron等类似的技术将网页包装成一个客户端, 不通过后端获取网页还是可行的, 可能在使用上麻烦了一点, 但是这才能真正让前端的加密具有意义.</p>
+<p>再分析下不采用TLS的理由:</p>
+<ul>
+<li>
+<p>可以通过浏览器漏洞获取<br>
+这句话是废话, 浏览器真有漏洞不管是HTTP还是HTTPS都无用的.</p>
+</li>
+<li>
+<p>HTTPS可以被暴力破解</p>
+</li>
+</ul>
+<p>这里我们先分析下, 目前HTTPS可能被破解的几种方式.</p>
+<ol>
+<li>第一种, 在握手阶段使用虚假的证书进行握手, 这里需要在浏览器或者是客户端的系统上导入虚假的证书, 不过我认为一个安全意识很高的公司是不会随意导入不认识的证书的.</li>
+<li>第二种, 暴力破解TLS的加密, 不计时间情况下当然能被破解, 但是现代密码学, 即使使用超级计算机暴力破解都要花费很长很长时间.</li>
+</ol>
+<p>总上所述, 这句话也是废话.</p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>HTTPS</tag>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>HP Laptop linux 下intel&amp;amd双显卡</title>
     <url>/posts/34615c2d/</url>
     <content><![CDATA[<p>查看<code>双显卡</code>切换情况，正常情况下如果没有在用独显应该显示是<code>DynOff</code>，但是我这里即使是不开桌面也是<code>DynPwr</code></p>
@@ -1061,76 +1131,6 @@ next right index 2+1 = 3 is not null, continue search until end or null</p>
       <tags>
         <tag>bios</tag>
         <tag>computer</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HTTPS相关</title>
-    <url>/posts/11b2b8df/</url>
-    <content><![CDATA[<p>最近遇到了一件事, 让我又多熟悉了下HTTPS的相关内容, 先看看HTTPS的结构</p>
-<p>通常的HTTP网络结构如下</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+------+
-| HTTP |
-+------+
-| TCP  |
-+------+
-|  IP  |
-+------+
-  ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>HTTP的的相关内容是通过TCP明文传输的, 如果有中间监听者, 可以直接看结相关内容.</p>
-<p>HTTPS的结构</p>
-<span id="more"></span>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">+------+
-| HTTP |
-+------+
-| TLS  |
-+------+
-| TCP  |
-+------+
-|  IP  |
-+------+
-  ...  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>TCP和HTTP之前多了一次处理, 会将HTTP的内容加密后再通过TCP传输.<br>
-TLS握手过程中, 会协商使用的TLS版本, 加密方式及密钥, 会通过证书确认身份, 生成的密钥也会加密, 不想被看见握手过程的话, 目前还可以采用ESNI.<br>
-这里并不能完全匿名, 因为还是能通过网络层知道你的目的地址, 但是具体请求的内容就不会被看见了.</p>
-<hr>
-<p><strong>以下案例纯虚假编造的, 如有雷同, 纯属巧合.</strong><br>
-客户需求大概是这样, 希望在前后端传输过程中密码等敏感内容不要明文暴露, 不被中间劫持获取.<br>
-x公司x高级架构师采用的是这样的方案:</p>
-<ul>
-<li>前后端使用HTTP通信</li>
-<li>前端对相关敏感内容对称加密后传给后端, 后端解密获取内容</li>
-</ul>
-<p>不采用TLS的理由如下:</p>
-<ul>
-<li>可以通过浏览器漏洞获取</li>
-<li>HTTPS可以被暴力破解</li>
-</ul>
-<p>先说下采用的方案和不合理, 目前产品是传统的BS模式, 也就是说网页会从后端获取.<br>
-因为网页是从后端获取的, 而且是HTTP, 也就是说中间劫持者也可以获取网页内容, 通过分析js就能获取具体的加密方式, 即使对js进行混淆也最多是花的时间稍微长那么一点, 所以说这个方案完全无用, 当然欺骗一下不懂技术的客户还是可以的, 但是从技术角度是完全不可行的.<br>
-这里我们可以改一下产品的模式还是可行的, 使用electron等类似的技术将网页包装成一个客户端, 不通过后端获取网页还是可行的, 可能在使用上麻烦了一点, 但是这才能真正让前端的加密具有意义.</p>
-<p>再分析下不采用TLS的理由:</p>
-<ul>
-<li>
-<p>可以通过浏览器漏洞获取<br>
-这句话是废话, 浏览器真有漏洞不管是HTTP还是HTTPS都无用的.</p>
-</li>
-<li>
-<p>HTTPS可以被暴力破解</p>
-</li>
-</ul>
-<p>这里我们先分析下, 目前HTTPS可能被破解的几种方式.</p>
-<ol>
-<li>第一种, 在握手阶段使用虚假的证书进行握手, 这里需要在浏览器或者是客户端的系统上导入虚假的证书, 不过我认为一个安全意识很高的公司是不会随意导入不认识的证书的.</li>
-<li>第二种, 暴力破解TLS的加密, 不计时间情况下当然能被破解, 但是现代密码学, 即使使用超级计算机暴力破解都要花费很长很长时间.</li>
-</ol>
-<p>总上所述, 这句话也是废话.</p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>HTTPS</tag>
-        <tag>HTTP</tag>
       </tags>
   </entry>
   <entry>
@@ -2000,6 +2000,150 @@ sparseEmbeddings<span class="token punctuation">,</span> err <span class="token 
       </tags>
   </entry>
   <entry>
+    <title>TUF GAMING B550M-PLUS WIFI II lm_sensors</title>
+    <url>/posts/fe953398/</url>
+    <content><![CDATA[<p>the sensors not show fan and voltage<br>
+it’s a kernel bug now <a href="https://bugzilla.kernel.org/show_bug.cgi?id=204807">Hardware monitoring sensor nct6798d doesn’t work unless acpi_enforce_resources=lax is enabled</a><br>
+need wait add the motherboard name to linux kernel code list <a href="https://github.com/torvalds/linux/blob/4bbf3422df78029f03161640dcb1e9d1ed64d1ea/drivers/hwmon/nct6775-platform.c#L1044">linux/drivers/hwmon/nct6775-platform.c</a></p>
+<h2 id="temporary-measure">temporary measure</h2>
+<p>add</p>
+<pre class="language-markdown" data-language="markdown"><code class="language-markdown">acpi_enforce_resources=lax</code></pre>
+<p>to linux boot parameter</p>
+<p>load nct6775 kernel module</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">modprobe <span class="token parameter variable">-v</span> nct6775</code></pre>
+<p>run <code>sensors-detect --auto</code>.</p>
+<p>finally, you will see nct6798-isa-* in sensors.</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>TUN网卡</title>
+    <url>/posts/a67af13f/</url>
+    <content><![CDATA[<h2 id="Golang-Tun-gVisor">Golang Tun (gVisor)</h2>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">import</span> <span class="token string">"gvisor.dev/gvisor/pkg/tcpip/stack"</span> <span class="token comment">// gvisor</span>
+
+s <span class="token operator">:=</span> stack<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>stack<span class="token punctuation">.</span>Options<span class="token punctuation">&#123;</span>
+  NetworkProtocols<span class="token punctuation">:</span>   <span class="token punctuation">[</span><span class="token punctuation">]</span>stack<span class="token punctuation">.</span>NetworkProtocolFactory<span class="token punctuation">&#123;</span>ipv4<span class="token punctuation">.</span>NewProtocol<span class="token punctuation">,</span> ipv6<span class="token punctuation">.</span>NewProtocol<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  TransportProtocols<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>stack<span class="token punctuation">.</span>TransportProtocolFactory<span class="token punctuation">&#123;</span>tcp<span class="token punctuation">.</span>NewProtocol<span class="token punctuation">,</span> udp<span class="token punctuation">.</span>NewProtocol<span class="token punctuation">,</span> icmp<span class="token punctuation">.</span>NewProtocol4<span class="token punctuation">,</span> icmp<span class="token punctuation">.</span>NewProtocol6<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+ <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+ep <span class="token operator">:=</span> fdbased<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>fdbased<span class="token punctuation">.</span>Options<span class="token punctuation">&#123;</span>
+   FDs<span class="token punctuation">:</span>            <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">&#123;</span>fd<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token comment">// fd: linux文件标识符, 如android中最后会获取到一个文件标识符</span>
+   MTU<span class="token punctuation">:</span>            <span class="token function">uint32</span><span class="token punctuation">(</span><span class="token number">1500</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+ 
+ nicID <span class="token operator">:=</span> tcpip<span class="token punctuation">.</span><span class="token function">NICID</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">UniqueID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+ <span class="token keyword">if</span> er <span class="token operator">:=</span> s<span class="token punctuation">.</span><span class="token function">CreateNIC</span><span class="token punctuation">(</span>nicID<span class="token punctuation">,</span> ep<span class="token punctuation">)</span><span class="token punctuation">;</span> er <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+  ep<span class="token punctuation">.</span><span class="token function">Attach</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">)</span>
+  <span class="token keyword">return</span>
+ <span class="token punctuation">&#125;</span>
+
+<span class="token keyword">func</span> <span class="token function">isdns</span><span class="token punctuation">(</span>opt <span class="token operator">*</span>TunOpt<span class="token punctuation">,</span> id stack<span class="token punctuation">.</span>TransportEndpointID<span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">&#123;</span>
+ <span class="token keyword">if</span> id<span class="token punctuation">.</span>LocalPort <span class="token operator">==</span> <span class="token number">53</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>opt<span class="token punctuation">.</span>DNSHijacking <span class="token operator">||</span> id<span class="token punctuation">.</span>LocalAddress<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> opt<span class="token punctuation">.</span>Gateway<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token boolean">true</span>
+ <span class="token punctuation">&#125;</span>
+ <span class="token keyword">return</span> <span class="token boolean">false</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// TCP</span>
+ s<span class="token punctuation">.</span><span class="token function">SetTransportProtocolHandler</span><span class="token punctuation">(</span>tcp<span class="token punctuation">.</span>ProtocolNumber<span class="token punctuation">,</span> tcp<span class="token punctuation">.</span><span class="token function">NewForwarder</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> defaultWndSize<span class="token punctuation">,</span> maxConnAttempts<span class="token punctuation">,</span>  <span class="token keyword">func</span><span class="token punctuation">(</span>r <span class="token operator">*</span>tcp<span class="token punctuation">.</span>ForwarderRequest<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  wq <span class="token operator">:=</span> <span class="token function">new</span><span class="token punctuation">(</span>waiter<span class="token punctuation">.</span>Queue<span class="token punctuation">)</span>
+  id <span class="token operator">:=</span> r<span class="token punctuation">.</span><span class="token function">ID</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+  ep<span class="token punctuation">,</span> err <span class="token operator">:=</span> r<span class="token punctuation">.</span><span class="token function">CreateEndpoint</span><span class="token punctuation">(</span>wq<span class="token punctuation">)</span>
+  <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+   r<span class="token punctuation">.</span><span class="token function">Complete</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+   <span class="token keyword">return</span>
+  <span class="token punctuation">&#125;</span>
+  r<span class="token punctuation">.</span><span class="token function">Complete</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span>
+
+
+  <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span>local net<span class="token punctuation">.</span>Conn<span class="token punctuation">,</span> id stack<span class="token punctuation">.</span>TransportEndpointID<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   <span class="token keyword">defer</span> local<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+   <span class="token keyword">if</span> <span class="token function">isdns</span><span class="token punctuation">(</span>opt<span class="token punctuation">,</span> id<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 劫持一下dns</span>
+    <span class="token comment">/*
+    * Handle DNS
+    */</span>
+    <span class="token keyword">return</span>
+   <span class="token punctuation">&#125;</span>
+
+   target <span class="token operator">:=</span> net<span class="token punctuation">.</span><span class="token function">JoinHostPort</span><span class="token punctuation">(</span>id<span class="token punctuation">.</span>LocalAddress<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> id<span class="token punctuation">.</span>LocalPort<span class="token punctuation">)</span> <span class="token comment">// 远程目标地址</span>
+   nconn<span class="token punctuation">,</span> er <span class="token operator">:=</span> net<span class="token punctuation">.</span><span class="token function">Dial</span><span class="token punctuation">(</span><span class="token string">"tcp"</span><span class="token punctuation">,</span> target<span class="token punctuation">)</span>
+   <span class="token keyword">if</span> er <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span>
+   <span class="token punctuation">&#125;</span>
+   <span class="token keyword">defer</span> conn<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+   utils<span class="token punctuation">.</span><span class="token function">Relay</span><span class="token punctuation">(</span>local<span class="token punctuation">,</span> conn<span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">(</span>gonet<span class="token punctuation">.</span><span class="token function">NewTCPConn</span><span class="token punctuation">(</span>wq<span class="token punctuation">,</span> ep<span class="token punctuation">)</span><span class="token punctuation">,</span> id<span class="token punctuation">)</span>
+ <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>HandlePacket<span class="token punctuation">)</span>
+
+
+<span class="token comment">// UDP</span>
+ s<span class="token punctuation">.</span><span class="token function">SetTransportProtocolHandler</span><span class="token punctuation">(</span>udp<span class="token punctuation">.</span>ProtocolNumber<span class="token punctuation">,</span> udp<span class="token punctuation">.</span><span class="token function">NewForwarder</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>fr <span class="token operator">*</span>udp<span class="token punctuation">.</span>ForwarderRequest<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// handle udp, 和tcp差不多</span>
+ <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>HandlePacket<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>完整代码: <a href="https://github.com/Asutorufa/yuhaiin/tree/main/pkg/net/proxy/tun">tun</a></p>
+<h2 id="Android-VPN-Service">Android VPN Service</h2>
+<p>Android 的VPN Service只能处理Tun接口</p>
+<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">class</span> MyVpnService <span class="token operator">:</span> <span class="token function">VpnService</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">override</span> <span class="token keyword">fun</span> <span class="token function">onStartCommand</span><span class="token punctuation">(</span>intent<span class="token operator">:</span> Intent<span class="token operator">?</span><span class="token punctuation">,</span> flags<span class="token operator">:</span> Int<span class="token punctuation">,</span> startId<span class="token operator">:</span> Int<span class="token punctuation">)</span><span class="token operator">:</span> Int <span class="token punctuation">&#123;</span>
+        <span class="token function">Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">apply</span> <span class="token punctuation">&#123;</span>
+            <span class="token function">setMtu</span><span class="token punctuation">(</span><span class="token number">1500</span><span class="token punctuation">)</span>
+            <span class="token function">setSession</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"my vpn"</span></span><span class="token punctuation">)</span>
+
+            <span class="token function">addAddress</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"172.19.0.1"</span></span><span class="token punctuation">,</span> <span class="token number">24</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addRoute</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"172.19.0.2"</span></span><span class="token punctuation">,</span> <span class="token number">32</span><span class="token punctuation">)</span>
+            <span class="token function">addAddress</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"fdfe:dcba:9876::1"</span></span><span class="token punctuation">,</span> <span class="token number">126</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">addRoute</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"2000::"</span></span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token comment">// https://issuetracker.google.com/issues/149636790</span>
+                <span class="token punctuation">.</span><span class="token function">addRoute</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"fdfe:dcba:9876::2"</span></span><span class="token punctuation">,</span> <span class="token number">128</span><span class="token punctuation">)</span>
+
+            <span class="token function">addDnsServer</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"172.19.0.2"</span></span><span class="token punctuation">)</span> <span class="token comment">// 记得在Tun中劫持172.19.0.2:53处理所有的DNS请求</span>
+
+            <span class="token function">addDisallowedApplication</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"com.example"</span></span><span class="token punctuation">)</span> <span class="token comment">// Disallowed和Allowed不能同时调用</span>
+            <span class="token comment">// addAllowedApplication("com.example")</span>
+
+            <span class="token keyword">const</span> fd <span class="token operator">=</span> <span class="token function">establish</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment">/*
+    fd 为 linux文件标识符
+    如果是通过tun2socks这种命令行工具处理
+    需要使用Linux socket将fd发送给子进程
+           
+    如果是调用so动态库则不需要
+    
+    通过unix文件socket发送sd
+      private fun sendFd(path: String) &#123;
+            LocalSocket().use &#123; localSocket ->
+                localSocket.connect(
+                    LocalSocketAddress(
+                        path,
+                        LocalSocketAddress.Namespace.FILESYSTEM
+                    )
+                )
+                localSocket.setFileDescriptorsForSend(arrayOf(fd)) // &lt;------
+                localSocket.outputStream.write(42)
+            &#125;
+    &#125;
+*/</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> START_STICKY   
+    <span class="token punctuation">&#125;</span>
+
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>完整代码: <a href="https://github.com/Asutorufa/yuhaiin-android/tree/main/app/src/main/kotlin/io/github/asutorufa/yuhaiin/service">VpnService</a></p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+        <tag>Tun</tag>
+        <tag>Kotlin</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RSA加密</title>
     <url>/posts/f1a158c9/</url>
     <content><![CDATA[<h2 id="质数">质数</h2>
@@ -2229,234 +2373,6 @@ sparseEmbeddings<span class="token punctuation">,</span> err <span class="token 
       <tags>
         <tag>Crypto</tag>
         <tag>RSA</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TUF GAMING B550M-PLUS WIFI II lm_sensors</title>
-    <url>/posts/fe953398/</url>
-    <content><![CDATA[<p>the sensors not show fan and voltage<br>
-it’s a kernel bug now <a href="https://bugzilla.kernel.org/show_bug.cgi?id=204807">Hardware monitoring sensor nct6798d doesn’t work unless acpi_enforce_resources=lax is enabled</a><br>
-need wait add the motherboard name to linux kernel code list <a href="https://github.com/torvalds/linux/blob/4bbf3422df78029f03161640dcb1e9d1ed64d1ea/drivers/hwmon/nct6775-platform.c#L1044">linux/drivers/hwmon/nct6775-platform.c</a></p>
-<h2 id="temporary-measure">temporary measure</h2>
-<p>add</p>
-<pre class="language-markdown" data-language="markdown"><code class="language-markdown">acpi_enforce_resources=lax</code></pre>
-<p>to linux boot parameter</p>
-<p>load nct6775 kernel module</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">modprobe <span class="token parameter variable">-v</span> nct6775</code></pre>
-<p>run <code>sensors-detect --auto</code>.</p>
-<p>finally, you will see nct6798-isa-* in sensors.</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>TUN网卡</title>
-    <url>/posts/a67af13f/</url>
-    <content><![CDATA[<h2 id="Golang-Tun-gVisor">Golang Tun (gVisor)</h2>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">import</span> <span class="token string">"gvisor.dev/gvisor/pkg/tcpip/stack"</span> <span class="token comment">// gvisor</span>
-
-s <span class="token operator">:=</span> stack<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>stack<span class="token punctuation">.</span>Options<span class="token punctuation">&#123;</span>
-  NetworkProtocols<span class="token punctuation">:</span>   <span class="token punctuation">[</span><span class="token punctuation">]</span>stack<span class="token punctuation">.</span>NetworkProtocolFactory<span class="token punctuation">&#123;</span>ipv4<span class="token punctuation">.</span>NewProtocol<span class="token punctuation">,</span> ipv6<span class="token punctuation">.</span>NewProtocol<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  TransportProtocols<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>stack<span class="token punctuation">.</span>TransportProtocolFactory<span class="token punctuation">&#123;</span>tcp<span class="token punctuation">.</span>NewProtocol<span class="token punctuation">,</span> udp<span class="token punctuation">.</span>NewProtocol<span class="token punctuation">,</span> icmp<span class="token punctuation">.</span>NewProtocol4<span class="token punctuation">,</span> icmp<span class="token punctuation">.</span>NewProtocol6<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
- <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-
-ep <span class="token operator">:=</span> fdbased<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>fdbased<span class="token punctuation">.</span>Options<span class="token punctuation">&#123;</span>
-   FDs<span class="token punctuation">:</span>            <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">&#123;</span>fd<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token comment">// fd: linux文件标识符, 如android中最后会获取到一个文件标识符</span>
-   MTU<span class="token punctuation">:</span>            <span class="token function">uint32</span><span class="token punctuation">(</span><span class="token number">1500</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
- 
- nicID <span class="token operator">:=</span> tcpip<span class="token punctuation">.</span><span class="token function">NICID</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">UniqueID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
- <span class="token keyword">if</span> er <span class="token operator">:=</span> s<span class="token punctuation">.</span><span class="token function">CreateNIC</span><span class="token punctuation">(</span>nicID<span class="token punctuation">,</span> ep<span class="token punctuation">)</span><span class="token punctuation">;</span> er <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-  ep<span class="token punctuation">.</span><span class="token function">Attach</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">)</span>
-  <span class="token keyword">return</span>
- <span class="token punctuation">&#125;</span>
-
-<span class="token keyword">func</span> <span class="token function">isdns</span><span class="token punctuation">(</span>opt <span class="token operator">*</span>TunOpt<span class="token punctuation">,</span> id stack<span class="token punctuation">.</span>TransportEndpointID<span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">&#123;</span>
- <span class="token keyword">if</span> id<span class="token punctuation">.</span>LocalPort <span class="token operator">==</span> <span class="token number">53</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>opt<span class="token punctuation">.</span>DNSHijacking <span class="token operator">||</span> id<span class="token punctuation">.</span>LocalAddress<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> opt<span class="token punctuation">.</span>Gateway<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token boolean">true</span>
- <span class="token punctuation">&#125;</span>
- <span class="token keyword">return</span> <span class="token boolean">false</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// TCP</span>
- s<span class="token punctuation">.</span><span class="token function">SetTransportProtocolHandler</span><span class="token punctuation">(</span>tcp<span class="token punctuation">.</span>ProtocolNumber<span class="token punctuation">,</span> tcp<span class="token punctuation">.</span><span class="token function">NewForwarder</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> defaultWndSize<span class="token punctuation">,</span> maxConnAttempts<span class="token punctuation">,</span>  <span class="token keyword">func</span><span class="token punctuation">(</span>r <span class="token operator">*</span>tcp<span class="token punctuation">.</span>ForwarderRequest<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  wq <span class="token operator">:=</span> <span class="token function">new</span><span class="token punctuation">(</span>waiter<span class="token punctuation">.</span>Queue<span class="token punctuation">)</span>
-  id <span class="token operator">:=</span> r<span class="token punctuation">.</span><span class="token function">ID</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-  ep<span class="token punctuation">,</span> err <span class="token operator">:=</span> r<span class="token punctuation">.</span><span class="token function">CreateEndpoint</span><span class="token punctuation">(</span>wq<span class="token punctuation">)</span>
-  <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-   r<span class="token punctuation">.</span><span class="token function">Complete</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
-   <span class="token keyword">return</span>
-  <span class="token punctuation">&#125;</span>
-  r<span class="token punctuation">.</span><span class="token function">Complete</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span>
-
-
-  <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span>local net<span class="token punctuation">.</span>Conn<span class="token punctuation">,</span> id stack<span class="token punctuation">.</span>TransportEndpointID<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-   <span class="token keyword">defer</span> local<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-   <span class="token keyword">if</span> <span class="token function">isdns</span><span class="token punctuation">(</span>opt<span class="token punctuation">,</span> id<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 劫持一下dns</span>
-    <span class="token comment">/*
-    * Handle DNS
-    */</span>
-    <span class="token keyword">return</span>
-   <span class="token punctuation">&#125;</span>
-
-   target <span class="token operator">:=</span> net<span class="token punctuation">.</span><span class="token function">JoinHostPort</span><span class="token punctuation">(</span>id<span class="token punctuation">.</span>LocalAddress<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> id<span class="token punctuation">.</span>LocalPort<span class="token punctuation">)</span> <span class="token comment">// 远程目标地址</span>
-   nconn<span class="token punctuation">,</span> er <span class="token operator">:=</span> net<span class="token punctuation">.</span><span class="token function">Dial</span><span class="token punctuation">(</span><span class="token string">"tcp"</span><span class="token punctuation">,</span> target<span class="token punctuation">)</span>
-   <span class="token keyword">if</span> er <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span>
-   <span class="token punctuation">&#125;</span>
-   <span class="token keyword">defer</span> conn<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-   utils<span class="token punctuation">.</span><span class="token function">Relay</span><span class="token punctuation">(</span>local<span class="token punctuation">,</span> conn<span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">(</span>gonet<span class="token punctuation">.</span><span class="token function">NewTCPConn</span><span class="token punctuation">(</span>wq<span class="token punctuation">,</span> ep<span class="token punctuation">)</span><span class="token punctuation">,</span> id<span class="token punctuation">)</span>
- <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>HandlePacket<span class="token punctuation">)</span>
-
-
-<span class="token comment">// UDP</span>
- s<span class="token punctuation">.</span><span class="token function">SetTransportProtocolHandler</span><span class="token punctuation">(</span>udp<span class="token punctuation">.</span>ProtocolNumber<span class="token punctuation">,</span> udp<span class="token punctuation">.</span><span class="token function">NewForwarder</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>fr <span class="token operator">*</span>udp<span class="token punctuation">.</span>ForwarderRequest<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// handle udp, 和tcp差不多</span>
- <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>HandlePacket<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>完整代码: <a href="https://github.com/Asutorufa/yuhaiin/tree/main/pkg/net/proxy/tun">tun</a></p>
-<h2 id="Android-VPN-Service">Android VPN Service</h2>
-<p>Android 的VPN Service只能处理Tun接口</p>
-<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">class</span> MyVpnService <span class="token operator">:</span> <span class="token function">VpnService</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">override</span> <span class="token keyword">fun</span> <span class="token function">onStartCommand</span><span class="token punctuation">(</span>intent<span class="token operator">:</span> Intent<span class="token operator">?</span><span class="token punctuation">,</span> flags<span class="token operator">:</span> Int<span class="token punctuation">,</span> startId<span class="token operator">:</span> Int<span class="token punctuation">)</span><span class="token operator">:</span> Int <span class="token punctuation">&#123;</span>
-        <span class="token function">Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">apply</span> <span class="token punctuation">&#123;</span>
-            <span class="token function">setMtu</span><span class="token punctuation">(</span><span class="token number">1500</span><span class="token punctuation">)</span>
-            <span class="token function">setSession</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"my vpn"</span></span><span class="token punctuation">)</span>
-
-            <span class="token function">addAddress</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"172.19.0.1"</span></span><span class="token punctuation">,</span> <span class="token number">24</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addRoute</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"172.19.0.2"</span></span><span class="token punctuation">,</span> <span class="token number">32</span><span class="token punctuation">)</span>
-            <span class="token function">addAddress</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"fdfe:dcba:9876::1"</span></span><span class="token punctuation">,</span> <span class="token number">126</span><span class="token punctuation">)</span>
-                <span class="token punctuation">.</span><span class="token function">addRoute</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"2000::"</span></span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token comment">// https://issuetracker.google.com/issues/149636790</span>
-                <span class="token punctuation">.</span><span class="token function">addRoute</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"fdfe:dcba:9876::2"</span></span><span class="token punctuation">,</span> <span class="token number">128</span><span class="token punctuation">)</span>
-
-            <span class="token function">addDnsServer</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"172.19.0.2"</span></span><span class="token punctuation">)</span> <span class="token comment">// 记得在Tun中劫持172.19.0.2:53处理所有的DNS请求</span>
-
-            <span class="token function">addDisallowedApplication</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"com.example"</span></span><span class="token punctuation">)</span> <span class="token comment">// Disallowed和Allowed不能同时调用</span>
-            <span class="token comment">// addAllowedApplication("com.example")</span>
-
-            <span class="token keyword">const</span> fd <span class="token operator">=</span> <span class="token function">establish</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment">/*
-    fd 为 linux文件标识符
-    如果是通过tun2socks这种命令行工具处理
-    需要使用Linux socket将fd发送给子进程
-           
-    如果是调用so动态库则不需要
-    
-    通过unix文件socket发送sd
-      private fun sendFd(path: String) &#123;
-            LocalSocket().use &#123; localSocket ->
-                localSocket.connect(
-                    LocalSocketAddress(
-                        path,
-                        LocalSocketAddress.Namespace.FILESYSTEM
-                    )
-                )
-                localSocket.setFileDescriptorsForSend(arrayOf(fd)) // &lt;------
-                localSocket.outputStream.write(42)
-            &#125;
-    &#125;
-*/</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token keyword">return</span> START_STICKY   
-    <span class="token punctuation">&#125;</span>
-
-
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>完整代码: <a href="https://github.com/Asutorufa/yuhaiin-android/tree/main/app/src/main/kotlin/io/github/asutorufa/yuhaiin/service">VpnService</a></p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>Golang</tag>
-        <tag>Tun</tag>
-        <tag>Kotlin</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>android dumpsys tool</title>
-    <url>/posts/25303996/</url>
-    <content><![CDATA[<p>查看dumpsys所有的子命令:</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">dumpsys <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"DUMP OF SERVICE"</span></code></pre>
-<p>output:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">DUMP OF SERVICE SurfaceFlinger:
-DUMP OF SERVICE accessibility:
-DUMP OF SERVICE account:
-DUMP OF SERVICE activity:
-DUMP OF SERVICE alarm:
-DUMP OF SERVICE appwidget:
-DUMP OF SERVICE audio:
-DUMP OF SERVICE backup:
-DUMP OF SERVICE battery:
-DUMP OF SERVICE batteryinfo:
-DUMP OF SERVICE clipboard:
-DUMP OF SERVICE connectivity:
-DUMP OF SERVICE content:
-DUMP OF SERVICE cpuinfo:
-DUMP OF SERVICE device_policy:
-DUMP OF SERVICE devicestoragemonitor:
-DUMP OF SERVICE diskstats:
-DUMP OF SERVICE dropbox:
-DUMP OF SERVICE entropy:
-DUMP OF SERVICE hardware:
-DUMP OF SERVICE input_method:
-DUMP OF SERVICE iphonesubinfo:
-DUMP OF SERVICE isms:
-DUMP OF SERVICE location:
-DUMP OF SERVICE media.audio_flinger:
-DUMP OF SERVICE media.audio_policy:
-DUMP OF SERVICE media.player:
-DUMP OF SERVICE meminfo:
-DUMP OF SERVICE mount:
-DUMP OF SERVICE netstat:
-DUMP OF SERVICE network_management:
-DUMP OF SERVICE notification:
-DUMP OF SERVICE package:
-DUMP OF SERVICE permission:
-DUMP OF SERVICE phone:
-DUMP OF SERVICE power:
-DUMP OF SERVICE reboot:
-DUMP OF SERVICE screenshot:
-DUMP OF SERVICE search:
-DUMP OF SERVICE sensor:
-DUMP OF SERVICE simphonebook:
-DUMP OF SERVICE statusbar:
-DUMP OF SERVICE telephony.registry:
-DUMP OF SERVICE throttle:
-DUMP OF SERVICE usagestats:
-DUMP OF SERVICE vibrator:
-DUMP OF SERVICE wallpaper:
-DUMP OF SERVICE wifi:
-DUMP OF SERVICE window:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>eg:<br>
-1.得到电池的所有信息</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys battery</code></pre>
-<p>2.得到wifi的所有信息</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys wifi</code></pre>
-<p>3.得到cpu的所有信息</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys cpuinfo</code></pre>
-<p>4.得到总的存储情况</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys meminfo</code></pre>
-<p>5.得到某应用的存储情况</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys meminfo <span class="token string">'your apps package name'</span></code></pre>
-<p>6.得到所有的服务列表</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell <span class="token function">service</span> list</code></pre>
-<p>7.得到所有的账户列表</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys account</code></pre>
-<p>8.获得某子命令的帮助信息</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys account <span class="token parameter variable">-h</span></code></pre>
-<p>参考:<br>
-<a href="https://stackoverflow.com/questions/11201659/whats-the-android-adb-shell-dumpsys-tool-and-what-are-its-benefits">What’s the Android ADB shell “dumpsys” tool and what are its benefits?</a></p>
-]]></content>
-      <categories>
-        <category>android</category>
-      </categories>
-      <tags>
-        <tag>android</tag>
-        <tag>adb</tag>
       </tags>
   </entry>
   <entry>
@@ -2831,48 +2747,6 @@ pc<span class="token punctuation">,</span> err <span class="token operator">:=</
         <tag>Golang</tag>
         <tag>Proxy</tag>
         <tag>Go</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c语言中格式化字符的应用</title>
-    <url>/posts/b6b4601/</url>
-    <content><![CDATA[<h2 id="格式化规定符">格式化规定符</h2>
-<p>符号 作用<br>
-%d 十进制有符号整数<br>
-%u 十进制无符号整数<br>
-%f 浮点数<br>
-%s 字符串<br>
-%c 单个字符<br>
-%p 指针的值<br>
-%e 指数形式的浮点数<br>
-%x, %X 无符号以十六进制表示的整数<span id="more"></span><br>
-%0 无符号以八进制表示的整数<br>
-%g 自动选择合适的表示法</p>
-<p>说明:<br>
-(1). 可以在&quot;%“和字母之间插进数字表示最大场宽。<br>
-例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>
-%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>
-另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>
-例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>
-如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>
-例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>
-(2). 可以在”%“和字母之间加小写字母l, 表示输出的是长型数。<br>
-例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>
-(3). 可以控制输出左对齐或右对齐, 即在”%“和字母之间加入一个”-&quot; 号可说明输出为左对齐, 否则为右对齐。<br>
-例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
-<h2 id="一些特殊规定字符">一些特殊规定字符</h2>
-<p>字符 作用<br>
-/n   换行<br>
-/f   清屏并换页<br>
-/r   回车<br>
-/t   Tab符<br>
-/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -3253,6 +3127,132 @@ This will change the cursor to the dark breeze, I don't know the name of the whi
         <tag>archlinux</tag>
         <tag>efi</tag>
         <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>android dumpsys tool</title>
+    <url>/posts/25303996/</url>
+    <content><![CDATA[<p>查看dumpsys所有的子命令:</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dumpsys <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"DUMP OF SERVICE"</span></code></pre>
+<p>output:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">DUMP OF SERVICE SurfaceFlinger:
+DUMP OF SERVICE accessibility:
+DUMP OF SERVICE account:
+DUMP OF SERVICE activity:
+DUMP OF SERVICE alarm:
+DUMP OF SERVICE appwidget:
+DUMP OF SERVICE audio:
+DUMP OF SERVICE backup:
+DUMP OF SERVICE battery:
+DUMP OF SERVICE batteryinfo:
+DUMP OF SERVICE clipboard:
+DUMP OF SERVICE connectivity:
+DUMP OF SERVICE content:
+DUMP OF SERVICE cpuinfo:
+DUMP OF SERVICE device_policy:
+DUMP OF SERVICE devicestoragemonitor:
+DUMP OF SERVICE diskstats:
+DUMP OF SERVICE dropbox:
+DUMP OF SERVICE entropy:
+DUMP OF SERVICE hardware:
+DUMP OF SERVICE input_method:
+DUMP OF SERVICE iphonesubinfo:
+DUMP OF SERVICE isms:
+DUMP OF SERVICE location:
+DUMP OF SERVICE media.audio_flinger:
+DUMP OF SERVICE media.audio_policy:
+DUMP OF SERVICE media.player:
+DUMP OF SERVICE meminfo:
+DUMP OF SERVICE mount:
+DUMP OF SERVICE netstat:
+DUMP OF SERVICE network_management:
+DUMP OF SERVICE notification:
+DUMP OF SERVICE package:
+DUMP OF SERVICE permission:
+DUMP OF SERVICE phone:
+DUMP OF SERVICE power:
+DUMP OF SERVICE reboot:
+DUMP OF SERVICE screenshot:
+DUMP OF SERVICE search:
+DUMP OF SERVICE sensor:
+DUMP OF SERVICE simphonebook:
+DUMP OF SERVICE statusbar:
+DUMP OF SERVICE telephony.registry:
+DUMP OF SERVICE throttle:
+DUMP OF SERVICE usagestats:
+DUMP OF SERVICE vibrator:
+DUMP OF SERVICE wallpaper:
+DUMP OF SERVICE wifi:
+DUMP OF SERVICE window:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>eg:<br>
+1.得到电池的所有信息</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys battery</code></pre>
+<p>2.得到wifi的所有信息</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys wifi</code></pre>
+<p>3.得到cpu的所有信息</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys cpuinfo</code></pre>
+<p>4.得到总的存储情况</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys meminfo</code></pre>
+<p>5.得到某应用的存储情况</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys meminfo <span class="token string">'your apps package name'</span></code></pre>
+<p>6.得到所有的服务列表</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell <span class="token function">service</span> list</code></pre>
+<p>7.得到所有的账户列表</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys account</code></pre>
+<p>8.获得某子命令的帮助信息</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">adb shell dumpsys account <span class="token parameter variable">-h</span></code></pre>
+<p>参考:<br>
+<a href="https://stackoverflow.com/questions/11201659/whats-the-android-adb-shell-dumpsys-tool-and-what-are-its-benefits">What’s the Android ADB shell “dumpsys” tool and what are its benefits?</a></p>
+]]></content>
+      <categories>
+        <category>android</category>
+      </categories>
+      <tags>
+        <tag>android</tag>
+        <tag>adb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c语言中格式化字符的应用</title>
+    <url>/posts/b6b4601/</url>
+    <content><![CDATA[<h2 id="格式化规定符">格式化规定符</h2>
+<p>符号 作用<br>
+%d 十进制有符号整数<br>
+%u 十进制无符号整数<br>
+%f 浮点数<br>
+%s 字符串<br>
+%c 单个字符<br>
+%p 指针的值<br>
+%e 指数形式的浮点数<br>
+%x, %X 无符号以十六进制表示的整数<span id="more"></span><br>
+%0 无符号以八进制表示的整数<br>
+%g 自动选择合适的表示法</p>
+<p>说明:<br>
+(1). 可以在&quot;%“和字母之间插进数字表示最大场宽。<br>
+例如: %3d 表示输出3位整型数, 不够3位右对齐。<br>
+%9.2f 表示输出场宽为9的浮点数, 其中小数位为2, 整数位为6,小数点占一位, 不够9位右对齐。<br>
+另外, 若想在输出值前加一些0, 就应在场宽项前加个0。<br>
+例如: %04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。<br>
+如果用浮点数表示字符或整型量的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。<br>
+例如: %6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。<br>
+(2). 可以在”%“和字母之间加小写字母l, 表示输出的是长型数。<br>
+例如: %ld 表示输出long整数,%lf 表示输出double浮点数<br>
+(3). 可以控制输出左对齐或右对齐, 即在”%“和字母之间加入一个”-&quot; 号可说明输出为左对齐, 否则为右对齐。<br>
+例如: %-7d 表示输出7位整数左对齐,%-10s 表示输出10个字符左对齐.</p>
+<h2 id="一些特殊规定字符">一些特殊规定字符</h2>
+<p>字符 作用<br>
+/n   换行<br>
+/f   清屏并换页<br>
+/r   回车<br>
+/t   Tab符<br>
+/xhh 表示一个ASCII码用16进表示,其中hh是1到2个16进制数</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -4212,30 +4212,6 @@ default         <span class="token number">0.0</span>.0.0         <span class="t
       </tags>
   </entry>
   <entry>
-    <title>nodejs异步回调函数</title>
-    <url>/posts/5938ae8c/</url>
-    <content><![CDATA[<p>研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.<br>
-如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then.</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-
-<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>nodejs</category>
-      </categories>
-      <tags>
-        <tag>nodejs</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux下intel&amp;AMD双显卡切换</title>
     <url>/posts/3b8b96de/</url>
     <content><![CDATA[<p>使用<strong>xrandr</strong>显示可支持的显卡</p>
@@ -4270,6 +4246,30 @@ Provider <span class="token number">1</span>: id: 0x41 cap: 0x6, Sink Output, So
         <tag>linux</tag>
         <tag>双显卡</tag>
         <tag>amd</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nodejs异步回调函数</title>
+    <url>/posts/5938ae8c/</url>
+    <content><![CDATA[<p>研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的.<br>
+如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then.</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+
+<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>nodejs</category>
+      </categories>
+      <tags>
+        <tag>nodejs</tag>
       </tags>
   </entry>
   <entry>
@@ -4390,46 +4390,6 @@ requests<span class="token punctuation">.</span>get<span class="token punctuatio
       <tags>
         <tag>linux</tag>
         <tag>snap</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ubuntu终端下连接wifi</title>
-    <url>/posts/fb6d8628/</url>
-    <content><![CDATA[<h2 id="首先使用rfkill查看你的wifi设备是否被停用">首先使用rfkill查看你的wifi设备是否被停用</h2>
-<p>使用命令</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill list</code></pre>
-<p>获得设备列表，每个都包含与之关联的索引号，从 0 开始<br>
-查看设备是否被停用，要启用被停用的设备，请运行：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill unblock <span class="token operator">&lt;</span>索引号<span class="token operator">></span></code></pre>
-<p>要启用所有设备，请运行：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill unblock all</code></pre>
-<span id="more"></span>
-<p>您可以使用这个索引号让 rfkill 停使或者使用某个设备，例如：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill block <span class="token number">0</span></code></pre>
-<p>您还可以使用 rfkill 阻断某一类设备，或者所有启用了RFKill的设备。例如：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill block wifi </code></pre>
-<p>停用系统中的所有Wi-Fi设备</p>
-<h2 id="启用无线网卡">启用无线网卡</h2>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">ifconfig</span> wlan0 up</code></pre>
-<h2 id="使用iwconfig命令搜索无线网">使用iwconfig命令搜索无线网</h2>
-<pre class="language-bash" data-language="bash"><code class="language-bash">iwlist wlan0 scan</code></pre>
-<p>记下essid<br>
-连接无密码的无线网</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">iwconfig wlan0 essid essidname</code></pre>
-<p>其中essidname是搜索到的无线网essid<br>
-连接有密码的无线网</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">iwconfig wlan0 essid essidname key <span class="token operator">&lt;</span>密码<span class="token operator">></span></code></pre>
-<h2 id="补充">补充</h2>
-<p>通过dhcp获取IP</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">dhclient wlan0</code></pre>
-<p>或</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">dhcpcd wlan0</code></pre>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -4612,6 +4572,46 @@ module &quot;module3&quot; &#123;
         <tag>container</tag>
         <tag>Terraform</tag>
         <tag>インフラ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ubuntu终端下连接wifi</title>
+    <url>/posts/fb6d8628/</url>
+    <content><![CDATA[<h2 id="首先使用rfkill查看你的wifi设备是否被停用">首先使用rfkill查看你的wifi设备是否被停用</h2>
+<p>使用命令</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill list</code></pre>
+<p>获得设备列表，每个都包含与之关联的索引号，从 0 开始<br>
+查看设备是否被停用，要启用被停用的设备，请运行：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill unblock <span class="token operator">&lt;</span>索引号<span class="token operator">></span></code></pre>
+<p>要启用所有设备，请运行：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill unblock all</code></pre>
+<span id="more"></span>
+<p>您可以使用这个索引号让 rfkill 停使或者使用某个设备，例如：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill block <span class="token number">0</span></code></pre>
+<p>您还可以使用 rfkill 阻断某一类设备，或者所有启用了RFKill的设备。例如：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rfkill block wifi </code></pre>
+<p>停用系统中的所有Wi-Fi设备</p>
+<h2 id="启用无线网卡">启用无线网卡</h2>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">ifconfig</span> wlan0 up</code></pre>
+<h2 id="使用iwconfig命令搜索无线网">使用iwconfig命令搜索无线网</h2>
+<pre class="language-bash" data-language="bash"><code class="language-bash">iwlist wlan0 scan</code></pre>
+<p>记下essid<br>
+连接无密码的无线网</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">iwconfig wlan0 essid essidname</code></pre>
+<p>其中essidname是搜索到的无线网essid<br>
+连接有密码的无线网</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">iwconfig wlan0 essid essidname key <span class="token operator">&lt;</span>密码<span class="token operator">></span></code></pre>
+<h2 id="补充">补充</h2>
+<p>通过dhcp获取IP</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dhclient wlan0</code></pre>
+<p>或</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">dhcpcd wlan0</code></pre>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -4882,36 +4882,6 @@ i915-GVTg_V5_8  <span class="token comment"># Video memory: &lt;64MB, 384MB>, re
       </tags>
   </entry>
   <entry>
-    <title>c语言利用char指针变量将int按字节打印地址</title>
-    <url>/posts/43cb2931/</url>
-    <content><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>
-而char的大小刚好为一个字节,是我们想要的东西.<br>
-这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>
-代码如下</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p\n%p\n%p\n%p\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%02x\n%02x\n%02x\n%02x\n"</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>两者结合一下</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p %02x\n%p %02x\n%p %02x\n%p %02x\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>输出内容如图<br>
-<img src="http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png" alt="" loading="lazy"><br>
-<strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>利用结构体让函数返回多个值</title>
     <url>/posts/c69434f1/</url>
     <content><![CDATA[<h2 id="c语言">c语言</h2>
@@ -4974,6 +4944,36 @@ S <span class="token function">s</span><span class="token punctuation">(</span><
       </categories>
       <tags>
         <tag>C++</tag>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c语言利用char指针变量将int按字节打印地址</title>
+    <url>/posts/43cb2931/</url>
+    <content><![CDATA[<p>因为int变量的大小为四个字节,所以如果利用int指针变量+1输出地址的话,实际上是加了四个字节后的地址.<br>
+而char的大小刚好为一个字节,是我们想要的东西.<br>
+这样我们可以强制转换为char指针变量输出每个字节的地址然后+1,+2,+3来分别输出int的四个字节的地址,得到我们想要的内容.<br>
+代码如下</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p\n%p\n%p\n%p\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>如果你想按字节输出内存中的内容可以这样写,这里我输出的是16进制整数.</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%02x\n%02x\n%02x\n%02x\n"</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>两者结合一下</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> a<span class="token operator">=</span><span class="token operator">-</span><span class="token number">65</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> <span class="token operator">*</span>b<span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%p %02x\n%p %02x\n%p %02x\n%p %02x\n"</span><span class="token punctuation">,</span>a<span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>a<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>输出内容如图<br>
+<img src="http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png" alt="" loading="lazy"><br>
+<strong>有任何错误请邮箱联系我指出我的错误,万分感谢</strong></p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
         <tag>C</tag>
       </tags>
   </entry>
@@ -5805,6 +5805,146 @@ movq <span class="token operator">%</span><span class="token register variable">
       </tags>
   </entry>
   <entry>
+    <title>深度学习之感知器的实现</title>
+    <url>/posts/64e69c3e/</url>
+    <content><![CDATA[<p>感知器的一个公式:<br>
+<strong>当 wx+b&gt;0 , f(x)=1,否则f(x)=0</strong></p>
+<ul>
+<li>x输入的向量</li>
+<li>w:是权重</li>
+<li>w*x是点积</li>
+<li>b是偏置(与权重类似,偏置可以认为是激励函数的偏移量，或者给神经元一个基础活跃等级。)</li>
+</ul>
+<p>对权重的调整公式,此处使用了梯度下降的方法: <strong>w=w+i*(t-count)*x</strong></p>
+<ul>
+<li>i是一个常数,i越小感知器学习越精确,当然耗费时间也最长</li>
+<li>t:本应该得到的值</li>
+<li>count:实际计算得到的值</li>
+<li>x:同上</li>
+</ul>
+<p>对偏置调整的公式: <em><em>b=b+i</em>(t-count)</em>*</p>
+<p>这次我们使用python来实现与和或<span id="more"></span></p>
+<pre class="line-numbers language-none"><code class="language-none">#因为与和或计算需要输入两个数,所以这里设置两个权重
+global w1,w2
+w1&#x3D;0.4
+w2&#x3D;0.6
+#偏置随便设一个
+global b
+b&#x3D;0.8
+#上面提到的常数
+global i
+i&#x3D;0.01<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对感知器公式实现的函数:</p>
+<pre class="line-numbers language-none"><code class="language-none">def count(x,y):
+    if w1*x+w2*y+b&gt;0:
+        return 1
+    else:
+        return 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对权重和偏置不断矫正的函数:</p>
+<pre class="line-numbers language-none"><code class="language-none">def update_all(r,x,y):
+    global w1,w2,b
+    temp &#x3D; count(x,y)
+    w1&#x3D;w1+i*(r-temp)*x
+    w2&#x3D;w2+i*(r-temp)*y
+    b&#x3D;b+i*(r-temp)
+    print(w1,w2,b)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最后就是输入学习的资料和确认计算结果:</p>
+<pre class="line-numbers language-none"><code class="language-none">def main():
+    for _ in range(1,50):
+        update_all(1.0,1.0,1.0)
+        update_all(0.0,1.0,0.0)
+        update_all(0.0,0.0,1.0)
+        update_all(0.0,0.0,0.0)
+    
+    print(&#39;1 and 1 &#x3D;&#39;,count(1,1))
+    print(&#39;0 and 1 &#x3D;&#39;,count(0,1))
+    print(&#39;1 and 0 &#x3D;&#39;,count(1,0))
+    print(&#39;0 and 0 &#x3D;&#39;,count(0,0))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里我们先进行与的计算:<br>
+这里我前面代码写错了,所以说下面所有的结果会不一样…<br>
+进行25次学习的结果:</p>
+<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.8)
+(0.39, 0.6, 0.79)
+(0.39, 0.59, 0.78)
+(0.39, 0.59, 0.77)
+(0.39, 0.59, 0.77)
+.......省略........
+(0.1599999999999998, 0.35999999999999976, 0.08999999999999947)
+(0.1599999999999998, 0.35999999999999976, 0.07999999999999947)
+(&#39;1 and 1 &#x3D;&#39;, 1)
+(&#39;0 and 1 &#x3D;&#39;, 1)
+(&#39;1 and 0 &#x3D;&#39;, 1)
+(&#39;0 and 0 &#x3D;&#39;, 1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里我们明显发现结果是错误的,提升到50次:</p>
+<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.8)
+(0.39, 0.6, 0.79)
+(0.39, 0.59, 0.78)
+(0.39, 0.59, 0.77)
+(0.39, 0.59, 0.77)
+(0.38, 0.59, 0.76)
+(0.38, 0.58, 0.75)
+.......省略........
+(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
+(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
+(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
+(&#39;1 and 1 &#x3D;&#39;, 1)
+(&#39;0 and 1 &#x3D;&#39;, 0)
+(&#39;1 and 0 &#x3D;&#39;, 0)
+(&#39;0 and 0 &#x3D;&#39;, 0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>结果正确了,并且权重和偏置都稳定到一个值,是不是感觉很神奇<br>
+或运算也是相同的,这里我们将偏置改为b=0.4:<br>
+25次:</p>
+<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.38)
+(0.4, 0.6, 0.38)
+(0.4, 0.6, 0.38)
+.......省略........
+(0.4, 0.6, 0.16999999999999982)
+(0.4, 0.6, 0.16999999999999982)
+(0.4, 0.6, 0.16999999999999982)
+(0.4, 0.6, 0.16999999999999982)
+(0.4, 0.6, 0.1599999999999998)
+(&#39;1 and 1 &#x3D;&#39;, 1)
+(&#39;0 and 1 &#x3D;&#39;, 1)
+(&#39;1 and 0 &#x3D;&#39;, 1)
+(&#39;0 and 0 &#x3D;&#39;, 1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>50次:</p>
+<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.4)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.39)
+(0.4, 0.6, 0.38)
+.......省略........
+(0.4, 0.6, -1.97758476261356e-16)
+(0.4, 0.6, -1.97758476261356e-16)
+(0.4, 0.6, -1.97758476261356e-16)
+(0.4, 0.6, -1.97758476261356e-16)
+(0.4, 0.6, -1.97758476261356e-16)
+(&#39;1 and 1 &#x3D;&#39;, 1)
+(&#39;0 and 1 &#x3D;&#39;, 1)
+(&#39;1 and 0 &#x3D;&#39;, 1)
+(&#39;0 and 0 &#x3D;&#39;, 0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>参考:<br>
+<a href="https://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8">感知器(维基百科)</a><br>
+<a href="https://www.zybuluo.com/hanbingtao/note/433855">零基础入门深度学习(1) - 感知器</a></p>
+]]></content>
+      <categories>
+        <category>Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>深度学习</title>
     <url>/posts/33115a55/</url>
     <content><![CDATA[<p><strong>如果以下的表格及图像出现格式问题,请将你的浏览器中文字体的等宽字体设置好</strong></p>
@@ -6050,146 +6190,6 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       </tags>
   </entry>
   <entry>
-    <title>深度学习之感知器的实现</title>
-    <url>/posts/64e69c3e/</url>
-    <content><![CDATA[<p>感知器的一个公式:<br>
-<strong>当 wx+b&gt;0 , f(x)=1,否则f(x)=0</strong></p>
-<ul>
-<li>x输入的向量</li>
-<li>w:是权重</li>
-<li>w*x是点积</li>
-<li>b是偏置(与权重类似,偏置可以认为是激励函数的偏移量，或者给神经元一个基础活跃等级。)</li>
-</ul>
-<p>对权重的调整公式,此处使用了梯度下降的方法: <strong>w=w+i*(t-count)*x</strong></p>
-<ul>
-<li>i是一个常数,i越小感知器学习越精确,当然耗费时间也最长</li>
-<li>t:本应该得到的值</li>
-<li>count:实际计算得到的值</li>
-<li>x:同上</li>
-</ul>
-<p>对偏置调整的公式: <em><em>b=b+i</em>(t-count)</em>*</p>
-<p>这次我们使用python来实现与和或<span id="more"></span></p>
-<pre class="line-numbers language-none"><code class="language-none">#因为与和或计算需要输入两个数,所以这里设置两个权重
-global w1,w2
-w1&#x3D;0.4
-w2&#x3D;0.6
-#偏置随便设一个
-global b
-b&#x3D;0.8
-#上面提到的常数
-global i
-i&#x3D;0.01<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>对感知器公式实现的函数:</p>
-<pre class="line-numbers language-none"><code class="language-none">def count(x,y):
-    if w1*x+w2*y+b&gt;0:
-        return 1
-    else:
-        return 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>对权重和偏置不断矫正的函数:</p>
-<pre class="line-numbers language-none"><code class="language-none">def update_all(r,x,y):
-    global w1,w2,b
-    temp &#x3D; count(x,y)
-    w1&#x3D;w1+i*(r-temp)*x
-    w2&#x3D;w2+i*(r-temp)*y
-    b&#x3D;b+i*(r-temp)
-    print(w1,w2,b)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>最后就是输入学习的资料和确认计算结果:</p>
-<pre class="line-numbers language-none"><code class="language-none">def main():
-    for _ in range(1,50):
-        update_all(1.0,1.0,1.0)
-        update_all(0.0,1.0,0.0)
-        update_all(0.0,0.0,1.0)
-        update_all(0.0,0.0,0.0)
-    
-    print(&#39;1 and 1 &#x3D;&#39;,count(1,1))
-    print(&#39;0 and 1 &#x3D;&#39;,count(0,1))
-    print(&#39;1 and 0 &#x3D;&#39;,count(1,0))
-    print(&#39;0 and 0 &#x3D;&#39;,count(0,0))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里我们先进行与的计算:<br>
-这里我前面代码写错了,所以说下面所有的结果会不一样…<br>
-进行25次学习的结果:</p>
-<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.8)
-(0.39, 0.6, 0.79)
-(0.39, 0.59, 0.78)
-(0.39, 0.59, 0.77)
-(0.39, 0.59, 0.77)
-.......省略........
-(0.1599999999999998, 0.35999999999999976, 0.08999999999999947)
-(0.1599999999999998, 0.35999999999999976, 0.07999999999999947)
-(&#39;1 and 1 &#x3D;&#39;, 1)
-(&#39;0 and 1 &#x3D;&#39;, 1)
-(&#39;1 and 0 &#x3D;&#39;, 1)
-(&#39;0 and 0 &#x3D;&#39;, 1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里我们明显发现结果是错误的,提升到50次:</p>
-<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.8)
-(0.39, 0.6, 0.79)
-(0.39, 0.59, 0.78)
-(0.39, 0.59, 0.77)
-(0.39, 0.59, 0.77)
-(0.38, 0.59, 0.76)
-(0.38, 0.58, 0.75)
-.......省略........
-(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
-(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
-(0.07999999999999981, 0.1799999999999996, -0.18000000000000055)
-(&#39;1 and 1 &#x3D;&#39;, 1)
-(&#39;0 and 1 &#x3D;&#39;, 0)
-(&#39;1 and 0 &#x3D;&#39;, 0)
-(&#39;0 and 0 &#x3D;&#39;, 0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>结果正确了,并且权重和偏置都稳定到一个值,是不是感觉很神奇<br>
-或运算也是相同的,这里我们将偏置改为b=0.4:<br>
-25次:</p>
-<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.38)
-(0.4, 0.6, 0.38)
-(0.4, 0.6, 0.38)
-.......省略........
-(0.4, 0.6, 0.16999999999999982)
-(0.4, 0.6, 0.16999999999999982)
-(0.4, 0.6, 0.16999999999999982)
-(0.4, 0.6, 0.16999999999999982)
-(0.4, 0.6, 0.1599999999999998)
-(&#39;1 and 1 &#x3D;&#39;, 1)
-(&#39;0 and 1 &#x3D;&#39;, 1)
-(&#39;1 and 0 &#x3D;&#39;, 1)
-(&#39;0 and 0 &#x3D;&#39;, 1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>50次:</p>
-<pre class="line-numbers language-none"><code class="language-none">(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.4)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.39)
-(0.4, 0.6, 0.38)
-.......省略........
-(0.4, 0.6, -1.97758476261356e-16)
-(0.4, 0.6, -1.97758476261356e-16)
-(0.4, 0.6, -1.97758476261356e-16)
-(0.4, 0.6, -1.97758476261356e-16)
-(0.4, 0.6, -1.97758476261356e-16)
-(&#39;1 and 1 &#x3D;&#39;, 1)
-(&#39;0 and 1 &#x3D;&#39;, 1)
-(&#39;1 and 0 &#x3D;&#39;, 1)
-(&#39;0 and 0 &#x3D;&#39;, 0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>参考:<br>
-<a href="https://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8">感知器(维基百科)</a><br>
-<a href="https://www.zybuluo.com/hanbingtao/note/433855">零基础入门深度学习(1) - 感知器</a></p>
-]]></content>
-      <categories>
-        <category>Machine Learning</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>用CIDR表示网段</title>
     <url>/posts/e2b25bb8/</url>
     <content><![CDATA[<p>我们知道一般CIDR(无类别域间路由)网段的表示为:<strong>192.168.0.0/24</strong>这种形式</p>
@@ -6275,8 +6275,93 @@ TCP端口80</p>
         <category>linux</category>
       </categories>
       <tags>
-        <tag>android</tag>
         <tag>linux</tag>
+        <tag>android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>离散对数问题</title>
+    <url>/posts/1f299eb2/</url>
+    <content><![CDATA[<p>前置知识 欧拉, 欧拉定理, 模反元素(模逆元) 可参见: <a href="/posts/f1a158c9/">RSA加密</a></p>
+<h2 id="阶">阶</h2>
+<p>由欧拉定理可知，若n,a为正整数，且n,a互素（即gcd(a,n)=1），则 a^phi(n) = 1 (mod n)。<br>
+因此满足同余式 a^m = 1 (mod n)的<strong>最小正整数m</strong>存在，这个m称作a模n的阶，记作delta(n,a)。</p>
+<h2 id="原根">原根</h2>
+<p>若n,a为正整数，且n,a互质，如果 gcd(a,n)=1 且 delta(n,a) = phi(n), 则称a为模n的原根.<br>
+简单来说，使该式成立的d可能有很多个值，又由欧拉定理可知delta(n,a) = phi(n)一定是满足的，如果此时所有delta(n,a)的可能取值中phi(n)是最小的，那么就称a为模n的原根。</p>
+<p>eg:</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">a=3, n=7
+可知 3,7互质, 所以phi(n) = 7 - 1 = 6
+可得 3^6 = 1 (mod 7)
+
+计算3^1, 3^2, 3^3, 3^4, 3^5 (mod 7) 都不等于1, 所以 6为满足 a^x = 1 (mod n)的最小正整数
+
+delta(7,3) = 6 = phi(7), 可得 3为模7的原根<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="性质">性质</h3>
+<span id="more"></span>
+<ul>
+<li>delta(n,a)一定能整除phi(n)</li>
+<li>若一个数m有原根, 则它的原根个数为phi(phi(m))</li>
+</ul>
+<h2 id="离散对数">离散对数</h2>
+<p>如果对于一个整数b和质数p的一个原根a，可以找到一个唯一的指数i，使得：<br>
+<strong>b= a^i (mod p), 其中 0 &lt;= i &lt;= p-1</strong><br>
+成立，那么指数i称为b的以a为基数的模p的离散对数。</p>
+<p>离散对数难题是指：<br>
+当已知一个大质数p和它的一个原根a，如果给定一个b，要计算i的值是相当困难的。<br>
+常将i作为私钥, b作为公钥，即使知道b和a也无法求出i。</p>
+<h2 id="应用">应用</h2>
+<ul>
+<li>DH密钥交换</li>
+</ul>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">取一质数 7, 计算出其原根 3, 同时质数7和其原根3是公开的
+
+Alice:
+  <span class="token list punctuation">-</span> 取一个随机数 3 作为自己的私钥
+  <span class="token list punctuation">-</span> 计算 3^3 (mod 7) = 6
+  <span class="token list punctuation">-</span> 将6作为公钥发送给Bob
+
+Bob:
+    <span class="token list punctuation">-</span> 取一个随机数 1 作为自己的私钥
+    <span class="token list punctuation">-</span> 计算 3^1 (mod 7) = 3
+    <span class="token list punctuation">-</span> 将3作为公钥发送给Alice
+
+Alice 使用 3 计算出共享密钥 3^3 (mod 7) = 6
+Bob 使用 6 计算出共享密钥 6^1 (mod 7) = 6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>Elgamal加密</li>
+</ul>
+<p>接上面DH密钥交换</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">获取到公共密钥6之后，Alice和Bob都可以使用公共密钥6来加密信息
+
+palintext: 6
+
+加密: 6<span class="token italic"><span class="token punctuation">*</span><span class="token content">6 (mod 7) = 1, 密文为 1
+解密: 1</span><span class="token punctuation">*</span></span>6^-1 (mod 7) = 6 &lt;- 6^-1 是指6关于模7的逆元<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面的写的感觉不太对,完整过程</p>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">Alice 取一质数 7, 计算出其原根 3, 选一数 3 作为自己的私钥, 3^3 (mod 7) = 6
+将 &#123;7,3,6&#125; 作为公钥公开
+
+Bob想传递信息 6 给 Alice
+
+Bob选一数 5 作为自己的私钥
+ <span class="token list punctuation">-</span> 加密密钥: 3^5 (mod 7) = 5
+ <span class="token list punctuation">-</span> 公钥: 3^5 (mod 7) = 5
+ <span class="token list punctuation">-</span> 密文: 6*(6^5) (mod 7) = 1
+ <span class="token list punctuation">-</span> 将 (5,1) 作为密文发送给Alice
+
+Alice解密
+ <span class="token list punctuation">-</span> 计算解密密钥: 5^3 (mod 7) = 6
+ <span class="token list punctuation">-</span> 解密: 1 * 6^-1 (mod 7) = 6 &lt;- 此处6^-1是指6关于模7的逆元(模反元素) <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>Crypto</category>
+      </categories>
+      <tags>
+        <tag>Crypto</tag>
+        <tag>离散对数</tag>
+        <tag>DH密钥交换</tag>
+        <tag>Elgamal</tag>
       </tags>
   </entry>
   <entry>
@@ -6457,91 +6542,6 @@ K = (k1 + k2 + k3) mod (4*5*11)
       <tags>
         <tag>Crypto</tag>
         <tag>Shamir</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>离散对数问题</title>
-    <url>/posts/1f299eb2/</url>
-    <content><![CDATA[<p>前置知识 欧拉, 欧拉定理, 模反元素(模逆元) 可参见: <a href="/posts/f1a158c9/">RSA加密</a></p>
-<h2 id="阶">阶</h2>
-<p>由欧拉定理可知，若n,a为正整数，且n,a互素（即gcd(a,n)=1），则 a^phi(n) = 1 (mod n)。<br>
-因此满足同余式 a^m = 1 (mod n)的<strong>最小正整数m</strong>存在，这个m称作a模n的阶，记作delta(n,a)。</p>
-<h2 id="原根">原根</h2>
-<p>若n,a为正整数，且n,a互质，如果 gcd(a,n)=1 且 delta(n,a) = phi(n), 则称a为模n的原根.<br>
-简单来说，使该式成立的d可能有很多个值，又由欧拉定理可知delta(n,a) = phi(n)一定是满足的，如果此时所有delta(n,a)的可能取值中phi(n)是最小的，那么就称a为模n的原根。</p>
-<p>eg:</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">a=3, n=7
-可知 3,7互质, 所以phi(n) = 7 - 1 = 6
-可得 3^6 = 1 (mod 7)
-
-计算3^1, 3^2, 3^3, 3^4, 3^5 (mod 7) 都不等于1, 所以 6为满足 a^x = 1 (mod n)的最小正整数
-
-delta(7,3) = 6 = phi(7), 可得 3为模7的原根<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="性质">性质</h3>
-<span id="more"></span>
-<ul>
-<li>delta(n,a)一定能整除phi(n)</li>
-<li>若一个数m有原根, 则它的原根个数为phi(phi(m))</li>
-</ul>
-<h2 id="离散对数">离散对数</h2>
-<p>如果对于一个整数b和质数p的一个原根a，可以找到一个唯一的指数i，使得：<br>
-<strong>b= a^i (mod p), 其中 0 &lt;= i &lt;= p-1</strong><br>
-成立，那么指数i称为b的以a为基数的模p的离散对数。</p>
-<p>离散对数难题是指：<br>
-当已知一个大质数p和它的一个原根a，如果给定一个b，要计算i的值是相当困难的。<br>
-常将i作为私钥, b作为公钥，即使知道b和a也无法求出i。</p>
-<h2 id="应用">应用</h2>
-<ul>
-<li>DH密钥交换</li>
-</ul>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">取一质数 7, 计算出其原根 3, 同时质数7和其原根3是公开的
-
-Alice:
-  <span class="token list punctuation">-</span> 取一个随机数 3 作为自己的私钥
-  <span class="token list punctuation">-</span> 计算 3^3 (mod 7) = 6
-  <span class="token list punctuation">-</span> 将6作为公钥发送给Bob
-
-Bob:
-    <span class="token list punctuation">-</span> 取一个随机数 1 作为自己的私钥
-    <span class="token list punctuation">-</span> 计算 3^1 (mod 7) = 3
-    <span class="token list punctuation">-</span> 将3作为公钥发送给Alice
-
-Alice 使用 3 计算出共享密钥 3^3 (mod 7) = 6
-Bob 使用 6 计算出共享密钥 6^1 (mod 7) = 6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li>Elgamal加密</li>
-</ul>
-<p>接上面DH密钥交换</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">获取到公共密钥6之后，Alice和Bob都可以使用公共密钥6来加密信息
-
-palintext: 6
-
-加密: 6<span class="token italic"><span class="token punctuation">*</span><span class="token content">6 (mod 7) = 1, 密文为 1
-解密: 1</span><span class="token punctuation">*</span></span>6^-1 (mod 7) = 6 &lt;- 6^-1 是指6关于模7的逆元<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>上面的写的感觉不太对,完整过程</p>
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">Alice 取一质数 7, 计算出其原根 3, 选一数 3 作为自己的私钥, 3^3 (mod 7) = 6
-将 &#123;7,3,6&#125; 作为公钥公开
-
-Bob想传递信息 6 给 Alice
-
-Bob选一数 5 作为自己的私钥
- <span class="token list punctuation">-</span> 加密密钥: 3^5 (mod 7) = 5
- <span class="token list punctuation">-</span> 公钥: 3^5 (mod 7) = 5
- <span class="token list punctuation">-</span> 密文: 6*(6^5) (mod 7) = 1
- <span class="token list punctuation">-</span> 将 (5,1) 作为密文发送给Alice
-
-Alice解密
- <span class="token list punctuation">-</span> 计算解密密钥: 5^3 (mod 7) = 6
- <span class="token list punctuation">-</span> 解密: 1 * 6^-1 (mod 7) = 6 &lt;- 此处6^-1是指6关于模7的逆元(模反元素) <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>Crypto</category>
-      </categories>
-      <tags>
-        <tag>Crypto</tag>
-        <tag>离散对数</tag>
-        <tag>DH密钥交换</tag>
-        <tag>Elgamal</tag>
       </tags>
   </entry>
   <entry>
