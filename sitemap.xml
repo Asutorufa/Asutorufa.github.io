@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://asutorufa.com/resume/index.html</loc>
+    <loc>https://asutorufa.com/tags/index.html</loc>
     
     <lastmod>2026-02-09</lastmod>
     
@@ -20,7 +20,25 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/index.html</loc>
+    <loc>https://asutorufa.com/resume/index.html</loc>
+    
+    <lastmod>2026-02-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/about/index.html</loc>
+    
+    <lastmod>2026-02-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/archives/index.html</loc>
     
     <lastmod>2026-02-09</lastmod>
     
@@ -48,24 +66,6 @@
   
   <url>
     <loc>https://asutorufa.com/friends/index.html</loc>
-    
-    <lastmod>2026-02-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.com/about/index.html</loc>
-    
-    <lastmod>2026-02-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.com/archives/index.html</loc>
     
     <lastmod>2026-02-09</lastmod>
     
@@ -792,13 +792,6 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/Network/</loc>
-    <lastmod>2026-02-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://asutorufa.com/tags/bios/</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -807,6 +800,13 @@
   
   <url>
     <loc>https://asutorufa.com/tags/computer/</loc>
+    <lastmod>2026-02-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/tags/Network/</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -883,20 +883,6 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/Crypto/</loc>
-    <lastmod>2026-02-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.com/tags/RSA/</loc>
-    <lastmod>2026-02-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://asutorufa.com/tags/llm/</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -939,6 +925,20 @@
   </url>
   
   <url>
+    <loc>https://asutorufa.com/tags/Crypto/</loc>
+    <lastmod>2026-02-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/tags/RSA/</loc>
+    <lastmod>2026-02-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://asutorufa.com/tags/Golang/</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -960,20 +960,6 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/Proxy/</loc>
-    <lastmod>2026-02-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://asutorufa.com/tags/Go/</loc>
-    <lastmod>2026-02-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://asutorufa.com/tags/android/</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -982,6 +968,20 @@
   
   <url>
     <loc>https://asutorufa.com/tags/adb/</loc>
+    <lastmod>2026-02-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/tags/Proxy/</loc>
+    <lastmod>2026-02-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/tags/Go/</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1023,14 +1023,14 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/windows/</loc>
+    <loc>https://asutorufa.com/tags/encrypt/</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/encrypt/</loc>
+    <loc>https://asutorufa.com/tags/windows/</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1331,13 +1331,6 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/tags/Shamir/</loc>
-    <lastmod>2026-02-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://asutorufa.com/tags/English/</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -1346,6 +1339,13 @@
   
   <url>
     <loc>https://asutorufa.com/tags/translate/</loc>
+    <lastmod>2026-02-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://asutorufa.com/tags/Shamir/</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1494,14 +1494,14 @@
   </url>
   
   <url>
-    <loc>https://asutorufa.com/categories/Crypto/</loc>
+    <loc>https://asutorufa.com/categories/llm/</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://asutorufa.com/categories/llm/</loc>
+    <loc>https://asutorufa.com/categories/Crypto/</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
