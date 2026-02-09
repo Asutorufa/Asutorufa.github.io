@@ -1799,207 +1799,6 @@ std<span class="token double-colon punctuation">::</span>vector<span class="toke
       </tags>
   </entry>
   <entry>
-    <title>QdrantでHybrid Search</title>
-    <url>/posts/1755854433972/</url>
-    <content><![CDATA[<p>密ベクトルは現在ではText Embeddingサービスや<code>vllm</code>などを使えば簡単に生成をてきる。<br>
-疎ベクトルは色々と探しましたが、直接利用できるサービスがあまりはない、自分で用意しなければならない。<br>
-<code>Qdrant</code>が提供する<code>fastembed</code>は利用できますけど、対応している疎ベクトルモデルが少ないため、最後的に<code>sentence_transformers</code>の<code>SparseEncoder</code>を利用することにしました。</p>
-<p>例えば、以下のようなドキュメントがあるとします：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">docx <span class="token operator">=</span> <span class="token punctuation">[</span>
-    <span class="token string">"test1"</span><span class="token punctuation">,</span>
-    <span class="token string">"test2"</span><span class="token punctuation">,</span>
-    <span class="token string">"test3"</span><span class="token punctuation">,</span>
-    <span class="token string">"test4"</span><span class="token punctuation">,</span>
-<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>戻り値の形式がわかりにくく、少し混乱しました：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">document_embeddings<span class="token punctuation">.</span>coalesce<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>indices<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> 
-    <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">1</span> <span class="token number">1</span> <span class="token number">1</span> <span class="token number">2</span> <span class="token number">2</span> <span class="token number">2</span> <span class="token number">3</span> <span class="token number">3</span> <span class="token punctuation">]</span> <span class="token punctuation">[</span> <span class="token number">5</span> <span class="token number">25</span> <span class="token number">29</span> <span class="token number">56</span> <span class="token number">4035</span> <span class="token number">4038</span> <span class="token number">4059</span> <span class="token number">1</span> <span class="token number">2</span> <span class="token number">3</span> <span class="token number">98</span> <span class="token number">67</span> <span class="token number">54</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
-
-document_embeddings<span class="token punctuation">.</span>coalesce<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> 
-    <span class="token punctuation">[</span><span class="token number">0.03429046</span> <span class="token number">0.02966345</span> <span class="token number">0.03258647</span> <span class="token number">0.03258648</span> <span class="token number">0.03258649</span> <span class="token number">0.03137818</span> <span class="token number">0.0306967</span> <span class="token number">0.04750843</span> <span class="token number">0.0475084</span> <span class="token number">0.0475085</span> <span class="token number">0.03258612</span> <span class="token number">0.03137328</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Qdrant疎ベクトル形式の引数要求は以下のようになります：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">indices <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token number">5</span>   <span class="token number">25</span>   <span class="token number">29</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">]</span>
-values <span class="token operator">=</span>  <span class="token punctuation">[</span> <span class="token number">0.03429046</span> <span class="token number">0.02966345</span> <span class="token number">0.03258647</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>最後はなんとかわかりました、実は：</p>
-<ul>
-<li><code>indices</code>の1次元目が <code>0</code> の要素が、<code>docs[0]</code> (“test1”) に対応します。</li>
-<li><code>indices</code>の1次元目が <code>1</code> の要素が、<code>docs[1]</code> (“test2”) に対応します。</li>
-<li>…</li>
-</ul>
-<p>したがって、疎ベクトルは以下のようになります。</p>
-<span id="more"></span>
-<ul>
-<li><code>test1</code>
-<ul>
-<li>indicesは<code>[5 25 29 56 4035]</code></li>
-<li>valuesは <code>[0.03429046 0.02966345 0.03258647 0.03258648]</code></li>
-</ul>
-</li>
-<li><code>test2</code>
-<ul>
-<li>indicesは<code>[4035 4038 4059]</code></li>
-<li>valuesは <code>[0.03258649 0.03137818 0.0306967]</code></li>
-</ul>
-</li>
-<li>…</li>
-<li>…</li>
-</ul>
-<p>以下は実装した例のコードです。<code>FastAPI</code>でhttpサービスを提供します。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># sentence_transformersはtorchを依存している</span>
-<span class="token comment"># intelのMacはもうtorchを利用できないです、LinuxやArmのMacは必要です</span>
-<span class="token keyword">from</span> sentence_transformers <span class="token keyword">import</span> SparseEncoder
-<span class="token keyword">import</span> uvicorn
-<span class="token keyword">from</span> pydantic <span class="token keyword">import</span> BaseModel
-<span class="token keyword">from</span> fastapi <span class="token keyword">import</span> FastAPI
-<span class="token keyword">from</span> typing <span class="token keyword">import</span> List
-
-<span class="token keyword">class</span> <span class="token class-name">TextResponse</span><span class="token punctuation">(</span>BaseModel<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    values<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">float</span><span class="token punctuation">]</span>
-    indices<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span>
-
-
-<span class="token keyword">class</span> <span class="token class-name">TextRequest</span><span class="token punctuation">(</span>BaseModel<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    text<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span>
-    query<span class="token punctuation">:</span> <span class="token builtin">bool</span> <span class="token operator">=</span> <span class="token boolean">False</span>
-
-
-app <span class="token operator">=</span> FastAPI<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-<span class="token decorator annotation punctuation">@app<span class="token punctuation">.</span>post</span><span class="token punctuation">(</span><span class="token string">"/sparse_embedding"</span><span class="token punctuation">)</span>
-<span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">sparse_embedding</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> TextRequest<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> req<span class="token punctuation">.</span>query<span class="token punctuation">:</span>
-        <span class="token comment"># クエリー時はencode_queryを推薦するみたいです</span>
-        document_embeddings <span class="token operator">=</span> model<span class="token punctuation">.</span>encode_query<span class="token punctuation">(</span>req<span class="token punctuation">.</span>text<span class="token punctuation">)</span>
-    <span class="token keyword">else</span><span class="token punctuation">:</span>
-        document_embeddings <span class="token operator">=</span> model<span class="token punctuation">.</span>encode_document<span class="token punctuation">(</span>req<span class="token punctuation">.</span>text<span class="token punctuation">)</span>
-
-    <span class="token comment"># torchのTesnorをnumpy配列に変換する</span>
-    indices <span class="token operator">=</span> document_embeddings<span class="token punctuation">.</span>coalesce<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>indices<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    values <span class="token operator">=</span> document_embeddings<span class="token punctuation">.</span>coalesce<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    indices_index <span class="token operator">=</span> indices<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>tolist<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    indices_value <span class="token operator">=</span> indices<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>tolist<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    data<span class="token punctuation">:</span> List<span class="token punctuation">[</span>TextResponse<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
-        TextResponse<span class="token punctuation">(</span>indices<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> values<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>text<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token punctuation">]</span>
-
-    <span class="token comment"># indexを基に、対応するindicesとvaluesを抽出します</span>
-    <span class="token keyword">for</span> index<span class="token punctuation">,</span> i <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>indices_index<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>indices<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">(</span>indices_value<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>values<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token builtin">float</span><span class="token punctuation">(</span>values<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">return</span> data
-
-
-model <span class="token operator">=</span> SparseEncoder<span class="token punctuation">(</span>
-    <span class="token comment"># オフライン環境では、モデルフィルが格納されたディレクトリを指定します、例え：/data/splade-v3</span>
-    <span class="token string">"naver/splade-v3"</span><span class="token punctuation">,</span> device<span class="token operator">=</span><span class="token string">"cuda:"</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>args<span class="token punctuation">.</span>cuda<span class="token punctuation">)</span> <span class="token keyword">if</span> args<span class="token punctuation">.</span>cuda <span class="token operator">!=</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token keyword">else</span> <span class="token string">"cpu"</span>
-<span class="token punctuation">)</span>
-
-<span class="token comment"># HTTPのサービスを起動します</span>
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
-    uvicorn<span class="token punctuation">.</span>run<span class="token punctuation">(</span>app<span class="token punctuation">,</span> host<span class="token operator">=</span><span class="token string">"0.0.0.0"</span><span class="token punctuation">,</span> port<span class="token operator">=</span><span class="token number">8000</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Qdrant Collectionを作成する</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go">qdrant<span class="token punctuation">.</span><span class="token function">CreateCollection</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">TODO</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>CreateCollection<span class="token punctuation">&#123;</span>
-  CollectionName<span class="token punctuation">:</span> collectionName<span class="token punctuation">,</span>
-  Timeout<span class="token punctuation">:</span>        proto<span class="token punctuation">.</span><span class="token function">Uint64</span><span class="token punctuation">(</span><span class="token number">120</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  SparseVectorsConfig<span class="token punctuation">:</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>SparseVectorConfig<span class="token punctuation">&#123;</span>
-   Map<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">*</span>qdrant<span class="token punctuation">.</span>SparseVectorParams<span class="token punctuation">&#123;</span>
-    <span class="token string">"sparse"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token comment">// 疎ベクトルの設定</span>
-     Index<span class="token punctuation">:</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>SparseIndexConfig<span class="token punctuation">&#123;</span>
-      OnDisk<span class="token punctuation">:</span> proto<span class="token punctuation">.</span><span class="token function">Bool</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-     <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  VectorsConfig<span class="token punctuation">:</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>VectorsConfig<span class="token punctuation">&#123;</span>
-   Config<span class="token punctuation">:</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>VectorsConfig_ParamsMap<span class="token punctuation">&#123;</span>
-    ParamsMap<span class="token punctuation">:</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>VectorParamsMap<span class="token punctuation">&#123;</span>
-     Map<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">*</span>qdrant<span class="token punctuation">.</span>VectorParams<span class="token punctuation">&#123;</span>
-      <span class="token string">"dense"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token comment">// 密ベクトルの設定</span>
-       Distance<span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span>Distance_Cosine<span class="token punctuation">,</span>
-       <span class="token comment">//　TextEmbeddingモデルに従って、例えば：voyage-3-large　1024 (default), 256, 512, 2048</span>
-       Size<span class="token punctuation">:</span>     <span class="token number">1024</span><span class="token punctuation">,</span>
-      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-     <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>ドキュメントの追加</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"> texts <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">&#123;</span><span class="token string">"test1"</span><span class="token punctuation">,</span> <span class="token string">"test2"</span><span class="token punctuation">&#125;</span>
-
-
-<span class="token comment">// 密ベクトルを生成する</span>
-embeddings<span class="token punctuation">,</span> err <span class="token operator">:=</span> q<span class="token punctuation">.</span>embedding<span class="token punctuation">.</span><span class="token function">TextEmbedding</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> texts<span class="token operator">...</span><span class="token punctuation">)</span>
-<span class="token comment">// 疎ベクトルを生成する</span>
-sparseEmbeddings<span class="token punctuation">,</span> err <span class="token operator">:=</span> q<span class="token punctuation">.</span>sparse<span class="token punctuation">.</span><span class="token function">Embedding</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> sparse<span class="token punctuation">.</span>EmbeddingRequest<span class="token punctuation">&#123;</span> Text<span class="token punctuation">:</span> texts<span class="token operator">...</span><span class="token punctuation">,</span> Query<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-
- <span class="token keyword">var</span> points <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>qdrant<span class="token punctuation">.</span>PointStruct
-
- <span class="token keyword">for</span> i<span class="token punctuation">,</span> c <span class="token operator">:=</span> <span class="token keyword">range</span> embeddings <span class="token punctuation">&#123;</span>
-  points <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>points<span class="token punctuation">,</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>PointStruct<span class="token punctuation">&#123;</span>
-   Id<span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span><span class="token function">NewIDUUID</span><span class="token punctuation">(</span>uuid<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-   Vectors<span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span><span class="token function">NewVectorsMap</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">*</span>qdrant<span class="token punctuation">.</span>Vector<span class="token punctuation">&#123;</span>
-    <span class="token string">"dense"</span><span class="token punctuation">:</span>  qdrant<span class="token punctuation">.</span><span class="token function">NewVectorDense</span><span class="token punctuation">(</span><span class="token function">toFloat32</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token string">"sparse"</span><span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span><span class="token function">NewVectorSparse</span><span class="token punctuation">(</span>sparseEmbeddings<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>Indices<span class="token punctuation">,</span> sparseEmbeddings<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>Values<span class="token punctuation">)</span><span class="token punctuation">,</span>
-   <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-   Payload<span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span><span class="token function">NewValueMap</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span>any<span class="token punctuation">&#123;</span> <span class="token string">"docx"</span><span class="token punctuation">:</span> texts<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
- <span class="token punctuation">&#125;</span>
-
- result<span class="token punctuation">,</span> err <span class="token operator">:=</span> q<span class="token punctuation">.</span>qdrant<span class="token punctuation">.</span><span class="token function">Upsert</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>UpsertPoints<span class="token punctuation">&#123;</span>
-  CollectionName<span class="token punctuation">:</span> q<span class="token punctuation">.</span>collection<span class="token punctuation">,</span>
-  Points<span class="token punctuation">:</span>         points<span class="token punctuation">,</span>
-  Wait<span class="token punctuation">:</span>           proto<span class="token punctuation">.</span><span class="token function">Bool</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
- <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>ハイブリッド検索（Hybird Search）</p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"> embeddings<span class="token punctuation">,</span> err <span class="token operator">:=</span> q<span class="token punctuation">.</span>embedding<span class="token punctuation">.</span><span class="token function">TextEmbedding</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> prompt<span class="token punctuation">)</span>
- sparseEmbeddings<span class="token punctuation">,</span> err <span class="token operator">:=</span> q<span class="token punctuation">.</span>sparse<span class="token punctuation">.</span><span class="token function">Embedding</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> sparse<span class="token punctuation">.</span>EmbeddingRequest<span class="token punctuation">&#123;</span>Text<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">&#123;</span>prompt<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>　Query<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-
-<span class="token comment">// Hybird Search時はSearchではなくQuery APIを使用する必要があります</span>
- rsp<span class="token punctuation">,</span> err <span class="token operator">:=</span> q<span class="token punctuation">.</span>qdrant<span class="token punctuation">.</span><span class="token function">GetPointsClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Query</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>QueryPoints<span class="token punctuation">&#123;</span>
-  CollectionName<span class="token punctuation">:</span> q<span class="token punctuation">.</span>collection<span class="token punctuation">,</span>
-  Query<span class="token punctuation">:</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>Query<span class="token punctuation">&#123;</span>
-   Variant<span class="token punctuation">:</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>Query_Fusion<span class="token punctuation">&#123;</span>
-    <span class="token comment">// Reciprocal Rank Fusion (RRF) を使って結果を統合します</span>
-    Fusion<span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span>Fusion_RRF<span class="token punctuation">,</span>
-   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  Prefetch<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>qdrant<span class="token punctuation">.</span>PrefetchQuery<span class="token punctuation">&#123;</span>
-   <span class="token punctuation">&#123;</span>
-    Using<span class="token punctuation">:</span> proto<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token string">"dense"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    Query<span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span><span class="token function">NewQueryDense</span><span class="token punctuation">(</span><span class="token function">toFloat32</span><span class="token punctuation">(</span>embeddings<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    Limit<span class="token punctuation">:</span> proto<span class="token punctuation">.</span><span class="token function">Uint64</span><span class="token punctuation">(</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> numDocuments<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-   <span class="token punctuation">&#123;</span>
-    Using<span class="token punctuation">:</span> proto<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token string">"sparse"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    Query<span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span><span class="token function">NewQuerySparse</span><span class="token punctuation">(</span>sparseEmbeddings<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>Indices<span class="token punctuation">,</span> sparseEmbeddings<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>Values<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    Limit<span class="token punctuation">:</span> proto<span class="token punctuation">.</span><span class="token function">Uint64</span><span class="token punctuation">(</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> numDocuments<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  WithPayload<span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span><span class="token function">NewWithPayloadEnable</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  Limit<span class="token punctuation">:</span>       proto<span class="token punctuation">.</span><span class="token function">Uint64</span><span class="token punctuation">(</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">,</span> numDocuments<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
- <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-
-<span class="token comment">/*
-    Rerank など
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-]]></content>
-      <categories>
-        <category>llm</category>
-      </categories>
-      <tags>
-        <tag>llm</tag>
-        <tag>rag</tag>
-        <tag>text embedding</tag>
-        <tag>sparse vector</tag>
-        <tag>vector database</tag>
-        <tag>hybrid search</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RSA加密</title>
     <url>/posts/f1a158c9/</url>
     <content><![CDATA[<h2 id="质数">质数</h2>
@@ -2229,6 +2028,207 @@ sparseEmbeddings<span class="token punctuation">,</span> err <span class="token 
       <tags>
         <tag>Crypto</tag>
         <tag>RSA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>QdrantでHybrid Search</title>
+    <url>/posts/1755854433972/</url>
+    <content><![CDATA[<p>密ベクトルは現在ではText Embeddingサービスや<code>vllm</code>などを使えば簡単に生成をてきる。<br>
+疎ベクトルは色々と探しましたが、直接利用できるサービスがあまりはない、自分で用意しなければならない。<br>
+<code>Qdrant</code>が提供する<code>fastembed</code>は利用できますけど、対応している疎ベクトルモデルが少ないため、最後的に<code>sentence_transformers</code>の<code>SparseEncoder</code>を利用することにしました。</p>
+<p>例えば、以下のようなドキュメントがあるとします：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">docx <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token string">"test1"</span><span class="token punctuation">,</span>
+    <span class="token string">"test2"</span><span class="token punctuation">,</span>
+    <span class="token string">"test3"</span><span class="token punctuation">,</span>
+    <span class="token string">"test4"</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>戻り値の形式がわかりにくく、少し混乱しました：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">document_embeddings<span class="token punctuation">.</span>coalesce<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>indices<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> 
+    <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">1</span> <span class="token number">1</span> <span class="token number">1</span> <span class="token number">2</span> <span class="token number">2</span> <span class="token number">2</span> <span class="token number">3</span> <span class="token number">3</span> <span class="token punctuation">]</span> <span class="token punctuation">[</span> <span class="token number">5</span> <span class="token number">25</span> <span class="token number">29</span> <span class="token number">56</span> <span class="token number">4035</span> <span class="token number">4038</span> <span class="token number">4059</span> <span class="token number">1</span> <span class="token number">2</span> <span class="token number">3</span> <span class="token number">98</span> <span class="token number">67</span> <span class="token number">54</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+
+document_embeddings<span class="token punctuation">.</span>coalesce<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> 
+    <span class="token punctuation">[</span><span class="token number">0.03429046</span> <span class="token number">0.02966345</span> <span class="token number">0.03258647</span> <span class="token number">0.03258648</span> <span class="token number">0.03258649</span> <span class="token number">0.03137818</span> <span class="token number">0.0306967</span> <span class="token number">0.04750843</span> <span class="token number">0.0475084</span> <span class="token number">0.0475085</span> <span class="token number">0.03258612</span> <span class="token number">0.03137328</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Qdrant疎ベクトル形式の引数要求は以下のようになります：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">indices <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token number">5</span>   <span class="token number">25</span>   <span class="token number">29</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">]</span>
+values <span class="token operator">=</span>  <span class="token punctuation">[</span> <span class="token number">0.03429046</span> <span class="token number">0.02966345</span> <span class="token number">0.03258647</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>最後はなんとかわかりました、実は：</p>
+<ul>
+<li><code>indices</code>の1次元目が <code>0</code> の要素が、<code>docs[0]</code> (“test1”) に対応します。</li>
+<li><code>indices</code>の1次元目が <code>1</code> の要素が、<code>docs[1]</code> (“test2”) に対応します。</li>
+<li>…</li>
+</ul>
+<p>したがって、疎ベクトルは以下のようになります。</p>
+<span id="more"></span>
+<ul>
+<li><code>test1</code>
+<ul>
+<li>indicesは<code>[5 25 29 56 4035]</code></li>
+<li>valuesは <code>[0.03429046 0.02966345 0.03258647 0.03258648]</code></li>
+</ul>
+</li>
+<li><code>test2</code>
+<ul>
+<li>indicesは<code>[4035 4038 4059]</code></li>
+<li>valuesは <code>[0.03258649 0.03137818 0.0306967]</code></li>
+</ul>
+</li>
+<li>…</li>
+<li>…</li>
+</ul>
+<p>以下は実装した例のコードです。<code>FastAPI</code>でhttpサービスを提供します。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># sentence_transformersはtorchを依存している</span>
+<span class="token comment"># intelのMacはもうtorchを利用できないです、LinuxやArmのMacは必要です</span>
+<span class="token keyword">from</span> sentence_transformers <span class="token keyword">import</span> SparseEncoder
+<span class="token keyword">import</span> uvicorn
+<span class="token keyword">from</span> pydantic <span class="token keyword">import</span> BaseModel
+<span class="token keyword">from</span> fastapi <span class="token keyword">import</span> FastAPI
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> List
+
+<span class="token keyword">class</span> <span class="token class-name">TextResponse</span><span class="token punctuation">(</span>BaseModel<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    values<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">float</span><span class="token punctuation">]</span>
+    indices<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">TextRequest</span><span class="token punctuation">(</span>BaseModel<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    text<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span>
+    query<span class="token punctuation">:</span> <span class="token builtin">bool</span> <span class="token operator">=</span> <span class="token boolean">False</span>
+
+
+app <span class="token operator">=</span> FastAPI<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token decorator annotation punctuation">@app<span class="token punctuation">.</span>post</span><span class="token punctuation">(</span><span class="token string">"/sparse_embedding"</span><span class="token punctuation">)</span>
+<span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">sparse_embedding</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> TextRequest<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> req<span class="token punctuation">.</span>query<span class="token punctuation">:</span>
+        <span class="token comment"># クエリー時はencode_queryを推薦するみたいです</span>
+        document_embeddings <span class="token operator">=</span> model<span class="token punctuation">.</span>encode_query<span class="token punctuation">(</span>req<span class="token punctuation">.</span>text<span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        document_embeddings <span class="token operator">=</span> model<span class="token punctuation">.</span>encode_document<span class="token punctuation">(</span>req<span class="token punctuation">.</span>text<span class="token punctuation">)</span>
+
+    <span class="token comment"># torchのTesnorをnumpy配列に変換する</span>
+    indices <span class="token operator">=</span> document_embeddings<span class="token punctuation">.</span>coalesce<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>indices<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    values <span class="token operator">=</span> document_embeddings<span class="token punctuation">.</span>coalesce<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cpu<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    indices_index <span class="token operator">=</span> indices<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>tolist<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    indices_value <span class="token operator">=</span> indices<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>tolist<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    data<span class="token punctuation">:</span> List<span class="token punctuation">[</span>TextResponse<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
+        TextResponse<span class="token punctuation">(</span>indices<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> values<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>text<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span>
+
+    <span class="token comment"># indexを基に、対応するindicesとvaluesを抽出します</span>
+    <span class="token keyword">for</span> index<span class="token punctuation">,</span> i <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>indices_index<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>indices<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">(</span>indices_value<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>values<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token builtin">float</span><span class="token punctuation">(</span>values<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> data
+
+
+model <span class="token operator">=</span> SparseEncoder<span class="token punctuation">(</span>
+    <span class="token comment"># オフライン環境では、モデルフィルが格納されたディレクトリを指定します、例え：/data/splade-v3</span>
+    <span class="token string">"naver/splade-v3"</span><span class="token punctuation">,</span> device<span class="token operator">=</span><span class="token string">"cuda:"</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>args<span class="token punctuation">.</span>cuda<span class="token punctuation">)</span> <span class="token keyword">if</span> args<span class="token punctuation">.</span>cuda <span class="token operator">!=</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token keyword">else</span> <span class="token string">"cpu"</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># HTTPのサービスを起動します</span>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    uvicorn<span class="token punctuation">.</span>run<span class="token punctuation">(</span>app<span class="token punctuation">,</span> host<span class="token operator">=</span><span class="token string">"0.0.0.0"</span><span class="token punctuation">,</span> port<span class="token operator">=</span><span class="token number">8000</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Qdrant Collectionを作成する</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go">qdrant<span class="token punctuation">.</span><span class="token function">CreateCollection</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">TODO</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>CreateCollection<span class="token punctuation">&#123;</span>
+  CollectionName<span class="token punctuation">:</span> collectionName<span class="token punctuation">,</span>
+  Timeout<span class="token punctuation">:</span>        proto<span class="token punctuation">.</span><span class="token function">Uint64</span><span class="token punctuation">(</span><span class="token number">120</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  SparseVectorsConfig<span class="token punctuation">:</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>SparseVectorConfig<span class="token punctuation">&#123;</span>
+   Map<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">*</span>qdrant<span class="token punctuation">.</span>SparseVectorParams<span class="token punctuation">&#123;</span>
+    <span class="token string">"sparse"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token comment">// 疎ベクトルの設定</span>
+     Index<span class="token punctuation">:</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>SparseIndexConfig<span class="token punctuation">&#123;</span>
+      OnDisk<span class="token punctuation">:</span> proto<span class="token punctuation">.</span><span class="token function">Bool</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+     <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  VectorsConfig<span class="token punctuation">:</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>VectorsConfig<span class="token punctuation">&#123;</span>
+   Config<span class="token punctuation">:</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>VectorsConfig_ParamsMap<span class="token punctuation">&#123;</span>
+    ParamsMap<span class="token punctuation">:</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>VectorParamsMap<span class="token punctuation">&#123;</span>
+     Map<span class="token punctuation">:</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">*</span>qdrant<span class="token punctuation">.</span>VectorParams<span class="token punctuation">&#123;</span>
+      <span class="token string">"dense"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token comment">// 密ベクトルの設定</span>
+       Distance<span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span>Distance_Cosine<span class="token punctuation">,</span>
+       <span class="token comment">//　TextEmbeddingモデルに従って、例えば：voyage-3-large　1024 (default), 256, 512, 2048</span>
+       Size<span class="token punctuation">:</span>     <span class="token number">1024</span><span class="token punctuation">,</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+     <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>ドキュメントの追加</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"> texts <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">&#123;</span><span class="token string">"test1"</span><span class="token punctuation">,</span> <span class="token string">"test2"</span><span class="token punctuation">&#125;</span>
+
+
+<span class="token comment">// 密ベクトルを生成する</span>
+embeddings<span class="token punctuation">,</span> err <span class="token operator">:=</span> q<span class="token punctuation">.</span>embedding<span class="token punctuation">.</span><span class="token function">TextEmbedding</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> texts<span class="token operator">...</span><span class="token punctuation">)</span>
+<span class="token comment">// 疎ベクトルを生成する</span>
+sparseEmbeddings<span class="token punctuation">,</span> err <span class="token operator">:=</span> q<span class="token punctuation">.</span>sparse<span class="token punctuation">.</span><span class="token function">Embedding</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> sparse<span class="token punctuation">.</span>EmbeddingRequest<span class="token punctuation">&#123;</span> Text<span class="token punctuation">:</span> texts<span class="token operator">...</span><span class="token punctuation">,</span> Query<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+ <span class="token keyword">var</span> points <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>qdrant<span class="token punctuation">.</span>PointStruct
+
+ <span class="token keyword">for</span> i<span class="token punctuation">,</span> c <span class="token operator">:=</span> <span class="token keyword">range</span> embeddings <span class="token punctuation">&#123;</span>
+  points <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>points<span class="token punctuation">,</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>PointStruct<span class="token punctuation">&#123;</span>
+   Id<span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span><span class="token function">NewIDUUID</span><span class="token punctuation">(</span>uuid<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+   Vectors<span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span><span class="token function">NewVectorsMap</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">*</span>qdrant<span class="token punctuation">.</span>Vector<span class="token punctuation">&#123;</span>
+    <span class="token string">"dense"</span><span class="token punctuation">:</span>  qdrant<span class="token punctuation">.</span><span class="token function">NewVectorDense</span><span class="token punctuation">(</span><span class="token function">toFloat32</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token string">"sparse"</span><span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span><span class="token function">NewVectorSparse</span><span class="token punctuation">(</span>sparseEmbeddings<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>Indices<span class="token punctuation">,</span> sparseEmbeddings<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>Values<span class="token punctuation">)</span><span class="token punctuation">,</span>
+   <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+   Payload<span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span><span class="token function">NewValueMap</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span>any<span class="token punctuation">&#123;</span> <span class="token string">"docx"</span><span class="token punctuation">:</span> texts<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+ <span class="token punctuation">&#125;</span>
+
+ result<span class="token punctuation">,</span> err <span class="token operator">:=</span> q<span class="token punctuation">.</span>qdrant<span class="token punctuation">.</span><span class="token function">Upsert</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>UpsertPoints<span class="token punctuation">&#123;</span>
+  CollectionName<span class="token punctuation">:</span> q<span class="token punctuation">.</span>collection<span class="token punctuation">,</span>
+  Points<span class="token punctuation">:</span>         points<span class="token punctuation">,</span>
+  Wait<span class="token punctuation">:</span>           proto<span class="token punctuation">.</span><span class="token function">Bool</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+ <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>ハイブリッド検索（Hybird Search）</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"> embeddings<span class="token punctuation">,</span> err <span class="token operator">:=</span> q<span class="token punctuation">.</span>embedding<span class="token punctuation">.</span><span class="token function">TextEmbedding</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> prompt<span class="token punctuation">)</span>
+ sparseEmbeddings<span class="token punctuation">,</span> err <span class="token operator">:=</span> q<span class="token punctuation">.</span>sparse<span class="token punctuation">.</span><span class="token function">Embedding</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> sparse<span class="token punctuation">.</span>EmbeddingRequest<span class="token punctuation">&#123;</span>Text<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">&#123;</span>prompt<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>　Query<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// Hybird Search時はSearchではなくQuery APIを使用する必要があります</span>
+ rsp<span class="token punctuation">,</span> err <span class="token operator">:=</span> q<span class="token punctuation">.</span>qdrant<span class="token punctuation">.</span><span class="token function">GetPointsClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Query</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>QueryPoints<span class="token punctuation">&#123;</span>
+  CollectionName<span class="token punctuation">:</span> q<span class="token punctuation">.</span>collection<span class="token punctuation">,</span>
+  Query<span class="token punctuation">:</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>Query<span class="token punctuation">&#123;</span>
+   Variant<span class="token punctuation">:</span> <span class="token operator">&amp;</span>qdrant<span class="token punctuation">.</span>Query_Fusion<span class="token punctuation">&#123;</span>
+    <span class="token comment">// Reciprocal Rank Fusion (RRF) を使って結果を統合します</span>
+    Fusion<span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span>Fusion_RRF<span class="token punctuation">,</span>
+   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  Prefetch<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>qdrant<span class="token punctuation">.</span>PrefetchQuery<span class="token punctuation">&#123;</span>
+   <span class="token punctuation">&#123;</span>
+    Using<span class="token punctuation">:</span> proto<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token string">"dense"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    Query<span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span><span class="token function">NewQueryDense</span><span class="token punctuation">(</span><span class="token function">toFloat32</span><span class="token punctuation">(</span>embeddings<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    Limit<span class="token punctuation">:</span> proto<span class="token punctuation">.</span><span class="token function">Uint64</span><span class="token punctuation">(</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> numDocuments<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+   <span class="token punctuation">&#123;</span>
+    Using<span class="token punctuation">:</span> proto<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token string">"sparse"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    Query<span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span><span class="token function">NewQuerySparse</span><span class="token punctuation">(</span>sparseEmbeddings<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>Indices<span class="token punctuation">,</span> sparseEmbeddings<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>Values<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    Limit<span class="token punctuation">:</span> proto<span class="token punctuation">.</span><span class="token function">Uint64</span><span class="token punctuation">(</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> numDocuments<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  WithPayload<span class="token punctuation">:</span> qdrant<span class="token punctuation">.</span><span class="token function">NewWithPayloadEnable</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  Limit<span class="token punctuation">:</span>       proto<span class="token punctuation">.</span><span class="token function">Uint64</span><span class="token punctuation">(</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">,</span> numDocuments<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+ <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">/*
+    Rerank など
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+]]></content>
+      <categories>
+        <category>llm</category>
+      </categories>
+      <tags>
+        <tag>llm</tag>
+        <tag>rag</tag>
+        <tag>text embedding</tag>
+        <tag>sparse vector</tag>
+        <tag>vector database</tag>
+        <tag>hybrid search</tag>
       </tags>
   </entry>
   <entry>
@@ -3566,92 +3566,6 @@ The fields in the UDP request header are:
       </tags>
   </entry>
   <entry>
-    <title>golang实现子进程后台</title>
-    <url>/posts/89c4c907/</url>
-    <content><![CDATA[<h2 id="系统的进程机制">系统的进程机制</h2>
-<h3 id="linux">linux</h3>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">linux下的进程机制,当父进程被杀死之后,子进程就被系统接管
-
-+系统
-|-父进程 -> system管理
-|--子进程 -> 父进程管理
-
-当父进程被杀死之后
-
-+系统
-|-父进程 -> 被杀死
-|--子进程 -> system管理
-
-如果子进程被杀死,而且父进程没有处理子进程的善后工作,那么子进程就会变成僵尸进程
-
-+系统
-|-父进程 -> system管理
-|--子进程(被杀死) -> 僵尸进程  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<span id="more"></span>
-<h3 id="windows">windows</h3>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">windows下的进程机制就不太一样了,当父进程被杀死之后,子进程也会被杀死
-但是如果子进程还有子进程,杀死子进程但不杀死父进程,子进程的子进程就会被系统接管
-
-+系统
-|-父进程 -> system管理
-|--子进程 -> 父进程管理
-|---孙进程 -> 子进程管理
-
-当父进程被杀死
-
-+系统
-|-父进程 -> 被杀死
-|--子进程 -> 被杀死  
-|---孙进程 -> 被杀死
-
-当子进程被杀死
-
-+系统
-|-父进程 -> 系统管理
-|--子进程 -> 被杀死
-|-孙进程 -> 系统管理
-
-windows的机制和linux不太一样,如果子进程被杀死也不会有僵尸进程这种东西,所以子进程可以放心杀死<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="实现golang的后台">实现golang的后台</h2>
-<p>如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现<br>
-如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程<br>
-golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
-<strong>通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程,这样就相当于创建了子进程,子进程创建孙进程</strong><br>
-<strong>实现就是给程序加参数,再次调用的时候加上这个参数再创建想要的进程</strong></p>
-<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">daemonF</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span><span class="token string">"puthon"</span><span class="token punctuation">,</span><span class="token string">"-m"</span><span class="token punctuation">,</span><span class="token string">"http.server"</span><span class="token punctuation">)</span>
-    cmd<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    daemon <span class="token operator">:=</span> flag<span class="token punctuation">.</span><span class="token function">Bool</span><span class="token punctuation">(</span><span class="token string">"d"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token string">"d"</span><span class="token punctuation">)</span>
-    flag<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">if</span> <span class="token operator">*</span>daemon <span class="token operator">==</span> <span class="token boolean">true</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">daemonF</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        nowFunction<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> filepath<span class="token punctuation">.</span><span class="token function">Abs</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span>nowFunction<span class="token punctuation">,</span><span class="token string">"-d"</span><span class="token punctuation">)</span>
-        cmd<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">比如我们有一个程序叫makebk,有一个参数 -d
-
-+系统
-|-makebk(再次调用makebk并加上参数-d) -> 父进程:system
-|--makebk -d(加上参数之后再创建想要的进程) -> 父进程:makebk
-|---子进程 -> 父进程:makebk -d
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这样就得到我们想要的三层结构了,这时候让父进程杀死make -d,就实现子进程被系统接管,实现子进程后台</p>
-]]></content>
-      <categories>
-        <category>golang</category>
-      </categories>
-      <tags>
-        <tag>golang</tag>
-        <tag>linux</tag>
-        <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>golangとollamaでfunction calling</title>
     <url>/posts/23567986/</url>
     <content><![CDATA[<p>今回はollamaのオフィシャルクライアントでfuncation callingを使いたいです。　　<br>
@@ -3813,6 +3727,92 @@ err <span class="token operator">=</span> o<span class="token punctuation">.</sp
         <tag>llm</tag>
         <tag>text embedding</tag>
         <tag>function calling</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>golang实现子进程后台</title>
+    <url>/posts/89c4c907/</url>
+    <content><![CDATA[<h2 id="系统的进程机制">系统的进程机制</h2>
+<h3 id="linux">linux</h3>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">linux下的进程机制,当父进程被杀死之后,子进程就被系统接管
+
++系统
+|-父进程 -> system管理
+|--子进程 -> 父进程管理
+
+当父进程被杀死之后
+
++系统
+|-父进程 -> 被杀死
+|--子进程 -> system管理
+
+如果子进程被杀死,而且父进程没有处理子进程的善后工作,那么子进程就会变成僵尸进程
+
++系统
+|-父进程 -> system管理
+|--子进程(被杀死) -> 僵尸进程  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<h3 id="windows">windows</h3>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">windows下的进程机制就不太一样了,当父进程被杀死之后,子进程也会被杀死
+但是如果子进程还有子进程,杀死子进程但不杀死父进程,子进程的子进程就会被系统接管
+
++系统
+|-父进程 -> system管理
+|--子进程 -> 父进程管理
+|---孙进程 -> 子进程管理
+
+当父进程被杀死
+
++系统
+|-父进程 -> 被杀死
+|--子进程 -> 被杀死  
+|---孙进程 -> 被杀死
+
+当子进程被杀死
+
++系统
+|-父进程 -> 系统管理
+|--子进程 -> 被杀死
+|-孙进程 -> 系统管理
+
+windows的机制和linux不太一样,如果子进程被杀死也不会有僵尸进程这种东西,所以子进程可以放心杀死<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="实现golang的后台">实现golang的后台</h2>
+<p>如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现<br>
+如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程<br>
+golang只提供了forkexec,也就是说一个程序只能创建子进程<br>
+<strong>通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程,这样就相当于创建了子进程,子进程创建孙进程</strong><br>
+<strong>实现就是给程序加参数,再次调用的时候加上这个参数再创建想要的进程</strong></p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">daemonF</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span><span class="token string">"puthon"</span><span class="token punctuation">,</span><span class="token string">"-m"</span><span class="token punctuation">,</span><span class="token string">"http.server"</span><span class="token punctuation">)</span>
+    cmd<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    daemon <span class="token operator">:=</span> flag<span class="token punctuation">.</span><span class="token function">Bool</span><span class="token punctuation">(</span><span class="token string">"d"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token string">"d"</span><span class="token punctuation">)</span>
+    flag<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token operator">*</span>daemon <span class="token operator">==</span> <span class="token boolean">true</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">daemonF</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        nowFunction<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> filepath<span class="token punctuation">.</span><span class="token function">Abs</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        cmd <span class="token operator">:=</span> exec<span class="token punctuation">.</span><span class="token function">Command</span><span class="token punctuation">(</span>nowFunction<span class="token punctuation">,</span><span class="token string">"-d"</span><span class="token punctuation">)</span>
+        cmd<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">比如我们有一个程序叫makebk,有一个参数 -d
+
++系统
+|-makebk(再次调用makebk并加上参数-d) -> 父进程:system
+|--makebk -d(加上参数之后再创建想要的进程) -> 父进程:makebk
+|---子进程 -> 父进程:makebk -d
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样就得到我们想要的三层结构了,这时候让父进程杀死make -d,就实现子进程被系统接管,实现子进程后台</p>
+]]></content>
+      <categories>
+        <category>golang</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>linux</tag>
+        <tag>windows</tag>
       </tags>
   </entry>
   <entry>
@@ -4575,31 +4575,6 @@ module &quot;module3&quot; &#123;
       </tags>
   </entry>
   <entry>
-    <title>uefi and efi</title>
-    <url>/posts/a99a60b1/</url>
-    <content><![CDATA[<p>创建efi分区:</p>
-<p>创建efi分区要设置boot flag,而不是纯FAT32文件系统<br>
-使用gdisk</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gdisk /dev/sd**
-<span class="token comment">#这里要注意后面输入分区系统编号 要选择EFI分区,目前efi分区编号是 ef00</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>使用parted</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">parted</span> /dev/sd**
-<span class="token punctuation">(</span>parted<span class="token punctuation">)</span> <span class="token builtin class-name">set</span> <span class="token number">1</span> boot on<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>之后再格式化为fat32</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">mkfs.vfat <span class="token parameter variable">-F</span> <span class="token number">32</span> /dev/sd**</code></pre>
-<p>更新bios中的启动项应该在将启动文件安装到efi分区时还要向bios中的nvram存储器上写入相应的路径,在linux中可以使用efibootmgr完成相应的操作,当然如果你是安装grub,安装grub时会自动向nvram中写入内容,比如在bios更新后,会清除nvram中的内容,所有还要重新安装grub,或是使用efibootmgr写入引导文件路径.可参考<a href="https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface#efibootmgr">Unified_Extensible_Firmware_Interface#efibootmgr</a>,windows中也有相应的工具,具体操作方式可在网路上搜索.<br>
-如果是u盘的话,uefi 会查看所有 fat 分区，看看里面有没有 EFI/boot/bootx64.efi(目前还没有找到相应的文档表示是这个,这只是我个人的猜想,因为在我试过的无论是windows还是linux的iso镜像的efi文件都是这个地方) 引导文件,然后只要是 FAT32 文件系统就行,所以可以把 windows 或 ubuntu 的 iso 直接解压到一个 fat 分区（比如 fat 的 u 盘或移动硬盘）然后引导<br>
-<strong>有些UEFI系统只会识别 efi分区下的EFI/boot文件夹内的efi文件,有的甚至只会识别EFI/boot/bootx64.efi</strong></p>
-]]></content>
-      <categories>
-        <category>Computer</category>
-      </categories>
-      <tags>
-        <tag>efi</tag>
-        <tag>uefi</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ubuntu终端下连接wifi</title>
     <url>/posts/fb6d8628/</url>
     <content><![CDATA[<h2 id="首先使用rfkill查看你的wifi设备是否被停用">首先使用rfkill查看你的wifi设备是否被停用</h2>
@@ -4637,6 +4612,31 @@ module &quot;module3&quot; &#123;
       </categories>
       <tags>
         <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>uefi and efi</title>
+    <url>/posts/a99a60b1/</url>
+    <content><![CDATA[<p>创建efi分区:</p>
+<p>创建efi分区要设置boot flag,而不是纯FAT32文件系统<br>
+使用gdisk</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gdisk /dev/sd**
+<span class="token comment">#这里要注意后面输入分区系统编号 要选择EFI分区,目前efi分区编号是 ef00</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>使用parted</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">parted</span> /dev/sd**
+<span class="token punctuation">(</span>parted<span class="token punctuation">)</span> <span class="token builtin class-name">set</span> <span class="token number">1</span> boot on<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>之后再格式化为fat32</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">mkfs.vfat <span class="token parameter variable">-F</span> <span class="token number">32</span> /dev/sd**</code></pre>
+<p>更新bios中的启动项应该在将启动文件安装到efi分区时还要向bios中的nvram存储器上写入相应的路径,在linux中可以使用efibootmgr完成相应的操作,当然如果你是安装grub,安装grub时会自动向nvram中写入内容,比如在bios更新后,会清除nvram中的内容,所有还要重新安装grub,或是使用efibootmgr写入引导文件路径.可参考<a href="https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface#efibootmgr">Unified_Extensible_Firmware_Interface#efibootmgr</a>,windows中也有相应的工具,具体操作方式可在网路上搜索.<br>
+如果是u盘的话,uefi 会查看所有 fat 分区，看看里面有没有 EFI/boot/bootx64.efi(目前还没有找到相应的文档表示是这个,这只是我个人的猜想,因为在我试过的无论是windows还是linux的iso镜像的efi文件都是这个地方) 引导文件,然后只要是 FAT32 文件系统就行,所以可以把 windows 或 ubuntu 的 iso 直接解压到一个 fat 分区（比如 fat 的 u 盘或移动硬盘）然后引导<br>
+<strong>有些UEFI系统只会识别 efi分区下的EFI/boot文件夹内的efi文件,有的甚至只会识别EFI/boot/bootx64.efi</strong></p>
+]]></content>
+      <categories>
+        <category>Computer</category>
+      </categories>
+      <tags>
+        <tag>efi</tag>
+        <tag>uefi</tag>
       </tags>
   </entry>
   <entry>
@@ -5118,6 +5118,101 @@ Output: plaintext, or an error if the authentication tag does not match the supp
       </tags>
   </entry>
   <entry>
+    <title>动漫影评</title>
+    <url>/posts/665020d8/</url>
+    <content><![CDATA[<p>目前我只会记录最近看了个，有些看的比较早的就不记录了，记忆也比较模糊。</p>
+<h2 id="自定义神剧（个人主观决定）">自定义神剧（个人主观决定）</h2>
+<ul>
+<li>CLANNAD</li>
+<li>Kanon</li>
+<li>リトルバスターズ!</li>
+<li>Air</li>
+<li>Angel Beats! -1st beat-</li>
+<li>かぎなど</li>
+<li>true tears</li>
+<li>花咲くいろは</li>
+<li>TARI TARI</li>
+</ul>
+<span id="more"></span>
+<h2 id="Key">Key</h2>
+<p>key社的动漫作品我几乎全看了，大部分都很好看，推荐：</p>
+<ul>
+<li>CLANNAD</li>
+<li>Kanon</li>
+<li>リトルバスターズ!</li>
+<li>Air</li>
+<li>Angel Beats! -1st beat-</li>
+</ul>
+<h3 id="リトルバスターズ">リトルバスターズ!</h3>
+<p>主讲友情，第一季主要根据不同角色为引进行剧情引导，剧情引导也很自然。<br>
+第二季类似揭秘篇，来揭秘第一季剧情的真实面目及背景，当然也是key社的特点，真实中带有一点奇幻。<br>
+还有几集ova讲隐藏角色和后续剧情之类的。</p>
+<p>动画制作是 J.C. Staff, 对我来说很好，崛江由衣配的男主角我也很喜欢，很符合角色的形象。</p>
+<p>对我来说，与Kanon，CLANNAD略逊一筹，但也很好看，非常推荐，我是一天就看完了第一季20多集，第二天把剩下都看完了。</p>
+<h4 id="クドわふたー">クドわふたー</h4>
+<p>算是不同世界线的一个剧场版，女主角变成了クド，剧情也比较短，没有TV动画好看，但也能看，不影响主剧剧情。</p>
+<h3 id="Angel-Beats-1st-beat">Angel Beats! -1st beat-</h3>
+<p>与P.A. Works合作的第一部原创TV动画，剧情背景是死后世界，主讲男主一行人对女主的误解，及最后知道真相后对主角一行人的救赎。<br>
+剧情还是比较好看的，也没有硬伤，相信每个人看完之后都对人的一生的意义有不同看法，相信也能让不少人决定自己今后应该如何活下去。</p>
+<p>比不上Key社自己的作品，但也比另外两部原创动画好看且有意义，值得一看。</p>
+<h3 id="Kanon">Kanon</h3>
+<p>这部算是主讲男主对几位女主的救赎（除水瀬名雪），なゆき的剧情实在是太短了，也没有其他几位女主角的好看，至少TV动画是这样的。<br>
+让我印象最深刻的是沢渡真琴，尤其是飯塚雅弓的配音实在是太完美了，可能因为我家里也有养猫，所以会有同感，喜欢猫，但每次猫撒娇，不知道是因为他生病了，还是单纯的撒娇，很让人担心。<br>
+因为这部算是按照GAL的模式改编的，有些地方可能比较生硬，但我还是非常喜欢这部作品，比上面的リトルバスターズ和Angel Beats都要喜欢。</p>
+<h3 id="Air">Air</h3>
+<p>这部前期和Kanon比较像，也是讲对几位女主的救赎，但整个剧情的设定完全变了。<br>
+主题曲是很好听，也很出名，但后面的剧情，说实话，我有点难以接受。<br>
+且这部算是唯一一部Key社的TV动画中以悲剧结尾的动画，其他几部虽然也很感动，但都是喜剧结尾。<br>
+当然这部也值得一看，比大部分动画还是好看的。</p>
+<h3 id="神様になった日">神様になった日</h3>
+<p>与P.A. Works合作的第三部原创TV动画。<br>
+这部前期很正常，可以当作普通的日常动画，后期直接崩掉了，建议直接忽略后面几集，没有看的必要。<br>
+前面几集可以看，后面几集不推荐看。</p>
+<h3 id="かぎなど">かぎなど</h3>
+<p>Key社自己的泡面番。<br>
+主讲各种地狱笑话，声优梗，剧情梗什么的，相当推荐看，前提是是把Key自己作品的TV动画全部看完加上Angel Beats。</p>
+<h2 id="P-A-Works">P.A. Works</h2>
+<p>P.A. Works的几乎所有原创动画都很推荐：</p>
+<ul>
+<li>true tears</li>
+<li>花咲くいろは</li>
+<li>TARI TARI</li>
+<li>グラスリップ</li>
+<li>色づく世界の明日から</li>
+<li>サクラクエスト</li>
+<li>白い砂のアクアトープ</li>
+<li>凪のあすから</li>
+</ul>
+<h3 id="true-tears">true tears</h3>
+<p>true tears是PA的第一部原创动画，也是我目前看过的所有的PA的作品中最喜欢的一部。<br>
+剧情大概就是三女主都喜欢男主，最后某个人的胜利，而且结局对我来说是非常正常的一个走向，整个动画的制作都很精致，包括人物的动作细节，配音等我都很喜欢。<br>
+非常推荐的一部作品。</p>
+<h3 id="花咲くいろは">花咲くいろは</h3>
+<p>PA打工系列的第一部，主讲仲居这个职业，除了前面几集，后面是真的体现这个职业的魅力之处，也有youtube的评论说自己看完这部TV动画后决定成为仲居、并且最后真的实现了。<br>
+其中有几集关于女主的爱情比较硬，算是这部的硬伤，不过整部看起来是真的好看，我用了一整天就看完了，完全停不下来。<br>
+非常推荐。</p>
+<h3 id="TARI-TARI">TARI TARI</h3>
+<p>主讲友情，讲了主角一行人，面对自己未来何去何从的纠结，有人比较顺利，有人困难重重最后也没有放弃，但是比较短，只有13集，剧情无硬伤。</p>
+<h3 id="グラスリップ">グラスリップ</h3>
+<p>这部比较意识流，主讲爱情，比较看人，我是比较喜欢的。</p>
+<h3 id="色づく世界の明日から">色づく世界の明日から</h3>
+<p>这部有友情，有爱情，讲了女主被奶奶传送回奶奶高中时代之后，经历种种之后有所收获，且被男主拯救，虽然最后不得不回到自己所处的时代。<br>
+女主的人设也很可爱，这部我也非常喜欢。</p>
+<h3 id="白い砂のアクアトープ">白い砂のアクアトープ</h3>
+<p>打工系列的其中一部，是近几年的作品，也是那时一集一集追着看的。<br>
+主角一行人面对不得不作出的决定，最后走上自己道路，相信大家在人生中会遇到很多这种时候，尤其是工作后，相信不少人感受更深。<br>
+也是一部很有意义的TV动画，推荐看。</p>
+]]></content>
+      <categories>
+        <category>影评</category>
+      </categories>
+      <tags>
+        <tag>アニメ</tag>
+        <tag>动漫</tag>
+        <tag>影评</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>安卓使用dalvikvm运行java(termux运行java)</title>
     <url>/posts/8b98169e/</url>
     <content><![CDATA[<p>一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件<br>
@@ -5221,101 +5316,6 @@ Zygote进程运行时, 会初始化Dalvik虚拟机, 并运行它. Android的应�
       </categories>
       <tags>
         <tag>android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>动漫影评</title>
-    <url>/posts/665020d8/</url>
-    <content><![CDATA[<p>目前我只会记录最近看了个，有些看的比较早的就不记录了，记忆也比较模糊。</p>
-<h2 id="自定义神剧（个人主观决定）">自定义神剧（个人主观决定）</h2>
-<ul>
-<li>CLANNAD</li>
-<li>Kanon</li>
-<li>リトルバスターズ!</li>
-<li>Air</li>
-<li>Angel Beats! -1st beat-</li>
-<li>かぎなど</li>
-<li>true tears</li>
-<li>花咲くいろは</li>
-<li>TARI TARI</li>
-</ul>
-<span id="more"></span>
-<h2 id="Key">Key</h2>
-<p>key社的动漫作品我几乎全看了，大部分都很好看，推荐：</p>
-<ul>
-<li>CLANNAD</li>
-<li>Kanon</li>
-<li>リトルバスターズ!</li>
-<li>Air</li>
-<li>Angel Beats! -1st beat-</li>
-</ul>
-<h3 id="リトルバスターズ">リトルバスターズ!</h3>
-<p>主讲友情，第一季主要根据不同角色为引进行剧情引导，剧情引导也很自然。<br>
-第二季类似揭秘篇，来揭秘第一季剧情的真实面目及背景，当然也是key社的特点，真实中带有一点奇幻。<br>
-还有几集ova讲隐藏角色和后续剧情之类的。</p>
-<p>动画制作是 J.C. Staff, 对我来说很好，崛江由衣配的男主角我也很喜欢，很符合角色的形象。</p>
-<p>对我来说，与Kanon，CLANNAD略逊一筹，但也很好看，非常推荐，我是一天就看完了第一季20多集，第二天把剩下都看完了。</p>
-<h4 id="クドわふたー">クドわふたー</h4>
-<p>算是不同世界线的一个剧场版，女主角变成了クド，剧情也比较短，没有TV动画好看，但也能看，不影响主剧剧情。</p>
-<h3 id="Angel-Beats-1st-beat">Angel Beats! -1st beat-</h3>
-<p>与P.A. Works合作的第一部原创TV动画，剧情背景是死后世界，主讲男主一行人对女主的误解，及最后知道真相后对主角一行人的救赎。<br>
-剧情还是比较好看的，也没有硬伤，相信每个人看完之后都对人的一生的意义有不同看法，相信也能让不少人决定自己今后应该如何活下去。</p>
-<p>比不上Key社自己的作品，但也比另外两部原创动画好看且有意义，值得一看。</p>
-<h3 id="Kanon">Kanon</h3>
-<p>这部算是主讲男主对几位女主的救赎（除水瀬名雪），なゆき的剧情实在是太短了，也没有其他几位女主角的好看，至少TV动画是这样的。<br>
-让我印象最深刻的是沢渡真琴，尤其是飯塚雅弓的配音实在是太完美了，可能因为我家里也有养猫，所以会有同感，喜欢猫，但每次猫撒娇，不知道是因为他生病了，还是单纯的撒娇，很让人担心。<br>
-因为这部算是按照GAL的模式改编的，有些地方可能比较生硬，但我还是非常喜欢这部作品，比上面的リトルバスターズ和Angel Beats都要喜欢。</p>
-<h3 id="Air">Air</h3>
-<p>这部前期和Kanon比较像，也是讲对几位女主的救赎，但整个剧情的设定完全变了。<br>
-主题曲是很好听，也很出名，但后面的剧情，说实话，我有点难以接受。<br>
-且这部算是唯一一部Key社的TV动画中以悲剧结尾的动画，其他几部虽然也很感动，但都是喜剧结尾。<br>
-当然这部也值得一看，比大部分动画还是好看的。</p>
-<h3 id="神様になった日">神様になった日</h3>
-<p>与P.A. Works合作的第三部原创TV动画。<br>
-这部前期很正常，可以当作普通的日常动画，后期直接崩掉了，建议直接忽略后面几集，没有看的必要。<br>
-前面几集可以看，后面几集不推荐看。</p>
-<h3 id="かぎなど">かぎなど</h3>
-<p>Key社自己的泡面番。<br>
-主讲各种地狱笑话，声优梗，剧情梗什么的，相当推荐看，前提是是把Key自己作品的TV动画全部看完加上Angel Beats。</p>
-<h2 id="P-A-Works">P.A. Works</h2>
-<p>P.A. Works的几乎所有原创动画都很推荐：</p>
-<ul>
-<li>true tears</li>
-<li>花咲くいろは</li>
-<li>TARI TARI</li>
-<li>グラスリップ</li>
-<li>色づく世界の明日から</li>
-<li>サクラクエスト</li>
-<li>白い砂のアクアトープ</li>
-<li>凪のあすから</li>
-</ul>
-<h3 id="true-tears">true tears</h3>
-<p>true tears是PA的第一部原创动画，也是我目前看过的所有的PA的作品中最喜欢的一部。<br>
-剧情大概就是三女主都喜欢男主，最后某个人的胜利，而且结局对我来说是非常正常的一个走向，整个动画的制作都很精致，包括人物的动作细节，配音等我都很喜欢。<br>
-非常推荐的一部作品。</p>
-<h3 id="花咲くいろは">花咲くいろは</h3>
-<p>PA打工系列的第一部，主讲仲居这个职业，除了前面几集，后面是真的体现这个职业的魅力之处，也有youtube的评论说自己看完这部TV动画后决定成为仲居、并且最后真的实现了。<br>
-其中有几集关于女主的爱情比较硬，算是这部的硬伤，不过整部看起来是真的好看，我用了一整天就看完了，完全停不下来。<br>
-非常推荐。</p>
-<h3 id="TARI-TARI">TARI TARI</h3>
-<p>主讲友情，讲了主角一行人，面对自己未来何去何从的纠结，有人比较顺利，有人困难重重最后也没有放弃，但是比较短，只有13集，剧情无硬伤。</p>
-<h3 id="グラスリップ">グラスリップ</h3>
-<p>这部比较意识流，主讲爱情，比较看人，我是比较喜欢的。</p>
-<h3 id="色づく世界の明日から">色づく世界の明日から</h3>
-<p>这部有友情，有爱情，讲了女主被奶奶传送回奶奶高中时代之后，经历种种之后有所收获，且被男主拯救，虽然最后不得不回到自己所处的时代。<br>
-女主的人设也很可爱，这部我也非常喜欢。</p>
-<h3 id="白い砂のアクアトープ">白い砂のアクアトープ</h3>
-<p>打工系列的其中一部，是近几年的作品，也是那时一集一集追着看的。<br>
-主角一行人面对不得不作出的决定，最后走上自己道路，相信大家在人生中会遇到很多这种时候，尤其是工作后，相信不少人感受更深。<br>
-也是一部很有意义的TV动画，推荐看。</p>
-]]></content>
-      <categories>
-        <category>影评</category>
-      </categories>
-      <tags>
-        <tag>アニメ</tag>
-        <tag>动漫</tag>
-        <tag>影评</tag>
       </tags>
   </entry>
   <entry>
@@ -6190,32 +6190,6 @@ i&#x3D;0.01<span aria-hidden="true" class="line-numbers-rows"><span></span><span
       </tags>
   </entry>
   <entry>
-    <title>用CIDR表示网段</title>
-    <url>/posts/e2b25bb8/</url>
-    <content><![CDATA[<p>我们知道一般CIDR(无类别域间路由)网段的表示为:<strong>192.168.0.0/24</strong>这种形式</p>
-<h2 id="IP地址">IP地址</h2>
-<p>首先我们得知道ip地址是如何来的<br>
-ipv4的地址是用32位二进制数表示的<br>
-如: 255.255.255.0 -&gt; 11111111.11111111.11111111.00000000</p>
-<h2 id="网络前缀">网络前缀</h2>
-<p><strong>192.168.0.0/24</strong>中的24就是网络前缀,网络前缀可转化为网络掩码,24表示网络掩码的前24位为1</p>
-<h2 id="网络掩码">网络掩码</h2>
-<p>「网络掩码」又叫「子网掩码」、「地址掩码」、「子網路遮罩」（subnet mask），它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。      --维基百科<span id="more"></span></p>
-<p>将网络前缀转化为网络掩码: 24 -&gt; 11111111.11111111.11111111.00000000 -&gt; 255.255.255.0<br>
-<em>255.255.255.0</em>就是网络掩码</p>
-<h2 id="CIDR">CIDR</h2>
-<p><em><strong>网络地址的计算方法为ip地址与网络掩码进行’与’运算</strong></em><br>
-通过上面的计算好的网络掩码可知这个ip地址的前24位是不变的  ,所以<strong>192.168.0.0/24</strong>表示的网段为: <strong>192.168.0.0 - 192.168.0.255</strong></p>
-]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>CIDR</tag>
-        <tag>IP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>用Android/PC为linux拓展屏幕</title>
     <url>/posts/4f3989f0/</url>
     <content><![CDATA[<h2 id="新建虚拟屏幕">新建虚拟屏幕</h2>
@@ -6277,6 +6251,32 @@ TCP端口80</p>
       <tags>
         <tag>android</tag>
         <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>用CIDR表示网段</title>
+    <url>/posts/e2b25bb8/</url>
+    <content><![CDATA[<p>我们知道一般CIDR(无类别域间路由)网段的表示为:<strong>192.168.0.0/24</strong>这种形式</p>
+<h2 id="IP地址">IP地址</h2>
+<p>首先我们得知道ip地址是如何来的<br>
+ipv4的地址是用32位二进制数表示的<br>
+如: 255.255.255.0 -&gt; 11111111.11111111.11111111.00000000</p>
+<h2 id="网络前缀">网络前缀</h2>
+<p><strong>192.168.0.0/24</strong>中的24就是网络前缀,网络前缀可转化为网络掩码,24表示网络掩码的前24位为1</p>
+<h2 id="网络掩码">网络掩码</h2>
+<p>「网络掩码」又叫「子网掩码」、「地址掩码」、「子網路遮罩」（subnet mask），它是一种用来指明一个IP地址的哪些位标识的是主机所在的网络地址以及哪些位标识的是主机地址的位掩码。      --维基百科<span id="more"></span></p>
+<p>将网络前缀转化为网络掩码: 24 -&gt; 11111111.11111111.11111111.00000000 -&gt; 255.255.255.0<br>
+<em>255.255.255.0</em>就是网络掩码</p>
+<h2 id="CIDR">CIDR</h2>
+<p><em><strong>网络地址的计算方法为ip地址与网络掩码进行’与’运算</strong></em><br>
+通过上面的计算好的网络掩码可知这个ip地址的前24位是不变的  ,所以<strong>192.168.0.0/24</strong>表示的网段为: <strong>192.168.0.0 - 192.168.0.255</strong></p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>CIDR</tag>
+        <tag>IP</tag>
       </tags>
   </entry>
   <entry>
