@@ -1,17 +1,17 @@
 /* global NexT: true */
 
-function throttle(func, delay) {
-  let lastCall = 0;
-  return function (...args) {
-    const now = Date.now();
-    if (now - lastCall >= delay) {
-      lastCall = now;
-      func.apply(this, args);
-    }
-  };
-}
-
 NexT.utils = NexT.$u = {
+  throttle: function (func, delay) {
+    let lastCall = 0;
+    return function (...args) {
+      const now = Date.now();
+      if (now - lastCall >= delay) {
+        lastCall = now;
+        func.apply(this, args);
+      }
+    };
+  },
+
   /**
    * Wrap images with fancybox support.
    */
@@ -42,10 +42,6 @@ NexT.utils = NexT.$u = {
         }
       }
     });
-
-    // jQuery FancyBox specific code removed.
-    // If you need FancyBox, use a vanilla JS compatible version (e.g., Fancyapps UI)
-    // and initialize it here.
   },
 
   lazyLoadPostsImages: function () {
@@ -175,7 +171,7 @@ NexT.utils = NexT.$u = {
       }
     }
 
-    window.addEventListener('scroll', throttle(onScroll, 200));
+    window.addEventListener('scroll', NexT.utils.throttle(onScroll, 200));
 
     topBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -257,8 +253,6 @@ NexT.utils = NexT.$u = {
     path = path === '/' ? path : path.substring(0, path.length - 1);
 
     // Select the first link that starts with path
-    // Vanilla equivalent of $('.menu-item a[href^="' + path + '"]:first')
-    // We need to iterate or use a specific selector
     const links = document.querySelectorAll('.menu-item a');
     let targetLink = null;
     for (let i = 0; i < links.length; i++) {
@@ -348,18 +342,9 @@ NexT.utils = NexT.$u = {
 
   getSidebarSchemePadding: function () {
     const sidebarNav = document.querySelector('.sidebar-nav');
-    const sidebarNavHeight = (sidebarNav && window.getComputedStyle(sidebarNav).display === 'block') ? sidebarNav.offsetHeight : 0; // OuterHeight handling might need margin check if critical
+    const sidebarNavHeight = (sidebarNav && window.getComputedStyle(sidebarNav).display === 'block') ? sidebarNav.offsetHeight : 0;
 
     const sidebarInner = document.querySelector('.sidebar-inner');
-    const sidebarPadding = sidebarInner ? (sidebarInner.offsetWidth - sidebarInner.clientWidth) : 0; // InnerWidth - Width? This logic in jQuery was checking padding + border?
-    // jQuery .innerWidth() includes padding but not border. .width() includes content only.
-    // So sidebarPadding = padding.
-    // In vanilla: clientWidth is content + padding.
-    // Wait, clientWidth is content + padding - scrollbar.
-    // jQuery .width() is content.
-    // So sidebarInner.clientWidth - sidebarInner.style.width (if set)?
-    // Let's use getComputedStyle.
-
     let sidebarPaddingValue = 0;
     if (sidebarInner) {
         const style = window.getComputedStyle(sidebarInner);
@@ -412,7 +397,7 @@ document.addEventListener('DOMContentLoaded', function () {
     height = height || 'auto';
     const siteOverview = document.querySelector('.site-overview');
     const postToc = document.querySelector('.post-toc');
-    if (siteOverview) siteOverview.style.maxHeight = height + 'px'; // Assuming height is number
+    if (siteOverview) siteOverview.style.maxHeight = height + 'px';
     if (postToc) postToc.style.maxHeight = height + 'px';
   }
 

@@ -58,15 +58,13 @@ fetchData();
 var queryLoop = setInterval(fetchData, 60000);
 
 function fetchData() {
-  $.ajax({
-    dataType: 'json',
-    url: request_url,
-    success: function(data) {
-
-      $eventList = $('#schedule #event-list');
+  fetch(request_url)
+    .then(response => response.json())
+    .then(data => {
+      var eventList = document.querySelector('#schedule #event-list');
 
       // clean the event list
-      $eventList.html("");
+      eventList.innerHTML = "";
       var prevEnd = 0; // used to decide where to insert an <hr>
 
       data['items'].forEach((event) => {
@@ -77,15 +75,19 @@ function fetchData() {
 
         tense = judgeTense(now, start, end); // 0:now 1:future -1:past
 
-        if (tense == 1 && prevEnd < now) $eventList.append('<hr>');
+        if (tense == 1 && prevEnd < now) {
+            var hr = document.createElement('hr');
+            eventList.appendChild(hr);
+        }
 
         eventDOM = buildEventDOM(tense, event);
-        $eventList.append(eventDOM);
+        // eventDOM is string HTML
+        eventList.insertAdjacentHTML('beforeend', eventDOM);
 
         prevEnd = end;
       });
-    }
-  });
+    })
+    .catch(error => console.error('Error fetching calendar data:', error));
 }
 
 function getRelativeTime(current, previous) {

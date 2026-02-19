@@ -7,10 +7,10 @@
     function showTime(Counter) {
       var query = new AV.Query(Counter);
       var entries = [];
-      var $visitors = $(".leancloud_visitors");
+      var visitors = document.querySelectorAll(".leancloud_visitors");
 
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
+      visitors.forEach(function (visitor) {
+        entries.push( visitor.getAttribute("id").trim() );
       });
 
       query.containedIn('url', entries);
@@ -19,7 +19,10 @@
           var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
 
           if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            visitors.forEach(function(visitor) {
+                const countSpan = visitor.querySelector(COUNT_CONTAINER_REF);
+                if(countSpan) countSpan.innerText = 0;
+            });
             return;
           }
 
@@ -29,14 +32,19 @@
             var time = item.get('time');
             var element = document.getElementById(url);
 
-            $(element).find(COUNT_CONTAINER_REF).text(time);
+            if(element) {
+                const countSpan = element.querySelector(COUNT_CONTAINER_REF);
+                if(countSpan) countSpan.innerText = time;
+            }
           }
           for(var i = 0; i < entries.length; i++) {
             var url = entries[i];
             var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
+            if(element) {
+                var countSpan = element.querySelector(COUNT_CONTAINER_REF);
+                if( countSpan && countSpan.innerText == '') {
+                  countSpan.innerText = 0;
+                }
             }
           }
         })
@@ -46,9 +54,9 @@
     }
 
     function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
+      var visitors = document.querySelector(".leancloud_visitors");
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
       var query = new AV.Query(Counter);
 
       query.equalTo("url", url);
@@ -60,8 +68,10 @@
             counter.increment("time");
             counter.save(null, {
               success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                var element = document.getElementById(url);
+                if(element) {
+                    element.querySelector('.leancloud-visitors-count').innerText = counter.get('time');
+                }
               },
               error: function(counter, error) {
                 console.log('Failed to save Visitor num, with error message: ' + error.message);
@@ -80,8 +90,10 @@
             newcounter.set("time", 1);
             newcounter.save(null, {
               success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                var element = document.getElementById(url);
+                if(element) {
+                    element.querySelector('.leancloud-visitors-count').innerText = newcounter.get('time');
+                }
               },
               error: function(newcounter, error) {
                 console.log('Failed to create');
@@ -95,11 +107,11 @@
       });
     }
 
-    $(function() {
+    document.addEventListener('DOMContentLoaded', function() {
       var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
+      if (document.querySelectorAll('.leancloud_visitors').length == 1) {
         addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
+      } else if (document.querySelectorAll('.post-title-link').length > 1) {
         showTime(Counter);
       }
     });
