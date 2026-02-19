@@ -1,4 +1,5 @@
 /* global NexT: true */
+
 function throttle(func, delay) {
   let lastCall = 0;
   return function (...args) {
@@ -15,91 +16,139 @@ NexT.utils = NexT.$u = {
    * Wrap images with fancybox support.
    */
   wrapImageWithFancyBox: function () {
-    $('.content img')
-      .not('[hidden]')
-      .not('.group-picture img, .post-gallery img')
-      .each(function () {
-        var $image = $(this);
-        var imageTitle = $image.attr('title');
-        var $imageWrapLink = $image.parent('a');
+    const images = document.querySelectorAll('.content img:not([hidden]):not(.group-picture img):not(.post-gallery img)');
 
-        if ($imageWrapLink.size() < 1) {
-          var imageLink = ($image.attr('data-original')) ? this.getAttribute('data-original') : this.getAttribute('src');
-          $imageWrapLink = $image.wrap('<a href="' + imageLink + '"></a>').parent('a');
-        }
+    images.forEach(function (image) {
+      const imageTitle = image.getAttribute('title');
+      const $imageWrapLink = image.parentElement;
 
-        $imageWrapLink.addClass('fancybox fancybox.image');
-        $imageWrapLink.attr('rel', 'group');
+      if ($imageWrapLink.tagName !== 'A') {
+        const imageLink = image.getAttribute('data-original') || image.getAttribute('src');
+        const link = document.createElement('a');
+        link.href = imageLink;
+        link.className = 'fancybox fancybox.image';
+        link.setAttribute('rel', 'group');
+
+        // Wrap image
+        image.parentNode.insertBefore(link, image);
+        link.appendChild(image);
 
         if (imageTitle) {
-          $imageWrapLink.append('<p class="image-caption">' + imageTitle + '</p>');
-
-          //make sure img title tag will show correctly in fancybox
-          $imageWrapLink.attr('title', imageTitle);
-        }
-      });
-
-    $('.fancybox').fancybox({
-      helpers: {
-        overlay: {
-          locked: false
+          const caption = document.createElement('p');
+          caption.className = 'image-caption';
+          caption.innerText = imageTitle;
+          link.appendChild(caption);
+          link.setAttribute('title', imageTitle);
         }
       }
     });
+
+    // jQuery FancyBox specific code removed.
+    // If you need FancyBox, use a vanilla JS compatible version (e.g., Fancyapps UI)
+    // and initialize it here.
   },
 
   lazyLoadPostsImages: function () {
-    $('#posts').find('img').lazyload({
-      //placeholder: '/images/loading.gif',
-      effect: 'fadeIn',
-      threshold: 0
-    });
+    const images = document.querySelectorAll('#posts img');
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            const src = img.getAttribute('data-original');
+            if (src) {
+              img.src = src;
+              img.removeAttribute('data-original');
+            }
+            img.style.opacity = 1;
+            observer.unobserve(img);
+          }
+        });
+      });
+
+      images.forEach(img => {
+        if (img.getAttribute('data-original')) {
+          img.style.transition = 'opacity 0.5s';
+          img.style.opacity = 0;
+          observer.observe(img);
+        }
+      });
+    } else {
+      // Fallback
+      images.forEach(img => {
+        const src = img.getAttribute('data-original');
+        if (src) img.src = src;
+      });
+    }
   },
 
   /**
    * Tabs tag listener (without twitter bootstrap).
    */
   registerTabsTag: function () {
-    var tNav = '.tabs ul.nav-tabs ';
+    const tNav = '.tabs ul.nav-tabs ';
 
     // Binding `nav-tabs` & `tab-content` by real time permalink changing.
-    $(function () {
-      $(window).bind('hashchange', function () {
-        var tHash = location.hash;
-        if (tHash !== '') {
-          $(tNav + 'li:has(a[href="' + tHash + '"])').addClass('active').siblings().removeClass('active');
-          $(tHash).addClass('active').siblings().removeClass('active');
-        }
-      }).trigger('hashchange');
-    });
+    function onHashChange() {
+      const tHash = location.hash;
+      if (tHash !== '') {
+        const targetTab = document.querySelector(tNav + 'li a[href="' + tHash + '"]');
+        if (targetTab) {
+            const tabItem = targetTab.parentNode;
+            if (tabItem) {
+                // Remove active from siblings
+                Array.from(tabItem.parentNode.children).forEach(child => child.classList.remove('active'));
+                tabItem.classList.add('active');
 
-    $(tNav + '.tab').on('click', function (href) {
-      href.preventDefault();
-      // Prevent selected tab to select again.
-      if (!$(this).hasClass('active')) {
-
-        // Add & Remove active class on `nav-tabs` & `tab-content`.
-        $(this).addClass('active').siblings().removeClass('active');
-        var tActive = $(this).find('a').attr('href');
-        $(tActive).addClass('active').siblings().removeClass('active');
-
-        // Clear location hash in browser if #permalink exists.
-        if (location.hash !== '') {
-          history.pushState('', document.title, window.location.pathname + window.location.search);
+                // Content
+                const tabContent = document.querySelector(tHash);
+                if (tabContent) {
+                    Array.from(tabContent.parentNode.children).forEach(child => child.classList.remove('active'));
+                    tabContent.classList.add('active');
+                }
+            }
         }
       }
-    });
+    }
 
+    window.addEventListener('hashchange', onHashChange);
+    document.addEventListener('DOMContentLoaded', onHashChange);
+
+    document.querySelectorAll(tNav + '.tab').forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (!this.classList.contains('active')) {
+                // Remove active from siblings
+                Array.from(this.parentNode.children).forEach(child => child.classList.remove('active'));
+                this.classList.add('active');
+
+                const tActive = this.querySelector('a').getAttribute('href');
+                const targetContent = document.querySelector(tActive);
+                if (targetContent) {
+                    Array.from(targetContent.parentNode.children).forEach(child => child.classList.remove('active'));
+                    targetContent.classList.add('active');
+                }
+
+                if (location.hash !== '') {
+                    history.pushState('', document.title, window.location.pathname + window.location.search);
+                }
+            }
+        });
+    });
   },
 
   registerESCKeyEvent: function () {
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
+    document.addEventListener('keyup', function (event) {
+      const searchPopup = document.querySelector('.search-popup');
+      const shouldDismissSearchPopup = event.which === 27 &&
+        searchPopup && window.getComputedStyle(searchPopup).display !== 'none';
+
       if (shouldDismissSearchPopup) {
-        $('.search-popup').hide();
-        $('.search-popup-overlay').remove();
-        $('body').css('overflow', '');
+        searchPopup.style.display = 'none';
+        const overlay = document.querySelector('.search-popup-overlay');
+        if (overlay) overlay.remove();
+        document.body.style.overflow = '';
       }
     });
   },
@@ -108,13 +157,22 @@ NexT.utils = NexT.$u = {
     const topBtn = document.querySelector('.back-to-top');
     const scrollSpan = document.querySelector('#scrollpercent > span');
 
+    if (!topBtn) return;
+
     function onScroll() {
-      const scrollTop = window.scrollY;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const contentHeight = NexT.utils.getContentVisibilityHeight();
       const percent = Math.min(100, Math.round((scrollTop / contentHeight) * 100));
 
-      topBtn.classList.toggle('back-to-top-on', scrollTop > 50);
-      scrollSpan.textContent = percent;
+      if (scrollTop > 50) {
+        topBtn.classList.add('back-to-top-on');
+      } else {
+        topBtn.classList.remove('back-to-top-on');
+      }
+
+      if (scrollSpan) {
+        scrollSpan.textContent = percent;
+      }
     }
 
     window.addEventListener('scroll', throttle(onScroll, 200));
@@ -129,62 +187,48 @@ NexT.utils = NexT.$u = {
    * @see http://toddmotto.com/fluid-and-responsive-youtube-and-vimeo-videos-with-fluidvids-js/
    */
   embeddedVideoTransformer: function () {
-    var $iframes = $('iframe');
+    const iframes = document.querySelectorAll('iframe');
 
     // Supported Players. Extend this if you need more players.
-    var SUPPORTED_PLAYERS = [
+    const SUPPORTED_PLAYERS = [
       'www.youtube.com',
       'player.vimeo.com',
       'player.youku.com',
       'music.163.com',
       'www.tudou.com'
     ];
-    var pattern = new RegExp(SUPPORTED_PLAYERS.join('|'));
+    const pattern = new RegExp(SUPPORTED_PLAYERS.join('|'));
 
-    $iframes.each(function () {
-      var iframe = this;
-      var $iframe = $(this);
-      var oldDimension = getDimension($iframe);
-      var newDimension;
+    iframes.forEach(function (iframe) {
+      const oldDimension = getDimension(iframe);
 
-      if (this.src.search(pattern) > 0) {
+      if (iframe.src.search(pattern) > 0) {
+        const videoRatio = getAspectRadio(oldDimension.width, oldDimension.height);
 
-        // Calculate the video ratio based on the iframe's w/h dimensions
-        var videoRatio = getAspectRadio(oldDimension.width, oldDimension.height);
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.position = 'absolute';
+        iframe.style.top = '0';
+        iframe.style.left = '0';
 
-        // Replace the iframe's dimensions and position the iframe absolute
-        // This is the trick to emulate the video ratio
-        $iframe.width('100%').height('100%')
-          .css({
-            position: 'absolute',
-            top: '0',
-            left: '0'
-          });
-
-
-        // Wrap the iframe in a new <div> which uses a dynamically fetched padding-top property
-        // based on the video's w/h dimensions
-        var wrap = document.createElement('div');
+        const wrap = document.createElement('div');
         wrap.className = 'fluid-vids';
         wrap.style.position = 'relative';
         wrap.style.marginBottom = '20px';
         wrap.style.width = '100%';
         wrap.style.paddingTop = videoRatio + '%';
-        // Fix for appear inside tabs tag.
-        (wrap.style.paddingTop === '') && (wrap.style.paddingTop = '50%');
 
-        // Add the iframe inside our newly created <div>
-        var iframeParent = iframe.parentNode;
+        if (wrap.style.paddingTop === '') wrap.style.paddingTop = '50%';
+
+        const iframeParent = iframe.parentNode;
         iframeParent.insertBefore(wrap, iframe);
         wrap.appendChild(iframe);
 
-        // Additional adjustments for 163 Music
-        if (this.src.search('music.163.com') > 0) {
-          newDimension = getDimension($iframe);
-          var shouldRecalculateAspect = newDimension.width > oldDimension.width ||
+        if (iframe.src.search('music.163.com') > 0) {
+          const newDimension = getDimension(iframe);
+          const shouldRecalculateAspect = newDimension.width > oldDimension.width ||
             newDimension.height < oldDimension.height;
 
-          // 163 Music Player has a fixed height, so we need to reset the aspect radio
           if (shouldRecalculateAspect) {
             wrap.style.paddingTop = getAspectRadio(newDimension.width, oldDimension.height) + '%';
           }
@@ -192,10 +236,10 @@ NexT.utils = NexT.$u = {
       }
     });
 
-    function getDimension($element) {
+    function getDimension(element) {
       return {
-        width: $element.width(),
-        height: $element.height()
+        width: element.offsetWidth,
+        height: element.offsetHeight
       };
     }
 
@@ -209,9 +253,25 @@ NexT.utils = NexT.$u = {
    * via comparing location.path with menu item's href.
    */
   addActiveClassToMenuItem: function () {
-    var path = window.location.pathname;
+    let path = window.location.pathname;
     path = path === '/' ? path : path.substring(0, path.length - 1);
-    $('.menu-item a[href^="' + path + '"]:first').parent().addClass('menu-item-active');
+
+    // Select the first link that starts with path
+    // Vanilla equivalent of $('.menu-item a[href^="' + path + '"]:first')
+    // We need to iterate or use a specific selector
+    const links = document.querySelectorAll('.menu-item a');
+    let targetLink = null;
+    for (let i = 0; i < links.length; i++) {
+        const href = links[i].getAttribute('href');
+        if (href && href.startsWith(path)) {
+            targetLink = links[i];
+            break;
+        }
+    }
+
+    if (targetLink) {
+        targetLink.parentNode.classList.add('menu-item-active');
+    }
   },
 
   hasMobileUA: function () {
@@ -248,7 +308,8 @@ NexT.utils = NexT.$u = {
     if (!this.isDesktop() || this.isPisces() || this.isGemini()) {
       return;
     }
-    $('.sidebar-toggle').trigger('click');
+    const toggle = document.querySelector('.sidebar-toggle');
+    if (toggle) toggle.click();
   },
 
   isMist: function () {
@@ -264,50 +325,55 @@ NexT.utils = NexT.$u = {
   },
 
   getScrollbarWidth: function () {
-    var $div = $('<div />').addClass('scrollbar-measure').prependTo('body');
-    var div = $div[0];
-    var scrollbarWidth = div.offsetWidth - div.clientWidth;
-
-    $div.remove();
-
+    const div = document.createElement('div');
+    div.className = 'scrollbar-measure';
+    document.body.appendChild(div);
+    const scrollbarWidth = div.offsetWidth - div.clientWidth;
+    document.body.removeChild(div);
     return scrollbarWidth;
   },
 
   getContentVisibilityHeight: function () {
-    var docHeight = $('#content').height(),
-      winHeight = $(window).height(),
-      contentVisibilityHeight = (docHeight > winHeight) ? (docHeight - winHeight) : ($(document).height() - winHeight);
+    const content = document.getElementById('content');
+    const docHeight = content ? content.offsetHeight : 0;
+    const winHeight = window.innerHeight;
+    const contentVisibilityHeight = (docHeight > winHeight) ? (docHeight - winHeight) : (document.body.scrollHeight - winHeight);
     return contentVisibilityHeight;
   },
 
   getSidebarb2tHeight: function () {
-    //var sidebarb2tHeight = (CONFIG.sidebar.b2t) ? document.getElementsByClassName('back-to-top')[0].clientHeight : 0;
-    var sidebarb2tHeight = (CONFIG.sidebar.b2t) ? $('.back-to-top').height() : 0;
-    //var sidebarb2tHeight = (CONFIG.sidebar.b2t) ? 24 : 0;
-    return sidebarb2tHeight;
+    const b2t = document.querySelector('.back-to-top');
+    return (CONFIG.sidebar.b2t && b2t) ? b2t.offsetHeight : 0;
   },
 
   getSidebarSchemePadding: function () {
-    var sidebarNavHeight = ($('.sidebar-nav').css('display') == 'block') ? $('.sidebar-nav').outerHeight(true) : 0,
-      sidebarInner = $('.sidebar-inner'),
-      sidebarPadding = sidebarInner.innerWidth() - sidebarInner.width(),
-      sidebarSchemePadding = this.isPisces() || this.isGemini() ?
-        ((sidebarPadding * 2) + sidebarNavHeight + (CONFIG.sidebar.offset * 2) + this.getSidebarb2tHeight()) :
-        ((sidebarPadding * 2) + (sidebarNavHeight / 2));
+    const sidebarNav = document.querySelector('.sidebar-nav');
+    const sidebarNavHeight = (sidebarNav && window.getComputedStyle(sidebarNav).display === 'block') ? sidebarNav.offsetHeight : 0; // OuterHeight handling might need margin check if critical
+
+    const sidebarInner = document.querySelector('.sidebar-inner');
+    const sidebarPadding = sidebarInner ? (sidebarInner.offsetWidth - sidebarInner.clientWidth) : 0; // InnerWidth - Width? This logic in jQuery was checking padding + border?
+    // jQuery .innerWidth() includes padding but not border. .width() includes content only.
+    // So sidebarPadding = padding.
+    // In vanilla: clientWidth is content + padding.
+    // Wait, clientWidth is content + padding - scrollbar.
+    // jQuery .width() is content.
+    // So sidebarInner.clientWidth - sidebarInner.style.width (if set)?
+    // Let's use getComputedStyle.
+
+    let sidebarPaddingValue = 0;
+    if (sidebarInner) {
+        const style = window.getComputedStyle(sidebarInner);
+        sidebarPaddingValue = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+    }
+
+    const sidebarSchemePadding = (this.isPisces() || this.isGemini()) ?
+        ((sidebarPaddingValue * 2) + sidebarNavHeight + (CONFIG.sidebar.offset * 2) + this.getSidebarb2tHeight()) :
+        ((sidebarPaddingValue * 2) + (sidebarNavHeight / 2));
     return sidebarSchemePadding;
   }
-
-  /**
-   * Affix behaviour for Sidebar.
-   *
-   * @returns {Boolean}
-   */
-  //  needAffix: function () {
-  //    return this.isPisces() || this.isGemini();
-  //  }
 };
 
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', function () {
 
   initSidebarDimension();
 
@@ -316,24 +382,27 @@ $(document).ready(function () {
    * Need for Sidebar/TOC inner scrolling if content taller then viewport.
    */
   function initSidebarDimension() {
-    var updateSidebarHeightTimer;
+    let updateSidebarHeightTimer;
 
-    $(window).on('resize', function () {
-      updateSidebarHeightTimer && clearTimeout(updateSidebarHeightTimer);
+    window.addEventListener('resize', function () {
+      if (updateSidebarHeightTimer) clearTimeout(updateSidebarHeightTimer);
 
       updateSidebarHeightTimer = setTimeout(function () {
-        var sidebarWrapperHeight = document.body.clientHeight - NexT.utils.getSidebarSchemePadding();
+        const sidebarWrapperHeight = document.body.clientHeight - NexT.utils.getSidebarSchemePadding();
 
         updateSidebarHeight(sidebarWrapperHeight);
       }, 0);
     });
 
     // Initialize Sidebar & TOC Width.
-    var scrollbarWidth = NexT.utils.getScrollbarWidth();
-    if ($('.sidebar-panel').height() > (document.body.clientHeight - NexT.utils.getSidebarSchemePadding())) {
-      $('.site-overview').css('width', 'calc(100% + ' + scrollbarWidth + 'px)');
+    const scrollbarWidth = NexT.utils.getScrollbarWidth();
+    const sidebarPanel = document.querySelector('.sidebar-panel');
+    if (sidebarPanel && sidebarPanel.offsetHeight > (document.body.clientHeight - NexT.utils.getSidebarSchemePadding())) {
+        const siteOverview = document.querySelector('.site-overview');
+        if (siteOverview) siteOverview.style.width = 'calc(100% + ' + scrollbarWidth + 'px)';
     }
-    $('.post-toc').css('width', 'calc(100% + ' + scrollbarWidth + 'px)');
+    const postToc = document.querySelector('.post-toc');
+    if (postToc) postToc.style.width = 'calc(100% + ' + scrollbarWidth + 'px)';
 
     // Initialize Sidebar & TOC Height.
     updateSidebarHeight(document.body.clientHeight - NexT.utils.getSidebarSchemePadding());
@@ -341,7 +410,10 @@ $(document).ready(function () {
 
   function updateSidebarHeight(height) {
     height = height || 'auto';
-    $('.site-overview, .post-toc').css('max-height', height);
+    const siteOverview = document.querySelector('.site-overview');
+    const postToc = document.querySelector('.post-toc');
+    if (siteOverview) siteOverview.style.maxHeight = height + 'px'; // Assuming height is number
+    if (postToc) postToc.style.maxHeight = height + 'px';
   }
 
 });

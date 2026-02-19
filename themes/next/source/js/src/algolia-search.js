@@ -1,7 +1,8 @@
 /* global instantsearch: true */
+/* global NexT: true */
 /*jshint camelcase: false */
 
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', function () {
   var algoliaSettings = CONFIG.algolia;
   var isAlgoliaSettingsValid = algoliaSettings.applicationID &&
                                algoliaSettings.apiKey &&
@@ -17,9 +18,9 @@ $(document).ready(function () {
     apiKey: algoliaSettings.apiKey,
     indexName: algoliaSettings.indexName,
     searchFunction: function (helper) {
-      var searchInput = $('#algolia-search-input').find('input');
+      var searchInput = document.querySelector('#algolia-search-input input');
 
-      if (searchInput.val()) {
+      if (searchInput.value) {
         helper.search();
       }
     }
@@ -97,19 +98,34 @@ $(document).ready(function () {
 
   search.start();
 
-  $('.popup-trigger').on('click', function(e) {
-    e.stopPropagation();
-    $('body')
-      .append('<div class="search-popup-overlay algolia-pop-overlay"></div>')
-      .css('overflow', 'hidden');
-    $('.popup').toggle();
-    $('#algolia-search-input').find('input').focus();
-  });
+  const popupTrigger = document.querySelector('.popup-trigger');
+  if (popupTrigger) {
+    popupTrigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const overlay = document.createElement('div');
+      overlay.className = 'search-popup-overlay algolia-pop-overlay';
+      document.body.appendChild(overlay);
+      document.body.style.overflow = 'hidden';
 
-  $('.popup-btn-close').click(function(){
-    $('.popup').hide();
-    $('.algolia-pop-overlay').remove();
-    $('body').css('overflow', '');
-  });
+      const popup = document.querySelector('.popup');
+      if (popup) popup.style.display = 'block';
+
+      const input = document.querySelector('#algolia-search-input input');
+      if (input) input.focus();
+    });
+  }
+
+  const popupClose = document.querySelector('.popup-btn-close');
+  if (popupClose) {
+    popupClose.addEventListener('click', function(){
+      const popup = document.querySelector('.popup');
+      if (popup) popup.style.display = 'none';
+
+      const overlay = document.querySelector('.algolia-pop-overlay');
+      if (overlay) overlay.remove();
+
+      document.body.style.overflow = '';
+    });
+  }
 
 });

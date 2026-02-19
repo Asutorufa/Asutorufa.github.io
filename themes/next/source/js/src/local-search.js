@@ -1,3 +1,5 @@
+/* global NexT: true */
+
 function localSearch(pathArg, root, topNPerArticle, trigger) {
     // Popup Window;
     var isfetched = false;
@@ -13,24 +15,35 @@ function localSearch(pathArg, root, topNPerArticle, trigger) {
     // monitor main search box;
 
     var onPopupClose = function (e) {
-        $('.popup').hide();
-        $('#local-search-input').val('');
-        $('.search-result-list').remove();
-        $('#no-result').remove();
-        $(".local-search-pop-overlay").remove();
-        $('body').css('overflow', '');
-    }
+        document.querySelector('.popup').style.display = 'none';
+        document.getElementById('local-search-input').value = '';
+        const searchResultList = document.querySelector('.search-result-list');
+        if (searchResultList) searchResultList.remove();
+        const noResult = document.getElementById('no-result');
+        if (noResult) noResult.remove();
+        const overlay = document.querySelector('.local-search-pop-overlay');
+        if (overlay) overlay.remove();
+        document.body.style.overflow = '';
+    };
 
     function processSearch() {
-        $("body")
-            .append('<div class="search-popup-overlay local-search-pop-overlay" />')
-            .css('overflow', 'hidden');
-        $('.search-popup-overlay').click(onPopupClose);
-        $('.popup').toggle();
-        var $localSearchInput = $('#local-search-input');
-        $localSearchInput.attr("autocapitalize", "none");
-        $localSearchInput.attr("autocorrect", "off");
-        $localSearchInput.focus();
+        const overlay = document.createElement('div');
+        overlay.className = 'search-popup-overlay local-search-pop-overlay';
+        document.body.appendChild(overlay);
+        document.body.style.overflow = 'hidden';
+
+        overlay.addEventListener('click', onPopupClose);
+
+        const popup = document.querySelector('.popup');
+        popup.style.display = popup.style.display === 'none' ? 'block' : 'none'; // Toggle? Usually it's show.
+        // Original code: $('.popup').toggle();
+        // Since overlay is added, we probably want to show it.
+        popup.style.display = 'block';
+
+        var localSearchInput = document.getElementById('local-search-input');
+        localSearchInput.setAttribute("autocapitalize", "none");
+        localSearchInput.setAttribute("autocorrect", "off");
+        localSearchInput.focus();
     }
 
     // search function;
@@ -38,16 +51,30 @@ function localSearch(pathArg, root, topNPerArticle, trigger) {
         'use strict';
 
         // start loading animation
-        $("body")
-            .append('<div class="search-popup-overlay local-search-pop-overlay"><div id="search-loading-icon"><i class="fa fa-spinner fa-pulse fa-5x fa-fw" /></div></div>').css('overflow', 'hidden');
-        $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+        const overlay = document.createElement('div');
+        overlay.className = 'search-popup-overlay local-search-pop-overlay';
+        overlay.innerHTML = '<div id="search-loading-icon"><i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i></div>';
+        document.body.appendChild(overlay);
+        document.body.style.overflow = 'hidden';
 
-        $.ajax({
-            url: path,
-            dataType: isXml ? "xml" : "json",
-            async: true,
-            success: function (res) { processSearchDB(res, search_id, content_id) }
-        });
+        const loadingIcon = document.getElementById('search-loading-icon');
+        loadingIcon.style.margin = '20% auto 0 auto';
+        loadingIcon.style.textAlign = 'center';
+
+        fetch(path)
+            .then(response => isXml ? response.text() : response.json())
+            .then(res => {
+                if (isXml) {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(res, "text/xml");
+                    processSearchDB(xmlDoc, search_id, content_id);
+                } else {
+                    processSearchDB(res, search_id, content_id);
+                }
+            })
+            .catch(err => {
+                console.error('Search failed', err);
+            });
     }
 
     function getIndexByWord(word, text, caseSensitive) {
@@ -86,16 +113,26 @@ function localSearch(pathArg, root, topNPerArticle, trigger) {
     function processSearchDB(res, search_id, content_id) {
         // get the contents from search data
         isfetched = true;
-        $('.popup').detach().appendTo('.header-inner');
-        var datas = isXml ? $("entry", res).map(function () {
-            return {
-                title: $("title", this).text(),
-                content: $("content", this).text(),
-                url: $("url", this).text()
-            };
-        }).get() : res;
+        const popup = document.querySelector('.popup');
+        popup.remove();
+        document.querySelector('.header-inner').appendChild(popup);
+
+        var datas;
+        if (isXml) {
+            datas = Array.from(res.querySelectorAll("entry")).map(function (entry) {
+                return {
+                    title: entry.querySelector("title").textContent,
+                    content: entry.querySelector("content").textContent,
+                    url: entry.querySelector("url").textContent
+                };
+            });
+        } else {
+            datas = res;
+        }
+
         var input = document.getElementById(search_id);
         var resultContent = document.getElementById(content_id);
+
         const inputEventFunction = () => {
             var searchText = input.value.trim().toLowerCase();
             var keywords = searchText.split(/[\s\-]+/);
@@ -242,9 +279,9 @@ function localSearch(pathArg, root, topNPerArticle, trigger) {
                 })
 
             if (keywords.length === 1 && keywords[0] === "") {
-                resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+                resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
             } else if (resultItems.length === 0) {
-                resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+                resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
             } else {
                 resultItems.sort(function (resultLeft, resultRight) {
                     if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
@@ -265,25 +302,29 @@ function localSearch(pathArg, root, topNPerArticle, trigger) {
         if ('auto' === trigger) {
             input.addEventListener('input', inputEventFunction);
         } else {
-            $('.search-icon').click(inputEventFunction);
+            document.querySelector('.search-icon').addEventListener('click', inputEventFunction);
             input.addEventListener('keypress', function (event) {
                 if (event.code === "Enter") inputEventFunction();
             });
         }
 
         // remove loading animation
-        $(".local-search-pop-overlay").remove();
-        $('body').css('overflow', '');
+        const overlay = document.querySelector('.local-search-pop-overlay');
+        if (overlay) overlay.remove();
+        document.body.style.overflow = '';
 
         processSearch();
     }
     // handle and trigger popup window;
-    $('.popup-trigger').click(function (e) {
+    document.querySelector('.popup-trigger').addEventListener('click', function (e) {
         e.stopPropagation();
         if (!isfetched) searchFunc(path, 'local-search-input', 'local-search-result');
         else processSearch();
     });
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function (e) { e.stopPropagation(); });
-    $(document).on('keyup', function (event) { if (event.which === 27 && $('.search-popup').is(':visible')) onPopupClose(); });
+    document.querySelector('.popup-btn-close').addEventListener('click', onPopupClose);
+    document.querySelector('.popup').addEventListener('click', function (e) { e.stopPropagation(); });
+    document.addEventListener('keyup', function (event) {
+        const popup = document.querySelector('.search-popup');
+        if (event.which === 27 && popup && window.getComputedStyle(popup).display !== 'none') onPopupClose();
+    });
 }

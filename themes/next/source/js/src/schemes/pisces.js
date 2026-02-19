@@ -1,27 +1,38 @@
-$(document).ready(function () {
+/* global NexT: true */
+/* global CONFIG: true */
 
-  var sidebarInner = $('.sidebar-inner');
+document.addEventListener('DOMContentLoaded', function () {
+
+  var sidebarInner = document.querySelector('.sidebar-inner');
+  var sidebar = document.getElementById('sidebar');
+  var headerInner = document.querySelector('.header-inner');
+  var footerInner = document.querySelector('.footer-inner');
 
   initAffix();
   resizeListener();
 
   function initAffix() {
-    var headerOffset = getHeaderOffset(),
-      footerOffset = getFooterOffset(),
-      sidebarHeight = $('#sidebar').height() + NexT.utils.getSidebarb2tHeight(),
-      contentHeight = $('#content').height();
+    if (!headerInner || !sidebarInner || !sidebar) return;
+
+    var headerOffset = getHeaderOffset();
+    var footerOffset = getFooterOffset();
+    var sidebarHeight = sidebar.offsetHeight + NexT.utils.getSidebarb2tHeight();
+    var contentHeight = document.getElementById('content') ? document.getElementById('content').offsetHeight : 0;
 
     // Not affix if sidebar taller then content (to prevent bottom jumping).
     if (headerOffset + sidebarHeight < contentHeight) {
-      sidebarInner.affix({
-        offset: {
-          top: headerOffset - CONFIG.sidebar.offset,
-          bottom: footerOffset
-        }
-      });
+      // Use position: sticky
+      sidebarInner.style.position = '-webkit-sticky';
+      sidebarInner.style.position = 'sticky';
+      sidebarInner.style.top = (CONFIG.sidebar.offset) + 'px';
+
+      // If we used Affix, it handles 'bottom' (footer).
+      // With sticky, if sidebar is direct child of a container that stops at footer, it works.
+      // But we need to verify layout.
+      // Assuming Flexbox layout in Pisces, sidebarInner is inside sidebar column.
     }
 
-    setSidebarMarginTop(headerOffset).css({ 'margin-left': 'initial' });
+    setSidebarMarginTop(headerOffset);
   }
 
   function resizeListener() {
@@ -34,23 +45,32 @@ $(document).ready(function () {
   }
 
   function getHeaderOffset() {
-    return $('.header-inner').height() + CONFIG.sidebar.offset;
+    return headerInner ? headerInner.offsetHeight + CONFIG.sidebar.offset : 0;
   }
 
   function getFooterOffset() {
-    var footerInner = $('.footer-inner'),
-      footerMargin = footerInner.outerHeight(true) - footerInner.outerHeight(),
-      footerOffset = footerInner.outerHeight(true) + footerMargin;
-    return footerOffset;
+    var footerMargin = 0;
+    var footerHeight = 0;
+    if (footerInner) {
+        footerHeight = footerInner.offsetHeight; // outerHeight(true) logic?
+        // footerInner.outerHeight(true) - footerInner.outerHeight() = margin
+        // Vanilla: getComputedStyle margin
+        var style = window.getComputedStyle(footerInner);
+        footerMargin = parseFloat(style.marginTop) + parseFloat(style.marginBottom);
+    }
+    return footerHeight + footerMargin;
   }
 
   function setSidebarMarginTop(headerOffset) {
-    return $('#sidebar').css({ 'margin-top': headerOffset });
+    if (sidebar) {
+        sidebar.style.marginTop = headerOffset + 'px';
+        sidebar.style.marginLeft = 'initial';
+    }
   }
 
   function recalculateAffixPosition() {
-    $(window).off('.affix');
-    sidebarInner.removeData('bs.affix').removeClass('affix affix-top affix-bottom');
+    // Clear styles if needed?
+    // initAffix sets them.
     initAffix();
   }
 

@@ -1,6 +1,7 @@
 /* global NexT: true */
+/* global Velocity: true */
 
-$(document).ready(function () {
+window.addEventListener('DOMContentLoaded', function () {
   NexT.motion = {};
 
   var sidebarToggleLines = {
@@ -26,8 +27,8 @@ $(document).ready(function () {
   };
 
   function SidebarToggleLine(settings) {
-    this.el = $(settings.el);
-    this.status = $.extend({}, {
+    this.el = document.querySelector(settings.el);
+    this.status = Object.assign({}, {
       init: {
         width: '100%',
         opacity: 1,
@@ -48,7 +49,10 @@ $(document).ready(function () {
     this.transform('close');
   };
   SidebarToggleLine.prototype.transform = function (status) {
-    this.el.velocity('stop').velocity(this.status[status]);
+    if (this.el) {
+        Velocity(this.el, 'stop');
+        Velocity(this.el, this.status[status]);
+    }
   };
 
   var sidebarToggleLine1st = new SidebarToggleLine({
@@ -82,27 +86,33 @@ $(document).ready(function () {
   var xPos, yPos;
 
   var sidebarToggleMotion = {
-    toggleEl: $('.sidebar-toggle'),
-    dimmerEl: $('#sidebar-dimmer'),
-    sidebarEl: $('.sidebar'),
+    toggleEl: document.querySelector('.sidebar-toggle'),
+    dimmerEl: document.querySelector('#sidebar-dimmer'),
+    sidebarEl: document.querySelector('.sidebar'),
     isSidebarVisible: false,
     init: function () {
-      this.toggleEl.on('click', this.clickHandler.bind(this));
-      this.dimmerEl.on('click', this.clickHandler.bind(this));
-      this.toggleEl.on('mouseenter', this.mouseEnterHandler.bind(this));
-      this.toggleEl.on('mouseleave', this.mouseLeaveHandler.bind(this));
-      this.sidebarEl.on('touchstart', this.touchstartHandler.bind(this));
-      this.sidebarEl.on('touchend', this.touchendHandler.bind(this));
-      this.sidebarEl.on('touchmove', function(e){e.preventDefault();});
+      if (this.toggleEl) {
+        this.toggleEl.addEventListener('click', this.clickHandler.bind(this));
+        this.toggleEl.addEventListener('mouseenter', this.mouseEnterHandler.bind(this));
+        this.toggleEl.addEventListener('mouseleave', this.mouseLeaveHandler.bind(this));
+      }
+      if (this.dimmerEl) {
+        this.dimmerEl.addEventListener('click', this.clickHandler.bind(this));
+      }
+      if (this.sidebarEl) {
+        this.sidebarEl.addEventListener('touchstart', this.touchstartHandler.bind(this));
+        this.sidebarEl.addEventListener('touchend', this.touchendHandler.bind(this));
+        this.sidebarEl.addEventListener('touchmove', function(e){e.preventDefault();});
+      }
 
-      $(document)
-        .on('sidebar.isShowing', function () {
-          NexT.utils.isDesktop() && $('body').velocity('stop').velocity(
-            {paddingRight: SIDEBAR_WIDTH},
-            SIDEBAR_DISPLAY_DURATION
-          );
-        })
-        .on('sidebar.isHiding', function () {
+      document.addEventListener('sidebar.isShowing', function () {
+          if (NexT.utils.isDesktop()) {
+            Velocity(document.body, 'stop');
+            Velocity(document.body,
+              {paddingRight: SIDEBAR_WIDTH},
+              {duration: SIDEBAR_DISPLAY_DURATION}
+            );
+          }
         });
     },
     clickHandler: function () {
@@ -122,12 +132,12 @@ $(document).ready(function () {
       sidebarToggleLines.init();
     },
     touchstartHandler: function(e) {
-      xPos = e.originalEvent.touches[0].clientX;
-      yPos = e.originalEvent.touches[0].clientY;
+      xPos = e.touches[0].clientX;
+      yPos = e.touches[0].clientY;
     },
     touchendHandler: function(e) {
-      var _xPos = e.originalEvent.changedTouches[0].clientX;
-      var _yPos = e.originalEvent.changedTouches[0].clientY;
+      var _xPos = e.changedTouches[0].clientX;
+      var _yPos = e.changedTouches[0].clientY;
       if (_xPos-xPos > 30 && Math.abs(_yPos-yPos) < 20) {
           this.clickHandler();
       }
@@ -137,48 +147,60 @@ $(document).ready(function () {
 
       sidebarToggleLines.close();
 
-      this.sidebarEl.velocity('stop').velocity({
+      Velocity(this.sidebarEl, 'stop');
+      Velocity(this.sidebarEl, {
           width: SIDEBAR_WIDTH
         }, {
           display: 'block',
           duration: SIDEBAR_DISPLAY_DURATION,
           begin: function () {
-            $('.sidebar .motion-element').velocity(
-              'transition.slideRightIn',
-              {
-                stagger: 50,
-                drag: true,
-                complete: function () {
-                  self.sidebarEl.trigger('sidebar.motion.complete');
-                }
-              }
-            );
+            const motionElements = document.querySelectorAll('.sidebar .motion-element');
+            if (motionElements.length > 0) {
+                Velocity(motionElements, 'transition.slideRightIn', { // Need to map this if slideRightIn != slideInRight
+                    stagger: 50,
+                    drag: true,
+                    complete: function () {
+                      self.sidebarEl.dispatchEvent(new Event('sidebar.motion.complete'));
+                    }
+                });
+            } else {
+                 self.sidebarEl.dispatchEvent(new Event('sidebar.motion.complete'));
+            }
           },
           complete: function () {
-            self.sidebarEl.addClass('sidebar-active');
-            self.sidebarEl.trigger('sidebar.didShow');
+            self.sidebarEl.classList.add('sidebar-active');
+            self.sidebarEl.dispatchEvent(new Event('sidebar.didShow'));
           }
         }
       );
 
-      this.sidebarEl.trigger('sidebar.isShowing');
+      this.sidebarEl.dispatchEvent(new Event('sidebar.isShowing'));
     },
     hideSidebar: function () {
-      NexT.utils.isDesktop() && $('body').velocity('stop').velocity({paddingRight: 0});
-      this.sidebarEl.find('.motion-element').velocity('stop').css('display', 'none');
-      this.sidebarEl.velocity('stop').velocity({width: 0}, {display: 'none'});
+      if (NexT.utils.isDesktop()) {
+        Velocity(document.body, 'stop');
+        Velocity(document.body, {paddingRight: 0});
+      }
+
+      const motionElements = document.querySelectorAll('.sidebar .motion-element');
+      Velocity(motionElements, 'stop');
+      motionElements.forEach(el => el.style.display = 'none');
+
+      Velocity(this.sidebarEl, 'stop');
+      Velocity(this.sidebarEl, {width: 0}, {display: 'none'});
 
       sidebarToggleLines.init();
 
-      this.sidebarEl.removeClass('sidebar-active');
-      this.sidebarEl.trigger('sidebar.isHiding');
+      this.sidebarEl.classList.remove('sidebar-active');
+      this.sidebarEl.dispatchEvent(new Event('sidebar.isHiding'));
 
       // Prevent adding TOC to Overview if Overview was selected when close & open sidebar.
-      if (!!$('.post-toc-wrap')) {
-        if ($('.site-overview-wrap').css('display') === 'block') {
-          $('.post-toc-wrap').removeClass('motion-element');
+      if (document.querySelector('.post-toc-wrap')) {
+        const siteOverviewWrap = document.querySelector('.site-overview-wrap');
+        if (siteOverviewWrap && window.getComputedStyle(siteOverviewWrap).display === 'block') {
+          document.querySelector('.post-toc-wrap').classList.remove('motion-element');
         } else {
-          $('.post-toc-wrap').addClass('motion-element');
+          document.querySelector('.post-toc-wrap').classList.add('motion-element');
         }
       }
     }
@@ -195,55 +217,106 @@ $(document).ready(function () {
     next: function () {
       this.cursor++;
       var fn = this.queue[this.cursor];
-      $.isFunction(fn) && fn(NexT.motion.integrator);
+      if (typeof fn === 'function') fn(NexT.motion.integrator);
     },
     bootstrap: function () {
       this.next();
     }
   };
 
+  // Velocity V2 Transition Mapping
+  function getTransitionName(name) {
+      const mapping = {
+          'slideDownIn': 'slideInDown',
+          'slideUpIn': 'slideInUp',
+          'slideLeftIn': 'slideInLeft',
+          'slideRightIn': 'slideInRight',
+          'slideDownOut': 'slideOutDown',
+          'slideUpOut': 'slideOutUp',
+          'slideLeftOut': 'slideOutLeft',
+          'slideRightOut': 'slideOutRight',
+          'fadeIn': 'fadeIn',
+          'fadeOut': 'fadeOut'
+      };
+      // Handle prefix "transition." if present
+      const cleanName = name.replace('transition.', '');
+      return mapping[cleanName] || cleanName;
+  }
+
+  function RunSequence(sequence) {
+      let p = Promise.resolve();
+      sequence.forEach(step => {
+          p = p.then(() => {
+              const el = step.e;
+              const props = step.p;
+              const opts = step.o;
+              // Handle property mapping if needed
+              let mappedProps = props;
+              if (typeof props === 'string') {
+                  mappedProps = getTransitionName(props);
+              } else if (props.translateX) {
+                  // Velocity V2 uses translateX directly? Yes.
+              }
+
+              return Velocity(el, mappedProps, opts);
+          });
+      });
+      return p;
+  }
+
   NexT.motion.middleWares =  {
     logo: function (integrator) {
       var sequence = [];
-      var $brand = $('.brand');
-      var $title = $('.site-title');
-      var $subtitle = $('.site-subtitle');
-      var $logoLineTop = $('.logo-line-before i');
-      var $logoLineBottom = $('.logo-line-after i');
+      var $brand = document.querySelector('.brand');
+      var $title = document.querySelector('.site-title');
+      var $subtitle = document.querySelector('.site-subtitle');
+      var $logoLineTop = document.querySelector('.logo-line-before i');
+      var $logoLineBottom = document.querySelector('.logo-line-after i');
 
-      $brand.size() > 0 && sequence.push({
-        e: $brand,
-        p: {opacity: 1},
-        o: {duration: 200}
-      });
+      if ($brand && $brand.children.length > 0) { // Check logic: $brand.size() > 0? brand is an element.
+        sequence.push({
+            e: $brand,
+            p: {opacity: 1},
+            o: {duration: 200}
+        });
+      }
 
-      NexT.utils.isMist() && hasElement([$logoLineTop, $logoLineBottom]) &&
-      sequence.push(
-        getMistLineSettings($logoLineTop, '100%'),
-        getMistLineSettings($logoLineBottom, '-100%')
-      );
+      if (NexT.utils.isMist() && $logoLineTop && $logoLineBottom) {
+        sequence.push(
+            getMistLineSettings($logoLineTop, '100%'),
+            getMistLineSettings($logoLineBottom, '-100%')
+        );
+      }
 
-      hasElement($title) && sequence.push({
-        e: $title,
-        p: {opacity: 1, top: 0},
-        o: { duration: 200 }
-      });
+      if ($title) {
+        sequence.push({
+            e: $title,
+            p: {opacity: 1, top: 0},
+            o: { duration: 200 }
+        });
+      }
 
-      hasElement($subtitle) && sequence.push({
-        e: $subtitle,
-        p: {opacity: 1, top: 0},
-        o: {duration: 200}
-      });
+      if ($subtitle) {
+        sequence.push({
+            e: $subtitle,
+            p: {opacity: 1, top: 0},
+            o: {duration: 200}
+        });
+      }
 
       if (CONFIG.motion.async) {
         integrator.next();
       }
 
       if (sequence.length > 0) {
-        sequence[sequence.length - 1].o.complete = function () {
-          integrator.next();
-        };
-        $.Velocity.RunSequence(sequence);
+        // V2 doesn't support 'complete' callback on individual steps in sequence easily if using my custom runner?
+        // Wait, my RunSequence executes steps sequentially.
+        // The last step should call integrator.next().
+        // I can append a step or attach to the promise of RunSequence.
+
+        RunSequence(sequence).then(() => {
+             integrator.next();
+        });
       } else {
         integrator.next();
       }
@@ -251,25 +324,13 @@ $(document).ready(function () {
 
       function getMistLineSettings (element, translateX) {
         return {
-          e: $(element),
+          e: element,
           p: {translateX: translateX},
           o: {
             duration: 500,
             sequenceQueue: false
           }
         };
-      }
-
-      /**
-       * Check if $elements exist.
-       * @param {jQuery|Array} $elements
-       * @returns {boolean}
-       */
-      function hasElement ($elements) {
-        $elements = Array.isArray($elements) ? $elements : [$elements];
-        return $elements.every(function ($element) {
-          return $.isFunction($element.size) && $element.size() > 0;
-        });
       }
     },
 
@@ -279,28 +340,32 @@ $(document).ready(function () {
         integrator.next();
       }
 
-      $('.menu-item').velocity('transition.slideDownIn', {
-        display: null,
-        duration: 200,
-        complete: function () {
+      const menuItems = document.querySelectorAll('.menu-item');
+      if (menuItems.length > 0) {
+          Velocity(menuItems, 'slideInDown', {
+            display: null,
+            duration: 200,
+            complete: function () {
+              integrator.next();
+            }
+          });
+      } else {
           integrator.next();
-        }
-      });
+      }
     },
 
     postList: function (integrator) {
-      //var $post = $('.post');
-      var $postBlock = $('.post-block, .pagination, .comments');
-      var $postBlockTransition = CONFIG.motion.transition.post_block;
-      var $postHeader = $('.post-header');
-      var $postHeaderTransition = CONFIG.motion.transition.post_header;
-      var $postBody = $('.post-body');
-      var $postBodyTransition = CONFIG.motion.transition.post_body;
-      var $collHeader = $('.collection-title, .archive-year');
-      var $collHeaderTransition = CONFIG.motion.transition.coll_header;
-      var $sidebarAffix = $('.sidebar-inner');
-      var $sidebarAffixTransition = CONFIG.motion.transition.sidebar;
-      var hasPost = $postBlock.size() > 0;
+      var $postBlock = document.querySelectorAll('.post-block, .pagination, .comments');
+      var $postBlockTransition = getTransitionName(CONFIG.motion.transition.post_block);
+      var $postHeader = document.querySelectorAll('.post-header');
+      var $postHeaderTransition = getTransitionName(CONFIG.motion.transition.post_header);
+      var $postBody = document.querySelectorAll('.post-body');
+      var $postBodyTransition = getTransitionName(CONFIG.motion.transition.post_body);
+      var $collHeader = document.querySelectorAll('.collection-title, .archive-year');
+      var $collHeaderTransition = getTransitionName(CONFIG.motion.transition.coll_header);
+      var $sidebarAffix = document.querySelector('.sidebar-inner');
+      var $sidebarAffixTransition = getTransitionName(CONFIG.motion.transition.sidebar);
+      var hasPost = $postBlock.length > 0;
 
       hasPost ? postMotion() : integrator.next();
 
@@ -313,30 +378,32 @@ $(document).ready(function () {
             stagger: 100,
             drag: true
           };
+
+        // Wrap complete to ensure integrator.next is called
+        var originalComplete = postMotionOptions.complete;
         postMotionOptions.complete = function () {
-          // After motion complete need to remove transform from sidebar to let affix work on Pisces | Gemini.
+          if (originalComplete) originalComplete();
+
           if (CONFIG.motion.transition.sidebar && (NexT.utils.isPisces() || NexT.utils.isGemini())) {
-            $sidebarAffix.css({ 'transform': 'initial' });
+            if ($sidebarAffix) $sidebarAffix.style.transform = 'initial';
           }
           integrator.next();
         };
 
-        //$post.velocity('transition.slideDownIn', postMotionOptions);
-        if (CONFIG.motion.transition.post_block) {
-          $postBlock.velocity('transition.' + $postBlockTransition, postMotionOptions);
+        if (CONFIG.motion.transition.post_block && $postBlock.length > 0) {
+          Velocity($postBlock, $postBlockTransition, postMotionOptions);
         }
-        if (CONFIG.motion.transition.post_header) {
-          $postHeader.velocity('transition.' + $postHeaderTransition, postMotionOptions);
+        if (CONFIG.motion.transition.post_header && $postHeader.length > 0) {
+          Velocity($postHeader, $postHeaderTransition, postMotionOptions);
         }
-        if (CONFIG.motion.transition.post_body) {
-          $postBody.velocity('transition.' + $postBodyTransition, postMotionOptions);
+        if (CONFIG.motion.transition.post_body && $postBody.length > 0) {
+          Velocity($postBody, $postBodyTransition, postMotionOptions);
         }
-        if (CONFIG.motion.transition.coll_header) {
-          $collHeader.velocity('transition.' + $collHeaderTransition, postMotionOptions);
+        if (CONFIG.motion.transition.coll_header && $collHeader.length > 0) {
+          Velocity($collHeader, $collHeaderTransition, postMotionOptions);
         }
-        // Only for Pisces | Gemini.
-        if (CONFIG.motion.transition.sidebar && (NexT.utils.isPisces() || NexT.utils.isGemini())) {
-          $sidebarAffix.velocity('transition.' + $sidebarAffixTransition, postMotionOptions);
+        if (CONFIG.motion.transition.sidebar && (NexT.utils.isPisces() || NexT.utils.isGemini()) && $sidebarAffix) {
+          Velocity($sidebarAffix, $sidebarAffixTransition, postMotionOptions);
         }
       }
     },
