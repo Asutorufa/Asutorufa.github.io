@@ -4,6 +4,12 @@
 window.addEventListener('DOMContentLoaded', function () {
   NexT.motion = {};
 
+  // Check if Velocity is loaded
+  if (typeof Velocity === 'undefined') {
+      console.error('Velocity is not defined. Animations disabled.');
+      return;
+  }
+
   var sidebarToggleLines = {
     lines: [],
     push: function (line) {
@@ -156,7 +162,7 @@ window.addEventListener('DOMContentLoaded', function () {
           begin: function () {
             const motionElements = document.querySelectorAll('.sidebar .motion-element');
             if (motionElements.length > 0) {
-                Velocity(motionElements, 'transition.slideRightIn', { // Need to map this if slideRightIn != slideInRight
+                Velocity(motionElements, 'slideInRight', {
                     stagger: 50,
                     drag: true,
                     complete: function () {
@@ -254,8 +260,6 @@ window.addEventListener('DOMContentLoaded', function () {
               let mappedProps = props;
               if (typeof props === 'string') {
                   mappedProps = getTransitionName(props);
-              } else if (props.translateX) {
-                  // Velocity V2 uses translateX directly? Yes.
               }
 
               return Velocity(el, mappedProps, opts);
@@ -309,11 +313,6 @@ window.addEventListener('DOMContentLoaded', function () {
       }
 
       if (sequence.length > 0) {
-        // V2 doesn't support 'complete' callback on individual steps in sequence easily if using my custom runner?
-        // Wait, my RunSequence executes steps sequentially.
-        // The last step should call integrator.next().
-        // I can append a step or attach to the promise of RunSequence.
-
         RunSequence(sequence).then(() => {
              integrator.next();
         });

@@ -7,8 +7,9 @@
 </script>
 
 {% set js_vendors = {} %}
-{% set js_vendors.velocity    = 'velocity/velocity.min.js' %}
-{% set js_vendors.velocity_ui = 'velocity/velocity.ui.min.js' %}
+{# Ensure velocity is loaded before velocity.ui #}
+<script type="text/javascript" src="{{ url_for(theme.vendors._internal) + '/velocity/velocity.min.js' }}"></script>
+<script type="text/javascript" src="{{ url_for(theme.vendors._internal) + '/velocity/velocity.ui.min.js' }}"></script>
 
 {% if theme.canvas_nest %}
   {% set js_vendors.canvas_nest  = 'canvas-nest/canvas-nest.min.js' %}
