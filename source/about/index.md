@@ -10,10 +10,9 @@ language: ja
 
 感謝：
 
-- [__Hexo__](https://hexo.io/)
-- [__Hexo Next Theme__](https://github.com/theme-next/hexo-theme-next)
-- [__Github Page__](https://pages.github.com/)
-- [__Travis CI__](https://travis-ci.org/)
+- [__React__](https://react.dev/)
+- [__Vite__](https://vite.dev/)
+- [__Github Pages__](https://pages.github.com/)
 - [__GitTalk__](https://github.com/gitalk/gitalk)
 
 Background

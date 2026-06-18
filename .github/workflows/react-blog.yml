@@ -1,0 +1,41 @@
+name: React Blog
+
+on:
+  push:
+    branches: ["react"]
+  pull_request:
+    branches: ["react"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.x"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build React static blog
+        run: npm run react:build
+
+      - name: Disable GitHub Pages Jekyll
+        run: touch dist-react/.nojekyll
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        if: github.event_name != 'pull_request'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist-react
+          publish_branch: master

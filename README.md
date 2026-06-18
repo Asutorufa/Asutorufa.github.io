@@ -1,4 +1,4 @@
-#
+# Asutorufa React Blog
 
-[![NodeJS with Gulp](https://github.com/Asutorufa/Asutorufa.github.io/actions/workflows/npm-gulp.yml/badge.svg)](https://github.com/Asutorufa/Asutorufa.github.io/actions/workflows/npm-gulp.yml)  
+[![React Blog](https://github.com/Asutorufa/Asutorufa.github.io/actions/workflows/react-blog.yml/badge.svg)](https://github.com/Asutorufa/Asutorufa.github.io/actions/workflows/react-blog.yml)  
 <https://asutorufa.com>  
