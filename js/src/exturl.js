@@ -1,1 +1,0 @@
-$(document).ready(function(){$(".exturl").on("click",function(){var n=$(this).attr("data-url"),n=atob(n);return window.open(n,"_blank"),!1})});
