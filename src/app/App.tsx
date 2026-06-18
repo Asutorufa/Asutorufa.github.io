@@ -1,18 +1,95 @@
+import { useEffect, useState } from "react";
 import { Router } from "wouter";
 import type { AppProps } from "./app-types";
 import { BlogLayout } from "../components/BlogLayout";
-import { UI_LABELS } from "../data/i18n";
+import { LANGUAGE_META, UI_LABELS } from "../data/i18n";
 import { ArchivePage } from "../pages/ArchivePage";
 import { HomePage } from "../pages/HomePage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { PageView } from "../pages/PageView";
 import { PostPage } from "../pages/PostPage";
 import { TaxonomyPage } from "../pages/TaxonomyPage";
+import type { ContentManifest, Page, Post, RouteEntry } from "../types/content";
+
+type PagePayload = {
+  route: RouteEntry;
+  post?: Post;
+  page?: Page;
+};
+
+const pagePayloadCache = new Map<string, PagePayload | Promise<PagePayload>>();
 
 export function App(props: AppProps) {
+  const [content, setContent] = useState(props.content);
+  const [route, setRoute] = useState(props.route);
+  const currentProps = { content, route };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    pagePayloadCache.set(route.route, payloadFromContent(content, route));
+    window.history.replaceState({ route: route.route }, "", window.location.href);
+    window.history.scrollRestoration = "manual";
+
+    const navigate = async (url: URL, mode: "push" | "replace") => {
+      let payload: PagePayload;
+      try {
+        payload = await loadPagePayload(url);
+      } catch {
+        window.location.href = url.toString();
+        return;
+      }
+      const nextContent = mergePagePayload(content, payload);
+
+      const nextUrl = `${url.pathname}${url.search}${url.hash}`;
+      if (mode === "push") {
+        window.history.pushState({ route: payload.route.route }, "", nextUrl);
+      } else {
+        window.history.replaceState({ route: payload.route.route }, "", nextUrl);
+      }
+
+      setContent(nextContent);
+      setRoute(payload.route);
+      updateDocumentMeta(nextContent, payload.route);
+      window.dispatchEvent(new Event("asutorufa-route-change"));
+
+      requestAnimationFrame(() => {
+        if (url.hash) {
+          document.getElementById(decodeURIComponent(url.hash.slice(1)))?.scrollIntoView();
+          return;
+        }
+        window.scrollTo({ top: 0 });
+      });
+    };
+
+    const onClick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      const anchor = (event.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
+      if (!anchor || !shouldHandleLink(anchor)) return;
+
+      const url = new URL(anchor.href);
+      if (sameDocumentHash(url)) return;
+
+      event.preventDefault();
+      void navigate(url, "push");
+    };
+
+    const onPopState = () => {
+      void navigate(new URL(window.location.href), "replace");
+    };
+
+    document.addEventListener("click", onClick, true);
+    window.addEventListener("popstate", onPopState);
+    return () => {
+      document.removeEventListener("click", onClick, true);
+      window.removeEventListener("popstate", onPopState);
+    };
+  }, [content, route]);
+
   return (
-    <Router ssrPath={props.route.route}>
-      <BlogLayout {...props}>{renderRoute(props)}</BlogLayout>
+    <Router ssrPath={route.route}>
+      <BlogLayout {...currentProps}>{renderRoute(currentProps)}</BlogLayout>
     </Router>
   );
 }
@@ -48,4 +125,132 @@ function renderRoute(props: AppProps) {
     default:
       return <NotFoundPage labels={labels} />;
   }
+}
+
+async function loadPagePayload(url: URL) {
+  const routePath = normalizeRoutePath(url.pathname);
+  const cached = pagePayloadCache.get(routePath);
+  if (cached) return cached;
+
+  const promise = fetch(routePayloadUrl(routePath))
+    .then((response) => {
+      if (!response.ok) throw new Error(`Unable to load page payload: ${response.status}`);
+      return response.json() as Promise<PagePayload>;
+    })
+    .then((payload) => {
+      pagePayloadCache.set(payload.route.route, payload);
+      return payload;
+    })
+    .catch((error) => {
+      pagePayloadCache.delete(routePath);
+      throw error;
+    });
+  pagePayloadCache.set(routePath, promise);
+  return promise;
+}
+
+function routePayloadUrl(routePath: string) {
+  return `/manifest/pages/${routeOutputPath(routePath)}.json`;
+}
+
+function payloadFromContent(content: ContentManifest, route: RouteEntry): PagePayload {
+  return {
+    route,
+    post: route.params?.abbrlink ? content.posts.find((post) => post.abbrlink === route.params?.abbrlink) : undefined,
+    page: route.kind === "page" ? content.pages.find((page) => page.route === route.route) : undefined
+  };
+}
+
+function mergePagePayload(content: ContentManifest, payload: PagePayload): ContentManifest {
+  return {
+    ...content,
+    posts: content.posts.map((post) => (payload.post?.abbrlink === post.abbrlink ? payload.post : stripPostBody(post))),
+    pages: content.pages.map((page) => (payload.page?.route === page.route ? payload.page : stripPageBody(page)))
+  };
+}
+
+function stripPostBody(post: Post): Post {
+  return {
+    ...post,
+    bodyMarkdown: "",
+    bodyHtml: "",
+    rawMarkdown: "",
+    plainText: "",
+    toc: []
+  };
+}
+
+function stripPageBody(page: Page): Page {
+  return {
+    ...page,
+    bodyMarkdown: "",
+    bodyHtml: "",
+    rawMarkdown: "",
+    plainText: ""
+  };
+}
+
+function shouldHandleLink(anchor: HTMLAnchorElement) {
+  if (anchor.target && anchor.target !== "_self") return false;
+  if (anchor.hasAttribute("download")) return false;
+
+  const url = new URL(anchor.href);
+  if (url.origin !== window.location.origin) return false;
+
+  const path = decodeURI(url.pathname);
+  if (path.startsWith("/assets/") || path.startsWith("/images/") || path.startsWith("/manifest/")) return false;
+  if (/\.[a-z0-9]+$/i.test(path) && !path.endsWith("/index.html") && path !== "/404.html") return false;
+
+  return true;
+}
+
+function sameDocumentHash(url: URL) {
+  if (!url.hash) return false;
+  return url.pathname === window.location.pathname && url.search === window.location.search;
+}
+
+function normalizeRoutePath(pathname: string) {
+  let value = decodeURI(pathname);
+  if (value.endsWith("/index.html")) {
+    value = `${value.slice(0, -"index.html".length)}`;
+  }
+  if (!value.startsWith("/")) value = `/${value}`;
+  if (value === "") value = "/";
+  if (!value.endsWith("/") && !value.endsWith(".html")) value = `${value}/`;
+  return value;
+}
+
+function routeOutputPath(routePath: string) {
+  if (routePath === "/") return "index.html";
+  if (routePath.endsWith(".html")) return routePath.replace(/^\//, "");
+  return `${routePath.replace(/^\//, "")}index.html`;
+}
+
+function updateDocumentMeta(content: ContentManifest, route: RouteEntry) {
+  const language = LANGUAGE_META[route.language];
+  const title = route.title === content.config.title ? content.config.title : `${route.title} - ${content.config.title}`;
+  const description = routeDescription(content, route);
+  const canonical = new URL(route.route === "/404.html" ? "/" : route.route, content.config.url).toString();
+
+  document.title = title;
+  document.documentElement.lang = language.htmlLang;
+  document.documentElement.dir = language.textDirection;
+  setMeta("name", "description", description);
+  setMeta("property", "og:title", route.title);
+  setMeta("property", "og:url", canonical);
+  setMeta("property", "og:description", description);
+  setMeta("property", "og:locale", language.locale);
+  document.querySelector('link[rel="canonical"]')?.setAttribute("href", canonical);
+}
+
+function routeDescription(content: ContentManifest, route: RouteEntry) {
+  if (route.kind === "post" && route.params?.abbrlink) {
+    const post = content.posts.find((item) => item.abbrlink === route.params?.abbrlink);
+    return post?.plainText.slice(0, 160) ?? content.config.subtitle;
+  }
+  return content.config.description || content.config.subtitle;
+}
+
+function setMeta(attribute: "name" | "property", key: string, value: string) {
+  document.querySelector(`meta[${attribute}="${key}"]`)?.setAttribute("content", value);
 }

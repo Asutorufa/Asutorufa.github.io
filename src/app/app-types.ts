@@ -12,5 +12,6 @@ declare global {
 
   interface WindowEventMap {
     "asutorufa-theme-change": CustomEvent<{ mode: "system" | "light" | "dark"; dark: boolean }>;
+    "asutorufa-route-change": Event;
   }
 }

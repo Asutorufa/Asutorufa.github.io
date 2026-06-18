@@ -24,7 +24,11 @@ export function SearchModal({ labels }: SearchModalProps) {
     const syncHash = () => setOpen(window.location.hash === "#search");
     syncHash();
     window.addEventListener("hashchange", syncHash);
-    return () => window.removeEventListener("hashchange", syncHash);
+    window.addEventListener("asutorufa-route-change", syncHash);
+    return () => {
+      window.removeEventListener("hashchange", syncHash);
+      window.removeEventListener("asutorufa-route-change", syncHash);
+    };
   }, []);
 
   useEffect(() => {

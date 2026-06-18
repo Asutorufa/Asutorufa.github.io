@@ -1,8 +1,14 @@
 import { useEffect } from "react";
 
-export function GitalkComments() {
+type GitalkCommentsProps = {
+  id: string;
+};
+
+export function GitalkComments({ id }: GitalkCommentsProps) {
   useEffect(() => {
     let cancelled = false;
+    const container = document.getElementById("gitalk-container");
+    if (container) container.innerHTML = "";
 
     void import("gitalk").then(({ default: Gitalk }) => {
       if (cancelled) return;
@@ -13,7 +19,7 @@ export function GitalkComments() {
         repo: "Asutorufa.github.io",
         owner: "Asutorufa",
         admin: ["Asutorufa"],
-        id: window.location.pathname,
+        id,
         distractionFreeMode: true
       });
       gitalk.render("gitalk-container");
@@ -22,7 +28,7 @@ export function GitalkComments() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [id]);
 
   return <div id="gitalk-container" className="mt-12 max-w-full overflow-hidden" />;
 }

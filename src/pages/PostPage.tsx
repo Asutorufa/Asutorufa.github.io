@@ -29,7 +29,7 @@ export function PostPage({ content, abbrlink }: PostPageProps) {
       </header>
       <ArticleMarkdown html={post.bodyHtml} />
       <PostFooter config={content.config} labels={labels} post={post} olderPost={olderPost} newerPost={newerPost} />
-      {post.comments ? <GitalkComments /> : null}
+      {post.comments ? <GitalkComments id={post.route} /> : null}
     </article>
   );
 }
