@@ -32,7 +32,11 @@ type GitHubComment = {
 
 type CommentCopy = {
   adminOnly: string;
+  cancel: string;
   comments: (count: number) => string;
+  delete: string;
+  deleteConfirm: string;
+  edit: string;
   empty: string;
   error: string;
   first: string;
@@ -47,6 +51,7 @@ type CommentCopy = {
   placeholder: string;
   reply: string;
   retry: string;
+  save: string;
   submit: string;
 };
 
@@ -68,7 +73,11 @@ const COMMENT_CONFIG = {
 const COMMENT_COPY: Record<SiteLanguage, CommentCopy> = {
   en: {
     adminOnly: "The comment thread has not been initialized yet.",
+    cancel: "Cancel",
     comments: (count) => `${count} comment${count === 1 ? "" : "s"}`,
+    delete: "Delete",
+    deleteConfirm: "Delete this comment?",
+    edit: "Edit",
     empty: "No comments yet.",
     error: "Failed to load comments.",
     first: "Be the first to leave a comment.",
@@ -83,11 +92,16 @@ const COMMENT_COPY: Record<SiteLanguage, CommentCopy> = {
     placeholder: "Leave a comment",
     reply: "Reply",
     retry: "Retry",
+    save: "Save",
     submit: "Submit"
   },
   ja: {
     adminOnly: "コメントスレッドはまだ初期化されていません。",
+    cancel: "キャンセル",
     comments: (count) => `${count} 件のコメント`,
+    delete: "削除",
+    deleteConfirm: "このコメントを削除しますか？",
+    edit: "編集",
     empty: "コメントはまだありません。",
     error: "コメントの読み込みに失敗しました。",
     first: "最初にコメントを残しましょう。",
@@ -102,11 +116,16 @@ const COMMENT_COPY: Record<SiteLanguage, CommentCopy> = {
     placeholder: "コメントを残す",
     reply: "返信",
     retry: "再試行",
+    save: "保存",
     submit: "送信"
   },
   "zh-Hans": {
     adminOnly: "评论线程还没有初始化。",
+    cancel: "取消",
     comments: (count) => `${count} 条评论`,
+    delete: "删除",
+    deleteConfirm: "删除这条评论？",
+    edit: "编辑",
     empty: "还没有评论。",
     error: "评论加载失败。",
     first: "来留下第一条评论吧。",
@@ -121,6 +140,7 @@ const COMMENT_COPY: Record<SiteLanguage, CommentCopy> = {
     placeholder: "留下评论",
     reply: "回复",
     retry: "重试",
+    save: "保存",
     submit: "提交"
   }
 };
@@ -140,6 +160,10 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
   const [loadingMore, setLoadingMore] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [initializing, setInitializing] = useState(false);
+  const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
+  const [editDraft, setEditDraft] = useState("");
+  const [updatingCommentId, setUpdatingCommentId] = useState<number | null>(null);
+  const [deletingCommentId, setDeletingCommentId] = useState<number | null>(null);
   const [error, setError] = useState("");
 
   const copy = COMMENT_COPY[language];
@@ -257,6 +281,63 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
       textareaRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
       textareaRef.current?.setSelectionRange(replyDraft.length, replyDraft.length);
     });
+  };
+
+  const startEdit = (comment: GitHubComment) => {
+    setEditingCommentId(comment.id);
+    setEditDraft(comment.body);
+    setError("");
+  };
+
+  const cancelEdit = () => {
+    setEditingCommentId(null);
+    setEditDraft("");
+  };
+
+  const saveEdit = async (comment: GitHubComment) => {
+    if (!token || !user || !editDraft.trim()) return;
+    setUpdatingCommentId(comment.id);
+    setError("");
+
+    try {
+      const updatedComment = await githubFetch<GitHubComment>(
+        `/repos/${COMMENT_CONFIG.owner}/${COMMENT_CONFIG.repo}/issues/comments/${comment.id}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({ body: editDraft.trim() })
+        },
+        token
+      );
+      setComments((current) => current.map((item) => (item.id === updatedComment.id ? updatedComment : item)));
+      cancelEdit();
+    } catch (updateError) {
+      setError(errorMessage(updateError));
+    } finally {
+      setUpdatingCommentId(null);
+    }
+  };
+
+  const deleteComment = async (comment: GitHubComment) => {
+    if (!token || !user || !window.confirm(copy.deleteConfirm)) return;
+    setDeletingCommentId(comment.id);
+    setError("");
+
+    try {
+      await githubFetch<void>(
+        `/repos/${COMMENT_CONFIG.owner}/${COMMENT_CONFIG.repo}/issues/comments/${comment.id}`,
+        {
+          method: "DELETE"
+        },
+        token
+      );
+      setComments((current) => current.filter((item) => item.id !== comment.id));
+      setIssue((current) => (current ? { ...current, comments: Math.max(0, current.comments - 1) } : current));
+      if (editingCommentId === comment.id) cancelEdit();
+    } catch (deleteError) {
+      setError(errorMessage(deleteError));
+    } finally {
+      setDeletingCommentId(null);
+    }
   };
 
   const initializeIssue = async () => {
@@ -426,28 +507,66 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
 
           <div className="github-comment-list">
             {comments.length ? (
-              comments.map((comment) => (
-                <article className="github-comment" key={comment.id}>
-                  <a className="github-comment-avatar" href={comment.user.html_url} target="_blank" rel="noreferrer">
-                    <img src={comment.user.avatar_url} alt="" loading="lazy" />
-                  </a>
-                  <div className="github-comment-main">
-                    <div className="github-comment-meta">
-                      <a href={comment.user.html_url} target="_blank" rel="noreferrer">
-                        {comment.user.login}
-                      </a>
-                      <a href={comment.html_url} target="_blank" rel="noreferrer">
-                        {dateFormatter.format(new Date(comment.created_at))}
-                      </a>
-                      <button type="button" className="github-comment-reply" onClick={() => replyTo(comment)}>
-                        <Icon name="reply" />
-                        <span>{copy.reply}</span>
-                      </button>
+              comments.map((comment) => {
+                const canEdit = user?.login === comment.user.login;
+                const canDelete = canEdit || isAdmin;
+                const isEditing = editingCommentId === comment.id;
+                const isUpdating = updatingCommentId === comment.id;
+                const isDeleting = deletingCommentId === comment.id;
+
+                return (
+                  <article className="github-comment" key={comment.id}>
+                    <a className="github-comment-avatar" href={comment.user.html_url} target="_blank" rel="noreferrer">
+                      <img src={comment.user.avatar_url} alt="" loading="lazy" />
+                    </a>
+                    <div className="github-comment-main">
+                      <div className="github-comment-meta">
+                        <a href={comment.user.html_url} target="_blank" rel="noreferrer">
+                          {comment.user.login}
+                        </a>
+                        <a href={comment.html_url} target="_blank" rel="noreferrer">
+                          {dateFormatter.format(new Date(comment.created_at))}
+                        </a>
+                        <div className="github-comment-actions">
+                          <button type="button" className="github-comment-action" onClick={() => replyTo(comment)}>
+                            <Icon name="reply" />
+                            <span>{copy.reply}</span>
+                          </button>
+                          {canEdit ? (
+                            <button type="button" className="github-comment-action" onClick={() => startEdit(comment)} disabled={isDeleting}>
+                              <Icon name="edit" />
+                              <span>{copy.edit}</span>
+                            </button>
+                          ) : null}
+                          {canDelete ? (
+                            <button type="button" className="github-comment-action danger" onClick={() => void deleteComment(comment)} disabled={isDeleting || isUpdating}>
+                              <Icon name="trash" />
+                              <span>{isDeleting ? copy.loading : copy.delete}</span>
+                            </button>
+                          ) : null}
+                        </div>
+                      </div>
+
+                      {isEditing ? (
+                        <div className="github-comment-edit">
+                          <textarea value={editDraft} onChange={(event) => setEditDraft(event.target.value)} rows={4} />
+                          <div className="github-comment-edit-actions">
+                            <button type="button" className="github-comments-button secondary" onClick={cancelEdit} disabled={isUpdating}>
+                              <span>{copy.cancel}</span>
+                            </button>
+                            <button type="button" className="github-comments-button primary" onClick={() => void saveEdit(comment)} disabled={!editDraft.trim() || isUpdating}>
+                              <Icon name="send" />
+                              <span>{isUpdating ? copy.loading : copy.save}</span>
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="github-comment-body" dangerouslySetInnerHTML={{ __html: comment.body_html ?? escapeHtml(comment.body) }} />
+                      )}
                     </div>
-                    <div className="github-comment-body" dangerouslySetInnerHTML={{ __html: comment.body_html ?? escapeHtml(comment.body) }} />
-                  </div>
-                </article>
-              ))
+                  </article>
+                );
+              })
             ) : (
               <p className="github-comments-empty-line">{copy.first}</p>
             )}

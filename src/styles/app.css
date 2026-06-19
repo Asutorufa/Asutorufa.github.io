@@ -2353,7 +2353,15 @@ pre.shiki.code-block {
   color: #d85a2a;
 }
 
-.github-comment-reply {
+.github-comment-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-left: auto;
+}
+
+.github-comment-action {
   align-items: center;
   appearance: none;
   background: transparent;
@@ -2365,22 +2373,69 @@ pre.shiki.code-block {
   font: inherit;
   gap: 0.25rem;
   line-height: 1;
-  margin-left: auto;
   padding: 0.28rem 0.45rem;
   transition:
     background-color 0.15s ease,
+    opacity 0.15s ease,
     color 0.15s ease;
 }
 
-.github-comment-reply:hover {
+.github-comment-action:hover {
   background: #fff4ed;
   color: #d85a2a;
+}
+
+.github-comment-action.danger:hover {
+  background: #fff0ed;
+  color: #c83f1f;
+}
+
+.github-comment-action:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 .github-comment-body {
   color: #555;
   line-height: 1.85;
   overflow-wrap: anywhere;
+}
+
+.github-comment-edit {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.github-comment-edit textarea {
+  appearance: none;
+  background: #fff;
+  border: 1px solid #dedede;
+  border-radius: 7px;
+  color: #444;
+  display: block;
+  font: inherit;
+  line-height: 1.8;
+  min-height: 5rem;
+  padding: 0.6rem 0.75rem;
+  resize: vertical;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+  width: 100%;
+}
+
+.github-comment-edit textarea:focus {
+  border-color: #ff9a73;
+  box-shadow: 0 0 0 3px rgb(255 122 69 / 0.12);
+  outline: none;
+}
+
+.github-comment-edit-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
 }
 
 .github-comment-body p,
@@ -2505,6 +2560,16 @@ pre.shiki.code-block {
   .github-comment {
     grid-template-columns: 2rem minmax(0, 1fr);
     padding: 0.75rem;
+  }
+
+  .github-comment-actions {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .github-comment-edit-actions {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .github-comment-avatar img {
@@ -3244,7 +3309,7 @@ html.dark-mode .github-comment-meta a:last-child {
 
 html.dark-mode .github-comments-issue:hover,
 html.dark-mode .github-comment-meta a:hover,
-html.dark-mode .github-comment-reply:hover {
+html.dark-mode .github-comment-action:hover {
   color: #ff8b5f;
 }
 
@@ -3299,9 +3364,16 @@ html.dark-mode .github-comment-form textarea {
   color: #e1e1e1;
 }
 
-html.dark-mode .github-comment-form textarea:focus {
+html.dark-mode .github-comment-form textarea:focus,
+html.dark-mode .github-comment-edit textarea:focus {
   border-color: #a66b4f;
   box-shadow: 0 0 0 3px rgb(255 122 69 / 0.14);
+}
+
+html.dark-mode .github-comment-edit textarea {
+  background: #1f1f1f;
+  border-color: #4a4a4a;
+  color: #e1e1e1;
 }
 
 html.dark-mode .github-comment-body a {
@@ -3314,12 +3386,17 @@ html.dark-mode .github-comment-body a:hover {
   color: #ff8b5f;
 }
 
-html.dark-mode .github-comment-reply {
+html.dark-mode .github-comment-action {
   color: #aaa;
 }
 
-html.dark-mode .github-comment-reply:hover {
+html.dark-mode .github-comment-action:hover {
   background: #302824;
+}
+
+html.dark-mode .github-comment-action.danger:hover {
+  background: #352522;
+  color: #ff8b5f;
 }
 
 html.dark-mode .github-comment-body blockquote {

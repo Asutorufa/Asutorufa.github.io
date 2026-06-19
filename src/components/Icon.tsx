@@ -10,6 +10,7 @@ import {
   CircleX,
   Clock3,
   Copy,
+  Edit3,
   Folder,
   Grid3X3,
   House,
@@ -47,6 +48,7 @@ export type IconName =
   | "copy"
   | "desktop"
   | "email"
+  | "edit"
   | "folder"
   | "github"
   | "home"
@@ -86,6 +88,7 @@ const icons: Record<Exclude<IconName, "github">, LucideIcon> = {
   copy: Copy,
   desktop: Monitor,
   email: Mail,
+  edit: Edit3,
   folder: Folder,
   home: House,
   "log-in": LogIn,
