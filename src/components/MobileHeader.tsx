@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { UiLabels } from "../types/content";
 import { menuItems } from "../data/menu";
 import { ThemeToggle } from "./ThemeToggle";
@@ -13,6 +13,11 @@ type MobileHeaderProps = {
 
 export function MobileHeader({ title, subtitle, labels, currentRoute }: MobileHeaderProps) {
   const [open, setOpen] = useState(false);
+  const closeMenu = () => setOpen(false);
+
+  useEffect(() => {
+    closeMenu();
+  }, [currentRoute]);
 
   return (
     <header className="mb-2 overflow-hidden rounded-b-[22px] bg-white shadow-blog lg:hidden">
@@ -30,7 +35,7 @@ export function MobileHeader({ title, subtitle, labels, currentRoute }: MobileHe
             <span className="h-1 rounded bg-black" />
           </span>
         </button>
-        <a href="/" className="block text-[20px] font-normal leading-9 text-[#222] transition-colors hover:text-[#ff5b25]">
+        <a href="/" className="block text-[20px] font-normal leading-9 text-[#222] transition-colors hover:text-[#ff5b25]" onClick={closeMenu}>
           {title}
         </a>
         <p className="mt-2 text-[13px] font-normal leading-6 text-black">{subtitle}</p>
@@ -41,6 +46,7 @@ export function MobileHeader({ title, subtitle, labels, currentRoute }: MobileHe
             <a
               key={item.href}
               href={item.href}
+              onClick={closeMenu}
               className={`flex items-center gap-4 px-8 py-3 text-[14px] font-normal leading-8 transition-colors active:bg-[#ffe0f3] ${
                 isActive(currentRoute, item.href) ? "bg-[#ffc7eb] text-black" : "text-black hover:bg-[#fff0f8] hover:text-[#ff5b25]"
               }`}

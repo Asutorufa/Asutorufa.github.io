@@ -17,7 +17,7 @@ export function PageView({ content, route }: AppProps) {
         <h1 className="text-[1.7em] font-normal leading-normal text-[#555]">{page.title}</h1>
       </header>
       <ArticleMarkdown html={page.bodyHtml} />
-      {page.route === "/about/" && page.comments ? <GitalkComments id={page.route} /> : null}
+      {["/about/", "/friends/"].includes(page.route) && page.comments ? <GitalkComments id={page.route} /> : null}
     </article>
   );
 }
