@@ -12,6 +12,7 @@ type PostFooterProps = {
 
 export function PostFooter({ config, labels, post, olderPost, newerPost }: PostFooterProps) {
   const permalink = new URL(post.route, config.url).toString();
+  const adjacentClassName = `post-adjacent-nav ${olderPost && newerPost ? "post-adjacent-nav--paired" : "post-adjacent-nav--single"}`;
 
   return (
     <footer className="mt-16">
@@ -46,23 +47,29 @@ export function PostFooter({ config, labels, post, olderPost, newerPost }: PostF
         </nav>
       ) : null}
 
-      <nav className="mt-10 grid min-w-0 grid-cols-1 gap-4 border-t border-neutral-200 pt-7 text-base font-normal text-neutral-800 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <div className="min-w-0 overflow-hidden">
-          {olderPost ? (
-            <a className="group flex min-w-0 max-w-full items-center gap-2 overflow-hidden transition-colors hover:text-[#ff5b25] active:text-[#e14d1d]" href={olderPost.route}>
-              <Icon name="chevron-left" className="shrink-0" />
-              <span className="min-w-0 truncate">{olderPost.title}</span>
-            </a>
-          ) : null}
-        </div>
-        <div className="min-w-0 overflow-hidden">
-          {newerPost ? (
-            <a className="group flex min-w-0 max-w-full items-center justify-start gap-2 overflow-hidden transition-colors hover:text-[#ff5b25] active:text-[#e14d1d] md:justify-end" href={newerPost.route}>
-              <span className="min-w-0 truncate">{newerPost.title}</span>
-              <Icon name="chevron-right" className="shrink-0" />
-            </a>
-          ) : null}
-        </div>
+      <nav className={adjacentClassName} aria-label="Post navigation">
+        {olderPost ? (
+          <a className="post-adjacent-link post-adjacent-link--previous" href={olderPost.route} aria-label={`${labels.previous}: ${olderPost.title}`}>
+            <span className="post-adjacent-icon" aria-hidden="true">
+              <Icon name="chevron-left" />
+            </span>
+            <span className="post-adjacent-copy">
+              <span className="post-adjacent-label">{labels.previous}</span>
+              <span className="post-adjacent-title">{olderPost.title}</span>
+            </span>
+          </a>
+        ) : null}
+        {newerPost ? (
+          <a className="post-adjacent-link post-adjacent-link--next" href={newerPost.route} aria-label={`${labels.next}: ${newerPost.title}`}>
+            <span className="post-adjacent-copy">
+              <span className="post-adjacent-label">{labels.next}</span>
+              <span className="post-adjacent-title">{newerPost.title}</span>
+            </span>
+            <span className="post-adjacent-icon" aria-hidden="true">
+              <Icon name="chevron-right" />
+            </span>
+          </a>
+        ) : null}
       </nav>
     </footer>
   );

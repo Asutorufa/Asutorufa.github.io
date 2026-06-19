@@ -1050,6 +1050,106 @@ a {
   pointer-events: none;
 }
 
+.post-adjacent-nav {
+  border-top: 1px solid #e5e5e5;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr;
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+}
+
+.post-adjacent-link {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  color: #444;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  min-height: 4rem;
+  min-width: 0;
+  padding: 0.75rem 0.85rem;
+  transition:
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    color 0.16s ease,
+    transform 0.16s ease;
+}
+
+.post-adjacent-link--next {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.post-adjacent-copy {
+  min-width: 0;
+}
+
+.post-adjacent-link--next .post-adjacent-copy {
+  text-align: right;
+}
+
+.post-adjacent-label {
+  color: #8a8a8a;
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+
+.post-adjacent-title {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.28;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.post-adjacent-icon {
+  align-items: center;
+  background: #f3f3f3;
+  border-radius: 999px;
+  color: #666;
+  display: inline-flex;
+  height: 2rem;
+  justify-content: center;
+  width: 2rem;
+}
+
+.post-adjacent-link:hover {
+  border-color: #ffd1ef;
+  box-shadow: 0 10px 22px rgb(0 0 0 / 0.08);
+  color: #ff5b25;
+  transform: translateY(-1px);
+}
+
+.post-adjacent-link:hover .post-adjacent-icon {
+  background: #fff0f8;
+  color: #ff5b25;
+}
+
+.post-adjacent-link:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+@media (min-width: 768px) {
+  .post-adjacent-nav--paired {
+    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .post-adjacent-nav {
+    margin-top: 2.5rem;
+    padding-top: 1.75rem;
+  }
+}
+
 .archive-timeline {
   border-left: 4px solid #f4f4f4;
   margin: 0 auto;
@@ -2343,6 +2443,37 @@ html.dark-mode .pagination-link:hover {
 html.dark-mode .pagination-current {
   background: #6f5265;
   color: #fff;
+}
+
+html.dark-mode .post-adjacent-nav {
+  border-color: #444;
+}
+
+html.dark-mode .post-adjacent-link {
+  background: #2a2a2a;
+  border-color: #3f3f3f;
+  color: #e5e5e5;
+}
+
+html.dark-mode .post-adjacent-label {
+  color: #9d9d9d;
+}
+
+html.dark-mode .post-adjacent-icon {
+  background: #363636;
+  color: #cfcfcf;
+}
+
+html.dark-mode .post-adjacent-link:hover {
+  background: #302a2f;
+  border-color: #6f5265;
+  box-shadow: 0 12px 26px rgb(0 0 0 / 0.28);
+  color: #ff8b5f;
+}
+
+html.dark-mode .post-adjacent-link:hover .post-adjacent-icon {
+  background: #493743;
+  color: #ffb36b;
 }
 
 html.dark-mode .border-neutral-100,
