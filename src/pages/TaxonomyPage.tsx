@@ -23,7 +23,7 @@ export function TaxonomyPage({ content, route, type, name, page = 1 }: TaxonomyP
 
   if (!name) {
     return (
-      <section className="content-card px-5 py-10 md:px-12 md:py-14 lg:px-16">
+      <section className="content-card px-5 py-10 md:px-8 md:py-14 lg:px-10">
         <header className="mb-12 text-center">
           <h1 className="text-[1.7em] font-normal text-[#555]">{pluralTitle}</h1>
         </header>
@@ -38,7 +38,7 @@ export function TaxonomyPage({ content, route, type, name, page = 1 }: TaxonomyP
 
   return (
     <>
-      <section className="content-card px-5 py-10 md:px-12 md:py-14 lg:px-16">
+      <section className="content-card px-5 py-10 md:px-8 md:py-14 lg:px-10">
         <div className="taxonomy-timeline">
           <header className="taxonomy-title">
             <h1>

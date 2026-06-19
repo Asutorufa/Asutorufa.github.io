@@ -20,7 +20,7 @@ export function ArchivePage({ content, route, year, month, page = 1 }: ArchivePa
 
   return (
     <>
-      <section className="content-card px-5 py-10 md:px-12 md:py-14 lg:px-16">
+      <section className="content-card px-5 py-10 md:px-8 md:py-14 lg:px-10">
         <header className="mb-10 text-center">
           <h1 className="text-[1.7em] font-normal text-[#555]">{title}</h1>
         </header>

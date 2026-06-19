@@ -24,16 +24,22 @@ export function PostPage({ content, abbrlink }: PostPageProps) {
   const olderPost = index < content.posts.length - 1 ? content.posts[index + 1] : undefined;
 
   return (
-    <article className="content-card post-transition-surface px-4 py-8 md:px-12 md:py-14 lg:px-16" style={{ viewTransitionName: `post-${post.abbrlink}` }}>
-      <PostBackButton label={labels.back} />
-      <header className="mb-12 text-center md:mb-16">
-        <h1 className="text-[1.7em] font-normal leading-normal text-[#555]">{post.title}</h1>
-        <PostMeta post={post} />
-      </header>
-      <ArticleMarkdown html={post.bodyHtml} />
-      <PostFooter config={content.config} labels={labels} post={post} olderPost={olderPost} newerPost={newerPost} />
-      {post.comments ? <GitalkComments id={post.route} /> : null}
-    </article>
+    <>
+      <article className="content-card post-transition-surface px-4 py-8 md:px-8 md:py-14 lg:px-10" style={{ viewTransitionName: `post-${post.abbrlink}` }}>
+        <PostBackButton label={labels.back} />
+        <header className="mb-12 text-center md:mb-16">
+          <h1 className="text-[1.7em] font-normal leading-normal text-[#555]">{post.title}</h1>
+          <PostMeta post={post} />
+        </header>
+        <ArticleMarkdown html={post.bodyHtml} />
+        <PostFooter config={content.config} labels={labels} post={post} olderPost={olderPost} newerPost={newerPost} />
+      </article>
+      {post.comments ? (
+        <section className="comments-card content-card mt-4 px-4 py-5 md:mt-6 md:px-8 md:py-7 lg:px-10">
+          <GitalkComments id={post.route} />
+        </section>
+      ) : null}
+    </>
   );
 }
 

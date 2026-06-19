@@ -12,13 +12,13 @@ export function PostCard({ post }: PostCardProps) {
 
   return (
     <article
-      className="content-card post-transition-surface mb-3 px-4 py-8 md:mb-5 md:px-12 md:py-14 lg:px-16"
+      className="content-card post-transition-surface mb-3 px-4 py-8 md:mb-5 md:px-8 md:py-14 lg:px-10"
       data-scroll-route={post.route}
       style={{ viewTransitionName: `post-${post.abbrlink}` }}
     >
       <header className="text-center">
         <h2 className="text-[1.7em] font-normal leading-normal text-[#555]">
-          <a className="transition-colors hover:text-[#ff5b25] active:text-[#e14d1d]" href={post.route}>{post.title}</a>
+          <a className="post-card-title-link transition-colors" href={post.route}>{post.title}</a>
         </h2>
         <PostMeta post={post} />
       </header>

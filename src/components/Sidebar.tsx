@@ -29,11 +29,7 @@ export function Sidebar({ content, labels, currentRoute, post, mobile = false }:
             <a
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-5 py-[5px] text-[13px] font-normal leading-7 transition-all duration-150 active:translate-x-1 ${
-                isActive(currentRoute, item.href)
-                  ? "bg-[#ffc7eb] text-black"
-                  : "text-neutral-900 hover:bg-[#fff0f8] hover:text-[#ff5b25]"
-              }`}
+              className={`sidebar-nav-link ${isActive(currentRoute, item.href) ? "is-active" : ""}`}
             >
               <Icon name={item.icon} className="w-[1.28571429em]" />
               <span>{item.label}</span>
@@ -62,7 +58,7 @@ function TocCard({ content, labels, toc, mobile }: { content: ContentManifest; l
       <div className="flex justify-center gap-5 px-4 pt-5 text-[14px] font-normal">
         <button
           type="button"
-          className={`border-b-2 pb-2 transition-all active:translate-y-px ${
+          className={`toc-tab-button border-b-2 pb-2 transition-all active:translate-y-px ${
             activeTab === "toc" ? "border-[#ff5b25] text-[#ff5b25]" : "border-transparent text-neutral-600 hover:text-[#ff5b25]"
           }`}
           onClick={() => setActiveTab("toc")}
@@ -71,7 +67,7 @@ function TocCard({ content, labels, toc, mobile }: { content: ContentManifest; l
         </button>
         <button
           type="button"
-          className={`border-b-2 pb-2 transition-all active:translate-y-px ${
+          className={`toc-tab-button border-b-2 pb-2 transition-all active:translate-y-px ${
             activeTab === "overview" ? "border-[#ff5b25] text-[#ff5b25]" : "border-transparent text-neutral-600 hover:text-[#ff5b25]"
           }`}
           onClick={() => setActiveTab("overview")}
@@ -90,7 +86,7 @@ function TocList({ toc }: { toc: TocItem[] }) {
       <ol className="space-y-2 text-[13px] font-normal leading-6 text-neutral-600">
         {toc.map((item) => (
           <li key={item.id} className={item.level > 2 ? "ml-3 text-[12px]" : ""}>
-            <a className="border-b border-neutral-300 transition-colors hover:border-[#ff5b25] hover:text-[#ff5b25] active:text-[#e14d1d]" href={`#${item.id}`}>
+            <a className="toc-link" href={`#${item.id}`}>
               {item.text}
             </a>
           </li>
@@ -111,11 +107,11 @@ function ProfileCard({ content, labels, mobile, sticky }: { content: ContentMani
 function ProfileBody({ content, labels, compact = false }: { content: ContentManifest; labels: UiLabels; compact?: boolean }) {
   return (
     <div className={`text-center ${compact ? "px-4 pb-5 pt-5" : "px-4 py-6"}`}>
-      <a className="mx-auto block h-28 w-28 rounded-full transition-transform hover:-translate-y-1 active:translate-y-0" href="/about/" aria-label={labels.about}>
+      <a className="profile-avatar-link mx-auto block h-28 w-28 rounded-full" href="/about/" aria-label={labels.about}>
         <img
           src="/images/bighead.svg"
           alt="Asutorufa"
-          className="h-28 w-28 rounded-full border border-neutral-200 object-cover"
+          className="profile-avatar-image h-28 w-28 rounded-full object-cover"
         />
       </a>
       <div className="mt-6 grid grid-cols-3 divide-x divide-neutral-200">
@@ -123,18 +119,16 @@ function ProfileBody({ content, labels, compact = false }: { content: ContentMan
         <Stat href="/categories/" value={content.categories.length} label={labels.categories.toLowerCase()} />
         <Stat href="/tags/" value={content.tags.length} label={labels.tags.toLowerCase()} />
       </div>
-      <div className="my-5 border-y border-dotted border-neutral-300 py-2">
-        <a className="rss-link inline-flex items-center justify-center rounded px-3 py-1 font-normal text-orange-600 transition-all hover:bg-orange-50 hover:text-orange-700 active:translate-y-px" href="/atom.xml">
+      <div className="profile-actions mt-5 grid grid-cols-3 gap-2 text-[13px] font-normal">
+        <a className="profile-action-link rounded px-2 py-1 transition-all active:translate-y-px" href="/atom.xml">
           <Icon name="rss" className="mr-1" />
           {labels.rss}
         </a>
-      </div>
-      <div className="flex justify-center gap-4 text-[13px] font-normal">
-        <a className="rounded px-2 py-1 transition-all hover:bg-[#fff0f8] hover:text-[#ff5b25] active:translate-y-px" href="https://github.com/Asutorufa" target="_blank" rel="noreferrer">
+        <a className="profile-action-link rounded px-2 py-1 transition-all active:translate-y-px" href="https://github.com/Asutorufa" target="_blank" rel="noreferrer">
           <Icon name="github" className="mr-2" />
           GitHub
         </a>
-        <a className="rounded px-2 py-1 transition-all hover:bg-[#fff0f8] hover:text-[#ff5b25] active:translate-y-px" href="/email/">
+        <a className="profile-action-link rounded px-2 py-1 transition-all active:translate-y-px" href="/email/">
           <Icon name="email" className="mr-2" />
           E-Mail
         </a>
@@ -145,7 +139,7 @@ function ProfileBody({ content, labels, compact = false }: { content: ContentMan
 
 function Stat({ href, value, label }: { href: string; value: number; label: string }) {
   return (
-    <a className="block rounded py-1 transition-all hover:bg-[#fff0f8] hover:text-[#ff5b25] active:translate-y-px" href={href}>
+    <a className="profile-stat-link block rounded py-1 transition-all active:translate-y-px" href={href}>
       <div className="text-[20px] font-bold leading-7 text-black">{value}</div>
       <div className="mt-1 text-[13px] leading-5 text-neutral-500">{label}</div>
     </a>

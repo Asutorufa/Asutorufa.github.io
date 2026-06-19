@@ -1,5 +1,4 @@
 import type { BlogConfig, Post, UiLabels } from "../types/content";
-import { taxonomyRoute } from "../utils/route";
 import { Icon } from "./Icon";
 
 type PostFooterProps = {
@@ -15,37 +14,31 @@ export function PostFooter({ config, labels, post, olderPost, newerPost }: PostF
   const adjacentClassName = `post-adjacent-nav ${olderPost && newerPost ? "post-adjacent-nav--paired" : "post-adjacent-nav--single"}`;
 
   return (
-    <footer className="mt-16">
-      <section className="border-l-4 border-[#ff3b1f] bg-neutral-50 px-5 py-5 text-[14px] font-normal leading-8 text-neutral-600 md:px-7">
-        <p>
-          <span className="mr-3 font-bold">{labels.authorLabel}</span>
-          {config.author}
+    <footer className="mt-10">
+      <section className="post-info-panel">
+        <p className="post-info-row">
+          <span className="post-info-label">{labels.authorLabel}</span>
+          <span className="post-info-value">{config.author}</span>
         </p>
-        <p>
-          <span className="mr-3 font-bold">{labels.permalinkLabel}</span>
-          <a className="border-b border-neutral-400 text-neutral-800 transition-colors hover:border-[#ff5b25] hover:text-[#ff5b25]" href={post.route}>
-            {permalink}
-          </a>
+        <p className="post-info-row">
+          <span className="post-info-label">{labels.permalinkLabel}</span>
+          <span className="post-info-value">
+            <a className="post-info-link" href={post.route}>
+              {permalink}
+            </a>
+          </span>
         </p>
-        <p>
-          <span className="mr-3 font-bold">{labels.copyrightLabel}</span>
-          {labels.copyrightText}{" "}
-          <a className="border-b border-neutral-400 text-neutral-800 transition-colors hover:border-[#ff5b25] hover:text-[#ff5b25]" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noreferrer">
-            CC BY-NC-SA 4.0
-          </a>
-          .
+        <p className="post-info-row">
+          <span className="post-info-label">{labels.copyrightLabel}</span>
+          <span className="post-info-value">
+            {labels.copyrightText}{" "}
+            <a className="post-info-link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noreferrer">
+              CC BY-NC-SA 4.0
+            </a>
+            .
+          </span>
         </p>
       </section>
-
-      {post.tags.length > 0 ? (
-        <nav className="mt-12 flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-normal text-neutral-700">
-          {post.tags.map((tag) => (
-            <a key={tag} className="border-b border-neutral-400 transition-colors hover:border-[#ff5b25] hover:text-[#ff5b25]" href={taxonomyRoute("tags", tag)}>
-              # {tag}
-            </a>
-          ))}
-        </nav>
-      ) : null}
 
       <nav className={adjacentClassName} aria-label="Post navigation">
         {olderPost ? (

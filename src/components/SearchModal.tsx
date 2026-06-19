@@ -69,8 +69,8 @@ export function SearchModal({ labels }: SearchModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 px-3 py-6" role="dialog" aria-modal="true" onClick={closeSearch}>
-      <div className="mx-auto max-h-[88vh] w-full max-w-2xl overflow-hidden rounded-2xl bg-white shadow-blog" onClick={(event) => event.stopPropagation()}>
-        <div className={`flex items-center gap-3 p-4 ${hasQuery ? "border-b border-neutral-200" : ""}`}>
+      <div className="search-panel mx-auto max-h-[88vh] w-full max-w-2xl overflow-hidden rounded-2xl bg-white shadow-blog" onClick={(event) => event.stopPropagation()}>
+        <div className={`search-header flex items-center gap-3 p-4 ${hasQuery ? "has-query border-b border-neutral-200" : ""}`}>
           <Icon name="search" className="text-neutral-400" />
           <input
             autoFocus
@@ -93,9 +93,9 @@ export function SearchModal({ labels }: SearchModalProps) {
             {results.length === 0 ? <p className="text-sm text-neutral-500">{labels.noResults}</p> : null}
             <div className="space-y-4">
               {results.map((result) => (
-                <a key={result.url} href={result.url} className="group block rounded-lg border border-neutral-100 p-4 transition-all hover:-translate-y-0.5 hover:border-[#ffb1d8] hover:bg-[#fff7fc] active:translate-y-0">
-                  <h3 className="font-semibold text-neutral-800 transition-colors group-hover:text-[#ff5b25]">{result.title}</h3>
-                  <p className="mt-2 line-clamp-2 text-sm leading-6 text-neutral-500">{result.content.slice(0, 160)}</p>
+                <a key={result.url} href={result.url} className="search-result-card group block rounded-lg border p-4 transition-all active:translate-y-0">
+                  <h3 className="search-result-title font-semibold transition-colors">{result.title}</h3>
+                  <p className="search-result-excerpt mt-2 line-clamp-2 text-sm leading-6">{result.content.slice(0, 160)}</p>
                 </a>
               ))}
             </div>

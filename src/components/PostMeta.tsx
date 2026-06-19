@@ -12,32 +12,43 @@ export function PostMeta({ post }: PostMetaProps) {
   const labels = UI_LABELS[post.language];
 
   return (
-    <div className="mt-1 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs font-normal text-[#999]">
-      <span>
-        <Icon name="calendar" className="mr-2" />
-        {labels.postedOn} {formatDisplayDate(post.date)}
-      </span>
-      <span className="hidden text-neutral-300 sm:inline">|</span>
-      <span>
-        <Icon name="calendar-check" className="mr-2" />
-        {labels.modified} {formatDisplayDate(post.updated ?? post.date)}
-      </span>
-      {post.categories.length > 0 ? (
-        <>
-          <span className="hidden text-neutral-300 sm:inline">|</span>
-          <span>
-            <Icon name="folder" className="mr-2" />
-            {labels.inCategory}{" "}
-            {post.categories.map((category, index) => (
-              <span key={category}>
-                <a className="border-b border-neutral-400 text-neutral-600" href={taxonomyRoute("categories", category)}>
-                  {category}
-                </a>
-                {index < post.categories.length - 1 ? ", " : ""}
-              </span>
-            ))}
-          </span>
-        </>
+    <div className="post-meta">
+      <div className="post-meta-line">
+        <span>
+          <Icon name="calendar" className="mr-2" />
+          {labels.postedOn} {formatDisplayDate(post.date)}
+        </span>
+        <span className="post-meta-separator">|</span>
+        <span>
+          <Icon name="calendar-check" className="mr-2" />
+          {labels.modified} {formatDisplayDate(post.updated ?? post.date)}
+        </span>
+        {post.categories.length > 0 ? (
+          <>
+            <span className="post-meta-separator">|</span>
+            <span>
+              <Icon name="folder" className="mr-2" />
+              {labels.inCategory}{" "}
+              {post.categories.map((category, index) => (
+                <span key={category}>
+                  <a className="post-meta-link" href={taxonomyRoute("categories", category)}>
+                    {category}
+                  </a>
+                  {index < post.categories.length - 1 ? ", " : ""}
+                </span>
+              ))}
+            </span>
+          </>
+        ) : null}
+      </div>
+      {post.tags.length > 0 ? (
+        <nav className="post-meta-tags" aria-label="Tags">
+          {post.tags.map((tag) => (
+            <a key={tag} className="post-meta-tag" href={taxonomyRoute("tags", tag)}>
+              # {tag}
+            </a>
+          ))}
+        </nav>
       ) : null}
     </div>
   );

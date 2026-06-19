@@ -10,7 +10,7 @@ export function ToolsPage({ route }: AppProps) {
   const [activeTool, setActiveTool] = useState<"time" | "json">("time");
 
   return (
-    <article className="content-card tools-page px-5 py-10 md:px-12 md:py-14 lg:px-16">
+    <article className="content-card tools-page px-5 py-10 md:px-8 md:py-14 lg:px-10">
       <header className="mb-10 text-center">
         <h1 className="text-[1.7em] font-normal leading-normal text-[#555]">{labels.tools}</h1>
       </header>

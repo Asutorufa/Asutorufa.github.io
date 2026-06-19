@@ -57,5 +57,5 @@ export function GitalkComments({ id }: GitalkCommentsProps) {
     };
   }, [id]);
 
-  return <div ref={containerRef} id="gitalk-container" className="mt-12 max-w-full overflow-hidden" />;
+  return <div ref={containerRef} id="gitalk-container" className="gitalk-comments max-w-full overflow-hidden" />;
 }
