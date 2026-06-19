@@ -114,7 +114,7 @@ function escapeHtml(value: string) {
 }
 
 function codeLines(highlightedHtml: string) {
-  const lines = highlightedHtml.replace(/\n$/, "").split("\n");
+  const lines = splitHighlightedLines(highlightedHtml.replace(/\n$/, ""));
   const lineCount = Math.max(lines.length, 1);
   const digits = String(lineCount).length;
 
@@ -124,6 +124,69 @@ function codeLines(highlightedHtml: string) {
       return `<span class="code-line"><span class="code-line-number" aria-hidden="true" style="--line-digits:${digits}">${number}</span><span class="code-line-content">${line || " "}</span></span>`;
     })
     .join("");
+}
+
+function splitHighlightedLines(highlightedHtml: string) {
+  const lines: string[] = [];
+  const openTags: string[] = [];
+  let current = "";
+  let index = 0;
+
+  const reopenTags = () => openTags.join("");
+  const closeOpenTags = () =>
+    openTags
+      .slice()
+      .reverse()
+      .map((tag) => `</${tagName(tag)}>`)
+      .join("");
+
+  while (index < highlightedHtml.length) {
+    const char = highlightedHtml[index];
+
+    if (char === "\n") {
+      lines.push(current + closeOpenTags());
+      current = reopenTags();
+      index += 1;
+      continue;
+    }
+
+    if (char === "<") {
+      const end = highlightedHtml.indexOf(">", index);
+      if (end === -1) {
+        current += highlightedHtml.slice(index);
+        break;
+      }
+
+      const tag = highlightedHtml.slice(index, end + 1);
+      current += tag;
+      updateOpenTags(openTags, tag);
+      index = end + 1;
+      continue;
+    }
+
+    current += char;
+    index += 1;
+  }
+
+  lines.push(current + closeOpenTags());
+  return lines.length ? lines : [""];
+}
+
+function updateOpenTags(openTags: string[], tag: string) {
+  if (!/^<span\b/i.test(tag) && !/^<\/span>/i.test(tag)) return;
+
+  if (/^<\/span>/i.test(tag)) {
+    openTags.pop();
+    return;
+  }
+
+  if (!/\/>$/.test(tag)) {
+    openTags.push(tag);
+  }
+}
+
+function tagName(tag: string) {
+  return tag.match(/^<\s*([a-z0-9-]+)/i)?.[1] ?? "span";
 }
 
 function normalizeCodeLanguage(language?: string) {
