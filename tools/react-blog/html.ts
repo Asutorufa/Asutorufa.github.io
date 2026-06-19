@@ -38,6 +38,7 @@ export function renderHtmlShell(options: {
   <link rel="canonical" href="${canonical}" />
   <link rel="alternate" href="/atom.xml" title="${escapeHtml(content.config.title)}" type="application/atom+xml" />
   <link rel="icon" type="image/svg+xml" href="/images/bighead.svg" />
+  ${canonicalHostRedirectScript(content.config.url)}
   <script>
     (() => {
       const key = "asutorufa-theme";
@@ -106,6 +107,36 @@ function routeDescription(content: ContentManifest, route: RouteEntry) {
     return post?.plainText.slice(0, 160) ?? content.config.subtitle;
   }
   return content.config.description || content.config.subtitle;
+}
+
+function canonicalHostRedirectScript(siteUrl: string) {
+  const canonical = new URL(siteUrl);
+  const origin = `${canonical.protocol}//${canonical.host}`;
+
+  return `<script>
+    (() => {
+      const canonicalHost = ${JSON.stringify(canonical.hostname)};
+      const canonicalOrigin = ${JSON.stringify(origin)};
+      const hostname = location.hostname;
+      const localHost =
+        location.protocol === "file:" ||
+        hostname === "localhost" ||
+        hostname.endsWith(".localhost") ||
+        hostname.endsWith(".local") ||
+        hostname === "0.0.0.0" ||
+        hostname === "127.0.0.1" ||
+        hostname === "::1" ||
+        hostname === "[::1]" ||
+        /^127(?:\\.\\d{1,3}){3}$/.test(hostname) ||
+        /^10(?:\\.\\d{1,3}){3}$/.test(hostname) ||
+        /^192\\.168(?:\\.\\d{1,3}){2}$/.test(hostname) ||
+        /^172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2}$/.test(hostname);
+
+      if (!localHost && (hostname !== canonicalHost || location.protocol !== ${JSON.stringify(canonical.protocol)})) {
+        location.replace(canonicalOrigin + location.pathname + location.search + location.hash);
+      }
+    })();
+  </script>`;
 }
 
 export function commonContentForClient(content: ContentManifest): ContentManifest {
