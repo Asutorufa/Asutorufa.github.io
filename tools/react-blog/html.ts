@@ -59,7 +59,7 @@ export function renderHtmlShell(options: {
     })();
   </script>
 ${assets.styles.map((href) => `  <link rel="stylesheet" href="${href}" />`).join("\n")}
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8681435945442113" crossorigin="anonymous"></script>
+  // <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8681435945442113" crossorigin="anonymous"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-JN3GB41L9H"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
