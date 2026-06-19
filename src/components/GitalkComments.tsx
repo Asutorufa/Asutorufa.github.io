@@ -45,6 +45,7 @@ type CommentCopy = {
   logout: string;
   markdown: string;
   placeholder: string;
+  reply: string;
   retry: string;
   submit: string;
 };
@@ -80,6 +81,7 @@ const COMMENT_COPY: Record<SiteLanguage, CommentCopy> = {
     logout: "Logout",
     markdown: "Markdown is supported.",
     placeholder: "Leave a comment",
+    reply: "Reply",
     retry: "Retry",
     submit: "Submit"
   },
@@ -98,6 +100,7 @@ const COMMENT_COPY: Record<SiteLanguage, CommentCopy> = {
     logout: "ログアウト",
     markdown: "Markdown 記法をサポートしています。",
     placeholder: "コメントを残す",
+    reply: "返信",
     retry: "再試行",
     submit: "送信"
   },
@@ -116,6 +119,7 @@ const COMMENT_COPY: Record<SiteLanguage, CommentCopy> = {
     logout: "退出登录",
     markdown: "支持 Markdown 语法。",
     placeholder: "留下评论",
+    reply: "回复",
     retry: "重试",
     submit: "提交"
   }
@@ -123,6 +127,7 @@ const COMMENT_COPY: Record<SiteLanguage, CommentCopy> = {
 
 export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [activated, setActivated] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "ready" | "error">("idle");
   const [issue, setIssue] = useState<GitHubIssue | null>(null);
@@ -218,8 +223,8 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
     window.requestAnimationFrame(() => setActivated(true));
   };
 
-  const login = () => {
-    writeDraft(id, draft);
+  const login = (draftOverride = draft) => {
+    writeDraft(id, draftOverride);
     const url = new URL("https://github.com/login/oauth/authorize");
     url.searchParams.set("client_id", COMMENT_CONFIG.clientID);
     url.searchParams.set("redirect_uri", cleanCurrentUrl());
@@ -236,6 +241,22 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
   const updateDraft = (value: string) => {
     setDraft(value);
     writeDraft(id, value);
+  };
+
+  const replyTo = (comment: GitHubComment) => {
+    const replyDraft = appendReplyDraft(draft, comment);
+    updateDraft(replyDraft);
+
+    if (!token || !user) {
+      login(replyDraft);
+      return;
+    }
+
+    textareaRef.current?.focus();
+    window.requestAnimationFrame(() => {
+      textareaRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      textareaRef.current?.setSelectionRange(replyDraft.length, replyDraft.length);
+    });
   };
 
   const initializeIssue = async () => {
@@ -381,7 +402,7 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
           <div className="github-comment-form">
             {user ? (
               <>
-                <textarea value={draft} onChange={(event) => updateDraft(event.target.value)} placeholder={copy.placeholder} rows={4} />
+                <textarea ref={textareaRef} value={draft} onChange={(event) => updateDraft(event.target.value)} placeholder={copy.placeholder} rows={4} />
                 <div className="github-comment-form-footer">
                   <span>{copy.markdown}</span>
                   <button type="button" className="github-comments-button primary" onClick={submitComment} disabled={!draft.trim() || submitting}>
@@ -418,6 +439,10 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
                       <a href={comment.html_url} target="_blank" rel="noreferrer">
                         {dateFormatter.format(new Date(comment.created_at))}
                       </a>
+                      <button type="button" className="github-comment-reply" onClick={() => replyTo(comment)}>
+                        <Icon name="reply" />
+                        <span>{copy.reply}</span>
+                      </button>
                     </div>
                     <div className="github-comment-body" dangerouslySetInnerHTML={{ __html: comment.body_html ?? escapeHtml(comment.body) }} />
                   </div>
@@ -529,6 +554,23 @@ function issueBody() {
 function mergeComments(current: GitHubComment[], next: GitHubComment[]) {
   const seen = new Set(current.map((comment) => comment.id));
   return [...current, ...next.filter((comment) => !seen.has(comment.id))];
+}
+
+function appendReplyDraft(currentDraft: string, comment: GitHubComment) {
+  const quote = comment.body
+    .split(/\r?\n/)
+    .map((line) => line.trimEnd())
+    .filter(Boolean)
+    .slice(0, 8)
+    .join("\n");
+  const truncated = comment.body.split(/\r?\n/).filter(Boolean).length > 8;
+  const quotedLines = `${quote}${truncated ? "\n..." : ""}`
+    .split(/\r?\n/)
+    .map((line) => `> ${line}`)
+    .join("\n");
+  const reply = `@${comment.user.login}\n\n${quotedLines}\n\n`;
+  const separator = currentDraft.trim() ? "\n\n" : "";
+  return `${currentDraft.trimEnd()}${separator}${reply}`;
 }
 
 function draftKey(id: string) {

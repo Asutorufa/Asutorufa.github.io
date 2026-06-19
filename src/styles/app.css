@@ -2331,6 +2331,7 @@ pre.shiki.code-block {
 }
 
 .github-comment-meta {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   font-size: 0.78rem;
@@ -2352,18 +2353,77 @@ pre.shiki.code-block {
   color: #d85a2a;
 }
 
+.github-comment-reply {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: #888;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  gap: 0.25rem;
+  line-height: 1;
+  margin-left: auto;
+  padding: 0.28rem 0.45rem;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.github-comment-reply:hover {
+  background: #fff4ed;
+  color: #d85a2a;
+}
+
 .github-comment-body {
   color: #555;
   line-height: 1.85;
   overflow-wrap: anywhere;
 }
 
-.github-comment-body > *:first-child {
+.github-comment-body p,
+.github-comment-body ul,
+.github-comment-body ol,
+.github-comment-body blockquote,
+.github-comment-body pre,
+.github-comment-body table {
+  margin: 0.55rem 0 0;
+}
+
+.github-comment-body p:first-child,
+.github-comment-body ul:first-child,
+.github-comment-body ol:first-child,
+.github-comment-body blockquote:first-child,
+.github-comment-body pre:first-child,
+.github-comment-body table:first-child {
   margin-top: 0;
 }
 
 .github-comment-body > *:last-child {
   margin-bottom: 0;
+}
+
+.github-comment-body blockquote {
+  background: #f7f7f7;
+  border-left: 3px solid #d8d8d8;
+  border-radius: 0 7px 7px 0;
+  color: #777;
+  padding: 0.55rem 0.75rem;
+}
+
+.github-comment-body blockquote p + p {
+  margin-top: 0.45rem;
+}
+
+.github-comment-body ul,
+.github-comment-body ol {
+  padding-left: 1.25rem;
+}
+
+.github-comment-body li + li {
+  margin-top: 0.25rem;
 }
 
 .github-comment-body a {
@@ -2392,6 +2452,26 @@ pre.shiki.code-block {
 .github-comment-body pre code {
   background: transparent;
   padding: 0;
+}
+
+.github-comment-body img {
+  border-radius: 7px;
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.github-comment-body table {
+  border-collapse: collapse;
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.github-comment-body th,
+.github-comment-body td {
+  border: 1px solid #e5e5e5;
+  padding: 0.35rem 0.55rem;
 }
 
 .github-comments-load-more {
@@ -3163,7 +3243,8 @@ html.dark-mode .github-comment-meta a:last-child {
 }
 
 html.dark-mode .github-comments-issue:hover,
-html.dark-mode .github-comment-meta a:hover {
+html.dark-mode .github-comment-meta a:hover,
+html.dark-mode .github-comment-reply:hover {
   color: #ff8b5f;
 }
 
@@ -3233,9 +3314,28 @@ html.dark-mode .github-comment-body a:hover {
   color: #ff8b5f;
 }
 
+html.dark-mode .github-comment-reply {
+  color: #aaa;
+}
+
+html.dark-mode .github-comment-reply:hover {
+  background: #302824;
+}
+
+html.dark-mode .github-comment-body blockquote {
+  background: #202020;
+  border-left-color: #5a5a5a;
+  color: #b8b8b8;
+}
+
 html.dark-mode .github-comment-body code,
 html.dark-mode .github-comment-body pre {
   background: #1b1b1b;
+}
+
+html.dark-mode .github-comment-body th,
+html.dark-mode .github-comment-body td {
+  border-color: #555;
 }
 
 html.dark-mode .read-more-button {

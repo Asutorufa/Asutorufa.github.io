@@ -19,6 +19,7 @@ import {
   Monitor,
   Moon,
   RefreshCw,
+  Reply,
   Rss,
   Search,
   SendHorizontal,
@@ -53,6 +54,7 @@ export type IconName =
   | "log-out"
   | "moon"
   | "refresh"
+  | "reply"
   | "rss"
   | "search"
   | "send"
@@ -90,6 +92,7 @@ const icons: Record<Exclude<IconName, "github">, LucideIcon> = {
   "log-out": LogOut,
   moon: Moon,
   refresh: RefreshCw,
+  reply: Reply,
   rss: Rss,
   search: Search,
   send: SendHorizontal,
