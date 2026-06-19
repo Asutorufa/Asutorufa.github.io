@@ -1,10 +1,10 @@
 import path from "node:path";
-import type { GrayMatterFile } from "gray-matter";
 import { LANGUAGE_META, normalizeLanguage } from "../../src/data/i18n";
 import type { Page, Post, SiteLanguage } from "../../src/types/content";
 import { toPosixPath } from "./paths";
 import { renderMarkdown, renderMarkdownToHtml } from "./render-markdown";
 import { routeSegment as sharedRouteSegment } from "../../src/utils/route";
+import type { FrontMatterFile } from "./front-matter";
 
 export function asString(value: unknown, fallback = "") {
   if (value === undefined || value === null) return fallback;
@@ -26,8 +26,8 @@ export function normalizeDate(value: unknown) {
   return asString(value).trim();
 }
 
-export function rawFrontMatterValue(parsed: GrayMatterFile<string>, key: string) {
-  const matterSource = String((parsed as GrayMatterFile<string> & { matter?: string }).matter ?? "");
+export function rawFrontMatterValue(parsed: FrontMatterFile<string>, key: string) {
+  const matterSource = String(parsed.matter ?? "");
   const match = new RegExp(`^${key}:\\s*['"]?([^'"\\n#]*)['"]?\\s*(?:#.*)?$`, "m").exec(matterSource);
   return match?.[1]?.trim() ?? "";
 }
@@ -127,7 +127,7 @@ export function pageRouteForSource(sourcePath: string) {
 
 export async function createPost(
   filePath: string,
-  parsed: GrayMatterFile<string>,
+  parsed: FrontMatterFile<string>,
   fallbackCollector: Array<{ sourcePath: string; rawLanguage: string }>
 ): Promise<Post> {
   const sourcePath = toPosixPath(filePath);
@@ -172,7 +172,7 @@ export async function createPost(
 
 export async function createPage(
   filePath: string,
-  parsed: GrayMatterFile<string>,
+  parsed: FrontMatterFile<string>,
   fallbackCollector: Array<{ sourcePath: string; rawLanguage: string }>
 ): Promise<Page | null> {
   const route = pageRouteForSource(filePath);

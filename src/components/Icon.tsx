@@ -13,11 +13,15 @@ import {
   Folder,
   Grid3X3,
   House,
+  LogIn,
+  LogOut,
   Mail,
   Monitor,
   Moon,
+  RefreshCw,
   Rss,
   Search,
+  SendHorizontal,
   Sun,
   Tags,
   Trash2,
@@ -45,9 +49,13 @@ export type IconName =
   | "folder"
   | "github"
   | "home"
+  | "log-in"
+  | "log-out"
   | "moon"
+  | "refresh"
   | "rss"
   | "search"
+  | "send"
   | "sun"
   | "table"
   | "tags"
@@ -78,9 +86,13 @@ const icons: Record<Exclude<IconName, "github">, LucideIcon> = {
   email: Mail,
   folder: Folder,
   home: House,
+  "log-in": LogIn,
+  "log-out": LogOut,
   moon: Moon,
+  refresh: RefreshCw,
   rss: Rss,
   search: Search,
+  send: SendHorizontal,
   sun: Sun,
   table: Grid3X3,
   tags: Tags,

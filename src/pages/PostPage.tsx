@@ -36,7 +36,7 @@ export function PostPage({ content, abbrlink }: PostPageProps) {
       </article>
       {post.comments ? (
         <section className="comments-card content-card mt-4 px-4 py-5 md:mt-6 md:px-8 md:py-7 lg:px-10">
-          <GitalkComments id={post.route} />
+          <GitalkComments id={post.route} language={post.language} />
         </section>
       ) : null}
     </>

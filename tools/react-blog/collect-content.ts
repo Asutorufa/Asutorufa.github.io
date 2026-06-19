@@ -1,10 +1,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import fg from "fast-glob";
-import matter from "gray-matter";
 import type { BlogConfig, ContentManifest, Post } from "../../src/types/content";
 import { DEFAULT_LANGUAGE } from "../../src/data/i18n";
 import { comparePostsByDateDesc, createPage, createPost, routeSegment } from "./content-utils";
+import { parseFrontMatter } from "./front-matter";
 import { postsDir, rootDir, sourceDir, toPosixPath } from "./paths";
 
 const config: BlogConfig = {
@@ -36,7 +36,7 @@ export async function collectContent(): Promise<ContentManifest> {
     await Promise.all(
       postFiles.map(async (filePath) => {
         const raw = await fs.readFile(filePath, "utf8");
-        return createPost(path.relative(rootDir, filePath), matter(raw), languageFallbacks);
+        return createPost(path.relative(rootDir, filePath), parseFrontMatter(raw), languageFallbacks);
       })
     )
   ).sort(comparePostsByDateDesc);
@@ -49,7 +49,7 @@ export async function collectContent(): Promise<ContentManifest> {
         const filePath = path.join(rootDir, relativePath);
         try {
           const raw = await fs.readFile(filePath, "utf8");
-          return createPage(relativePath, matter(raw), languageFallbacks);
+          return createPage(relativePath, parseFrontMatter(raw), languageFallbacks);
         } catch {
           return null;
         }
