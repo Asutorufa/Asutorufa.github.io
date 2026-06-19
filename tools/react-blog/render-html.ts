@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import type { ContentManifest, RouteEntry } from "../../src/types/content";
+import { mergePagePayload } from "../../src/app/page-payload";
 import { renderPage } from "../../src/app/render-page";
 import { distDir } from "./paths";
 import { commonContentForClient, pageForPayload, postForArticlePayload, postForListPayload, readViteAssets, renderHtmlShell, routeOutputFile } from "./html";
@@ -9,20 +10,22 @@ export async function renderHtml(content: ContentManifest, routes: RouteEntry[])
   const manifestPath = path.join(distDir, ".vite/manifest.json");
   const manifest = JSON.parse(await fs.readFile(manifestPath, "utf8")) as Record<string, { file?: string; css?: string[] }>;
   const assets = readViteAssets(manifest);
+  const commonContent = commonContentForClient(content);
 
   await fs.mkdir(path.join(distDir, "manifest"), { recursive: true });
   await fs.writeFile(
     path.join(distDir, "manifest/common.json"),
     JSON.stringify({
-      content: commonContentForClient(content),
+      content: commonContent,
       routes
     })
   );
 
   for (const route of routes) {
-    await writePagePayload(route, routePayload(content, route));
+    const payload = routePayload(content, route);
+    await writePagePayload(route, payload);
 
-    const appProps = { content, route };
+    const appProps = { content: mergePagePayload(commonContent, payload), route };
     const appHtml = renderPage(appProps);
     const html = renderHtmlShell({
       appHtml,

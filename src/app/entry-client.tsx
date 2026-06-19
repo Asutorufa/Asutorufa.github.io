@@ -1,7 +1,7 @@
 import { hydrateRoot } from "react-dom/client";
 import { App } from "./App";
-import type { AppProps, CommonPayload } from "./app-types";
-import "highlight.js/styles/github.css";
+import type { AppProps, CommonPayload, PagePayload } from "./app-types";
+import { mergePagePayload } from "./page-payload";
 import "katex/dist/katex.min.css";
 import "../styles/app.css";
 
@@ -18,10 +18,11 @@ if (root) {
 async function loadInitialProps(): Promise<AppProps> {
   const common = await fetchJson<CommonPayload>("/manifest/common.json");
   const route = findRoute(common, new URL(window.location.href));
-  return restoreInitialDomContent({
-    content: common.content,
-    route
-  });
+  const payload = await fetchJson<PagePayload>(pagePayloadUrl(route.outputPath));
+  return {
+    content: mergePagePayload(common.content, payload),
+    route: payload.route
+  };
 }
 
 async function fetchJson<T>(url: string): Promise<T> {
@@ -35,75 +36,8 @@ function findRoute(common: CommonPayload, url: URL) {
   return common.routes.find((route) => route.route === routePath) ?? common.routes.find((route) => route.kind === "not-found") ?? common.routes[0];
 }
 
-function restoreInitialDomContent(props: AppProps): AppProps {
-  if (props.route.kind === "home") return restoreInitialPostList(props);
-  return restoreInitialArticleHtml(props);
-}
-
-function restoreInitialPostList(props: AppProps): AppProps {
-  const excerpts = new Map<string, string>();
-  for (const card of document.querySelectorAll<HTMLElement>("main article.content-card")) {
-    const link = card.querySelector<HTMLAnchorElement>('h2 a[href*="/posts/"]');
-    const html = card.querySelector<HTMLElement>(".article-content")?.innerHTML;
-    if (!link || !html) continue;
-    excerpts.set(normalizeRoutePath(new URL(link.href).pathname), html);
-  }
-
-  if (excerpts.size === 0) return props;
-
-  return {
-    ...props,
-    content: {
-      ...props.content,
-      posts: props.content.posts.map((post) => {
-        const excerptHtml = excerpts.get(post.route);
-        return excerptHtml ? { ...post, excerptHtml } : post;
-      })
-    }
-  };
-}
-
-function restoreInitialArticleHtml(props: AppProps): AppProps {
-  const html = document.querySelector<HTMLElement>(".article-content")?.innerHTML;
-  if (!html) return props;
-
-  if (props.route.kind === "post" && props.route.params?.abbrlink) {
-    return {
-      ...props,
-      content: {
-        ...props.content,
-        posts: props.content.posts.map((post) =>
-          post.abbrlink === props.route.params?.abbrlink
-            ? {
-                ...post,
-                bodyHtml: html,
-                toc: restoreInitialToc()
-              }
-            : post
-        )
-      }
-    };
-  }
-
-  if (props.route.kind === "page") {
-    return {
-      ...props,
-      content: {
-        ...props.content,
-        pages: props.content.pages.map((page) => (page.route === props.route.route ? { ...page, bodyHtml: html } : page))
-      }
-    };
-  }
-
-  return props;
-}
-
-function restoreInitialToc() {
-  return Array.from(document.querySelectorAll<HTMLAnchorElement>(".toc-scroll a[href^='#']")).map((link) => ({
-    id: decodeURIComponent(link.hash.slice(1)),
-    text: link.textContent?.trim() ?? "",
-    level: link.closest("li")?.className.includes("ml-3") ? 3 : 2
-  }));
+function pagePayloadUrl(outputPath: string) {
+  return `/manifest/pages/${outputPath.replace(/^\//, "")}.json`;
 }
 
 function normalizeRoutePath(pathname: string) {

@@ -125,11 +125,11 @@ export function pageRouteForSource(sourcePath: string) {
   return `/${match[1]}/`;
 }
 
-export function createPost(
+export async function createPost(
   filePath: string,
   parsed: GrayMatterFile<string>,
   fallbackCollector: Array<{ sourcePath: string; rawLanguage: string }>
-): Post {
+): Promise<Post> {
   const sourcePath = toPosixPath(filePath);
   const data = parsed.data as Record<string, unknown>;
   const abbrlink = asString(data.abbrlink).trim();
@@ -141,8 +141,8 @@ export function createPost(
   const date = rawFrontMatterValue(parsed, "date") || normalizeDate(data.date);
   const updated = rawFrontMatterValue(parsed, "updated") || normalizeDate(data.updated) || date;
   const { excerptMarkdown, bodyMarkdown } = splitExcerpt(parsed.content.trim());
-  const excerptHtml = excerptMarkdown ? renderMarkdownToHtml(excerptMarkdown) : "";
-  const body = renderMarkdown(bodyMarkdown);
+  const excerptHtml = excerptMarkdown ? await renderMarkdownToHtml(excerptMarkdown) : "";
+  const body = await renderMarkdown(bodyMarkdown);
   const language = languageFields(sourcePath, data.language, fallbackCollector);
 
   return {
@@ -170,11 +170,11 @@ export function createPost(
   };
 }
 
-export function createPage(
+export async function createPage(
   filePath: string,
   parsed: GrayMatterFile<string>,
   fallbackCollector: Array<{ sourcePath: string; rawLanguage: string }>
-): Page | null {
+): Promise<Page | null> {
   const route = pageRouteForSource(filePath);
   if (!route) return null;
 
@@ -191,7 +191,7 @@ export function createPage(
     updated: rawFrontMatterValue(parsed, "updated") || normalizeDate(data.updated),
     ...language,
     bodyMarkdown: parsed.content.trim(),
-    bodyHtml: renderMarkdownToHtml(parsed.content.trim()),
+    bodyHtml: await renderMarkdownToHtml(parsed.content.trim()),
     rawMarkdown: parsed.content,
     plainText: makePlainText(parsed.content),
     comments: data.comments !== false

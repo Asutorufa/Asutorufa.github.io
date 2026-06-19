@@ -10,8 +10,9 @@ import { PageView } from "../pages/PageView";
 import { PostPage } from "../pages/PostPage";
 import { TaxonomyPage } from "../pages/TaxonomyPage";
 import { ToolsPage } from "../pages/ToolsPage";
-import type { ContentManifest, Page, Post, RouteEntry } from "../types/content";
+import type { ContentManifest, RouteEntry } from "../types/content";
 import type { AppProps, PagePayload } from "./app-types";
+import { mergePagePayload } from "./page-payload";
 
 type RouteHistoryState = {
   route?: string;
@@ -265,38 +266,6 @@ function homeListPosts(content: ContentManifest, route: RouteEntry) {
   const page = Number(route.params?.page ?? "1");
   const start = (page - 1) * content.config.perPage;
   return content.posts.slice(start, start + content.config.perPage);
-}
-
-function mergePagePayload(content: ContentManifest, payload: PagePayload): ContentManifest {
-  const payloadPosts = new Map(payload.posts?.map((post) => [post.abbrlink, post]));
-  return {
-    ...content,
-    posts: content.posts.map((post) => payloadPosts.get(post.abbrlink) ?? (payload.post?.abbrlink === post.abbrlink ? payload.post : stripPostBody(post))),
-    pages: content.pages.map((page) => (payload.page?.route === page.route ? payload.page : stripPageBody(page)))
-  };
-}
-
-function stripPostBody(post: Post): Post {
-  return {
-    ...post,
-    bodyMarkdown: "",
-    bodyHtml: "",
-    rawMarkdown: "",
-    plainText: "",
-    excerptMarkdown: "",
-    excerptHtml: "",
-    toc: []
-  };
-}
-
-function stripPageBody(page: Page): Page {
-  return {
-    ...page,
-    bodyMarkdown: "",
-    bodyHtml: "",
-    rawMarkdown: "",
-    plainText: ""
-  };
 }
 
 function shouldHandleLink(anchor: HTMLAnchorElement) {

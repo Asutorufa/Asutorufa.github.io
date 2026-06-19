@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import hljs from "highlight.js/lib/core";
-import jsonLanguage from "highlight.js/lib/languages/json";
+import "./prism-manual";
+import Prism from "prismjs";
+import "prismjs/components/prism-json";
 import { Icon } from "../components/Icon";
 import type { UiLabels } from "../types/content";
 import { toolLabels } from "./shared";
@@ -16,8 +17,6 @@ type JsonHistoryItem = {
 
 const JSON_HISTORY_STORAGE_KEY = "asutorufa-tools-json-history";
 const JSON_HISTORY_LIMIT = 20;
-
-hljs.registerLanguage("json", jsonLanguage);
 
 export function JsonFormatterTool({ labels }: { labels: UiLabels }) {
   const text = toolLabels(labels);
@@ -102,7 +101,7 @@ export function JsonFormatterTool({ labels }: { labels: UiLabels }) {
         <label className="tool-field">
           <span>{text.jsonOutput}</span>
           {output ? (
-            <pre className="json-highlight-output hljs" aria-label={text.jsonOutput}>
+            <pre className="json-highlight-output language-json" aria-label={text.jsonOutput}>
               <code className="language-json" dangerouslySetInnerHTML={{ __html: highlightedOutput }} />
             </pre>
           ) : (
@@ -229,7 +228,7 @@ function formatHistoryTime(value: number) {
 function highlightJson(value: string) {
   if (!value) return "";
   try {
-    return hljs.highlight(value, { language: "json", ignoreIllegals: true }).value;
+    return Prism.highlight(value, Prism.languages.json, "json");
   } catch {
     return escapeHtml(value);
   }

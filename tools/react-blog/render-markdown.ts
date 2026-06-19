@@ -1,86 +1,144 @@
 import MarkdownIt from "markdown-it";
 import markdownItKatex from "@renbaoshuo/markdown-it-katex";
-import hljs from "highlight.js";
+import { createHighlighter, type Highlighter } from "shiki";
 import type { TocItem } from "../../src/types/content";
 
 type RenderRule = (tokens: any[], idx: number, options: any, env: any, self: any) => string;
 
-const markdown: MarkdownIt = new MarkdownIt({
-  html: true,
-  linkify: true,
-  typographer: true,
-  breaks: true,
-  langPrefix: "language-",
-  highlight(source: string, language: string): string {
-    const normalized = normalizeCodeLanguage(language);
-    if (normalized && hljs.getLanguage(normalized)) {
-      const highlighted = hljs.highlight(source, { language: normalized, ignoreIllegals: true }).value;
-      return `<pre class="hljs code-block"><code class="language-${escapeHtml(normalized)}">${codeLines(highlighted)}</code></pre>`;
-    }
+const shikiLanguages = [
+  "asm",
+  "bash",
+  "c",
+  "cpp",
+  "css",
+  "diff",
+  "dockerfile",
+  "go",
+  "html",
+  "ini",
+  "java",
+  "javascript",
+  "json",
+  "kotlin",
+  "latex",
+  "lua",
+  "make",
+  "markdown",
+  "nginx",
+  "php",
+  "powershell",
+  "python",
+  "ruby",
+  "rust",
+  "scss",
+  "sql",
+  "toml",
+  "tsx",
+  "typescript",
+  "vue",
+  "xml",
+  "yaml"
+];
 
-    return `<pre class="hljs code-block"><code>${codeLines(escapeHtml(source))}</code></pre>`;
-  }
-}).use(markdownItKatex, {
-  skipDelimitersCheck: true
-});
+let markdownPromise: Promise<MarkdownIt> | undefined;
 
-const defaultFence: RenderRule =
-  markdown.renderer.rules.fence ??
-  ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options));
-
-markdown.renderer.rules.fence = (tokens, idx, options, env, self) => {
-  const token = tokens[idx];
-  const language = token.info.trim().split(/\s+/)[0]?.toLowerCase();
-
-  if (language === "mermaid") {
-    return `<div class="mermaid mermaid-pending" data-mermaid-source="${escapeHtml(token.content)}" aria-busy="true"></div>`;
-  }
-
-  return defaultFence(tokens, idx, options, env, self);
-};
-
-const defaultImage =
-  markdown.renderer.rules.image ??
-  ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options));
-
-markdown.renderer.rules.image = (tokens, idx, options, env, self) => {
-  const token = tokens[idx];
-  token.attrSet("loading", token.attrGet("loading") ?? "lazy");
-  token.attrSet("decoding", token.attrGet("decoding") ?? "async");
-  return defaultImage(tokens, idx, options, env, self);
-};
-
-const defaultHeadingOpen =
-  markdown.renderer.rules.heading_open ??
-  ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options));
-
-markdown.renderer.rules.heading_open = (tokens, idx, options, env, self) => {
-  const heading = tokens[idx];
-  const inline = tokens[idx + 1];
-  const level = Number(heading.tag.slice(1));
-  const state = env as RenderEnv;
-  const text = inline?.type === "inline" ? inline.content.trim() : "";
-
-  if (text && level >= 2 && level <= 3) {
-    state.slugs ??= new Map();
-    const id = uniqueSlug(text, state.slugs);
-    heading.attrSet("id", id);
-    state.toc?.push({ id, text, level });
-  }
-
-  return defaultHeadingOpen(tokens, idx, options, env, self);
-};
-
-export function renderMarkdownToHtml(source: string) {
-  return renderMarkdown(source).html;
+export async function renderMarkdownToHtml(source: string) {
+  return (await renderMarkdown(source)).html;
 }
 
-export function renderMarkdown(source: string): { html: string; toc: TocItem[] } {
+export async function renderMarkdown(source: string): Promise<{ html: string; toc: TocItem[] }> {
+  const markdown = await getMarkdown();
   const env: RenderEnv = { toc: [], slugs: new Map() };
   return {
     html: markdown.render(source, env),
     toc: env.toc ?? []
   };
+}
+
+async function getMarkdown() {
+  markdownPromise ??= createMarkdown();
+  return markdownPromise;
+}
+
+async function createMarkdown() {
+  const highlighter = await createHighlighter({
+    themes: ["github-light", "github-dark"],
+    langs: shikiLanguages
+  });
+
+  const markdown: MarkdownIt = new MarkdownIt({
+    html: true,
+    linkify: true,
+    typographer: true,
+    breaks: true,
+    langPrefix: "language-",
+    highlight(source: string, language: string): string {
+      const normalized = normalizeCodeLanguage(language);
+      if (normalized && hasLanguage(highlighter, normalized)) {
+        const highlighted = highlighter.codeToHtml(source, {
+          lang: normalized,
+          themes: {
+            light: "github-light",
+            dark: "github-dark"
+          }
+        });
+        return `<pre class="shiki code-block language-${escapeHtml(normalized)}"><code>${codeLinesFromShiki(highlighted)}</code></pre>`;
+      }
+
+      return `<pre class="shiki code-block"><code>${codeLines(escapeHtml(source))}</code></pre>`;
+    }
+  }).use(markdownItKatex, {
+    skipDelimitersCheck: true
+  });
+
+  const defaultFence: RenderRule =
+    markdown.renderer.rules.fence ??
+    ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options));
+
+  markdown.renderer.rules.fence = (tokens, idx, options, env, self) => {
+    const token = tokens[idx];
+    const language = token.info.trim().split(/\s+/)[0]?.toLowerCase();
+
+    if (language === "mermaid") {
+      return `<div class="mermaid mermaid-pending" data-mermaid-source="${escapeHtml(token.content)}" aria-busy="true"></div>`;
+    }
+
+    return defaultFence(tokens, idx, options, env, self);
+  };
+
+  const defaultImage =
+    markdown.renderer.rules.image ??
+    ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options));
+
+  markdown.renderer.rules.image = (tokens, idx, options, env, self) => {
+    const token = tokens[idx];
+    token.attrSet("loading", token.attrGet("loading") ?? "lazy");
+    token.attrSet("decoding", token.attrGet("decoding") ?? "async");
+    return defaultImage(tokens, idx, options, env, self);
+  };
+
+  const defaultHeadingOpen =
+    markdown.renderer.rules.heading_open ??
+    ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options));
+
+  markdown.renderer.rules.heading_open = (tokens, idx, options, env, self) => {
+    const heading = tokens[idx];
+    const inline = tokens[idx + 1];
+    const level = Number(heading.tag.slice(1));
+    const state = env as RenderEnv;
+    const text = inline?.type === "inline" ? inline.content.trim() : "";
+
+    if (text && level >= 2 && level <= 3) {
+      state.slugs ??= new Map();
+      const id = uniqueSlug(text, state.slugs);
+      heading.attrSet("id", id);
+      state.toc?.push({ id, text, level });
+    }
+
+    return defaultHeadingOpen(tokens, idx, options, env, self);
+  };
+
+  return markdown;
 }
 
 type RenderEnv = {
@@ -114,16 +172,38 @@ function escapeHtml(value: string) {
 }
 
 function codeLines(highlightedHtml: string) {
-  const lines = splitHighlightedLines(highlightedHtml.replace(/\n$/, ""));
-  const lineCount = Math.max(lines.length, 1);
-  const digits = String(lineCount).length;
+  return codeLinesFromLines(trimTrailingBlankLines(splitHighlightedLines(highlightedHtml.replace(/\n+$/, ""))));
+}
 
+function codeLinesFromShiki(shikiHtml: string) {
+  const code = shikiHtml.match(/<code>([\s\S]*)<\/code>/)?.[1] ?? escapeHtml(shikiHtml);
+  const lines = trimTrailingBlankLines(code.replace(/\n+$/, "").split("\n").map(stripShikiLineWrapper));
+  return codeLinesFromLines(lines.length ? lines : [""]);
+}
+
+function codeLinesFromLines(lines: string[]) {
   return lines
-    .map((line, index) => {
-      const number = String(index + 1);
-      return `<span class="code-line"><span class="code-line-number" aria-hidden="true" style="--line-digits:${digits}">${number}</span><span class="code-line-content">${line || " "}</span></span>`;
-    })
+    .map((line) => `<span class="code-line"><span class="code-line-content">${line || " "}</span></span>`)
     .join("");
+}
+
+function stripShikiLineWrapper(line: string) {
+  if (!line.startsWith('<span class="line"')) return line;
+  return line.replace(/^<span class="line">/, "").replace(/<\/span>$/, "");
+}
+
+function trimTrailingBlankLines(lines: string[]) {
+  let end = lines.length;
+  while (end > 1 && isBlankCodeLine(lines[end - 1])) end -= 1;
+  return lines.slice(0, end);
+}
+
+function isBlankCodeLine(line: string) {
+  return line
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&#160;/g, " ")
+    .trim() === "";
 }
 
 function splitHighlightedLines(highlightedHtml: string) {
@@ -194,10 +274,9 @@ function normalizeCodeLanguage(language?: string) {
   if (!value) return "";
 
   const aliases: Record<string, string> = {
+    assembly: "asm",
     js: "javascript",
-    jsx: "javascript",
     ts: "typescript",
-    tsx: "typescript",
     sh: "bash",
     shell: "bash",
     zsh: "bash",
@@ -205,8 +284,19 @@ function normalizeCodeLanguage(language?: string) {
     md: "markdown",
     py: "python",
     rs: "rust",
-    golang: "go"
+    golang: "go",
+    hcl: "terraform",
+    protobuf: "proto"
   };
 
   return aliases[value] ?? value;
+}
+
+function hasLanguage(highlighter: Highlighter, language: string) {
+  try {
+    highlighter.getLanguage(language);
+    return true;
+  } catch {
+    return false;
+  }
 }
