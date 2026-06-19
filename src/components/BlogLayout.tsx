@@ -3,6 +3,7 @@ import type { AppProps } from "../app/app-types";
 import { LANGUAGE_META, UI_LABELS } from "../data/i18n";
 import { Sidebar } from "./Sidebar";
 import { MobileHeader } from "./MobileHeader";
+import { ScrollProgressButton } from "./ScrollProgressButton";
 import { SearchModal } from "./SearchModal";
 import { SiteFooter } from "./SiteFooter";
 
@@ -22,6 +23,7 @@ export function BlogLayout({ content, route, children }: PropsWithChildren<AppPr
         </aside>
       </div>
       <SiteFooter config={content.config} />
+      <ScrollProgressButton />
       <SearchModal labels={labels} />
     </div>
   );

@@ -37,10 +37,12 @@ export const UI_LABELS: Record<SiteLanguage, UiLabels> = {
     archives: "Archives",
     about: "About",
     friends: "Friends",
+    tools: "Tools",
     search: "Search",
     menu: "Menu",
     closeSearch: "Close search",
     noResults: "No results.",
+    back: "Back",
     readMore: "Read more",
     posts: "posts",
     previous: "Prev",
@@ -60,7 +62,9 @@ export const UI_LABELS: Record<SiteLanguage, UiLabels> = {
     copyrightLabel: "License:",
     copyrightText: "Except where otherwise noted, all articles on this blog are licensed under",
     notFound: "Page not found.",
-    rss: "RSS"
+    rss: "RSS",
+    unixTimestamp: "Unix Timestamp",
+    jsonFormatter: "JSON Formatter"
   },
   ja: {
     postedOn: "投稿日",
@@ -72,10 +76,12 @@ export const UI_LABELS: Record<SiteLanguage, UiLabels> = {
     archives: "アーカイブ",
     about: "プロフィール",
     friends: "リンク",
+    tools: "ツール",
     search: "検索",
     menu: "メニュー",
     closeSearch: "検索を閉じる",
     noResults: "結果がありません。",
+    back: "戻る",
     readMore: "Read more",
     posts: "記事",
     previous: "前へ",
@@ -95,7 +101,9 @@ export const UI_LABELS: Record<SiteLanguage, UiLabels> = {
     copyrightLabel: "版権声明:",
     copyrightText: "特別な声明がない限り、本ブログの記事は",
     notFound: "ページが見つかりません。",
-    rss: "RSS"
+    rss: "RSS",
+    unixTimestamp: "Unix Timestamp",
+    jsonFormatter: "JSON整形"
   },
   "zh-Hans": {
     postedOn: "发布于",
@@ -107,10 +115,12 @@ export const UI_LABELS: Record<SiteLanguage, UiLabels> = {
     archives: "归档",
     about: "关于",
     friends: "友链",
+    tools: "工具",
     search: "搜索",
     menu: "菜单",
     closeSearch: "关闭搜索",
     noResults: "没有结果。",
+    back: "返回",
     readMore: "Read more",
     posts: "文章",
     previous: "上一页",
@@ -130,7 +140,9 @@ export const UI_LABELS: Record<SiteLanguage, UiLabels> = {
     copyrightLabel: "版权声明:",
     copyrightText: "本博客所有文章除特别声明外，均采用",
     notFound: "页面不存在。",
-    rss: "RSS"
+    rss: "RSS",
+    unixTimestamp: "Unix 时间戳",
+    jsonFormatter: "JSON 格式化"
   }
 };
 

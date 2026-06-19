@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { Router } from "wouter";
-import type { AppProps, PagePayload } from "./app-types";
 import { BlogLayout } from "../components/BlogLayout";
 import { LANGUAGE_META, UI_LABELS } from "../data/i18n";
 import { ArchivePage } from "../pages/ArchivePage";
@@ -9,21 +9,27 @@ import { NotFoundPage } from "../pages/NotFoundPage";
 import { PageView } from "../pages/PageView";
 import { PostPage } from "../pages/PostPage";
 import { TaxonomyPage } from "../pages/TaxonomyPage";
+import { ToolsPage } from "../pages/ToolsPage";
 import type { ContentManifest, Page, Post, RouteEntry } from "../types/content";
+import type { AppProps, PagePayload } from "./app-types";
 
 type RouteHistoryState = {
   route?: string;
   scrollX?: number;
   scrollY?: number;
+  canGoBack?: boolean;
 };
 
 type ScrollPosition = {
   scrollX: number;
   scrollY: number;
+  anchorOffset?: number;
+  anchorRoute?: string;
 };
 
 const pagePayloadCache = new Map<string, PagePayload | Promise<PagePayload>>();
 const scrollPositions = new Map<string, ScrollPosition>();
+const ENABLE_ROUTE_SCROLL_RESTORE = true;
 
 export function App(props: AppProps) {
   const [content, setContent] = useState(props.content);
@@ -45,16 +51,19 @@ export function App(props: AppProps) {
     if (!historyState(window.history.state).route) {
       replaceRouteState(routeRef.current.route);
     }
-    rememberScrollPosition();
+    if (ENABLE_ROUTE_SCROLL_RESTORE) rememberScrollPosition();
 
     let saveScrollFrame = 0;
+    let suppressScrollSaveUntil = 0;
 
     function replaceRouteState(routePath: string) {
       window.history.replaceState({ ...historyState(window.history.state), route: routePath }, "", window.location.href);
     }
 
     function rememberScrollPosition(routePath = routeRef.current.route) {
+      const anchor = currentScrollAnchor();
       const position = {
+        ...anchor,
         scrollX: window.scrollX,
         scrollY: window.scrollY
       };
@@ -67,6 +76,8 @@ export function App(props: AppProps) {
     }
 
     function scheduleScrollStateSave() {
+      if (!ENABLE_ROUTE_SCROLL_RESTORE) return;
+      if (performance.now() < suppressScrollSaveUntil) return;
       window.cancelAnimationFrame(saveScrollFrame);
       saveScrollFrame = window.requestAnimationFrame(() => rememberScrollPosition());
     }
@@ -79,7 +90,7 @@ export function App(props: AppProps) {
         restoreState?: RouteHistoryState;
       }
     ) => {
-      if (options.saveCurrentScroll) rememberScrollPosition();
+      if (ENABLE_ROUTE_SCROLL_RESTORE && options.saveCurrentScroll) rememberScrollPosition();
 
       let payload: PagePayload;
       try {
@@ -91,10 +102,12 @@ export function App(props: AppProps) {
       const nextContent = mergePagePayload(contentRef.current, payload);
 
       const nextUrl = `${url.pathname}${url.search}${url.hash}`;
-      const restorePosition = options.restoreState ? scrollPositionForRoute(payload.route.route, options.restoreState) : { scrollX: 0, scrollY: 0 };
+      const restorePosition = ENABLE_ROUTE_SCROLL_RESTORE && options.restoreState ? scrollPositionForRoute(payload.route.route, options.restoreState) : { scrollX: 0, scrollY: 0 };
+      const previousState = historyState(options.restoreState);
       const nextState = {
-        ...historyState(options.restoreState),
-        route: payload.route.route
+        ...previousState,
+        route: payload.route.route,
+        canGoBack: options.mode === "push" ? true : previousState.canGoBack
       };
       if (options.mode === "push") {
         window.history.pushState(nextState, "", nextUrl);
@@ -102,12 +115,22 @@ export function App(props: AppProps) {
         window.history.replaceState(nextState, "", nextUrl);
       }
 
-      contentRef.current = nextContent;
-      routeRef.current = payload.route;
-      setContent(nextContent);
-      setRoute(payload.route);
-      updateDocumentMeta(nextContent, payload.route, payload.description);
-      window.dispatchEvent(new Event("asutorufa-route-change"));
+      const commitRouteChange = () => {
+        contentRef.current = nextContent;
+        routeRef.current = payload.route;
+        flushSync(() => {
+          setContent(nextContent);
+          setRoute(payload.route);
+        });
+        updateDocumentMeta(nextContent, payload.route, payload.description);
+        window.dispatchEvent(new Event("asutorufa-route-change"));
+      };
+
+      if (shouldAnimateRouteChange(url, routeRef.current, payload.route, options.restoreState !== undefined)) {
+        document.startViewTransition(commitRouteChange);
+      } else {
+        commitRouteChange();
+      }
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
@@ -115,10 +138,8 @@ export function App(props: AppProps) {
             document.getElementById(decodeURIComponent(url.hash.slice(1)))?.scrollIntoView();
             return;
           }
-          window.scrollTo({
-            left: restorePosition.scrollX,
-            top: restorePosition.scrollY
-          });
+          suppressScrollSaveUntil = performance.now() + 350;
+          restoreScrollPosition(restorePosition);
           scheduleScrollStateSave();
         });
       });
@@ -145,14 +166,18 @@ export function App(props: AppProps) {
       });
     };
 
-    window.addEventListener("scroll", scheduleScrollStateSave, { passive: true });
-    window.addEventListener("resize", scheduleScrollStateSave);
+    if (ENABLE_ROUTE_SCROLL_RESTORE) {
+      window.addEventListener("scroll", scheduleScrollStateSave, { passive: true });
+      window.addEventListener("resize", scheduleScrollStateSave);
+    }
     document.addEventListener("click", onClick, true);
     window.addEventListener("popstate", onPopState);
     return () => {
       window.cancelAnimationFrame(saveScrollFrame);
-      window.removeEventListener("scroll", scheduleScrollStateSave);
-      window.removeEventListener("resize", scheduleScrollStateSave);
+      if (ENABLE_ROUTE_SCROLL_RESTORE) {
+        window.removeEventListener("scroll", scheduleScrollStateSave);
+        window.removeEventListener("resize", scheduleScrollStateSave);
+      }
       document.removeEventListener("click", onClick, true);
       window.removeEventListener("popstate", onPopState);
     };
@@ -191,6 +216,8 @@ function renderRoute(props: AppProps) {
     case "category":
     case "category-page":
       return <TaxonomyPage {...props} type="category" name={route.params?.category} page={Number(route.params?.page ?? "1")} />;
+    case "tools":
+      return <ToolsPage {...props} />;
     case "not-found":
       return <NotFoundPage labels={labels} />;
     default:
@@ -291,6 +318,14 @@ function sameDocumentHash(url: URL) {
   return url.pathname === window.location.pathname && url.search === window.location.search;
 }
 
+function shouldAnimateRouteChange(url: URL, currentRoute: RouteEntry, nextRoute: RouteEntry, isHistoryNavigation: boolean) {
+  if (url.hash) return false;
+  if (isHistoryNavigation) return false;
+  if (typeof document.startViewTransition !== "function") return false;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
+  return currentRoute.kind === "post" || nextRoute.kind === "post";
+}
+
 function normalizeRoutePath(pathname: string) {
   let value = decodeURI(pathname);
   if (value.endsWith("/index.html")) {
@@ -351,7 +386,12 @@ function scrollPositionForRoute(routePath: string, fallback?: RouteHistoryState)
     if (stored) {
       const parsed = JSON.parse(stored) as Partial<ScrollPosition>;
       if (typeof parsed.scrollX === "number" && typeof parsed.scrollY === "number") {
-        const position = { scrollX: parsed.scrollX, scrollY: parsed.scrollY };
+        const position = {
+          anchorOffset: typeof parsed.anchorOffset === "number" ? parsed.anchorOffset : undefined,
+          anchorRoute: typeof parsed.anchorRoute === "string" ? parsed.anchorRoute : undefined,
+          scrollX: parsed.scrollX,
+          scrollY: parsed.scrollY
+        };
         scrollPositions.set(routePath, position);
         return position;
       }
@@ -366,6 +406,72 @@ function scrollPositionForRoute(routePath: string, fallback?: RouteHistoryState)
   };
 }
 
+function restoreScrollPosition(position: ScrollPosition) {
+  const anchor = position.anchorRoute ? scrollAnchorElement(position.anchorRoute) : undefined;
+  const target = anchor
+    ? {
+        scrollX: position.scrollX,
+        scrollY: window.scrollY + anchor.getBoundingClientRect().top - (position.anchorOffset ?? 0)
+      }
+    : position;
+  instantScrollTo(target);
+
+  if (anchor) {
+    requestAnimationFrame(() => {
+      instantScrollTo({
+        scrollX: position.scrollX,
+        scrollY: window.scrollY + anchor.getBoundingClientRect().top - (position.anchorOffset ?? 0)
+      });
+    });
+  }
+}
+
+function instantScrollTo(position: ScrollPosition) {
+  const maxScrollX = Math.max(0, document.documentElement.scrollWidth - window.innerWidth);
+  const maxScrollY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  const scrollX = Math.max(0, Math.min(position.scrollX, maxScrollX));
+  const scrollY = Math.max(0, Math.min(position.scrollY, maxScrollY));
+
+  if (Math.abs(window.scrollX - scrollX) < 2 && Math.abs(window.scrollY - scrollY) < 2) return;
+
+  const root = document.documentElement;
+  const previousScrollBehavior = root.style.scrollBehavior;
+  root.style.scrollBehavior = "auto";
+  window.scrollTo({ left: scrollX, top: scrollY, behavior: "auto" });
+  window.requestAnimationFrame(() => {
+    root.style.scrollBehavior = previousScrollBehavior;
+  });
+}
+
+function currentScrollAnchor(): Pick<ScrollPosition, "anchorOffset" | "anchorRoute"> | undefined {
+  let best:
+    | {
+        element: HTMLElement;
+        score: number;
+      }
+    | undefined;
+
+  for (const element of document.querySelectorAll<HTMLElement>("[data-scroll-route]")) {
+    const rect = element.getBoundingClientRect();
+    if (rect.top >= window.innerHeight) continue;
+
+    const score = rect.bottom <= 0 ? Math.abs(rect.bottom) + 2000 : rect.top <= 80 ? Math.abs(rect.top) : rect.top + 1000;
+    if (!best || score < best.score) best = { element, score };
+  }
+
+  const anchorRoute = best?.element.dataset.scrollRoute;
+  if (!best || !anchorRoute) return undefined;
+
+  return {
+    anchorOffset: best.element.getBoundingClientRect().top,
+    anchorRoute
+  };
+}
+
+function scrollAnchorElement(anchorRoute: string) {
+  return Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-route]")).find((element) => element.dataset.scrollRoute === anchorRoute);
+}
+
 function scrollStorageKey(routePath: string) {
   return `asutorufa-scroll:${routePath}`;
 }
@@ -376,6 +482,7 @@ function historyState(value: unknown): RouteHistoryState {
   return {
     route: typeof state.route === "string" ? state.route : undefined,
     scrollX: typeof state.scrollX === "number" ? state.scrollX : undefined,
-    scrollY: typeof state.scrollY === "number" ? state.scrollY : undefined
+    scrollY: typeof state.scrollY === "number" ? state.scrollY : undefined,
+    canGoBack: state.canGoBack === true ? true : undefined
   };
 }

@@ -11,7 +11,11 @@ export function PostCard({ post }: PostCardProps) {
   const labels = UI_LABELS[post.language];
 
   return (
-    <article className="content-card mb-3 px-4 py-8 md:mb-5 md:px-12 md:py-14 lg:px-16">
+    <article
+      className="content-card post-transition-surface mb-3 px-4 py-8 md:mb-5 md:px-12 md:py-14 lg:px-16"
+      data-scroll-route={post.route}
+      style={{ viewTransitionName: `post-${post.abbrlink}` }}
+    >
       <header className="text-center">
         <h2 className="text-[1.7em] font-normal leading-normal text-[#555]">
           <a className="transition-colors hover:text-[#ff5b25] active:text-[#e14d1d]" href={post.route}>{post.title}</a>
@@ -25,7 +29,10 @@ export function PostCard({ post }: PostCardProps) {
       ) : null}
       <div className="mt-8 text-center md:mt-10">
         <a className="read-more-button" href={post.route}>
-          {labels.readMore} »
+          <span>{labels.readMore}</span>
+          <span className="read-more-button-icon" aria-hidden="true">
+            »
+          </span>
         </a>
       </div>
     </article>

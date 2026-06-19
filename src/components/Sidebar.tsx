@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { ContentManifest, Post, TocItem, UiLabels } from "../types/content";
 import { menuItems } from "../data/menu";
 import { ThemeToggle } from "./ThemeToggle";
@@ -80,7 +80,6 @@ function TocCard({ content, labels, toc, mobile }: { content: ContentManifest; l
         </button>
       </div>
       {activeTab === "toc" ? <TocList toc={toc} /> : <ProfileBody content={content} labels={labels} compact />}
-      {!mobile ? <ScrollProgress /> : null}
     </section>
   );
 }
@@ -105,7 +104,6 @@ function ProfileCard({ content, labels, mobile, sticky }: { content: ContentMani
   return (
     <section className={`overflow-hidden rounded-2xl bg-white shadow-blog ${sticky ? "sticky top-4" : ""}`}>
       <ProfileBody content={content} labels={labels} />
-      {!mobile ? <ScrollProgress /> : null}
     </section>
   );
 }
@@ -142,36 +140,6 @@ function ProfileBody({ content, labels, compact = false }: { content: ContentMan
         </a>
       </div>
     </div>
-  );
-}
-
-function ScrollProgress() {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const update = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(max > 0 ? Math.min(100, Math.round((window.scrollY / max) * 100)) : 0);
-    };
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, []);
-
-  return (
-    <button
-      type="button"
-      className="scroll-progress-button w-full bg-[#ffe0f3] px-5 py-2 text-center text-sm font-normal text-neutral-500 transition-all hover:bg-[#ffd1ef] hover:text-neutral-800 active:translate-y-px"
-      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      aria-label="Back to top"
-    >
-      <Icon name="arrow-up" className="mr-1" />
-      {progress}%
-    </button>
   );
 }
 

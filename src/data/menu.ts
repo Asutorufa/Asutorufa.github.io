@@ -13,6 +13,7 @@ export function menuItems(labels: UiLabels): MenuItem[] {
     { href: "/tags/", label: labels.tags, icon: "tags" },
     { href: "/categories/", label: labels.categories, icon: "table" },
     { href: "/archives/", label: labels.archives, icon: "archive" },
+    { href: "/tools/", label: labels.tools, icon: "tools" },
     { href: "/about/", label: labels.about, icon: "user" },
     { href: "/friends/", label: labels.friends, icon: "users" },
     { href: "#search", label: labels.search, icon: "search" }

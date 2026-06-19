@@ -1,7 +1,6 @@
 import { hydrateRoot } from "react-dom/client";
 import { App } from "./App";
 import type { AppProps, CommonPayload } from "./app-types";
-import "@fortawesome/fontawesome-svg-core/styles.css";
 import "highlight.js/styles/github.css";
 import "katex/dist/katex.min.css";
 import "../styles/app.css";

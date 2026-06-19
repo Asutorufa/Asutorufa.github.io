@@ -18,10 +18,12 @@ export type UiLabels = {
   archives: string;
   about: string;
   friends: string;
+  tools: string;
   search: string;
   menu: string;
   closeSearch: string;
   noResults: string;
+  back: string;
   readMore: string;
   posts: string;
   previous: string;
@@ -42,6 +44,8 @@ export type UiLabels = {
   copyrightText: string;
   notFound: string;
   rss: string;
+  unixTimestamp: string;
+  jsonFormatter: string;
 };
 
 export type TocItem = {
@@ -132,6 +136,7 @@ export type RouteKind =
   | "categories"
   | "category"
   | "category-page"
+  | "tools"
   | "not-found";
 
 export type RouteEntry = {

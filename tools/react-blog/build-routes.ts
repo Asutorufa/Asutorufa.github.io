@@ -166,6 +166,14 @@ export function buildRoutes(content: ContentManifest): RouteEntry[] {
   }
 
   routes.push({
+    route: "/tools/",
+    outputPath: routeToOutputPath("/tools/"),
+    kind: "tools",
+    title: "Tools",
+    language: DEFAULT_LANGUAGE
+  });
+
+  routes.push({
     route: "/404.html",
     outputPath: "404.html",
     kind: "not-found",
