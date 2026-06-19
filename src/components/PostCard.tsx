@@ -18,7 +18,7 @@ export function PostCard({ post }: PostCardProps) {
         </h2>
         <PostMeta post={post} />
       </header>
-      {post.excerptMarkdown ? (
+      {post.excerptHtml ? (
         <div className="mt-8 md:mt-10">
           <ArticleMarkdown html={post.excerptHtml ?? ""} />
         </div>

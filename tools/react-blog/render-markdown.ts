@@ -33,10 +33,21 @@ markdown.renderer.rules.fence = (tokens, idx, options, env, self) => {
   const language = token.info.trim().split(/\s+/)[0]?.toLowerCase();
 
   if (language === "mermaid") {
-    return `<div class="mermaid">${escapeHtml(token.content)}</div>`;
+    return `<div class="mermaid mermaid-pending" data-mermaid-source="${escapeHtml(token.content)}" aria-busy="true"></div>`;
   }
 
   return defaultFence(tokens, idx, options, env, self);
+};
+
+const defaultImage =
+  markdown.renderer.rules.image ??
+  ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options));
+
+markdown.renderer.rules.image = (tokens, idx, options, env, self) => {
+  const token = tokens[idx];
+  token.attrSet("loading", token.attrGet("loading") ?? "lazy");
+  token.attrSet("decoding", token.attrGet("decoding") ?? "async");
+  return defaultImage(tokens, idx, options, env, self);
 };
 
 const defaultHeadingOpen =

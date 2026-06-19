@@ -1,5 +1,6 @@
 import type { AppProps } from "../app/app-types";
 import { ArticleMarkdown } from "../components/ArticleMarkdown";
+import { GitalkComments } from "../components/GitalkComments";
 import { UI_LABELS } from "../data/i18n";
 
 export function PageView({ content, route }: AppProps) {
@@ -16,6 +17,7 @@ export function PageView({ content, route }: AppProps) {
         <h1 className="text-[1.7em] font-normal leading-normal text-[#555]">{page.title}</h1>
       </header>
       <ArticleMarkdown html={page.bodyHtml} />
+      {page.route === "/about/" && page.comments ? <GitalkComments id={page.route} /> : null}
     </article>
   );
 }

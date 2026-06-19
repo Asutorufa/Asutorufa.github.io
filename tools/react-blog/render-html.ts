@@ -3,7 +3,7 @@ import path from "node:path";
 import type { ContentManifest, RouteEntry } from "../../src/types/content";
 import { renderPage } from "../../src/app/render-page";
 import { distDir } from "./paths";
-import { pruneForClient, readViteAssets, renderHtmlShell, routeOutputFile } from "./html";
+import { commonContentForClient, pageForPayload, postForArticlePayload, postForListPayload, readViteAssets, renderHtmlShell, routeOutputFile } from "./html";
 
 export async function renderHtml(content: ContentManifest, routes: RouteEntry[]) {
   const manifestPath = path.join(distDir, ".vite/manifest.json");
@@ -11,19 +11,24 @@ export async function renderHtml(content: ContentManifest, routes: RouteEntry[])
   const assets = readViteAssets(manifest);
 
   await fs.mkdir(path.join(distDir, "manifest"), { recursive: true });
+  await fs.writeFile(
+    path.join(distDir, "manifest/common.json"),
+    JSON.stringify({
+      content: commonContentForClient(content),
+      routes
+    })
+  );
 
   for (const route of routes) {
     await writePagePayload(route, routePayload(content, route));
 
     const appProps = { content, route };
     const appHtml = renderPage(appProps);
-    const clientData = { content: pruneForClient(content, route), route };
     const html = renderHtmlShell({
       appHtml,
       assets,
       content,
-      route,
-      clientData
+      route
     });
     const outputFile = routeOutputFile(distDir, route.outputPath);
     await fs.mkdir(path.dirname(outputFile), { recursive: true });
@@ -34,13 +39,39 @@ export async function renderHtml(content: ContentManifest, routes: RouteEntry[])
 function routePayload(content: ContentManifest, route: RouteEntry) {
   return {
     route,
-    post: route.params?.abbrlink ? content.posts.find((post) => post.abbrlink === route.params?.abbrlink) : undefined,
-    page: route.kind === "page" ? content.pages.find((page) => page.route === route.route) : undefined
+    description: routeDescription(content, route),
+    post: route.params?.abbrlink ? articlePost(content, route.params.abbrlink) : undefined,
+    posts: route.kind === "home" ? homeListPosts(content, route).map(postForListPayload) : undefined,
+    page: route.kind === "page" ? pagePayload(content, route.route) : undefined
   };
+}
+
+function articlePost(content: ContentManifest, abbrlink: string) {
+  const post = content.posts.find((item) => item.abbrlink === abbrlink);
+  return post ? postForArticlePayload(post) : undefined;
+}
+
+function pagePayload(content: ContentManifest, route: string) {
+  const page = content.pages.find((item) => item.route === route);
+  return page ? pageForPayload(page) : undefined;
+}
+
+function homeListPosts(content: ContentManifest, route: RouteEntry) {
+  const page = Number(route.params?.page ?? "1");
+  const start = (page - 1) * content.config.perPage;
+  return content.posts.slice(start, start + content.config.perPage);
 }
 
 async function writePagePayload(route: RouteEntry, payload: unknown) {
   const payloadPath = path.join(distDir, "manifest/pages", `${route.outputPath}.json`);
   await fs.mkdir(path.dirname(payloadPath), { recursive: true });
   await fs.writeFile(payloadPath, JSON.stringify(payload));
+}
+
+function routeDescription(content: ContentManifest, route: RouteEntry) {
+  if (route.kind === "post" && route.params?.abbrlink) {
+    const post = content.posts.find((item) => item.abbrlink === route.params?.abbrlink);
+    return post?.plainText.slice(0, 160) ?? content.config.subtitle;
+  }
+  return content.config.description || content.config.subtitle;
 }

@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { config, type IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons/faAngleLeft";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons/faAngleRight";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons/faArrowUp";
@@ -22,6 +22,8 @@ import { faFolder } from "@fortawesome/free-regular-svg-icons/faFolder";
 import { faMoon } from "@fortawesome/free-regular-svg-icons/faMoon";
 import { faSun } from "@fortawesome/free-regular-svg-icons/faSun";
 import { faGithub } from "@fortawesome/free-brands-svg-icons/faGithub";
+
+config.autoAddCss = false;
 
 export type IconName =
   | "angle-left"

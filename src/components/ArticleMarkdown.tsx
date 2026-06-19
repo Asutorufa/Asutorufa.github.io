@@ -4,74 +4,138 @@ type ArticleMarkdownProps = {
   html: string;
 };
 
+type MermaidRenderer = typeof import("mermaid").default;
+
 export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    hydrateLazyImages(container);
+
     let cancelled = false;
-    let renderSequence = 0;
     let scheduledRender = 0;
+    let mermaidPromise: Promise<MermaidRenderer> | undefined;
+    let renderQueue = Promise.resolve();
+    let intersectionObserver: IntersectionObserver | undefined;
 
-    const renderMermaid = async () => {
-      const container = containerRef.current;
-      if (!container) return;
+    const renderedNodes = new Set<HTMLElement>();
 
-      const nodes = Array.from(container.querySelectorAll<HTMLElement>(".mermaid"));
-      if (nodes.length === 0) return;
+    const getMermaid = () => {
+      mermaidPromise ??= import("mermaid").then((module) => module.default);
+      return mermaidPromise;
+    };
 
-      const sequence = ++renderSequence;
-      const isDark = document.documentElement.classList.contains("dark-mode");
+    const prepareMermaidNode = (node: HTMLElement) => {
+      node.dataset.mermaidSource ||= node.textContent ?? "";
+      node.classList.add("mermaid-pending");
+      node.setAttribute("aria-busy", "true");
+    };
+
+    const renderMermaidNodesNow = async (nodes: HTMLElement[]) => {
+      const renderableNodes = nodes.filter((node) => node.isConnected && node.dataset.mermaidSource);
+      if (renderableNodes.length === 0) return;
+
+      const mermaid = await getMermaid();
+      if (cancelled) return;
+
+      for (const node of renderableNodes) {
+        node.removeAttribute("data-processed");
+        node.textContent = node.dataset.mermaidSource ?? "";
+      }
 
       try {
-        const { default: mermaid } = await import("mermaid");
-        if (cancelled || sequence !== renderSequence) return;
-
-        for (const node of nodes) {
-          if (!node.dataset.mermaidSource) {
-            node.dataset.mermaidSource = node.textContent ?? "";
-          }
-          node.removeAttribute("data-processed");
-          node.textContent = node.dataset.mermaidSource;
-        }
-
         mermaid.initialize({
           startOnLoad: false,
           securityLevel: "loose",
-          theme: isDark ? "dark" : "default"
+          theme: document.documentElement.classList.contains("dark-mode") ? "dark" : "default"
         });
 
-        await mermaid.run({ nodes });
+        await mermaid.run({ nodes: renderableNodes });
+
+        for (const node of renderableNodes) {
+          node.removeAttribute("aria-busy");
+          node.classList.remove("mermaid-pending");
+          renderedNodes.add(node);
+        }
       } catch (error: unknown) {
         console.error("Failed to render Mermaid diagrams", error);
+        for (const node of renderableNodes) {
+          node.removeAttribute("aria-busy");
+          node.classList.remove("mermaid-pending");
+          node.classList.add("mermaid-error");
+        }
       }
     };
 
-    const scheduleRenderMermaid = () => {
+    const renderMermaidNodes = (nodes: HTMLElement[]) => {
+      renderQueue = renderQueue.then(() => renderMermaidNodesNow(nodes));
+      renderQueue.catch((error: unknown) => {
+        console.error("Failed to queue Mermaid rendering", error);
+      });
+    };
+
+    const scheduleRenderedMermaidRefresh = () => {
       window.clearTimeout(scheduledRender);
       scheduledRender = window.setTimeout(() => {
-        void renderMermaid();
+        renderMermaidNodes(Array.from(renderedNodes));
       }, 0);
     };
 
-    scheduleRenderMermaid();
+    const mermaidNodes = Array.from(container.querySelectorAll<HTMLElement>(".mermaid"));
+    if ("IntersectionObserver" in window) {
+      intersectionObserver = new IntersectionObserver(
+        (entries) => {
+          const visibleNodes: HTMLElement[] = [];
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            const node = entry.target as HTMLElement;
+            intersectionObserver?.unobserve(node);
+            visibleNodes.push(node);
+          }
+          renderMermaidNodes(visibleNodes);
+        },
+        { rootMargin: "720px 0px" }
+      );
+
+      for (const node of mermaidNodes) {
+        prepareMermaidNode(node);
+        intersectionObserver.observe(node);
+      }
+    } else {
+      for (const node of mermaidNodes) {
+        prepareMermaidNode(node);
+      }
+      renderMermaidNodes(mermaidNodes);
+    }
 
     const observer = new MutationObserver(() => {
-      scheduleRenderMermaid();
+      scheduleRenderedMermaidRefresh();
     });
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["class"]
     });
 
-    window.addEventListener("asutorufa-theme-change", scheduleRenderMermaid);
+    window.addEventListener("asutorufa-theme-change", scheduleRenderedMermaidRefresh);
 
     return () => {
       cancelled = true;
       window.clearTimeout(scheduledRender);
+      intersectionObserver?.disconnect();
       observer.disconnect();
-      window.removeEventListener("asutorufa-theme-change", scheduleRenderMermaid);
+      window.removeEventListener("asutorufa-theme-change", scheduleRenderedMermaidRefresh);
     };
   }, [html]);
 
   return <div ref={containerRef} className="article-content" dangerouslySetInnerHTML={{ __html: html }} />;
+}
+
+function hydrateLazyImages(container: HTMLElement) {
+  for (const image of container.querySelectorAll<HTMLImageElement>("img")) {
+    image.loading ||= "lazy";
+    image.decoding ||= "async";
+  }
 }

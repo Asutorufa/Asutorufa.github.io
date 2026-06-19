@@ -12,9 +12,8 @@ export function renderHtmlShell(options: {
   assets: ClientAssets;
   content: ContentManifest;
   route: RouteEntry;
-  clientData: unknown;
 }) {
-  const { appHtml, assets, content, route, clientData } = options;
+  const { appHtml, assets, content, route } = options;
   const language = LANGUAGE_META[route.language];
   const canonical = new URL(route.route === "/404.html" ? "/" : route.route, content.config.url).toString();
   const description = routeDescription(content, route);
@@ -71,7 +70,6 @@ ${assets.styles.map((href) => `  <link rel="stylesheet" href="${href}" />`).join
 </head>
 <body>
   <div id="root">${appHtml}</div>
-  <script>window.__BLOG_DATA__=${serializeJson(clientData)};</script>
 ${assets.scripts.map((src) => `  <script type="module" src="${src}"></script>`).join("\n")}
 </body>
 </html>
@@ -110,35 +108,54 @@ function routeDescription(content: ContentManifest, route: RouteEntry) {
   return content.config.description || content.config.subtitle;
 }
 
-function serializeJson(value: unknown) {
-  return JSON.stringify(value).replaceAll("<", "\\u003c").replaceAll("\u2028", "\\u2028").replaceAll("\u2029", "\\u2029");
-}
-
-export function pruneForClient(content: ContentManifest, route: RouteEntry): ContentManifest {
-  const currentPost = route.params?.abbrlink;
-  const currentPageRoute = route.route;
+export function commonContentForClient(content: ContentManifest): ContentManifest {
   return {
     ...content,
-    posts: content.posts.map((post): Post => {
-      if (post.abbrlink === currentPost) return post;
-      return {
-        ...post,
-        bodyMarkdown: "",
-        bodyHtml: "",
-        rawMarkdown: "",
-        plainText: "",
-        excerptMarkdown: post.excerptMarkdown
-      };
-    }),
-    pages: content.pages.map((page) => {
-      if (page.route === currentPageRoute) return page;
-      return {
-        ...page,
-        bodyMarkdown: "",
-        bodyHtml: "",
-        rawMarkdown: "",
-        plainText: ""
-      };
-    })
+    posts: content.posts.map((post): Post => stripPostForClient(post, { excerptHtml: "", bodyHtml: "", toc: [] })),
+    pages: content.pages.map((page) => stripPageForClient(page, "")),
+    languageFallbacks: []
+  };
+}
+
+export function postForListPayload(post: Post): Post {
+  return stripPostForClient(post, {
+    excerptHtml: post.excerptHtml ?? "",
+    bodyHtml: "",
+    toc: []
+  });
+}
+
+export function postForArticlePayload(post: Post): Post {
+  return stripPostForClient(post, {
+    excerptHtml: "",
+    bodyHtml: post.bodyHtml,
+    toc: post.toc
+  });
+}
+
+export function pageForPayload(contentPage: ContentManifest["pages"][number]): ContentManifest["pages"][number] {
+  return stripPageForClient(contentPage, contentPage.bodyHtml);
+}
+
+function stripPostForClient(post: Post, options: { excerptHtml: string; bodyHtml: string; toc: Post["toc"] }): Post {
+  return {
+    ...post,
+    bodyMarkdown: "",
+    bodyHtml: options.bodyHtml,
+    rawMarkdown: "",
+    plainText: "",
+    excerptMarkdown: "",
+    excerptHtml: options.excerptHtml,
+    toc: options.toc
+  };
+}
+
+function stripPageForClient(contentPage: ContentManifest["pages"][number], bodyHtml: string): ContentManifest["pages"][number] {
+  return {
+    ...contentPage,
+    bodyMarkdown: "",
+    bodyHtml,
+    rawMarkdown: "",
+    plainText: ""
   };
 }
