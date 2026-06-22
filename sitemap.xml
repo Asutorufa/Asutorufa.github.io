@@ -931,6 +931,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://asutorufa.com/tags/cargo/</loc>
+    <lastmod>2025-08-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://asutorufa.com/tags/chacha20-poly1305/</loc>
     <lastmod>2022-08-14</lastmod>
     <changefreq>monthly</changefreq>
@@ -1117,6 +1123,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://asutorufa.com/tags/lambda/</loc>
+    <lastmod>2025-08-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://asutorufa.com/tags/linux/</loc>
     <lastmod>2022-10-25</lastmod>
     <changefreq>monthly</changefreq>
@@ -1213,6 +1225,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://asutorufa.com/tags/rust/</loc>
+    <lastmod>2025-08-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://asutorufa.com/tags/shamir/</loc>
     <lastmod>2022-10-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -1233,6 +1251,24 @@
   <url>
     <loc>https://asutorufa.com/tags/sparse-vector/</loc>
     <lastmod>2025-08-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://asutorufa.com/tags/telegram/</loc>
+    <lastmod>2025-08-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://asutorufa.com/tags/telegram-bot/</loc>
+    <lastmod>2025-08-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://asutorufa.com/tags/teloxide/</loc>
+    <lastmod>2025-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -1483,6 +1519,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://asutorufa.com/categories/lambda/</loc>
+    <lastmod>2025-08-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://asutorufa.com/categories/linux/</loc>
     <lastmod>2022-11-11</lastmod>
     <changefreq>monthly</changefreq>
@@ -1496,7 +1538,7 @@
   </url>
   <url>
     <loc>https://asutorufa.com/categories/llm/</loc>
-    <lastmod>2024-11-11</lastmod>
+    <lastmod>2025-08-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -1545,6 +1587,18 @@
   <url>
     <loc>https://asutorufa.com/categories/python/</loc>
     <lastmod>2018-08-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://asutorufa.com/categories/rust/</loc>
+    <lastmod>2025-08-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://asutorufa.com/categories/telegram/</loc>
+    <lastmod>2025-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
