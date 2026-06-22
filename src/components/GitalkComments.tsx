@@ -45,6 +45,7 @@ type CommentCopy = {
   first: string;
   initIssue: string;
   issueLink: (issueNumber: number) => string;
+  loadComments: string;
   loadMore: string;
   loading: string;
   login: string;
@@ -86,6 +87,7 @@ const COMMENT_COPY: Record<SiteLanguage, CommentCopy> = {
     first: "Be the first to leave a comment.",
     initIssue: "Initialize thread",
     issueLink: (issueNumber) => `GitHub Issue #${issueNumber}`,
+    loadComments: "Load comments",
     loadMore: "Load more",
     loading: "Loading comments...",
     login: "Login with GitHub",
@@ -110,6 +112,7 @@ const COMMENT_COPY: Record<SiteLanguage, CommentCopy> = {
     first: "最初にコメントを残しましょう。",
     initIssue: "スレッドを作成",
     issueLink: (issueNumber) => `GitHub Issue #${issueNumber}`,
+    loadComments: "コメントを読み込む",
     loadMore: "もっと見る",
     loading: "コメントを読み込んでいます...",
     login: "GitHub でログイン",
@@ -134,6 +137,7 @@ const COMMENT_COPY: Record<SiteLanguage, CommentCopy> = {
     first: "来留下第一条评论吧。",
     initIssue: "初始化评论",
     issueLink: (issueNumber) => `GitHub Issue #${issueNumber}`,
+    loadComments: "加载评论",
     loadMore: "加载更多",
     loading: "正在加载评论...",
     login: "使用 GitHub 登录",
@@ -183,24 +187,16 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
   const isAdmin = user ? COMMENT_CONFIG.admin.includes(user.login) : false;
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return undefined;
-
-    if (!("IntersectionObserver" in window)) {
-      setActivated(true);
-      return undefined;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((entry) => entry.isIntersecting)) return;
-        observer.disconnect();
-        setActivated(true);
-      },
-      { rootMargin: "360px 0px" }
-    );
-    observer.observe(container);
-    return () => observer.disconnect();
+    setActivated(hasOAuthCode());
+    setStatus("idle");
+    setIssue(null);
+    setComments([]);
+    setUser(null);
+    setToken(readStoredToken());
+    setDraft(readDraft(id));
+    setPage(1);
+    setHasMore(false);
+    setError("");
   }, [id]);
 
   useEffect(() => {
@@ -253,6 +249,8 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
     setActivated(false);
     window.requestAnimationFrame(() => setActivated(true));
   };
+
+  const loadComments = () => setActivated(true);
 
   const login = (draftOverride = draft) => {
     writeDraft(id, draftOverride);
@@ -444,25 +442,35 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
               </a>
               <IconButton icon="log-out" label={copy.logout} className={clsx(styles.buttonBase, styles.iconButton)} onClick={logout} />
             </>
-          ) : (
+          ) : status === "ready" && !issue ? (
             <button type="button" className={commentButton("secondary")} onClick={() => login()}>
               <Icon name="github" />
               <span>{copy.login}</span>
             </button>
-          )}
+          ) : null}
         </div>
       </div>
 
-      {status === "loading" || status === "idle" ? <p className={styles.statusText}>{copy.loading}</p> : null}
+      {status === "idle" ? <CommentsLoadPrompt label={copy.loadComments} onLoad={loadComments} /> : null}
+
+      {status === "loading" ? <CommentsLoading label={copy.loading} /> : null}
 
       {status === "error" ? (
         <div className={clsx(styles.statusBox, styles.statusError)}>
           <p>{copy.error}</p>
           {error ? <p className={styles.errorDetail}>{error}</p> : null}
-          <button type="button" className={commentButton("secondary")} onClick={refresh}>
-            <Icon name="refresh" />
-            <span>{copy.retry}</span>
-          </button>
+          <div className={styles.errorActions}>
+            {!user ? (
+              <button type="button" className={commentButton("primary")} onClick={() => login()}>
+                <Icon name="github" />
+                <span>{copy.login}</span>
+              </button>
+            ) : null}
+            <button type="button" className={commentButton("secondary")} onClick={refresh}>
+              <Icon name="refresh" />
+              <span>{copy.retry}</span>
+            </button>
+          </div>
         </div>
       ) : null}
 
@@ -606,6 +614,44 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
   );
 }
 
+function CommentsLoading({ label }: { label: string }) {
+  return (
+    <div className={styles.loadingPanel} role="status" aria-label={label}>
+      <div className={styles.loadingHeader}>
+        <span className={styles.loadingSpinner} aria-hidden="true" />
+        <span className={styles.loadingText}>{label}</span>
+      </div>
+      <div className={styles.loadingList} aria-hidden="true">
+        <span className={styles.loadingComment}>
+          <span className={styles.loadingAvatar} />
+          <span className={styles.loadingLines}>
+            <span className={styles.loadingLineShort} />
+            <span className={styles.loadingLineLong} />
+          </span>
+        </span>
+        <span className={styles.loadingComment}>
+          <span className={styles.loadingAvatar} />
+          <span className={styles.loadingLines}>
+            <span className={styles.loadingLineShort} />
+            <span className={styles.loadingLineLong} />
+          </span>
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function CommentsLoadPrompt({ label, onLoad }: { label: string; onLoad: () => void }) {
+  return (
+    <div className={styles.loadPrompt}>
+      <button type="button" className={commentButton("primary")} onClick={onLoad}>
+        <Icon name="message" />
+        <span>{label}</span>
+      </button>
+    </div>
+  );
+}
+
 async function requestIssue(id: string, token: string) {
   const labels = new URLSearchParams({
     labels: [...COMMENT_CONFIG.labels, id].join(","),
@@ -672,6 +718,11 @@ async function consumeOAuthCode() {
 
   writeStoredToken(payload.access_token);
   return payload.access_token;
+}
+
+function hasOAuthCode() {
+  if (typeof window === "undefined") return false;
+  return new URL(window.location.href).searchParams.has("code");
 }
 
 function removeOAuthCodeFromUrl(url: URL) {

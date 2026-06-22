@@ -148,6 +148,93 @@
   margin: 0;
 }
 
+.loadPrompt {
+  align-items: center;
+  background: var(--blog-surface-muted);
+  border: 1px solid var(--blog-border-muted);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.loadingPanel {
+  background:
+    linear-gradient(var(--blog-surface-muted), var(--blog-surface-muted)) padding-box,
+    linear-gradient(135deg, var(--blog-border-muted), var(--blog-accent-border)) border-box;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem;
+}
+
+.loadingHeader {
+  align-items: center;
+  color: var(--blog-faint);
+  display: inline-flex;
+  gap: 0.55rem;
+}
+
+.loadingSpinner {
+  animation: comments-loading-spin 0.75s linear infinite;
+  border: 2px solid color-mix(in srgb, var(--blog-accent) 20%, transparent);
+  border-radius: 999px;
+  border-top-color: var(--blog-accent);
+  height: 1rem;
+  width: 1rem;
+}
+
+.loadingText {
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+.loadingList {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.loadingComment {
+  align-items: center;
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: 2.1rem minmax(0, 1fr);
+}
+
+.loadingAvatar,
+.loadingLineLong,
+.loadingLineShort {
+  animation: comments-loading-shimmer 1.1s ease-in-out infinite;
+  background: linear-gradient(90deg, var(--blog-border-muted), var(--blog-surface), var(--blog-border-muted));
+  background-size: 220% 100%;
+}
+
+.loadingAvatar {
+  border-radius: 999px;
+  height: 2.1rem;
+  width: 2.1rem;
+}
+
+.loadingLines {
+  display: grid;
+  gap: 0.42rem;
+}
+
+.loadingLineShort,
+.loadingLineLong {
+  border-radius: 999px;
+  height: 0.55rem;
+}
+
+.loadingLineShort {
+  width: min(9rem, 42%);
+}
+
+.loadingLineLong {
+  width: min(24rem, 84%);
+}
+
 .statusBox {
   background: var(--blog-surface-muted);
   border: 1px solid var(--blog-border-muted);
@@ -160,6 +247,16 @@
 .statusError {
   display: grid;
   gap: 0.6rem;
+}
+
+.errorActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.errorActions .button {
+  flex: 1 1 10rem;
 }
 
 .errorDetail {
@@ -332,6 +429,22 @@
   opacity: 0.55;
 }
 
+@keyframes comments-loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes comments-loading-shimmer {
+  from {
+    background-position: 120% 0;
+  }
+
+  to {
+    background-position: -120% 0;
+  }
+}
+
 .body {
   color: var(--blog-text);
   line-height: 1.85;
@@ -477,6 +590,15 @@
     width: 2rem;
   }
 
+  .loadingComment {
+    grid-template-columns: 2rem minmax(0, 1fr);
+  }
+
+  .loadingAvatar {
+    height: 2rem;
+    width: 2rem;
+  }
+
   .editActions,
   .empty,
   .formFooter,
@@ -484,5 +606,14 @@
   .loginPrompt {
     align-items: stretch;
     flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loadingAvatar,
+  .loadingLineLong,
+  .loadingLineShort,
+  .loadingSpinner {
+    animation: none;
   }
 }

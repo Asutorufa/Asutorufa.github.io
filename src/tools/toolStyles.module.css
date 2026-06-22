@@ -88,9 +88,11 @@
   align-items: center;
   background: var(--blog-surface-muted);
   border: 1px solid var(--blog-border);
-  border-radius: 12px;
+  border-radius: 14px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
+  min-height: 3.1rem;
+  overflow: hidden;
   transition:
     background-color 0.18s ease,
     border-color 0.18s ease,
@@ -100,7 +102,7 @@
 .dateTimeControl:focus-within {
   background: var(--blog-surface);
   border-color: var(--blog-accent-ring);
-  box-shadow: var(--blog-focus-shadow);
+  box-shadow: inset 0 0 0 1px var(--blog-accent-ring);
 }
 
 .dateTimeInput {
@@ -115,7 +117,7 @@
   line-height: 1.5;
   min-width: 0;
   outline: none;
-  padding: 0.7rem 0.4rem 0.7rem 0.85rem;
+  padding: 0.78rem 0.55rem 0.78rem 0.9rem;
 }
 
 .dateTimeInput::placeholder {
@@ -129,7 +131,7 @@
   display: inline-flex;
   height: 2.15rem;
   justify-content: center;
-  margin-right: 0.35rem;
+  margin-right: 0.45rem;
   transition:
     background-color 0.18s ease,
     color 0.18s ease;
@@ -233,12 +235,14 @@
   color: var(--blog-text);
   font-size: 0.8rem;
   height: 2.15rem;
+  justify-self: center;
   line-height: 1;
   position: relative;
   transition:
     background-color 0.18s ease,
     border-color 0.18s ease,
     color 0.18s ease;
+  width: 2.15rem;
 }
 
 .datePickerDay:hover {
@@ -369,6 +373,7 @@
 }
 
 .clockFace {
+  aspect-ratio: 1;
   background:
     radial-gradient(circle at center, var(--blog-surface) 0 20%, transparent 21%),
     radial-gradient(circle at center, transparent 0 66%, var(--blog-border-soft) 67%, transparent 68%),
@@ -379,10 +384,11 @@
     inset 0 1px 8px rgb(0 0 0 / 0.025),
     0 8px 18px rgb(0 0 0 / 0.04);
   cursor: grab;
-  height: 11.2rem;
+  justify-self: center;
   position: relative;
   touch-action: none;
   user-select: none;
+  width: min(100%, 11.2rem);
 }
 
 .clockFace:active {
@@ -954,7 +960,17 @@
   }
 
   .timePanel {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.65rem;
+    grid-template-columns: 1fr;
+    padding: 0.65rem;
+  }
+
+  .timeDisplay {
+    font-size: 1.18rem;
+  }
+
+  .clockFace {
+    width: min(100%, 10.5rem);
   }
 
   .footerButton {
@@ -995,4 +1011,14 @@
   --tool-accent-active-bg: #47342b;
   --tool-accent-border: #7c513f;
   --tool-control-hover-bg: #2f2926;
+}
+
+:global(html.dark-mode) .dateTimeControl {
+  border-color: #4a4a4a;
+  box-shadow: none;
+}
+
+:global(html.dark-mode) .dateTimeControl:focus-within {
+  border-color: var(--blog-accent-ring);
+  box-shadow: inset 0 0 0 1px var(--blog-accent-ring);
 }

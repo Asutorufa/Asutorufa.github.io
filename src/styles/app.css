@@ -403,16 +403,56 @@ pre.shiki.code-block {
 }
 
 .article-content table {
-  border-collapse: collapse;
+  background: var(--blog-surface);
+  border: 1px solid var(--blog-border-soft);
+  border-collapse: separate;
+  border-radius: 10px;
+  border-spacing: 0;
   display: block;
+  font-size: 0.94rem;
+  line-height: 1.65;
+  margin: 1.35rem auto;
   max-width: 100%;
   overflow-x: auto;
+  width: max-content;
 }
 
 .article-content th,
 .article-content td {
-  border: 1px solid var(--blog-border);
-  padding: 0.45rem 0.65rem;
+  border: 0;
+  border-bottom: 1px solid var(--blog-border-soft);
+  border-right: 1px solid var(--blog-border-soft);
+  padding: 0.72rem 0.9rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.article-content th {
+  background: var(--blog-surface-muted);
+  color: var(--blog-heading);
+  font-weight: 600;
+  text-align: left;
+}
+
+.article-content td {
+  color: var(--blog-text);
+}
+
+.article-content tr:last-child > td {
+  border-bottom: 0;
+}
+
+.article-content th:last-child,
+.article-content td:last-child {
+  border-right: 0;
+}
+
+.article-content tbody tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--blog-surface-muted) 58%, transparent);
+}
+
+.article-content tbody tr:hover td {
+  background: var(--blog-accent-softer);
 }
 
 .article-content img {
@@ -446,6 +486,15 @@ pre.shiki.code-block {
   .article-content pre code {
     font-size: 0.82rem;
     line-height: 1.45;
+  }
+
+  .article-content table {
+    font-size: 0.88rem;
+  }
+
+  .article-content th,
+  .article-content td {
+    padding: 0.58rem 0.72rem;
   }
 }
 
@@ -516,13 +565,13 @@ html.dark-mode .article-content .mermaid.mermaid-pending::before {
   border-top-color: var(--blog-accent);
 }
 
-html.dark-mode .article-content table th,
-html.dark-mode .article-content table td {
-  border-color: var(--blog-border);
+html.dark-mode .article-content table {
+  border-color: var(--blog-border-soft);
 }
 
-html.dark-mode .article-content table tr {
-  border-top-color: var(--blog-border);
+html.dark-mode .article-content table th,
+html.dark-mode .article-content table td {
+  border-color: var(--blog-border-soft);
 }
 
 html.dark-mode input,
