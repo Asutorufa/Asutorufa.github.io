@@ -17,7 +17,6 @@ export function TimestampTool({ labels }: { labels: UiLabels }) {
   useEffect(() => {
     const now = new Date();
     syncFromDate(now);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const parsedDate = useMemo(() => parseTimestamp(timestampInput, timestampMode), [timestampInput, timestampMode]);
@@ -70,14 +69,25 @@ export function TimestampTool({ labels }: { labels: UiLabels }) {
       <div className={TOOL_CLASS.grid}>
         <label className={TOOL_CLASS.field}>
           <span className={TOOL_CLASS.fieldLabel}>{text.timestamp}</span>
-          <input className={TOOL_CLASS.control} value={timestampInput} onChange={(event) => syncFromTimestamp(event.target.value)} inputMode="numeric" placeholder="1755854433" />
+          <input
+            className={TOOL_CLASS.control}
+            value={timestampInput}
+            onChange={(event) => syncFromTimestamp(event.target.value)}
+            inputMode="numeric"
+            placeholder="1755854433"
+          />
         </label>
 
         <div className={TOOL_CLASS.field}>
           <span className={TOOL_CLASS.fieldLabel}>{text.unit}</span>
           <div className={TOOL_CLASS.segmented}>
             {(["auto", "seconds", "milliseconds"] as const).map((mode) => (
-              <button key={mode} type="button" className={clsx(TOOL_CLASS.segmentedButton, timestampMode === mode && TOOL_CLASS.segmentedButtonActive)} onClick={() => handleMode(mode)}>
+              <button
+                key={mode}
+                type="button"
+                className={clsx(TOOL_CLASS.segmentedButton, timestampMode === mode && TOOL_CLASS.segmentedButtonActive)}
+                onClick={() => handleMode(mode)}
+              >
                 {text[mode]}
               </button>
             ))}

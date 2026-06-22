@@ -6,6 +6,7 @@ import { Icon } from "../components/Icon";
 import { PostFooter } from "../components/PostFooter";
 import { PostMeta } from "../components/PostMeta";
 import { UI_LABELS } from "../data/i18n";
+import styles from "./PostPage.module.css";
 
 type PostPageProps = AppProps & {
   abbrlink: string;
@@ -56,8 +57,8 @@ function PostBackButton({ label }: { label: string }) {
   if (!canGoBack) return null;
 
   return (
-    <button type="button" className="post-back-button" onClick={() => window.history.back()} aria-label={label}>
-      <Icon name="chevron-left" className="post-back-button-icon" />
+    <button type="button" className={styles.backButton} onClick={() => window.history.back()} aria-label={label}>
+      <Icon name="chevron-left" className={styles.backIcon} />
       <span>{label}</span>
     </button>
   );

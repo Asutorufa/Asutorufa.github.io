@@ -1,0 +1,18 @@
+.root {
+  color: var(--blog-faint);
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 6px 0 24px;
+  text-align: center;
+}
+
+.inner {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.45rem;
+}
+
+.love {
+  display: inline-flex;
+  margin: 0 0.1rem;
+}

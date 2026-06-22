@@ -3,7 +3,7 @@ import markdownItKatex from "@renbaoshuo/markdown-it-katex";
 import { createHighlighter, type Highlighter } from "shiki";
 import type { TocItem } from "../../src/types/content";
 
-type RenderRule = (tokens: any[], idx: number, options: any, env: any, self: any) => string;
+type RenderRule = NonNullable<MarkdownIt["renderer"]["rules"][string]>;
 
 const shikiLanguages = [
   "asm",
@@ -91,9 +91,7 @@ async function createMarkdown() {
     skipDelimitersCheck: true
   });
 
-  const defaultFence: RenderRule =
-    markdown.renderer.rules.fence ??
-    ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options));
+  const defaultFence: RenderRule = markdown.renderer.rules.fence ?? ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options));
 
   markdown.renderer.rules.fence = (tokens, idx, options, env, self) => {
     const token = tokens[idx];
@@ -106,9 +104,7 @@ async function createMarkdown() {
     return defaultFence(tokens, idx, options, env, self);
   };
 
-  const defaultImage =
-    markdown.renderer.rules.image ??
-    ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options));
+  const defaultImage = markdown.renderer.rules.image ?? ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options));
 
   markdown.renderer.rules.image = (tokens, idx, options, env, self) => {
     const token = tokens[idx];
@@ -117,9 +113,7 @@ async function createMarkdown() {
     return defaultImage(tokens, idx, options, env, self);
   };
 
-  const defaultHeadingOpen =
-    markdown.renderer.rules.heading_open ??
-    ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options));
+  const defaultHeadingOpen = markdown.renderer.rules.heading_open ?? ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options));
 
   markdown.renderer.rules.heading_open = (tokens, idx, options, env, self) => {
     const heading = tokens[idx];
@@ -164,11 +158,7 @@ function slugify(text: string) {
 }
 
 function escapeHtml(value: string) {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
+  return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
 
 function codeLines(highlightedHtml: string) {
@@ -182,9 +172,7 @@ function codeLinesFromShiki(shikiHtml: string) {
 }
 
 function codeLinesFromLines(lines: string[]) {
-  return lines
-    .map((line) => `<span class="code-line"><span class="code-line-content">${line || " "}</span></span>`)
-    .join("");
+  return lines.map((line) => `<span class="code-line"><span class="code-line-content">${line || " "}</span></span>`).join("");
 }
 
 function stripShikiLineWrapper(line: string) {
@@ -199,11 +187,13 @@ function trimTrailingBlankLines(lines: string[]) {
 }
 
 function isBlankCodeLine(line: string) {
-  return line
-    .replace(/<[^>]*>/g, "")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&#160;/g, " ")
-    .trim() === "";
+  return (
+    line
+      .replace(/<[^>]*>/g, "")
+      .replace(/&nbsp;/g, " ")
+      .replace(/&#160;/g, " ")
+      .trim() === ""
+  );
 }
 
 function splitHighlightedLines(highlightedHtml: string) {

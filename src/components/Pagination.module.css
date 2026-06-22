@@ -1,0 +1,99 @@
+.root {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  font-weight: 400;
+  gap: 0.55rem;
+  justify-content: center;
+  margin: 2rem auto 0;
+  max-width: 100%;
+  padding: 0.55rem 1rem;
+  width: 100%;
+}
+
+.link {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--blog-muted);
+  display: inline-flex;
+  height: 2.15rem;
+  justify-content: center;
+  min-width: 2.15rem;
+  padding: 0 0.62rem;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.link:hover {
+  background: var(--blog-accent-soft);
+  border-color: var(--blog-accent-border);
+  color: var(--blog-accent-hover);
+  transform: translateY(-1px);
+}
+
+.link:active {
+  transform: translateY(1px);
+}
+
+.currentForm {
+  align-items: center;
+  background: var(--blog-accent);
+  border: 1px solid var(--blog-accent);
+  border-color: var(--blog-accent);
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgb(255 91 37 / 0.18);
+  color: #fff;
+  display: inline-flex;
+  height: 2.15rem;
+  justify-content: center;
+  min-width: 2.15rem;
+  padding: 0 0.58rem;
+  transition: box-shadow 0.15s ease;
+}
+
+.currentForm:focus-within {
+  box-shadow:
+    0 8px 18px rgb(255 91 37 / 0.18),
+    var(--blog-focus-shadow);
+}
+
+.currentInput {
+  appearance: textfield;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  font: inherit;
+  line-height: 1;
+  min-width: 1ch;
+  outline: none;
+  padding: 0;
+  text-align: center;
+}
+
+.currentInput::-webkit-inner-spin-button,
+.currentInput::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.currentInput::selection {
+  background: rgb(255 255 255 / 0.32);
+}
+
+.ellipsis {
+  color: var(--blog-muted);
+  padding: 0 0.38rem;
+}
+
+@media (max-width: 520px) {
+  .root {
+    gap: 0.42rem;
+    padding: 0.55rem 0.65rem;
+  }
+}

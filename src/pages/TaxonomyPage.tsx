@@ -2,6 +2,7 @@ import type { AppProps } from "../app/app-types";
 import { Pagination } from "../components/Pagination";
 import { UI_LABELS } from "../data/i18n";
 import { formatDisplayDate } from "../utils/date";
+import styles from "./TaxonomyPage.module.css";
 
 type TaxonomyPageProps = AppProps & {
   type: "tag" | "category";
@@ -11,9 +12,7 @@ type TaxonomyPageProps = AppProps & {
 
 export function TaxonomyPage({ content, route, type, name, page = 1 }: TaxonomyPageProps) {
   const entries = type === "tag" ? content.tags : content.categories;
-  const filteredPosts = name
-    ? content.posts.filter((post) => (type === "tag" ? post.tags : post.categories).includes(name))
-    : [];
+  const filteredPosts = name ? content.posts.filter((post) => (type === "tag" ? post.tags : post.categories).includes(name)) : [];
   const totalPages = Math.max(1, Math.ceil(filteredPosts.length / content.config.perPage));
   const start = (page - 1) * content.config.perPage;
   const posts = filteredPosts.slice(start, start + content.config.perPage);
@@ -27,11 +26,7 @@ export function TaxonomyPage({ content, route, type, name, page = 1 }: TaxonomyP
         <header className="mb-12 text-center">
           <h1 className="text-[1.7em] font-normal text-blog-heading">{pluralTitle}</h1>
         </header>
-        {type === "tag" ? (
-          <TagCloud entries={entries} labels={labels} />
-        ) : (
-          <CategoryList entries={entries} labels={labels} />
-        )}
+        {type === "tag" ? <TagCloud entries={entries} labels={labels} /> : <CategoryList entries={entries} labels={labels} />}
       </section>
     );
   }
@@ -39,18 +34,16 @@ export function TaxonomyPage({ content, route, type, name, page = 1 }: TaxonomyP
   return (
     <>
       <section className="content-card px-5 py-10 md:px-8 md:py-14 lg:px-10">
-        <div className="taxonomy-timeline">
-          <header className="taxonomy-title">
+        <div className={styles.timeline}>
+          <header className={styles.title}>
             <h1>
               {name} <span>{singularTitle}</span>
             </h1>
           </header>
           {posts.map((post) => (
-            <article key={post.abbrlink} className="taxonomy-entry">
+            <article key={post.abbrlink} className={styles.entry}>
               <time>{formatTaxonomyDate(post.date)}</time>
-              <a href={post.route}>
-                {post.title}
-              </a>
+              <a href={post.route}>{post.title}</a>
             </article>
           ))}
         </div>
@@ -68,16 +61,16 @@ function formatTaxonomyDate(value?: string) {
   return formatDisplayDate(value).slice(5);
 }
 
-function TagCloud({ entries, labels }: { entries: Array<{ name: string; route: string; count: number }>; labels: typeof UI_LABELS[keyof typeof UI_LABELS] }) {
+function TagCloud({ entries, labels }: { entries: Array<{ name: string; route: string; count: number }>; labels: (typeof UI_LABELS)[keyof typeof UI_LABELS] }) {
   const max = Math.max(...entries.map((entry) => entry.count), 1);
   const min = Math.min(...entries.map((entry) => entry.count), max);
 
   return (
-    <div className="tag-cloud">
-      <div className="tag-cloud-title">
+    <div className={styles.tagCloud}>
+      <div className={styles.tagCloudTitle}>
         {labels.all} {entries.length} {labels.tag}
       </div>
-      <div className="tag-cloud-tags">
+      <div className={styles.tagCloudTags}>
         {entries.map((entry) => {
           const weight = tagWeight(entry.count, min, max);
           return (
@@ -99,20 +92,26 @@ function TagCloud({ entries, labels }: { entries: Array<{ name: string; route: s
   );
 }
 
-function CategoryList({ entries, labels }: { entries: Array<{ name: string; route: string; count: number }>; labels: typeof UI_LABELS[keyof typeof UI_LABELS] }) {
+function CategoryList({
+  entries,
+  labels
+}: {
+  entries: Array<{ name: string; route: string; count: number }>;
+  labels: (typeof UI_LABELS)[keyof typeof UI_LABELS];
+}) {
   return (
-    <div className="category-all-page">
-      <div className="category-all-title">
+    <div>
+      <div className={styles.categoryTitle}>
         {labels.all} {entries.length} {labels.category}
       </div>
-      <div className="category-all">
-        <ul className="category-list">
+      <div className={styles.categoryAll}>
+        <ul className={styles.categoryList}>
           {entries.map((entry) => (
-            <li key={entry.name} className="category-list-item">
-              <a className="category-list-link" href={entry.route}>
+            <li key={entry.name} className={styles.categoryItem}>
+              <a className={styles.categoryLink} href={entry.route}>
                 {entry.name}
               </a>
-              <span className="category-list-count">{entry.count}</span>
+              <span className={styles.categoryCount}>{entry.count}</span>
             </li>
           ))}
         </ul>

@@ -11,12 +11,7 @@ export type ClientAssets = {
 const THEME_COLOR_LIGHT = "#f7f7f7";
 const THEME_COLOR_DARK = "#282828";
 
-export function renderHtmlShell(options: {
-  appHtml: string;
-  assets: ClientAssets;
-  content: ContentManifest;
-  route: RouteEntry;
-}) {
+export function renderHtmlShell(options: { appHtml: string; assets: ClientAssets; content: ContentManifest; route: RouteEntry }) {
   const { appHtml, assets, content, route } = options;
   const language = LANGUAGE_META[route.language];
   const canonical = new URL(route.route === "/404.html" ? "/" : route.route, content.config.url).toString();
@@ -81,11 +76,7 @@ export function routeOutputFile(distDir: string, outputPath: string) {
 }
 
 export function escapeHtml(value: string) {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
+  return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
 
 function routeDescription(content: ContentManifest, route: RouteEntry) {

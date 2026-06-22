@@ -13,8 +13,19 @@ export default defineConfig({
     assetsDir: "assets",
     emptyOutDir: false,
     manifest: true,
+    // Mermaid is lazy-loaded for article diagrams, but its parser chunk is just over Vite's 500 kB default.
+    chunkSizeWarningLimit: 650,
     rollupOptions: {
-      input: "index.html"
+      input: "index.html",
+      output: {
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return undefined;
+          if (id.includes("node_modules/katex")) return "katex";
+          if (id.includes("node_modules/yet-another-react-lightbox")) return "lightbox";
+          if (id.includes("node_modules/react") || id.includes("node_modules/react-dom") || id.includes("node_modules/wouter")) return "react-vendor";
+          return undefined;
+        }
+      }
     }
   }
 });

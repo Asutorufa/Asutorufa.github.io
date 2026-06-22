@@ -83,7 +83,8 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
         mermaid.initialize({
           startOnLoad: false,
           securityLevel: "loose",
-          theme: document.documentElement.classList.contains("dark-mode") ? "dark" : "default"
+          theme: "base",
+          themeVariables: getMermaidThemeVariables()
         });
 
         await mermaid.run({ nodes: renderableNodes });
@@ -190,5 +191,68 @@ function toPreviewSlide(image: HTMLImageElement) {
     height: image.naturalHeight || undefined,
     src,
     width: image.naturalWidth || undefined
+  };
+}
+
+function getMermaidThemeVariables() {
+  const rootStyle = getComputedStyle(document.documentElement);
+  const bodyStyle = getComputedStyle(document.body);
+  const color = (name: string, fallback: string) => rootStyle.getPropertyValue(name).trim() || fallback;
+  const isDark = document.documentElement.classList.contains("dark-mode");
+
+  const background = color("--blog-surface", isDark ? "#282828" : "#ffffff");
+  const surfaceMuted = color("--blog-surface-muted", isDark ? "#242424" : "#fafafa");
+  const pageBackground = color("--blog-bg", isDark ? "#1f1f1f" : "#f7f7f7");
+  const text = color("--blog-text", isDark ? "#cfcfcf" : "#555555");
+  const heading = color("--blog-heading", isDark ? "#e1e1e1" : "#444444");
+  const border = color("--blog-border", isDark ? "#444444" : "#e5e5e5");
+  const borderSoft = color("--blog-border-soft", isDark ? "#3d3d3d" : "#ececec");
+  const accent = color("--blog-accent", isDark ? "#ff8b5f" : "#ff5b25");
+  const accentLine = color("--blog-accent-line", isDark ? "#ff8b5f" : "#ff7a45");
+  const accentSoft = color("--blog-accent-soft", isDark ? "#342f2c" : "#fff4ed");
+  const accentSofter = color("--blog-accent-softer", isDark ? "#332b31" : "#fff0f8");
+  const accentBorder = color("--blog-accent-border", isDark ? "#8a5a48" : "#ffb28f");
+
+  return {
+    background,
+    darkMode: isDark,
+    fontFamily: bodyStyle.fontFamily,
+    primaryColor: accentSoft,
+    primaryTextColor: heading,
+    primaryBorderColor: accentBorder,
+    secondaryColor: surfaceMuted,
+    secondaryTextColor: text,
+    secondaryBorderColor: borderSoft,
+    tertiaryColor: accentSofter,
+    tertiaryTextColor: text,
+    tertiaryBorderColor: border,
+    mainBkg: accentSoft,
+    secondBkg: surfaceMuted,
+    nodeBorder: accentBorder,
+    clusterBkg: pageBackground,
+    clusterBorder: border,
+    titleColor: heading,
+    textColor: text,
+    nodeTextColor: heading,
+    lineColor: accentLine,
+    arrowheadColor: accent,
+    defaultLinkColor: accentLine,
+    edgeLabelBackground: background,
+    noteBkgColor: accentSofter,
+    noteTextColor: text,
+    noteBorderColor: accentBorder,
+    actorBkg: accentSoft,
+    actorBorder: accentBorder,
+    actorTextColor: heading,
+    actorLineColor: accentLine,
+    signalColor: accentLine,
+    signalTextColor: heading,
+    labelBoxBkgColor: background,
+    labelBoxBorderColor: border,
+    labelTextColor: text,
+    loopTextColor: text,
+    activationBkgColor: accentSofter,
+    activationBorderColor: accentBorder,
+    sequenceNumberColor: background
   };
 }

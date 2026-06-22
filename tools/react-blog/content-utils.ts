@@ -1,6 +1,6 @@
 import path from "node:path";
 import { LANGUAGE_META, normalizeLanguage } from "../../src/data/i18n";
-import type { Page, Post, SiteLanguage } from "../../src/types/content";
+import type { Page, Post } from "../../src/types/content";
 import { toPosixPath } from "./paths";
 import { renderMarkdown, renderMarkdownToHtml } from "./render-markdown";
 import { normalizeTaxonomyName, routeSegment as sharedRouteSegment } from "../../src/utils/route";
@@ -108,11 +108,7 @@ export function detectMermaid(markdown: string) {
   return /```mermaid[\s\S]*?```/i.test(markdown);
 }
 
-export function languageFields(
-  sourcePath: string,
-  rawLanguage: unknown,
-  fallbackCollector: Array<{ sourcePath: string; rawLanguage: string }>
-) {
+export function languageFields(sourcePath: string, rawLanguage: unknown, fallbackCollector: Array<{ sourcePath: string; rawLanguage: string }>) {
   const normalized = normalizeLanguage(rawLanguage);
   if (normalized.fallback) {
     fallbackCollector.push({

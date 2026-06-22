@@ -1,12 +1,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import type { ContentManifest, RouteEntry } from "../../src/types/content";
+import type { AppProps } from "../../src/app/app-types";
 import { mergePagePayload } from "../../src/app/page-payload";
-import { renderPage } from "../../src/app/render-page";
 import { distDir } from "./paths";
 import { commonContentForClient, pageForPayload, postForArticlePayload, postForListPayload, readViteAssets, renderHtmlShell, routeOutputFile } from "./html";
 
-export async function renderHtml(content: ContentManifest, routes: RouteEntry[]) {
+export type PageRenderer = (props: AppProps) => string;
+
+export async function renderHtml(content: ContentManifest, routes: RouteEntry[], renderPage: PageRenderer) {
   const manifestPath = path.join(distDir, ".vite/manifest.json");
   const manifest = JSON.parse(await fs.readFile(manifestPath, "utf8")) as Record<string, { file?: string; css?: string[] }>;
   const assets = readViteAssets(manifest);

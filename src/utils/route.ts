@@ -42,7 +42,5 @@ const taxonomyDisplayOverrides: Record<string, string> = {
 
 function formatTaxonomyWord(word: string) {
   const parts = word.split("-");
-  return parts
-    .map((part) => taxonomyDisplayOverrides[part] ?? part.charAt(0).toLocaleUpperCase("en-US") + part.slice(1))
-    .join("-");
+  return parts.map((part) => taxonomyDisplayOverrides[part] ?? part.charAt(0).toLocaleUpperCase("en-US") + part.slice(1)).join("-");
 }

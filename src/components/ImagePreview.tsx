@@ -2,6 +2,7 @@ import type { ComponentProps } from "react";
 import Lightbox, { type SlideImage, type SlotStyles } from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import { Icon } from "./Icon";
+import styles from "./ImagePreview.module.css";
 
 const LIGHTBOX_STYLES = {
   root: {
@@ -58,39 +59,6 @@ const LIGHTBOX_IMAGE_PROPS = {
   }
 } satisfies NonNullable<ComponentProps<typeof Lightbox>["carousel"]>["imageProps"];
 
-const LIGHTBOX_INTERACTION_STYLES = `
-.blog-lightbox .yarl__button:hover:not(:disabled) {
-  background-color: rgb(58 58 58 / 0.84);
-}
-
-.blog-lightbox .yarl__button:hover:not(:disabled):not(.yarl__navigation_prev):not(.yarl__navigation_next) {
-  transform: translateY(-1px);
-}
-
-.blog-lightbox .yarl__button:active:not(:disabled):not(.yarl__navigation_prev):not(.yarl__navigation_next) {
-  transform: scale(0.96);
-}
-
-.blog-lightbox .yarl__navigation_prev:hover:not(:disabled),
-.blog-lightbox .yarl__navigation_next:hover:not(:disabled) {
-  transform: translateY(calc(-50% - 1px));
-}
-
-.blog-lightbox .yarl__navigation_prev:active:not(:disabled),
-.blog-lightbox .yarl__navigation_next:active:not(:disabled) {
-  transform: translateY(-50%) scale(0.96);
-}
-
-.blog-lightbox .yarl__button:disabled {
-  opacity: 0.45;
-}
-
-.blog-lightbox .yarl__navigation_prev:disabled,
-.blog-lightbox .yarl__navigation_next:disabled {
-  display: none;
-}
-`;
-
 export type ImagePreviewState = {
   index: number;
   slides: SlideImage[];
@@ -103,41 +71,38 @@ type ImagePreviewProps = {
 
 export function ImagePreview({ preview, onClose }: ImagePreviewProps) {
   return (
-    <>
-      {preview && <style>{LIGHTBOX_INTERACTION_STYLES}</style>}
-      <Lightbox
-        open={preview !== null}
-        close={onClose}
-        index={preview?.index ?? 0}
-        slides={preview?.slides ?? []}
-        plugins={[Zoom]}
-        className="blog-lightbox"
-        styles={LIGHTBOX_STYLES}
-        carousel={{ finite: true, imageFit: "contain", imageProps: LIGHTBOX_IMAGE_PROPS, padding: 16 }}
-        controller={{ closeOnBackdropClick: true, closeOnPullDown: true, closeOnPullUp: true }}
-        animation={{ fade: 180, swipe: 220, zoom: 220 }}
-        zoom={{
-          maxZoomPixelRatio: 4,
-          scrollToZoom: true,
-          wheelZoomDistanceFactor: 140,
-          zoomInMultiplier: 1.6
-        }}
-        labels={{
-          Close: "Close image preview",
-          Next: "Next image",
-          Previous: "Previous image",
-          "Zoom in": "Zoom in",
-          "Zoom out": "Zoom out"
-        }}
-        render={{
-          iconClose: () => <Icon name="close" />,
-          iconNext: () => <Icon name="chevron-right" />,
-          iconPrev: () => <Icon name="chevron-left" />,
-          iconZoomIn: () => <Icon name="zoom-in" />,
-          iconZoomOut: () => <Icon name="zoom-out" />
-        }}
-        toolbar={{ buttons: ["zoom", "close"] }}
-      />
-    </>
+    <Lightbox
+      open={preview !== null}
+      close={onClose}
+      index={preview?.index ?? 0}
+      slides={preview?.slides ?? []}
+      plugins={[Zoom]}
+      className={styles.root}
+      styles={LIGHTBOX_STYLES}
+      carousel={{ finite: true, imageFit: "contain", imageProps: LIGHTBOX_IMAGE_PROPS, padding: 16 }}
+      controller={{ closeOnBackdropClick: true, closeOnPullDown: true, closeOnPullUp: true }}
+      animation={{ fade: 180, swipe: 220, zoom: 220 }}
+      zoom={{
+        maxZoomPixelRatio: 4,
+        scrollToZoom: true,
+        wheelZoomDistanceFactor: 140,
+        zoomInMultiplier: 1.6
+      }}
+      labels={{
+        Close: "Close image preview",
+        Next: "Next image",
+        Previous: "Previous image",
+        "Zoom in": "Zoom in",
+        "Zoom out": "Zoom out"
+      }}
+      render={{
+        iconClose: () => <Icon name="close" />,
+        iconNext: () => <Icon name="chevron-right" />,
+        iconPrev: () => <Icon name="chevron-left" />,
+        iconZoomIn: () => <Icon name="zoom-in" />,
+        iconZoomOut: () => <Icon name="zoom-out" />
+      }}
+      toolbar={{ buttons: ["zoom", "close"] }}
+    />
   );
 }

@@ -20,81 +20,6 @@ type JsonHistoryItem = {
 const JSON_HISTORY_STORAGE_KEY = "asutorufa-tools-json-history";
 const JSON_HISTORY_LIMIT = 20;
 
-const JSON_HISTORY_CLASS = {
-  root: "mt-[1.2rem] border-t border-blog-border-muted pt-4",
-  header: "mb-[0.7rem] flex items-center justify-between gap-4 max-md:flex-col max-md:items-start max-md:gap-[0.4rem]",
-  heading: "m-0 text-[0.95rem] font-medium leading-[1.5] text-blog-text",
-  clearButton:
-    "rounded-full px-2.5 py-1 text-[0.78rem] leading-[1.4] text-blog-faint transition-colors duration-[180ms] hover:bg-blog-accent-softer hover:text-blog-accent",
-  list: "m-0 grid list-none gap-[0.45rem] p-0",
-  row:
-    "flex min-w-0 items-center gap-[0.4rem] rounded-xl border border-blog-border-muted bg-blog-surface-muted p-[0.35rem] transition-[background-color,border-color,transform] duration-[180ms] hover:-translate-y-px hover:border-[var(--blog-accent-ring)] hover:bg-blog-surface",
-  item: "flex min-w-0 flex-1 flex-col gap-[0.16rem] px-[0.45rem] py-[0.35rem] text-left",
-  title: "overflow-hidden text-ellipsis whitespace-nowrap font-mono text-[0.78rem] leading-[1.45] text-blog-heading",
-  meta: "text-[0.74rem] leading-[1.5] text-blog-faint",
-  delete:
-    "inline-flex h-8 w-8 items-center justify-center rounded-full text-blog-faint transition-[background-color,color,transform] duration-[180ms] hover:bg-[#fff0f0] hover:text-[#c4352c] active:scale-[0.94]",
-  empty: "m-0 rounded-xl border border-dashed border-blog-border bg-blog-surface-muted px-[0.85rem] py-3 text-[0.74rem] leading-[1.5] text-blog-faint"
-};
-
-const JSON_PREVIEW_STYLES = `
-.json-highlight-output code {
-  background: transparent;
-  display: block;
-  min-width: max-content;
-}
-
-.json-highlight-output .token.property {
-  color: #0550ae;
-}
-
-.json-highlight-output .token.string {
-  color: #0a3069;
-}
-
-.json-highlight-output .token.number,
-.json-highlight-output .token.boolean,
-.json-highlight-output .token.null {
-  color: #953800;
-}
-
-.json-highlight-output .token.punctuation {
-  color: #57606a;
-}
-
-html.dark-mode .json-highlight-output {
-  background: #0d1117;
-  color: #c9d1d9;
-  scrollbar-color: #44505f transparent;
-}
-
-html.dark-mode .json-highlight-output::-webkit-scrollbar-thumb {
-  background: #44505f;
-}
-
-html.dark-mode .json-highlight-output::-webkit-scrollbar-thumb:hover {
-  background: #5e6b7c;
-}
-
-html.dark-mode .json-highlight-output .token.property {
-  color: #79c0ff;
-}
-
-html.dark-mode .json-highlight-output .token.string {
-  color: #a5d6ff;
-}
-
-html.dark-mode .json-highlight-output .token.number,
-html.dark-mode .json-highlight-output .token.boolean,
-html.dark-mode .json-highlight-output .token.null {
-  color: #ffa657;
-}
-
-html.dark-mode .json-highlight-output .token.punctuation {
-  color: #8b949e;
-}
-`;
-
 export function JsonFormatterTool({ labels }: { labels: UiLabels }) {
   const text = toolLabels(labels);
   const [input, setInput] = useState("");
@@ -163,7 +88,6 @@ export function JsonFormatterTool({ labels }: { labels: UiLabels }) {
 
   return (
     <section className={TOOL_CLASS.panel}>
-      <style>{JSON_PREVIEW_STYLES}</style>
       <div className={TOOL_CLASS.heading}>
         <span className={TOOL_CLASS.braceIcon} aria-hidden="true">
           {"{}"}
@@ -174,7 +98,13 @@ export function JsonFormatterTool({ labels }: { labels: UiLabels }) {
       <div className={TOOL_CLASS.jsonLayout}>
         <label className={TOOL_CLASS.field}>
           <span className={TOOL_CLASS.fieldLabel}>{text.jsonInput}</span>
-          <textarea className={clsx(TOOL_CLASS.control, TOOL_CLASS.textarea, TOOL_CLASS.monoTextarea)} value={input} onChange={(event) => setInput(event.target.value)} placeholder='{"hello":"world"}' spellCheck={false} />
+          <textarea
+            className={clsx(TOOL_CLASS.control, TOOL_CLASS.textarea, TOOL_CLASS.monoTextarea)}
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            placeholder='{"hello":"world"}'
+            spellCheck={false}
+          />
         </label>
         <label className={TOOL_CLASS.field}>
           <span className={TOOL_CLASS.fieldLabel}>{text.jsonOutput}</span>
@@ -223,33 +153,33 @@ export function JsonFormatterTool({ labels }: { labels: UiLabels }) {
         </button>
       </div>
 
-      <div className={JSON_HISTORY_CLASS.root}>
-        <div className={JSON_HISTORY_CLASS.header}>
-          <h3 className={JSON_HISTORY_CLASS.heading}>{text.history}</h3>
+      <div className={TOOL_CLASS.jsonHistory}>
+        <div className={TOOL_CLASS.jsonHistoryHeader}>
+          <h3 className={TOOL_CLASS.jsonHistoryHeading}>{text.history}</h3>
           {history.length ? (
-            <button type="button" className={JSON_HISTORY_CLASS.clearButton} onClick={clearHistory}>
+            <button type="button" className={TOOL_CLASS.jsonHistoryClear} onClick={clearHistory}>
               {text.clearHistory}
             </button>
           ) : null}
         </div>
         {history.length ? (
-          <ol className={JSON_HISTORY_CLASS.list}>
+          <ol className={TOOL_CLASS.jsonHistoryList}>
             {history.map((item) => (
-              <li key={item.id} className={JSON_HISTORY_CLASS.row}>
-                <button type="button" className={JSON_HISTORY_CLASS.item} onClick={() => restoreHistory(item)}>
-                  <span className={JSON_HISTORY_CLASS.title}>{historyTitle(item.output)}</span>
-                  <span className={JSON_HISTORY_CLASS.meta}>
+              <li key={item.id} className={TOOL_CLASS.jsonHistoryRow}>
+                <button type="button" className={TOOL_CLASS.jsonHistoryItem} onClick={() => restoreHistory(item)}>
+                  <span className={TOOL_CLASS.jsonHistoryTitle}>{historyTitle(item.output)}</span>
+                  <span className={TOOL_CLASS.jsonHistoryMeta}>
                     {formatHistoryTime(item.createdAt)} · {item.compact ? text.minified : `${text.indent} ${item.indent === "tab" ? "Tab" : item.indent}`}
                   </span>
                 </button>
-                <button type="button" className={JSON_HISTORY_CLASS.delete} onClick={() => removeHistoryItem(item.id)} aria-label={text.deleteHistory}>
+                <button type="button" className={TOOL_CLASS.jsonHistoryDelete} onClick={() => removeHistoryItem(item.id)} aria-label={text.deleteHistory}>
                   <Icon name="trash" />
                 </button>
               </li>
             ))}
           </ol>
         ) : (
-          <p className={JSON_HISTORY_CLASS.empty}>{text.noHistory}</p>
+          <p className={TOOL_CLASS.jsonHistoryEmpty}>{text.noHistory}</p>
         )}
       </div>
     </section>

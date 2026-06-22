@@ -191,12 +191,10 @@ function collectArchiveMonths(posts: Post[]) {
     if (!match) continue;
     seen.add(`${match[1]}-${match[2]}`);
   }
-  return [...seen]
-    .sort()
-    .map((value) => {
-      const [year, month] = value.split("-");
-      return { year, month };
-    });
+  return [...seen].sort().map((value) => {
+    const [year, month] = value.split("-");
+    return { year, month };
+  });
 }
 
 export function routeToOutputPath(route: string) {

@@ -4,6 +4,7 @@ import { LANGUAGE_META } from "../data/i18n";
 import type { SiteLanguage } from "../types/content";
 import { Icon } from "./Icon";
 import { IconButton } from "./IconButton";
+import styles from "./GitalkComments.module.css";
 
 type GitalkCommentsProps = {
   id: string;
@@ -147,156 +148,8 @@ const COMMENT_COPY: Record<SiteLanguage, CommentCopy> = {
   }
 };
 
-const COMMENT_CLASS = {
-  root: "max-w-full text-[0.95rem] text-blog-text",
-  header: "mb-4 flex items-center justify-between gap-4 border-b border-blog-border-soft pb-[0.9rem] max-md:flex-col max-md:items-stretch",
-  titleGroup: "min-w-0",
-  title: "m-0 text-[1.05rem] font-semibold leading-[1.4] text-blog-heading",
-  issue: "border-b border-transparent text-[0.78rem] text-blog-faint transition-colors hover:border-[var(--blog-accent-line)] hover:text-blog-accent-hover",
-  actions: "flex flex-wrap items-center justify-end gap-[0.45rem] max-md:justify-start",
-  user:
-    "flex min-w-0 max-w-[13rem] items-center gap-[0.45rem] rounded-full border border-blog-border-muted bg-blog-bg py-[0.28rem] pl-[0.32rem] pr-[0.55rem] text-blog-muted transition-colors hover:border-[var(--blog-accent-border)] hover:bg-blog-accent-soft hover:text-blog-accent-hover",
-  userAvatar: "h-[1.55rem] w-[1.55rem] rounded-full",
-  userName: "overflow-hidden text-ellipsis whitespace-nowrap",
-  buttonBase:
-    "inline-flex min-h-[2.35rem] cursor-pointer appearance-none items-center justify-center gap-[0.4rem] rounded-full border border-[#e4e4e4] font-[inherit] leading-none transition-[background-color,border-color,color,opacity,transform] duration-150 hover:-translate-y-px hover:border-[var(--blog-accent-border)] hover:text-blog-accent-hover disabled:cursor-not-allowed disabled:opacity-[0.58] disabled:transform-none",
-  button: "px-[0.9rem] py-[0.62rem] max-md:w-full",
-  buttonPrimary: "border-[#ff7040] bg-[#ff7040] text-white hover:border-[#e85d2d] hover:bg-[#e85d2d] hover:text-white",
-  buttonSecondary: "bg-blog-surface text-blog-muted",
-  iconButton: "h-[2.35rem] w-[2.35rem] bg-blog-surface p-0 text-blog-muted",
-  statusText: "m-0 text-blog-faint",
-  statusBox: "m-0 rounded-lg border border-blog-border-muted bg-blog-surface-muted p-4 text-blog-faint",
-  statusError: "grid gap-[0.6rem]",
-  errorDetail: "m-0 text-[0.84rem] text-blog-accent-strong",
-  empty:
-    "flex items-center justify-between gap-[0.8rem] rounded-lg border border-blog-border-muted bg-blog-surface-muted p-4 text-blog-faint max-md:flex-col max-md:items-stretch",
-  form: "mb-4 rounded-lg border border-blog-border-muted bg-blog-surface-muted p-[0.8rem]",
-  textarea:
-    "block min-h-[5.5rem] w-full resize-y appearance-none rounded-[7px] border border-[#dedede] bg-blog-surface px-3 py-[0.65rem] font-[inherit] leading-[1.8] text-blog-heading transition-[border-color,box-shadow] focus:border-[#ff9a73] focus:outline-none focus:shadow-[0_0_0_3px_rgb(255_122_69_/_0.12)]",
-  formFooter:
-    "mt-[0.65rem] flex items-center justify-between gap-[0.8rem] text-[0.82rem] text-blog-faint max-md:flex-col max-md:items-stretch",
-  loginPrompt: "flex items-center justify-between gap-[0.8rem] text-blog-muted max-md:flex-col max-md:items-stretch",
-  list: "grid gap-[0.85rem]",
-  comment:
-    "grid grid-cols-[2.35rem_minmax(0,1fr)] gap-3 rounded-lg border border-blog-border-muted p-[0.85rem] max-md:grid-cols-[2rem_minmax(0,1fr)] max-md:p-3",
-  commentAvatarImg: "block h-[2.35rem] w-[2.35rem] rounded-full max-md:h-8 max-md:w-8",
-  commentMain: "min-w-0",
-  meta: "mb-[0.35rem] flex flex-wrap items-center gap-x-[0.65rem] gap-y-[0.35rem] text-[0.78rem] leading-[1.6]",
-  metaUser: "font-semibold text-blog-heading hover:text-blog-accent-hover",
-  metaTime: "text-blog-faint hover:text-blog-accent-hover",
-  commentActions: "ml-auto flex flex-wrap items-center gap-1 max-md:ml-0 max-md:w-full",
-  action:
-    "inline-flex cursor-pointer appearance-none items-center gap-1 rounded-full bg-transparent px-[0.45rem] py-[0.28rem] font-[inherit] leading-none text-blog-faint transition-[background-color,opacity,color] hover:bg-blog-accent-soft hover:text-blog-accent-hover disabled:cursor-not-allowed disabled:opacity-[0.55]",
-  actionDanger: "hover:bg-[#fff0ed] hover:text-[#c83f1f]",
-  body: "github-comment-body text-blog-text",
-  edit: "grid gap-[0.65rem]",
-  editTextarea:
-    "block min-h-20 w-full resize-y appearance-none rounded-[7px] border border-[#dedede] bg-blog-surface px-3 py-[0.6rem] font-[inherit] leading-[1.8] text-blog-heading transition-[border-color,box-shadow] focus:border-[#ff9a73] focus:outline-none focus:shadow-[0_0_0_3px_rgb(255_122_69_/_0.12)]",
-  editActions: "flex flex-wrap items-center justify-end gap-2 max-md:flex-col max-md:items-stretch",
-  emptyLine: "m-0 text-blog-faint",
-  loadMore: "mx-auto mt-4 px-[0.9rem] py-[0.6rem] max-md:w-full"
-};
-
-const COMMENT_BODY_STYLES = `
-.github-comment-body {
-  line-height: 1.85;
-  overflow-wrap: anywhere;
-}
-
-.github-comment-body p,
-.github-comment-body ul,
-.github-comment-body ol,
-.github-comment-body blockquote,
-.github-comment-body pre,
-.github-comment-body table {
-  margin: 0.55rem 0 0;
-}
-
-.github-comment-body p:first-child,
-.github-comment-body ul:first-child,
-.github-comment-body ol:first-child,
-.github-comment-body blockquote:first-child,
-.github-comment-body pre:first-child,
-.github-comment-body table:first-child {
-  margin-top: 0;
-}
-
-.github-comment-body > *:last-child {
-  margin-bottom: 0;
-}
-
-.github-comment-body blockquote {
-  background: var(--blog-bg);
-  border-left: 3px solid var(--blog-border);
-  border-radius: 0 7px 7px 0;
-  color: var(--blog-muted);
-  padding: 0.55rem 0.75rem;
-}
-
-.github-comment-body blockquote p + p {
-  margin-top: 0.45rem;
-}
-
-.github-comment-body ul,
-.github-comment-body ol {
-  padding-left: 1.25rem;
-}
-
-.github-comment-body li + li {
-  margin-top: 0.25rem;
-}
-
-.github-comment-body a {
-  border-bottom: 1px solid var(--blog-faint);
-}
-
-.github-comment-body a:hover {
-  border-bottom-color: var(--blog-accent);
-  color: var(--blog-accent);
-}
-
-.github-comment-body pre {
-  background: var(--blog-bg);
-  border-radius: 7px;
-  max-width: 100%;
-  overflow-x: auto;
-  padding: 0.75rem;
-}
-
-.github-comment-body code {
-  background: var(--blog-code-inline-bg);
-  border-radius: 4px;
-  padding: 0.06rem 0.24rem;
-}
-
-.github-comment-body pre code {
-  background: transparent;
-  padding: 0;
-}
-
-.github-comment-body img {
-  border-radius: 7px;
-  display: block;
-  height: auto;
-  max-width: 100%;
-}
-
-.github-comment-body table {
-  border-collapse: collapse;
-  display: block;
-  max-width: 100%;
-  overflow-x: auto;
-}
-
-.github-comment-body th,
-.github-comment-body td {
-  border: 1px solid var(--blog-border);
-  padding: 0.35rem 0.55rem;
-}
-`;
-
 function commentButton(variant: "primary" | "secondary") {
-  return clsx(COMMENT_CLASS.buttonBase, COMMENT_CLASS.button, variant === "primary" ? COMMENT_CLASS.buttonPrimary : COMMENT_CLASS.buttonSecondary);
+  return clsx(styles.buttonBase, styles.button, variant === "primary" ? styles.buttonPrimary : styles.buttonSecondary);
 }
 
 export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
@@ -572,28 +425,27 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
   };
 
   return (
-    <div ref={containerRef} className={COMMENT_CLASS.root}>
-      <style>{COMMENT_BODY_STYLES}</style>
-      <div className={COMMENT_CLASS.header}>
-        <div className={COMMENT_CLASS.titleGroup}>
-          <p className={COMMENT_CLASS.title}>{copy.comments(issue?.comments ?? comments.length)}</p>
+    <div ref={containerRef} className={styles.root}>
+      <div className={styles.header}>
+        <div className={styles.titleGroup}>
+          <p className={styles.title}>{copy.comments(issue?.comments ?? comments.length)}</p>
           {issue ? (
-            <a className={COMMENT_CLASS.issue} href={issue.html_url} target="_blank" rel="noreferrer">
+            <a className={styles.issue} href={issue.html_url} target="_blank" rel="noreferrer">
               {copy.issueLink(issue.number)}
             </a>
           ) : null}
         </div>
-        <div className={COMMENT_CLASS.actions}>
+        <div className={styles.actions}>
           {user ? (
             <>
-              <a className={COMMENT_CLASS.user} href={user.html_url} target="_blank" rel="noreferrer">
-                <img className={COMMENT_CLASS.userAvatar} src={user.avatar_url} alt="" />
-                <span className={COMMENT_CLASS.userName}>{user.login}</span>
+              <a className={styles.user} href={user.html_url} target="_blank" rel="noreferrer">
+                <img className={styles.userAvatar} src={user.avatar_url} alt="" />
+                <span className={styles.userName}>{user.login}</span>
               </a>
-              <IconButton icon="log-out" label={copy.logout} className={clsx(COMMENT_CLASS.buttonBase, COMMENT_CLASS.iconButton)} onClick={logout} />
+              <IconButton icon="log-out" label={copy.logout} className={clsx(styles.buttonBase, styles.iconButton)} onClick={logout} />
             </>
           ) : (
-            <button type="button" className={commentButton("secondary")} onClick={login}>
+            <button type="button" className={commentButton("secondary")} onClick={() => login()}>
               <Icon name="github" />
               <span>{copy.login}</span>
             </button>
@@ -601,12 +453,12 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
         </div>
       </div>
 
-      {status === "loading" || status === "idle" ? <p className={COMMENT_CLASS.statusText}>{copy.loading}</p> : null}
+      {status === "loading" || status === "idle" ? <p className={styles.statusText}>{copy.loading}</p> : null}
 
       {status === "error" ? (
-        <div className={clsx(COMMENT_CLASS.statusBox, COMMENT_CLASS.statusError)}>
+        <div className={clsx(styles.statusBox, styles.statusError)}>
           <p>{copy.error}</p>
-          {error ? <p className={COMMENT_CLASS.errorDetail}>{error}</p> : null}
+          {error ? <p className={styles.errorDetail}>{error}</p> : null}
           <button type="button" className={commentButton("secondary")} onClick={refresh}>
             <Icon name="refresh" />
             <span>{copy.retry}</span>
@@ -615,7 +467,7 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
       ) : null}
 
       {status === "ready" && !issue ? (
-        <div className={COMMENT_CLASS.empty}>
+        <div className={styles.empty}>
           <p>{copy.adminOnly}</p>
           {isAdmin ? (
             <button type="button" className={commentButton("primary")} onClick={initializeIssue} disabled={initializing}>
@@ -623,7 +475,7 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
               <span>{initializing ? copy.loading : copy.initIssue}</span>
             </button>
           ) : user ? null : (
-            <button type="button" className={commentButton("primary")} onClick={login}>
+            <button type="button" className={commentButton("primary")} onClick={() => login()}>
               <Icon name="log-in" />
               <span>{copy.login}</span>
             </button>
@@ -633,11 +485,18 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
 
       {status === "ready" && issue ? (
         <>
-          <div className={COMMENT_CLASS.form}>
+          <div className={styles.form}>
             {user ? (
               <>
-                <textarea className={COMMENT_CLASS.textarea} ref={textareaRef} value={draft} onChange={(event) => updateDraft(event.target.value)} placeholder={copy.placeholder} rows={4} />
-                <div className={COMMENT_CLASS.formFooter}>
+                <textarea
+                  className={styles.textarea}
+                  ref={textareaRef}
+                  value={draft}
+                  onChange={(event) => updateDraft(event.target.value)}
+                  placeholder={copy.placeholder}
+                  rows={4}
+                />
+                <div className={styles.formFooter}>
                   <span>{copy.markdown}</span>
                   <button type="button" className={commentButton("primary")} onClick={submitComment} disabled={!draft.trim() || submitting}>
                     <Icon name="send" />
@@ -646,9 +505,9 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
                 </div>
               </>
             ) : (
-              <div className={COMMENT_CLASS.loginPrompt}>
+              <div className={styles.loginPrompt}>
                 <span>{copy.loginToComment}</span>
-                <button type="button" className={commentButton("primary")} onClick={login}>
+                <button type="button" className={commentButton("primary")} onClick={() => login()}>
                   <Icon name="github" />
                   <span>{copy.login}</span>
                 </button>
@@ -656,9 +515,9 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
             )}
           </div>
 
-          {error ? <p className={clsx(COMMENT_CLASS.statusText, COMMENT_CLASS.errorDetail)}>{error}</p> : null}
+          {error ? <p className={clsx(styles.statusText, styles.errorDetail)}>{error}</p> : null}
 
-          <div className={COMMENT_CLASS.list}>
+          <div className={styles.list}>
             {comments.length ? (
               comments.map((comment) => {
                 const canEdit = user?.login === comment.user.login;
@@ -668,31 +527,36 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
                 const isDeleting = deletingCommentId === comment.id;
 
                 return (
-                  <article className={COMMENT_CLASS.comment} key={comment.id}>
+                  <article className={styles.comment} key={comment.id}>
                     <a href={comment.user.html_url} target="_blank" rel="noreferrer">
-                      <img className={COMMENT_CLASS.commentAvatarImg} src={comment.user.avatar_url} alt="" loading="lazy" />
+                      <img className={styles.commentAvatarImg} src={comment.user.avatar_url} alt="" loading="lazy" />
                     </a>
-                    <div className={COMMENT_CLASS.commentMain}>
-                      <div className={COMMENT_CLASS.meta}>
-                        <a className={COMMENT_CLASS.metaUser} href={comment.user.html_url} target="_blank" rel="noreferrer">
+                    <div className={styles.commentMain}>
+                      <div className={styles.meta}>
+                        <a className={styles.metaUser} href={comment.user.html_url} target="_blank" rel="noreferrer">
                           {comment.user.login}
                         </a>
-                        <a className={COMMENT_CLASS.metaTime} href={comment.html_url} target="_blank" rel="noreferrer">
+                        <a className={styles.metaTime} href={comment.html_url} target="_blank" rel="noreferrer">
                           {dateFormatter.format(new Date(comment.created_at))}
                         </a>
-                        <div className={COMMENT_CLASS.commentActions}>
-                          <button type="button" className={COMMENT_CLASS.action} onClick={() => replyTo(comment)}>
+                        <div className={styles.commentActions}>
+                          <button type="button" className={styles.action} onClick={() => replyTo(comment)}>
                             <Icon name="reply" />
                             <span>{copy.reply}</span>
                           </button>
                           {canEdit ? (
-                            <button type="button" className={COMMENT_CLASS.action} onClick={() => startEdit(comment)} disabled={isDeleting}>
+                            <button type="button" className={styles.action} onClick={() => startEdit(comment)} disabled={isDeleting}>
                               <Icon name="edit" />
                               <span>{copy.edit}</span>
                             </button>
                           ) : null}
                           {canDelete ? (
-                            <button type="button" className={clsx(COMMENT_CLASS.action, COMMENT_CLASS.actionDanger)} onClick={() => void deleteComment(comment)} disabled={isDeleting || isUpdating}>
+                            <button
+                              type="button"
+                              className={clsx(styles.action, styles.actionDanger)}
+                              onClick={() => void deleteComment(comment)}
+                              disabled={isDeleting || isUpdating}
+                            >
                               <Icon name="trash" />
                               <span>{isDeleting ? copy.loading : copy.delete}</span>
                             </button>
@@ -701,32 +565,37 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
                       </div>
 
                       {isEditing ? (
-                        <div className={COMMENT_CLASS.edit}>
-                          <textarea className={COMMENT_CLASS.editTextarea} value={editDraft} onChange={(event) => setEditDraft(event.target.value)} rows={4} />
-                          <div className={COMMENT_CLASS.editActions}>
+                        <div className={styles.edit}>
+                          <textarea className={styles.editTextarea} value={editDraft} onChange={(event) => setEditDraft(event.target.value)} rows={4} />
+                          <div className={styles.editActions}>
                             <button type="button" className={commentButton("secondary")} onClick={cancelEdit} disabled={isUpdating}>
                               <span>{copy.cancel}</span>
                             </button>
-                            <button type="button" className={commentButton("primary")} onClick={() => void saveEdit(comment)} disabled={!editDraft.trim() || isUpdating}>
+                            <button
+                              type="button"
+                              className={commentButton("primary")}
+                              onClick={() => void saveEdit(comment)}
+                              disabled={!editDraft.trim() || isUpdating}
+                            >
                               <Icon name="send" />
                               <span>{isUpdating ? copy.loading : copy.save}</span>
                             </button>
                           </div>
                         </div>
                       ) : (
-                        <div className={COMMENT_CLASS.body} dangerouslySetInnerHTML={{ __html: comment.body_html ?? escapeHtml(comment.body) }} />
+                        <div className={styles.body} dangerouslySetInnerHTML={{ __html: comment.body_html ?? escapeHtml(comment.body) }} />
                       )}
                     </div>
                   </article>
                 );
               })
             ) : (
-              <p className={COMMENT_CLASS.emptyLine}>{copy.first}</p>
+              <p className={styles.emptyLine}>{copy.first}</p>
             )}
           </div>
 
           {hasMore ? (
-            <button type="button" className={clsx(COMMENT_CLASS.buttonBase, COMMENT_CLASS.buttonSecondary, COMMENT_CLASS.loadMore)} onClick={loadMore} disabled={loadingMore}>
+            <button type="button" className={clsx(styles.buttonBase, styles.buttonSecondary, styles.loadMore)} onClick={loadMore} disabled={loadingMore}>
               <Icon name="refresh" />
               <span>{loadingMore ? copy.loading : copy.loadMore}</span>
             </button>

@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import type { UiLabels } from "../types/content";
 import { Icon, type IconName } from "./Icon";
+import styles from "./ThemeToggle.module.css";
 
 type ThemeMode = "system" | "light" | "dark";
 
@@ -52,18 +53,18 @@ export function ThemeToggle({ labels }: ThemeToggleProps) {
   };
 
   return (
-    <div className="theme-toggle" aria-label={labels.themeLabel}>
+    <div className={styles.root} aria-label={labels.themeLabel}>
       {MODES.map((item) => (
         <button
           key={item.value}
           type="button"
-          className={clsx(item.value === mode && "is-active")}
+          className={clsx(styles.button, item.value === mode && styles.active)}
           aria-pressed={item.value === mode}
           title={labels[item.labelKey]}
           onClick={() => selectTheme(item.value)}
         >
           <Icon name={item.icon} />
-          <span>{labels[item.labelKey]}</span>
+          <span className={styles.label}>{labels[item.labelKey]}</span>
         </button>
       ))}
     </div>
@@ -75,7 +76,7 @@ function readSavedTheme(): ThemeMode {
   try {
     value = window.localStorage.getItem(STORAGE_KEY);
   } catch {
-    value = null;
+    // Ignore storage access failures and fall back to system theme.
   }
   if (value === "light" || value === "dark" || value === "system") return value;
   return "system";
@@ -86,9 +87,7 @@ function applyTheme(mode: ThemeMode) {
   document.documentElement.classList.toggle("dark-mode", dark);
   document.documentElement.classList.toggle("light-mode", !dark);
   document.documentElement.dataset.themePreference = mode;
-  document
-    .querySelector('meta[name="theme-color"]')
-    ?.setAttribute("content", readThemeColor(dark ? THEME_COLOR_DARK : THEME_COLOR_LIGHT));
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", readThemeColor(dark ? THEME_COLOR_DARK : THEME_COLOR_LIGHT));
   window.dispatchEvent(new CustomEvent("asutorufa-theme-change", { detail: { mode, dark } }));
 }
 

@@ -9,6 +9,9 @@ These instructions apply to the entire repository.
 - Keep changes focused on the requested behavior and preserve unrelated user edits.
 - Prefer `rg` and `rg --files` for searching.
 - Use `npm run build` as the main verification command for the React blog.
+- For frontend changes, run `npm run lint && npx tsc --noEmit && npx prettier --check .` from the web project directory when verification is requested.
+- To automatically fix linting and formatting issues, run `npm run lint:fix && npx prettier --write .`.
+- ESLint checks code quality and patterns, TypeScript verifies type safety, and Prettier checks consistent formatting.
 - Do not run destructive Git commands such as `git reset --hard` or `git checkout --` unless explicitly requested.
 - Use ASCII for code and generated docs unless a file already uses non-ASCII content or the content requires it.
 

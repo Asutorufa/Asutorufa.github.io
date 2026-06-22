@@ -1,6 +1,7 @@
 import type { AppProps } from "../app/app-types";
 import { Pagination } from "../components/Pagination";
 import { UI_LABELS } from "../data/i18n";
+import styles from "./ArchivePage.module.css";
 
 type ArchivePageProps = AppProps & {
   year?: string;
@@ -25,18 +26,18 @@ export function ArchivePage({ content, route, year, month, page = 1 }: ArchivePa
           <h1 className="text-[1.7em] font-normal text-blog-heading">{title}</h1>
         </header>
 
-        <div className="archive-timeline">
+        <div className={styles.timeline}>
           {!prefix && page === 1 ? (
-            <p className="archive-summary">
+            <p className={styles.summary}>
               Nice! {content.posts.length} {labels.posts} in total. Keep on posting.
             </p>
           ) : null}
 
           {groups.map((group) => (
-            <section key={group.year} className="archive-year">
+            <section key={group.year} className={styles.year}>
               <h2>{group.year}</h2>
               {group.posts.map((post) => (
-                <article key={post.abbrlink} className="archive-entry">
+                <article key={post.abbrlink} className={styles.entry}>
                   <time>{formatArchiveDate(post.date)}</time>
                   <a href={post.route}>{post.title}</a>
                 </article>

@@ -1,0 +1,60 @@
+.root {
+  background: var(--blog-bg);
+  border: 1px solid var(--blog-border);
+  border-radius: 999px;
+  display: grid;
+  gap: 2px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 2px;
+}
+
+.button {
+  align-items: center;
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  color: var(--blog-muted);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 12px;
+  gap: 0.25rem;
+  justify-content: center;
+  line-height: 1.7;
+  min-width: 0;
+  padding: 0.12rem 0.35rem;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.button:hover {
+  background: var(--blog-accent-soft);
+  color: var(--blog-accent-hover);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.active {
+  background: #ffe2d4;
+  color: #b94720;
+}
+
+.label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:global(html.dark-mode) .root {
+  background: #202020;
+  border-color: var(--blog-border-soft);
+}
+
+:global(html.dark-mode) .active {
+  background: #5a372b;
+  color: #ffe4d8;
+}

@@ -17,13 +17,7 @@ const config: BlogConfig = {
   perPage: 10
 };
 
-const pagePatterns = [
-  "source/about/index.md",
-  "source/email/index.md",
-  "source/friends/index.md",
-  "source/resume/index.md",
-  "source/schedule/index.md"
-];
+const pagePatterns = ["source/about/index.md", "source/email/index.md", "source/friends/index.md", "source/resume/index.md", "source/schedule/index.md"];
 
 export async function collectContent(): Promise<ContentManifest> {
   const languageFallbacks: Array<{ sourcePath: string; rawLanguage: string }> = [];
@@ -107,7 +101,12 @@ function collectTaxonomyDisplayNames(posts: Post[], key: "tags" | "categories") 
     for (const name of post[key]) {
       const normalized = normalizeTaxonomyName(name);
       if (!normalized) continue;
-      namesByKey.get(normalized)?.push(name) ?? namesByKey.set(normalized, [name]);
+      const names = namesByKey.get(normalized);
+      if (names) {
+        names.push(name);
+      } else {
+        namesByKey.set(normalized, [name]);
+      }
     }
   }
 

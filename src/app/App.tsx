@@ -106,7 +106,8 @@ export function App(props: AppProps) {
       const nextContent = mergePagePayload(contentRef.current, payload);
 
       const nextUrl = `${url.pathname}${url.search}${url.hash}`;
-      const restorePosition = ENABLE_ROUTE_SCROLL_RESTORE && options.restoreState ? scrollPositionForRoute(payload.route.route, options.restoreState) : { scrollX: 0, scrollY: 0 };
+      const restorePosition =
+        ENABLE_ROUTE_SCROLL_RESTORE && options.restoreState ? scrollPositionForRoute(payload.route.route, options.restoreState) : { scrollX: 0, scrollY: 0 };
       const previousState = historyState(options.restoreState);
       const nextState = {
         ...previousState,

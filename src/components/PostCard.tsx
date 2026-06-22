@@ -1,7 +1,9 @@
 import type { Post } from "../types/content";
 import { UI_LABELS } from "../data/i18n";
+import clsx from "clsx";
 import { ArticleMarkdown } from "./ArticleMarkdown";
 import { PostMeta } from "./PostMeta";
+import styles from "./PostCard.module.css";
 
 type PostCardProps = {
   post: Post;
@@ -18,7 +20,9 @@ export function PostCard({ post }: PostCardProps) {
     >
       <header className="text-center">
         <h2 className="text-[1.7em] font-normal leading-normal text-blog-heading">
-          <a className="post-card-title-link transition-colors" href={post.route}>{post.title}</a>
+          <a className={`${styles.titleLink} transition-colors`} href={post.route}>
+            {post.title}
+          </a>
         </h2>
         <PostMeta post={post} />
       </header>
@@ -28,9 +32,9 @@ export function PostCard({ post }: PostCardProps) {
         </div>
       ) : null}
       <div className="mt-8 text-center md:mt-10">
-        <a className="read-more-button" href={post.moreAnchor ? `${post.route}#${post.moreAnchor}` : post.route}>
+        <a className={clsx(styles.readMore, "read-more-button")} href={post.moreAnchor ? `${post.route}#${post.moreAnchor}` : post.route}>
           <span>{labels.readMore}</span>
-          <span className="read-more-button-icon" aria-hidden="true">
+          <span className={styles.readMoreIcon} aria-hidden="true">
             »
           </span>
         </a>

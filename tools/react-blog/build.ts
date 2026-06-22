@@ -1,5 +1,7 @@
 import fs from "node:fs/promises";
 import { spawn } from "node:child_process";
+import { createServer, type ViteDevServer } from "vite";
+import type { AppProps } from "../../src/app/app-types";
 import { buildRoutes } from "./build-routes";
 import { collectContent } from "./collect-content";
 import { copyStaticAssets } from "./copy-static";
@@ -9,12 +11,22 @@ import { generateSitemap } from "./generate-sitemap";
 import { renderHtml } from "./render-html";
 import { distDir } from "./paths";
 
+type RenderPageModule = {
+  renderPage: (props: AppProps) => string;
+};
+
 async function build() {
   await cleanDist();
   const content = await collectContent();
   const routes = buildRoutes(content);
   await buildClientAssets();
-  await renderHtml(content, routes);
+  const ssrServer = await createSsrServer();
+  try {
+    const { renderPage } = (await ssrServer.ssrLoadModule("/src/app/render-page.tsx")) as RenderPageModule;
+    await renderHtml(content, routes, renderPage);
+  } finally {
+    await ssrServer.close();
+  }
   await generateFeed(content);
   await generateSitemap(content, routes);
   await generateSearch(content);
@@ -29,6 +41,16 @@ async function cleanDist() {
 
 async function buildClientAssets() {
   await run("npx", ["vite", "build"]);
+}
+
+async function createSsrServer(): Promise<ViteDevServer> {
+  return createServer({
+    appType: "custom",
+    logLevel: "error",
+    server: {
+      middlewareMode: true
+    }
+  });
 }
 
 async function run(command: string, args: string[]) {
