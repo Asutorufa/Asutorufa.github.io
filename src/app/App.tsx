@@ -29,8 +29,6 @@ type ScrollPosition = {
   anchorRoute?: string;
 };
 
-type RouteTransitionKind = "forward" | "back" | "post-open" | "post-close" | "post-swap";
-
 const pagePayloadCache = new Map<string, PagePayload | Promise<PagePayload>>();
 const scrollPositions = new Map<string, ScrollPosition>();
 const ENABLE_ROUTE_SCROLL_RESTORE = true;
@@ -136,27 +134,14 @@ export function App(props: AppProps) {
         window.dispatchEvent(new Event("asutorufa-route-change"));
       };
 
-      const transitionKind = routeTransitionKind(routeRef.current, payload.route, options.restoreState !== undefined);
-      if (shouldAnimateRouteChange(url, routeRef.current, payload.route)) {
-        const root = document.documentElement;
-        root.dataset.routeTransition = transitionKind;
-        const transition = document.startViewTransition(() => commitRouteChange(true));
-        void transition.finished.finally(() => {
-          if (root.dataset.routeTransition === transitionKind) {
-            delete root.dataset.routeTransition;
-          }
+      commitRouteChange();
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          suppressScrollSaveUntil = performance.now() + 900;
+          restoreRoutePosition(restorePosition, url.hash, options.transitionOriginY);
           rememberScrollPosition(payload.route.route);
         });
-      } else {
-        commitRouteChange();
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            suppressScrollSaveUntil = performance.now() + 350;
-            restoreRoutePosition(restorePosition, url.hash, options.transitionOriginY);
-            rememberScrollPosition(payload.route.route);
-          });
-        });
-      }
+      });
     };
 
     const onClick = (event: MouseEvent) => {
@@ -330,21 +315,6 @@ function sameDocumentHash(url: URL) {
   return url.pathname === window.location.pathname && url.search === window.location.search;
 }
 
-function shouldAnimateRouteChange(url: URL, currentRoute: RouteEntry, nextRoute: RouteEntry) {
-  if (url.hash && currentRoute.route === nextRoute.route) return false;
-  if (typeof document.startViewTransition !== "function") return false;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
-  return currentRoute.route !== nextRoute.route;
-}
-
-function routeTransitionKind(currentRoute: RouteEntry, nextRoute: RouteEntry, isHistoryNavigation: boolean): RouteTransitionKind {
-  if (currentRoute.kind === "post" && nextRoute.kind === "post") return "post-swap";
-  if (nextRoute.kind === "post") return "post-open";
-  if (currentRoute.kind === "post") return "post-close";
-  if (isHistoryNavigation) return "back";
-  return "forward";
-}
-
 function normalizeRoutePath(pathname: string) {
   let value = decodeURI(pathname);
   if (value.endsWith("/index.html")) {
@@ -443,7 +413,24 @@ function restoreRoutePosition(position: ScrollPosition, hash?: string, transitio
   if (hash && restoreHashPosition(hash, transitionOriginY)) {
     return;
   }
+  if (hash) {
+    restoreHashPositionWhenReady(hash, transitionOriginY, () => restoreScrollPosition(position));
+    return;
+  }
   restoreScrollPosition(position);
+}
+
+function restoreHashPositionWhenReady(hash: string, transitionOriginY: number | undefined, fallback: () => void) {
+  const start = performance.now();
+  const retry = () => {
+    if (restoreHashPosition(hash, transitionOriginY)) return;
+    if (performance.now() - start > 900) {
+      fallback();
+      return;
+    }
+    requestAnimationFrame(retry);
+  };
+  requestAnimationFrame(retry);
 }
 
 function restoreHashPosition(hash: string, transitionOriginY?: number) {
@@ -457,7 +444,10 @@ function restoreHashPosition(hash: string, transitionOriginY?: number) {
       scrollY: window.scrollY + anchor.getBoundingClientRect().top - targetTop
     });
   } else {
-    anchor.scrollIntoView();
+    instantScrollTo({
+      scrollX: 0,
+      scrollY: window.scrollY + anchor.getBoundingClientRect().top
+    });
   }
   return true;
 }

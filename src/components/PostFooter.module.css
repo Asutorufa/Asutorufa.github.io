@@ -76,12 +76,13 @@
   min-height: 4rem;
   min-width: 0;
   padding: 0.75rem 0.85rem;
+  --adjacent-hover-bg: #fff8f4;
+  --adjacent-icon-hover-bg: #ffe8dc;
   transition:
     background-color 0.16s ease,
     border-color 0.16s ease,
     box-shadow 0.16s ease,
-    color 0.16s ease,
-    transform 0.16s ease;
+    color 0.16s ease;
 }
 
 .adjacentNext {
@@ -127,21 +128,28 @@
 }
 
 .adjacentLink:hover {
-  background: var(--blog-accent-soft);
+  background: var(--adjacent-hover-bg);
   border-color: var(--blog-accent-border);
   box-shadow: 0 10px 22px rgb(0 0 0 / 0.08);
-  color: var(--blog-accent);
-  transform: translateY(-1px);
+  color: var(--blog-heading);
+}
+
+.adjacentLink:hover .adjacentTitle {
+  color: var(--blog-accent-hover);
 }
 
 .adjacentLink:hover .adjacentIcon {
-  background: var(--blog-accent-softer);
+  background: var(--adjacent-icon-hover-bg);
   color: var(--blog-accent);
 }
 
 .adjacentLink:active {
   box-shadow: none;
-  transform: translateY(0);
+}
+
+:global(html.dark-mode) .adjacentLink {
+  --adjacent-hover-bg: #302a27;
+  --adjacent-icon-hover-bg: #3b2d28;
 }
 
 @media (max-width: 640px) {

@@ -43,7 +43,7 @@ function parseMatterBlock(matter: string) {
     const items: unknown[] = [];
     let cursor = index + 1;
     while (cursor < lines.length) {
-      const item = /^\s+-\s*(.*)$/.exec(lines[cursor]);
+      const item = /^\s*-\s*(.*)$/.exec(lines[cursor]);
       if (!item) break;
       items.push(parseScalar(item[1]));
       cursor += 1;

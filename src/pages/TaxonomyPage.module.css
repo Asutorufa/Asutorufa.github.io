@@ -86,14 +86,11 @@
   font-size: 16px;
   font-weight: 400;
   line-height: inherit;
-  transition:
-    color 0.15s ease,
-    transform 0.15s ease;
+  transition: color 0.15s ease;
 }
 
 .entry a:hover {
   color: var(--blog-accent);
-  transform: translateX(3px);
 }
 
 .tagCloud {
@@ -119,14 +116,12 @@
   margin: 10px;
   transition:
     border-color 0.15s ease,
-    color 0.15s ease,
-    transform 0.15s ease;
+    color 0.15s ease;
 }
 
 .tagCloudTags a:hover {
   border-bottom-color: var(--blog-accent);
   color: var(--blog-accent) !important;
-  transform: translateY(-1px);
 }
 
 .categoryAll {
@@ -146,6 +141,7 @@
 
 .categoryLink {
   border-bottom: 1px solid var(--blog-faint);
+  display: inline-block;
   transition:
     border-color 0.15s ease,
     color 0.15s ease;

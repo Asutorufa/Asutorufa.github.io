@@ -1,96 +1,109 @@
-.button {
-  appearance: none;
+.root {
+  --scroll-button-bg: rgb(255 255 255 / 0.92);
+  --scroll-progress-color: var(--blog-accent);
+
   align-items: center;
-  backdrop-filter: blur(12px);
-  background:
-    linear-gradient(rgb(255 255 255 / 0.86), rgb(255 255 255 / 0.86)) padding-box,
-    linear-gradient(135deg, var(--blog-accent-ring), #ff8558) border-box;
-  border: 1px solid transparent;
-  border-radius: 999px;
   bottom: 1.25rem;
-  box-shadow: 0 12px 28px rgb(0 0 0 / 0.12);
-  color: var(--blog-text);
-  cursor: pointer;
   display: inline-flex;
-  font: inherit;
-  font-size: 12px;
-  font-weight: 500;
-  gap: 0.45rem;
-  line-height: 1;
+  flex-direction: row-reverse;
+  gap: 0.35rem;
   opacity: 0;
-  padding: 0.38rem 0.55rem 0.38rem 0.38rem;
   pointer-events: none;
   position: fixed;
   right: max(1rem, calc((100vw - 1680px) / 2 + 1rem));
-  transform: translateY(8px) scale(0.96);
-  transition:
-    background 0.18s ease,
-    box-shadow 0.18s ease,
-    color 0.15s ease,
-    opacity 0.18s ease,
-    transform 0.18s ease;
   z-index: 40;
 }
 
 .visible {
-  opacity: 1;
   pointer-events: auto;
-  transform: translateY(0) scale(1);
 }
 
-.button:hover {
+.button {
+  appearance: none;
+  align-items: center;
+  backdrop-filter: blur(12px);
+  background: var(--scroll-button-bg);
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  box-shadow: 0 12px 28px rgb(0 0 0 / 0.12);
+  color: var(--blog-text);
+  cursor: pointer;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 0.3rem;
+  height: 2.25rem;
+  justify-content: center;
+  line-height: 1;
+  overflow: hidden;
+  transition:
+    background 0.18s ease,
+    box-shadow 0.18s ease,
+    color 0.15s ease;
+}
+
+.progressButton {
   background:
-    linear-gradient(135deg, #ff7abf, #ff6b35) padding-box,
-    linear-gradient(135deg, #ff7abf, #ff6b35) border-box;
+    linear-gradient(var(--scroll-button-bg), var(--scroll-button-bg)) padding-box,
+    conic-gradient(from -90deg, var(--scroll-progress-color) var(--scroll-progress, 0%), transparent 0) border-box;
+  padding: 0 0.62rem 0 0.52rem;
+}
+
+.commentButton {
+  padding: 0;
+  width: 2.25rem;
+}
+
+.root:hover .button,
+.expanded .button,
+.button:focus-visible {
+  --scroll-button-bg: rgb(255 91 37 / 0.92);
+  --scroll-progress-color: #fff;
+
   box-shadow: 0 16px 32px rgb(255 91 37 / 0.2);
   color: #fff;
-  transform: translateY(-2px) scale(1);
 }
 
 .button:active {
   box-shadow: 0 8px 18px rgb(0 0 0 / 0.14);
-  transform: translateY(0) scale(0.98);
+}
+
+.button:focus-visible {
+  outline: none;
 }
 
 .icon {
   align-items: center;
-  background: rgb(255 91 37 / 0.1);
-  border-radius: 999px;
   display: inline-flex;
-  height: 1.45rem;
+  height: 1.3rem;
   justify-content: center;
-  width: 1.45rem;
-}
-
-.button:hover .icon {
-  background: rgb(255 255 255 / 0.18);
+  width: 1.3rem;
 }
 
 .value {
-  min-width: 2.1em;
+  font-variant-numeric: tabular-nums;
+  min-width: 2.45em;
   text-align: left;
 }
 
+:global(html.dark-mode) .root {
+  --scroll-button-bg: rgb(40 40 40 / 0.92);
+  --scroll-progress-color: var(--blog-accent-line);
+}
+
 :global(html.dark-mode) .button {
-  background:
-    linear-gradient(rgb(40 40 40 / 0.88), rgb(40 40 40 / 0.88)) padding-box,
-    linear-gradient(135deg, #6f5265, #8a5a48) border-box;
   box-shadow: 0 14px 30px rgb(0 0 0 / 0.34);
   color: var(--blog-heading);
 }
 
-:global(html.dark-mode) .button:hover {
-  background:
-    linear-gradient(135deg, #8a4f72, #b66043) padding-box,
-    linear-gradient(135deg, #ff9bce, #ff8b5f) border-box;
+:global(html.dark-mode) .root:hover .button,
+:global(html.dark-mode) .expanded .button,
+:global(html.dark-mode) .button:focus-visible {
+  --scroll-button-bg: rgb(176 96 67 / 0.92);
+  --scroll-progress-color: #fff;
+
   box-shadow: 0 16px 34px rgb(0 0 0 / 0.42);
   color: #fff;
-}
-
-:global(html.dark-mode) .icon {
-  background: rgb(255 255 255 / 0.08);
-}
-
-:global(html.dark-mode) .button:hover .icon {
-  background: rgb(255 255 255 / 0.16);
 }

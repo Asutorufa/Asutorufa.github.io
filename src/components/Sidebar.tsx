@@ -1,5 +1,7 @@
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useId, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { MotionPresets } from "../animation/motion-presets";
 import type { ContentManifest, Post, TocItem, UiLabels } from "../types/content";
 import { menuItems } from "../data/menu";
 import { ThemeToggle } from "./ThemeToggle";
@@ -53,53 +55,108 @@ export function Sidebar({ content, labels, currentRoute, post, mobile = false }:
 
 function TocCard({ content, labels, toc, mobile }: { content: ContentManifest; labels: UiLabels; toc: TocItem[]; mobile: boolean }) {
   const [activeTab, setActiveTab] = useState<"toc" | "overview">("toc");
+  const [direction, setDirection] = useState(1);
+  const indicatorId = useId();
+  const prefersReducedMotion = useReducedMotion();
+  const activeTabIndex = activeTab === "toc" ? 0 : 1;
+
+  const selectTab = (nextTab: "toc" | "overview") => {
+    const nextIndex = nextTab === "toc" ? 0 : 1;
+    setDirection(nextIndex > activeTabIndex ? 1 : -1);
+    setActiveTab(nextTab);
+  };
 
   return (
     <section className={clsx("flex flex-col overflow-hidden rounded-2xl bg-blog-surface shadow-blog", !mobile && "sticky top-4 max-h-[calc(100vh-2rem)]")}>
-      <div className="flex justify-center gap-5 px-4 pt-5 text-[14px] font-normal">
-        <button
-          type="button"
-          className={clsx(
-            styles.tocTab,
-            "border-b-2 pb-2 transition-all active:translate-y-px",
-            activeTab === "toc"
-              ? "border-blog-accent text-blog-accent"
-              : clsx(styles.tocTabInactive, "border-transparent text-blog-text hover:text-blog-accent")
-          )}
-          onClick={() => setActiveTab("toc")}
-        >
-          {labels.postToc}
-        </button>
-        <button
-          type="button"
-          className={clsx(
-            styles.tocTab,
-            "border-b-2 pb-2 transition-all active:translate-y-px",
-            activeTab === "overview"
-              ? "border-blog-accent text-blog-accent"
-              : clsx(styles.tocTabInactive, "border-transparent text-blog-text hover:text-blog-accent")
-          )}
-          onClick={() => setActiveTab("overview")}
-        >
-          {labels.siteOverview}
-        </button>
+      <div className={styles.tocTabs}>
+        {[
+          ["toc", labels.postToc],
+          ["overview", labels.siteOverview]
+        ].map(([tab, label]) => {
+          const active = activeTab === tab;
+          return (
+            <motion.button
+              key={tab}
+              type="button"
+              className={clsx(styles.tocTab, active && styles.tocTabActive)}
+              onClick={() => selectTab(tab as "toc" | "overview")}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
+              transition={MotionPresets.fast}
+            >
+              {active ? (
+                <motion.span className={styles.tocTabIndicator} layoutId={`toc-tab-indicator-${indicatorId}`} transition={MotionPresets.spring} />
+              ) : null}
+              <span className={styles.tocTabLabel}>{label}</span>
+            </motion.button>
+          );
+        })}
       </div>
-      {activeTab === "toc" ? <TocList toc={toc} /> : <ProfileBody content={content} labels={labels} compact />}
+      <AnimatePresence initial={false} mode="wait" custom={direction}>
+        <motion.div
+          key={activeTab}
+          custom={prefersReducedMotion ? 0 : direction}
+          className="min-h-0 flex-1"
+          variants={tocPanelVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={MotionPresets.fast}
+        >
+          {activeTab === "toc" ? <TocList toc={toc} /> : <ProfileBody content={content} labels={labels} compact />}
+        </motion.div>
+      </AnimatePresence>
     </section>
   );
 }
 
+const tocPanelVariants = {
+  center: {
+    opacity: 1,
+    x: 0
+  },
+  enter: (direction: number) => ({
+    opacity: 0,
+    x: direction * 12
+  }),
+  exit: (direction: number) => ({
+    opacity: 0,
+    x: direction * -12
+  })
+};
+
 function TocList({ toc }: { toc: TocItem[] }) {
+  const [activeId, setActiveId] = useState(toc[0]?.id ?? "");
+
+  useEffect(() => {
+    const headings = toc.map((item) => document.getElementById(item.id)).filter((node): node is HTMLElement => Boolean(node));
+    if (headings.length === 0 || !("IntersectionObserver" in window)) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting).sort((left, right) => left.boundingClientRect.top - right.boundingClientRect.top)[0];
+        if (visible?.target.id) setActiveId(visible.target.id);
+      },
+      { rootMargin: "-15% 0px -70% 0px", threshold: 0.01 }
+    );
+
+    for (const heading of headings) observer.observe(heading);
+    return () => observer.disconnect();
+  }, [toc]);
+
   return (
     <nav className={clsx(styles.tocScroll, "min-h-0 flex-1 overflow-y-auto px-5 pb-5 pt-4")}>
       <ol className="space-y-2 text-[13px] font-normal leading-6 text-blog-text">
-        {toc.map((item) => (
-          <li key={item.id} className={clsx(item.level > 2 && "ml-3 text-[12px]")}>
-            <a className={styles.tocLink} href={`#${item.id}`}>
-              {item.text}
-            </a>
-          </li>
-        ))}
+        {toc.map((item) => {
+          const active = item.id === activeId;
+          return (
+            <li key={item.id} className={clsx(styles.tocItem, item.level > 2 && "ml-3 text-[12px]")}>
+              {active ? <motion.span layoutId="toc-indicator" className={styles.tocIndicator} transition={MotionPresets.fast} /> : null}
+              <a className={clsx(styles.tocLink, active && styles.tocLinkActive)} href={`#${item.id}`}>
+                {item.text}
+              </a>
+            </li>
+          );
+        })}
       </ol>
     </nav>
   );
@@ -114,11 +171,20 @@ function ProfileCard({ content, labels, sticky }: { content: ContentManifest; la
 }
 
 function ProfileBody({ content, labels, compact = false }: { content: ContentManifest; labels: UiLabels; compact?: boolean }) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <div className={clsx("text-center", compact ? "px-4 pb-5 pt-5" : "px-4 py-6")}>
-      <a className={clsx(styles.avatarLink, "mx-auto block h-28 w-28 rounded-full")} href="/about/" aria-label={labels.about}>
+      <motion.a
+        className={clsx(styles.avatarLink, "mx-auto block h-28 w-28 rounded-full")}
+        href="/about/"
+        aria-label={labels.about}
+        whileHover={prefersReducedMotion ? undefined : { y: -3, scale: 1.025 }}
+        whileTap={prefersReducedMotion ? undefined : { y: 0, scale: 0.96 }}
+        transition={MotionPresets.spring}
+      >
         <img src="/images/bighead.svg" alt="Asutorufa" className={clsx(styles.avatarImage, "h-28 w-28 rounded-full object-cover")} />
-      </a>
+      </motion.a>
       <div className="mt-6 grid grid-cols-3 divide-x divide-blog-border">
         <Stat href="/archives/" value={content.stats.posts} label={labels.posts} />
         <Stat href="/categories/" value={content.stats.categories} label={labels.categories.toLowerCase()} />

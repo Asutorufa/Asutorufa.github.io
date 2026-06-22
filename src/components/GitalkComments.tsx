@@ -285,7 +285,7 @@ export function GitalkComments({ id, language = "ja" }: GitalkCommentsProps) {
 
     textareaRef.current?.focus();
     window.requestAnimationFrame(() => {
-      textareaRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      textareaRef.current?.scrollIntoView({ block: "center" });
       textareaRef.current?.setSelectionRange(replyDraft.length, replyDraft.length);
     });
   };

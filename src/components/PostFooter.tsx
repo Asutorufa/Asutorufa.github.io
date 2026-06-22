@@ -1,4 +1,6 @@
 import clsx from "clsx";
+import { motion, useReducedMotion } from "motion/react";
+import { MotionPresets } from "../animation/motion-presets";
 import type { BlogConfig, Post, UiLabels } from "../types/content";
 import { Icon } from "./Icon";
 import styles from "./PostFooter.module.css";
@@ -12,8 +14,17 @@ type PostFooterProps = {
 };
 
 export function PostFooter({ config, labels, post, olderPost, newerPost }: PostFooterProps) {
+  const prefersReducedMotion = useReducedMotion();
   const permalink = new URL(post.route, config.url).toString();
   const adjacentClassName = clsx(styles.adjacentNav, olderPost && newerPost && styles.adjacentPaired);
+  const adjacentLinkVariants = prefersReducedMotion
+    ? undefined
+    : {
+        hover: { scale: 1.012, y: -3 },
+        tap: { scale: 0.985, y: 0 }
+      };
+  const previousIconVariants = prefersReducedMotion ? undefined : { hover: { x: -3 } };
+  const nextIconVariants = prefersReducedMotion ? undefined : { hover: { x: 3 } };
 
   return (
     <footer className="mt-10">
@@ -44,26 +55,42 @@ export function PostFooter({ config, labels, post, olderPost, newerPost }: PostF
 
       <nav className={adjacentClassName} aria-label="Post navigation">
         {olderPost ? (
-          <a className={styles.adjacentLink} href={olderPost.route} aria-label={`${labels.previous}: ${olderPost.title}`}>
-            <span className={styles.adjacentIcon} aria-hidden="true">
+          <motion.a
+            className={styles.adjacentLink}
+            href={olderPost.route}
+            aria-label={`${labels.previous}: ${olderPost.title}`}
+            variants={adjacentLinkVariants}
+            whileHover={prefersReducedMotion ? undefined : "hover"}
+            whileTap={prefersReducedMotion ? undefined : "tap"}
+            transition={MotionPresets.fast}
+          >
+            <motion.span className={styles.adjacentIcon} aria-hidden="true" variants={previousIconVariants} transition={MotionPresets.fast}>
               <Icon name="chevron-left" />
-            </span>
+            </motion.span>
             <span className={styles.adjacentCopy}>
               <span className={styles.adjacentLabel}>{labels.previous}</span>
               <span className={styles.adjacentTitle}>{olderPost.title}</span>
             </span>
-          </a>
+          </motion.a>
         ) : null}
         {newerPost ? (
-          <a className={clsx(styles.adjacentLink, styles.adjacentNext)} href={newerPost.route} aria-label={`${labels.next}: ${newerPost.title}`}>
+          <motion.a
+            className={clsx(styles.adjacentLink, styles.adjacentNext)}
+            href={newerPost.route}
+            aria-label={`${labels.next}: ${newerPost.title}`}
+            variants={adjacentLinkVariants}
+            whileHover={prefersReducedMotion ? undefined : "hover"}
+            whileTap={prefersReducedMotion ? undefined : "tap"}
+            transition={MotionPresets.fast}
+          >
             <span className={styles.adjacentCopy}>
               <span className={styles.adjacentLabel}>{labels.next}</span>
               <span className={styles.adjacentTitle}>{newerPost.title}</span>
             </span>
-            <span className={styles.adjacentIcon} aria-hidden="true">
+            <motion.span className={styles.adjacentIcon} aria-hidden="true" variants={nextIconVariants} transition={MotionPresets.fast}>
               <Icon name="chevron-right" />
-            </span>
-          </a>
+            </motion.span>
+          </motion.a>
         ) : null}
       </nav>
     </footer>

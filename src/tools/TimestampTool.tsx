@@ -1,7 +1,11 @@
 import clsx from "clsx";
 import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { MotionPresets } from "../animation/motion-presets";
 import { Icon } from "../components/Icon";
 import type { UiLabels } from "../types/content";
+import { formatLocalDateTime, parseLocalDateTime } from "./date-time";
+import { LocalDateTimePicker } from "./LocalDateTimePicker";
 import { OutputItem, toolLabels } from "./shared";
 import { TOOL_CLASS, toolButton } from "./toolStyles";
 
@@ -13,6 +17,7 @@ export function TimestampTool({ labels }: { labels: UiLabels }) {
   const [timestampMode, setTimestampMode] = useState<TimestampMode>("auto");
   const [dateInput, setDateInput] = useState("");
   const [error, setError] = useState("");
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const now = new Date();
@@ -33,20 +38,20 @@ export function TimestampTool({ labels }: { labels: UiLabels }) {
       setError(text.invalidTimestamp);
       return;
     }
-    setDateInput(formatLocalInput(result.date));
+    setDateInput(formatLocalDateTime(result.date));
     setError("");
   }
 
   function syncFromDate(date: Date) {
-    setDateInput(formatLocalInput(date));
+    setDateInput(formatLocalDateTime(date));
     setTimestampInput(String(Math.floor(date.getTime() / 1000)));
     setError("");
   }
 
   function handleDateInput(value: string) {
     setDateInput(value);
-    const nextDate = new Date(value);
-    if (!value || Number.isNaN(nextDate.getTime())) {
+    const nextDate = parseLocalDateTime(value);
+    if (!value || !nextDate) {
       setError(value ? text.invalidDate : "");
       return;
     }
@@ -81,39 +86,67 @@ export function TimestampTool({ labels }: { labels: UiLabels }) {
         <div className={TOOL_CLASS.field}>
           <span className={TOOL_CLASS.fieldLabel}>{text.unit}</span>
           <div className={TOOL_CLASS.segmented}>
-            {(["auto", "seconds", "milliseconds"] as const).map((mode) => (
-              <button
-                key={mode}
-                type="button"
-                className={clsx(TOOL_CLASS.segmentedButton, timestampMode === mode && TOOL_CLASS.segmentedButtonActive)}
-                onClick={() => handleMode(mode)}
-              >
-                {text[mode]}
-              </button>
-            ))}
+            {(["auto", "seconds", "milliseconds"] as const).map((mode) => {
+              const active = timestampMode === mode;
+              return (
+                <motion.button
+                  key={mode}
+                  type="button"
+                  className={clsx(TOOL_CLASS.segmentedButton, active && TOOL_CLASS.segmentedButtonActive)}
+                  onClick={() => handleMode(mode)}
+                  whileHover={prefersReducedMotion ? undefined : { y: -1 }}
+                  whileTap={prefersReducedMotion ? undefined : { scale: 0.97, y: 0 }}
+                  transition={MotionPresets.fast}
+                >
+                  {active ? (
+                    <motion.span className={TOOL_CLASS.segmentedIndicator} layoutId="timestamp-unit-indicator" transition={MotionPresets.spring} />
+                  ) : null}
+                  <span className={TOOL_CLASS.segmentedContent}>{text[mode]}</span>
+                </motion.button>
+              );
+            })}
           </div>
         </div>
 
         <label className={TOOL_CLASS.field}>
           <span className={TOOL_CLASS.fieldLabel}>{text.localTime}</span>
-          <input className={TOOL_CLASS.control} type="datetime-local" step="1" value={dateInput} onChange={(event) => handleDateInput(event.target.value)} />
+          <LocalDateTimePicker labels={text} locale={text.dateLocale} value={dateInput} onChange={handleDateInput} />
         </label>
 
         <div className={TOOL_CLASS.actions}>
-          <button type="button" className={toolButton("primary")} onClick={() => syncFromDate(new Date())}>
+          <motion.button
+            type="button"
+            className={toolButton("primary")}
+            onClick={() => syncFromDate(new Date())}
+            whileHover={prefersReducedMotion ? undefined : { y: -1, scale: 1.02 }}
+            whileTap={prefersReducedMotion ? undefined : { y: 0, scale: 0.96 }}
+            transition={MotionPresets.fast}
+          >
             {text.now}
-          </button>
+          </motion.button>
         </div>
       </div>
 
-      {error ? <p className={TOOL_CLASS.error}>{error}</p> : null}
+      <AnimatePresence initial={false}>
+        {error ? (
+          <motion.p
+            className={TOOL_CLASS.error}
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
+            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, height: "auto" }}
+            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
+            transition={MotionPresets.fast}
+          >
+            {error}
+          </motion.p>
+        ) : null}
+      </AnimatePresence>
 
-      <div className={TOOL_CLASS.outputGrid}>
+      <motion.div className={TOOL_CLASS.outputGrid} layout transition={MotionPresets.fast}>
         <OutputItem label={text.unixSeconds} value={validOutputDate ? String(Math.floor(validOutputDate.getTime() / 1000)) : ""} />
         <OutputItem label={text.unixMilliseconds} value={validOutputDate ? String(validOutputDate.getTime()) : ""} />
         <OutputItem label={text.isoTime} value={validOutputDate ? validOutputDate.toISOString() : ""} />
         <OutputItem label={text.utcTime} value={validOutputDate ? validOutputDate.toUTCString() : ""} />
-      </div>
+      </motion.div>
     </section>
   );
 }
@@ -126,9 +159,4 @@ function parseTimestamp(value: string, mode: TimestampMode): { ok: true; date: D
   const milliseconds = mode === "milliseconds" || (mode === "auto" && Math.abs(numeric) >= 100000000000) ? numeric : numeric * 1000;
   const date = new Date(milliseconds);
   return Number.isNaN(date.getTime()) ? { ok: false } : { ok: true, date };
-}
-
-function formatLocalInput(date: Date) {
-  const pad = (value: number) => String(value).padStart(2, "0");
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
 }

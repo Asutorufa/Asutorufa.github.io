@@ -2,6 +2,8 @@ import type { AppProps } from "../app/app-types";
 import { Pagination } from "../components/Pagination";
 import { UI_LABELS } from "../data/i18n";
 import { formatDisplayDate } from "../utils/date";
+import { motion, useReducedMotion } from "motion/react";
+import { MotionPresets } from "../animation/motion-presets";
 import styles from "./TaxonomyPage.module.css";
 
 type TaxonomyPageProps = AppProps & {
@@ -64,6 +66,7 @@ function formatTaxonomyDate(value?: string) {
 function TagCloud({ entries, labels }: { entries: Array<{ name: string; route: string; count: number }>; labels: (typeof UI_LABELS)[keyof typeof UI_LABELS] }) {
   const max = Math.max(...entries.map((entry) => entry.count), 1);
   const min = Math.min(...entries.map((entry) => entry.count), max);
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <div className={styles.tagCloud}>
@@ -74,9 +77,11 @@ function TagCloud({ entries, labels }: { entries: Array<{ name: string; route: s
         {entries.map((entry) => {
           const weight = tagWeight(entry.count, min, max);
           return (
-            <a
+            <motion.a
               key={entry.name}
               href={entry.route}
+              whileHover={prefersReducedMotion ? undefined : { scale: 1.03 }}
+              transition={MotionPresets.fast}
               style={{
                 color: tagColor(weight),
                 fontSize: `${tagFontSize(weight)}px`,
@@ -84,7 +89,7 @@ function TagCloud({ entries, labels }: { entries: Array<{ name: string; route: s
               }}
             >
               {entry.name}
-            </a>
+            </motion.a>
           );
         })}
       </div>
@@ -99,6 +104,8 @@ function CategoryList({
   entries: Array<{ name: string; route: string; count: number }>;
   labels: (typeof UI_LABELS)[keyof typeof UI_LABELS];
 }) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <div>
       <div className={styles.categoryTitle}>
@@ -108,9 +115,14 @@ function CategoryList({
         <ul className={styles.categoryList}>
           {entries.map((entry) => (
             <li key={entry.name} className={styles.categoryItem}>
-              <a className={styles.categoryLink} href={entry.route}>
+              <motion.a
+                className={styles.categoryLink}
+                href={entry.route}
+                whileHover={prefersReducedMotion ? undefined : { scale: 1.03 }}
+                transition={MotionPresets.fast}
+              >
                 {entry.name}
-              </a>
+              </motion.a>
               <span className={styles.categoryCount}>{entry.count}</span>
             </li>
           ))}

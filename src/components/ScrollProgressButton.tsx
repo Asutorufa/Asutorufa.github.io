@@ -1,10 +1,37 @@
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import type { CSSProperties, FocusEvent } from "react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { MotionPresets } from "../animation/motion-presets";
 import { Icon } from "./Icon";
 import styles from "./ScrollProgressButton.module.css";
 
 export function ScrollProgressButton() {
+  const rootRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
+  const [expanded, setExpanded] = useState(false);
+  const [hasComments, setHasComments] = useState(false);
+  const [usesTouchInteraction, setUsesTouchInteraction] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const rootVariants = prefersReducedMotion
+    ? undefined
+    : {
+        hover: { scale: 1.02, y: -3 },
+        tap: { scale: 0.97, y: 0 }
+      };
+  const topIconVariants = prefersReducedMotion
+    ? undefined
+    : {
+        hover: { y: -2 },
+        tap: { y: -5 }
+      };
+  const commentIconVariants = prefersReducedMotion
+    ? undefined
+    : {
+        hover: { rotate: -8, scale: 1.08 },
+        tap: { rotate: 0, scale: 0.92 }
+      };
+  const showCommentsButton = hasComments && expanded;
 
   useEffect(() => {
     const update = () => {
@@ -20,17 +47,117 @@ export function ScrollProgressButton() {
     };
   }, []);
 
+  useEffect(() => {
+    const update = () => setHasComments(Boolean(document.getElementById("comments")));
+    update();
+    window.addEventListener("asutorufa-route-change", update);
+    return () => window.removeEventListener("asutorufa-route-change", update);
+  }, []);
+
+  useEffect(() => {
+    const media = window.matchMedia("(hover: none), (pointer: coarse)");
+    const update = () => setUsesTouchInteraction(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (!expanded || !usesTouchInteraction) return;
+
+    const collapseOnOutsidePointer = (event: PointerEvent) => {
+      if (event.target instanceof Node && rootRef.current?.contains(event.target)) return;
+      setExpanded(false);
+    };
+
+    document.addEventListener("pointerdown", collapseOnOutsidePointer);
+    return () => document.removeEventListener("pointerdown", collapseOnOutsidePointer);
+  }, [expanded, usesTouchInteraction]);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      top: 0
+    });
+  };
+
+  const scrollToComments = () => {
+    const comments = document.getElementById("comments");
+    if (!comments) return;
+    comments.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      block: "start"
+    });
+    setExpanded(false);
+  };
+
+  const handleBackToTop = () => {
+    if (hasComments && usesTouchInteraction && !expanded) {
+      setExpanded(true);
+      return;
+    }
+
+    scrollToTop();
+    setExpanded(false);
+  };
+
+  const collapseOnBlur = (event: FocusEvent<HTMLDivElement>) => {
+    if (event.currentTarget.contains(event.relatedTarget)) return;
+    setExpanded(false);
+  };
+
   return (
-    <button
-      type="button"
-      className={clsx(styles.button, progress > 3 && styles.visible)}
-      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      aria-label="Back to top"
+    <motion.div
+      ref={rootRef}
+      layout
+      className={clsx(styles.root, progress > 3 && styles.visible, expanded && styles.expanded)}
+      initial={false}
+      animate={
+        progress > 3
+          ? { opacity: 1, pointerEvents: "auto", y: 0, scale: 1 }
+          : { opacity: 0, pointerEvents: "none", y: prefersReducedMotion ? 0 : 8, scale: prefersReducedMotion ? 1 : 0.96 }
+      }
+      variants={rootVariants}
+      whileHover={prefersReducedMotion ? undefined : "hover"}
+      whileTap={prefersReducedMotion ? undefined : "tap"}
+      transition={MotionPresets.spring}
+      style={{ "--scroll-progress": `${progress}%` } as CSSProperties}
+      onMouseEnter={() => {
+        if (!usesTouchInteraction) setExpanded(true);
+      }}
+      onMouseLeave={() => {
+        if (!usesTouchInteraction) setExpanded(false);
+      }}
+      onFocus={() => setExpanded(true)}
+      onBlur={collapseOnBlur}
     >
-      <span className={styles.icon}>
-        <Icon name="arrow-up" />
-      </span>
-      <span className={styles.value}>{progress}%</span>
-    </button>
+      <motion.button layout type="button" className={clsx(styles.button, styles.progressButton)} onClick={handleBackToTop} aria-label="Back to top">
+        <motion.span className={styles.icon} variants={topIconVariants} transition={MotionPresets.fast}>
+          <Icon name="arrow-up" />
+        </motion.span>
+        <span className={styles.value}>{progress}%</span>
+      </motion.button>
+      <AnimatePresence initial={false}>
+        {showCommentsButton ? (
+          <motion.button
+            key="comments"
+            layout
+            type="button"
+            className={clsx(styles.button, styles.commentButton)}
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9, width: 0 }}
+            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1, width: "2.25rem" }}
+            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9, width: 0 }}
+            transition={MotionPresets.fast}
+            onClick={scrollToComments}
+            aria-label="Jump to comments"
+            title="Comments"
+          >
+            <motion.span className={styles.icon} variants={commentIconVariants} transition={MotionPresets.fast}>
+              <Icon name="message" />
+            </motion.span>
+          </motion.button>
+        ) : null}
+      </AnimatePresence>
+    </motion.div>
   );
 }

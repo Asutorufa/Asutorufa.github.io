@@ -45,18 +45,12 @@
   padding: 1rem;
   transition:
     background-color 0.18s ease,
-    border-color 0.18s ease,
-    transform 0.18s ease;
+    border-color 0.18s ease;
 }
 
 .resultCard:hover {
   background: var(--blog-accent-soft);
   border-color: var(--blog-accent-border);
-  transform: translateY(-2px);
-}
-
-.resultCard:active {
-  transform: translateY(0);
 }
 
 .resultExcerpt {

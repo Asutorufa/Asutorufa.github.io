@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import type { AppProps } from "../app/app-types";
+import { MotionPresets } from "../animation/motion-presets";
 import { ArticleMarkdown } from "../components/ArticleMarkdown";
 import { GitalkComments } from "../components/GitalkComments";
 import { Icon } from "../components/Icon";
@@ -15,6 +17,7 @@ type PostPageProps = AppProps & {
 export function PostPage({ content, abbrlink }: PostPageProps) {
   const index = content.posts.findIndex((item) => item.abbrlink === abbrlink);
   const post = content.posts[index];
+  const prefersReducedMotion = useReducedMotion();
 
   if (!post) {
     return <p>Post not found.</p>;
@@ -23,20 +26,33 @@ export function PostPage({ content, abbrlink }: PostPageProps) {
   const labels = UI_LABELS[post.language];
   const newerPost = index > 0 ? content.posts[index - 1] : undefined;
   const olderPost = index < content.posts.length - 1 ? content.posts[index + 1] : undefined;
+  const titleInitial = { opacity: 0 };
+  const titleAnimate = { opacity: 1 };
+  const metaInitial = prefersReducedMotion ? { opacity: 0, y: 0 } : { opacity: 0, y: 8 };
+  const metaAnimate = { opacity: 1, y: 0 };
 
   return (
     <>
-      <article className="content-card px-4 py-8 [contain:paint] md:px-8 md:py-14 lg:px-10" style={{ viewTransitionName: `post-${post.abbrlink}` }}>
+      <motion.article className="content-card px-4 py-8 [contain:paint] md:px-8 md:py-14 lg:px-10">
         <PostBackButton label={labels.back} />
         <header className="mb-12 text-center md:mb-16">
-          <h1 className="text-[1.7em] font-normal leading-normal text-blog-heading">{post.title}</h1>
-          <PostMeta post={post} />
+          <motion.h1
+            className="text-[1.7em] font-normal leading-normal text-blog-heading"
+            initial={titleInitial}
+            animate={titleAnimate}
+            transition={MotionPresets.normal}
+          >
+            {post.title}
+          </motion.h1>
+          <motion.div initial={metaInitial} animate={metaAnimate} transition={{ ...MotionPresets.normal, delay: prefersReducedMotion ? 0 : 0.08 }}>
+            <PostMeta post={post} />
+          </motion.div>
         </header>
         <ArticleMarkdown html={post.bodyHtml} />
         <PostFooter config={content.config} labels={labels} post={post} olderPost={olderPost} newerPost={newerPost} />
-      </article>
+      </motion.article>
       {post.comments ? (
-        <section className="content-card mt-4 overflow-hidden px-4 py-5 md:mt-6 md:px-8 md:py-7 lg:px-10">
+        <section id="comments" className="content-card mt-4 overflow-hidden px-4 py-5 md:mt-6 md:px-8 md:py-7 lg:px-10">
           <GitalkComments id={post.route} language={post.language} />
         </section>
       ) : null}

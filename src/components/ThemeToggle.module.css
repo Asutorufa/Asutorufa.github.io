@@ -11,6 +11,7 @@
 .button {
   align-items: center;
   appearance: none;
+  background: transparent;
   border: 0;
   border-radius: 999px;
   color: var(--blog-muted);
@@ -23,14 +24,13 @@
   line-height: 1.7;
   min-width: 0;
   padding: 0.12rem 0.35rem;
+  position: relative;
   transition:
-    background-color 0.15s ease,
     color 0.15s ease,
     transform 0.15s ease;
 }
 
 .button:hover {
-  background: var(--blog-accent-soft);
   color: var(--blog-accent-hover);
 }
 
@@ -39,8 +39,22 @@
 }
 
 .active {
-  background: #ffe2d4;
   color: #b94720;
+}
+
+.indicator {
+  background: #ffe2d4;
+  border-radius: inherit;
+  box-shadow: 0 4px 10px rgb(255 91 37 / 0.12);
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+}
+
+.button svg,
+.label {
+  position: relative;
+  z-index: 1;
 }
 
 .label {
@@ -55,6 +69,10 @@
 }
 
 :global(html.dark-mode) .active {
-  background: #5a372b;
   color: #ffe4d8;
+}
+
+:global(html.dark-mode) .indicator {
+  background: #5a372b;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.18);
 }

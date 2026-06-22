@@ -21,12 +21,7 @@
     background-color 0.18s ease,
     border-color 0.18s ease,
     color 0.18s ease,
-    opacity 0.18s ease,
-    transform 0.18s ease;
-}
-
-.buttonBase:active {
-  transform: translateY(1px);
+    opacity 0.18s ease;
 }
 
 .buttonBase:disabled {
@@ -40,8 +35,9 @@
 }
 
 .buttonGhost:hover {
-  background: var(--blog-bg);
-  color: var(--blog-text);
+  background: var(--tool-control-hover-bg, #fff8f4);
+  border-color: var(--tool-accent-border, #ffc3aa);
+  color: var(--blog-accent-hover);
 }
 
 .buttonPrimary {
@@ -54,12 +50,13 @@
 }
 
 .buttonSecondary {
-  background: var(--blog-accent-softer);
-  color: var(--blog-accent);
+  background: var(--tool-accent-bg, #fff8f4);
+  color: var(--blog-accent-hover);
 }
 
 .buttonSecondary:hover {
-  background: var(--blog-accent-secondary-hover);
+  background: var(--tool-accent-hover-bg, #ffe9de);
+  color: var(--blog-accent-active);
 }
 
 .control {
@@ -81,6 +78,247 @@
   background: var(--blog-surface);
   border-color: var(--blog-accent-ring);
   box-shadow: var(--blog-focus-shadow);
+}
+
+.dateTimePicker {
+  position: relative;
+}
+
+.dateTimeControl {
+  align-items: center;
+  background: var(--blog-surface-muted);
+  border: 1px solid var(--blog-border);
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.dateTimeControl:focus-within {
+  background: var(--blog-surface);
+  border-color: var(--blog-accent-ring);
+  box-shadow: var(--blog-focus-shadow);
+}
+
+.dateTimeInput {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--blog-text);
+  font: inherit;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.92rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+  min-width: 0;
+  outline: none;
+  padding: 0.7rem 0.4rem 0.7rem 0.85rem;
+}
+
+.dateTimeInput::placeholder {
+  color: var(--blog-faint);
+}
+
+.dateTimeToggle {
+  align-items: center;
+  border-radius: 10px;
+  color: var(--blog-muted);
+  display: inline-flex;
+  height: 2.15rem;
+  justify-content: center;
+  margin-right: 0.35rem;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
+  width: 2.15rem;
+}
+
+.dateTimeToggle:hover,
+.dateTimeToggle[aria-expanded="true"] {
+  background: var(--tool-accent-bg, #fff8f4);
+  color: var(--blog-accent-hover);
+}
+
+.datePickerPopover {
+  background: var(--blog-surface);
+  border: 1px solid var(--blog-border-soft);
+  border-radius: 16px;
+  box-shadow: 0 18px 45px rgb(0 0 0 / 0.16);
+  left: 0;
+  margin-top: 0.55rem;
+  padding: 0.72rem;
+  position: absolute;
+  top: 100%;
+  width: min(29rem, calc(100vw - 3rem));
+  z-index: 55;
+}
+
+.datePickerBody {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: minmax(0, 1fr) 8.2rem;
+}
+
+.datePickerCalendar {
+  min-width: 0;
+}
+
+.datePickerHeader {
+  align-items: center;
+  display: grid;
+  gap: 0.35rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  margin-bottom: 0.45rem;
+}
+
+.datePickerTitle {
+  color: var(--blog-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+  text-align: center;
+}
+
+.datePickerNav,
+.timeStepper,
+.datePickerAction {
+  align-items: center;
+  border-radius: 999px;
+  color: var(--blog-muted);
+  display: inline-flex;
+  justify-content: center;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.datePickerNav {
+  height: 1.85rem;
+  width: 1.85rem;
+}
+
+.datePickerNav:hover,
+.timeStepper:hover,
+.datePickerAction:hover {
+  background: var(--tool-accent-bg, #fff8f4);
+  color: var(--blog-accent-hover);
+}
+
+.datePickerNav:active,
+.timeStepper:active,
+.datePickerAction:active {
+  transform: scale(0.94);
+}
+
+.datePickerGrid {
+  display: grid;
+  gap: 0.14rem;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.datePickerWeekday {
+  color: var(--blog-faint);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.3;
+  padding-bottom: 0.08rem;
+  text-align: center;
+}
+
+.datePickerDay {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--blog-text);
+  font-size: 0.8rem;
+  height: 2.15rem;
+  line-height: 1;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.datePickerDay:hover {
+  background: var(--tool-control-hover-bg, #fffaf7);
+  color: var(--blog-accent-hover);
+}
+
+.datePickerDayMuted {
+  color: var(--blog-faint);
+  opacity: 0.62;
+}
+
+.datePickerDayToday {
+  border-color: var(--tool-accent-border, #ffc3aa);
+}
+
+.datePickerDaySelected {
+  background: var(--blog-accent);
+  border-color: var(--blog-accent);
+  color: #fff;
+}
+
+.datePickerDaySelected:hover {
+  background: var(--blog-accent-active);
+  color: #fff;
+}
+
+.timePanel {
+  background: var(--blog-surface-muted);
+  border: 1px solid var(--blog-border-muted);
+  border-radius: 14px;
+  display: grid;
+  gap: 0.35rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 0.55rem 0.5rem;
+}
+
+.timeColumn {
+  align-items: center;
+  display: grid;
+  gap: 0.16rem;
+  justify-items: center;
+}
+
+.timeLabel {
+  color: var(--blog-faint);
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.timeStepper {
+  height: 1.4rem;
+  width: 1.4rem;
+}
+
+.timeValue {
+  color: var(--blog-heading);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.datePickerActions {
+  border-top: 1px solid var(--blog-border-muted);
+  display: flex;
+  gap: 0.45rem;
+  justify-content: flex-end;
+  margin-top: 0.6rem;
+  padding-top: 0.55rem;
+}
+
+.datePickerAction {
+  font-size: 0.78rem;
+  line-height: 1.4;
+  padding: 0.34rem 0.75rem;
 }
 
 .error {
@@ -223,8 +461,8 @@
 }
 
 .jsonHistoryClear:hover {
-  background: var(--blog-accent-softer);
-  color: var(--blog-accent);
+  background: var(--tool-accent-bg, #fff8f4);
+  color: var(--blog-accent-hover);
 }
 
 .jsonHistoryList {
@@ -246,14 +484,12 @@
   padding: 0.35rem;
   transition:
     background-color 0.18s ease,
-    border-color 0.18s ease,
-    transform 0.18s ease;
+    border-color 0.18s ease;
 }
 
 .jsonHistoryRow:hover {
   background: var(--blog-surface);
-  border-color: var(--blog-accent-ring);
-  transform: translateY(-1px);
+  border-color: var(--tool-accent-border, #ffc3aa);
 }
 
 .jsonHistoryItem {
@@ -291,18 +527,13 @@
   justify-content: center;
   transition:
     background-color 0.18s ease,
-    color 0.18s ease,
-    transform 0.18s ease;
+    color 0.18s ease;
   width: 2rem;
 }
 
 .jsonHistoryDelete:hover {
   background: var(--blog-error-bg);
   color: var(--blog-error-text);
-}
-
-.jsonHistoryDelete:active {
-  transform: scale(0.94);
 }
 
 .jsonHistoryEmpty {
@@ -387,6 +618,12 @@
 }
 
 .panel {
+  --tool-accent-bg: #fff8f4;
+  --tool-accent-hover-bg: #ffe9de;
+  --tool-accent-active-bg: #ffdece;
+  --tool-accent-border: #ffc3aa;
+  --tool-control-hover-bg: #fffaf7;
+
   border: 1px solid var(--blog-border-muted);
   border-radius: 18px;
   padding: 1.25rem;
@@ -402,26 +639,44 @@
 }
 
 .segmentedButton {
+  appearance: none;
+  background: transparent;
+  border: 0;
   border-radius: 9px;
   color: var(--blog-muted);
+  cursor: pointer;
   flex: 1;
   font-size: 0.78rem;
   line-height: 1.3;
   padding: 0.55rem 0.45rem;
+  position: relative;
   transition:
     background-color 0.18s ease,
     color 0.18s ease;
 }
 
 .segmentedButton:hover {
-  background: var(--blog-accent-softer);
-  color: var(--blog-accent);
+  background: var(--tool-control-hover-bg, #fffaf7);
+  color: var(--blog-accent-hover);
 }
 
 .segmentedButtonActive {
-  background: var(--blog-surface);
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.06);
-  color: var(--blog-accent);
+  color: var(--blog-accent-strong);
+}
+
+.segmentedIndicator {
+  background: var(--tool-accent-bg, #fff8f4);
+  border: 1px solid var(--tool-accent-border, #ffc3aa);
+  border-radius: inherit;
+  box-shadow: 0 3px 9px rgb(255 91 37 / 0.1);
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+}
+
+.segmentedContent {
+  position: relative;
+  z-index: 1;
 }
 
 .select {
@@ -430,6 +685,11 @@
 }
 
 .tabs {
+  --tool-accent-bg: #fff8f4;
+  --tool-accent-hover-bg: #ffe9de;
+  --tool-accent-border: #ffc3aa;
+  --tool-control-hover-bg: #fffaf7;
+
   background: var(--blog-bg);
   border: 1px solid var(--blog-border-muted);
   border-radius: 999px;
@@ -442,8 +702,12 @@
 
 .tabButton {
   align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
   border-radius: 999px;
   color: var(--blog-muted);
+  cursor: pointer;
   display: inline-flex;
   flex: 1;
   font-size: 0.9rem;
@@ -451,26 +715,39 @@
   justify-content: center;
   line-height: 1.4;
   padding: 0.65rem 0.9rem;
+  position: relative;
   transition:
     background-color 0.18s ease,
-    box-shadow 0.18s ease,
-    color 0.18s ease,
-    transform 0.18s ease;
+    color 0.18s ease;
 }
 
 .tabButton:hover {
-  background: var(--blog-accent-softer);
-  color: var(--blog-accent);
-}
-
-.tabButton:active {
-  transform: translateY(1px);
+  background: var(--tool-control-hover-bg, #fffaf7);
+  color: var(--blog-accent-hover);
 }
 
 .tabButtonActive {
-  background: var(--blog-surface);
-  box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
-  color: var(--blog-accent);
+  color: var(--blog-accent-strong);
+}
+
+.tabIndicator {
+  background: var(--tool-accent-bg, #fff8f4);
+  border: 1px solid var(--tool-accent-border, #ffc3aa);
+  border-radius: inherit;
+  box-shadow: 0 4px 12px rgb(255 91 37 / 0.1);
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+}
+
+.tabContent {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.45rem;
+  justify-content: center;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .textarea {
@@ -479,6 +756,18 @@
 }
 
 @media (max-width: 767px) {
+  .datePickerBody {
+    grid-template-columns: 1fr;
+  }
+
+  .datePickerPopover {
+    width: min(100%, calc(100vw - 2.5rem));
+  }
+
+  .timePanel {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .footerButton {
     flex: 1;
   }
@@ -508,4 +797,13 @@
   .tabButton {
     justify-content: flex-start;
   }
+}
+
+:global(html.dark-mode) .panel,
+:global(html.dark-mode) .tabs {
+  --tool-accent-bg: #332c28;
+  --tool-accent-hover-bg: #3d302a;
+  --tool-accent-active-bg: #47342b;
+  --tool-accent-border: #7c513f;
+  --tool-control-hover-bg: #2f2926;
 }

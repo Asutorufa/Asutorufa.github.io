@@ -1,3 +1,11 @@
+.root :global(.yarl__container) {
+  animation: image-preview-backdrop-in 0.2s ease-out both;
+}
+
+.root :global(.yarl__slide_current .yarl__slide_image) {
+  animation: image-preview-image-in 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 .root :global(.yarl__button:hover:not(:disabled)) {
   background-color: rgb(58 58 58 / 0.84);
 }
@@ -27,4 +35,32 @@
 .root :global(.yarl__navigation_prev:disabled),
 .root :global(.yarl__navigation_next:disabled) {
   display: none;
+}
+
+@keyframes image-preview-backdrop-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes image-preview-image-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root :global(.yarl__slide_current .yarl__slide_image) {
+    animation-name: image-preview-backdrop-in;
+  }
 }

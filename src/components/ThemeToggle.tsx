@@ -1,5 +1,7 @@
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import { MotionPresets } from "../animation/motion-presets";
 import type { UiLabels } from "../types/content";
 import { Icon, type IconName } from "./Icon";
 import styles from "./ThemeToggle.module.css";
@@ -22,11 +24,13 @@ const MODES: Array<{ value: ThemeMode; icon: IconName; labelKey: "themeSystem" |
 
 export function ThemeToggle({ labels }: ThemeToggleProps) {
   const [mode, setMode] = useState<ThemeMode>("system");
+  const indicatorId = useId();
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const saved = readSavedTheme();
     setMode(saved);
-    applyTheme(saved);
+    applyTheme(saved, { animate: false });
 
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     const onChange = () => {
@@ -55,17 +59,22 @@ export function ThemeToggle({ labels }: ThemeToggleProps) {
   return (
     <div className={styles.root} aria-label={labels.themeLabel}>
       {MODES.map((item) => (
-        <button
+        <motion.button
           key={item.value}
           type="button"
           className={clsx(styles.button, item.value === mode && styles.active)}
           aria-pressed={item.value === mode}
           title={labels[item.labelKey]}
+          whileTap={prefersReducedMotion ? undefined : { scale: 0.96 }}
+          transition={MotionPresets.fast}
           onClick={() => selectTheme(item.value)}
         >
+          {item.value === mode ? (
+            <motion.span className={styles.indicator} layoutId={`theme-toggle-indicator-${indicatorId}`} transition={MotionPresets.spring} />
+          ) : null}
           <Icon name={item.icon} />
           <span className={styles.label}>{labels[item.labelKey]}</span>
-        </button>
+        </motion.button>
       ))}
     </div>
   );
@@ -82,13 +91,23 @@ function readSavedTheme(): ThemeMode {
   return "system";
 }
 
-function applyTheme(mode: ThemeMode) {
+function applyTheme(mode: ThemeMode, options: { animate?: boolean } = {}) {
   const dark = mode === "dark" || (mode === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-  document.documentElement.classList.toggle("dark-mode", dark);
-  document.documentElement.classList.toggle("light-mode", !dark);
-  document.documentElement.dataset.themePreference = mode;
-  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", readThemeColor(dark ? THEME_COLOR_DARK : THEME_COLOR_LIGHT));
-  window.dispatchEvent(new CustomEvent("asutorufa-theme-change", { detail: { mode, dark } }));
+  const themeColor = dark ? THEME_COLOR_DARK : THEME_COLOR_LIGHT;
+  const update = () => {
+    document.documentElement.classList.toggle("dark-mode", dark);
+    document.documentElement.classList.toggle("light-mode", !dark);
+    document.documentElement.dataset.themePreference = mode;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", readThemeColor(themeColor));
+    window.dispatchEvent(new CustomEvent("asutorufa-theme-change", { detail: { mode, dark } }));
+  };
+
+  if (options.animate === false) {
+    update();
+    return;
+  }
+
+  update();
 }
 
 function readThemeColor(fallback: string) {

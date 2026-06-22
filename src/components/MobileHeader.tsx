@@ -1,5 +1,7 @@
 import clsx from "clsx";
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { MotionPresets } from "../animation/motion-presets";
 import type { UiLabels } from "../types/content";
 import { menuItems } from "../data/menu";
 import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
@@ -18,6 +20,7 @@ type MobileHeaderProps = {
 
 export function MobileHeader({ title, subtitle, labels, currentRoute }: MobileHeaderProps) {
   const [open, setOpen] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
   const closeMenu = () => setOpen(false);
 
   useBodyScrollLock(open);
@@ -43,39 +46,59 @@ export function MobileHeader({ title, subtitle, labels, currentRoute }: MobileHe
         <p className={styles.subtitle}>{subtitle}</p>
       </div>
 
-      <div className={clsx(styles.layer, open && styles.layerOpen)} aria-hidden={!open}>
-        <button type="button" className={clsx(styles.backdrop, open && styles.backdropOpen)} aria-label={labels.menu} onClick={closeMenu} />
-        <nav className={clsx(styles.panel, open && styles.panelOpen)} aria-label={labels.menu}>
-          <div className={styles.panelHeader}>
-            <a href="/" className={styles.brand} onClick={closeMenu}>
-              <img src="/images/bighead.svg" alt="" className={styles.avatar} />
-              <span className={styles.brandText}>
-                <span className={styles.brandTitle}>{title}</span>
-                <span className={styles.brandSubtitle}>{subtitle}</span>
-              </span>
-            </a>
-            <IconButton icon="close" label={labels.closeSearch} className={styles.close} onClick={closeMenu} />
-          </div>
-
-          <div className={styles.items}>
-            {menuItems(labels).map((item) => {
-              const active = isActive(currentRoute, item.href);
-              return (
-                <a key={item.href} href={item.href} onClick={closeMenu} className={clsx(styles.item, active && styles.itemActive)}>
-                  <span className={clsx(styles.itemIcon, active && styles.itemIconActive)}>
-                    <Icon name={item.icon} />
+      <AnimatePresence>
+        {open ? (
+          <motion.div className={styles.layer} aria-hidden={!open}>
+            <motion.button
+              type="button"
+              className={styles.backdrop}
+              aria-label={labels.menu}
+              onClick={closeMenu}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={MotionPresets.fast}
+            />
+            <motion.nav
+              className={styles.panel}
+              aria-label={labels.menu}
+              initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
+              transition={MotionPresets.normal}
+            >
+              <div className={styles.panelHeader}>
+                <a href="/" className={styles.brand} onClick={closeMenu}>
+                  <img src="/images/bighead.svg" alt="" className={styles.avatar} />
+                  <span className={styles.brandText}>
+                    <span className={styles.brandTitle}>{title}</span>
+                    <span className={styles.brandSubtitle}>{subtitle}</span>
                   </span>
-                  <span>{item.label}</span>
                 </a>
-              );
-            })}
-          </div>
+                <IconButton icon="close" label={labels.closeSearch} className={styles.close} onClick={closeMenu} />
+              </div>
 
-          <div className={styles.footer}>
-            <ThemeToggle labels={labels} />
-          </div>
-        </nav>
-      </div>
+              <div className={styles.items}>
+                {menuItems(labels).map((item) => {
+                  const active = isActive(currentRoute, item.href);
+                  return (
+                    <a key={item.href} href={item.href} onClick={closeMenu} className={clsx(styles.item, active && styles.itemActive)}>
+                      <span className={clsx(styles.itemIcon, active && styles.itemIconActive)}>
+                        <Icon name={item.icon} />
+                      </span>
+                      <span>{item.label}</span>
+                    </a>
+                  );
+                })}
+              </div>
+
+              <div className={styles.footer}>
+                <ThemeToggle labels={labels} />
+              </div>
+            </motion.nav>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </header>
   );
 }

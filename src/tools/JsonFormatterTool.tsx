@@ -1,8 +1,10 @@
 import clsx from "clsx";
 import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import "./prism-manual";
 import Prism from "prismjs";
 import "prismjs/components/prism-json";
+import { MotionPresets } from "../animation/motion-presets";
 import { Icon } from "../components/Icon";
 import type { UiLabels } from "../types/content";
 import { toolLabels } from "./shared";
@@ -29,6 +31,7 @@ export function JsonFormatterTool({ labels }: { labels: UiLabels }) {
   const [copied, setCopied] = useState(false);
   const [history, setHistory] = useState<JsonHistoryItem[]>([]);
   const highlightedOutput = useMemo(() => highlightJson(output), [output]);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     setHistory(readJsonHistory());
@@ -108,17 +111,50 @@ export function JsonFormatterTool({ labels }: { labels: UiLabels }) {
         </label>
         <label className={TOOL_CLASS.field}>
           <span className={TOOL_CLASS.fieldLabel}>{text.jsonOutput}</span>
-          {output ? (
-            <pre className={clsx(TOOL_CLASS.jsonPreview, "language-json")} aria-label={text.jsonOutput}>
-              <code className="language-json" dangerouslySetInnerHTML={{ __html: highlightedOutput }} />
-            </pre>
-          ) : (
-            <textarea className={clsx(TOOL_CLASS.control, TOOL_CLASS.textarea)} value={output} readOnly placeholder={text.formattedResult} spellCheck={false} />
-          )}
+          <AnimatePresence mode="wait" initial={false}>
+            {output ? (
+              <motion.pre
+                key="preview"
+                className={clsx(TOOL_CLASS.jsonPreview, "language-json")}
+                aria-label={text.jsonOutput}
+                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.99 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.99 }}
+                transition={MotionPresets.fast}
+              >
+                <code className="language-json" dangerouslySetInnerHTML={{ __html: highlightedOutput }} />
+              </motion.pre>
+            ) : (
+              <motion.textarea
+                key="empty"
+                className={clsx(TOOL_CLASS.control, TOOL_CLASS.textarea)}
+                value={output}
+                readOnly
+                placeholder={text.formattedResult}
+                spellCheck={false}
+                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.99 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.99 }}
+                transition={MotionPresets.fast}
+              />
+            )}
+          </AnimatePresence>
         </label>
       </div>
 
-      {error ? <p className={TOOL_CLASS.error}>{error}</p> : null}
+      <AnimatePresence initial={false}>
+        {error ? (
+          <motion.p
+            className={TOOL_CLASS.error}
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
+            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, height: "auto" }}
+            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
+            transition={MotionPresets.fast}
+          >
+            {error}
+          </motion.p>
+        ) : null}
+      </AnimatePresence>
 
       <div className={TOOL_CLASS.footerActions}>
         <label className={TOOL_CLASS.inlineSelect}>
@@ -129,19 +165,44 @@ export function JsonFormatterTool({ labels }: { labels: UiLabels }) {
             <option value="tab">Tab</option>
           </select>
         </label>
-        <button type="button" className={toolButton("primary", TOOL_CLASS.footerButton)} onClick={() => formatJson(false)}>
+        <motion.button
+          type="button"
+          className={toolButton("primary", TOOL_CLASS.footerButton)}
+          onClick={() => formatJson(false)}
+          whileHover={prefersReducedMotion ? undefined : { y: -1, scale: 1.02 }}
+          whileTap={prefersReducedMotion ? undefined : { y: 0, scale: 0.96 }}
+          transition={MotionPresets.fast}
+        >
           {text.format}
-        </button>
-        <button type="button" className={toolButton("secondary", TOOL_CLASS.footerButton)} onClick={() => formatJson(true)}>
+        </motion.button>
+        <motion.button
+          type="button"
+          className={toolButton("secondary", TOOL_CLASS.footerButton)}
+          onClick={() => formatJson(true)}
+          whileHover={prefersReducedMotion ? undefined : { y: -1, scale: 1.02 }}
+          whileTap={prefersReducedMotion ? undefined : { y: 0, scale: 0.96 }}
+          transition={MotionPresets.fast}
+        >
           {text.minify}
-        </button>
-        <button type="button" className={toolButton("secondary", TOOL_CLASS.footerButton)} onClick={copyOutput} disabled={!output}>
+        </motion.button>
+        <motion.button
+          type="button"
+          className={toolButton("secondary", TOOL_CLASS.footerButton)}
+          onClick={copyOutput}
+          disabled={!output}
+          whileHover={prefersReducedMotion || !output ? undefined : { y: -1, scale: 1.02 }}
+          whileTap={prefersReducedMotion || !output ? undefined : { y: 0, scale: 0.96 }}
+          transition={MotionPresets.fast}
+        >
           <Icon name={copied ? "check" : "copy"} />
           {copied ? text.copied : text.copy}
-        </button>
-        <button
+        </motion.button>
+        <motion.button
           type="button"
           className={toolButton("ghost", TOOL_CLASS.footerButton)}
+          whileHover={prefersReducedMotion ? undefined : { y: -1, scale: 1.02 }}
+          whileTap={prefersReducedMotion ? undefined : { y: 0, scale: 0.96 }}
+          transition={MotionPresets.fast}
           onClick={() => {
             setInput("");
             setOutput("");
@@ -150,36 +211,69 @@ export function JsonFormatterTool({ labels }: { labels: UiLabels }) {
         >
           <Icon name="trash" />
           {text.clear}
-        </button>
+        </motion.button>
       </div>
 
       <div className={TOOL_CLASS.jsonHistory}>
         <div className={TOOL_CLASS.jsonHistoryHeader}>
           <h3 className={TOOL_CLASS.jsonHistoryHeading}>{text.history}</h3>
           {history.length ? (
-            <button type="button" className={TOOL_CLASS.jsonHistoryClear} onClick={clearHistory}>
+            <motion.button
+              type="button"
+              className={TOOL_CLASS.jsonHistoryClear}
+              onClick={clearHistory}
+              whileHover={prefersReducedMotion ? undefined : { y: -1 }}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.96, y: 0 }}
+              transition={MotionPresets.fast}
+            >
               {text.clearHistory}
-            </button>
+            </motion.button>
           ) : null}
         </div>
         {history.length ? (
           <ol className={TOOL_CLASS.jsonHistoryList}>
-            {history.map((item) => (
-              <li key={item.id} className={TOOL_CLASS.jsonHistoryRow}>
-                <button type="button" className={TOOL_CLASS.jsonHistoryItem} onClick={() => restoreHistory(item)}>
-                  <span className={TOOL_CLASS.jsonHistoryTitle}>{historyTitle(item.output)}</span>
-                  <span className={TOOL_CLASS.jsonHistoryMeta}>
-                    {formatHistoryTime(item.createdAt)} · {item.compact ? text.minified : `${text.indent} ${item.indent === "tab" ? "Tab" : item.indent}`}
-                  </span>
-                </button>
-                <button type="button" className={TOOL_CLASS.jsonHistoryDelete} onClick={() => removeHistoryItem(item.id)} aria-label={text.deleteHistory}>
-                  <Icon name="trash" />
-                </button>
-              </li>
-            ))}
+            <AnimatePresence initial={false}>
+              {history.map((item) => (
+                <motion.li
+                  key={item.id}
+                  layout
+                  className={TOOL_CLASS.jsonHistoryRow}
+                  initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 6, scale: 0.99 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: -8, scale: 0.98 }}
+                  whileHover={prefersReducedMotion ? undefined : { y: -1 }}
+                  transition={MotionPresets.fast}
+                >
+                  <button type="button" className={TOOL_CLASS.jsonHistoryItem} onClick={() => restoreHistory(item)}>
+                    <span className={TOOL_CLASS.jsonHistoryTitle}>{historyTitle(item.output)}</span>
+                    <span className={TOOL_CLASS.jsonHistoryMeta}>
+                      {formatHistoryTime(item.createdAt)} · {item.compact ? text.minified : `${text.indent} ${item.indent === "tab" ? "Tab" : item.indent}`}
+                    </span>
+                  </button>
+                  <motion.button
+                    type="button"
+                    className={TOOL_CLASS.jsonHistoryDelete}
+                    onClick={() => removeHistoryItem(item.id)}
+                    aria-label={text.deleteHistory}
+                    whileHover={prefersReducedMotion ? undefined : { scale: 1.06 }}
+                    whileTap={prefersReducedMotion ? undefined : { scale: 0.92 }}
+                    transition={MotionPresets.fast}
+                  >
+                    <Icon name="trash" />
+                  </motion.button>
+                </motion.li>
+              ))}
+            </AnimatePresence>
           </ol>
         ) : (
-          <p className={TOOL_CLASS.jsonHistoryEmpty}>{text.noHistory}</p>
+          <motion.p
+            className={TOOL_CLASS.jsonHistoryEmpty}
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={MotionPresets.fast}
+          >
+            {text.noHistory}
+          </motion.p>
         )}
       </div>
     </section>

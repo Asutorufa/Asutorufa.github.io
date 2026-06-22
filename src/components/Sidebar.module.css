@@ -30,19 +30,57 @@
   color: var(--blog-accent-strong);
 }
 
+.tocTabs {
+  background: var(--blog-bg);
+  border: 1px solid var(--blog-border-soft);
+  border-radius: 999px;
+  display: grid;
+  gap: 2px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 1rem 1rem 0;
+  padding: 2px;
+}
+
 .tocTab {
+  align-items: center;
   appearance: none;
   background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: var(--blog-text);
   cursor: pointer;
+  display: inline-flex;
   font: inherit;
+  justify-content: center;
+  min-width: 0;
+  padding: 0.32rem 0.55rem;
+  position: relative;
+  transition: color 0.15s ease;
 }
 
 .tocTab:hover {
-  transform: translateY(-1px);
+  color: var(--blog-accent-hover);
 }
 
-.tocTabInactive:hover {
-  border-bottom-color: var(--blog-accent);
+.tocTabActive {
+  color: var(--blog-accent-strong);
+}
+
+.tocTabIndicator {
+  background: var(--blog-accent-soft);
+  border: 1px solid var(--blog-accent-border);
+  border-radius: inherit;
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+}
+
+.tocTabLabel {
+  overflow: hidden;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  z-index: 1;
 }
 
 .tocScroll {
@@ -67,20 +105,37 @@
   background: var(--blog-accent-border);
 }
 
+.tocItem {
+  position: relative;
+}
+
+.tocIndicator {
+  background: var(--blog-accent-soft);
+  border-radius: 999px;
+  inset: -2px -0.55rem;
+  position: absolute;
+  z-index: 0;
+}
+
 .tocLink {
   border-bottom: 1px solid var(--blog-border);
   color: inherit;
   display: inline-block;
+  position: relative;
   transition:
     border-color 0.15s ease,
-    color 0.15s ease,
-    transform 0.15s ease;
+    color 0.15s ease;
+  z-index: 1;
+}
+
+.tocLinkActive {
+  border-bottom-color: transparent;
+  color: var(--blog-accent-strong);
 }
 
 .tocLink:hover {
   border-bottom-color: var(--blog-accent);
   color: var(--blog-accent);
-  transform: translateX(3px);
 }
 
 .tocLink:active {
@@ -89,43 +144,21 @@
 
 .avatarLink {
   position: relative;
-  transition: transform 0.22s ease;
-}
-
-.avatarLink::before {
-  border: 1px solid rgb(255 122 69 / 0);
-  border-radius: inherit;
-  content: "";
-  inset: -5px;
-  position: absolute;
-  transition:
-    border-color 0.22s ease,
-    transform 0.22s ease;
 }
 
 .avatarImage {
   border: 1px solid var(--blog-border);
+  box-shadow: 0 10px 24px rgb(0 0 0 / 0.1);
   transition:
     border-color 0.22s ease,
-    transform 0.22s ease;
-}
-
-.avatarLink:hover {
-  transform: translateY(-3px);
-}
-
-.avatarLink:hover::before {
-  border-color: rgb(255 122 69 / 0.36);
-  transform: scale(1.03);
+    box-shadow 0.22s ease;
 }
 
 .avatarLink:hover .avatarImage {
-  border-color: var(--blog-accent-border);
-  transform: scale(1.025);
-}
-
-.avatarLink:active {
-  transform: translateY(-1px) scale(0.98);
+  border-color: rgb(255 122 69 / 0.48);
+  box-shadow:
+    0 14px 30px rgb(0 0 0 / 0.14),
+    0 8px 18px rgb(255 91 37 / 0.12);
 }
 
 .statLink:hover,
@@ -157,7 +190,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .avatarLink,
-  .avatarLink::before,
   .avatarImage {
     animation: none !important;
     transition: none;

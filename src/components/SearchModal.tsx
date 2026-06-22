@@ -1,5 +1,7 @@
 import clsx from "clsx";
 import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { MotionPresets } from "../animation/motion-presets";
 import type { SiteLanguage, UiLabels } from "../types/content";
 import { useEscapeKey } from "../hooks/useEscapeKey";
 import { Icon } from "./Icon";
@@ -24,6 +26,7 @@ export function SearchModal({ labels }: SearchModalProps) {
   const [query, setQuery] = useState("");
   const [records, setRecords] = useState<SearchRecord[]>([]);
   const hasQuery = query.trim().length > 0;
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const syncHash = () => setOpen(window.location.hash === "#search");
@@ -57,40 +60,90 @@ export function SearchModal({ labels }: SearchModalProps) {
       .slice(0, 12);
   }, [query, records]);
 
-  if (!open) return null;
-
   function closeSearch() {
     history.replaceState(null, "", window.location.pathname);
     setOpen(false);
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 px-3 py-6" role="dialog" aria-modal="true" onClick={closeSearch}>
-      <div className={styles.panel} onClick={(event) => event.stopPropagation()}>
-        <div className={clsx(styles.header, hasQuery && styles.headerWithQuery)}>
-          <Icon name="search" className="text-blog-faint" />
-          <input autoFocus className={styles.input} placeholder={labels.search} value={query} onChange={(event) => setQuery(event.target.value)} />
-          <IconButton
-            icon="close"
-            label={labels.closeSearch}
-            className="text-xl text-blog-faint transition-colors hover:text-blog-accent active:text-blog-accent-active"
-            onClick={closeSearch}
-          />
-        </div>
-        {hasQuery ? (
-          <div className="max-h-[70vh] overflow-y-auto p-4">
-            {results.length === 0 ? <p className="text-sm text-blog-muted">{labels.noResults}</p> : null}
-            <div className="space-y-4">
-              {results.map((result) => (
-                <a key={result.url} href={result.url} className={styles.resultCard}>
-                  <h3 className={styles.resultTitle}>{result.title}</h3>
-                  <p className={styles.resultExcerpt}>{result.content.slice(0, 160)}</p>
-                </a>
-              ))}
+    <AnimatePresence>
+      {open ? (
+        <motion.div
+          className="fixed inset-0 z-50 bg-black/40 px-3 py-6"
+          role="dialog"
+          aria-modal="true"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={MotionPresets.normal}
+          onClick={closeSearch}
+        >
+          <motion.div
+            className={styles.panel}
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.92, y: -14 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96, y: -8 }}
+            transition={{ ...MotionPresets.normal, duration: 0.22 }}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className={clsx(styles.header, hasQuery && styles.headerWithQuery)}>
+              <Icon name="search" className="text-blog-faint" />
+              <input autoFocus className={styles.input} placeholder={labels.search} value={query} onChange={(event) => setQuery(event.target.value)} />
+              <IconButton
+                icon="close"
+                label={labels.closeSearch}
+                className="text-xl text-blog-faint transition-colors hover:text-blog-accent active:text-blog-accent-active"
+                onClick={closeSearch}
+              />
             </div>
-          </div>
-        ) : null}
-      </div>
-    </div>
+            <AnimatePresence initial={false}>
+              {hasQuery ? (
+                <motion.div
+                  key="search-results"
+                  className="max-h-[70vh] overflow-y-auto p-4"
+                  initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
+                  animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, height: "auto" }}
+                  exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
+                  transition={MotionPresets.fast}
+                >
+                  <AnimatePresence mode="popLayout">
+                    {results.length === 0 ? (
+                      <motion.p
+                        key="no-results"
+                        className="text-sm text-blog-muted"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={MotionPresets.fast}
+                      >
+                        {labels.noResults}
+                      </motion.p>
+                    ) : (
+                      <motion.div key="result-list" className="space-y-4">
+                        {results.map((result, index) => (
+                          <motion.a
+                            key={result.url}
+                            href={result.url}
+                            className={styles.resultCard}
+                            layout
+                            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -4 }}
+                            transition={{ ...MotionPresets.fast, delay: prefersReducedMotion ? 0 : Math.min(index * 0.025, 0.12) }}
+                          >
+                            <h3 className={styles.resultTitle}>{result.title}</h3>
+                            <p className={styles.resultExcerpt}>{result.content.slice(0, 160)}</p>
+                          </motion.a>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+          </motion.div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
   );
 }

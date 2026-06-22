@@ -6,6 +6,8 @@ import {
   CalendarCheck,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
+  ChevronUp,
   Check,
   CircleX,
   Clock3,
@@ -17,6 +19,7 @@ import {
   LogIn,
   LogOut,
   Mail,
+  MessageCircle,
   Monitor,
   Moon,
   RefreshCw,
@@ -45,6 +48,8 @@ export type IconName =
   | "check"
   | "chevron-left"
   | "chevron-right"
+  | "chevron-down"
+  | "chevron-up"
   | "clock"
   | "close"
   | "copy"
@@ -56,6 +61,7 @@ export type IconName =
   | "home"
   | "log-in"
   | "log-out"
+  | "message"
   | "moon"
   | "refresh"
   | "reply"
@@ -87,6 +93,8 @@ const icons: Record<Exclude<IconName, "github">, LucideIcon> = {
   check: Check,
   "chevron-left": ChevronLeft,
   "chevron-right": ChevronRight,
+  "chevron-down": ChevronDown,
+  "chevron-up": ChevronUp,
   clock: Clock3,
   close: CircleX,
   copy: Copy,
@@ -97,6 +105,7 @@ const icons: Record<Exclude<IconName, "github">, LucideIcon> = {
   home: House,
   "log-in": LogIn,
   "log-out": LogOut,
+  message: MessageCircle,
   moon: Moon,
   refresh: RefreshCw,
   reply: Reply,

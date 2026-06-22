@@ -1,4 +1,5 @@
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { useAnimate, useReducedMotion } from "motion/react";
 import type { ImagePreviewState } from "./ImagePreview";
 
 type ArticleMarkdownProps = {
@@ -10,14 +11,16 @@ type MermaidRenderer = typeof import("mermaid").default;
 const ImagePreview = lazy(() => import("./ImagePreview").then((module) => ({ default: module.ImagePreview })));
 
 export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [scope, animate] = useAnimate<HTMLDivElement>();
   const [preview, setPreview] = useState<ImagePreviewState | null>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    const container = containerRef.current;
+    const container = scope.current;
     if (!container) return;
 
     hydrateLazyImages(container);
+    const cleanupMotionBlocks = hydrateMotionBlocks(container, animate, prefersReducedMotion);
 
     const openImagePreview = (image: HTMLImageElement) => {
       const images = Array.from(container.querySelectorAll<HTMLImageElement>("img"));
@@ -160,19 +163,20 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
     return () => {
       cancelled = true;
       window.clearTimeout(scheduledRender);
+      cleanupMotionBlocks();
       intersectionObserver?.disconnect();
       observer.disconnect();
       container.removeEventListener("click", onClick);
       container.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("asutorufa-theme-change", scheduleRenderedMermaidRefresh);
     };
-  }, [html]);
+  }, [animate, html, prefersReducedMotion, scope]);
 
   const closePreview = () => setPreview(null);
 
   return (
     <>
-      <div ref={containerRef} className="article-content" data-article-body="" dangerouslySetInnerHTML={{ __html: html }} />
+      <div ref={scope} className="article-content" data-article-body="" dangerouslySetInnerHTML={{ __html: html }} />
       {preview ? (
         <Suspense fallback={null}>
           <ImagePreview preview={preview} onClose={closePreview} />
@@ -188,6 +192,54 @@ function hydrateLazyImages(container: HTMLElement) {
     image.decoding ||= "async";
     if (!image.hasAttribute("tabindex")) image.tabIndex = 0;
   }
+}
+
+function hydrateMotionBlocks(container: HTMLElement, animate: ReturnType<typeof useAnimate<HTMLDivElement>>[1], prefersReducedMotion: boolean | null) {
+  const nodes = Array.from(container.querySelectorAll<HTMLElement>("h2, h3, h4, h5, h6, pre, img"));
+  if (nodes.length === 0 || !("IntersectionObserver" in window)) return () => {};
+
+  const controls = new Set<{ stop: () => void }>();
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const node = entry.target as HTMLElement;
+        observer.unobserve(node);
+
+        const isImage = node instanceof HTMLImageElement;
+        const isCodeBlock = node.tagName === "PRE";
+        const playback = animate(node, getBlockTarget(isImage, isCodeBlock, prefersReducedMotion), {
+          duration: isCodeBlock ? 0.2 : 0.25,
+          ease: "easeOut"
+        });
+
+        controls.add(playback);
+        void playback.then(() => controls.delete(playback));
+      }
+    },
+    { rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
+  );
+
+  for (const node of nodes) {
+    Object.assign(node.style, getBlockInitial(node instanceof HTMLImageElement, node.tagName === "PRE", prefersReducedMotion));
+    observer.observe(node);
+  }
+
+  return () => {
+    observer.disconnect();
+    for (const playback of controls) playback.stop();
+    controls.clear();
+  };
+}
+
+function getBlockInitial(isImage: boolean, isCodeBlock: boolean, prefersReducedMotion: boolean | null) {
+  if (prefersReducedMotion || isCodeBlock) return { opacity: "0" };
+  return isImage ? { opacity: "0", transform: "scale(0.98)" } : { opacity: "0", transform: "translateY(20px)" };
+}
+
+function getBlockTarget(isImage: boolean, isCodeBlock: boolean, prefersReducedMotion: boolean | null) {
+  if (prefersReducedMotion || isCodeBlock) return { opacity: 1 };
+  return isImage ? { opacity: 1, scale: 1 } : { opacity: 1, y: 0 };
 }
 
 function toPreviewSlide(image: HTMLImageElement) {
@@ -216,7 +268,7 @@ function getMermaidThemeVariables() {
   const accent = color("--blog-accent", isDark ? "#ff8b5f" : "#ff5b25");
   const accentLine = color("--blog-accent-line", isDark ? "#ff8b5f" : "#ff7a45");
   const accentSoft = color("--blog-accent-soft", isDark ? "#342f2c" : "#fff4ed");
-  const accentSofter = color("--blog-accent-softer", isDark ? "#332b31" : "#fff0f8");
+  const accentSofter = color("--blog-accent-softer", isDark ? "#302a27" : "#fff8f4");
   const accentBorder = color("--blog-accent-border", isDark ? "#8a5a48" : "#ffb28f");
 
   return {

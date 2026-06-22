@@ -26,21 +26,23 @@
     background-color 0.15s ease,
     border-color 0.15s ease,
     box-shadow 0.15s ease,
-    color 0.15s ease,
-    transform 0.15s ease;
+    color 0.15s ease;
 }
 
 .link:hover {
   background: var(--blog-accent-soft);
   border-color: var(--blog-accent-border);
   color: var(--blog-accent-hover);
-  transform: translateY(-1px);
 }
 
-.link:active {
-  transform: translateY(1px);
+.linkContent {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  line-height: 1;
 }
 
+.currentButton,
 .currentForm {
   align-items: center;
   background: var(--blog-accent);
@@ -57,6 +59,19 @@
   transition: box-shadow 0.15s ease;
 }
 
+.currentButton {
+  appearance: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+.currentButton:focus-visible {
+  box-shadow:
+    0 8px 18px rgb(255 91 37 / 0.18),
+    var(--blog-focus-shadow);
+  outline: none;
+}
+
 .currentForm:focus-within {
   box-shadow:
     0 8px 18px rgb(255 91 37 / 0.18),
@@ -67,13 +82,25 @@
   appearance: textfield;
   background: transparent;
   border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  caret-color: #fff;
   color: #fff;
+  display: block;
   font: inherit;
+  height: 100%;
   line-height: 1;
   min-width: 1ch;
   outline: none;
   padding: 0;
   text-align: center;
+  text-decoration: none;
+}
+
+.currentInput:focus {
+  border: 0;
+  box-shadow: none;
+  outline: none;
 }
 
 .currentInput::-webkit-inner-spin-button,

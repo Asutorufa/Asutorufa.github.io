@@ -2,6 +2,10 @@
   color: var(--blog-accent);
 }
 
+.titleLink {
+  display: inline-block;
+}
+
 .titleLink:active {
   color: var(--blog-accent-active);
 }
@@ -23,11 +27,11 @@
   line-height: 1;
   min-height: 2.25rem;
   padding: 0 1.05rem;
+  transform-origin: center;
   transition:
     background 0.18s ease,
     box-shadow 0.18s ease,
-    color 0.15s ease,
-    transform 0.15s ease;
+    color 0.15s ease;
 }
 
 .readMore:hover {
@@ -36,21 +40,14 @@
     linear-gradient(135deg, #ff7abf, #ff6b35) border-box;
   box-shadow: 0 12px 24px rgb(255 91 37 / 0.2);
   color: #fff;
-  transform: translateY(-2px);
 }
 
 .readMore:active {
   box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
-  transform: translateY(0);
 }
 
 .readMoreIcon {
   display: inline-block;
-  transition: transform 0.15s ease;
-}
-
-.readMore:hover .readMoreIcon {
-  transform: translateX(3px);
 }
 
 :global(html.dark-mode) .readMore {
