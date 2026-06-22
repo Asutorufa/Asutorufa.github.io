@@ -4,7 +4,7 @@ tags:
   - DNS
   - UDP
   - DNSSEC
-  - golang
+  - Go
 categories:
   - Network
 language: zh-Hans

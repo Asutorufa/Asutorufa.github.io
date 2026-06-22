@@ -3,7 +3,7 @@ title: DNS over HTTPS
 tags:
   - DNS
   - DOH
-  - golang
+  - Go
 categories:
   - Network
 language: zh-Hans

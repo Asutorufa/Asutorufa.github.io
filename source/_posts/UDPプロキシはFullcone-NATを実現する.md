@@ -6,7 +6,6 @@ tags:
   - UDP
   - NAT
   - Go
-  - Golang
 categories:
   - Network
 language: ja

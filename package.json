@@ -6,7 +6,7 @@
     "build": "npm run react:build",
     "react:dev": "vite --host 0.0.0.0",
     "react:build": "tsx tools/react-blog/build.ts",
-    "react:preview": "vite preview --outDir dist-react"
+    "react:preview": "vite preview --outDir dist-react --host 0.0.0.0"
   },
   "dependencies": {
     "@renbaoshuo/markdown-it-katex": "^2.0.2",

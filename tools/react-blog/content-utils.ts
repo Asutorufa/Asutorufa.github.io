@@ -3,7 +3,7 @@ import { LANGUAGE_META, normalizeLanguage } from "../../src/data/i18n";
 import type { Page, Post, SiteLanguage } from "../../src/types/content";
 import { toPosixPath } from "./paths";
 import { renderMarkdown, renderMarkdownToHtml } from "./render-markdown";
-import { routeSegment as sharedRouteSegment } from "../../src/utils/route";
+import { normalizeTaxonomyName, routeSegment as sharedRouteSegment } from "../../src/utils/route";
 import type { FrontMatterFile } from "./front-matter";
 
 export function asString(value: unknown, fallback = "") {
@@ -17,6 +17,20 @@ export function asStringArray(value: unknown) {
     return value.map((item) => asString(item).trim()).filter(Boolean);
   }
   return [asString(value).trim()].filter(Boolean);
+}
+
+export function asTaxonomyArray(value: unknown) {
+  const seen = new Set<string>();
+  const result: string[] = [];
+
+  for (const name of asStringArray(value)) {
+    const normalized = normalizeTaxonomyName(name);
+    if (!normalized || seen.has(normalized)) continue;
+    seen.add(normalized);
+    result.push(name);
+  }
+
+  return result;
 }
 
 export function normalizeDate(value: unknown) {
@@ -153,8 +167,8 @@ export async function createPost(
     title,
     date,
     updated,
-    tags: asStringArray(data.tags),
-    categories: asStringArray(data.categories),
+    tags: asTaxonomyArray(data.tags),
+    categories: asTaxonomyArray(data.categories),
     ...language,
     excerptMarkdown,
     excerptHtml,

@@ -4,14 +4,14 @@ abbrlink: '1755854433972'
 date: 2025-08-22 17:20:33
 updated: 2025-08-22 17:20:33
 tags:
-  - llm
-  - rag
+  - LLM
+  - RAG
   - text embedding
   - sparse vector
   - vector database
   - hybrid search
 categories:
-- llm
+- LLM
 language: ja
 ---
 

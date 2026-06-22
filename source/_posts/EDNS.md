@@ -4,7 +4,7 @@ tags:
   - DNS
   - UDP
   - EDNS
-  - golang
+  - Go
 categories:
   - Network
 language: zh-Hans

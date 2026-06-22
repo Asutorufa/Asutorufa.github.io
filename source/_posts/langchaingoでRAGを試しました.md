@@ -1,11 +1,11 @@
 ---
 title: langchaingoでRAGを試しました
 tags:
-  - llm
-  - rag
+  - LLM
+  - RAG
   - text embedding
 categories:
-  - llm
+  - LLM
 abbrlink: 95db8f9
 date: 2024-11-06 10:37:12
 updated: 2024-11-06 10:37:12

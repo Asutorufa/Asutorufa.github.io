@@ -1,11 +1,11 @@
 ---
 title: golangとollamaでfunction calling
 tags:
-  - llm
+  - LLM
   - function calling
   - text embedding
 categories:
-  - llm
+  - LLM
 language: ja
 abbrlink: '23567986'
 date: 2024-11-11 19:11:06

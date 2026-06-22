@@ -2,7 +2,7 @@
 title: golang socks5/http proxy
 tags:
   - socks5
-  - golang
+  - Go
 categories:
   - Network
 abbrlink: c7816edc

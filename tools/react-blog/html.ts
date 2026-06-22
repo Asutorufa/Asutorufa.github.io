@@ -117,22 +117,10 @@ function canonicalHostRedirectScript(siteUrl: string) {
     (() => {
       const canonicalHost = ${JSON.stringify(canonical.hostname)};
       const canonicalOrigin = ${JSON.stringify(origin)};
-      const hostname = location.hostname;
-      const localHost =
-        location.protocol === "file:" ||
-        hostname === "localhost" ||
-        hostname.endsWith(".localhost") ||
-        hostname.endsWith(".local") ||
-        hostname === "0.0.0.0" ||
-        hostname === "127.0.0.1" ||
-        hostname === "::1" ||
-        hostname === "[::1]" ||
-        /^127(?:\\.\\d{1,3}){3}$/.test(hostname) ||
-        /^10(?:\\.\\d{1,3}){3}$/.test(hostname) ||
-        /^192\\.168(?:\\.\\d{1,3}){2}$/.test(hostname) ||
-        /^172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2}$/.test(hostname);
+      const hostname = location.hostname.toLocaleLowerCase("en-US");
+      const redirectHosts = new Set(["asutorufa.github.io"]);
 
-      if (!localHost && (hostname !== canonicalHost || location.protocol !== ${JSON.stringify(canonical.protocol)})) {
+      if (redirectHosts.has(hostname) && (hostname !== canonicalHost || location.protocol !== ${JSON.stringify(canonical.protocol)})) {
         location.replace(canonicalOrigin + location.pathname + location.search + location.hash);
       }
     })();

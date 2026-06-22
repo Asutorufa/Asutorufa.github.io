@@ -3,6 +3,7 @@ import path from "node:path";
 import fg from "fast-glob";
 import type { BlogConfig, ContentManifest, Post } from "../../src/types/content";
 import { DEFAULT_LANGUAGE } from "../../src/data/i18n";
+import { formatTaxonomyName, normalizeTaxonomyName } from "../../src/utils/route";
 import { comparePostsByDateDesc, createPage, createPost, routeSegment } from "./content-utils";
 import { parseFrontMatter } from "./front-matter";
 import { postsDir, rootDir, sourceDir, toPosixPath } from "./paths";
@@ -41,6 +42,7 @@ export async function collectContent(): Promise<ContentManifest> {
     )
   ).sort(comparePostsByDateDesc);
 
+  applyTaxonomyDisplayNames(posts);
   assertUniquePostRoutes(posts);
 
   const pages = (
@@ -86,6 +88,63 @@ function collectTaxonomy(posts: Post[], key: "tags" | "categories", baseRoute: s
       route: `${baseRoute}/${routeSegment(name)}/`
     }))
     .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function applyTaxonomyDisplayNames(posts: Post[]) {
+  const tags = collectTaxonomyDisplayNames(posts, "tags");
+  const categories = collectTaxonomyDisplayNames(posts, "categories");
+
+  for (const post of posts) {
+    post.tags = applyTaxonomyDisplayName(post.tags, tags);
+    post.categories = applyTaxonomyDisplayName(post.categories, categories);
+  }
+}
+
+function collectTaxonomyDisplayNames(posts: Post[], key: "tags" | "categories") {
+  const namesByKey = new Map<string, string[]>();
+
+  for (const post of posts) {
+    for (const name of post[key]) {
+      const normalized = normalizeTaxonomyName(name);
+      if (!normalized) continue;
+      namesByKey.get(normalized)?.push(name) ?? namesByKey.set(normalized, [name]);
+    }
+  }
+
+  return new Map([...namesByKey].map(([normalized, names]) => [normalized, chooseTaxonomyDisplayName(normalized, names)]));
+}
+
+function applyTaxonomyDisplayName(names: string[], displayNames: Map<string, string>) {
+  const seen = new Set<string>();
+  const result: string[] = [];
+
+  for (const name of names) {
+    const normalized = normalizeTaxonomyName(name);
+    const displayName = displayNames.get(normalized);
+    if (!displayName || seen.has(normalized)) continue;
+    seen.add(normalized);
+    result.push(displayName);
+  }
+
+  return result;
+}
+
+function chooseTaxonomyDisplayName(normalized: string, names: string[]) {
+  const fallback = formatTaxonomyName(normalized);
+  const exactFallback = names.find((name) => name.trim() === fallback);
+  if (exactFallback) return exactFallback.trim();
+
+  const stylized = names.find((name) => isStylizedTaxonomyName(name));
+  if (stylized) return stylized.trim();
+
+  return fallback;
+}
+
+function isStylizedTaxonomyName(name: string) {
+  return name
+    .trim()
+    .split(/[\s-]+/)
+    .some((word) => /^[A-Z]{2,}$/.test(word) || /[A-Za-z][a-z]*[A-Z]/.test(word));
 }
 
 function collectArchives(posts: Post[]) {

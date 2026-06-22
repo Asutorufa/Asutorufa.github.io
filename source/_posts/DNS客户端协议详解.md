@@ -3,7 +3,7 @@ title: DNS客户端协议详解
 tags:
   - DNS
   - UDP
-  - golang
+  - Go
 categories:
   - Network
 language: zh-Hans
