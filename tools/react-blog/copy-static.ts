@@ -4,6 +4,7 @@ import { distDir, fromRoot } from "./paths";
 
 const copies = [
   ["source/images", "images"],
+  ["source/js", "js"],
   ["source/ads.txt", "ads.txt"],
   ["source/robots.txt", "robots.txt"],
   ["source/favicon.ico", "favicon.ico"]

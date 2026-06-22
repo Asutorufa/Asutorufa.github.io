@@ -68,6 +68,8 @@
   --blog-code-bg: #f6f8fa;
   --blog-code-text: #24292f;
   --blog-code-inline-bg: #eee;
+  --blog-image-paper: #f3f1ec;
+  --blog-image-paper-border: #ded8cc;
   --blog-focus-shadow: 0 0 0 3px rgb(255 199 235 / 0.35);
   --blog-shadow: 0 2px 8px rgb(0 0 0 / 0.12);
   --blog-theme-color: #f7f7f7;
@@ -116,6 +118,8 @@ html.dark-mode {
   --blog-code-bg: #0d1117;
   --blog-code-text: #c9d1d9;
   --blog-code-inline-bg: #3a3a3a;
+  --blog-image-paper: #e8e3d8;
+  --blog-image-paper-border: #6a6257;
   --blog-focus-shadow: 0 0 0 3px rgb(107 79 97 / 0.36);
   --blog-shadow: 0 2px 8px rgb(0 0 0 / 0.3);
   --blog-theme-color: #282828;
@@ -551,10 +555,14 @@ pre.shiki.code-block {
 }
 
 .article-content img {
+  background: var(--blog-image-paper);
+  border: 1px solid var(--blog-image-paper-border);
+  border-radius: 0.5rem;
   cursor: zoom-in;
   display: block;
   height: auto;
   max-width: 100%;
+  padding: 0.35rem;
 }
 
 .article-content img:focus-visible {

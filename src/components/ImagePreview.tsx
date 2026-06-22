@@ -1,6 +1,7 @@
 import type { ComponentProps } from "react";
 import Lightbox, { type SlideImage, type SlotStyles } from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import "yet-another-react-lightbox/styles.css";
 import { Icon } from "./Icon";
 import styles from "./ImagePreview.module.css";
 
@@ -54,8 +55,11 @@ const LIGHTBOX_STYLES = {
 
 const LIGHTBOX_IMAGE_PROPS = {
   style: {
+    background: "var(--blog-image-paper)",
+    border: "1px solid var(--blog-image-paper-border)",
     borderRadius: "0.5rem",
-    boxShadow: "0 24px 70px rgb(0 0 0 / 0.45)"
+    boxShadow: "0 24px 70px rgb(0 0 0 / 0.45)",
+    padding: "0.5rem"
   }
 } satisfies NonNullable<ComponentProps<typeof Lightbox>["carousel"]>["imageProps"];
 

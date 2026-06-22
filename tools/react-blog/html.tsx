@@ -1,6 +1,8 @@
 import path from "node:path";
 import { renderToStaticMarkup } from "react-dom/server";
+import { PAGE_PAYLOAD_SCRIPT_ID } from "../../src/app/page-payload-html";
 import { LANGUAGE_META } from "../../src/data/i18n";
+import type { CommonContent, PagePayload } from "../../src/app/app-types";
 import type { ContentManifest, Post, RouteEntry } from "../../src/types/content";
 
 export type ClientAssets = {
@@ -11,8 +13,8 @@ export type ClientAssets = {
 const THEME_COLOR_LIGHT = "#f7f7f7";
 const THEME_COLOR_DARK = "#282828";
 
-export function renderHtmlShell(options: { appHtml: string; assets: ClientAssets; content: ContentManifest; route: RouteEntry }) {
-  const { appHtml, assets, content, route } = options;
+export function renderHtmlShell(options: { appHtml: string; assets: ClientAssets; content: ContentManifest; pagePayload: PagePayload; route: RouteEntry }) {
+  const { appHtml, assets, content, pagePayload, route } = options;
   const language = LANGUAGE_META[route.language];
   const canonical = new URL(route.route === "/404.html" ? "/" : route.route, content.config.url).toString();
   const description = routeDescription(content, route);
@@ -43,12 +45,12 @@ export function renderHtmlShell(options: { appHtml: string; assets: ClientAssets
         {assets.styles.map((href) => (
           <link key={href} rel="stylesheet" href={href} />
         ))}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-JN3GB41L9H" />
-        <script dangerouslySetInnerHTML={{ __html: analyticsScript() }} />
+        <script async src="/js/analytics.js" />
         <title>{title}</title>
       </head>
       <body>
         <div id="root" dangerouslySetInnerHTML={{ __html: appHtml }} />
+        <script id={PAGE_PAYLOAD_SCRIPT_ID} type="application/json" dangerouslySetInnerHTML={{ __html: scriptJson(pagePayload) }} />
         {assets.scripts.map((src) => (
           <script key={src} type="module" src={src} />
         ))}
@@ -107,47 +109,28 @@ function canonicalHostRedirectScript(siteUrl: string) {
 
 function themeBootstrapScript() {
   return `
-(() => {
-  const key = "asutorufa-theme";
-  const root = document.documentElement;
-  let stored = "system";
-  try {
-    stored = localStorage.getItem(key) || "system";
-  } catch {
-    stored = "system";
-  }
-  const preference = stored === "light" || stored === "dark" || stored === "system" ? stored : "system";
-  const dark = preference === "dark" || (preference === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
-  root.classList.toggle("dark-mode", dark);
-  root.classList.toggle("light-mode", !dark);
-  root.dataset.themePreference = preference;
-  const themeColor = document.querySelector('meta[name="theme-color"]');
-  if (themeColor) themeColor.setAttribute("content", dark ? ${JSON.stringify(THEME_COLOR_DARK)} : ${JSON.stringify(THEME_COLOR_LIGHT)});
-})();
+(()=>{let p="system";try{p=localStorage.getItem("asutorufa-theme")||p}catch{}p=p==="light"||p==="dark"||p==="system"?p:"system";const d=p==="dark"||p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches,r=document.documentElement,m=document.querySelector('meta[name="theme-color"]');r.classList.toggle("dark-mode",d);r.classList.toggle("light-mode",!d);r.dataset.themePreference=p;m?.setAttribute("content",d?${JSON.stringify(THEME_COLOR_DARK)}:${JSON.stringify(THEME_COLOR_LIGHT)})})();
 `;
 }
 
-function analyticsScript() {
-  return `
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag("js", new Date());
-gtag("config", "G-JN3GB41L9H");
-`;
-}
-
-export function commonContentForClient(content: ContentManifest): ContentManifest {
+export function commonContentForClient(content: ContentManifest): CommonContent {
   return {
-    ...content,
-    posts: content.posts.map((post): Post => stripPostForClient(post, { excerptHtml: "", bodyHtml: "", toc: [] })),
-    pages: content.pages.map((page) => stripPageForClient(page, "")),
-    languageFallbacks: []
+    config: content.config,
+    stats: content.stats
   };
 }
 
 export function postForListPayload(post: Post): Post {
   return stripPostForClient(post, {
     excerptHtml: post.excerptHtml ?? "",
+    bodyHtml: "",
+    toc: []
+  });
+}
+
+export function postForAdjacentPayload(post: Post): Post {
+  return stripPostForClient(post, {
+    excerptHtml: "",
     bodyHtml: "",
     toc: []
   });
@@ -161,8 +144,16 @@ export function postForArticlePayload(post: Post): Post {
   });
 }
 
-export function pageForPayload(contentPage: ContentManifest["pages"][number]): ContentManifest["pages"][number] {
-  return stripPageForClient(contentPage, contentPage.bodyHtml);
+export function postForEmbeddedArticlePayload(post: Post): Post {
+  return stripPostForClient(post, {
+    excerptHtml: "",
+    bodyHtml: "",
+    toc: post.toc
+  });
+}
+
+export function pageForPayload(contentPage: ContentManifest["pages"][number], options: { bodyHtml?: string } = {}): ContentManifest["pages"][number] {
+  return stripPageForClient(contentPage, options.bodyHtml ?? contentPage.bodyHtml);
 }
 
 function stripPostForClient(post: Post, options: { excerptHtml: string; bodyHtml: string; toc: Post["toc"] }): Post {
@@ -186,4 +177,8 @@ function stripPageForClient(contentPage: ContentManifest["pages"][number], bodyH
     rawMarkdown: "",
     plainText: ""
   };
+}
+
+function scriptJson(value: unknown) {
+  return JSON.stringify(value).replaceAll("<", "\\u003c").replaceAll(">", "\\u003e").replaceAll("\u2028", "\\u2028").replaceAll("\u2029", "\\u2029");
 }

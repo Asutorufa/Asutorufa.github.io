@@ -4,5 +4,6 @@ db.json
 *.log
 node_modules/
 dist-react/
+src/generated/blog-common.ts
 .deploy*/
 .vscode

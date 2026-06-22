@@ -10,11 +10,9 @@ type ArchivePageProps = AppProps & {
 };
 
 export function ArchivePage({ content, route, year, month, page = 1 }: ArchivePageProps) {
-  const prefix = month && year ? `${year}-${month}` : year;
-  const filteredPosts = prefix ? content.posts.filter((post) => post.date.startsWith(prefix)) : content.posts;
-  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / content.config.perPage));
-  const start = (page - 1) * content.config.perPage;
-  const posts = filteredPosts.slice(start, start + content.config.perPage);
+  const totalPages = content.currentList?.totalPages ?? 1;
+  const totalPosts = content.currentList?.totalPosts ?? content.stats.posts;
+  const posts = content.posts;
   const groups = groupPostsByYear(posts);
   const labels = UI_LABELS[route.language];
   const title = month && year ? `${labels.archiveTitle}: ${year}/${month}` : year ? `${labels.archiveTitle}: ${year}` : labels.archiveTitle;
@@ -27,9 +25,9 @@ export function ArchivePage({ content, route, year, month, page = 1 }: ArchivePa
         </header>
 
         <div className={styles.timeline}>
-          {!prefix && page === 1 ? (
+          {!year && page === 1 ? (
             <p className={styles.summary}>
-              Nice! {content.posts.length} {labels.posts} in total. Keep on posting.
+              Nice! {totalPosts} {labels.posts} in total. Keep on posting.
             </p>
           ) : null}
 

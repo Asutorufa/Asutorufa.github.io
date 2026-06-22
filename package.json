@@ -4,10 +4,14 @@
   "private": true,
   "scripts": {
     "build": "npm run react:build",
+    "prelint": "npm run react:generate",
     "lint": "eslint src tools/react-blog vite.config.ts",
+    "prelint:fix": "npm run react:generate",
     "lint:fix": "eslint src tools/react-blog vite.config.ts --fix",
+    "prereact:dev": "npm run react:generate",
     "react:dev": "vite --host 0.0.0.0",
-    "react:build": "tsx tools/react-blog/build.ts",
+    "react:generate": "node --import tsx tools/react-blog/generate-client-common.ts",
+    "react:build": "node --import tsx tools/react-blog/build.ts",
     "react:preview": "vite preview --outDir dist-react --host 0.0.0.0"
   },
   "dependencies": {

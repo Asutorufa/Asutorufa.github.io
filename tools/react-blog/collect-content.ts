@@ -53,13 +53,24 @@ export async function collectContent(): Promise<ContentManifest> {
     )
   ).filter((page) => page !== null);
 
+  const tags = collectTaxonomy(posts, "tags", "/tags");
+  const categories = collectTaxonomy(posts, "categories", "/categories");
+  const archives = collectArchives(posts);
+
   return {
     config,
+    stats: {
+      posts: posts.length,
+      pages: pages.length,
+      tags: tags.length,
+      categories: categories.length,
+      archives: archives.length
+    },
     posts,
     pages,
-    tags: collectTaxonomy(posts, "tags", "/tags"),
-    categories: collectTaxonomy(posts, "categories", "/categories"),
-    archives: collectArchives(posts),
+    tags,
+    categories,
+    archives,
     languageFallbacks
   };
 }

@@ -8,6 +8,7 @@ import { copyStaticAssets } from "./copy-static";
 import { generateFeed } from "./generate-feed";
 import { generateSearch } from "./generate-search";
 import { generateSitemap } from "./generate-sitemap";
+import { writeClientCommonModule } from "./generate-client-common";
 import { renderHtml } from "./render-html";
 import { distDir } from "./paths";
 
@@ -19,6 +20,7 @@ async function build() {
   await cleanDist();
   const content = await collectContent();
   const routes = buildRoutes(content);
+  await writeClientCommonModule(content);
   await buildClientAssets();
   const ssrServer = await createSsrServer();
   try {
@@ -48,6 +50,7 @@ async function createSsrServer(): Promise<ViteDevServer> {
     appType: "custom",
     logLevel: "error",
     server: {
+      hmr: false,
       middlewareMode: true
     }
   });
@@ -75,7 +78,7 @@ async function printReport(content: Awaited<ReturnType<typeof collectContent>>, 
   console.log(`tags: ${content.tags.length}`);
   console.log(`categories: ${content.categories.length}`);
   console.log(`archives: ${content.archives.length}`);
-  console.log(`language fallbacks: ${content.languageFallbacks.length}`);
+  console.log(`language fallbacks: ${content.languageFallbacks?.length ?? 0}`);
 }
 
 build().catch((error) => {

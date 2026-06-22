@@ -1,11 +1,13 @@
-import { useEffect, useRef, useState } from "react";
-import { ImagePreview, type ImagePreviewState } from "./ImagePreview";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import type { ImagePreviewState } from "./ImagePreview";
 
 type ArticleMarkdownProps = {
   html: string;
 };
 
 type MermaidRenderer = typeof import("mermaid").default;
+
+const ImagePreview = lazy(() => import("./ImagePreview").then((module) => ({ default: module.ImagePreview })));
 
 export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -170,8 +172,12 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
 
   return (
     <>
-      <div ref={containerRef} className="article-content" dangerouslySetInnerHTML={{ __html: html }} />
-      <ImagePreview preview={preview} onClose={closePreview} />
+      <div ref={containerRef} className="article-content" data-article-body="" dangerouslySetInnerHTML={{ __html: html }} />
+      {preview ? (
+        <Suspense fallback={null}>
+          <ImagePreview preview={preview} onClose={closePreview} />
+        </Suspense>
+      ) : null}
     </>
   );
 }

@@ -113,12 +113,23 @@ export type Page = {
 
 export type ContentManifest = {
   config: BlogConfig;
+  stats: {
+    posts: number;
+    pages: number;
+    tags: number;
+    categories: number;
+    archives: number;
+  };
   posts: Post[];
   pages: Page[];
   tags: Array<{ name: string; route: string; count: number }>;
   categories: Array<{ name: string; route: string; count: number }>;
   archives: Array<{ year: string; route: string; count: number }>;
-  languageFallbacks: Array<{ sourcePath: string; rawLanguage: string }>;
+  currentList?: {
+    totalPages: number;
+    totalPosts: number;
+  };
+  languageFallbacks?: Array<{ sourcePath: string; rawLanguage: string }>;
 };
 
 export type RouteKind =

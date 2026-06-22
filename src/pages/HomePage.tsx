@@ -8,9 +8,8 @@ type HomePageProps = AppProps & {
 };
 
 export function HomePage({ content, route, page }: HomePageProps) {
-  const totalPages = Math.max(1, Math.ceil(content.posts.length / content.config.perPage));
-  const start = (page - 1) * content.config.perPage;
-  const posts = content.posts.slice(start, start + content.config.perPage);
+  const totalPages = content.currentList?.totalPages ?? Math.max(1, Math.ceil(content.stats.posts / content.config.perPage));
+  const posts = content.posts;
   const labels = UI_LABELS[route.language];
 
   return (

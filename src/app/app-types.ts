@@ -5,17 +5,21 @@ export type AppProps = {
   route: RouteEntry;
 };
 
-export type CommonPayload = {
-  content: ContentManifest;
-  routes: RouteEntry[];
-};
+export type CommonContent = Pick<ContentManifest, "config" | "stats">;
 
 export type PagePayload = {
   route: RouteEntry;
   description?: string;
   post?: Post;
+  newerPost?: Post;
+  olderPost?: Post;
   posts?: Post[];
+  totalPages?: number;
+  totalPosts?: number;
   page?: Page;
+  tags?: ContentManifest["tags"];
+  categories?: ContentManifest["categories"];
+  archives?: ContentManifest["archives"];
 };
 
 declare global {

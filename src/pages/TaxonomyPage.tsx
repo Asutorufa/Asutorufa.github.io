@@ -12,10 +12,8 @@ type TaxonomyPageProps = AppProps & {
 
 export function TaxonomyPage({ content, route, type, name, page = 1 }: TaxonomyPageProps) {
   const entries = type === "tag" ? content.tags : content.categories;
-  const filteredPosts = name ? content.posts.filter((post) => (type === "tag" ? post.tags : post.categories).includes(name)) : [];
-  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / content.config.perPage));
-  const start = (page - 1) * content.config.perPage;
-  const posts = filteredPosts.slice(start, start + content.config.perPage);
+  const totalPages = content.currentList?.totalPages ?? 1;
+  const posts = name ? content.posts : [];
   const labels = UI_LABELS[route.language];
   const pluralTitle = type === "tag" ? labels.tags : labels.categories;
   const singularTitle = type === "tag" ? labels.tag : labels.category;
@@ -48,13 +46,15 @@ export function TaxonomyPage({ content, route, type, name, page = 1 }: TaxonomyP
           ))}
         </div>
       </section>
-      <Pagination currentPage={page} totalPages={totalPages} labels={labels} basePath={taxonomyBasePath(entries, name)} />
+      <Pagination currentPage={page} totalPages={totalPages} labels={labels} basePath={taxonomyBasePath(route.route, type)} />
     </>
   );
 }
 
-function taxonomyBasePath(entries: Array<{ name: string; route: string }>, name: string) {
-  return entries.find((entry) => entry.name === name)?.route ?? "/";
+function taxonomyBasePath(route: string, type: "tag" | "category") {
+  const root = type === "tag" ? "/tags/" : "/categories/";
+  if (route === root) return root;
+  return route.replace(/page\/\d+\/$/, "");
 }
 
 function formatTaxonomyDate(value?: string) {

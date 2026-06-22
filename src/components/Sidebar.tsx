@@ -120,9 +120,9 @@ function ProfileBody({ content, labels, compact = false }: { content: ContentMan
         <img src="/images/bighead.svg" alt="Asutorufa" className={clsx(styles.avatarImage, "h-28 w-28 rounded-full object-cover")} />
       </a>
       <div className="mt-6 grid grid-cols-3 divide-x divide-blog-border">
-        <Stat href="/archives/" value={content.posts.length} label={labels.posts} />
-        <Stat href="/categories/" value={content.categories.length} label={labels.categories.toLowerCase()} />
-        <Stat href="/tags/" value={content.tags.length} label={labels.tags.toLowerCase()} />
+        <Stat href="/archives/" value={content.stats.posts} label={labels.posts} />
+        <Stat href="/categories/" value={content.stats.categories} label={labels.categories.toLowerCase()} />
+        <Stat href="/tags/" value={content.stats.tags} label={labels.tags.toLowerCase()} />
       </div>
       <div className="mt-5 grid grid-cols-3 gap-2 text-[13px] font-normal">
         <a className={clsx(styles.actionLink, "rounded px-2 py-1 transition-all active:translate-y-px")} href="/atom.xml">

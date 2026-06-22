@@ -12,6 +12,7 @@ import { TaxonomyPage } from "../pages/TaxonomyPage";
 import { ToolsPage } from "../pages/ToolsPage";
 import type { ContentManifest, RouteEntry } from "../types/content";
 import type { AppProps, PagePayload } from "./app-types";
+import { parsePagePayloadHtml } from "./page-payload-html";
 import { mergePagePayload } from "./page-payload";
 
 type RouteHistoryState = {
@@ -243,11 +244,12 @@ async function loadPagePayload(url: URL) {
   const cached = pagePayloadCache.get(routePath);
   if (cached) return cached;
 
-  const promise = fetch(routePayloadUrl(routePath))
+  const promise = fetch(routeHtmlUrl(routePath))
     .then((response) => {
       if (!response.ok) throw new Error(`Unable to load page payload: ${response.status}`);
-      return response.json() as Promise<PagePayload>;
+      return response.text();
     })
+    .then((html) => parsePagePayloadHtml(html))
     .then((payload) => {
       pagePayloadCache.set(payload.route.route, payload);
       return payload;
@@ -260,8 +262,9 @@ async function loadPagePayload(url: URL) {
   return promise;
 }
 
-function routePayloadUrl(routePath: string) {
-  return `/manifest/pages/${routeOutputPath(routePath)}.json`;
+function routeHtmlUrl(routePath: string) {
+  if (routePath === "/") return "/";
+  return routePath;
 }
 
 function payloadFromContent(content: ContentManifest, route: RouteEntry): PagePayload {
@@ -269,15 +272,37 @@ function payloadFromContent(content: ContentManifest, route: RouteEntry): PagePa
     route,
     description: currentDocumentDescription(),
     post: route.params?.abbrlink ? content.posts.find((post) => post.abbrlink === route.params?.abbrlink) : undefined,
-    posts: route.kind === "home" ? homeListPosts(content, route) : undefined,
-    page: route.kind === "page" ? content.pages.find((page) => page.route === route.route) : undefined
+    newerPost: route.params?.abbrlink ? adjacentPost(content, route.params.abbrlink, -1) : undefined,
+    olderPost: route.params?.abbrlink ? adjacentPost(content, route.params.abbrlink, 1) : undefined,
+    posts: isListRoute(route) ? content.posts : undefined,
+    totalPages: isListRoute(route) ? content.currentList?.totalPages : undefined,
+    totalPosts: isListRoute(route) ? content.currentList?.totalPosts : undefined,
+    page: route.kind === "page" ? content.pages.find((page) => page.route === route.route) : undefined,
+    tags: route.kind === "tags" ? content.tags : undefined,
+    categories: route.kind === "categories" ? content.categories : undefined,
+    archives: route.kind === "archives" ? content.archives : undefined
   };
 }
 
-function homeListPosts(content: ContentManifest, route: RouteEntry) {
-  const page = Number(route.params?.page ?? "1");
-  const start = (page - 1) * content.config.perPage;
-  return content.posts.slice(start, start + content.config.perPage);
+function adjacentPost(content: ContentManifest, abbrlink: string, offset: -1 | 1) {
+  const index = content.posts.findIndex((post) => post.abbrlink === abbrlink);
+  return index >= 0 ? content.posts[index + offset] : undefined;
+}
+
+function isListRoute(route: RouteEntry) {
+  return (
+    route.kind === "home" ||
+    route.kind === "archives" ||
+    route.kind === "archive-year" ||
+    route.kind === "archive-month" ||
+    route.kind === "archives-page" ||
+    route.kind === "archive-year-page" ||
+    route.kind === "archive-month-page" ||
+    route.kind === "tag" ||
+    route.kind === "tag-page" ||
+    route.kind === "category" ||
+    route.kind === "category-page"
+  );
 }
 
 function shouldHandleLink(anchor: HTMLAnchorElement) {
@@ -329,12 +354,6 @@ function normalizeRoutePath(pathname: string) {
   if (value === "") value = "/";
   if (!value.endsWith("/") && !value.endsWith(".html")) value = `${value}/`;
   return value;
-}
-
-function routeOutputPath(routePath: string) {
-  if (routePath === "/") return "index.html";
-  if (routePath.endsWith(".html")) return routePath.replace(/^\//, "");
-  return `${routePath.replace(/^\//, "")}index.html`;
 }
 
 function updateDocumentMeta(content: ContentManifest, route: AppProps["route"], descriptionOverride?: string) {
