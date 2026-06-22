@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { useAnimate, useReducedMotion } from "motion/react";
 import type { ImagePreviewState } from "./ImagePreview";
+import { ImagePreviewLoading } from "./ImagePreviewLoading";
 
 type ArticleMarkdownProps = {
   html: string;
@@ -178,7 +179,7 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
     <>
       <div ref={scope} className="article-content" data-article-body="" dangerouslySetInnerHTML={{ __html: html }} />
       {preview ? (
-        <Suspense fallback={null}>
+        <Suspense fallback={<ImagePreviewLoading />}>
           <ImagePreview preview={preview} onClose={closePreview} />
         </Suspense>
       ) : null}

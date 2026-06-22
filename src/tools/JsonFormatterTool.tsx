@@ -111,34 +111,36 @@ export function JsonFormatterTool({ labels }: { labels: UiLabels }) {
         </label>
         <label className={TOOL_CLASS.field}>
           <span className={TOOL_CLASS.fieldLabel}>{text.jsonOutput}</span>
-          <AnimatePresence mode="wait" initial={false}>
-            {output ? (
-              <motion.pre
-                key="preview"
-                className={clsx(TOOL_CLASS.jsonPreview, "language-json")}
-                aria-label={text.jsonOutput}
-                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.99 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.99 }}
-                transition={MotionPresets.fast}
-              >
-                <code className="language-json" dangerouslySetInnerHTML={{ __html: highlightedOutput }} />
-              </motion.pre>
-            ) : (
-              <motion.textarea
-                key="empty"
-                className={clsx(TOOL_CLASS.control, TOOL_CLASS.textarea)}
-                value={output}
-                readOnly
-                placeholder={text.formattedResult}
-                spellCheck={false}
-                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.99 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.99 }}
-                transition={MotionPresets.fast}
-              />
-            )}
-          </AnimatePresence>
+          <div className={TOOL_CLASS.jsonOutputShell}>
+            <AnimatePresence mode="wait" initial={false}>
+              {output ? (
+                <motion.pre
+                  key="preview"
+                  className={clsx(TOOL_CLASS.jsonPreview, "language-json")}
+                  aria-label={text.jsonOutput}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={MotionPresets.fast}
+                >
+                  <code className="language-json" dangerouslySetInnerHTML={{ __html: highlightedOutput }} />
+                </motion.pre>
+              ) : (
+                <motion.textarea
+                  key="empty"
+                  className={clsx(TOOL_CLASS.control, TOOL_CLASS.textarea)}
+                  value={output}
+                  readOnly
+                  placeholder={text.formattedResult}
+                  spellCheck={false}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={MotionPresets.fast}
+                />
+              )}
+            </AnimatePresence>
+          </div>
         </label>
       </div>
 
@@ -238,10 +240,9 @@ export function JsonFormatterTool({ labels }: { labels: UiLabels }) {
                   key={item.id}
                   layout
                   className={TOOL_CLASS.jsonHistoryRow}
-                  initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 6, scale: 0.99 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: -8, scale: 0.98 }}
-                  whileHover={prefersReducedMotion ? undefined : { y: -1 }}
+                  initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 4 }}
+                  animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                  exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -2 }}
                   transition={MotionPresets.fast}
                 >
                   <button type="button" className={TOOL_CLASS.jsonHistoryItem} onClick={() => restoreHistory(item)}>

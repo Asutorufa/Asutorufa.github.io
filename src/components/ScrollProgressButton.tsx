@@ -49,9 +49,20 @@ export function ScrollProgressButton() {
 
   useEffect(() => {
     const update = () => setHasComments(Boolean(document.getElementById("comments")));
+    const scheduleUpdate = () => {
+      update();
+      window.requestAnimationFrame(update);
+      window.setTimeout(update, 250);
+    };
+    const observer = new MutationObserver(update);
+
     update();
-    window.addEventListener("asutorufa-route-change", update);
-    return () => window.removeEventListener("asutorufa-route-change", update);
+    observer.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener("asutorufa-route-change", scheduleUpdate);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("asutorufa-route-change", scheduleUpdate);
+    };
   }, []);
 
   useEffect(() => {

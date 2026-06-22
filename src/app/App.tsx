@@ -154,7 +154,11 @@ export function App(props: AppProps) {
       if (sameDocumentHash(url)) return;
 
       event.preventDefault();
-      void navigate(url, { mode: "push", saveCurrentScroll: true, transitionOriginY: readMoreTransitionOriginY(anchor) });
+      void navigate(url, {
+        mode: "push",
+        saveCurrentScroll: true,
+        transitionOriginY: readMoreTransitionOriginY(anchor)
+      });
     };
 
     const onPopState = (event: PopStateEvent) => {

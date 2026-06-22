@@ -152,14 +152,14 @@
   padding: 0.72rem;
   position: absolute;
   top: 100%;
-  width: min(29rem, calc(100vw - 3rem));
+  width: min(35rem, calc(100vw - 3rem));
   z-index: 55;
 }
 
 .datePickerBody {
   display: grid;
   gap: 0.7rem;
-  grid-template-columns: minmax(0, 1fr) 8.2rem;
+  grid-template-columns: minmax(0, 1fr) 12rem;
 }
 
 .datePickerCalendar {
@@ -184,7 +184,6 @@
 }
 
 .datePickerNav,
-.timeStepper,
 .datePickerAction {
   align-items: center;
   border-radius: 999px;
@@ -203,14 +202,12 @@
 }
 
 .datePickerNav:hover,
-.timeStepper:hover,
 .datePickerAction:hover {
   background: var(--tool-accent-bg, #fff8f4);
   color: var(--blog-accent-hover);
 }
 
 .datePickerNav:active,
-.timeStepper:active,
 .datePickerAction:active {
   transform: scale(0.94);
 }
@@ -237,6 +234,7 @@
   font-size: 0.8rem;
   height: 2.15rem;
   line-height: 1;
+  position: relative;
   transition:
     background-color 0.18s ease,
     border-color 0.18s ease,
@@ -258,52 +256,230 @@
 }
 
 .datePickerDaySelected {
-  background: var(--blog-accent);
   border-color: var(--blog-accent);
   color: #fff;
 }
 
 .datePickerDaySelected:hover {
-  background: var(--blog-accent-active);
   color: #fff;
 }
 
+.datePickerDayIndicator {
+  background: var(--blog-accent);
+  border-radius: inherit;
+  box-shadow: 0 7px 14px rgb(255 91 37 / 0.18);
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+}
+
+.datePickerDayText {
+  position: relative;
+  z-index: 1;
+}
+
 .timePanel {
-  background: var(--blog-surface-muted);
+  background:
+    radial-gradient(circle at 50% 54%, rgb(255 91 37 / 0.055), transparent 48%), linear-gradient(var(--blog-surface-muted), var(--blog-surface-muted));
+  border: 1px solid var(--blog-border-soft);
+  border-radius: 18px;
+  display: grid;
+  gap: 0.6rem;
+  padding: 0.7rem;
+}
+
+.timeDisplay {
+  align-items: baseline;
+  background: var(--blog-surface);
   border: 1px solid var(--blog-border-muted);
   border-radius: 14px;
-  display: grid;
-  gap: 0.35rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  padding: 0.55rem 0.5rem;
+  color: var(--blog-heading);
+  display: flex;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 1.32rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  justify-content: center;
+  letter-spacing: 0;
+  line-height: 1;
+  padding: 0.58rem 0.55rem;
 }
 
-.timeColumn {
-  align-items: center;
-  display: grid;
-  gap: 0.16rem;
-  justify-items: center;
+.timeDisplayPart {
+  color: var(--blog-heading);
+  transition: color 0.18s ease;
 }
 
-.timeLabel {
+.timeDisplayPartActive {
+  color: var(--blog-accent-hover);
+}
+
+.timeDisplaySeparator {
   color: var(--blog-faint);
+  margin: 0 0.12rem;
+}
+
+.timeTabs {
+  background: var(--blog-surface-muted);
+  border: 1px solid var(--blog-border-muted);
+  border-radius: 999px;
+  display: grid;
+  gap: 2px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 2px;
+}
+
+.timeTab {
+  align-items: center;
+  border-radius: 999px;
+  color: var(--blog-muted);
+  display: inline-flex;
+  justify-content: center;
+  min-width: 0;
+  padding: 0.34rem 0.2rem;
+  position: relative;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.timeTab:hover,
+.timeTabActive {
+  color: var(--blog-accent-hover);
+}
+
+.timeTabIndicator {
+  background: var(--tool-accent-bg, #fff8f4);
+  border: 1px solid var(--tool-accent-border, #ffc3aa);
+  border-radius: inherit;
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+}
+
+.timeTabContent {
+  position: relative;
+  z-index: 1;
+}
+
+.timeTabLabel {
   font-size: 0.68rem;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.1;
 }
 
-.timeStepper {
-  height: 1.4rem;
-  width: 1.4rem;
+.clockFace {
+  background:
+    radial-gradient(circle at center, var(--blog-surface) 0 20%, transparent 21%),
+    radial-gradient(circle at center, transparent 0 66%, var(--blog-border-soft) 67%, transparent 68%),
+    linear-gradient(180deg, var(--blog-surface), var(--blog-surface-muted));
+  border: 1px solid var(--blog-border-soft);
+  border-radius: 999px;
+  box-shadow:
+    inset 0 1px 8px rgb(0 0 0 / 0.025),
+    0 8px 18px rgb(0 0 0 / 0.04);
+  cursor: grab;
+  height: 11.2rem;
+  position: relative;
+  touch-action: none;
+  user-select: none;
 }
 
-.timeValue {
-  color: var(--blog-heading);
+.clockFace:active {
+  cursor: grabbing;
+}
+
+.clockHand {
+  background: linear-gradient(180deg, var(--blog-accent), var(--blog-accent-line));
+  border-radius: 999px;
+  bottom: 50%;
+  height: var(--clock-hand-length);
+  left: 50%;
+  opacity: 0.78;
+  position: absolute;
+  transform: translateX(-50%) rotate(var(--clock-angle));
+  transform-origin: 50% 100%;
+  transition:
+    height 0.18s ease,
+    transform 0.18s ease;
+  width: 2px;
+  z-index: 2;
+}
+
+.clockHand::after {
+  background: var(--blog-accent);
+  border: 3px solid var(--blog-surface);
+  border-radius: 999px;
+  box-shadow: 0 3px 8px rgb(255 91 37 / 0.24);
+  content: "";
+  bottom: 0;
+  height: 0.82rem;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, 50%);
+  width: 0.82rem;
+}
+
+.clockMarks {
+  inset: 0;
+  position: absolute;
+}
+
+.clockTicks {
+  inset: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.clockTick {
+  background: var(--blog-border);
+  border-radius: 999px;
+  height: 0.22rem;
+  left: calc(50% + var(--clock-x));
+  opacity: 0.7;
+  position: absolute;
+  top: calc(50% + var(--clock-y));
+  transform: translate(-50%, -50%) rotate(var(--clock-tick-angle));
+  width: 1px;
+}
+
+.clockTickMajor {
+  background: var(--blog-accent-border);
+  height: 0.42rem;
+  opacity: 0.9;
+  width: 2px;
+}
+
+.clockValue {
+  align-items: center;
+  border-radius: 999px;
+  color: var(--blog-muted);
+  display: inline-flex;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  font-size: 1rem;
+  font-size: 0.74rem;
   font-variant-numeric: tabular-nums;
   font-weight: 700;
-  line-height: 1.45;
+  height: 1.65rem;
+  justify-content: center;
+  left: calc(50% + var(--clock-x));
+  position: absolute;
+  top: calc(50% + var(--clock-y));
+  transform: translate(-50%, -50%);
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
+  width: 1.65rem;
+  z-index: 4;
+}
+
+.clockValue:hover {
+  background: var(--tool-accent-bg, #fff8f4);
+  color: var(--blog-accent-hover);
+}
+
+.clockValueActive {
+  background: var(--tool-accent-bg, #fff8f4);
+  color: var(--blog-accent-hover);
 }
 
 .datePickerActions {
@@ -329,6 +505,7 @@
   font-size: 0.84rem;
   line-height: 1.6;
   margin: 1rem 0 0;
+  overflow: hidden;
   padding: 0.65rem 0.85rem;
 }
 
@@ -384,6 +561,17 @@
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.jsonOutputShell {
+  display: flex;
+  flex: 1;
+  min-height: 18rem;
+  min-width: 0;
+}
+
+.jsonOutputShell > * {
+  width: 100%;
 }
 
 .jsonPreview {
@@ -481,6 +669,7 @@
   display: flex;
   gap: 0.4rem;
   min-width: 0;
+  overflow: hidden;
   padding: 0.35rem;
   transition:
     background-color 0.18s ease,

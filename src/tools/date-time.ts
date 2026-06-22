@@ -15,17 +15,10 @@ export function parseLocalDateTime(value: string) {
   const minute = Number(rawMinute);
   const second = Number(rawSecond);
 
-  if (month < 1 || month > 12 || day < 1 || day > 31 || hour > 23 || minute > 59 || second > 59) return undefined;
+  if (month < 1 || month > 12 || day < 1 || day > 31 || hour < 0 || minute < 0 || second < 0) return undefined;
 
   const date = new Date(year, month - 1, day, hour, minute, second);
-  if (
-    date.getFullYear() !== year ||
-    date.getMonth() !== month - 1 ||
-    date.getDate() !== day ||
-    date.getHours() !== hour ||
-    date.getMinutes() !== minute ||
-    date.getSeconds() !== second
-  ) {
+  if (!Number.isFinite(date.getTime()) || date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
     return undefined;
   }
 

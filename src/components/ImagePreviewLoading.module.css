@@ -1,0 +1,31 @@
+.root {
+  align-items: center;
+  background: rgb(0 0 0 / 0.72);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  position: fixed;
+  z-index: 99999;
+}
+
+.spinner {
+  animation: image-preview-loading-spin 0.72s linear infinite;
+  border: 3px solid rgb(255 255 255 / 0.26);
+  border-radius: 999px;
+  border-top-color: var(--blog-accent);
+  box-shadow: 0 10px 32px rgb(0 0 0 / 0.28);
+  height: 2.6rem;
+  width: 2.6rem;
+}
+
+@keyframes image-preview-loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+}
