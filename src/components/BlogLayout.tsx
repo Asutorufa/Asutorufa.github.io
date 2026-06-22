@@ -5,11 +5,18 @@ import { MotionPresets, routeMotion } from "../animation/motion-presets";
 import { LANGUAGE_META, UI_LABELS } from "../data/i18n";
 import { Sidebar } from "./Sidebar";
 import { MobileHeader } from "./MobileHeader";
+import { RouteLoading } from "./RouteLoading";
 import { ScrollProgressButton } from "./ScrollProgressButton";
 import { SearchModal } from "./SearchModal";
 import { SiteFooter } from "./SiteFooter";
 
-export function BlogLayout({ content, route, children }: PropsWithChildren<AppProps>) {
+type BlogLayoutProps = PropsWithChildren<
+  AppProps & {
+    routeLoading?: boolean;
+  }
+>;
+
+export function BlogLayout({ content, route, routeLoading = false, children }: BlogLayoutProps) {
   const language = route.language;
   const labels = UI_LABELS[language];
   const meta = LANGUAGE_META[language];
@@ -41,6 +48,7 @@ export function BlogLayout({ content, route, children }: PropsWithChildren<AppPr
         <SiteFooter config={content.config} />
         <ScrollProgressButton />
         <SearchModal labels={labels} />
+        <RouteLoading active={routeLoading} />
       </div>
     </MotionConfig>
   );

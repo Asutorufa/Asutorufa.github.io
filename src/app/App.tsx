@@ -36,6 +36,7 @@ const ENABLE_ROUTE_SCROLL_RESTORE = true;
 export function App(props: AppProps) {
   const [content, setContent] = useState(props.content);
   const [route, setRoute] = useState(props.route);
+  const [routeLoading, setRouteLoading] = useState(false);
   const contentRef = useRef(content);
   const routeRef = useRef(route);
   const currentProps = { content, route };
@@ -94,11 +95,13 @@ export function App(props: AppProps) {
       }
     ) => {
       if (ENABLE_ROUTE_SCROLL_RESTORE && options.saveCurrentScroll) rememberScrollPosition();
+      setRouteLoading(true);
 
       let payload: PagePayload;
       try {
         payload = await loadPagePayload(url);
       } catch {
+        setRouteLoading(false);
         window.location.href = url.toString();
         return;
       }
@@ -125,6 +128,7 @@ export function App(props: AppProps) {
         flushSync(() => {
           setContent(nextContent);
           setRoute(payload.route);
+          setRouteLoading(false);
         });
         updateDocumentMeta(nextContent, payload.route, payload.description);
         if (restoreBeforeSnapshot) {
@@ -188,7 +192,9 @@ export function App(props: AppProps) {
 
   return (
     <Router ssrPath={route.route}>
-      <BlogLayout {...currentProps}>{renderRoute(currentProps)}</BlogLayout>
+      <BlogLayout {...currentProps} routeLoading={routeLoading}>
+        {renderRoute(currentProps)}
+      </BlogLayout>
     </Router>
   );
 }
