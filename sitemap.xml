@@ -877,7 +877,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/AEAD/</loc>
+    <loc>https://asutorufa.com/tags/aead/</loc>
     <lastmod>2022-08-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -913,25 +913,19 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/BIOS/</loc>
-    <lastmod>2018-06-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://asutorufa.com/tags/blockchain/</loc>
     <lastmod>2021-01-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/C/</loc>
+    <loc>https://asutorufa.com/tags/c/</loc>
     <lastmod>2020-05-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/C++/</loc>
+    <loc>https://asutorufa.com/tags/c++/</loc>
     <lastmod>2020-02-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -943,7 +937,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/CIDR/</loc>
+    <loc>https://asutorufa.com/tags/cidr/</loc>
     <lastmod>2020-06-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -961,43 +955,43 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/CRI/</loc>
+    <loc>https://asutorufa.com/tags/cri/</loc>
     <lastmod>2025-02-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/Crypto/</loc>
+    <loc>https://asutorufa.com/tags/crypto/</loc>
     <lastmod>2022-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/Deep-Learning/</loc>
+    <loc>https://asutorufa.com/tags/deep-learning/</loc>
     <lastmod>2019-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/DH%E5%AF%86%E9%92%A5%E4%BA%A4%E6%8D%A2/</loc>
+    <loc>https://asutorufa.com/tags/dh%E5%AF%86%E9%92%A5%E4%BA%A4%E6%8D%A2/</loc>
     <lastmod>2022-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/DNS/</loc>
+    <loc>https://asutorufa.com/tags/dns/</loc>
     <lastmod>2020-06-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/DNSSEC/</loc>
+    <loc>https://asutorufa.com/tags/dnssec/</loc>
     <lastmod>2020-06-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/DOH/</loc>
+    <loc>https://asutorufa.com/tags/doh/</loc>
     <lastmod>2020-06-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1009,7 +1003,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/EDNS/</loc>
+    <loc>https://asutorufa.com/tags/edns/</loc>
     <lastmod>2020-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1021,13 +1015,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/EFI/</loc>
-    <lastmod>2018-06-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://asutorufa.com/tags/Elgamal/</loc>
+    <loc>https://asutorufa.com/tags/elgamal/</loc>
     <lastmod>2022-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1039,7 +1027,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/English/</loc>
+    <loc>https://asutorufa.com/tags/english/</loc>
     <lastmod>2020-05-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1051,37 +1039,25 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/Go/</loc>
+    <loc>https://asutorufa.com/tags/go/</loc>
     <lastmod>2024-11-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/golang/</loc>
-    <lastmod>2020-06-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://asutorufa.com/tags/Golang/</loc>
-    <lastmod>2024-11-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://asutorufa.com/tags/GVT-g/</loc>
+    <loc>https://asutorufa.com/tags/gvt-g/</loc>
     <lastmod>2021-01-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/HTTP/</loc>
+    <loc>https://asutorufa.com/tags/http/</loc>
     <lastmod>2021-04-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/HTTPS/</loc>
+    <loc>https://asutorufa.com/tags/https/</loc>
     <lastmod>2021-04-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1093,7 +1069,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/Hyperledger-Fabric/</loc>
+    <loc>https://asutorufa.com/tags/hyperledger-fabric/</loc>
     <lastmod>2021-01-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1105,7 +1081,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/IP/</loc>
+    <loc>https://asutorufa.com/tags/ip/</loc>
     <lastmod>2019-02-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1123,19 +1099,19 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/JavaScript/</loc>
+    <loc>https://asutorufa.com/tags/javascript/</loc>
     <lastmod>2018-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/Kotlin/</loc>
+    <loc>https://asutorufa.com/tags/kotlin/</loc>
     <lastmod>2022-08-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/Kubernetes/</loc>
+    <loc>https://asutorufa.com/tags/kubernetes/</loc>
     <lastmod>2025-02-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1147,8 +1123,8 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/Linux/</loc>
-    <lastmod>2021-01-17</lastmod>
+    <loc>https://asutorufa.com/tags/linux/page/2/</loc>
+    <lastmod>2022-10-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -1159,25 +1135,25 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/Math/</loc>
+    <loc>https://asutorufa.com/tags/math/</loc>
     <lastmod>2017-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/MIUI/</loc>
+    <loc>https://asutorufa.com/tags/miui/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/NAT/</loc>
+    <loc>https://asutorufa.com/tags/nat/</loc>
     <lastmod>2024-11-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/Network/</loc>
+    <loc>https://asutorufa.com/tags/network/</loc>
     <lastmod>2024-11-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1189,25 +1165,19 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/ONEUI/</loc>
+    <loc>https://asutorufa.com/tags/oneui/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/OpenCV/</loc>
+    <loc>https://asutorufa.com/tags/opencv/</loc>
     <lastmod>2020-02-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://asutorufa.com/tags/proxy/</loc>
-    <lastmod>2020-03-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://asutorufa.com/tags/Proxy/</loc>
     <lastmod>2024-11-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1231,19 +1201,19 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/Realtek-ALC295/</loc>
+    <loc>https://asutorufa.com/tags/realtek-alc295/</loc>
     <lastmod>2020-04-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/RSA/</loc>
+    <loc>https://asutorufa.com/tags/rsa/</loc>
     <lastmod>2022-08-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/Shamir/</loc>
+    <loc>https://asutorufa.com/tags/shamir/</loc>
     <lastmod>2022-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1267,7 +1237,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/Terraform/</loc>
+    <loc>https://asutorufa.com/tags/terraform/</loc>
     <lastmod>2025-02-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1285,13 +1255,13 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/Tun/</loc>
+    <loc>https://asutorufa.com/tags/tun/</loc>
     <lastmod>2022-08-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/UDP/</loc>
+    <loc>https://asutorufa.com/tags/udp/</loc>
     <lastmod>2024-11-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1417,7 +1387,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/tags/%E6%BE%8E%E6%B9%83OS/</loc>
+    <loc>https://asutorufa.com/tags/%E6%BE%8E%E6%B9%83os/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1471,43 +1441,43 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/categories/Computer/</loc>
+    <loc>https://asutorufa.com/categories/computer/</loc>
     <lastmod>2020-04-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/categories/Computer-Graphics/</loc>
+    <loc>https://asutorufa.com/categories/computer-graphics/</loc>
     <lastmod>2020-02-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/categories/Crypto/</loc>
+    <loc>https://asutorufa.com/categories/crypto/</loc>
     <lastmod>2022-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/categories/golang/</loc>
+    <loc>https://asutorufa.com/categories/go/</loc>
     <lastmod>2019-06-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/categories/Hyperledger-fabric/</loc>
+    <loc>https://asutorufa.com/categories/hyperledger-fabric/</loc>
     <lastmod>2021-01-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/categories/JavaScript/</loc>
+    <loc>https://asutorufa.com/categories/javascript/</loc>
     <lastmod>2018-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/categories/Kubernetes/</loc>
+    <loc>https://asutorufa.com/categories/kubernetes/</loc>
     <lastmod>2025-02-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1525,37 +1495,31 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/categories/Linux/</loc>
-    <lastmod>2021-01-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://asutorufa.com/categories/llm/</loc>
     <lastmod>2024-11-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/categories/Machine-Learning/</loc>
+    <loc>https://asutorufa.com/categories/machine-learning/</loc>
     <lastmod>2019-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/categories/Math/</loc>
+    <loc>https://asutorufa.com/categories/math/</loc>
     <lastmod>2017-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/categories/Network/</loc>
+    <loc>https://asutorufa.com/categories/network/</loc>
     <lastmod>2024-11-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/categories/Network/page/2/</loc>
+    <loc>https://asutorufa.com/categories/network/page/2/</loc>
     <lastmod>2024-11-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1567,13 +1531,13 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/categories/Personally/</loc>
+    <loc>https://asutorufa.com/categories/personally/</loc>
     <lastmod>2025-07-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://asutorufa.com/categories/Program/</loc>
+    <loc>https://asutorufa.com/categories/program/</loc>
     <lastmod>2020-05-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

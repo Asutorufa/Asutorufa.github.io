@@ -4,12 +4,12 @@
     "url": "/posts/1755854433972/",
     "language": "ja",
     "tags": [
-      "llm",
-      "rag",
-      "text embedding",
-      "sparse vector",
-      "vector database",
-      "hybrid search"
+      "LLM",
+      "RAG",
+      "Text Embedding",
+      "Sparse Vector",
+      "Vector Database",
+      "Hybrid Search"
     ],
     "categories": [],
     "content": "密ベクトルは現在ではText Embeddingサービスやvllmなどを使えば簡単に生成をてきる。 疎ベクトルは色々と探しましたが、直接利用できるサービスがあまりはない、自分で用意しなければならない。 Qdrantが提供するfastembedは利用できますけど、対応している疎ベクトルモデルが少ないため、最後的にsentence transformersのSparseEncoderを利用することにしました。 例えば、以下のようなドキュメントがあるとします： 戻り値の形式がわかりにくく、少し混乱しました： Qdrant疎ベクトル形式の引数要求は以下のようになります： 最後はなんとかわかりました、実は： indicesの1次元目が 0 の要素が、docs[0] (\"test1\") に対応します。 indicesの1次元目が 1 の要素が、docs[1] (\"test2\") に対応します。 ... したがって、疎ベクトルは以下のようになります。 test1 indicesは[5 25 29 56 4035] valuesは [0.03429046 0.02966345 0.03258647 0.03258648] test2 indicesは[4035 4038 4059] valuesは [0.03258649 0.03137818 0.0306967] ... ... 以下は実装した例のコードです。FastAPIでhttpサービスを提供します。 Qdrant Collectionを作成する ドキュメントの追加 ハイブリッド検索（Hybird Search）"
@@ -45,7 +45,7 @@
     "tags": [
       "Kubernetes",
       "Terraform",
-      "container",
+      "Container",
       "インフラ"
     ],
     "categories": [
@@ -60,7 +60,7 @@
     "tags": [
       "Kubernetes",
       "CRI",
-      "container"
+      "Container"
     ],
     "categories": [
       "Kubernetes"
@@ -76,8 +76,7 @@
       "Network",
       "UDP",
       "NAT",
-      "Go",
-      "Golang"
+      "Go"
     ],
     "categories": [
       "Network"
@@ -89,12 +88,12 @@
     "url": "/posts/23567986/",
     "language": "ja",
     "tags": [
-      "llm",
-      "function calling",
-      "text embedding"
+      "LLM",
+      "Function Calling",
+      "Text Embedding"
     ],
     "categories": [
-      "llm"
+      "LLM"
     ],
     "content": "今回はollamaのオフィシャルクライアントでfuncation callingを使いたいです。 前回はlangchaingoで使っただけと、試してたらollamaの引数toolsは無効です、githubの実例ollama functions exampleはsystem messageとtoolsのjsonを組み合わせて内容を生成する。例えば： これはちょっと優雅でない、ollama/apiを使いたいと思います。 function callingとは llmのレスポンスが外部関数の呼び出しを検知し、関数の結果を組み合わせて内容を生成する機能です。 例えば：「東京の天気は？」はpromptをとして、「晴れです」と生成する。 大勢のllmはfunction callingをtoolと読んでいる、呼び出しどき引数として引き渡して内容を生成する。 goで実現 関数と引数の説明(Description)は自然な言葉で良いです、一般的なプログラミングとはちょっと違うと思います。 toolsの定義 外部サービスの呼び出しを実現 chains を実現 実行 prompt：東京の天気は？ 返事： 東京の天気は晴れで、温度は約64°F（約18°C）です 参考"
   },
@@ -103,12 +102,12 @@
     "url": "/posts/95db8f9/",
     "language": "ja",
     "tags": [
-      "llm",
-      "rag",
-      "text embedding"
+      "LLM",
+      "RAG",
+      "Text Embedding"
     ],
     "categories": [
-      "llm"
+      "LLM"
     ],
     "content": "日本語はまだ勉強中ですから、変などころあったら、ぜひコメントしてください。 RAGとは RAGはRetrieval augmented generationの略です。 大規模言語モデル内容を生成する前に、promptによる外部のデーターベースに知識を検索、元のpromptと組み合わせて、アウトプットを改善するための技術です。 例えば： ユーザ：今日の注目の新聞は何ですか？ gemini： chatgpt: geminiはリアルタイムによっての内容は回答できません。 chatgptはRAGか、Function Callingか、どちらかを使っていると思います。 今回はgolang+langchaingo+ollama+qdrantでRAGを実験してみます。 準備 ollamaをインストール qdrantのコンテナを実行 bge large en v1.5をollamaで実行 知識をベクトルデータベースに保存するにはText Embedingモデルが必要です。今回はbge large en v1.5を使うことになりました。 ollamaのモデルライブラリにはbge large en v1.5がありませんので、bge large en v1.5をGGUFに変換することが必要です。 git lfsとcmakeをインストール llama.cppをクローン GGUFに変換 Qwen2.5をollamaで実行 実現 text embedder テキストを導入 RAG 知識を検索 llmで予測する 参考"
   },
@@ -131,7 +130,7 @@
     "tags": [
       "Kubernetes",
       "CRI",
-      "container"
+      "Container"
     ],
     "categories": [
       "Kubernetes"
@@ -159,7 +158,7 @@
     "tags": [
       "Kubernetes",
       "CRI",
-      "container"
+      "Container"
     ],
     "categories": [
       "Kubernetes"
@@ -185,7 +184,7 @@
     "language": "ja",
     "tags": [],
     "categories": [
-      "linux"
+      "Linux"
     ],
     "content": "the sensors not show fan and voltage it's a kernel bug now Hardware monitoring sensor nct6798d doesn't work unless acpi enforce resources=lax is enabled need wait add the motherboard name to linux kernel code list linux/drivers/hwmon/nct6775 platform.c temporary measure add to linux boot parameter load nct6775 kernel module run sensors detect auto. finally, you will see nct6798 isa in sensors."
   },
@@ -226,7 +225,7 @@
       "AEAD",
       "流密码",
       "块密码",
-      "chacha20-poly1305"
+      "Chacha20-Poly1305"
     ],
     "categories": [
       "Crypto"
@@ -238,7 +237,7 @@
     "url": "/posts/a67af13f/",
     "language": "ja",
     "tags": [
-      "Golang",
+      "Go",
       "Tun",
       "Kotlin"
     ],
@@ -282,8 +281,8 @@
     "url": "/posts/736b1750/",
     "language": "ja",
     "tags": [
-      "linux",
-      "iptables"
+      "Linux",
+      "Iptables"
     ],
     "categories": [
       "Network"
@@ -318,11 +317,11 @@
     "url": "/posts/afc6d6dd/",
     "language": "zh-Hans",
     "tags": [
-      "blockchain",
+      "Blockchain",
       "Hyperledger Fabric"
     ],
     "categories": [
-      "Hyperledger fabric"
+      "Hyperledger Fabric"
     ],
     "content": "前言 最近一直在研究关于如何给一个fabric的组织更换一个新的证书, 包括所有加入的通道, 所有peer和orderer. 用了很多看似完美的方法却多次测试失败, 最后总算找到一种方法. 一个通道配置块类似上面这种,为了看的清楚有些内容我删了, 更换证书我们需要保证application及orderer的MSP是相同的, 否则更新配置块是不会成功的, 且我们得保证当前组织的raft节点的证书也要全部更换掉. 失败过程 1 第一次就是非常简单的想法, 先更换所有通道的通道配置块的ca证书, 然后重启所有peer和orderer节点. 但是这里因为raft的问题, 通道配置块内的 raft的tls证书一次只能更换一个 , 如果我要更换证书的组织拥有多个orderer且都作为raft节点, 这是如果直接更新可能会直接导致raft共识直接失效, 很多情况想想都不行. 2 先移除多余的raft节点, 更换后再加进来, 测试后发现自己想的太简单了, 因为即使后面重新加进来后, 之前被移除的节点也无法拉取到新的配置块, 因为他们的通道配置块内还是旧的证书, 当然连不上了, 这里必须要更新它们的创世区块才行, 操作过于繁琐, 且在区块链创建初期很容易导致整个联盟的raft共识崩溃掉. 3 查看官方文档, 发现orderer和raft的端口可以分开, 也就是说orderer和raft grpc服务可以分开了, 后来测试才发现是自己想错了, 且官方文档的误导性太强了, raft和组织的证书仍旧是绑定在一起的, 如果一个组织只有一个ca证书且拥有多个raft节点依旧无法更换. 如果使用不同的证书, 查看orderer的报错, 可以发现是在orderer连接其他orderer的raft节点时会出问题, 会报证书验证不通过, 这里我才发现下面的解决方法. 方法 最后才发现fabric一个组织的msp目录下的证书都是可以放多个ca证书的, 创建创世区块时, 配置块内的证书数组就会有两个证书, 这样即使orderer和raft使用不同的ca证书签发下来的tls证书, 只要在组织的ca列表内就不会有问题. 这样就有了更换证书的方法, 过程大概是这样的: 先将新的tlsca证书添加到所有到通道配置块内, 注意这里是添加, 不是替换. 替换通道配置块内一个raft节点的证书为新证书, 替换本地orderer节点的证书文件, 重启节点. 重复以上步骤直到替换了所有raft节点的证书. 然后再替换其他的ca证书, admin证书之类的. 最后将通道配置块内的旧证书删除掉. 这样就完成替换了, 大概过程就是如此, 实际操作时可能会有所出入. 当然如果觉得没有删除旧证书的必要也可以不删除. 附加 关于fabric ca fabric ca在签发证书时, ca就是fabric ca server下的ca, 不会重新签发新的ca. 关于msp目录 keystore < 节点/用户证书的密钥 signcerts < 节点/用户证书"
   },
@@ -332,9 +331,9 @@
     "language": "zh-Hans",
     "tags": [
       "Linux",
-      "qemu",
+      "Qemu",
       "GVT-g",
-      "intel"
+      "Intel"
     ],
     "categories": [
       "Linux"
@@ -346,11 +345,11 @@
     "url": "/posts/7d547224/",
     "language": "zh-Hans",
     "tags": [
-      "linux",
-      "encrypt"
+      "Linux",
+      "Encrypt"
     ],
     "categories": [
-      "linux"
+      "Linux"
     ],
     "content": "生成一个密钥 之后会选择加密方式, 有效期, 用户名及邮箱, 密码, 按自己需求填就行了. 创建一个子密钥 导出密钥 导出子密钥 导出吊销证书 删除密钥 导入子密钥 查看密钥 加密文件 解密 GPG 加密解密简明教程 GPG 的正确使用姿势"
   },
@@ -373,7 +372,7 @@
     "tags": [
       "DNS",
       "DOH",
-      "golang"
+      "Go"
     ],
     "categories": [
       "Network"
@@ -388,7 +387,7 @@
       "DNS",
       "UDP",
       "DNSSEC",
-      "golang"
+      "Go"
     ],
     "categories": [
       "Network"
@@ -403,7 +402,7 @@
       "DNS",
       "UDP",
       "EDNS",
-      "golang"
+      "Go"
     ],
     "categories": [
       "Network"
@@ -415,11 +414,11 @@
     "url": "/posts/34615c2d/",
     "language": "zh-Hans",
     "tags": [
-      "bios",
-      "computer"
+      "BIOS",
+      "Computer"
     ],
     "categories": [
-      "linux"
+      "Linux"
     ],
     "content": "查看双显卡切换情况，正常情况下如果没有在用独显应该显示是DynOff，但是我这里即使是不开桌面也是DynPwr 查看dmesg找到 找到了调用的方法，网上搜了一圈都没有使用方法，然后使用acpi call尝试了几个参数，最后找到 嗯，确实有用，但是实在是太暴力了，直接把整个显卡移除，可以看一下日志 所以买笔记本一定要买有linux认证的电脑，即使不是也尽量不要买双显卡了，我买的这个显卡基本闲置，我也不喜欢打游戏，反而耗电。"
   },
@@ -430,7 +429,7 @@
     "tags": [
       "DNS",
       "UDP",
-      "golang"
+      "Go"
     ],
     "categories": [
       "Network"
@@ -444,7 +443,7 @@
     "tags": [
       "C",
       "English",
-      "translate"
+      "Translate"
     ],
     "categories": [
       "Program"
@@ -456,11 +455,11 @@
     "url": "/posts/67c8ee7f/",
     "language": "zh-Hans",
     "tags": [
-      "driver",
+      "Driver",
       "Realtek ALC295"
     ],
     "categories": [
-      "linux"
+      "Linux"
     ],
     "content": "个人使用的笔记本是暗影精灵2 PRO,产品名称是: OMEN by HP Laptop 15 ax210TX. 最初本人装的是ubuntu,左边耳机的声音一直有噼里啪啦的炸裂声,后来换了Arch还是一样的情况,而且本人喜欢听安静的声音,类似读故事或是心跳声这种,每次听到劈裂啪啦的声音真是难受. 最初尝试过Arch wiki中的各种方法 包括 PulseAudio/Troubleshooting Glitches, skips or crackling PulseAudio/Troubleshooting Static noise when using headphones 都没有任何改进. 直到后来才发现这是linux下Realtek ALC295的驱动不完善导致的,这个bug在17年就提出了,至今都没有得到解决. Bug 195457 Realtek ALC295 still unsupported Crackling and popping sound when using headphones 即使有人提交补丁并合并到了linux内核中 ALSA: hda Fix missing COEF init for ALC225/295/299 但是事实证明并没有用 依照上面有人提供的方法却有效(看起来跟提交补丁差不多,但是补丁却没有起作用): arch下类似 除了是用pacman安装alsa tools,之后操作是一样的. 不使用crontab,使用systemd的方法ASUS Zenbook UX430/UX530 Headphones audio is too low Bug 195457 Realtek ALC295 still unsupported Crackling and popping sound when using headphones How to install Bang and Olufsen Audio drivers for HP laptop? ASUS Zenbook UX430/UX530 Headphones audio is too low"
   },
@@ -494,11 +493,11 @@
     "url": "/posts/4f3989f0/",
     "language": "zh-Hans",
     "tags": [
-      "linux",
-      "android"
+      "Linux",
+      "Android"
     ],
     "categories": [
-      "linux"
+      "Linux"
     ],
     "content": "新建虚拟屏幕 计算出拓展屏幕所需的信息.比如我想拓展1920x1200 60fps的虚拟屏幕: 结果 使用xrandr添加新的mode,参数就是上面结果Modeline后面那些东西: 使用xrandr查看空闲的接口: 比如我目前在使用的屏幕是eDP1,下面都为空闲,如果有虚拟的就用虚拟的,没有虚拟的用HDMI的也行: 拓展屏幕到左面: 目前为止我们已经创建好了一个虚拟屏幕. 如果想删除上面新建的东西,可以使用下面的指令(注意相关参数换成自己的)或者直接重启电脑就好了. 连接屏幕 连接屏幕可以用teamviewer或者x11vnc,以及各种远程控制电脑的软件,这里我更建议使用teamviewer,更流畅,而且方法简单. x11vnc 然后使用安卓上的连接vnc的软件即可,默认端口是5900. 使用usb加快传输速度 把手机用usb连接到电脑上,然后用adb连接. x11vnc 这个的默认端口是5900,将电脑端口映射到android上. 然后手机上直接连接127.0.0.1:5900就可以 teamviewer 到teamviewer官网查询,可以知道默认端口为: TCP / UDP端口5938 TCP端口443 TCP端口80 后面的443和80也可做映射,不过我这里就使用了5938就成功了. 然后手机上的teamviewer连接127.0.0.1就可以了. 参考 Using Android/PC as a Second Monitor in Linux"
   },
@@ -507,11 +506,11 @@
     "url": "/posts/59c8ffd6/",
     "language": "zh-Hans",
     "tags": [
-      "linux",
-      "archlinux"
+      "Linux",
+      "Archlinux"
     ],
     "categories": [
-      "linux"
+      "Linux"
     ],
     "content": "安装rp pppoe 配置 这里输入网络运营商提供给你的用户名. 这里输入你链接网络的网卡,可以使用ip addr进行查看 比如eth1,wlo1. 这里可以直接回车 这里输入两个DNS,比如1.1.1.1,8.8.8.8. 这里输入网络运营商提供给你的密码. 这里我使用1,可以按照自己的需求选择防火墙配置. 启用 可以使用ip addr进行查看,现在应该有一个ppp0的网络. 查看路由确认启用 如果没有default到ppp0的这条路由,需要手动创建: 引用 [archlinux pppoe拨号连接使用详解[转载]](https://www.cnblogs.com/viusuangio/p/7112674.html) Linux下连接无线网络后拨号（即PPP over WiFi）"
   },
@@ -522,7 +521,7 @@
     "tags": [
       "C++",
       "OpenCV",
-      "archlinux"
+      "Archlinux"
     ],
     "categories": [
       "Computer Graphics"
@@ -535,7 +534,7 @@
     "language": "zh-Hans",
     "tags": [
       "HTTP",
-      "proxy"
+      "Proxy"
     ],
     "categories": [
       "Network"
@@ -560,10 +559,10 @@
     "language": "zh-Hans",
     "tags": [
       "汇编语言",
-      "assembly"
+      "Assembly"
     ],
     "categories": [
-      "assembly"
+      "Assembly"
     ],
     "content": "最近想了解一下c是如何编译为汇编语言的 首先写了一个相当简单的c 使用gcc S编译为汇编语言: 以”点”做为前缀的指令都是用来指导汇编器的命令。 精简一下差不多这样: 首先了解一下几个寄存器 [1] %rbp 是栈帧指针，用于标识当前栈帧的起始位置 %rsp 是堆栈指针寄存器，通常会指向栈顶位置，堆栈的 pop 和push 操作就是通过改变 %rsp 的值即移动堆栈指针的位置来实现的。 %eax 是\"累加器\"(accumulator), 它是很多加法乘法指令的缺省寄存器。 %edx 则总是被用来放整数除法产生的余数。 %rip 指令地址寄存器，用来存储 CPU 即将要执行的指令地址。每次 CPU 执行完相应的汇编指令之后，rip 寄存器的值就会自行累加；rip 无法直接赋值，call, ret, jmp 等指令可以修改 rip。 %rdi，%rsi，%rdx，%rcx，%r8，%r9 用作函数参数，依次对应第1参数，第2参数。 ESI/EDI 分别叫做\"源/目标索引寄存器\"(source/destination index),因为在很多字符串操作指令中, DS:ESI指向源串,而ES:EDI指向目标串. movl $1, 16(%rbp) 把1移入寄存器rbq中 16是地址起始位置 movl $2, 12(%rbp) 跟上面相同 movl 16(%rbp), %edx 把 16(%rbp)移入寄存器edx中,上面可知就是把1移入edx中 movl 12(%rbp), %eax 跟上面类似 不过这次用的是寄存器eax addl %edx, %eax 把edx和eax中的内容相加,并存入edx中 movl %eax, 8(%rbp) 把eax中的内容存入rbq中位置为 8 movl $7, 4(%rbp) 把7存入rbq位置为 4,对应c代码为int d = 3 + 4,由此可知编译器在编译时其实是会进行相应优化的 .LC0(%rip)は、printfが使うアドレス、前もってprintfで使用する書式を設定している(就是说设置printf使用的地址,并提前设置格式) [2] call printf@PLT 调用printf leave 离开printf ret:结束当前函数 接下来我们可以简单的实战一下: 给gcc开启O3级别的优化: 生成的汇编码: 从以上汇编代码中我们可以发现,优化之后的汇编代码将最后相加的值给了内存,而不像之前那样先占用两个内存空间然后再相加. [1] x86 64 下函数调用及栈帧原理 [2] アセンブラ学習log 1"
   },
@@ -572,10 +571,10 @@
     "url": "/posts/5938ae8c/",
     "language": "zh-Hans",
     "tags": [
-      "nodejs"
+      "Nodejs"
     ],
     "categories": [
-      "nodejs"
+      "Nodejs"
     ],
     "content": "研究了一下javascript的异步回调函数,本来想像golang那样使用chan可以返回原始值,不过貌似无法做到,最后止步async/await,差不多就是用Promise的resolve返回值然后用await调用,不过await必须使用在async的函数里,局限还是有的. 如果使用非async的函数调用,返回的依旧是Promise类型,需要使用.then."
   },
@@ -584,12 +583,12 @@
     "url": "/posts/e3707853/",
     "language": "zh-Hans",
     "tags": [
-      "archlinux",
-      "efi",
-      "linux"
+      "Archlinux",
+      "EFI",
+      "Linux"
     ],
     "categories": [
-      "linux"
+      "Linux"
     ],
     "content": "详细安装教程请参考arch wiki Installation guide (简体中文)),此处只记录安装后遇到的问题. 暗影精灵2 PRO 静音LED不起作用和左边耳机会有噼里啪啦声: 具体解决方法我已经写到archwiki里了,请看: Laptop/HP HP Omen 15 ax210TX grub更新菜单 安装os prober让grub检测到其他系统并自动创建引导 使用system boot(就是直接使用linux内核引导系统,不再需要grub,如果有多系统不推荐,会把efi分区搞得很乱): 关于efi的部分可以看我的另一贴. arch 安装应用后 应用菜单不刷新怎么办(这个正常情况是不会遇到的,只是刚装完有些功能不完整会这样,我就遇到了): 新增用户 [1] : 首先添加一个用户，并把它加到wheel组 然后为这个用户设置密码 最后设置wheel组的用户能用sudo获取root权限: 关闭NetworkManager网络检查(ping.archlinux.org有时候会被墙 ) NetworkManager Checking connectivity 启用dhcp自动获取网络地址,不然开机无法自动联网 如果只使用有线网络 可以使用Systemd networkd — 以下已包含dhcp的功能,下面两条命令包括上面那个的功能 — 安装一个图形界面,比如kde 缩略图生成 若要在桌面和 Dolphin 内为媒体或文档文件生成缩略图，安装 kdegraphics thumbnailers，ffmpegthumbs。 一些gtk应用的plasma panel托盘图标模糊且右键菜单比较奇怪 解决方法: 安装libappindicator gtk3 libappindicator gtk2 安装一个终端,不然进入图形界面只能进tty输入命令 无法检测到蓝牙适配器: 安装bluez,bluez utils 首先确定内核的蓝牙模块已载入 如果没有的话就是没载入,手动载入: 开启bluetooth服务 开机后自动启动: 修改 /etc/bluetooth/main.conf 已知问题: 有时候会崩溃,且无法找到蓝牙适配器,使用dmesg查看错误日志. 蓝牙耳机可能载入模块失败 临时解决方法: 长期解决方法 [2] : Edit the file: and comment out (with an at the beginning of the line) the following line: now edit the file: and after the lines: add the following line: This way the Pulse audio’s Bluetooth modules will not be downloaded at boot time but after x11 is started. 字体优化: 有些字体可能看不见,比如 𫔭 𪠸 : 不要使用noto和思源黑体的亚洲字体整合包,因为会优先使用日语字体,造成中文大小不一,尽量下载思源黑体的分开的字体包,然后在 /.config/fontconfig/fonts.conf中将中文的思源黑体设置为第一个,具体设置参考Font configuration 解决DNS污染问题: 安装dnscrypt proxy 具体方法参见arch wiki dnscrypt proxy,使用dnsmasq china list排除中国域名 arch 使用pyhon dlib会提示Undefined symbol: cblas dtrsm 使用aur或archlinuxcn中的openblas lapack git代替pacman源中的cblas,貌似源中的cblas版本太低 自动清除pacman的缓存: 创建/usr/share/libalpm/hooks/clean pacman cache.hook ext4分区优化: 有备用电源或者笔记本可以关闭ext4的barriers具体方法参考Ext4 Turning barriers off 调整内核的I/O调度Improving performance Changing I/O scheduler The process to change I/O scheduler, depending on whether the disk is rotating or not can be automated and persist across reboots. For example the udev rule below sets the scheduler to none for NVMe, mq deadline for SSD/eMMC, and bfq for rotational drives: /etc/udev/rules.d/60 ioschedulers.rules deadbeef git 打开提示plugin cdda.so not found or failed to load 解决方法: 安装 libcddb libcdio 使用anime4k会提示缺少openCL库,安装ocl icd 开启powertop的自动优化节省电量: 以下shell是禁用usb的休眠,不然鼠标用起来很难受( 注意:每个电脑的命令都不同,请自行用powertop查看相应的命令 ) rider 需要安装moon(.net framework/.net core) 服务端需要mono xsp,使用aur安装: vscode 开发asp.net: 安装 moon dotnet dotnet 安装 dotnet dev certs 生成证书: export要加入.bashrc 或者每次开始前执行 生成证书 如果想卸载 编译汇编语言 需要安装nasm chrome/chromium 即使已经设置为默认浏览器也会提示设置为默认浏览器: 解决方法: What has worked for me is go to Settings Applications File Associations and there, filter with html. Then for the entries xhtml+xml and html, you can move Google Chrome to the first position of the preference order. [3] 个人测试 只要把xhtml+xml的默认开启最高优先级应用设置为chromium/chrome就行了 archLinux进行openGl的开发 安装glfw x11 glad c git open GL导入现有模型时需要安装assimp: 顺便推荐一个glsl的教程: LearnOpenGL CN python使用tkinter需要安装tk库: kde设置三指手势: 手动安装mariadb: 运行mariadb/scripts/mariadb install db 设置路径(提示失败 路径更改成功): 最后 使用redash: 安装docker compose(此处可改docker的root目录,建议谷歌), 手动安装时需要临时使用pwgen生成密钥,安装完成后可卸载. 安装时参考ubuntu的安装脚本 稍微改改就行了 遇到以下问题: 直接使用aur中提供的驱动: 为kde spellChecker添加字典: wine wechat 数据文件: wine wechat 运行要保证当前运行环境变量为中文,否则无法显示中文字体,即使wine装了中文字体: 使用此Wine QQ TIM项目的QQ或者TIM乱码,缺少字体: 耳机电流声: Troubleshooting Glitches, skips or crackling Troubleshooting Static noise when using headphones 开启alsa的噪音消减模块: Troubleshooting Enable Echo.2FNoise Cancellation kde discover 无法使用pacman backend discover 使用了 packagekit,使用 pkcon 需要root权限,按理来说packagekit会自动获取root且无需输入密码,但discover无法获取root已无法已root用户运行,问题未知,放弃解决 解决方法: 卸载discover packagekit packagekit qt5 新安装的话 索性不装就行了 2020年2月4日已解决,重新安装后好了,可能之前是bug,现在修复好了 C++使用openCV: traceroute: wine 错误 0009:err:module:load so dll failed to load .so lib \"/usr/bin/../lib32/wine/l3codeca.acm.so\": libmpg123.so.0: cannot open shared object file: No such file or directory 解决方法: sudo pacman S lib32 mpg123 包含中国国内软件的winetricks zh qq軽聊版需要库: ark 解压7z和rar plasma的鼠标样式有时候会不应用在标题栏和其他地方 [[Plasma 5] Cursor icon changes to the \"KDE Classic\" theme when hovering over a windows title bar/resizing it etc?](https://www.reddit.com/r/kde/comments/3pse8f/plasma 5 cursor icon changes to the kde classic/) Cursor themes (简体中文) XDG 规则 XDG %E8%A7%84%E5%88%99) plasma自带的虚拟桌面指示有些bug而且不好看,代替默认虚拟桌面的指示 为arch添加command not found 更新command not found数据库 最后在 /.bashrc添加 nethogs: 按进程查看流量占用 coc中c语言自动补全,需要安装ccls: 1. 此方法参考自 用户添加 2. 此方法参考自 PulseAudio can not load bluetooth module 3. 此方法来自 Plasma wont set Chromium as default browser"
   },
@@ -599,7 +598,7 @@
     "language": "zh-Hans",
     "tags": [
       "CIDR",
-      "golang"
+      "Go"
     ],
     "categories": [
       "Network"
@@ -611,12 +610,12 @@
     "url": "/posts/89c4c907/",
     "language": "zh-Hans",
     "tags": [
-      "golang",
-      "linux",
-      "windows"
+      "Go",
+      "Linux",
+      "Windows"
     ],
     "categories": [
-      "golang"
+      "Go"
     ],
     "content": "系统的进程机制 linux windows 实现golang的后台 如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现 如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程 golang只提供了forkexec,也就是说一个程序只能创建子进程 通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程,这样就相当于创建了子进程,子进程创建孙进程 实现就是给程序加参数,再次调用的时候加上这个参数再创建想要的进程 这样就得到我们想要的三层结构了,这时候让父进程杀死make d,就实现子进程被系统接管,实现子进程后台"
   },
@@ -625,8 +624,8 @@
     "url": "/posts/a99a60b1/",
     "language": "zh-Hans",
     "tags": [
-      "efi",
-      "uefi"
+      "EFI",
+      "UEFI"
     ],
     "categories": [
       "Computer"
@@ -638,7 +637,7 @@
     "url": "/posts/64e69c3e/",
     "language": "zh-Hans",
     "tags": [
-      "python"
+      "Python"
     ],
     "categories": [
       "Machine Learning"
@@ -650,8 +649,8 @@
     "url": "/posts/c7816edc/",
     "language": "zh-Hans",
     "tags": [
-      "socks5",
-      "golang"
+      "Socks5",
+      "Go"
     ],
     "categories": [
       "Network"
@@ -663,10 +662,10 @@
     "url": "/posts/1e63e0e/",
     "language": "zh-Hans",
     "tags": [
-      "android"
+      "Android"
     ],
     "categories": [
-      "android"
+      "Android"
     ],
     "content": "安卓6.0引入了doze来节省电量,但某些国产ui(如锤子)阉割了这个菜单,可通过adb添加 添加应用到白名单： 如: 删除白名单(把加号改成减号): 查看doze状态： 获取完整的帮助菜单:"
   },
@@ -675,11 +674,11 @@
     "url": "/posts/8b98169e/",
     "language": "zh-Hans",
     "tags": [
-      "android",
-      "java"
+      "Android",
+      "Java"
     ],
     "categories": [
-      "android"
+      "Android"
     ],
     "content": "一直想要使用termux来在安卓上写java,但termux上只有ecj可以使java编译为目标文件class,却不能使其编译为可执行文件 发现通过安卓自带的dalvikvm可以运行,只是步骤繁琐一些 安装所需工具 termux上安装 ecj 和 dx就可以了 编译为class文件 编译成dex文件 使用dalvikvm运行 参考: 使用 dalvikvm 执行一个运行于命令行的 Hello World"
   },
@@ -701,11 +700,11 @@
     "url": "/posts/25303996/",
     "language": "zh-Hans",
     "tags": [
-      "android",
-      "adb"
+      "Android",
+      "Adb"
     ],
     "categories": [
-      "android"
+      "Android"
     ],
     "content": "查看dumpsys所有的子命令: output: eg: 1.得到电池的所有信息 2.得到wifi的所有信息 3.得到cpu的所有信息 4.得到总的存储情况 5.得到某应用的存储情况 6.得到所有的服务列表 7.得到所有的账户列表 8.获得某子命令的帮助信息 参考: What's the Android ADB shell “dumpsys” tool and what are its benefits?"
   },
@@ -714,10 +713,10 @@
     "url": "/posts/f7f814df/",
     "language": "zh-Hans",
     "tags": [
-      "android"
+      "Android"
     ],
     "categories": [
-      "android"
+      "Android"
     ],
     "content": "对于Android M或更高版本，使用： xx是语言 XX是国家 改为日语为:xx=ja XX=JP 其他安卓版本: xx是语言 XX是国家 Zygote进程运行时, 会初始化Dalvik虚拟机, 并运行它. Android的应用程序是由Java编写的, 它们不能直接运行在Linux上, 只能运行在Dalvik虚拟机中. 并且, 每个应用程序都运行在各自的虚拟机中, 应用程序每次运行都要重新初始化并启动虚拟机, 这个过程会消耗相当长时间, 是拖慢应用程序的原因之一. 因此, 在Android中, 应用程序运行前, 通过Zygote进程共享已运行的虚拟机的代码与内存信息, 缩短应用程序运行所耗费的时间. 也就是说, Zygote进程会事先将应用程序要使用的Android Framework中的类与资源加载到内存中, 并组织形成所用资源的链接信息. 这样, 新运行的Android应用程序在使用所需资源时不必每次形成资源的链接信息, 这样就大大提升了程序的运行时间. 参考: 1.通过ADB更改设备语言 2.初识Zygote进程"
   },
@@ -726,11 +725,11 @@
     "url": "/posts/38868ade/",
     "language": "zh-Hans",
     "tags": [
-      "linux",
-      "xfce4"
+      "Linux",
+      "Xfce4"
     ],
     "categories": [
-      "linux"
+      "Linux"
     ],
     "content": "安装compton 修改配置文件 compton的配置文件在 /.config/compton.conf 因为有些窗口的阴影有时候会变的很奇怪,大概你有可能需要修改一下,附上我的: 关闭xfce4自带的合成器 设置管理器 窗口管理器微调 合成器 启动compton 前台运行 后台运行 开机自启动 修改 /.xprofile文件 将 直接加到新的一行就行了"
   },
@@ -739,12 +738,12 @@
     "url": "/posts/3b8b96de/",
     "language": "zh-Hans",
     "tags": [
-      "linux",
+      "Linux",
       "双显卡",
-      "amd"
+      "AMD"
     ],
     "categories": [
-      "linux"
+      "Linux"
     ],
     "content": "使用 xrandr 显示可支持的显卡 输出类似以下内容 To be able to render GPU intensive applications by the more powerful discrete card use 或者 使用DRI PRIME为某个应用选择使用哪一张显卡,使用glxinfo可以查看正在使用的显卡 如为steam启用独显 如果需要使用独显进行视频硬件播放,还需指定视频解码库,不然会乱码: 如AMD: 使用mpv: 参考资料: 1.Intel/AMD Hybrid graphics Ubuntu 18.04 2.PRIME (简体中文)"
   },
@@ -753,11 +752,11 @@
     "url": "/posts/77d15527/",
     "language": "zh-Hans",
     "tags": [
-      "python",
+      "Python",
       "编程"
     ],
     "categories": [
-      "python"
+      "Python"
     ],
     "content": "首先得引入lxml cssselector 如果选择的内容换行符太多可以使用split表示成list去除 说明 例子 选择所有标签 选择 标签 a 选择所有class=\"link\"的标签 .link 选择class=\"link\"的 标签 a.link 选择id=\"home\"的 标签 a home 选择父元素为 标签的所有 标签 a span 选择 标签内部的所有 标签 a span 选择title属性为”Home”的所有 标签 a[title=Home] xpath xpath由于内容太多,可以直接参考官方文档"
   },
@@ -766,11 +765,11 @@
     "url": "/posts/cee10602/",
     "language": "zh-Hans",
     "tags": [
-      "python",
+      "Python",
       "编程"
     ],
     "categories": [
-      "python"
+      "Python"
     ],
     "content": "利用requrst,使用首先要 使用方法"
   },
@@ -779,11 +778,11 @@
     "url": "/posts/b6b8953/",
     "language": "zh-Hans",
     "tags": [
-      "linux",
-      "snap"
+      "Linux",
+      "Snap"
     ],
     "categories": [
-      "linux"
+      "Linux"
     ],
     "content": "偶尔发现snap会自动升级core且不删除旧版，在'/snap/core' 会发现好几个版本的文件夹。 使用 删除某个版本的core，xxx是软件的rev，使用 可以查看软件的rev，其他软件也能用这个方法删除旧的版本哦。 参考：How to unmount and possibly delete old Ubuntu Core snap"
   },
@@ -792,10 +791,10 @@
     "url": "/posts/fb6d8628/",
     "language": "zh-Hans",
     "tags": [
-      "linux"
+      "Linux"
     ],
     "categories": [
-      "linux"
+      "Linux"
     ],
     "content": "首先使用rfkill查看你的wifi设备是否被停用 使用命令 获得设备列表，每个都包含与之关联的索引号，从 0 开始 查看设备是否被停用，要启用被停用的设备，请运行： 要启用所有设备，请运行： 您可以使用这个索引号让 rfkill 停使或者使用某个设备，例如： 您还可以使用 rfkill 阻断某一类设备，或者所有启用了RFKill的设备。例如： 停用系统中的所有Wi Fi设备 启用无线网卡 使用iwconfig命令搜索无线网 记下essid 连接无密码的无线网 其中essidname是搜索到的无线网essid 连接有密码的无线网 补充 通过dhcp获取IP 或"
   },
@@ -842,7 +841,7 @@
     "url": "/posts/d22ffdb6/",
     "language": "zh-Hans",
     "tags": [
-      "proxy"
+      "Proxy"
     ],
     "categories": [
       "Network"
