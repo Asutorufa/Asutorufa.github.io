@@ -73,6 +73,7 @@ export function comparePostsByDateDesc(a: Post, b: Post) {
 export function splitExcerpt(markdown: string) {
   const marker = /<!--\s*more\s*-->/i;
   const match = marker.exec(markdown);
+  const moreAnchor = "more";
   if (!match || match.index < 1) {
     return {
       excerptMarkdown: makePlainText(markdown).slice(0, 180),
@@ -81,7 +82,8 @@ export function splitExcerpt(markdown: string) {
   }
   return {
     excerptMarkdown: markdown.slice(0, match.index).trim(),
-    bodyMarkdown: markdown.replace(marker, "").trim()
+    moreAnchor,
+    bodyMarkdown: markdown.replace(marker, `<span id="${moreAnchor}" class="post-more-anchor" aria-hidden="true"></span>`).trim()
   };
 }
 
@@ -154,7 +156,7 @@ export async function createPost(
   const title = asString(data.title, path.basename(filePath, ".md")).trim();
   const date = rawFrontMatterValue(parsed, "date") || normalizeDate(data.date);
   const updated = rawFrontMatterValue(parsed, "updated") || normalizeDate(data.updated) || date;
-  const { excerptMarkdown, bodyMarkdown } = splitExcerpt(parsed.content.trim());
+  const { excerptMarkdown, moreAnchor, bodyMarkdown } = splitExcerpt(parsed.content.trim());
   const excerptHtml = excerptMarkdown ? await renderMarkdownToHtml(excerptMarkdown) : "";
   const body = await renderMarkdown(bodyMarkdown);
   const language = languageFields(sourcePath, data.language, fallbackCollector);
@@ -172,6 +174,7 @@ export async function createPost(
     ...language,
     excerptMarkdown,
     excerptHtml,
+    moreAnchor,
     bodyMarkdown,
     bodyHtml: body.html,
     rawMarkdown: parsed.content,

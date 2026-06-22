@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { Icon } from "./Icon";
 
@@ -21,7 +22,7 @@ export function ScrollProgressButton() {
   return (
     <button
       type="button"
-      className={`scroll-progress-button ${progress > 3 ? "is-visible" : ""}`}
+      className={clsx("scroll-progress-button", progress > 3 && "is-visible")}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="Back to top"
     >

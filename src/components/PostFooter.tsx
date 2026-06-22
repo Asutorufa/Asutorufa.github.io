@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import type { BlogConfig, Post, UiLabels } from "../types/content";
 import { Icon } from "./Icon";
 
@@ -11,7 +12,7 @@ type PostFooterProps = {
 
 export function PostFooter({ config, labels, post, olderPost, newerPost }: PostFooterProps) {
   const permalink = new URL(post.route, config.url).toString();
-  const adjacentClassName = `post-adjacent-nav ${olderPost && newerPost ? "post-adjacent-nav--paired" : "post-adjacent-nav--single"}`;
+  const adjacentClassName = clsx("post-adjacent-nav", olderPost && newerPost ? "post-adjacent-nav--paired" : "post-adjacent-nav--single");
 
   return (
     <footer className="mt-10">

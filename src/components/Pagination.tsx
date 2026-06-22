@@ -16,7 +16,7 @@ export function Pagination({ currentPage, totalPages, labels, basePath = "/" }: 
   const next = currentPage < totalPages ? pageHref(basePath, currentPage + 1) : null;
 
   return (
-    <nav className="pagination-bar content-card mt-8 flex w-full max-w-full items-center justify-center gap-4 px-6 py-2 text-sm font-normal" aria-label="Pagination">
+    <nav className="content-card mx-auto mt-8 flex w-full max-w-full items-center justify-center gap-4 px-6 py-2 text-sm font-normal" aria-label="Pagination">
       {previous ? (
         <a className="pagination-link" href={previous} aria-label={labels.previous}>
           <Icon name="angle-left" />

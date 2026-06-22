@@ -1,7 +1,9 @@
+import clsx from "clsx";
 import { useEffect, useMemo, useState } from "react";
 import { Icon } from "../components/Icon";
 import type { UiLabels } from "../types/content";
 import { OutputItem, toolLabels } from "./shared";
+import { TOOL_CLASS, toolButton } from "./toolStyles";
 
 type TimestampMode = "auto" | "seconds" | "milliseconds";
 
@@ -59,44 +61,44 @@ export function TimestampTool({ labels }: { labels: UiLabels }) {
   }
 
   return (
-    <section className="tool-panel">
-      <div className="tool-panel-heading">
+    <section className={TOOL_CLASS.panel}>
+      <div className={TOOL_CLASS.heading}>
         <Icon name="clock" />
-        <h2>{labels.unixTimestamp}</h2>
+        <h2 className={TOOL_CLASS.headingTitle}>{labels.unixTimestamp}</h2>
       </div>
 
-      <div className="tool-grid">
-        <label className="tool-field">
-          <span>{text.timestamp}</span>
-          <input value={timestampInput} onChange={(event) => syncFromTimestamp(event.target.value)} inputMode="numeric" placeholder="1755854433" />
+      <div className={TOOL_CLASS.grid}>
+        <label className={TOOL_CLASS.field}>
+          <span className={TOOL_CLASS.fieldLabel}>{text.timestamp}</span>
+          <input className={TOOL_CLASS.control} value={timestampInput} onChange={(event) => syncFromTimestamp(event.target.value)} inputMode="numeric" placeholder="1755854433" />
         </label>
 
-        <div className="tool-field">
-          <span>{text.unit}</span>
-          <div className="tool-segmented">
+        <div className={TOOL_CLASS.field}>
+          <span className={TOOL_CLASS.fieldLabel}>{text.unit}</span>
+          <div className={TOOL_CLASS.segmented}>
             {(["auto", "seconds", "milliseconds"] as const).map((mode) => (
-              <button key={mode} type="button" className={timestampMode === mode ? "is-active" : ""} onClick={() => handleMode(mode)}>
+              <button key={mode} type="button" className={clsx(TOOL_CLASS.segmentedButton, timestampMode === mode && TOOL_CLASS.segmentedButtonActive)} onClick={() => handleMode(mode)}>
                 {text[mode]}
               </button>
             ))}
           </div>
         </div>
 
-        <label className="tool-field">
-          <span>{text.localTime}</span>
-          <input type="datetime-local" step="1" value={dateInput} onChange={(event) => handleDateInput(event.target.value)} />
+        <label className={TOOL_CLASS.field}>
+          <span className={TOOL_CLASS.fieldLabel}>{text.localTime}</span>
+          <input className={TOOL_CLASS.control} type="datetime-local" step="1" value={dateInput} onChange={(event) => handleDateInput(event.target.value)} />
         </label>
 
-        <div className="tool-actions">
-          <button type="button" className="tool-primary-button" onClick={() => syncFromDate(new Date())}>
+        <div className={TOOL_CLASS.actions}>
+          <button type="button" className={toolButton("primary")} onClick={() => syncFromDate(new Date())}>
             {text.now}
           </button>
         </div>
       </div>
 
-      {error ? <p className="tool-error">{error}</p> : null}
+      {error ? <p className={TOOL_CLASS.error}>{error}</p> : null}
 
-      <div className="tool-output-grid">
+      <div className={TOOL_CLASS.outputGrid}>
         <OutputItem label={text.unixSeconds} value={validOutputDate ? String(Math.floor(validOutputDate.getTime() / 1000)) : ""} />
         <OutputItem label={text.unixMilliseconds} value={validOutputDate ? String(validOutputDate.getTime()) : ""} />
         <OutputItem label={text.isoTime} value={validOutputDate ? validOutputDate.toISOString() : ""} />

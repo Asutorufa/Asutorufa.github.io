@@ -17,12 +17,12 @@ export function PageView({ content, route }: AppProps) {
     <>
       <article className="content-card px-5 py-10 md:px-8 md:py-14 lg:px-10">
         <header className="mb-12 text-center">
-          <h1 className="text-[1.7em] font-normal leading-normal text-[#555]">{page.title}</h1>
+          <h1 className="text-[1.7em] font-normal leading-normal text-blog-heading">{page.title}</h1>
         </header>
         <ArticleMarkdown html={page.bodyHtml} />
       </article>
       {showComments ? (
-        <section className="comments-card content-card mt-4 px-4 py-5 md:mt-6 md:px-8 md:py-7 lg:px-10">
+        <section className="content-card mt-4 overflow-hidden px-4 py-5 md:mt-6 md:px-8 md:py-7 lg:px-10">
           <GitalkComments id={page.route} language={page.language} />
         </section>
       ) : null}

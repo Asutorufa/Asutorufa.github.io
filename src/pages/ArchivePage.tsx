@@ -22,7 +22,7 @@ export function ArchivePage({ content, route, year, month, page = 1 }: ArchivePa
     <>
       <section className="content-card px-5 py-10 md:px-8 md:py-14 lg:px-10">
         <header className="mb-10 text-center">
-          <h1 className="text-[1.7em] font-normal text-[#555]">{title}</h1>
+          <h1 className="text-[1.7em] font-normal text-blog-heading">{title}</h1>
         </header>
 
         <div className="archive-timeline">

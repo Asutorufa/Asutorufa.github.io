@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { useState } from "react";
 import type { ContentManifest, Post, TocItem, UiLabels } from "../types/content";
 import { menuItems } from "../data/menu";
@@ -16,10 +17,10 @@ export function Sidebar({ content, labels, currentRoute, post, mobile = false }:
   const hasToc = Boolean(post?.toc.length);
 
   return (
-    <div className={mobile ? "mt-4 space-y-4" : "h-full space-y-3"}>
+    <div className={clsx(mobile ? "mt-4 space-y-4" : "h-full space-y-3")}>
       <section className="overflow-hidden rounded-2xl bg-white shadow-blog">
         <div className="px-4 py-5 text-center">
-          <a href="/" className="block text-[20px] font-normal leading-9 text-neutral-900 transition-colors hover:text-[#ff5b25] active:text-[#e14d1d]">
+          <a href="/" className="block text-[20px] font-normal leading-9 text-neutral-900 transition-colors hover:text-blog-accent active:text-blog-accent-active">
             {content.config.title}
           </a>
           <p className="mt-3 text-[13px] font-normal">{content.config.subtitle}</p>
@@ -29,7 +30,7 @@ export function Sidebar({ content, labels, currentRoute, post, mobile = false }:
             <a
               key={item.href}
               href={item.href}
-              className={`sidebar-nav-link ${isActive(currentRoute, item.href) ? "is-active" : ""}`}
+              className={clsx("sidebar-nav-link", isActive(currentRoute, item.href) && "is-active")}
             >
               <Icon name={item.icon} className="w-[1.28571429em]" />
               <span>{item.label}</span>
@@ -54,22 +55,24 @@ function TocCard({ content, labels, toc, mobile }: { content: ContentManifest; l
   const [activeTab, setActiveTab] = useState<"toc" | "overview">("toc");
 
   return (
-    <section className={`flex overflow-hidden rounded-2xl bg-white shadow-blog ${mobile ? "" : "sticky top-4 max-h-[calc(100vh-2rem)]"} flex-col`}>
+    <section className={clsx("flex flex-col overflow-hidden rounded-2xl bg-white shadow-blog", !mobile && "sticky top-4 max-h-[calc(100vh-2rem)]")}>
       <div className="flex justify-center gap-5 px-4 pt-5 text-[14px] font-normal">
         <button
           type="button"
-          className={`toc-tab-button border-b-2 pb-2 transition-all active:translate-y-px ${
-            activeTab === "toc" ? "border-[#ff5b25] text-[#ff5b25]" : "border-transparent text-neutral-600 hover:text-[#ff5b25]"
-          }`}
+          className={clsx(
+            "toc-tab-button border-b-2 pb-2 transition-all active:translate-y-px",
+            activeTab === "toc" ? "border-blog-accent text-blog-accent" : "border-transparent text-neutral-600 hover:text-blog-accent"
+          )}
           onClick={() => setActiveTab("toc")}
         >
           {labels.postToc}
         </button>
         <button
           type="button"
-          className={`toc-tab-button border-b-2 pb-2 transition-all active:translate-y-px ${
-            activeTab === "overview" ? "border-[#ff5b25] text-[#ff5b25]" : "border-transparent text-neutral-600 hover:text-[#ff5b25]"
-          }`}
+          className={clsx(
+            "toc-tab-button border-b-2 pb-2 transition-all active:translate-y-px",
+            activeTab === "overview" ? "border-blog-accent text-blog-accent" : "border-transparent text-neutral-600 hover:text-blog-accent"
+          )}
           onClick={() => setActiveTab("overview")}
         >
           {labels.siteOverview}
@@ -85,7 +88,7 @@ function TocList({ toc }: { toc: TocItem[] }) {
     <nav className="toc-scroll min-h-0 flex-1 overflow-y-auto px-5 pb-5 pt-4">
       <ol className="space-y-2 text-[13px] font-normal leading-6 text-neutral-600">
         {toc.map((item) => (
-          <li key={item.id} className={item.level > 2 ? "ml-3 text-[12px]" : ""}>
+          <li key={item.id} className={clsx(item.level > 2 && "ml-3 text-[12px]")}>
             <a className="toc-link" href={`#${item.id}`}>
               {item.text}
             </a>
@@ -98,7 +101,7 @@ function TocList({ toc }: { toc: TocItem[] }) {
 
 function ProfileCard({ content, labels, mobile, sticky }: { content: ContentManifest; labels: UiLabels; mobile: boolean; sticky: boolean }) {
   return (
-    <section className={`overflow-hidden rounded-2xl bg-white shadow-blog ${sticky ? "sticky top-4" : ""}`}>
+    <section className={clsx("overflow-hidden rounded-2xl bg-white shadow-blog", sticky && "sticky top-4")}>
       <ProfileBody content={content} labels={labels} />
     </section>
   );
@@ -106,7 +109,7 @@ function ProfileCard({ content, labels, mobile, sticky }: { content: ContentMani
 
 function ProfileBody({ content, labels, compact = false }: { content: ContentManifest; labels: UiLabels; compact?: boolean }) {
   return (
-    <div className={`text-center ${compact ? "px-4 pb-5 pt-5" : "px-4 py-6"}`}>
+    <div className={clsx("text-center", compact ? "px-4 pb-5 pt-5" : "px-4 py-6")}>
       <a className="profile-avatar-link mx-auto block h-28 w-28 rounded-full" href="/about/" aria-label={labels.about}>
         <img
           src="/images/bighead.svg"

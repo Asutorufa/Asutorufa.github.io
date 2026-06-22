@@ -39,5 +39,5 @@ printf("%p %02x\n%p %02x\n%p %02x\n%p %02x\n",a,*(unsigned char*)a,a+1,*(unsigne
 ```
 
 输出内容如图
-![](http://blog-1254450445.cossgp.myqcloud.com/TIM%E6%88%AA%E5%9B%BE20171024224821.png)
+![](/images/posts/43cb2931/4e9283589401.png)
 __有任何错误请邮箱联系我指出我的错误,万分感谢__

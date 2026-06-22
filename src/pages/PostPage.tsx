@@ -25,17 +25,17 @@ export function PostPage({ content, abbrlink }: PostPageProps) {
 
   return (
     <>
-      <article className="content-card post-transition-surface px-4 py-8 md:px-8 md:py-14 lg:px-10" style={{ viewTransitionName: `post-${post.abbrlink}` }}>
+      <article className="content-card px-4 py-8 [contain:paint] md:px-8 md:py-14 lg:px-10" style={{ viewTransitionName: `post-${post.abbrlink}` }}>
         <PostBackButton label={labels.back} />
         <header className="mb-12 text-center md:mb-16">
-          <h1 className="text-[1.7em] font-normal leading-normal text-[#555]">{post.title}</h1>
+          <h1 className="text-[1.7em] font-normal leading-normal text-blog-heading">{post.title}</h1>
           <PostMeta post={post} />
         </header>
         <ArticleMarkdown html={post.bodyHtml} />
         <PostFooter config={content.config} labels={labels} post={post} olderPost={olderPost} newerPost={newerPost} />
       </article>
       {post.comments ? (
-        <section className="comments-card content-card mt-4 px-4 py-5 md:mt-6 md:px-8 md:py-7 lg:px-10">
+        <section className="content-card mt-4 overflow-hidden px-4 py-5 md:mt-6 md:px-8 md:py-7 lg:px-10">
           <GitalkComments id={post.route} language={post.language} />
         </section>
       ) : null}

@@ -28,6 +28,8 @@ type ScrollPosition = {
   anchorRoute?: string;
 };
 
+type RouteTransitionKind = "forward" | "back" | "post-open" | "post-close" | "post-swap";
+
 const pagePayloadCache = new Map<string, PagePayload | Promise<PagePayload>>();
 const scrollPositions = new Map<string, ScrollPosition>();
 const ENABLE_ROUTE_SCROLL_RESTORE = true;
@@ -89,6 +91,7 @@ export function App(props: AppProps) {
         mode: "push" | "replace";
         saveCurrentScroll: boolean;
         restoreState?: RouteHistoryState;
+        transitionOriginY?: number;
       }
     ) => {
       if (ENABLE_ROUTE_SCROLL_RESTORE && options.saveCurrentScroll) rememberScrollPosition();
@@ -116,7 +119,7 @@ export function App(props: AppProps) {
         window.history.replaceState(nextState, "", nextUrl);
       }
 
-      const commitRouteChange = () => {
+      const commitRouteChange = (restoreBeforeSnapshot = false) => {
         contentRef.current = nextContent;
         routeRef.current = payload.route;
         flushSync(() => {
@@ -124,26 +127,34 @@ export function App(props: AppProps) {
           setRoute(payload.route);
         });
         updateDocumentMeta(nextContent, payload.route, payload.description);
+        if (restoreBeforeSnapshot) {
+          suppressScrollSaveUntil = performance.now() + 450;
+          restoreRoutePosition(restorePosition, url.hash, options.transitionOriginY);
+        }
         window.dispatchEvent(new Event("asutorufa-route-change"));
       };
 
-      if (shouldAnimateRouteChange(url, routeRef.current, payload.route, options.restoreState !== undefined)) {
-        document.startViewTransition(commitRouteChange);
+      const transitionKind = routeTransitionKind(routeRef.current, payload.route, options.restoreState !== undefined);
+      if (shouldAnimateRouteChange(url, routeRef.current, payload.route)) {
+        const root = document.documentElement;
+        root.dataset.routeTransition = transitionKind;
+        const transition = document.startViewTransition(() => commitRouteChange(true));
+        void transition.finished.finally(() => {
+          if (root.dataset.routeTransition === transitionKind) {
+            delete root.dataset.routeTransition;
+          }
+          rememberScrollPosition(payload.route.route);
+        });
       } else {
         commitRouteChange();
-      }
-
-      requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          if (url.hash) {
-            document.getElementById(decodeURIComponent(url.hash.slice(1)))?.scrollIntoView();
-            return;
-          }
-          suppressScrollSaveUntil = performance.now() + 350;
-          restoreScrollPosition(restorePosition);
-          scheduleScrollStateSave();
+          requestAnimationFrame(() => {
+            suppressScrollSaveUntil = performance.now() + 350;
+            restoreRoutePosition(restorePosition, url.hash, options.transitionOriginY);
+            rememberScrollPosition(payload.route.route);
+          });
         });
-      });
+      }
     };
 
     const onClick = (event: MouseEvent) => {
@@ -156,7 +167,7 @@ export function App(props: AppProps) {
       if (sameDocumentHash(url)) return;
 
       event.preventDefault();
-      void navigate(url, { mode: "push", saveCurrentScroll: true });
+      void navigate(url, { mode: "push", saveCurrentScroll: true, transitionOriginY: readMoreTransitionOriginY(anchor) });
     };
 
     const onPopState = (event: PopStateEvent) => {
@@ -282,17 +293,30 @@ function shouldHandleLink(anchor: HTMLAnchorElement) {
   return true;
 }
 
+function readMoreTransitionOriginY(anchor: HTMLAnchorElement) {
+  if (!anchor.classList.contains("read-more-button")) return undefined;
+  const rect = anchor.getBoundingClientRect();
+  return rect.top + rect.height / 2;
+}
+
 function sameDocumentHash(url: URL) {
   if (!url.hash) return false;
   return url.pathname === window.location.pathname && url.search === window.location.search;
 }
 
-function shouldAnimateRouteChange(url: URL, currentRoute: RouteEntry, nextRoute: RouteEntry, isHistoryNavigation: boolean) {
-  if (url.hash) return false;
-  if (isHistoryNavigation) return false;
+function shouldAnimateRouteChange(url: URL, currentRoute: RouteEntry, nextRoute: RouteEntry) {
+  if (url.hash && currentRoute.route === nextRoute.route) return false;
   if (typeof document.startViewTransition !== "function") return false;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
-  return currentRoute.kind === "post" || nextRoute.kind === "post";
+  return currentRoute.route !== nextRoute.route;
+}
+
+function routeTransitionKind(currentRoute: RouteEntry, nextRoute: RouteEntry, isHistoryNavigation: boolean): RouteTransitionKind {
+  if (currentRoute.kind === "post" && nextRoute.kind === "post") return "post-swap";
+  if (nextRoute.kind === "post") return "post-open";
+  if (currentRoute.kind === "post") return "post-close";
+  if (isHistoryNavigation) return "back";
+  return "forward";
 }
 
 function normalizeRoutePath(pathname: string) {
@@ -393,6 +417,29 @@ function restoreScrollPosition(position: ScrollPosition) {
       });
     });
   }
+}
+
+function restoreRoutePosition(position: ScrollPosition, hash?: string, transitionOriginY?: number) {
+  if (hash && restoreHashPosition(hash, transitionOriginY)) {
+    return;
+  }
+  restoreScrollPosition(position);
+}
+
+function restoreHashPosition(hash: string, transitionOriginY?: number) {
+  const anchor = document.getElementById(decodeURIComponent(hash.slice(1)));
+  if (!anchor) return false;
+
+  if (typeof transitionOriginY === "number") {
+    const targetTop = Math.max(72, Math.min(transitionOriginY, window.innerHeight - 96));
+    instantScrollTo({
+      scrollX: 0,
+      scrollY: window.scrollY + anchor.getBoundingClientRect().top - targetTop
+    });
+  } else {
+    anchor.scrollIntoView();
+  }
+  return true;
 }
 
 function instantScrollTo(position: ScrollPosition) {

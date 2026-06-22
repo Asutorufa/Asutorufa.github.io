@@ -25,7 +25,7 @@ language: zh-Hans
 ## 2.fiddler
 
 利用fiddler的winconfig实现uwp应用走代理
-![.](http://blog-1254450445.cossgp.myqcloud.com/WK%290~%29WR%29N79$KZ4HZZTDQ2.png)
+![.](/images/posts/d22ffdb6/9d90f5593dda.png)
 把要走代理的应用勾上
-![.](http://blog-1254450445.cossgp.myqcloud.com/KT3%28H@%60C63P@2KH_X7C@QDI.png)
+![.](/images/posts/d22ffdb6/9ed7d36cb761.png)
 但这不是全局代理,只能让uwp应用走代理

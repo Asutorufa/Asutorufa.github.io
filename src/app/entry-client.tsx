@@ -3,6 +3,7 @@ import { App } from "./App";
 import type { AppProps, CommonPayload, PagePayload } from "./app-types";
 import { mergePagePayload } from "./page-payload";
 import "katex/dist/katex.min.css";
+import "yet-another-react-lightbox/styles.css";
 import "../styles/app.css";
 
 const root = document.getElementById("root");

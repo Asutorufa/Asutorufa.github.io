@@ -40,6 +40,6 @@ cp -arf ubuntu/grubx64.efi Microsoft/Boot/bootmgfw.efi
 
 但是windwos有大更新的时候会把更改的覆盖掉，再来一遍就好了
 
-<span id = "jump">![](http://blog-1254450445.cossgp.myqcloud.com/efi.jpg)</span>
+<span id = "jump">![](/images/posts/6683eff9/b91fb1aa8152.jpg)</span>
 
 参考文章[暗影精灵2pro安装win10+ubuntu16.10双系统](https://blog.csdn.net/zyix_0712/article/details/69675748)

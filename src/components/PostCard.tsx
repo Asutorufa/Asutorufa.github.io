@@ -12,12 +12,12 @@ export function PostCard({ post }: PostCardProps) {
 
   return (
     <article
-      className="content-card post-transition-surface mb-3 px-4 py-8 md:mb-5 md:px-8 md:py-14 lg:px-10"
+      className="content-card mb-3 px-4 py-8 [contain:paint] md:mb-5 md:px-8 md:py-14 lg:px-10"
       data-scroll-route={post.route}
       style={{ viewTransitionName: `post-${post.abbrlink}` }}
     >
       <header className="text-center">
-        <h2 className="text-[1.7em] font-normal leading-normal text-[#555]">
+        <h2 className="text-[1.7em] font-normal leading-normal text-blog-heading">
           <a className="post-card-title-link transition-colors" href={post.route}>{post.title}</a>
         </h2>
         <PostMeta post={post} />
@@ -28,7 +28,7 @@ export function PostCard({ post }: PostCardProps) {
         </div>
       ) : null}
       <div className="mt-8 text-center md:mt-10">
-        <a className="read-more-button" href={post.route}>
+        <a className="read-more-button" href={post.moreAnchor ? `${post.route}#${post.moreAnchor}` : post.route}>
           <span>{labels.readMore}</span>
           <span className="read-more-button-icon" aria-hidden="true">
             »

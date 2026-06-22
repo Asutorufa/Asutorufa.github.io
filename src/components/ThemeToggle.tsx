@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { useEffect, useState } from "react";
 import type { UiLabels } from "../types/content";
 import { Icon, type IconName } from "./Icon";
@@ -5,6 +6,8 @@ import { Icon, type IconName } from "./Icon";
 type ThemeMode = "system" | "light" | "dark";
 
 const STORAGE_KEY = "asutorufa-theme";
+const THEME_COLOR_LIGHT = "#f7f7f7";
+const THEME_COLOR_DARK = "#282828";
 
 type ThemeToggleProps = {
   labels: UiLabels;
@@ -54,7 +57,7 @@ export function ThemeToggle({ labels }: ThemeToggleProps) {
         <button
           key={item.value}
           type="button"
-          className={item.value === mode ? "is-active" : ""}
+          className={clsx(item.value === mode && "is-active")}
           aria-pressed={item.value === mode}
           title={labels[item.labelKey]}
           onClick={() => selectTheme(item.value)}
@@ -83,6 +86,13 @@ function applyTheme(mode: ThemeMode) {
   document.documentElement.classList.toggle("dark-mode", dark);
   document.documentElement.classList.toggle("light-mode", !dark);
   document.documentElement.dataset.themePreference = mode;
-  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", dark ? "#1f1f1f" : "#FFF0F5");
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute("content", readThemeColor(dark ? THEME_COLOR_DARK : THEME_COLOR_LIGHT));
   window.dispatchEvent(new CustomEvent("asutorufa-theme-change", { detail: { mode, dark } }));
+}
+
+function readThemeColor(fallback: string) {
+  const value = getComputedStyle(document.documentElement).getPropertyValue("--blog-theme-color").trim();
+  return value || fallback;
 }

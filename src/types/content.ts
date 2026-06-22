@@ -80,6 +80,7 @@ export type Post = {
   dateLocale: string;
   excerptMarkdown?: string;
   excerptHtml?: string;
+  moreAnchor?: string;
   bodyMarkdown: string;
   bodyHtml: string;
   rawMarkdown: string;

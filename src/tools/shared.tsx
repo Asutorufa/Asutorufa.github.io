@@ -1,12 +1,13 @@
 import type { UiLabels } from "../types/content";
+import { TOOL_CLASS } from "./toolStyles";
 
 export type ToolLabels = ReturnType<typeof toolLabels>;
 
 export function OutputItem({ label, value }: { label: string; value: string }) {
   return (
-    <div className="tool-output-item">
-      <span>{label}</span>
-      <code>{value || "-"}</code>
+    <div className={TOOL_CLASS.outputItem}>
+      <span className={TOOL_CLASS.outputLabel}>{label}</span>
+      <code className={TOOL_CLASS.outputValue}>{value || "-"}</code>
     </div>
   );
 }

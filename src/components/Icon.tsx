@@ -30,6 +30,8 @@ import {
   User,
   Users,
   Wrench,
+  ZoomIn,
+  ZoomOut,
   type LucideIcon
 } from "lucide-react";
 
@@ -66,7 +68,9 @@ export type IconName =
   | "trash"
   | "tools"
   | "user"
-  | "users";
+  | "users"
+  | "zoom-in"
+  | "zoom-out";
 
 type IconProps = {
   name: IconName;
@@ -105,7 +109,9 @@ const icons: Record<Exclude<IconName, "github">, LucideIcon> = {
   trash: Trash2,
   tools: Wrench,
   user: User,
-  users: Users
+  users: Users,
+  "zoom-in": ZoomIn,
+  "zoom-out": ZoomOut
 };
 
 export function Icon({ name, className }: IconProps) {

@@ -85,7 +85,7 @@ a good practice 一个很好的做法
 
 进程内存的布局已经很好的在Gustavo Duarte所著的[剖析程序内存中](http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/)中进行解释,所以我将引用并参考原始文章,我希望这是合理的使用.我只有一点想要吹毛求疵一下,那就是他只讲到了x86-32的内存布局,但是幸运的是在x86-64中并没有多大的变化,只是进程可以使用更多的空间 - 在linux中高达 48 bits.
 
-![linux内存布局](http://static.duartes.org/img/blogPosts/linuxFlexibleAddressSpaceLayout.png)
+![linux内存布局](/images/posts/f87fc9f0/b4e35ee20669.png)
 <center>Source: Linux address space layout by <a href="http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/">Gustavo Duarte</a></center>
 
 这也展示了内存映射段(`memory mapping segment`=MMS)是向下增长的,但是并非总是如此.内存映射段通常开始与([x86/mm/mmap.c:113](http://lxr.free-electrons.com/source/mm/mmap.c#L1953)和[arch/mm/mmap.c:1953](http://lxr.free-electrons.com/source/arch/x86/mm/mmap.c#L113))一个栈底的随机地址.但也可以开始于栈之上或向栈之上增长当且仅当栈很大或栈无限大,或者兼容布局是被允许的.这重要吗?不,但是这将帮助你理解[自由地址范围](https://marek.vavrusa.com/memory/#mmap-fun).  

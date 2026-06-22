@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ImagePreview, type ImagePreviewState } from "./ImagePreview";
 
 type ArticleMarkdownProps = {
   html: string;
@@ -8,12 +9,44 @@ type MermaidRenderer = typeof import("mermaid").default;
 
 export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [preview, setPreview] = useState<ImagePreviewState | null>(null);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     hydrateLazyImages(container);
+
+    const openImagePreview = (image: HTMLImageElement) => {
+      const images = Array.from(container.querySelectorAll<HTMLImageElement>("img"));
+      const slides = images.map(toPreviewSlide).filter((slide) => slide.src);
+      const selectedSrc = image.currentSrc || image.src;
+      const index = Math.max(
+        0,
+        slides.findIndex((slide) => slide.src === selectedSrc)
+      );
+
+      if (slides.length > 0) setPreview({ index, slides });
+    };
+
+    const onClick = (event: MouseEvent) => {
+      const image = (event.target as Element | null)?.closest?.("img") as HTMLImageElement | null;
+      if (!image || !container.contains(image)) return;
+      event.preventDefault();
+      openImagePreview(image);
+    };
+
+    container.addEventListener("click", onClick);
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      const image = event.target instanceof HTMLImageElement ? event.target : null;
+      if (!image || !container.contains(image)) return;
+      event.preventDefault();
+      openImagePreview(image);
+    };
+
+    container.addEventListener("keydown", onKeyDown);
 
     let cancelled = false;
     let scheduledRender = 0;
@@ -126,16 +159,36 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
       window.clearTimeout(scheduledRender);
       intersectionObserver?.disconnect();
       observer.disconnect();
+      container.removeEventListener("click", onClick);
+      container.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("asutorufa-theme-change", scheduleRenderedMermaidRefresh);
     };
   }, [html]);
 
-  return <div ref={containerRef} className="article-content" dangerouslySetInnerHTML={{ __html: html }} />;
+  const closePreview = () => setPreview(null);
+
+  return (
+    <>
+      <div ref={containerRef} className="article-content" dangerouslySetInnerHTML={{ __html: html }} />
+      <ImagePreview preview={preview} onClose={closePreview} />
+    </>
+  );
 }
 
 function hydrateLazyImages(container: HTMLElement) {
   for (const image of container.querySelectorAll<HTMLImageElement>("img")) {
     image.loading ||= "lazy";
     image.decoding ||= "async";
+    if (!image.hasAttribute("tabindex")) image.tabIndex = 0;
   }
+}
+
+function toPreviewSlide(image: HTMLImageElement) {
+  const src = image.currentSrc || image.src;
+  return {
+    alt: image.alt,
+    height: image.naturalHeight || undefined,
+    src,
+    width: image.naturalWidth || undefined
+  };
 }

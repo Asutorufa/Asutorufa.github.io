@@ -253,7 +253,7 @@ wintypes:
 
 **设置管理器->窗口管理器微调->合成器**  
 
-![](http://blog-1254450445.cossgp.myqcloud.com/compton.png)
+![](/images/posts/38868ade/14e52cc537e0.png)
 
 ## 启动compton
 
