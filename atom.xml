@@ -12,7 +12,7 @@
   <id>https://asutorufa.com/posts/1755854433972/</id>
   <published>2025-08-22T17:20:33.000Z</published>
   <updated>2025-08-22T17:20:33.000Z</updated>
-  <summary>密ベクトルは現在ではText Embeddingサービスやvllmなどを使えば簡単に生成をてきる。 疎ベクトルは色々と探しましたが、直接利用できるサービスがあまりはない、自分で用意しなければならない。 Qdrantが提供するfastembedは利用できますけど、対応している疎ベクトルモデルが少ないため、最後的にsentence transformersのSparseEncoderを利用することにしました。 例えば、以下のようなドキュメントがあるとします： 戻り値の形式がわかり</summary>
+  <summary>密ベクトルは現在ではText Embeddingサービスやvllmなどを使えば簡単に生成をてきる。\ 疎ベクトルは色々と探しましたが、直接利用できるサービスがあまりはない、自分で用意しなければならない。 Qdrantが提供するfastembedは利用できますけど、対応している疎ベクトルモデルが少ないため、最後的にsentence transformersのSparseEncoderを利用することにしました。 例えば、以下のようなドキュメントがあるとします： 戻り値の形式がわか</summary>
 </entry>
 <entry>
   <title>RustでTelegram BotをLambdaにデプロイする</title>
@@ -52,7 +52,7 @@
   <id>https://asutorufa.com/posts/4893f166/</id>
   <published>2024-11-18T19:49:40.000Z</published>
   <updated>2024-11-18T19:49:40.000Z</updated>
-  <summary>NATの種類 Mappingの種類 マッピングはNAT内部から外部にパケットを送信時にアドレス変換する行為です。 Endpoint Independent Mapping NAT内部のネットワークの同じIPアドレスとポートで外部のそれぞれのUDPサーバ（IPアドレスとポートが違う）にパケットを送信すると、各個UDPサーバも同じIPアドレスとポートのパケットを受信する。 例えば： 送信元アドレス 宛先アドレス NATマッピングアドレス : : : : : : 192.168.1</summary>
+  <summary>NATの種類 Mappingの種類 マッピングはNAT内部から外部にパケットを送信時にアドレス変換する行為です。 Endpoint Independent Mapping NAT内部のネットワークの同じIPアドレスとポートで外部のそれぞれのUDPサーバ（IPアドレスとポートが違う）にパケットを送信すると、各個UDPサーバも同じIPアドレスとポートのパケットを受信する。\ 例えば： 送信元アドレス 宛先アドレス NATマッピングアドレス : : : : : : 192.168.</summary>
 </entry>
 <entry>
   <title>golangとollamaでfunction calling</title>
@@ -68,7 +68,7 @@
   <id>https://asutorufa.com/posts/95db8f9/</id>
   <published>2024-11-06T10:37:12.000Z</published>
   <updated>2024-11-06T10:37:12.000Z</updated>
-  <summary>日本語はまだ勉強中ですから、変などころあったら、ぜひコメントしてください。 RAGとは RAGはRetrieval augmented generationの略です。 大規模言語モデル内容を生成する前に、promptによる外部のデーターベースに知識を検索、元のpromptと組み合わせて、アウトプットを改善するための技術です。 例えば： ユーザ：今日の注目の新聞は何ですか？ gemini： chatgpt: geminiはリアルタイムによっての内容は回答できません。 chatg</summary>
+  <summary>日本語はまだ勉強中ですから、変などころあったら、ぜひコメントしてください。 RAGとは RAGはRetrieval augmented generationの略です。 大規模言語モデル内容を生成する前に、promptによる外部のデーターベースに知識を検索、元のpromptと組み合わせて、アウトプットを改善するための技術です。 例えば： ユーザ：今日の注目の新聞は何ですか？ gemini： chatgpt: geminiはリアルタイムによっての内容は回答できません。\ chat</summary>
 </entry>
 <entry>
   <title>感觉日语是一种很随意的语言</title>
@@ -228,7 +228,7 @@
   <id>https://asutorufa.com/posts/4b39445f/</id>
   <published>2020-06-23T00:30:08.000Z</published>
   <updated>2020-06-23T00:30:08.000Z</updated>
-  <summary>这个DNS系列现在有以下几篇文章 DNS EDNS DNSSEC DNS over HTTPS 完整代码请看DNS DOH就比较简单了,因为DOH使用的请求数据和应答数据均为之前的DNS协议格式,包括DNS,EDNS,DNSSEC...当然是否支持EDNS,DNSSEC需要看DNS服务器的支持情况 DOH的最主要的区别是把DNS使用的UDP,换成了HTTPS,这样就能防止DNS污染了,而且可以使用DNSSEC加上ESNI来防止证书劫持,DOH的协议在rfc8484中有定义 D</summary>
+  <summary>这个DNS系列现在有以下几篇文章 DNS EDNS DNSSEC DNS over HTTPS 完整代码请看DNS DOH就比较简单了,因为DOH使用的请求数据和应答数据均为之前的DNS协议格式,包括DNS,EDNS,DNSSEC...当然是否支持EDNS,DNSSEC需要看DNS服务器的支持情况\ DOH的最主要的区别是把DNS使用的UDP,换成了HTTPS,这样就能防止DNS污染了,而且可以使用DNSSEC加上ESNI来防止证书劫持,DOH的协议在rfc8484中有定义\</summary>
 </entry>
 <entry>
   <title>DNSSEC</title>
@@ -364,7 +364,7 @@
   <id>https://asutorufa.com/posts/3cb4313e/</id>
   <published>2019-08-02T18:55:15.000Z</published>
   <updated>2020-06-23T00:55:15.000Z</updated>
-  <summary>所有完整实现代码:match CIDR 我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功. 域名 域名就比较简单了,直接按点分割就行了 前缀树 通过上述规则 我们可以使用前缀树实现CIDR对ip的匹配 域名的前缀树相同,只不过域名不再是只有0和1,而且在匹配的时候还需要跳过前面的那些前缀. trie树类似上述结构 trie树节点 我们可以这样写 +node bool(判断是否匹配成功,是否是某一cidr的末尾) left(左</summary>
+  <summary>所有完整实现代码:match CIDR 我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功. 域名 域名就比较简单了,直接按点分割就行了 前缀树 通过上述规则 我们可以使用前缀树实现CIDR对ip的匹配 域名的前缀树相同,只不过域名不再是只有0和1,而且在匹配的时候还需要跳过前面的那些前缀. trie树类似上述结构 trie树节点 我们可以这样写 \ +node\ bool(判断是否匹配成功,是否是某一cidr的末尾)\ le</summary>
 </entry>
 <entry>
   <title>golang实现子进程后台</title>
@@ -372,7 +372,7 @@
   <id>https://asutorufa.com/posts/89c4c907/</id>
   <published>2019-06-09T10:34:04.000Z</published>
   <updated>2019-06-09T10:34:04.000Z</updated>
-  <summary>系统的进程机制 linux windows 实现golang的后台 如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现 如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程 golang只提供了forkexec,也就是说一个程序只能创建子进程 通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程,这样</summary>
+  <summary>系统的进程机制 linux windows 实现golang的后台 如果想实现golang子进程后台,而且不杀死当前父进程,那么我们至少得创建子进程,子进程创建孙进程,然后杀死子进程,这种方法不管在linux还是windows都可以实现\ 如果使用c语言我们可以使用系统提供的fork,使用double fork实现上述过程\ golang只提供了forkexec,也就是说一个程序只能创建子进程\ 通过这个我想到了一个比较另类的方法,就是在创建进程的时候再次调用本程序再创建进程</summary>
 </entry>
 <entry>
   <title>uefi and efi</title>
@@ -396,7 +396,7 @@
   <id>https://asutorufa.com/posts/c7816edc/</id>
   <published>2019-03-06T20:02:47.000Z</published>
   <updated>2020-05-30T00:00:00.000Z</updated>
-  <summary>完整实现代码: socks5 client socks5 server http server 此处已socks5client为例,大致流程都相同,只是协议不同: socks5运行流程如下: tcp: 本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。 udp: udp因为是无连接的,所以所以数据一次只用一个udp包 socks5是通过</summary>
+  <summary>完整实现代码:\ socks5 client\ socks5 server\ http server 此处已socks5client为例,大致流程都相同,只是协议不同: socks5运行流程如下: tcp: 本机和代理服务端协商和建立连接； 本机告诉代理服务端目标服务的地址； 代理服务端去连接目标服务，成功后告诉本机； 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。 udp: udp因为是无连接的,所以所以数据一次只用一个udp包 socks5</summary>
 </entry>
 <entry>
   <title>安卓通过adb添加电池用户白名单</title>
