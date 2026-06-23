@@ -372,7 +372,7 @@ pre.shiki.code-block {
 .article-content .mermaid svg {
   display: block;
   height: auto;
-  max-width: none !important;
+  max-width: 100% !important;
   width: auto !important;
 }
 

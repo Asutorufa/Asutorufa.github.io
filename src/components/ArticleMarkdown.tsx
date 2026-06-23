@@ -108,6 +108,9 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
             diagramMarginY: 8,
             useMaxWidth: false
           },
+          state: {
+            useMaxWidth: false
+          },
           theme: "base",
           themeVariables: getMermaidThemeVariables()
         });
@@ -115,6 +118,7 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
         await mermaid.run({ nodes: renderableNodes });
 
         for (const node of renderableNodes) {
+          normalizeMermaidSvgSize(node);
           node.removeAttribute("aria-busy");
           node.classList.remove("mermaid-pending");
           renderedNodes.add(node);
@@ -237,6 +241,40 @@ function mermaidSourceFromNode(node: HTMLElement) {
   } catch {
     return source || "";
   }
+}
+
+function normalizeMermaidSvgSize(node: HTMLElement) {
+  const svg = node.querySelector<SVGSVGElement>("svg");
+  if (!svg) return;
+
+  const configuredMaxWidth = parsePixelSize(svg.style.maxWidth);
+  const viewBoxWidth = parseViewBoxWidth(svg.getAttribute("viewBox"));
+  const width = configuredMaxWidth ?? viewBoxWidth;
+  if (!width || !Number.isFinite(width) || width <= 0) return;
+
+  svg.removeAttribute("width");
+  svg.style.maxWidth = "100%";
+  svg.style.width = `min(100%, ${width}px)`;
+  svg.style.height = "auto";
+}
+
+function parsePixelSize(value: string | null | undefined) {
+  if (!value) return undefined;
+  const match = value.trim().match(/^([0-9]+(?:\.[0-9]+)?)px$/i);
+  if (!match) return undefined;
+  const parsed = Number.parseFloat(match[1]);
+  return Number.isFinite(parsed) ? parsed : undefined;
+}
+
+function parseViewBoxWidth(viewBox: string | null) {
+  if (!viewBox) return undefined;
+  const values = viewBox
+    .trim()
+    .split(/[\s,]+/)
+    .map((part) => Number.parseFloat(part))
+    .filter((part) => Number.isFinite(part));
+  if (values.length !== 4) return undefined;
+  return values[2] > 0 ? values[2] : undefined;
 }
 
 function hydrateMotionBlocks(container: HTMLElement, animate: ReturnType<typeof useAnimate<HTMLDivElement>>[1], prefersReducedMotion: boolean | null) {
