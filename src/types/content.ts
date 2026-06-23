@@ -31,6 +31,11 @@ export type UiLabels = {
   tag: string;
   category: string;
   all: string;
+  allTags: string;
+  popularTags: string;
+  tagSearchPlaceholder: string;
+  tagSearchResults: string;
+  otherTags: string;
   archiveTitle: string;
   postToc: string;
   siteOverview: string;

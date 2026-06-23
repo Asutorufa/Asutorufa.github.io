@@ -1,9 +1,22 @@
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
+import { visualizer } from "rollup-plugin-visualizer";
+
+const analyze = process.env.ANALYZE === "true";
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    analyze &&
+      visualizer({
+        filename: "dist-react/stats.html",
+        gzipSize: true,
+        brotliSize: true,
+        template: "treemap"
+      })
+  ],
   publicDir: false,
   preview: {
     allowedHosts: ["5600g.taild2025.ts.net"]
@@ -18,7 +31,7 @@ export default defineConfig({
     rollupOptions: {
       input: "index.html",
       output: {
-        manualChunks(id) {
+        manualChunks(id: string) {
           if (!id.includes("node_modules")) return undefined;
           if (id.includes("node_modules/react") || id.includes("node_modules/react-dom") || id.includes("node_modules/wouter")) return "react-vendor";
           return undefined;

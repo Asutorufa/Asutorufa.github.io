@@ -8,7 +8,7 @@ export default tseslint.config(
     ignores: ["dist-react/**", "node_modules/**", "source/**", "db.json", "package-lock.json"]
   },
   {
-    files: ["src/**/*.{ts,tsx}", "tools/react-blog/**/*.{ts,tsx}", "vite.config.ts"],
+    files: ["src/**/*.{ts,tsx}", "tools/react-blog/**/*.{ts,tsx}", "vite.config.mts"],
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     languageOptions: {
       ecmaVersion: "latest",

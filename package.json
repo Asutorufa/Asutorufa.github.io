@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "build": "npm run react:build",
+    "analyze": "ANALYZE=true npm run react:build",
     "prelint": "npm run react:generate",
-    "lint": "eslint src tools/react-blog vite.config.ts",
+    "lint": "eslint src tools/react-blog vite.config.mts",
     "prelint:fix": "npm run react:generate",
-    "lint:fix": "eslint src tools/react-blog vite.config.ts --fix",
+    "lint:fix": "eslint src tools/react-blog vite.config.mts --fix",
     "prereact:dev": "npm run react:generate",
     "react:dev": "vite --host 0.0.0.0",
     "react:generate": "node --import tsx tools/react-blog/generate-client-common.ts",
@@ -47,6 +48,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.6.0",
     "prettier": "^3.8.4",
+    "rollup-plugin-visualizer": "^7.0.1",
     "typescript-eslint": "^8.61.1"
   },
   "allowScripts": {

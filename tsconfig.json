@@ -16,5 +16,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "tools/react-blog", "vite.config.ts"]
+  "include": ["src", "tools/react-blog", "vite.config.mts"]
 }
