@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "build": "npm run react:build",
-    "analyze": "ANALYZE=true npm run react:build",
+    "build:full": "npm run react:build:full",
+    "build:content": "npm run react:build:content",
+    "analyze": "ANALYZE=true npm run react:build:full",
     "post:new": "node --import tsx tools/react-blog/new-post.ts",
     "prelint": "npm run react:generate",
     "lint": "eslint src tools/react-blog vite.config.mts",
@@ -14,6 +16,8 @@
     "react:dev": "vite --host 0.0.0.0",
     "react:generate": "node --import tsx tools/react-blog/generate-client-common.ts",
     "react:build": "node --import tsx tools/react-blog/build.ts",
+    "react:build:full": "node --import tsx tools/react-blog/build.ts --full",
+    "react:build:content": "node --import tsx tools/react-blog/build.ts --content-only",
     "react:preview": "vite preview --outDir dist-react --host 0.0.0.0"
   },
   "dependencies": {

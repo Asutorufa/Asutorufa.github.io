@@ -2,7 +2,8 @@ import type { ContentManifest, Post } from "../types/content";
 import type { CommonContent, PagePayload } from "./app-types";
 
 export function mergePagePayload(content: CommonContent, payload: PagePayload): ContentManifest {
-  const posts = payload.posts ?? articlePosts(payload);
+  const routeIsWip = payload.route.kind === "wip" || payload.route.kind === "wip-post";
+  const routePosts = payload.posts ?? articlePosts(payload);
   return {
     ...content,
     currentList: payload.posts
@@ -11,7 +12,8 @@ export function mergePagePayload(content: CommonContent, payload: PagePayload): 
           totalPosts: payload.totalPosts ?? payload.posts.length
         }
       : undefined,
-    posts,
+    posts: routeIsWip ? [] : routePosts,
+    wipPosts: routeIsWip ? routePosts : [],
     pages: payload.page ? [payload.page] : [],
     tags: payload.tags ?? [],
     categories: payload.categories ?? [],

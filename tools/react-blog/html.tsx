@@ -30,7 +30,7 @@ export function renderHtmlShell(options: { appHtml: string; assets: ClientAssets
         <meta name="theme-color" content={THEME_COLOR_LIGHT} />
         <meta name="description" content={description} />
         <meta name="keywords" content="program" />
-        <meta property="og:type" content={route.kind === "post" ? "article" : "website"} />
+        <meta property="og:type" content={route.kind === "post" || route.kind === "wip-post" ? "article" : "website"} />
         <meta property="og:title" content={route.title} />
         <meta property="og:url" content={canonical} />
         <meta property="og:site_name" content={content.config.title} />
@@ -84,6 +84,10 @@ export function escapeHtml(value: string) {
 function routeDescription(content: ContentManifest, route: RouteEntry) {
   if (route.kind === "post" && route.params?.abbrlink) {
     const post = content.posts.find((item) => item.abbrlink === route.params?.abbrlink);
+    return post?.plainText.slice(0, 160) ?? content.config.subtitle;
+  }
+  if (route.kind === "wip-post" && route.params?.abbrlink) {
+    const post = content.wipPosts.find((item) => item.abbrlink === route.params?.abbrlink);
     return post?.plainText.slice(0, 160) ?? content.config.subtitle;
   }
   return content.config.description || content.config.subtitle;

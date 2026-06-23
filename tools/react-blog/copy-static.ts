@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { ContentManifest, Post } from "../../src/types/content";
 import { distDir, fromRoot, rootDir } from "./paths";
+import { buildConcurrency, mapConcurrent } from "./concurrency";
 
 const copies = [
   ["source/images", "images"],
@@ -12,10 +13,9 @@ const copies = [
 ] as const;
 
 export async function copyStaticAssets(content?: ContentManifest) {
-  for (const [from, to] of copies) {
-    await copyIfExists(fromRoot(from), path.join(distDir, to));
-  }
-  if (content) await copyPostAssets(content.posts);
+  const concurrency = buildConcurrency();
+  await mapConcurrent(copies, concurrency, async ([from, to]) => copyIfExists(fromRoot(from), path.join(distDir, to)));
+  if (content) await copyPostAssets([...content.posts, ...content.wipPosts], concurrency);
 }
 
 async function copyIfExists(from: string, to: string) {
@@ -32,14 +32,14 @@ async function copyIfExists(from: string, to: string) {
   }
 }
 
-async function copyPostAssets(posts: Post[]) {
-  for (const post of posts) {
-    if (!post.sourcePath.endsWith("/doc.md")) continue;
+async function copyPostAssets(posts: Post[], concurrency: number) {
+  await mapConcurrent(posts, concurrency, async (post) => {
+    if (!post.sourcePath.endsWith("/doc.md")) return;
 
     const sourceDir = path.dirname(path.join(rootDir, post.sourcePath));
     const targetDir = path.join(distDir, post.route.replace(/^\/|\/$/g, ""));
     await copyDirectoryAssets(sourceDir, targetDir);
-  }
+  });
 }
 
 async function copyDirectoryAssets(sourceDir: string, targetDir: string, relativeDir = "") {

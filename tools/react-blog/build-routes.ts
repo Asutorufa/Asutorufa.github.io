@@ -28,6 +28,25 @@ export function buildRoutes(content: ContentManifest): RouteEntry[] {
     });
   }
 
+  routes.push({
+    route: "/wip/",
+    outputPath: routeToOutputPath("/wip/"),
+    kind: "wip",
+    title: "Work in Progress",
+    language: DEFAULT_LANGUAGE
+  });
+
+  for (const post of content.wipPosts) {
+    routes.push({
+      route: post.route,
+      outputPath: routeToOutputPath(post.route),
+      kind: "wip-post",
+      title: post.title,
+      language: post.language,
+      params: { abbrlink: post.abbrlink }
+    });
+  }
+
   for (const page of content.pages.filter((item) => !["/archives/", "/tags/", "/categories/"].includes(item.route))) {
     routes.push({
       route: page.route,

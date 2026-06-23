@@ -10,6 +10,7 @@ import { PageView } from "../pages/PageView";
 import { PostPage } from "../pages/PostPage";
 import { TaxonomyPage } from "../pages/TaxonomyPage";
 import { ToolsPage } from "../pages/ToolsPage";
+import { WipPage } from "../pages/WipPage";
 import type { ContentManifest, RouteEntry } from "../types/content";
 import type { AppProps, PagePayload } from "./app-types";
 import { parsePagePayloadHtml } from "./page-payload-html";
@@ -105,7 +106,7 @@ export function App(props: AppProps) {
         window.location.href = url.toString();
         return;
       }
-      const nextContent = mergePagePayload(contentRef.current, payload);
+      const nextContent = mergePagePayload(payload.commonContent ?? contentRef.current, payload);
 
       const nextUrl = `${url.pathname}${url.search}${url.hash}`;
       const restorePosition =
@@ -207,7 +208,10 @@ function renderRoute(props: AppProps) {
     case "home":
       return <HomePage {...props} page={Number(route.params?.page ?? "1")} />;
     case "post":
+    case "wip-post":
       return <PostPage {...props} abbrlink={route.params?.abbrlink ?? ""} />;
+    case "wip":
+      return <WipPage {...props} />;
     case "page":
       return <PageView {...props} />;
     case "archives":
@@ -263,13 +267,18 @@ function routeHtmlUrl(routePath: string) {
 }
 
 function payloadFromContent(content: ContentManifest, route: RouteEntry): PagePayload {
+  const routePosts = route.kind === "wip" || route.kind === "wip-post" ? content.wipPosts : content.posts;
   return {
     route,
+    commonContent: {
+      config: content.config,
+      stats: content.stats
+    },
     description: currentDocumentDescription(),
-    post: route.params?.abbrlink ? content.posts.find((post) => post.abbrlink === route.params?.abbrlink) : undefined,
-    newerPost: route.params?.abbrlink ? adjacentPost(content, route.params.abbrlink, -1) : undefined,
-    olderPost: route.params?.abbrlink ? adjacentPost(content, route.params.abbrlink, 1) : undefined,
-    posts: isListRoute(route) ? content.posts : undefined,
+    post: route.params?.abbrlink ? routePosts.find((post) => post.abbrlink === route.params?.abbrlink) : undefined,
+    newerPost: route.params?.abbrlink ? adjacentPost(routePosts, route.params.abbrlink, -1) : undefined,
+    olderPost: route.params?.abbrlink ? adjacentPost(routePosts, route.params.abbrlink, 1) : undefined,
+    posts: isListRoute(route) ? routePosts : undefined,
     totalPages: isListRoute(route) ? content.currentList?.totalPages : undefined,
     totalPosts: isListRoute(route) ? content.currentList?.totalPosts : undefined,
     page: route.kind === "page" ? content.pages.find((page) => page.route === route.route) : undefined,
@@ -279,13 +288,14 @@ function payloadFromContent(content: ContentManifest, route: RouteEntry): PagePa
   };
 }
 
-function adjacentPost(content: ContentManifest, abbrlink: string, offset: -1 | 1) {
-  const index = content.posts.findIndex((post) => post.abbrlink === abbrlink);
-  return index >= 0 ? content.posts[index + offset] : undefined;
+function adjacentPost(posts: ContentManifest["posts"], abbrlink: string, offset: -1 | 1) {
+  const index = posts.findIndex((post) => post.abbrlink === abbrlink);
+  return index >= 0 ? posts[index + offset] : undefined;
 }
 
 function isListRoute(route: RouteEntry) {
   return (
+    route.kind === "wip" ||
     route.kind === "home" ||
     route.kind === "archives" ||
     route.kind === "archive-year" ||
@@ -356,6 +366,10 @@ function updateDocumentMeta(content: ContentManifest, route: AppProps["route"], 
 function routeDescription(content: ContentManifest, route: RouteEntry) {
   if (route.kind === "post" && route.params?.abbrlink) {
     const post = content.posts.find((item) => item.abbrlink === route.params?.abbrlink);
+    return post?.plainText.slice(0, 160) ?? content.config.subtitle;
+  }
+  if (route.kind === "wip-post" && route.params?.abbrlink) {
+    const post = content.wipPosts.find((item) => item.abbrlink === route.params?.abbrlink);
     return post?.plainText.slice(0, 160) ?? content.config.subtitle;
   }
   return content.config.description || content.config.subtitle;

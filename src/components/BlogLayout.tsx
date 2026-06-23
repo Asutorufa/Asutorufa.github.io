@@ -21,7 +21,8 @@ export function BlogLayout({ content, route, routeLoading = false, children }: B
   const labels = UI_LABELS[language];
   const meta = LANGUAGE_META[language];
   const prefersReducedMotion = useReducedMotion();
-  const currentPost = route.params?.abbrlink ? content.posts.find((post) => post.abbrlink === route.params?.abbrlink) : undefined;
+  const currentPosts = route.kind === "wip-post" ? content.wipPosts : content.posts;
+  const currentPost = route.params?.abbrlink ? currentPosts.find((post) => post.abbrlink === route.params?.abbrlink) : undefined;
 
   return (
     <MotionConfig reducedMotion="user">

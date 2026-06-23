@@ -14,9 +14,10 @@ type PostPageProps = AppProps & {
   abbrlink: string;
 };
 
-export function PostPage({ content, abbrlink }: PostPageProps) {
-  const index = content.posts.findIndex((item) => item.abbrlink === abbrlink);
-  const post = content.posts[index];
+export function PostPage({ content, route, abbrlink }: PostPageProps) {
+  const posts = route.kind === "wip-post" ? content.wipPosts : content.posts;
+  const index = posts.findIndex((item) => item.abbrlink === abbrlink);
+  const post = posts[index];
   const prefersReducedMotion = useReducedMotion();
 
   if (!post) {
@@ -24,8 +25,9 @@ export function PostPage({ content, abbrlink }: PostPageProps) {
   }
 
   const labels = UI_LABELS[post.language];
-  const newerPost = index > 0 ? content.posts[index - 1] : undefined;
-  const olderPost = index < content.posts.length - 1 ? content.posts[index + 1] : undefined;
+  const newerPost = index > 0 ? posts[index - 1] : undefined;
+  const olderPost = index < posts.length - 1 ? posts[index + 1] : undefined;
+  const showComments = route.kind === "post" && post.comments;
   const titleInitial = { opacity: 0 };
   const titleAnimate = { opacity: 1 };
   const metaInitial = prefersReducedMotion ? { opacity: 0, y: 0 } : { opacity: 0, y: 8 };
@@ -51,7 +53,7 @@ export function PostPage({ content, abbrlink }: PostPageProps) {
         <ArticleMarkdown html={post.bodyHtml} />
         <PostFooter config={content.config} labels={labels} post={post} olderPost={olderPost} newerPost={newerPost} />
       </motion.article>
-      {post.comments ? (
+      {showComments ? (
         <section id="comments" className="content-card mt-4 overflow-hidden px-4 py-5 md:mt-6 md:px-8 md:py-7 lg:px-10">
           <GitalkComments id={post.route} language={post.language} />
         </section>

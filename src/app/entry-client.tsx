@@ -1,6 +1,5 @@
 import { hydrateRoot } from "react-dom/client";
 import { App } from "./App";
-import { commonContent } from "../generated/blog-common";
 import type { AppProps } from "./app-types";
 import { readEmbeddedPagePayload } from "./page-payload-html";
 import { mergePagePayload } from "./page-payload";
@@ -19,8 +18,11 @@ if (root) {
 
 async function loadInitialProps(): Promise<AppProps> {
   const payload = readEmbeddedPagePayload();
+  if (!payload.commonContent) {
+    throw new Error("Unable to find embedded common content");
+  }
   return {
-    content: mergePagePayload(commonContent, payload),
+    content: mergePagePayload(payload.commonContent, payload),
     route: payload.route
   };
 }

@@ -6,7 +6,7 @@ import { distDir } from "./paths";
 
 export async function generateSitemap(content: ContentManifest, routes: RouteEntry[]) {
   const urls = routes
-    .filter((route) => route.kind !== "not-found")
+    .filter((route) => route.kind !== "not-found" && route.kind !== "wip" && route.kind !== "wip-post")
     .map((route) => sitemapEntry(content, route))
     .join("\n");
 

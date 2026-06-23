@@ -4,7 +4,7 @@ import fg from "fast-glob";
 import type { BlogConfig, ContentManifest, Post } from "../../src/types/content";
 import { DEFAULT_LANGUAGE } from "../../src/data/i18n";
 import { formatTaxonomyName, normalizeTaxonomyName } from "../../src/utils/route";
-import { comparePostsByDateDesc, createPage, createPost, routeSegment } from "./content-utils";
+import { comparePostsByDateDesc, createPage, createPost, resetMarkdownCacheStats, routeSegment } from "./content-utils";
 import { parseFrontMatter } from "./front-matter";
 import { postsDir, rootDir, sourceDir, toPosixPath } from "./paths";
 
@@ -20,6 +20,7 @@ const config: BlogConfig = {
 const pagePatterns = ["source/about/index.md", "source/email/index.md", "source/friends/index.md", "source/resume/index.md", "source/schedule/index.md"];
 
 export async function collectContent(): Promise<ContentManifest> {
+  resetMarkdownCacheStats();
   const languageFallbacks: Array<{ sourcePath: string; rawLanguage: string }> = [];
   const postFiles = await fg(["*.md", "*/doc.md"], {
     cwd: postsDir,
@@ -27,7 +28,7 @@ export async function collectContent(): Promise<ContentManifest> {
     onlyFiles: true
   });
 
-  const posts = (
+  const allPosts = (
     await Promise.all(
       postFiles.map(async (filePath) => {
         const raw = await fs.readFile(filePath, "utf8");
@@ -35,9 +36,12 @@ export async function collectContent(): Promise<ContentManifest> {
       })
     )
   ).sort(comparePostsByDateDesc);
+  const posts = allPosts.filter((post) => !post.wip);
+  const wipPosts = allPosts.filter((post) => post.wip);
 
   applyTaxonomyDisplayNames(posts);
-  assertUniquePostRoutes(posts);
+  applyTaxonomyDisplayNames(wipPosts);
+  assertUniquePostRoutes(allPosts);
 
   const pages = (
     await Promise.all(
@@ -67,6 +71,7 @@ export async function collectContent(): Promise<ContentManifest> {
       archives: archives.length
     },
     posts,
+    wipPosts,
     pages,
     tags,
     categories,

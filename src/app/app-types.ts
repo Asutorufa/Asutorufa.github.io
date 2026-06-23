@@ -9,6 +9,7 @@ export type CommonContent = Pick<ContentManifest, "config" | "stats">;
 
 export type PagePayload = {
   route: RouteEntry;
+  commonContent?: CommonContent;
   description?: string;
   post?: Post;
   newerPost?: Post;

@@ -11,6 +11,7 @@ type PostMetaProps = {
 
 export function PostMeta({ post }: PostMetaProps) {
   const labels = UI_LABELS[post.language];
+  const showTaxonomy = !post.wip;
 
   return (
     <div className={styles.root}>
@@ -24,7 +25,7 @@ export function PostMeta({ post }: PostMetaProps) {
           <Icon name="calendar-check" className="mr-2" />
           {labels.modified} {formatDisplayDate(post.updated ?? post.date)}
         </span>
-        {post.categories.length > 0 ? (
+        {showTaxonomy && post.categories.length > 0 ? (
           <>
             <span className={styles.separator}>|</span>
             <span>
@@ -42,7 +43,7 @@ export function PostMeta({ post }: PostMetaProps) {
           </>
         ) : null}
       </div>
-      {post.tags.length > 0 ? (
+      {showTaxonomy && post.tags.length > 0 ? (
         <nav className={styles.tags} aria-label="Tags">
           {post.tags.map((tag) => (
             <a key={tag} className={styles.tag} href={taxonomyRoute("tags", tag)}>

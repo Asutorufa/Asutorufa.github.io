@@ -71,7 +71,7 @@ export type BlogConfig = {
 export type Post = {
   kind: "post";
   sourcePath: string;
-  route: `/posts/${string}/`;
+  route: `/posts/${string}/` | `/wip/${string}/`;
   abbrlink: string;
   title: string;
   date: string;
@@ -92,6 +92,7 @@ export type Post = {
   plainText: string;
   toc: TocItem[];
   slugForSearch: string;
+  wip: boolean;
   comments: boolean;
   math: boolean;
   mermaid: boolean;
@@ -126,6 +127,7 @@ export type ContentManifest = {
     archives: number;
   };
   posts: Post[];
+  wipPosts: Post[];
   pages: Page[];
   tags: Array<{ name: string; route: string; count: number }>;
   categories: Array<{ name: string; route: string; count: number }>;
@@ -153,6 +155,8 @@ export type RouteKind =
   | "categories"
   | "category"
   | "category-page"
+  | "wip"
+  | "wip-post"
   | "tools"
   | "not-found";
 
