@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import type { MouseEvent } from "react";
 import { useEffect, useId, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { MotionPresets } from "../animation/motion-presets";
@@ -126,22 +127,64 @@ const tocPanelVariants = {
 
 function TocList({ toc }: { toc: TocItem[] }) {
   const [activeId, setActiveId] = useState(toc[0]?.id ?? "");
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    const headings = toc.map((item) => document.getElementById(item.id)).filter((node): node is HTMLElement => Boolean(node));
-    if (headings.length === 0 || !("IntersectionObserver" in window)) return;
+    let headings: HTMLElement[] = [];
+    let frame = 0;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting).sort((left, right) => left.boundingClientRect.top - right.boundingClientRect.top)[0];
-        if (visible?.target.id) setActiveId(visible.target.id);
-      },
-      { rootMargin: "-15% 0px -70% 0px", threshold: 0.01 }
-    );
+    const updateActiveHeading = () => {
+      frame = 0;
+      if (headings.length === 0) return;
+      const nextActive = activeHeadingFromViewport(headings);
+      if (nextActive) setActiveId((current) => (current === nextActive ? current : nextActive));
+    };
 
-    for (const heading of headings) observer.observe(heading);
-    return () => observer.disconnect();
+    const scheduleUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateActiveHeading);
+    };
+
+    const refreshHeadings = () => {
+      headings = tocHeadings(toc);
+      if (headings.length > 0) scheduleUpdate();
+    };
+
+    setActiveId(toc[0]?.id ?? "");
+    refreshHeadings();
+    const observer = new MutationObserver(refreshHeadings);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    window.addEventListener("hashchange", scheduleUpdate);
+    window.addEventListener("asutorufa-route-change", refreshHeadings);
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      window.removeEventListener("hashchange", scheduleUpdate);
+      window.removeEventListener("asutorufa-route-change", refreshHeadings);
+    };
   }, [toc]);
+
+  const navigateToTocItem = (event: MouseEvent<HTMLAnchorElement>, id: string) => {
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    event.preventDefault();
+    const url = new URL(window.location.href);
+    url.hash = id;
+    window.history.pushState(window.history.state, "", url);
+    target.scrollIntoView({ block: "start" });
+
+    window.requestAnimationFrame(() => {
+      const nextActive = activeHeadingFromViewport(tocHeadings(toc));
+      if (nextActive) setActiveId(nextActive);
+    });
+  };
 
   return (
     <nav className={clsx(styles.tocScroll, "min-h-0 flex-1 overflow-y-auto px-5 pb-5 pt-4")}>
@@ -150,16 +193,39 @@ function TocList({ toc }: { toc: TocItem[] }) {
           const active = item.id === activeId;
           return (
             <li key={item.id} className={clsx(styles.tocItem, item.level > 2 && "ml-3 text-[12px]")}>
-              {active ? <motion.span layoutId="toc-indicator" className={styles.tocIndicator} transition={MotionPresets.fast} /> : null}
-              <a className={clsx(styles.tocLink, active && styles.tocLinkActive)} href={`#${item.id}`}>
+              {active ? <motion.span layoutId="toc-indicator" className={styles.tocIndicator} transition={MotionPresets.spring} /> : null}
+              <motion.a
+                className={clsx(styles.tocLink, active && styles.tocLinkActive)}
+                href={`#${item.id}`}
+                onClick={(event) => navigateToTocItem(event, item.id)}
+                whileHover={prefersReducedMotion ? undefined : { x: 3 }}
+                whileTap={prefersReducedMotion ? undefined : { x: 1 }}
+                transition={MotionPresets.fast}
+              >
                 {item.text}
-              </a>
+              </motion.a>
             </li>
           );
         })}
       </ol>
     </nav>
   );
+}
+
+function tocHeadings(toc: TocItem[]) {
+  return toc.map((item) => document.getElementById(item.id)).filter((node): node is HTMLElement => Boolean(node));
+}
+
+function activeHeadingFromViewport(headings: HTMLElement[]) {
+  const ordered = headings.map((heading) => ({ heading, rect: heading.getBoundingClientRect() })).sort((left, right) => left.rect.top - right.rect.top);
+  const visible = ordered.find(({ rect }) => rect.top >= 0 && rect.top < window.innerHeight);
+  if (visible) return visible.heading.id;
+
+  for (let index = ordered.length - 1; index >= 0; index -= 1) {
+    if (ordered[index].rect.top < 0) return ordered[index].heading.id;
+  }
+
+  return ordered[0]?.heading.id;
 }
 
 function ProfileCard({ content, labels, sticky }: { content: ContentManifest; labels: UiLabels; sticky: boolean }) {
@@ -171,7 +237,19 @@ function ProfileCard({ content, labels, sticky }: { content: ContentManifest; la
 }
 
 function ProfileBody({ content, labels, compact = false }: { content: ContentManifest; labels: UiLabels; compact?: boolean }) {
+  const [activeStat, setActiveStat] = useState<string | null>(null);
+  const statIndicatorId = useId();
   const prefersReducedMotion = useReducedMotion();
+  const stats = [
+    { href: "/archives/", key: "posts", label: labels.posts, value: content.stats.posts },
+    { href: "/categories/", key: "categories", label: labels.categories.toLowerCase(), value: content.stats.categories },
+    { href: "/tags/", key: "tags", label: labels.tags.toLowerCase(), value: content.stats.tags }
+  ];
+  const socialLinks = [
+    { href: "/atom.xml", icon: "rss", kind: "rss", label: labels.rss },
+    { external: true, href: "https://github.com/Asutorufa", icon: "github", kind: "github", label: "GitHub" },
+    { href: "/email/", icon: "email", kind: "email", label: "E-Mail" }
+  ] as const;
 
   return (
     <div className={clsx("text-center", compact ? "px-4 pb-5 pt-5" : "px-4 py-6")}>
@@ -185,42 +263,173 @@ function ProfileBody({ content, labels, compact = false }: { content: ContentMan
       >
         <img src="/images/bighead.svg" alt="Asutorufa" className={clsx(styles.avatarImage, "h-28 w-28 rounded-full object-cover")} />
       </motion.a>
-      <div className="mt-6 grid grid-cols-3 divide-x divide-blog-border">
-        <Stat href="/archives/" value={content.stats.posts} label={labels.posts} />
-        <Stat href="/categories/" value={content.stats.categories} label={labels.categories.toLowerCase()} />
-        <Stat href="/tags/" value={content.stats.tags} label={labels.tags.toLowerCase()} />
+      <div
+        className={clsx(styles.statsGrid, "mt-6 grid grid-cols-3")}
+        onBlur={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setActiveStat(null);
+        }}
+        onMouseLeave={() => setActiveStat(null)}
+      >
+        {stats.map((stat) => (
+          <Stat
+            key={stat.key}
+            active={activeStat === stat.key}
+            href={stat.href}
+            indicatorId={statIndicatorId}
+            label={stat.label}
+            prefersReducedMotion={prefersReducedMotion}
+            value={stat.value}
+            onActivate={() => setActiveStat(stat.key)}
+          />
+        ))}
       </div>
-      <div className="mt-5 grid grid-cols-3 gap-2 text-[13px] font-normal">
-        <a className={clsx(styles.actionLink, "rounded px-2 py-1 transition-all active:translate-y-px")} href="/atom.xml">
-          <Icon name="rss" className="mr-1" />
-          {labels.rss}
-        </a>
-        <a
-          className={clsx(styles.actionLink, "rounded px-2 py-1 transition-all active:translate-y-px")}
-          href="https://github.com/Asutorufa"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <Icon name="github" className="mr-2" />
-          GitHub
-        </a>
-        <a className={clsx(styles.actionLink, "rounded px-2 py-1 transition-all active:translate-y-px")} href="/email/">
-          <Icon name="email" className="mr-2" />
-          E-Mail
-        </a>
+      <div className={clsx(styles.socialGrid, "mt-5 text-[13px] font-normal")}>
+        {socialLinks.map((link) => (
+          <SocialLink key={link.kind} {...link} prefersReducedMotion={prefersReducedMotion} />
+        ))}
       </div>
     </div>
   );
 }
 
-function Stat({ href, value, label }: { href: string; value: number; label: string }) {
+function Stat({
+  active,
+  href,
+  indicatorId,
+  label,
+  onActivate,
+  prefersReducedMotion,
+  value
+}: {
+  active: boolean;
+  href: string;
+  indicatorId: string;
+  label: string;
+  onActivate: () => void;
+  prefersReducedMotion: boolean | null;
+  value: number;
+}) {
   return (
-    <a className={clsx(styles.statLink, "block rounded py-1 transition-all active:translate-y-px")} href={href}>
-      <div className={clsx(styles.statValue, "text-[20px] font-bold leading-7")}>{value}</div>
-      <div className={clsx(styles.statLabel, "mt-1 text-[13px] leading-5")}>{label}</div>
-    </a>
+    <motion.a
+      className={styles.statLink}
+      href={href}
+      onFocus={onActivate}
+      onHoverStart={onActivate}
+      whileHover={prefersReducedMotion ? undefined : { y: -2 }}
+      whileTap={prefersReducedMotion ? undefined : { scale: 0.97, y: 0 }}
+      transition={MotionPresets.spring}
+    >
+      {active ? <motion.span className={styles.statHighlight} layoutId={`profile-stat-highlight-${indicatorId}`} transition={MotionPresets.spring} /> : null}
+      <motion.span className={styles.statContent} animate={active ? "active" : "idle"} initial={false}>
+        <motion.span className={styles.statValue} variants={statValueVariants} transition={MotionPresets.fast}>
+          {value}
+        </motion.span>
+        <motion.span className={styles.statLabel} variants={statLabelVariants} transition={MotionPresets.fast}>
+          {label}
+        </motion.span>
+      </motion.span>
+    </motion.a>
   );
 }
+
+const statValueVariants = {
+  active: {
+    color: "var(--blog-accent-strong)"
+  },
+  idle: {
+    color: "var(--blog-strong)"
+  }
+};
+
+const statLabelVariants = {
+  active: {
+    color: "var(--blog-accent-hover)",
+    y: -1
+  },
+  idle: {
+    color: "var(--blog-muted)",
+    y: 0
+  }
+};
+
+type SocialKind = "email" | "github" | "rss";
+
+function SocialLink({
+  external,
+  href,
+  icon,
+  kind,
+  label,
+  prefersReducedMotion
+}: {
+  external?: boolean;
+  href: string;
+  icon: SocialKind;
+  kind: SocialKind;
+  label: string;
+  prefersReducedMotion: boolean | null;
+}) {
+  return (
+    <motion.a
+      className={styles.actionLink}
+      href={href}
+      animate="initial"
+      initial="initial"
+      target={external ? "_blank" : undefined}
+      rel={external ? "noreferrer" : undefined}
+      whileFocus={prefersReducedMotion ? undefined : "hover"}
+      whileHover={prefersReducedMotion ? undefined : "hover"}
+      whileTap={prefersReducedMotion ? undefined : { scale: 0.97, y: 0 }}
+      transition={MotionPresets.spring}
+    >
+      <motion.span className={styles.actionIcon} variants={socialIconVariants[kind]} transition={kind === "rss" ? MotionPresets.fast : MotionPresets.spring}>
+        <Icon name={icon} />
+      </motion.span>
+      <span className={styles.actionLabel}>{label}</span>
+    </motion.a>
+  );
+}
+
+const socialIconVariants = {
+  email: {
+    hover: {
+      rotate: -6,
+      x: 2,
+      y: -2
+    },
+    initial: {
+      rotate: 0,
+      x: 0,
+      y: 0
+    }
+  },
+  github: {
+    hover: {
+      rotate: -10,
+      scale: 1.12,
+      y: -2
+    },
+    initial: {
+      rotate: 0,
+      scale: 1,
+      y: 0
+    }
+  },
+  rss: {
+    hover: {
+      rotate: -8,
+      scale: 1.1,
+      x: -1,
+      y: -1
+    },
+    initial: {
+      rotate: 0,
+      scale: 1,
+      x: 0,
+      y: 0
+    }
+  }
+};
 
 function isActive(route: string, href: string) {
   if (href === "/") return route === "/";
