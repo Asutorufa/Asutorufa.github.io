@@ -21,6 +21,8 @@ type MobileHeaderProps = {
 export function MobileHeader({ title, subtitle, labels, currentRoute }: MobileHeaderProps) {
   const [open, setOpen] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+  const navItems = menuItems(labels);
+  const activeNavIndex = navItems.findIndex((item) => isActive(currentRoute, item.href));
   const closeMenu = () => setOpen(false);
 
   useBodyScrollLock(open);
@@ -49,22 +51,13 @@ export function MobileHeader({ title, subtitle, labels, currentRoute }: MobileHe
       <AnimatePresence>
         {open ? (
           <motion.div className={styles.layer} aria-hidden={!open}>
-            <motion.button
-              type="button"
-              className={styles.backdrop}
-              aria-label={labels.menu}
-              onClick={closeMenu}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={MotionPresets.fast}
-            />
+            <button type="button" className={styles.backdrop} aria-label={labels.menu} onClick={closeMenu} />
             <motion.nav
               className={styles.panel}
               aria-label={labels.menu}
-              initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
+              initial={prefersReducedMotion ? { x: 0 } : { x: -12 }}
+              animate={{ x: 0 }}
+              exit={prefersReducedMotion ? { x: 0 } : { x: -12 }}
               transition={MotionPresets.normal}
             >
               <div className={styles.panelHeader}>
@@ -79,15 +72,38 @@ export function MobileHeader({ title, subtitle, labels, currentRoute }: MobileHe
               </div>
 
               <div className={styles.items}>
-                {menuItems(labels).map((item) => {
+                {activeNavIndex >= 0 ? (
+                  <motion.span
+                    className={styles.itemIndicator}
+                    animate={{ y: activeNavIndex * MOBILE_NAV_ITEM_STEP }}
+                    initial={false}
+                    transition={prefersReducedMotion ? MotionPresets.fast : MotionPresets.spring}
+                  />
+                ) : null}
+                {navItems.map((item) => {
                   const active = isActive(currentRoute, item.href);
                   return (
-                    <a key={item.href} href={item.href} onClick={closeMenu} className={clsx(styles.item, active && styles.itemActive)}>
-                      <span className={clsx(styles.itemIcon, active && styles.itemIconActive)}>
+                    <motion.a
+                      key={item.href}
+                      href={item.href}
+                      animate="idle"
+                      className={clsx(styles.item, active && styles.itemActive)}
+                      initial="idle"
+                      onClick={closeMenu}
+                      whileFocus={prefersReducedMotion ? undefined : "hover"}
+                      whileHover={prefersReducedMotion ? undefined : "hover"}
+                      whileTap={prefersReducedMotion ? undefined : { scale: 0.985, x: 1 }}
+                      transition={MotionPresets.spring}
+                    >
+                      <motion.span
+                        className={clsx(styles.itemIcon, active && styles.itemIconActive)}
+                        variants={mobileNavIconVariants}
+                        transition={MotionPresets.spring}
+                      >
                         <Icon name={item.icon} />
-                      </span>
+                      </motion.span>
                       <span>{item.label}</span>
-                    </a>
+                    </motion.a>
                   );
                 })}
               </div>
@@ -102,6 +118,23 @@ export function MobileHeader({ title, subtitle, labels, currentRoute }: MobileHe
     </header>
   );
 }
+
+const MOBILE_NAV_ITEM_STEP = 51.2;
+
+const mobileNavIconVariants = {
+  hover: {
+    rotate: -7,
+    scale: 1.08,
+    x: 2,
+    y: -1
+  },
+  idle: {
+    rotate: 0,
+    scale: 1,
+    x: 0,
+    y: 0
+  }
+};
 
 function isActive(route: string, href: string) {
   if (href === "/") return route === "/";

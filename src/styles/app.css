@@ -57,8 +57,8 @@
   --blog-mobile-header-bg:
     linear-gradient(180deg, rgb(255 255 255 / 0.96), rgb(255 255 255 / 0.9)), linear-gradient(135deg, var(--blog-hero-tint), var(--blog-surface));
   --blog-mobile-header-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
-  --blog-mobile-panel-bg: var(--blog-surface-raised);
-  --blog-mobile-panel-border: rgb(0 0 0 / 0.06);
+  --blog-mobile-panel-bg: var(--blog-surface);
+  --blog-mobile-panel-border: var(--blog-border-soft);
   --blog-mobile-panel-shadow: 0 24px 60px rgb(0 0 0 / 0.24);
   --blog-mobile-trigger-bg: rgb(255 255 255 / 0.72);
   --blog-mobile-trigger-border: rgb(0 0 0 / 0.06);
@@ -107,8 +107,8 @@ html.dark-mode {
   --blog-mobile-backdrop: rgb(0 0 0 / 0.54);
   --blog-mobile-header-bg: linear-gradient(180deg, rgb(40 40 40 / 0.96), rgb(37 37 37 / 0.92)), linear-gradient(135deg, #2c2724, #252525);
   --blog-mobile-header-shadow: 0 8px 24px rgb(0 0 0 / 0.32);
-  --blog-mobile-panel-bg: rgb(40 40 40 / 0.96);
-  --blog-mobile-panel-border: rgb(255 255 255 / 0.08);
+  --blog-mobile-panel-bg: var(--blog-surface);
+  --blog-mobile-panel-border: var(--blog-border-soft);
   --blog-mobile-panel-shadow: 0 26px 70px rgb(0 0 0 / 0.48);
   --blog-mobile-trigger-bg: rgb(50 50 50 / 0.78);
   --blog-mobile-trigger-border: rgb(255 255 255 / 0.08);

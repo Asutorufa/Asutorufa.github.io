@@ -19,6 +19,9 @@ type SidebarProps = {
 
 export function Sidebar({ content, labels, currentRoute, post, mobile = false }: SidebarProps) {
   const hasToc = Boolean(post?.toc.length);
+  const prefersReducedMotion = useReducedMotion();
+  const navItems = menuItems(labels);
+  const activeNavIndex = navItems.findIndex((item) => isActive(currentRoute, item.href));
 
   return (
     <div className={clsx(mobile ? "mt-4 space-y-4" : "h-full space-y-3")}>
@@ -33,12 +36,37 @@ export function Sidebar({ content, labels, currentRoute, post, mobile = false }:
           <p className="mt-3 text-[13px] font-normal">{content.config.subtitle}</p>
         </div>
         <nav className="pb-4">
-          {menuItems(labels).map((item) => (
-            <a key={item.href} href={item.href} className={clsx(styles.navLink, isActive(currentRoute, item.href) && styles.navLinkActive)}>
-              <Icon name={item.icon} className="w-[1.28571429em]" />
-              <span>{item.label}</span>
-            </a>
-          ))}
+          <div className={styles.navMenu}>
+            {activeNavIndex >= 0 ? (
+              <motion.span
+                className={styles.navIndicator}
+                animate={{ opacity: 1, y: activeNavIndex * NAV_ITEM_HEIGHT }}
+                initial={false}
+                transition={prefersReducedMotion ? MotionPresets.fast : MotionPresets.spring}
+              />
+            ) : null}
+            {navItems.map((item) => {
+              const active = isActive(currentRoute, item.href);
+              return (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  animate="idle"
+                  className={clsx(styles.navLink, active && styles.navLinkActive)}
+                  initial="idle"
+                  whileFocus={prefersReducedMotion ? undefined : "hover"}
+                  whileHover={prefersReducedMotion ? undefined : "hover"}
+                  whileTap={prefersReducedMotion ? undefined : { scale: 0.985, x: 1 }}
+                  transition={MotionPresets.spring}
+                >
+                  <motion.span className={styles.navIcon} variants={navIconVariants} transition={MotionPresets.spring}>
+                    <Icon name={item.icon} className="w-[1.28571429em]" />
+                  </motion.span>
+                  <span className={styles.navLabel}>{item.label}</span>
+                </motion.a>
+              );
+            })}
+          </div>
           <div className="px-5 pt-3">
             <ThemeToggle labels={labels} />
           </div>
@@ -53,6 +81,23 @@ export function Sidebar({ content, labels, currentRoute, post, mobile = false }:
     </div>
   );
 }
+
+const NAV_ITEM_HEIGHT = 40;
+
+const navIconVariants = {
+  hover: {
+    rotate: -7,
+    scale: 1.1,
+    x: 2,
+    y: -1
+  },
+  idle: {
+    rotate: 0,
+    scale: 1,
+    x: 0,
+    y: 0
+  }
+};
 
 function TocCard({ content, labels, toc, mobile }: { content: ContentManifest; labels: UiLabels; toc: TocItem[]; mobile: boolean }) {
   const [activeTab, setActiveTab] = useState<"toc" | "overview">("toc");
