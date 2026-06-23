@@ -270,6 +270,12 @@
   z-index: 0;
 }
 
+:global(html.dark-mode) .statHighlight {
+  background: var(--blog-accent-softer);
+  border-color: var(--blog-accent-border);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.025);
+}
+
 .statContent {
   align-items: center;
   display: flex;
