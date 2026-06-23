@@ -124,7 +124,7 @@
   <id>https://asutorufa.com/posts/ce6c7d90/</id>
   <published>2022-10-10T11:05:22.000Z</published>
   <updated>2022-10-10T11:05:22.000Z</updated>
-  <summary>拉格朗日插值法 对某个多项式函数，已知有给定的k + 1个取值点：(x0,y0)...(xk,yk) 假设任意两个不同的xj都互不相同，那么应用拉格朗日插值公式所得到的拉格朗日插值多项式为： f(x) = l0+l1...+lk即可求出多项式 example Shamir 秘密共享 生成 设需要生成w个密钥，至少需要t个密钥才能算出真实密钥 选择一个数P，之后所有数都需要进行模运算 设置真实密钥K 随机选择t 1个不大于P的数 a0,a1...at 1 得到多项式 f(x)=</summary>
+  <summary>拉格朗日插值法 对某个多项式函数，已知有给定的 $k+1$ 个取值点：$(x 0,y 0)\ldots(x k,y k)$。 假设任意两个不同的 $x j$ 都互不相同，那么应用拉格朗日插值公式所得到的拉格朗日插值多项式为： $$ \ell 0(x)=\frac{(x x 1)(x x 2)\cdots(x x k)}{(x 0 x 1)(x 0 x 2)\cdots(x 0 x k)}y 0 $$ $$ \cdots $$ $$ \ell k(x)=\frac{(x x 0</summary>
 </entry>
 <entry>
   <title>离散对数问题</title>
@@ -132,7 +132,7 @@
   <id>https://asutorufa.com/posts/1f299eb2/</id>
   <published>2022-08-15T10:03:28.000Z</published>
   <updated>2022-08-15T10:03:28.000Z</updated>
-  <summary>前置知识 欧拉, 欧拉定理, 模反元素(模逆元) 可参见: RSA加密 阶 由欧拉定理可知，若n,a为正整数，且n,a互素（即gcd(a,n)=1），则 a^phi(n) = 1 (mod n)。 因此满足同余式 a^m = 1 (mod n)的 最小正整数m 存在，这个m称作a模n的阶，记作delta(n,a)。 原根 若n,a为正整数，且n,a互质，如果 gcd(a,n)=1 且 delta(n,a) = phi(n), 则称a为模n的原根. 简单来说，使该式成立的d可能</summary>
+  <summary>前置知识 欧拉, 欧拉定理, 模反元素(模逆元) 可参见: RSA加密 阶 由欧拉定理可知，若 $n,a$ 为正整数，且 $n,a$ 互素（即 $\gcd(a,n)=1$），则 $$ a^{\varphi(n)}\equiv 1\pmod n $$ 因此满足同余式 $$ a^m\equiv 1\pmod n $$ 的 最小正整数 $m$ 存在，这个 $m$ 称作 $a$ 模 $n$ 的阶，记作 $\delta(n,a)$。 原根 若 $n,a$ 为正整数，且 $n,a$ 互质</summary>
 </entry>
 <entry>
   <title>加密模式</title>
@@ -156,7 +156,7 @@
   <id>https://asutorufa.com/posts/f1a158c9/</id>
   <published>2022-08-14T21:46:24.000Z</published>
   <updated>2022-08-14T21:46:24.000Z</updated>
-  <summary>质数 质数（Prime number），又称素数，指在大于1的自然数中，除了1和该数自身外，无法被其他自然数整除的数（也可定义为只有1与该数本身两个正因数的数）。 来自 互质 互质是公约数只有1的两个整数，也可记gcd(a,b)=1, 叫做互质整数。 欧拉 在数论中，对正整数n，欧拉函数phi(n)是小于等于n的正整数中与n互质的数的数目。此函数以其首名研究者欧拉命名，它又称为φ函数（由高斯所命名）或是欧拉总计函数（totient function，由西尔维斯特所命名）。 来</summary>
+  <summary>质数 质数（Prime number），又称素数，指在大于1的自然数中，除了1和该数自身外，无法被其他自然数整除的数（也可定义为只有1与该数本身两个正因数的数）。 来自 互质 互质是公约数只有1的两个整数，也可记为 $\gcd(a,b)=1$，叫做互质整数。 欧拉 在数论中，对正整数 $n$，欧拉函数 $\varphi(n)$ 是小于等于 $n$ 的正整数中与 $n$ 互质的数的数目。此函数以其首名研究者欧拉命名，它又称为 $\varphi$ 函数（由高斯所命名）或是欧拉总计</summary>
 </entry>
 <entry>
   <title>为广告而生,从使用到干掉大陆版MIUI</title>
@@ -364,7 +364,7 @@
   <id>https://asutorufa.com/posts/3cb4313e/</id>
   <published>2019-08-02T18:55:15.000Z</published>
   <updated>2020-06-23T00:55:15.000Z</updated>
-  <summary>所有完整实现代码:match CIDR 我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功. 域名 域名就比较简单了,直接按点分割就行了 前缀树 通过上述规则 我们可以使用前缀树实现CIDR对ip的匹配 域名的前缀树相同,只不过域名不再是只有0和1,而且在匹配的时候还需要跳过前面的那些前缀. trie树类似上述结构 trie树节点 我们可以这样写 \ +node\ bool(判断是否匹配成功,是否是某一cidr的末尾)\ le</summary>
+  <summary>所有完整实现代码:match CIDR 我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功. 域名 域名就比较简单了,直接按点分割就行了 前缀树 通过上述规则 我们可以使用前缀树实现CIDR对ip的匹配 当ip匹配到某处时，此处已无任何子树，且是某一cidr的末尾则匹配成功。 若此处节点为null(golang为nil)且不是某一cidr的末尾则匹配失败。 域名的前缀树相同,只不过域名不再是只有0和1,而且在匹配的时候还需要跳</summary>
 </entry>
 <entry>
   <title>golang实现子进程后台</title>
