@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { distDir, fromRoot } from "./paths";
+import type { ContentManifest, Post } from "../../src/types/content";
+import { distDir, fromRoot, rootDir } from "./paths";
 
 const copies = [
   ["source/images", "images"],
@@ -10,10 +11,11 @@ const copies = [
   ["source/favicon.ico", "favicon.ico"]
 ] as const;
 
-export async function copyStaticAssets() {
+export async function copyStaticAssets(content?: ContentManifest) {
   for (const [from, to] of copies) {
     await copyIfExists(fromRoot(from), path.join(distDir, to));
   }
+  if (content) await copyPostAssets(content.posts);
 }
 
 async function copyIfExists(from: string, to: string) {
@@ -27,5 +29,42 @@ async function copyIfExists(from: string, to: string) {
     }
   } catch {
     // Optional legacy assets are skipped when absent.
+  }
+}
+
+async function copyPostAssets(posts: Post[]) {
+  for (const post of posts) {
+    if (!post.sourcePath.endsWith("/doc.md")) continue;
+
+    const sourceDir = path.dirname(path.join(rootDir, post.sourcePath));
+    const targetDir = path.join(distDir, post.route.replace(/^\/|\/$/g, ""));
+    await copyDirectoryAssets(sourceDir, targetDir);
+  }
+}
+
+async function copyDirectoryAssets(sourceDir: string, targetDir: string, relativeDir = "") {
+  const entries = await readDirectoryEntries(path.join(sourceDir, relativeDir));
+
+  for (const entry of entries) {
+    const relativePath = path.join(relativeDir, entry.name);
+    if (relativePath === "doc.md") continue;
+
+    const sourcePath = path.join(sourceDir, relativePath);
+    const targetPath = path.join(targetDir, relativePath);
+
+    if (entry.isDirectory()) {
+      await copyDirectoryAssets(sourceDir, targetDir, relativePath);
+    } else if (entry.isFile()) {
+      await fs.mkdir(path.dirname(targetPath), { recursive: true });
+      await fs.copyFile(sourcePath, targetPath);
+    }
+  }
+}
+
+async function readDirectoryEntries(directory: string) {
+  try {
+    return await fs.readdir(directory, { withFileTypes: true });
+  } catch {
+    return [];
   }
 }

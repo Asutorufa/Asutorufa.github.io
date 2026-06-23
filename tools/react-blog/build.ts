@@ -32,7 +32,7 @@ async function build() {
   await generateFeed(content);
   await generateSitemap(content, routes);
   await generateSearch(content);
-  await copyStaticAssets();
+  await copyStaticAssets(content);
   await printReport(content, routes.length);
 }
 

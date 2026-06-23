@@ -5,6 +5,7 @@
   "scripts": {
     "build": "npm run react:build",
     "analyze": "ANALYZE=true npm run react:build",
+    "post:new": "node --import tsx tools/react-blog/new-post.ts",
     "prelint": "npm run react:generate",
     "lint": "eslint src tools/react-blog vite.config.mts",
     "prelint:fix": "npm run react:generate",
