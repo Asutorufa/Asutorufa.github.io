@@ -33,69 +33,94 @@ language: zh-Hans
 
 通过上述规则 我们可以使用前缀树实现CIDR对ip的匹配
 
-```shell
-        root
-       /    \
-      0      1
-     / \    / \
-    0   1  0   1
-   /
-当ip匹配到此处,此处已无任何子树,且是某一cidr的末尾时则匹配成功
-若此处节点为null(golang为nil)且不是某一cidr的末尾时则匹配失败
+```mermaid
+graph TD
+  R((root))
+  R --> B0["0"]
+  R --> B1["1"]
+  B0 --> B00["0"]
+  B0 --> B01["1"]
+  B1 --> B10["0"]
+  B1 --> B11["1"]
+  B00 --> END["CIDR末尾(isLast=true)"]
 ```
+
+当ip匹配到某处时，此处已无任何子树，且是某一cidr的末尾则匹配成功。  
+若此处节点为null(golang为nil)且不是某一cidr的末尾则匹配失败。
 
 域名的前缀树相同,只不过域名不再是只有0和1,而且在匹配的时候还需要跳过前面的那些前缀.
 
-```shell
-        +---------+
-        |  root   |
-        +---------+
-       /     /      \
-facebook   google   twitter  ...
-  /        /   \       \
-com      com   mail    com   ...
-                \
-               com
+```mermaid
+graph TD
+  R((root))
+  R --> FB["facebook"]
+  R --> GG["google"]
+  R --> TW["twitter"]
+  FB --> COM1["com"]
+  GG --> COM2["com"]
+  GG --> MAIL["mail"]
+  MAIL --> COM3["com"]
+  TW --> COM4["com"]
+```
 
-在对域名匹配时
-如对 www.play.google.com匹配:
-    没有www  跳过
-    没有play 跳过
-    有google 继续
-    有com 且 域名已为最后一个节点 -> 判断trie中是否为最后的一个子树 -> 是 -> 匹配成功
+在对域名匹配时，如对 `www.play.google.com` 匹配：
 
-这里有一个明显的问题
-	比如我们同时插入了music.126.com和163.com
-	然后我们需要查询music.163.com是否被匹配
-	是不是发现了问题,无法被匹配,因为包含music,我们会匹配到music.126.com这条线,而不是163.com
+- 没有 `www`，跳过
+- 没有 `play`，跳过
+- 有 `google`，继续
+- 有 `com` 且域名已为最后一个节点，判断trie中是否为最后的一个子树；是则匹配成功
 
-这里有个很简单的解决方法,就是把域名倒过来插入,倒过来匹配,就跟JAVA包名那样
-        +---------+
-        |  root   |
-        +---------+
-             /
-            com        ...
-           /   \
-         163   126     ...
-                 \
-                music
+这里有一个明显的问题：  
+比如我们同时插入了 `music.126.com` 和 `163.com`，然后查询 `music.163.com` 是否被匹配，无法被匹配。因为包含 `music`，会匹配到 `music.126.com` 这条线，而不是 `163.com`。
 
-这样就能被正确匹配了,而且会缩短时间,不会去完整匹配整个域名,只匹配后面有的就行了
+这里有个很简单的解决方法，就是把域名倒过来插入、倒过来匹配，就跟 JAVA 包名那样。
+
+```mermaid
+graph TD
+  R((root))
+  R --> COM["com"]
+  COM --> D163["163"]
+  COM --> D126["126"]
+  D126 --> MUSIC["music"]
+```
+
+这样就能被正确匹配了，而且会缩短时间，不会去完整匹配整个域名，只匹配后面有的就行了。
+
+```mermaid
+flowchart TD
+  A[输入域名] --> B[按点分段并倒序]
+  B --> C{当前段在trie存在?}
+  C -- 否 --> D[停止并返回不匹配]
+  C -- 是 --> E[进入下一层]
+  E --> F{当前节点isLast?}
+  F -- 是 --> G[匹配成功]
+  F -- 否 --> H[继续下一段]
+  H --> C
 ```
 
 trie树类似上述结构
 
-trie树节点 我们可以这样写<!--more-->\
-+node\
-|- bool(判断是否匹配成功,是否是某一cidr的末尾)\
-|- left(左树代表0)\
-|- right(右树代表1)
+trie树节点可以这样表示：<!--more-->
 
-域名的这样写\
-+node\
-|- bool
-|- domainNode
-|- next
+```mermaid
+classDiagram
+  class CIDRNode {
+    +bool isLast
+    +*CIDRNode left
+    +*CIDRNode right
+  }
+```
+
+域名匹配的节点可以这样表示：
+
+```mermaid
+classDiagram
+  class DomainNode {
+    +bool isLast
+    +string domainNode
+    +*DomainNode next
+  }
+```
 
 ## 使用golang实现
 
