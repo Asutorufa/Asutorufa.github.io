@@ -89,6 +89,14 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
         mermaid.initialize({
           startOnLoad: false,
           securityLevel: "loose",
+          flowchart: {
+            useMaxWidth: false
+          },
+          sequence: {
+            diagramMarginX: 0,
+            diagramMarginY: 8,
+            useMaxWidth: false
+          },
           theme: "base",
           themeVariables: getMermaidThemeVariables()
         });

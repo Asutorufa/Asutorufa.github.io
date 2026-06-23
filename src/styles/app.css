@@ -357,14 +357,22 @@ pre.shiki.code-block {
 }
 
 .article-content .mermaid {
-  background: var(--blog-surface);
-  border: 1px solid var(--blog-border-soft);
-  border-radius: 8px;
-  margin: 1.5rem 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  margin: 1.25rem 0;
   max-width: 100%;
   overflow-x: auto;
-  padding: 1rem;
-  text-align: center;
+  overflow-y: hidden;
+  padding: 0;
+  text-align: left;
+}
+
+.article-content .mermaid svg {
+  display: block;
+  height: auto;
+  max-width: none !important;
+  width: auto !important;
 }
 
 .article-content .mermaid.mermaid-pending {
@@ -556,8 +564,7 @@ html.dark-mode .code-line::before {
 }
 
 html.dark-mode .article-content .mermaid {
-  background: var(--blog-code-bg);
-  border-color: var(--blog-border-soft);
+  background: transparent;
 }
 
 html.dark-mode .article-content .mermaid.mermaid-pending::before {
