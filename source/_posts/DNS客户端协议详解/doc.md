@@ -11,8 +11,15 @@ abbrlink: f05986bf
 date: 2020-05-31 18:44:37
 updated: 2020-05-31 18:44:37
 ---
-这个DNS系列现在有以下几篇文章  
-[DNS](/posts/f05986bf/)  [EDNS](/posts/668530ca/) [DNSSEC](/posts/1751943e/) [DNS over HTTPS](/posts/4b39445f/) 完整代码请看[DNS](https://github.com/Asutorufa/yuhaiin/tree/master/net/dns)
+
+这个DNS系列现在有以下几篇文章
+
+- [DNS](/posts/f05986bf/)
+- [EDNS](/posts/668530ca/)
+- [DNSSEC](/posts/1751943e/)
+- [DNS over HTTPS](/posts/4b39445f/)
+
+完整代码请看[DNS](https://github.com/Asutorufa/yuhaiin/tree/master/net/dns)
 
 ## DNS Header
 
@@ -75,38 +82,38 @@ header在dns请求和应答中相同的,查询中有Query Section,应答中有an
 
 - QNAME：不定长,格式为域名以点分割的长度,末尾以0结尾,例如:
 
-    ```txt
-        www.google.com -> 3www6google3com0
-    ```
+  ```txt
+  www.google.com -> 3www6google3com0
+  ```
 
-- QTYPE:查询的类型  
-    常用的我们需要知道A为IPV4,AAAA为IPV6
+- QTYPE:查询的类型\
+  常用的我们需要知道A为IPV4,AAAA为IPV6
 
-    ```txt
-    TYPE            value and meaning
-    A               1 a host address
-    NS              2 an authoritative name server
-    MD              3 a mail destination (Obsolete - use MX)
-    MF              4 a mail forwarder (Obsolete - use MX)
-    CNAME           5 the canonical name for an alias
-    SOA             6 marks the start of a zone of authority
-    MB              7 a mailbox domain name (EXPERIMENTAL)
-    MG              8 a mail group member (EXPERIMENTAL)
-    MR              9 a mail rename domain name (EXPERIMENTAL)
-    NULL            10 a null RR (EXPERIMENTAL)
-    WKS             11 a well known service description
-    PTR             12 a domain name pointer
-    HINFO           13 host information
-    MINFO           14 mailbox or mail list information
-    MX              15 mail exchange
-    TXT             16 text strings
+  ```txt
+  TYPE            value and meaning
+  A               1 a host address
+  NS              2 an authoritative name server
+  MD              3 a mail destination (Obsolete - use MX)
+  MF              4 a mail forwarder (Obsolete - use MX)
+  CNAME           5 the canonical name for an alias
+  SOA             6 marks the start of a zone of authority
+  MB              7 a mailbox domain name (EXPERIMENTAL)
+  MG              8 a mail group member (EXPERIMENTAL)
+  MR              9 a mail rename domain name (EXPERIMENTAL)
+  NULL            10 a null RR (EXPERIMENTAL)
+  WKS             11 a well known service description
+  PTR             12 a domain name pointer
+  HINFO           13 host information
+  MINFO           14 mailbox or mail list information
+  MX              15 mail exchange
+  TXT             16 text strings
 
-    AAAA            28 <- https://www.ietf.org/rfc/rfc3596.txt
-    ```
+  AAAA            28 <- https://www.ietf.org/rfc/rfc3596.txt
+  ```
 
 - QCLASS：无符号16bit整数表示查询的类,比如，IN代表Internet.
 
-现在我们来完成生成请求的代码  
+现在我们来完成生成请求的代码\
 使用全局变量来存储请求的类型
 
 ```go
@@ -140,8 +147,8 @@ var (
 
 ```go
 func creatRequest(domain string, reqType reqType) []byte {
-    id := []byte{byte(rand.Intn(255)), byte(rand.Intn(255))} // id:
-    qr := byte(0b0)                                          // qr 0
+	id := []byte{byte(rand.Intn(255)), byte(rand.Intn(255))} // id:
+	qr := byte(0b0)                                          // qr 0
 	opCode := byte(0b0000)                                   // opcode 0000
 	aa := byte(0b0)                                          // aa 0
 	tc := byte(0b0)                                          // tc 0
@@ -193,7 +200,7 @@ if err != nil {
 
 ## 应答
 
-应答数据中具有header和请求字段,所以我们可以先写一个resovle header来分析header.  
+应答数据中具有header和请求字段,所以我们可以先写一个resovle header来分析header.\
 之前我们完成了域名编码的代码,就是`3www6google3com0`这个,这里我们还需要完成一个解析的.
 
 ```go
@@ -204,7 +211,7 @@ func getName(c []byte, all []byte) (name string, x []byte) {
 			c = c[2:]
 			tmp, _ := getName(all[l:], all)
 			name += tmp
-			//log.Println(c, name)
+			// log.Println(c, name)
 			break
 		}
 		name += string(c[1:int(c[0])+1]) + "."
@@ -238,29 +245,29 @@ func resolveHeader(req []byte, answer []byte) (anCount int, answerSection []byte
 		break
 	case "0001": // Format error
 		return 0, nil, errors.New("request format error")
-	case "0010": //Server failure
+	case "0010": // Server failure
 		return 0, nil, errors.New("dns Server failure")
-	case "0011": //Name Error
+	case "0011": // Name Error
 		return 0, nil, errors.New("no such name")
 	case "0100": // Not Implemented
 		return 0, nil, errors.New("dns server not support this request")
-	case "0101": //Refused
+	case "0101": // Refused
 		return 0, nil, errors.New("dns server Refuse")
 	default: // Reserved for future use.
 		return 0, nil, errors.New("other error")
 	}
 
-	//qdCountA := []byte{b[4], b[5]}  // no use, for request
-	//anCountA := []byte{answer[6], answer[7]}
+	// qdCountA := []byte{b[4], b[5]}  // no use, for request
+	// anCountA := []byte{answer[6], answer[7]}
 	anCount = int(answer[6])<<8 + int(answer[7])
-	//nsCount2arCountA := []byte{b[8], b[9], b[10], b[11]} // no use
+	// nsCount2arCountA := []byte{b[8], b[9], b[10], b[11]} // no use
 
 	c := answer[12:]
 
 	var x string
 	x, c = getName(c, answer)
 	log.Println(x)
-	
+
 	log.Println("qType:", c[:2])
 	c = c[2:]
 	log.Println("qClass:", c[:2])
@@ -296,7 +303,7 @@ func resolveHeader(req []byte, answer []byte) (anCount int, answerSection []byte
 ```
 
 - NAME：不定长与之前QNAME相同,这里会使用省略字段：前两bit为11表示压缩格式，而后面跟的14bit表示的是Name所在的位置相对于DNS首部的偏移值
-    如：之前的header数组中出现过3www6google3com0,且处的位置为12,这里就可以用192 12两个字节来省略(192是因为11000000,前两位为11)
+  如：之前的header数组中出现过3www6google3com0,且处的位置为12,这里就可以用192 12两个字节来省略(192是因为11000000,前两位为11)
 - QTYPE：与之前的TYPE相同
 - CLASS：与之前的QCLASS相同
 - TTL: 就是TTL 可以使用搜索引擎查询一下
@@ -308,7 +315,7 @@ func resolveHeader(req []byte, answer []byte) (anCount int, answerSection []byte
 // resolve answer
 anCount, c, err := resolveHeader(req, b[:n])
 if err != nil {
-    return nil, err
+	return nil, err
 }
 
 // answer section
@@ -378,6 +385,7 @@ for anCount != 0 {
 
 虽然这里我只处理了A,和AAAA的请求类型,但是每个类型的数据格式在[rfc1035](https://www.ietf.org/rfc/rfc1035.txt)都有详细记录,想要自己实现并不难,毕竟我们已经完成的大部分的数据解析,剩下的一点也应该问题不大.
 
-***
->[rfc1035](https://www.ietf.org/rfc/rfc1035.txt)
->[rfc3596](https://www.ietf.org/rfc/rfc3596.txt)
+---
+
+> [rfc1035](https://www.ietf.org/rfc/rfc1035.txt)
+> [rfc3596](https://www.ietf.org/rfc/rfc3596.txt)

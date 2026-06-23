@@ -15,7 +15,7 @@ language: zh-Hans
 
 ## CIDR
 
-我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功.  
+我们知道cidr对ip匹配时,只要cidr的mask长度的前几位与要匹配的ip相同,则可以说匹配成功.
 
 ```shell
 假设有一个cidr为128.0.0.1/24
@@ -34,16 +34,16 @@ language: zh-Hans
 通过上述规则 我们可以使用前缀树实现CIDR对ip的匹配
 
 ```shell
-            root
-           /    \
-          0      1
-         / \    / \
-        0   1  0   1
-       /
-    当ip匹配到此处,此处已无任何子树,且是某一cidr的末尾时则匹配成功
-    若此处节点为null(golang为nil)且不是某一cidr的末尾时则匹配失败
+        root
+       /    \
+      0      1
+     / \    / \
+    0   1  0   1
+   /
+当ip匹配到此处,此处已无任何子树,且是某一cidr的末尾时则匹配成功
+若此处节点为null(golang为nil)且不是某一cidr的末尾时则匹配失败
 ```
-  
+
 域名的前缀树相同,只不过域名不再是只有0和1,而且在匹配的时候还需要跳过前面的那些前缀.
 
 ```shell
@@ -83,17 +83,16 @@ com      com   mail    com   ...
 这样就能被正确匹配了,而且会缩短时间,不会去完整匹配整个域名,只匹配后面有的就行了
 ```
 
-
 trie树类似上述结构
 
-trie树节点 我们可以这样写<!--more-->  
-+node  
-|- bool(判断是否匹配成功,是否是某一cidr的末尾)  
-|- left(左树代表0)  
-|- right(右树代表1)  
+trie树节点 我们可以这样写<!--more-->\
++node\
+|- bool(判断是否匹配成功,是否是某一cidr的末尾)\
+|- left(左树代表0)\
+|- right(右树代表1)
 
-域名的这样写  
-+node  
+域名的这样写\
++node\
 |- bool
 |- domainNode
 |- next
@@ -102,13 +101,13 @@ trie树节点 我们可以这样写<!--more-->
 
 ```go
 type node struct {
- isLast bool
-    left   *node
-    right  *node
+	isLast bool
+	left   *node
+	right  *node
 }
 
 type TrieTree struct {
-    root *node
+	root *node
 }
 
 func NewTrieTree() *TrieTree {
@@ -118,7 +117,7 @@ func NewTrieTree() *TrieTree {
 }
 ```
 
-对每一个CIDR的插入  
+对每一个CIDR的插入\
 注意: 此处传入的CIDR为CIDR前mask位的二进制形式
 
 ```go
@@ -146,7 +145,7 @@ func (trie *TrieTree) Insert(str string) {
 }
 ```
 
-对ip的匹配  
+对ip的匹配\
 注意: 此处传入的ip为ip的二进制形式
 
 ```go

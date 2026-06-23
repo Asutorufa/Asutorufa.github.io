@@ -1,0 +1,7 @@
+{
+    "MD010": {
+        "ignore_code_languages": [
+            "go"
+        ]
+    }
+}

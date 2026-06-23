@@ -1,6 +1,6 @@
 ---
 title: QdrantでHybrid Search
-abbrlink: '1755854433972'
+abbrlink: "1755854433972"
 date: 2025-08-22 17:20:33
 updated: 2025-08-22 17:20:33
 tags:
@@ -11,11 +11,11 @@ tags:
   - vector database
   - hybrid search
 categories:
-- LLM
+  - LLM
 language: ja
 ---
 
-密ベクトルは現在ではText Embeddingサービスや`vllm`などを使えば簡単に生成をてきる。  
+密ベクトルは現在ではText Embeddingサービスや`vllm`などを使えば簡単に生成をてきる。\
 疎ベクトルは色々と探しましたが、直接利用できるサービスがあまりはない、自分で用意しなければならない。
 `Qdrant`が提供する`fastembed`は利用できますけど、対応している疎ベクトルモデルが少ないため、最後的に`sentence_transformers`の`SparseEncoder`を利用することにしました。
 
@@ -54,15 +54,17 @@ values =  [ 0.03429046 0.02966345 0.03258647 ... ]
 - ...
 
 したがって、疎ベクトルは以下のようになります。
+
 <!--more-->
+
 - `test1`
   - indicesは`[5 25 29 56 4035]`
-  - valuesは `[0.03429046 0.02966345 0.03258647 0.03258648]`  
+  - valuesは `[0.03429046 0.02966345 0.03258647 0.03258648]`
 - `test2`
   - indicesは`[4035 4038 4059]`
-  - valuesは `[0.03258649 0.03137818 0.0306967]`  
-- ...  
-- ...  
+  - valuesは `[0.03258649 0.03137818 0.0306967]`
+- ...
+- ...
 
 以下は実装した例のコードです。`FastAPI`でhttpサービスを提供します。
 
@@ -128,30 +130,30 @@ Qdrant Collectionを作成する
 
 ```go
 qdrant.CreateCollection(context.TODO(), &qdrant.CreateCollection{
-  CollectionName: collectionName,
-  Timeout:        proto.Uint64(120),
-  SparseVectorsConfig: &qdrant.SparseVectorConfig{
-   Map: map[string]*qdrant.SparseVectorParams{
-    "sparse": {// 疎ベクトルの設定
-     Index: &qdrant.SparseIndexConfig{
-      OnDisk: proto.Bool(false),
-     },
-    },
-   },
-  },
-  VectorsConfig: &qdrant.VectorsConfig{
-   Config: &qdrant.VectorsConfig_ParamsMap{
-    ParamsMap: &qdrant.VectorParamsMap{
-     Map: map[string]*qdrant.VectorParams{
-      "dense": {// 密ベクトルの設定
-       Distance: qdrant.Distance_Cosine,
-       //　TextEmbeddingモデルに従って、例えば：voyage-3-large　1024 (default), 256, 512, 2048
-       Size:     1024,
-      },
-     },
-    },
-   },
-  },
+	CollectionName: collectionName,
+	Timeout:        proto.Uint64(120),
+	SparseVectorsConfig: &qdrant.SparseVectorConfig{
+		Map: map[string]*qdrant.SparseVectorParams{
+			"sparse": { // 疎ベクトルの設定
+				Index: &qdrant.SparseIndexConfig{
+					OnDisk: proto.Bool(false),
+				},
+			},
+		},
+	},
+	VectorsConfig: &qdrant.VectorsConfig{
+		Config: &qdrant.VectorsConfig_ParamsMap{
+			ParamsMap: &qdrant.VectorParamsMap{
+				Map: map[string]*qdrant.VectorParams{
+					"dense": { // 密ベクトルの設定
+						Distance: qdrant.Distance_Cosine,
+						//　TextEmbeddingモデルに従って、例えば：voyage-3-large　1024 (default), 256, 512, 2048
+						Size: 1024,
+					},
+				},
+			},
+		},
+	},
 })
 ```
 

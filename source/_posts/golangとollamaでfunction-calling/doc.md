@@ -7,7 +7,7 @@ tags:
 categories:
   - LLM
 language: ja
-abbrlink: '23567986'
+abbrlink: "23567986"
 date: 2024-11-11 19:11:06
 updated: 2024-11-11 19:11:06
 ---
@@ -17,12 +17,12 @@ updated: 2024-11-11 19:11:06
 
 ```go
 func systemMessage() string {
- bs, err := json.Marshal(functions)
- if err != nil {
-  log.Fatal(err)
- }
+	bs, err := json.Marshal(functions)
+	if err != nil {
+		log.Fatal(err)
+	}
 
- return fmt.Sprintf(`You have access to the following tools:
+	return fmt.Sprintf(`You have access to the following tools:
 
 %s
 
@@ -38,7 +38,9 @@ To use a tool, respond with a JSON object with the following structure:
 これはちょっと優雅でない、`ollama/api`を使いたいと思います。
 
 ## function callingとは
+
 <!-- more -->
+
 llmのレスポンスが外部関数の呼び出しを検知し、関数の結果を組み合わせて内容を生成する機能です。　　
 例えば：「東京の天気は？」はpromptをとして、「晴れです」と生成する。　　
 大勢のllmはfunction callingをtoolと読んでいる、呼び出しどき引数として引き渡して内容を生成する。　　
@@ -56,15 +58,15 @@ sequenceDiagram
     サーバー->>ユーザ: 内容を返す
 ```
 
-<!-- 
+<!--
 取得：しゅとく
  -->
 
 ## goで実現
 
-関数と引数の説明(Description)は自然な言葉で良いです、一般的なプログラミングとはちょっと違うと思います。  
+関数と引数の説明(Description)は自然な言葉で良いです、一般的なプログラミングとはちょっと違うと思います。
 
-toolsの定義  
+toolsの定義
 
 ```go
 import "github.com/ollama/ollama/api"
@@ -118,69 +120,69 @@ chains を実現
 ```go
 uri, err := url.Parse("http://localhost:11434")
 if err != nil {
-  panic(err)
+	panic(err)
 }
 
 client := api.NewClient(uri, &http.Client{})
 
 messages := []api.Message{
-  {
-   Role:    "user",
-   Content: prompt,
-  },
+	{
+		Role:    "user",
+		Content: prompt,
+	},
 }
 
 ctx := context.TODO()
 
 err := o.llm.Chat(ctx,
-  &api.ChatRequest{
-   Model:    "qwen2.5:32b-instruct",
-   Stream:   lo.ToPtr(false),
-   Messages: messages,
-   Options: map[string]interface{}{
-    "temperature": 0.3,
-   },
-   Tools: []api.Tool{tools},
-  },
-  func(cr api.ChatResponse) error {
-      msg,err := processToolCall(cr)
-      if err != nil {
-        return err
-      }
+	&api.ChatRequest{
+		Model:    "qwen2.5:32b-instruct",
+		Stream:   lo.ToPtr(false),
+		Messages: messages,
+		Options: map[string]interface{}{
+			"temperature": 0.3,
+		},
+		Tools: []api.Tool{tools},
+	},
+	func(cr api.ChatResponse) error {
+		msg, err := processToolCall(cr)
+		if err != nil {
+			return err
+		}
 
-     messages = append(messages, api.Message{
-      Role:    "tool",
-      Content: msg,
-     })
-   return nil
-  },
+		messages = append(messages, api.Message{
+			Role:    "tool",
+			Content: msg,
+		})
+		return nil
+	},
 )
 if err != nil {
-  panic(err)
+	panic(err)
 }
 
 err = o.llm.Chat(ctx,
-  &api.ChatRequest{
-   Model:    "qwen2.5:32b-instruct",
-   Stream:   lo.ToPtr(false),
-   Messages: messages,
-   Options: map[string]interface{}{
-    "temperature": 0.3,
-   },
-  },
-  func(cr api.ChatResponse) error {
-   fmt.Print(cr.Message.Content)
-   return nil
-  },
+	&api.ChatRequest{
+		Model:    "qwen2.5:32b-instruct",
+		Stream:   lo.ToPtr(false),
+		Messages: messages,
+		Options: map[string]interface{}{
+			"temperature": 0.3,
+		},
+	},
+	func(cr api.ChatResponse) error {
+		fmt.Print(cr.Message.Content)
+		return nil
+	},
 )
 if err != nil {
-  panic(err)
+	panic(err)
 }
 ```
 
 ## 実行
 
-prompt：`東京の天気は？`  
+prompt：`東京の天気は？`\
 返事：　`東京の天気は晴れで、温度は約64°F（約18°C）です`
 
 ## 参考

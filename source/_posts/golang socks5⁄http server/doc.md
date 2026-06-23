@@ -10,33 +10,37 @@ date: 2019-03-06 20:02:47
 updated: 2020-05-30 00:00:00
 language: zh-Hans
 ---
-完整实现代码:  
-[socks5 client](https://github.com/Asutorufa/yuhaiin/blob/master/net/proxy/socks5/client/socks5client.go)  
-[socks5 server](https://github.com/Asutorufa/yuhaiin/blob/master/net/proxy/socks5/server/server.go)  
-[http server](https://github.com/Asutorufa/yuhaiin/blob/master/net/proxy/http/server/server.go)  
 
-此处已socks5client为例,大致流程都相同,只是协议不同:  
+完整实现代码:\
+[socks5 client](https://github.com/Asutorufa/yuhaiin/blob/master/net/proxy/socks5/client/socks5client.go)\
+[socks5 server](https://github.com/Asutorufa/yuhaiin/blob/master/net/proxy/socks5/server/server.go)\
+[http server](https://github.com/Asutorufa/yuhaiin/blob/master/net/proxy/http/server/server.go)
+
+此处已socks5client为例,大致流程都相同,只是协议不同:
 
 socks5运行流程如下:
 
 tcp:
-    - 本机和代理服务端协商和建立连接；
-    - 本机告诉代理服务端目标服务的地址；
-    - 代理服务端去连接目标服务，成功后告诉本机；
-    - 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。
+
+- 本机和代理服务端协商和建立连接；
+- 本机告诉代理服务端目标服务的地址；
+- 代理服务端去连接目标服务，成功后告诉本机；
+- 本机开始发送原本应发送到目标服务的数据给代理服务端，由代理服务端完成数据转发。
+
 udp:
-    - udp因为是无连接的,所以所以数据一次只用一个udp包
-    - socks5是通过tcp先确认socks5 server支持udp,然后再通过udp发送请求
+
+- udp因为是无连接的,所以所以数据一次只用一个udp包
+- socks5是通过tcp先确认socks5 server支持udp,然后再通过udp发送请求
 
 ## 先进行TCP连接
 
 golang实现(_这里的地址我是本地socks5服务端_)
 
 ```go
-conn,err := net.Dial("tcp","127.0.0.1:1080")
-if err != nil{
-    fmt.Println(err)
-    return
+conn, err := net.Dial("tcp", "127.0.0.1:1080")
+if err != nil {
+	fmt.Println(err)
+	return
 }
 ```
 
@@ -44,13 +48,13 @@ if err != nil{
 
 验证字段:
 
-|VER|NMETHODS|METHODS|
-|:-:|:-:|:-:|
-|1字节|1字节|1-255字节|
+|  VER  | NMETHODS |  METHODS  |
+| :---: | :------: | :-------: |
+| 1字节 |  1字节   | 1-255字节 |
 
-- VER是SOCKS版本，这里应该是0x05； <!--more--> 
-- NMETHODS是METHODS部分的长度；  
-- METHODS是客户端支持的认证方式列表，每个方法占1字节。当前的定义是：  
+- VER是SOCKS版本，这里应该是0x05； <!--more-->
+- NMETHODS是METHODS部分的长度；
+- METHODS是客户端支持的认证方式列表，每个方法占1字节。当前的定义是：
   - 0x00 不需要认证
   - 0x01 GSSAPI
   - 0x02 用户名、密码认证
@@ -58,36 +62,36 @@ if err != nil{
   - 0x80 - 0xFE为私人方法保留
   - 0xFF 无可接受的方法
 
-golang实现代码:  
+golang实现代码:
 
 ```go
 sendData := []byte{0x05, 0x01, 0x00}
-if _, err := conn.Write(sendData); err != nil{
-    return err
+if _, err := conn.Write(sendData); err != nil {
+	return err
 }
 getData := make([]byte, 3)
 if _, err = conn.Read(getData[:]); err != nil {
-    return err
+	return err
 }
 if getData[0] != 0x05 || getData[1] == 0xFF {
-    return errors.New("socks5 first handshake failed!")
+	return errors.New("socks5 first handshake failed!")
 }
 if getData[1] == 0x02 {
-    sendData := append(
-        append(
-            append(
-                []byte{0x01, byte(len(socks5client.Username))},
-                []byte(socks5client.Username)...),
-            byte(len(socks5client.Password))),
-        []byte(socks5client.Password)...)
-    _, _ = conn.Write(sendData)
-    getData := make([]byte, 3)
-    if _, err = conn.Read(getData[:]); err != nil {
-        return err
-    }
-    if getData[1] == 0x01 {
-        return errors.New("username or password not correct,socks5 handshake failed!")
-    }
+	sendData := append(
+		append(
+			append(
+				[]byte{0x01, byte(len(socks5client.Username))},
+				[]byte(socks5client.Username)...),
+			byte(len(socks5client.Password))),
+		[]byte(socks5client.Password)...)
+	_, _ = conn.Write(sendData)
+	getData := make([]byte, 3)
+	if _, err = conn.Read(getData[:]); err != nil {
+		return err
+	}
+	if getData[1] == 0x01 {
+		return errors.New("username or password not correct,socks5 handshake failed!")
+	}
 }
 ```
 
@@ -95,9 +99,9 @@ if getData[1] == 0x02 {
 
 请求字段:
 
-|VER|CMD|RSV|ATYP|DST.ADDR|DST.PORT|
-|:-:|:-:|:-:|:-:|:-:|:-:|
-|1字节|1字节|0x00|1字节|动态|2字节|
+|  VER  |  CMD  | RSV  | ATYP  | DST.ADDR | DST.PORT |
+| :---: | :---: | :--: | :---: | :------: | :------: |
+| 1字节 | 1字节 | 0x00 | 1字节 |   动态   |  2字节   |
 
 - VER是SOCKS版本，这里应该是0x05；
 - CMD是SOCK的命令码
@@ -119,20 +123,20 @@ golang实现代码
 domain := "www.google.com"
 serverPort := 443
 sendData = append(
-    append(
-        []byte{0x5, 0x01, 0x00, 0x03, byte(len(domain))},
-        []byte(domain)...), byte(serverPort>>8),
-    byte(serverPort&255))
-if _,err = conn.Write(sendData); err!=nil{
-    fmt.Println(err)
-    return
+	append(
+		[]byte{0x5, 0x01, 0x00, 0x03, byte(len(domain))},
+		[]byte(domain)...), byte(serverPort>>8),
+	byte(serverPort&255))
+if _, err = conn.Write(sendData); err != nil {
+	fmt.Println(err)
+	return
 }
 getData := make([]byte, 1024)
 if _, err = conn.Read(getData[:]); err != nil {
-    return err
+	return err
 }
 if getData[0] != 0x05 || getData[1] != 0x00 {
-    return errors.New("socks5 second handshake failed!")
+	return errors.New("socks5 second handshake failed!")
 }
 ```
 
@@ -141,9 +145,9 @@ if getData[0] != 0x05 || getData[1] != 0x00 {
 golang实现代码(_不太熟悉各种请求这里随便弄了一个_)
 
 ```go
-if _,err = conn.Write([]byte("GET /generate_204/ HTTP/2.0\r\n")); err!=nil{
-    fmt.Println(err)
-    return
+if _, err = conn.Write([]byte("GET /generate_204/ HTTP/2.0\r\n")); err != nil {
+	fmt.Println(err)
+	return
 }
 ```
 
@@ -175,8 +179,8 @@ conn.Close()
           o  DATA     user data
 ```
 
-## 参考来源  
+## 参考来源
 
-[SOCKS(维基百科)](https://en.wikipedia.org/wiki/SOCKS)  
-[SOCKS5 协议介绍](https://my.oschina.net/997155658/blog/1563154)  
-[rfc1928](https://tools.ietf.org/html/rfc1928)  
+[SOCKS(维基百科)](https://en.wikipedia.org/wiki/SOCKS)\
+[SOCKS5 协议介绍](https://my.oschina.net/997155658/blog/1563154)\
+[rfc1928](https://tools.ietf.org/html/rfc1928)

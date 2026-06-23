@@ -41,16 +41,18 @@ spec:
 この時はIPアドレスを割り当てのコントローラーがないので、ServiceのステータスはPendingです。
 
 新たなKubernetesクライアントを作成
+
 <!--more-->
+
 ```go
 config, err := rest.InClusterConfig()
 if err != nil {
- panic(err)
+	panic(err)
 }
 
 cli, err := kubernetes.NewForConfig(config)
 if err != nil {
- panic(err)
+	panic(err)
 }
 ```
 
@@ -59,7 +61,7 @@ Serviceの状態を監視して
 ```go
 wch, err := cli.CoreV1().Services(corev1.NamespaceAll).Watch(context.TODO(), metav1.ListOptions{Watch: true})
 if err != nil {
- panic(err)
+	panic(err)
 }
 defer wch.Stop()
 ```
@@ -199,7 +201,7 @@ spec:
 status:
   loadBalancer:
     ingress:
-    - ip: 10.0.171.239
+      - ip: 10.0.171.239
 ```
 
 k3sの[klipper-lb](https://github.com/k3s-io/klipper-lb)は簡単なLoadBalancerコントローラーの実現、コードほんの数行のスクリプト

@@ -16,8 +16,8 @@ language: ja
 
 ## RAGとは
 
-RAGはRetrieval augmented generationの略です。  
-大規模言語モデル内容を生成する前に、promptによる外部のデーターベースに知識を検索、元のpromptと組み合わせて、アウトプットを改善するための技術です。  
+RAGはRetrieval augmented generationの略です。
+大規模言語モデル内容を生成する前に、promptによる外部のデーターベースに知識を検索、元のpromptと組み合わせて、アウトプットを改善するための技術です。
 
 ```mermaid
 sequenceDiagram
@@ -51,12 +51,14 @@ chatgpt:
 以上の内容が注目ニュースとして考えられますが、詳細については直接ニュースソースで確認されるとよいでしょう。
 ```
 
-geminiはリアルタイムによっての内容は回答できません。  
-chatgptはRAGか、Function Callingか、どちらかを使っていると思います。  
+geminiはリアルタイムによっての内容は回答できません。\
+chatgptはRAGか、Function Callingか、どちらかを使っていると思います。\
 今回はgolang+langchaingo+ollama+qdrantでRAGを実験してみます。
 
 ## 準備
+
 <!--more-->
+
 ### ollamaをインストール
 
 ```bash
@@ -74,9 +76,9 @@ docker run -p 6333:6333 -p 6334:6334 \
 
 ### bge-large-en-v1.5をollamaで実行
 
-知識をベクトルデータベースに保存するにはText Embedingモデルが必要です。今回はbge-large-en-v1.5を使うことになりました。  
+知識をベクトルデータベースに保存するにはText Embedingモデルが必要です。今回はbge-large-en-v1.5を使うことになりました。
 
-ollamaのモデルライブラリにはbge-large-en-v1.5がありませんので、bge-large-en-v1.5をGGUFに変換することが必要です。  
+ollamaのモデルライブラリにはbge-large-en-v1.5がありませんので、bge-large-en-v1.5をGGUFに変換することが必要です。
 
 git-lfsとcmakeをインストール
 
@@ -161,7 +163,6 @@ if err != nil {
 テキストを導入
 
 ```go
-
 // TextToChunks テキストを分割
 func TextToChunks(r io.Reader, chunkSize, chunkOverlap int) ([]schema.Document, error) {
  // 新たなドキュメンタリーローダーを作成
@@ -198,53 +199,53 @@ func TextToChunks(r io.Reader, chunkSize, chunkOverlap int) ([]schema.Document, 
 知識を検索
 
 ```go
- optionsVector := []vectorstores.Option{
-  vectorstores.WithScoreThreshold(0.80),
- }
+	optionsVector := []vectorstores.Option{
+		vectorstores.WithScoreThreshold(0.80),
+	}
 
- retriever := vectorstores.ToRetriever(qd, 10, optionsVector...)
+	retriever := vectorstores.ToRetriever(qd, 10, optionsVector...)
 
- docRetrieved, err := retriever.GetRelevantDocuments(context.Background(), prompt)
- if err != nil {
-  panic(err)
- }
+	docRetrieved, err := retriever.GetRelevantDocuments(context.Background(), prompt)
+	if err != nil {
+		panic(err)
+	}
 ```
 
 llmで予測する
 
 ```go
- llm, err := ollama.New(
-  ollama.WithModel("qwen2.5:32b-instruct"),
-  ollama.WithServerURL("http://localhost:11434"),
- )
- if err != nil {
- panic(err)
- }
+	llm, err := ollama.New(
+		ollama.WithModel("qwen2.5:32b-instruct"),
+		ollama.WithServerURL("http://localhost:11434"),
+	)
+	if err != nil {
+		panic(err)
+	}
 
- var msgs []llms.MessageContent
+	var msgs []llms.MessageContent
 
- for _, doc := range docRetrieved {
-  msgs = append(msgs, llms.TextParts(llms.ChatMessageTypeAI,  doc.PageContent))
- }
+	for _, doc := range docRetrieved {
+		msgs = append(msgs, llms.TextParts(llms.ChatMessageTypeAI, doc.PageContent))
+	}
 
- msgs = append(msgs, llms.TextParts(llms.ChatMessageTypeHuman, prompt))
+	msgs = append(msgs, llms.TextParts(llms.ChatMessageTypeHuman, prompt))
 
- _, err := llm.GenerateContent(ctx, msgs,
-  llms.WithTemperature(0.3),
-  llms.WithStreamingFunc(func(ctx context.Context, chunk []byte) error {
- // 結果をストリームで標準出力に出力して
-  fmt.Print(string(chunk))
-   return nil
-  }),
- )
- if err != nil {
- panic(err)
- }
+	_, err := llm.GenerateContent(ctx, msgs,
+		llms.WithTemperature(0.3),
+		llms.WithStreamingFunc(func(ctx context.Context, chunk []byte) error {
+			// 結果をストリームで標準出力に出力して
+			fmt.Print(string(chunk))
+			return nil
+		}),
+	)
+	if err != nil {
+		panic(err)
+	}
 ```
 
-<!-- 
+<!--
 
-標準出力：ひょうじゅんしゅつりょく 
+標準出力：ひょうじゅんしゅつりょく
 
 -->
 
