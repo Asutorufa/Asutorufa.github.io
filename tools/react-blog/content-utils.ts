@@ -10,6 +10,7 @@ import type { FrontMatterFile } from "./front-matter";
 
 const MARKDOWN_CACHE_VERSION = 1;
 const markdownCacheDir = path.join(rootDir, ".cache/react-blog/markdown");
+const AUTO_EXCERPT_LENGTH = 180;
 
 type PostMarkdownRender = {
   excerptMarkdown: string;
@@ -141,7 +142,7 @@ export function splitExcerpt(markdown: string) {
   const moreAnchor = "more";
   if (!match || match.index < 1) {
     return {
-      excerptMarkdown: makePlainText(markdown).slice(0, 180),
+      excerptMarkdown: makeAutoExcerptMarkdown(markdown),
       bodyMarkdown: markdown
     };
   }
@@ -162,6 +163,110 @@ export function makePlainText(markdown: string) {
     .replace(/[#>*_~|-]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function makeAutoExcerptMarkdown(markdown: string) {
+  const cleaned = mapOutsideMath(markdown, (text) =>
+    text
+      .replace(/```[\s\S]*?```/g, " ")
+      .replace(/`([^`]+)`/g, "$1")
+      .replace(/!\[[^\]]*]\([^)]*\)/g, " ")
+      .replace(/\[([^\]]+)]\([^)]*\)/g, "$1")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/[#>*_~|`]/g, " ")
+  )
+    .replace(/[ \t]+/g, " ")
+    .replace(/[ \t]*\n[ \t]*/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+
+  return truncateMarkdownPreservingMath(cleaned, AUTO_EXCERPT_LENGTH);
+}
+
+function truncateMarkdownPreservingMath(markdown: string, maxLength: number) {
+  if (markdown.length <= maxLength) return markdown;
+
+  let result = "";
+  for (const segment of mathSegments(markdown)) {
+    if (result.length + segment.text.length <= maxLength) {
+      result += segment.text;
+      continue;
+    }
+
+    if (segment.math) break;
+
+    const remaining = maxLength - result.length;
+    if (remaining > 0) {
+      result += truncateTextSegment(segment.text, remaining);
+    }
+    break;
+  }
+
+  return result.trim();
+}
+
+function truncateTextSegment(text: string, maxLength: number) {
+  const slice = text.slice(0, maxLength);
+  const lastWhitespace = slice.search(/\s+\S*$/);
+  const truncated = lastWhitespace > maxLength * 0.55 ? slice.slice(0, lastWhitespace) : slice;
+  return truncated.replace(/[\s,.;:，。；：、]+$/u, "");
+}
+
+function mapOutsideMath(markdown: string, transform: (text: string) => string) {
+  return mathSegments(markdown)
+    .map((segment) => (segment.math ? segment.text : transform(segment.text)))
+    .join("");
+}
+
+function mathSegments(markdown: string) {
+  const segments: Array<{ text: string; math: boolean }> = [];
+  let index = 0;
+
+  while (index < markdown.length) {
+    const start = findNextMathDelimiter(markdown, index);
+    if (start < 0) {
+      segments.push({ text: markdown.slice(index), math: false });
+      break;
+    }
+
+    if (start > index) {
+      segments.push({ text: markdown.slice(index, start), math: false });
+    }
+
+    const delimiter = markdown.startsWith("$$", start) ? "$$" : "$";
+    const end = findClosingMathDelimiter(markdown, start + delimiter.length, delimiter);
+    if (end < 0) {
+      segments.push({ text: markdown.slice(start), math: false });
+      break;
+    }
+
+    segments.push({ text: markdown.slice(start, end + delimiter.length), math: true });
+    index = end + delimiter.length;
+  }
+
+  return segments;
+}
+
+function findNextMathDelimiter(value: string, start: number) {
+  for (let index = start; index < value.length; index += 1) {
+    if (value[index] === "$" && !isEscaped(value, index)) return index;
+  }
+  return -1;
+}
+
+function findClosingMathDelimiter(value: string, start: number, delimiter: "$" | "$$") {
+  for (let index = start; index < value.length; index += 1) {
+    if (value.startsWith(delimiter, index) && !isEscaped(value, index)) return index;
+  }
+  return -1;
+}
+
+function isEscaped(value: string, index: number) {
+  let backslashes = 0;
+  for (let cursor = index - 1; cursor >= 0 && value[cursor] === "\\"; cursor -= 1) {
+    backslashes += 1;
+  }
+  return backslashes % 2 === 1;
 }
 
 export function detectMath(data: Record<string, unknown>, markdown: string) {
@@ -217,14 +322,15 @@ export async function createPost(
   const title = asString(data.title, path.basename(filePath, ".md")).trim();
   const date = rawFrontMatterValue(parsed, "date") || normalizeDate(data.date);
   const updated = rawFrontMatterValue(parsed, "updated") || normalizeDate(data.updated) || date;
-  const rendered = await renderPostMarkdownWithCache(sourcePath, parsed, data);
-  const language = languageFields(sourcePath, data.language, fallbackCollector);
   const wip = asBoolean(data.wip);
+  const route = postRoute(abbrlink, wip);
+  const rendered = await renderPostMarkdownWithCache(sourcePath, parsed, data, route);
+  const language = languageFields(sourcePath, data.language, fallbackCollector);
 
   return {
     kind: "post",
     sourcePath,
-    route: wip ? `/wip/${abbrlink}/` : `/posts/${abbrlink}/`,
+    route,
     abbrlink,
     title,
     date,
@@ -246,6 +352,10 @@ export async function createPost(
     math: rendered.math,
     mermaid: rendered.mermaid
   };
+}
+
+function postRoute(abbrlink: string, wip: boolean): Post["route"] {
+  return wip ? `/wip/${abbrlink}/` : `/posts/${abbrlink}/`;
 }
 
 export async function createPage(
@@ -277,13 +387,13 @@ export async function createPage(
   };
 }
 
-async function renderPostMarkdownWithCache(sourcePath: string, parsed: FrontMatterFile<string>, data: Record<string, unknown>) {
+async function renderPostMarkdownWithCache(sourcePath: string, parsed: FrontMatterFile<string>, data: Record<string, unknown>, route: Post["route"]) {
   const key = await markdownCacheKey("post", parsed);
   const cachePath = markdownCachePath("post", sourcePath);
   const cached = await readMarkdownCache<PostMarkdownRender>(cachePath, key);
   if (cached) return cached;
 
-  const value = await renderPostMarkdown(parsed, data);
+  const value = await renderPostMarkdown(parsed, data, route);
   await writeMarkdownCache(cachePath, key, value);
   return value;
 }
@@ -303,10 +413,11 @@ async function renderPageMarkdownWithCache(sourcePath: string, parsed: FrontMatt
   return value;
 }
 
-async function renderPostMarkdown(parsed: FrontMatterFile<string>, data: Record<string, unknown>): Promise<PostMarkdownRender> {
+async function renderPostMarkdown(parsed: FrontMatterFile<string>, data: Record<string, unknown>, route: Post["route"]): Promise<PostMarkdownRender> {
   const { excerptMarkdown, moreAnchor, bodyMarkdown } = splitExcerpt(parsed.content.trim());
-  const excerptHtml = excerptMarkdown ? await renderMarkdownToHtml(excerptMarkdown) : "";
-  const body = await renderMarkdown(bodyMarkdown);
+  const markdownOptions = { assetBasePath: route };
+  const excerptHtml = excerptMarkdown ? await renderMarkdownToHtml(excerptMarkdown, markdownOptions) : "";
+  const body = await renderMarkdown(bodyMarkdown, markdownOptions);
 
   return {
     excerptMarkdown,

@@ -42,13 +42,13 @@ const shikiLanguages = [
 
 let markdownPromise: Promise<MarkdownIt> | undefined;
 
-export async function renderMarkdownToHtml(source: string) {
-  return (await renderMarkdown(source)).html;
+export async function renderMarkdownToHtml(source: string, options: RenderOptions = {}) {
+  return (await renderMarkdown(source, options)).html;
 }
 
-export async function renderMarkdown(source: string): Promise<{ html: string; toc: TocItem[] }> {
+export async function renderMarkdown(source: string, options: RenderOptions = {}): Promise<{ html: string; toc: TocItem[] }> {
   const markdown = await getMarkdown();
-  const env: RenderEnv = { toc: [], slugs: new Map() };
+  const env: RenderEnv = { assetBasePath: options.assetBasePath, toc: [], slugs: new Map() };
   return {
     html: markdown.render(source, env),
     toc: env.toc ?? []
@@ -108,6 +108,11 @@ async function createMarkdown() {
 
   markdown.renderer.rules.image = (tokens, idx, options, env, self) => {
     const token = tokens[idx];
+    const state = env as RenderEnv;
+    const src = token.attrGet("src");
+    if (src) {
+      token.attrSet("src", resolveAssetSrc(src, state.assetBasePath));
+    }
     token.attrSet("loading", token.attrGet("loading") ?? "lazy");
     token.attrSet("decoding", token.attrGet("decoding") ?? "async");
     return defaultImage(tokens, idx, options, env, self);
@@ -136,9 +141,30 @@ async function createMarkdown() {
 }
 
 type RenderEnv = {
+  assetBasePath?: string;
   toc?: TocItem[];
   slugs?: Map<string, number>;
 };
+
+type RenderOptions = {
+  assetBasePath?: string;
+};
+
+function resolveAssetSrc(src: string, assetBasePath?: string) {
+  if (!assetBasePath || !isRelativeAssetSrc(src)) return src;
+
+  const basePath = assetBasePath.endsWith("/") ? assetBasePath : `${assetBasePath}/`;
+  try {
+    const url = new URL(src, `https://asutorufa.local${basePath}`);
+    return `${url.pathname}${url.search}${url.hash}`;
+  } catch {
+    return src;
+  }
+}
+
+function isRelativeAssetSrc(src: string) {
+  return Boolean(src) && !src.startsWith("/") && !src.startsWith("#") && !src.startsWith("//") && !/^[a-z][a-z\d+.-]*:/i.test(src);
+}
 
 function uniqueSlug(text: string, slugs: Map<string, number>) {
   const base = slugify(text);
