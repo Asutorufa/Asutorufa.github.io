@@ -18,7 +18,7 @@ export function WipPage({ content, route }: AppProps) {
       {posts.length > 0 ? (
         <ol className="divide-y divide-blog-border-muted">
           {posts.map((post) => (
-            <li key={post.abbrlink} className="py-2 first:pt-0 last:pb-0">
+            <li key={post.abbrlink} className="py-2 first:pt-0 last:pb-0" data-scroll-route={post.route}>
               <a
                 className="group -mx-3 block rounded-lg px-3 py-3 transition hover:-translate-y-0.5 hover:bg-blog-accent-soft active:translate-y-0 active:bg-blog-bg"
                 href={post.route}

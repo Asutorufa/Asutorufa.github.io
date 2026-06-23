@@ -58,7 +58,7 @@ export function renderHtmlShell(options: { appHtml: string; assets: ClientAssets
     </html>
   );
 
-  return minifyGeneratedHtml(`<!doctype html>${renderToStaticMarkup(shell)}`);
+  return `<!doctype html>${renderToStaticMarkup(shell)}`;
 }
 
 export function readViteAssets(manifest: Record<string, { file?: string; css?: string[]; imports?: string[] }>): ClientAssets {
@@ -102,23 +102,6 @@ function canonicalHostRedirectScript(siteUrl: string) {
 
 function themeBootstrapScript() {
   return `(()=>{let p="system";try{p=localStorage.getItem("asutorufa-theme")||p}catch{}p=p==="light"||p==="dark"||p==="system"?p:"system";const d=p==="dark"||p==="system"&&matchMedia("(prefers-color-scheme: dark)").matches,r=document.documentElement,m=document.querySelector('meta[name="theme-color"]');r.classList.toggle("dark-mode",d);r.classList.toggle("light-mode",!d);r.dataset.themePreference=p;m?.setAttribute("content",d?${JSON.stringify(THEME_COLOR_DARK)}:${JSON.stringify(THEME_COLOR_LIGHT)})})();`;
-}
-
-function minifyGeneratedHtml(html: string) {
-  const preserved: string[] = [];
-  const tokenPrefix = "___ASUTORUFA_HTML_PRESERVE_";
-  const withTokens = html.replace(/<(script|style|pre|textarea)\b[\s\S]*?<\/\1>/gi, (match) => {
-    const token = `${tokenPrefix}${preserved.length}___`;
-    preserved.push(match);
-    return token;
-  });
-
-  const minified = withTokens
-    .replace(/>\s*\n\s*</g, "><")
-    .replace(/\s*\n\s*/g, " ")
-    .replace(/^\s+|\s+$/g, "");
-
-  return preserved.reduce((value, block, index) => value.replace(`${tokenPrefix}${index}___`, block), minified);
 }
 
 export function commonContentForClient(content: ContentManifest): CommonContent {

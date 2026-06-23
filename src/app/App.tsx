@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { Router } from "wouter";
+import { ImagePreviewHost } from "../components/ImagePreviewHost";
 import { BlogLayout } from "../components/BlogLayout";
 import { LANGUAGE_META, UI_LABELS } from "../data/i18n";
 import { ArchivePage } from "../pages/ArchivePage";
@@ -17,22 +18,25 @@ import { parsePagePayloadHtml } from "./page-payload-html";
 import { mergePagePayload } from "./page-payload";
 
 type RouteHistoryState = {
+  canGoBack?: boolean;
   route?: string;
+  scroll?: ScrollPosition;
   scrollX?: number;
   scrollY?: number;
-  canGoBack?: boolean;
 };
 
 type ScrollPosition = {
-  scrollX: number;
-  scrollY: number;
   anchorOffset?: number;
   anchorRoute?: string;
+  x: number;
+  y: number;
 };
 
 const pagePayloadCache = new Map<string, PagePayload | Promise<PagePayload>>();
-const scrollPositions = new Map<string, ScrollPosition>();
 const ENABLE_ROUTE_SCROLL_RESTORE = true;
+const ROUTE_RESTORE_DURATION_MS = 520;
+const ROUTE_RESTORE_SUPPRESSION_MS = 720;
+const SCROLL_STATE_WRITE_INTERVAL_MS = 850;
 
 export function App(props: AppProps) {
   const [content, setContent] = useState(props.content);
@@ -52,78 +56,151 @@ export function App(props: AppProps) {
     if (typeof window === "undefined") return;
 
     window.history.scrollRestoration = "manual";
-    if (!historyState(window.history.state).route) {
-      replaceRouteState(routeRef.current.route);
-    }
-    if (ENABLE_ROUTE_SCROLL_RESTORE) rememberScrollPosition();
 
     let saveScrollFrame = 0;
+    let saveScrollTimeout = 0;
+    let lastScrollStateWrite = 0;
     let suppressScrollSaveUntil = 0;
+    let restoreRun = 0;
 
-    function replaceRouteState(routePath: string) {
-      window.history.replaceState({ ...historyState(window.history.state), route: routePath }, "", window.location.href);
-    }
-
-    function rememberScrollPosition(routePath = routeRef.current.route) {
-      const anchor = currentScrollAnchor();
-      const position = {
-        ...anchor,
-        scrollX: window.scrollX,
-        scrollY: window.scrollY
-      };
-      scrollPositions.set(routePath, position);
+    const replaceRouteState = (state: RouteHistoryState, url = window.location.href) => {
       try {
-        sessionStorage.setItem(scrollStorageKey(routePath), JSON.stringify(position));
-      } catch {
-        // Ignore storage failures; the in-memory map still covers this tab.
+        window.history.replaceState(state, "", url);
+        lastScrollStateWrite = performance.now();
+        return true;
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "SecurityError") {
+          suppressScrollSaveUntil = performance.now() + SCROLL_STATE_WRITE_INTERVAL_MS * 2;
+          return false;
+        }
+        throw error;
       }
-    }
+    };
 
-    function scheduleScrollStateSave() {
-      if (!ENABLE_ROUTE_SCROLL_RESTORE) return;
-      if (performance.now() < suppressScrollSaveUntil) return;
+    const currentRouteState = (routePath = routeRef.current.route): RouteHistoryState => ({
+      ...historyState(window.history.state),
+      route: routePath
+    });
+
+    const saveCurrentScrollState = (routePath = routeRef.current.route, force = false) => {
+      if (!ENABLE_ROUTE_SCROLL_RESTORE || isDocumentScrollLocked()) return;
+      if (!force && performance.now() - lastScrollStateWrite < SCROLL_STATE_WRITE_INTERVAL_MS) return;
+
+      const state = {
+        ...currentRouteState(routePath),
+        scroll: captureScrollPosition()
+      };
+      replaceRouteState(state);
+    };
+
+    const resetPendingScrollSave = () => {
       window.cancelAnimationFrame(saveScrollFrame);
-      saveScrollFrame = window.requestAnimationFrame(() => rememberScrollPosition());
-    }
+      window.clearTimeout(saveScrollTimeout);
+      saveScrollFrame = 0;
+      saveScrollTimeout = 0;
+    };
+
+    const scheduleScrollStateSave = () => {
+      if (!ENABLE_ROUTE_SCROLL_RESTORE) return;
+      if (isDocumentScrollLocked()) return;
+      if (performance.now() < suppressScrollSaveUntil) return;
+      if (saveScrollFrame || saveScrollTimeout) return;
+
+      const delay = Math.max(0, SCROLL_STATE_WRITE_INTERVAL_MS - (performance.now() - lastScrollStateWrite));
+      const queueWrite = () => {
+        saveScrollTimeout = 0;
+        saveScrollFrame = window.requestAnimationFrame(() => {
+          saveScrollFrame = 0;
+          saveCurrentScrollState();
+        });
+      };
+
+      if (delay > 0) {
+        saveScrollTimeout = window.setTimeout(queueWrite, delay);
+      } else {
+        queueWrite();
+      }
+    };
+
+    const restoreAfterRender = (position: ScrollPosition, hash?: string, transitionOriginY?: number) => {
+      const run = ++restoreRun;
+      const started = performance.now();
+      suppressScrollSaveUntil = performance.now() + ROUTE_RESTORE_SUPPRESSION_MS;
+
+      const restoreFrame = () => {
+        if (run !== restoreRun) return;
+
+        restoreRoutePosition(position, hash, transitionOriginY);
+        if (performance.now() - started < ROUTE_RESTORE_DURATION_MS) {
+          window.requestAnimationFrame(restoreFrame);
+          return;
+        }
+
+        suppressScrollSaveUntil = performance.now() + 120;
+        saveCurrentScrollState(routeRef.current.route, true);
+      };
+
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(restoreFrame);
+      });
+    };
+
+    const ensureInitialHistoryState = () => {
+      const state = historyState(window.history.state);
+      if (state.route === routeRef.current.route && state.scroll) return;
+      replaceRouteState({
+        ...state,
+        route: routeRef.current.route,
+        scroll: state.scroll ?? captureScrollPosition()
+      });
+    };
+
+    ensureInitialHistoryState();
 
     const navigate = async (
       url: URL,
       options: {
         mode: "push" | "replace";
-        saveCurrentScroll: boolean;
         restoreState?: RouteHistoryState;
+        saveCurrentScroll: boolean;
         transitionOriginY?: number;
       }
     ) => {
-      if (ENABLE_ROUTE_SCROLL_RESTORE && options.saveCurrentScroll) rememberScrollPosition();
-      setRouteLoading(true);
+      restoreRun += 1;
+      resetPendingScrollSave();
+      if (options.saveCurrentScroll) saveCurrentScrollState(routeRef.current.route, true);
 
-      let payload: PagePayload;
-      try {
-        payload = await loadPagePayload(url);
-      } catch {
-        setRouteLoading(false);
-        window.location.href = url.toString();
+      if (normalizeRoutePath(url.pathname) === routeRef.current.route && options.mode === "replace") {
+        const state = historyState(options.restoreState ?? window.history.state);
+        replaceRouteState({
+          ...state,
+          route: routeRef.current.route,
+          scroll: scrollPositionFromState(state)
+        });
+        restoreAfterRender(scrollPositionFromState(state), url.hash, options.transitionOriginY);
         return;
       }
-      const nextContent = mergePagePayload(payload.commonContent ?? contentRef.current, payload);
 
-      const nextUrl = `${url.pathname}${url.search}${url.hash}`;
-      const restorePosition =
-        ENABLE_ROUTE_SCROLL_RESTORE && options.restoreState ? scrollPositionForRoute(payload.route.route, options.restoreState) : { scrollX: 0, scrollY: 0 };
-      const previousState = historyState(options.restoreState);
-      const nextState = {
-        ...previousState,
-        route: payload.route.route,
-        canGoBack: options.mode === "push" ? true : previousState.canGoBack
-      };
-      if (options.mode === "push") {
-        window.history.pushState(nextState, "", nextUrl);
-      } else {
-        window.history.replaceState(nextState, "", nextUrl);
-      }
+      setRouteLoading(true);
 
-      const commitRouteChange = (restoreBeforeSnapshot = false) => {
+      try {
+        const payload = await loadPagePayload(url);
+        const nextContent = mergePagePayload(payload.commonContent ?? contentRef.current, payload);
+        const nextUrl = `${url.pathname}${url.search}${url.hash}`;
+        const previousState = historyState(options.restoreState ?? window.history.state);
+        const nextState: RouteHistoryState = {
+          ...previousState,
+          canGoBack: options.mode === "push" ? true : previousState.canGoBack,
+          route: payload.route.route,
+          scroll: options.mode === "push" ? initialScrollPosition() : scrollPositionFromState(previousState)
+        };
+
+        if (options.mode === "push") {
+          window.history.pushState(nextState, "", nextUrl);
+        } else {
+          replaceRouteState(nextState, nextUrl);
+        }
+
         contentRef.current = nextContent;
         routeRef.current = payload.route;
         flushSync(() => {
@@ -132,25 +209,19 @@ export function App(props: AppProps) {
           setRouteLoading(false);
         });
         updateDocumentMeta(nextContent, payload.route, payload.description);
-        if (restoreBeforeSnapshot) {
-          suppressScrollSaveUntil = performance.now() + 450;
-          restoreRoutePosition(restorePosition, url.hash, options.transitionOriginY);
-        }
         window.dispatchEvent(new Event("asutorufa-route-change"));
-      };
 
-      commitRouteChange();
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          suppressScrollSaveUntil = performance.now() + 900;
-          restoreRoutePosition(restorePosition, url.hash, options.transitionOriginY);
-          rememberScrollPosition(payload.route.route);
-        });
-      });
+        restoreAfterRender(nextState.scroll ?? initialScrollPosition(), url.hash, options.transitionOriginY);
+      } catch (error) {
+        console.error("Failed to navigate", error);
+        setRouteLoading(false);
+        loadUrlDocument(url);
+      }
     };
 
     const onClick = (event: MouseEvent) => {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (isArticleImagePreviewTarget(event.target)) return;
 
       const anchor = (event.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
       if (!anchor || !shouldHandleLink(anchor)) return;
@@ -169,9 +240,13 @@ export function App(props: AppProps) {
     const onPopState = (event: PopStateEvent) => {
       void navigate(new URL(window.location.href), {
         mode: "replace",
-        saveCurrentScroll: false,
-        restoreState: historyState(event.state)
+        restoreState: historyState(event.state),
+        saveCurrentScroll: false
       });
+    };
+
+    const onPageHide = () => {
+      saveCurrentScrollState(routeRef.current.route, true);
     };
 
     if (ENABLE_ROUTE_SCROLL_RESTORE) {
@@ -180,23 +255,29 @@ export function App(props: AppProps) {
     }
     document.addEventListener("click", onClick, true);
     window.addEventListener("popstate", onPopState);
+    window.addEventListener("pagehide", onPageHide);
     return () => {
-      window.cancelAnimationFrame(saveScrollFrame);
+      resetPendingScrollSave();
+      restoreRun += 1;
       if (ENABLE_ROUTE_SCROLL_RESTORE) {
         window.removeEventListener("scroll", scheduleScrollStateSave);
         window.removeEventListener("resize", scheduleScrollStateSave);
       }
       document.removeEventListener("click", onClick, true);
       window.removeEventListener("popstate", onPopState);
+      window.removeEventListener("pagehide", onPageHide);
     };
   }, []);
 
   return (
-    <Router ssrPath={route.route}>
-      <BlogLayout {...currentProps} routeLoading={routeLoading}>
-        {renderRoute(currentProps)}
-      </BlogLayout>
-    </Router>
+    <>
+      <Router ssrPath={route.route}>
+        <BlogLayout {...currentProps} routeLoading={routeLoading}>
+          {renderRoute(currentProps)}
+        </BlogLayout>
+      </Router>
+      <ImagePreviewHost />
+    </>
   );
 }
 
@@ -324,6 +405,15 @@ function shouldHandleLink(anchor: HTMLAnchorElement) {
   return true;
 }
 
+function isDocumentScrollLocked() {
+  return document.documentElement.dataset.scrollLocked === "true";
+}
+
+function isArticleImagePreviewTarget(target: EventTarget | null) {
+  if (!(target instanceof Element)) return false;
+  return Boolean(target.closest("img")?.closest("[data-article-body]"));
+}
+
 function readMoreTransitionOriginY(anchor: HTMLAnchorElement) {
   if (!anchor.classList.contains("read-more-button")) return undefined;
   const rect = anchor.getBoundingClientRect();
@@ -333,6 +423,15 @@ function readMoreTransitionOriginY(anchor: HTMLAnchorElement) {
 function sameDocumentHash(url: URL) {
   if (!url.hash) return false;
   return url.pathname === window.location.pathname && url.search === window.location.search;
+}
+
+function loadUrlDocument(url: URL) {
+  const nextUrl = url.toString();
+  if (nextUrl === window.location.href) {
+    window.location.reload();
+    return;
+  }
+  window.location.href = nextUrl;
 }
 
 function normalizeRoutePath(pathname: string) {
@@ -384,32 +483,23 @@ function currentDocumentDescription() {
   return document.querySelector('meta[name="description"]')?.getAttribute("content") ?? undefined;
 }
 
-function scrollPositionForRoute(routePath: string, fallback?: RouteHistoryState): ScrollPosition {
-  const cached = scrollPositions.get(routePath);
-  if (cached) return cached;
+function initialScrollPosition(): ScrollPosition {
+  return { x: 0, y: 0 };
+}
 
-  try {
-    const stored = sessionStorage.getItem(scrollStorageKey(routePath));
-    if (stored) {
-      const parsed = JSON.parse(stored) as Partial<ScrollPosition>;
-      if (typeof parsed.scrollX === "number" && typeof parsed.scrollY === "number") {
-        const position = {
-          anchorOffset: typeof parsed.anchorOffset === "number" ? parsed.anchorOffset : undefined,
-          anchorRoute: typeof parsed.anchorRoute === "string" ? parsed.anchorRoute : undefined,
-          scrollX: parsed.scrollX,
-          scrollY: parsed.scrollY
-        };
-        scrollPositions.set(routePath, position);
-        return position;
-      }
-    }
-  } catch {
-    // Fall back to history state or top.
-  }
-
+function captureScrollPosition(): ScrollPosition {
   return {
-    scrollX: fallback?.scrollX ?? 0,
-    scrollY: fallback?.scrollY ?? 0
+    ...currentScrollAnchor(),
+    x: window.scrollX,
+    y: window.scrollY
+  };
+}
+
+function scrollPositionFromState(state: RouteHistoryState): ScrollPosition {
+  if (state.scroll) return state.scroll;
+  return {
+    x: state.scrollX ?? 0,
+    y: state.scrollY ?? 0
   };
 }
 
@@ -417,44 +507,18 @@ function restoreScrollPosition(position: ScrollPosition) {
   const anchor = position.anchorRoute ? scrollAnchorElement(position.anchorRoute) : undefined;
   const target = anchor
     ? {
-        scrollX: position.scrollX,
-        scrollY: window.scrollY + anchor.getBoundingClientRect().top - (position.anchorOffset ?? 0)
+        x: position.x,
+        y: window.scrollY + anchor.getBoundingClientRect().top - (position.anchorOffset ?? 0)
       }
     : position;
   instantScrollTo(target);
-
-  if (anchor) {
-    requestAnimationFrame(() => {
-      instantScrollTo({
-        scrollX: position.scrollX,
-        scrollY: window.scrollY + anchor.getBoundingClientRect().top - (position.anchorOffset ?? 0)
-      });
-    });
-  }
 }
 
 function restoreRoutePosition(position: ScrollPosition, hash?: string, transitionOriginY?: number) {
   if (hash && restoreHashPosition(hash, transitionOriginY)) {
     return;
   }
-  if (hash) {
-    restoreHashPositionWhenReady(hash, transitionOriginY, () => restoreScrollPosition(position));
-    return;
-  }
   restoreScrollPosition(position);
-}
-
-function restoreHashPositionWhenReady(hash: string, transitionOriginY: number | undefined, fallback: () => void) {
-  const start = performance.now();
-  const retry = () => {
-    if (restoreHashPosition(hash, transitionOriginY)) return;
-    if (performance.now() - start > 900) {
-      fallback();
-      return;
-    }
-    requestAnimationFrame(retry);
-  };
-  requestAnimationFrame(retry);
 }
 
 function restoreHashPosition(hash: string, transitionOriginY?: number) {
@@ -464,13 +528,13 @@ function restoreHashPosition(hash: string, transitionOriginY?: number) {
   if (typeof transitionOriginY === "number") {
     const targetTop = Math.max(72, Math.min(transitionOriginY, window.innerHeight - 96));
     instantScrollTo({
-      scrollX: 0,
-      scrollY: window.scrollY + anchor.getBoundingClientRect().top - targetTop
+      x: 0,
+      y: window.scrollY + anchor.getBoundingClientRect().top - targetTop
     });
   } else {
     instantScrollTo({
-      scrollX: 0,
-      scrollY: window.scrollY + anchor.getBoundingClientRect().top
+      x: 0,
+      y: window.scrollY + anchor.getBoundingClientRect().top
     });
   }
   return true;
@@ -479,8 +543,8 @@ function restoreHashPosition(hash: string, transitionOriginY?: number) {
 function instantScrollTo(position: ScrollPosition) {
   const maxScrollX = Math.max(0, document.documentElement.scrollWidth - window.innerWidth);
   const maxScrollY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-  const scrollX = Math.max(0, Math.min(position.scrollX, maxScrollX));
-  const scrollY = Math.max(0, Math.min(position.scrollY, maxScrollY));
+  const scrollX = Math.max(0, Math.min(position.x, maxScrollX));
+  const scrollY = Math.max(0, Math.min(position.y, maxScrollY));
 
   if (Math.abs(window.scrollX - scrollX) < 2 && Math.abs(window.scrollY - scrollY) < 2) return;
 
@@ -522,17 +586,28 @@ function scrollAnchorElement(anchorRoute: string) {
   return Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-route]")).find((element) => element.dataset.scrollRoute === anchorRoute);
 }
 
-function scrollStorageKey(routePath: string) {
-  return `asutorufa-scroll:${routePath}`;
-}
-
 function historyState(value: unknown): RouteHistoryState {
   if (!value || typeof value !== "object") return {};
   const state = value as RouteHistoryState;
+  const scroll = scrollPositionValue(state.scroll);
   return {
+    canGoBack: state.canGoBack === true ? true : undefined,
     route: typeof state.route === "string" ? state.route : undefined,
+    scroll,
     scrollX: typeof state.scrollX === "number" ? state.scrollX : undefined,
-    scrollY: typeof state.scrollY === "number" ? state.scrollY : undefined,
-    canGoBack: state.canGoBack === true ? true : undefined
+    scrollY: typeof state.scrollY === "number" ? state.scrollY : undefined
+  };
+}
+
+function scrollPositionValue(value: unknown): ScrollPosition | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  const position = value as Partial<ScrollPosition>;
+  if (typeof position.x !== "number" || typeof position.y !== "number") return undefined;
+
+  return {
+    anchorOffset: typeof position.anchorOffset === "number" ? position.anchorOffset : undefined,
+    anchorRoute: typeof position.anchorRoute === "string" ? position.anchorRoute : undefined,
+    x: position.x,
+    y: position.y
   };
 }

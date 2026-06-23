@@ -98,7 +98,7 @@ async function createMarkdown() {
     const language = token.info.trim().split(/\s+/)[0]?.toLowerCase();
 
     if (language === "mermaid") {
-      return `<div class="mermaid mermaid-pending" data-mermaid-source="${escapeHtml(token.content)}" aria-busy="true"></div>`;
+      return `<div class="mermaid mermaid-pending" aria-busy="true"><template data-mermaid-source>${escapeHtml(token.content)}</template></div>`;
     }
 
     return defaultFence(tokens, idx, options, env, self);

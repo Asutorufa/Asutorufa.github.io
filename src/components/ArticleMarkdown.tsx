@@ -1,7 +1,6 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAnimate, useReducedMotion } from "motion/react";
 import type { ImagePreviewState } from "./ImagePreview";
-import { ImagePreviewLoading } from "./ImagePreviewLoading";
 
 type ArticleMarkdownProps = {
   html: string;
@@ -9,18 +8,15 @@ type ArticleMarkdownProps = {
 
 type MermaidRenderer = typeof import("mermaid").default;
 
-const ImagePreview = lazy(() => import("./ImagePreview").then((module) => ({ default: module.ImagePreview })));
-
 export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
   const [scope, animate] = useAnimate<HTMLDivElement>();
-  const [preview, setPreview] = useState<ImagePreviewState | null>(null);
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const container = scope.current;
     if (!container) return;
 
-    hydrateLazyImages(container);
+    const cleanupLazyImages = hydrateLazyImages(container);
     const cleanupMotionBlocks = hydrateMotionBlocks(container, animate, prefersReducedMotion);
 
     const openImagePreview = (image: HTMLImageElement) => {
@@ -32,16 +28,28 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
         slides.findIndex((slide) => slide.src === selectedSrc)
       );
 
-      if (slides.length > 0) setPreview({ index, slides });
+      if (slides.length > 0) {
+        window.dispatchEvent(
+          new CustomEvent<ImagePreviewState>("asutorufa-image-preview", { detail: { index, origin: getImagePreviewOrigin(image), slides } })
+        );
+      }
     };
 
     const onClick = (event: MouseEvent) => {
       const image = (event.target as Element | null)?.closest?.("img") as HTMLImageElement | null;
       if (!image || !container.contains(image)) return;
       event.preventDefault();
+      event.stopPropagation();
       openImagePreview(image);
     };
 
+    const onPointerDown = (event: PointerEvent) => {
+      const image = (event.target as Element | null)?.closest?.("img") as HTMLImageElement | null;
+      if (!image || !container.contains(image)) return;
+      event.preventDefault();
+    };
+
+    container.addEventListener("pointerdown", onPointerDown, true);
     container.addEventListener("click", onClick);
 
     const onKeyDown = (event: KeyboardEvent) => {
@@ -61,6 +69,7 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
     let intersectionObserver: IntersectionObserver | undefined;
 
     const renderedNodes = new Set<HTMLElement>();
+    const mermaidSources = new WeakMap<HTMLElement, string>();
 
     const getMermaid = () => {
       mermaidPromise ??= import("mermaid").then((module) => module.default);
@@ -68,13 +77,15 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
     };
 
     const prepareMermaidNode = (node: HTMLElement) => {
-      node.dataset.mermaidSource ||= node.textContent ?? "";
+      mermaidSources.set(node, mermaidSourceFromNode(node));
+      node.removeAttribute("data-mermaid-source");
+      node.removeAttribute("data-mermaid-source-format");
       node.classList.add("mermaid-pending");
       node.setAttribute("aria-busy", "true");
     };
 
     const renderMermaidNodesNow = async (nodes: HTMLElement[]) => {
-      const renderableNodes = nodes.filter((node) => node.isConnected && node.dataset.mermaidSource);
+      const renderableNodes = nodes.filter((node) => node.isConnected && mermaidSources.get(node));
       if (renderableNodes.length === 0) return;
 
       const mermaid = await getMermaid();
@@ -82,7 +93,7 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
 
       for (const node of renderableNodes) {
         node.removeAttribute("data-processed");
-        node.textContent = node.dataset.mermaidSource ?? "";
+        node.textContent = mermaidSources.get(node) ?? "";
       }
 
       try {
@@ -172,34 +183,59 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
     return () => {
       cancelled = true;
       window.clearTimeout(scheduledRender);
+      cleanupLazyImages();
       cleanupMotionBlocks();
       intersectionObserver?.disconnect();
       observer.disconnect();
+      container.removeEventListener("pointerdown", onPointerDown, true);
       container.removeEventListener("click", onClick);
       container.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("asutorufa-theme-change", scheduleRenderedMermaidRefresh);
     };
   }, [animate, html, prefersReducedMotion, scope]);
 
-  const closePreview = () => setPreview(null);
-
-  return (
-    <>
-      <div ref={scope} className="article-content" data-article-body="" dangerouslySetInnerHTML={{ __html: html }} />
-      {preview ? (
-        <Suspense fallback={<ImagePreviewLoading />}>
-          <ImagePreview preview={preview} onClose={closePreview} />
-        </Suspense>
-      ) : null}
-    </>
-  );
+  return <div ref={scope} className="article-content" data-article-body="" dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
 function hydrateLazyImages(container: HTMLElement) {
+  const cleanups: Array<() => void> = [];
+
   for (const image of container.querySelectorAll<HTMLImageElement>("img")) {
     image.loading ||= "lazy";
     image.decoding ||= "async";
     if (!image.hasAttribute("tabindex")) image.tabIndex = 0;
+
+    if (image.complete && image.naturalWidth > 0) {
+      image.classList.remove("image-loading");
+      continue;
+    }
+
+    const markLoaded = () => image.classList.remove("image-loading");
+    image.classList.add("image-loading");
+    image.addEventListener("load", markLoaded);
+    image.addEventListener("error", markLoaded);
+    cleanups.push(() => {
+      image.removeEventListener("load", markLoaded);
+      image.removeEventListener("error", markLoaded);
+    });
+  }
+
+  return () => {
+    for (const cleanup of cleanups) cleanup();
+  };
+}
+
+function mermaidSourceFromNode(node: HTMLElement) {
+  const template = node.querySelector<HTMLTemplateElement>("template[data-mermaid-source]");
+  if (template) return template.content.textContent ?? "";
+
+  const source = node.dataset.mermaidSource;
+  if (node.dataset.mermaidSourceFormat !== "uri") return source || node.textContent || "";
+
+  try {
+    return source ? decodeURIComponent(source) : "";
+  } catch {
+    return source || "";
   }
 }
 
@@ -258,6 +294,20 @@ function toPreviewSlide(image: HTMLImageElement) {
     height: image.naturalHeight || undefined,
     src,
     width: image.naturalWidth || undefined
+  };
+}
+
+function getImagePreviewOrigin(image: HTMLImageElement) {
+  const rect = image.getBoundingClientRect();
+  if (rect.width <= 0 || rect.height <= 0) return undefined;
+
+  const radius = Number.parseFloat(getComputedStyle(image).borderTopLeftRadius);
+  return {
+    borderRadius: Number.isFinite(radius) ? radius : undefined,
+    height: rect.height,
+    left: rect.left,
+    top: rect.top,
+    width: rect.width
   };
 }
 

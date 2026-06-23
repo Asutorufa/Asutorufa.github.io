@@ -45,7 +45,7 @@ export function TaxonomyPage({ content, route, type, name, page = 1 }: TaxonomyP
             </h1>
           </header>
           {posts.map((post) => (
-            <article key={post.abbrlink} className={styles.entry}>
+            <article key={post.abbrlink} className={styles.entry} data-scroll-route={post.route}>
               <time>{formatTaxonomyDate(post.date)}</time>
               <a href={post.route}>{post.title}</a>
             </article>

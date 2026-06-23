@@ -129,6 +129,7 @@ html {
   background: var(--blog-bg);
   scroll-behavior: auto;
   scrollbar-color: var(--blog-scrollbar) transparent;
+  scrollbar-gutter: stable;
   scrollbar-width: thin;
 }
 
@@ -464,14 +465,35 @@ pre.shiki.code-block {
 }
 
 .article-content img {
-  background: var(--blog-image-paper);
-  border: 1px solid var(--blog-image-paper-border);
   border-radius: 0.5rem;
   cursor: zoom-in;
   display: block;
   height: auto;
   max-width: 100%;
-  padding: 0.35rem;
+}
+
+.article-content img.image-loading {
+  animation: article-image-loading 1.2s ease-in-out infinite;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--blog-surface) 54%, transparent), transparent), var(--blog-surface-muted);
+  background-size:
+    180% 100%,
+    100% 100%;
+  min-height: 8rem;
+  min-width: min(100%, 16rem);
+}
+
+@keyframes article-image-loading {
+  from {
+    background-position:
+      180% 0,
+      0 0;
+  }
+
+  to {
+    background-position:
+      -180% 0,
+      0 0;
+  }
 }
 
 .article-content img:focus-visible {
@@ -503,6 +525,12 @@ pre.shiki.code-block {
   .article-content th,
   .article-content td {
     padding: 0.58rem 0.72rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .article-content img.image-loading {
+    animation: none;
   }
 }
 

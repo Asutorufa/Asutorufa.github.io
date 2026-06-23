@@ -35,7 +35,7 @@ export function ArchivePage({ content, route, year, month, page = 1 }: ArchivePa
             <section key={group.year} className={styles.year}>
               <h2>{group.year}</h2>
               {group.posts.map((post) => (
-                <article key={post.abbrlink} className={styles.entry}>
+                <article key={post.abbrlink} className={styles.entry} data-scroll-route={post.route}>
                   <time>{formatArchiveDate(post.date)}</time>
                   <a href={post.route}>{post.title}</a>
                 </article>
