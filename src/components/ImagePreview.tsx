@@ -45,6 +45,7 @@ const MOBILE_IMAGE_PADDING_Y = 152;
 
 type FigureExitMode = "close" | "switch";
 type NavigationDirection = -1 | 0 | 1;
+type PanLimits = { maxX: number; maxY: number };
 
 type WebKitGestureEvent = Event & {
   scale: number;
@@ -104,6 +105,7 @@ export function ImagePreview({ preview, onClose }: ImagePreviewProps) {
 
   const activeSlide = slides[index];
   const targetBox = useMemo(() => getTargetBox(activeSlide, viewportSize), [activeSlide, viewportSize]);
+  const panLimits = useMemo(() => getPanLimits(targetBox, scale, viewportSize), [scale, targetBox, viewportSize]);
   const sourceMotion = useMemo(() => {
     if (!preview?.origin || !targetBox || index !== preview.index) return undefined;
     return getOriginMotion(preview.origin, targetBox, viewportSize);
@@ -114,6 +116,7 @@ export function ImagePreview({ preview, onClose }: ImagePreviewProps) {
   const canMove = slides.length > 1;
   const canZoomOut = scale > MIN_SCALE;
   const canZoomIn = scale < MAX_SCALE;
+  const imageTransformed = scale > MIN_SCALE || offset.x !== 0 || offset.y !== 0;
 
   const resetImageTransform = useCallback(() => {
     setScale(MIN_SCALE);
@@ -193,7 +196,7 @@ export function ImagePreview({ preview, onClose }: ImagePreviewProps) {
       }
 
       if (!isPinch && scale > MIN_SCALE && (horizontal > 0 || vertical > 0)) {
-        setOffset((current) => ({ x: current.x - deltaX, y: current.y - deltaY }));
+        setOffset((current) => clampOffset({ x: current.x - deltaX, y: current.y - deltaY }, panLimits));
         return;
       }
 
@@ -201,7 +204,7 @@ export function ImagePreview({ preview, onClose }: ImagePreviewProps) {
         zoomByFactor(Math.exp(-deltaY * 0.003));
       }
     },
-    [activeSlide, canMove, move, scale, zoomByFactor]
+    [activeSlide, canMove, move, panLimits, scale, zoomByFactor]
   );
 
   useEffect(() => {
@@ -259,8 +262,19 @@ export function ImagePreview({ preview, onClose }: ImagePreviewProps) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [move, open, resetImageTransform, zoom]);
 
+  useEffect(() => {
+    setOffset((current) => {
+      const next = clampOffset(current, panLimits);
+      if (next.x === current.x && next.y === current.y) return current;
+      return next;
+    });
+  }, [panLimits]);
+
   const imageDrag = scale > MIN_SCALE ? true : canMove ? "x" : false;
-  const imageDragConstraints = scale > MIN_SCALE ? undefined : { left: 0, right: 0 };
+  const imageDragConstraints =
+    scale > MIN_SCALE
+      ? { left: -panLimits.maxX, right: panLimits.maxX, top: -panLimits.maxY, bottom: panLimits.maxY }
+      : { left: 0, right: 0 };
   const imageStyle = useMemo(() => ({ cursor: scale > MIN_SCALE || canMove ? "grab" : "zoom-in" }), [canMove, scale]);
 
   const markImageElement = useCallback((image: HTMLImageElement | null) => {
@@ -300,7 +314,10 @@ export function ImagePreview({ preview, onClose }: ImagePreviewProps) {
             className={styles.figure}
             initial={getFigureInitial(originInitialMotion, prefersReducedMotion, navigationDirection, slideDistance)}
             animate={{ borderRadius: 8, opacity: 1, scaleX: 1, scaleY: 1, x: 0, y: 0 }}
-            exit={getFigureExit(exitMode === "close" ? sourceMotion : undefined, prefersReducedMotion, navigationDirection, exitMode, slideDistance)}
+            exit={getFigureExit(exitMode === "close" ? sourceMotion : undefined, prefersReducedMotion, navigationDirection, exitMode, slideDistance, {
+              offset,
+              scale
+            })}
             onAnimationComplete={() => {
               if (visible) setPlayedOpenTransition(true);
             }}
@@ -308,7 +325,7 @@ export function ImagePreview({ preview, onClose }: ImagePreviewProps) {
           >
             <div className={styles.imageFrame} style={targetBox ? { height: targetBox.height, width: targetBox.width } : undefined}>
               <motion.img
-                className={styles.image}
+                className={`${styles.image} ${imageTransformed ? styles.imageTransformed : styles.imageResting}`}
                 ref={markImageElement}
                 src={activeSlide.src}
                 alt={activeSlide.alt ?? ""}
@@ -337,7 +354,7 @@ export function ImagePreview({ preview, onClose }: ImagePreviewProps) {
                 }}
                 onDrag={(_, info) => {
                   if (scale === MIN_SCALE) return;
-                  setOffset({ x: dragOrigin.current.x + info.offset.x, y: dragOrigin.current.y + info.offset.y });
+                  setOffset(clampOffset({ x: dragOrigin.current.x + info.offset.x, y: dragOrigin.current.y + info.offset.y }, panLimits));
                 }}
                 onDragEnd={(_, info) => {
                   if (scale > MIN_SCALE || !canMove) return;
@@ -432,6 +449,17 @@ function getOriginMotion(origin: ImagePreviewOrigin, targetBox: { height: number
   };
 }
 
+function getPanLimits(targetBox: { height: number; width: number } | undefined, scale: number, viewportSize: { height: number; width: number }): PanLimits {
+  if (!targetBox || scale <= MIN_SCALE) return { maxX: 0, maxY: 0 };
+  const minimumVisibleSize = 96;
+  const scaledWidth = targetBox.width * scale;
+  const scaledHeight = targetBox.height * scale;
+  return {
+    maxX: Math.max(0, (scaledWidth + viewportSize.width) / 2 - minimumVisibleSize),
+    maxY: Math.max(0, (scaledHeight + viewportSize.height) / 2 - minimumVisibleSize)
+  };
+}
+
 function getFigureInitial(
   originMotion: ReturnType<typeof getOriginMotion> | undefined,
   prefersReducedMotion: boolean | null,
@@ -448,11 +476,24 @@ function getFigureExit(
   prefersReducedMotion: boolean | null,
   navigationDirection: NavigationDirection,
   exitMode: FigureExitMode,
-  slideDistance: number
+  slideDistance: number,
+  imageTransform: { offset: { x: number; y: number }; scale: number }
 ) {
   if (prefersReducedMotion) return { opacity: 0 };
   if (exitMode === "switch" && navigationDirection !== 0) return { opacity: 1, x: navigationDirection * -slideDistance };
-  return originMotion ? { ...originMotion, opacity: 1 } : { opacity: 0, scaleX: 0.96, scaleY: 0.96, y: 14 };
+  return originMotion ? { ...getCompensatedOriginMotion(originMotion, imageTransform), opacity: 1 } : { opacity: 0, scaleX: 0.96, scaleY: 0.96, y: 14 };
+}
+
+function getCompensatedOriginMotion(originMotion: ReturnType<typeof getOriginMotion>, imageTransform: { offset: { x: number; y: number }; scale: number }) {
+  const scaleX = originMotion.scaleX / imageTransform.scale;
+  const scaleY = originMotion.scaleY / imageTransform.scale;
+  return {
+    ...originMotion,
+    scaleX,
+    scaleY,
+    x: originMotion.x - scaleX * imageTransform.offset.x,
+    y: originMotion.y - scaleY * imageTransform.offset.y
+  };
 }
 
 function getFigureTransition(prefersReducedMotion: boolean | null) {
@@ -470,6 +511,13 @@ function getFigureTransition(prefersReducedMotion: boolean | null) {
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
+}
+
+function clampOffset(offset: { x: number; y: number }, limits: PanLimits) {
+  return {
+    x: clamp(offset.x, -limits.maxX, limits.maxX),
+    y: clamp(offset.y, -limits.maxY, limits.maxY)
+  };
 }
 
 function wrapIndex(value: number, length: number) {

@@ -28,7 +28,7 @@
   margin: 0;
   min-height: 0;
   min-width: 0;
-  pointer-events: auto;
+  pointer-events: none;
   position: relative;
   transform-origin: center;
   z-index: 1;
@@ -38,7 +38,6 @@
   background: transparent;
   border: 0;
   border-radius: 0.5rem;
-  box-shadow: 0 26px 76px rgb(0 0 0 / 0.24);
   box-sizing: border-box;
   display: block;
   max-height: calc(100dvh - 10rem);
@@ -46,16 +45,28 @@
   min-height: 1px;
   min-width: 1px;
   overflow: visible;
+  pointer-events: none;
   position: relative;
 }
 
 .image {
+  border-radius: inherit;
   display: block;
   height: 100%;
   width: 100%;
   object-fit: contain;
+  pointer-events: auto;
   touch-action: none;
   user-select: none;
+  will-change: opacity, transform;
+}
+
+.imageResting {
+  box-shadow: 0 18px 44px rgb(0 0 0 / 0.18);
+}
+
+.imageTransformed {
+  box-shadow: none;
 }
 
 .toolbar {
@@ -72,8 +83,7 @@
 .button,
 .scaleButton {
   align-items: center;
-  backdrop-filter: blur(8px);
-  background: color-mix(in srgb, var(--blog-surface-raised) 86%, transparent);
+  background: color-mix(in srgb, var(--blog-surface-raised) 94%, transparent);
   border: 1px solid var(--blog-border);
   border-radius: 999px;
   box-shadow:
@@ -146,8 +156,7 @@
 }
 
 .counter {
-  backdrop-filter: blur(10px);
-  background: color-mix(in srgb, var(--blog-surface-raised) 82%, transparent);
+  background: color-mix(in srgb, var(--blog-surface-raised) 94%, transparent);
   border: 1px solid var(--blog-border-soft);
   border-radius: 999px;
   bottom: 1rem;
@@ -167,8 +176,8 @@
   background: rgb(31 31 31 / 0.42);
 }
 
-:global(html.dark-mode) .imageFrame {
-  box-shadow: 0 30px 86px rgb(0 0 0 / 0.46);
+:global(html.dark-mode) .imageResting {
+  box-shadow: 0 20px 48px rgb(0 0 0 / 0.34);
 }
 
 .loader {
