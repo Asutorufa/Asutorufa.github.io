@@ -14,26 +14,3 @@ export const MotionPresets = {
     damping: 30
   }
 } as const;
-
-export const routeMotion = {
-  enter: {
-    opacity: 1,
-    y: 0
-  },
-  exit: {
-    opacity: 0,
-    y: -6
-  },
-  initial: {
-    opacity: 0,
-    y: 10
-  },
-  reducedExit: {
-    opacity: 0,
-    y: 0
-  },
-  reducedInitial: {
-    opacity: 0,
-    y: 0
-  }
-} as const;

@@ -78,6 +78,7 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
 
     const prepareMermaidNode = (node: HTMLElement) => {
       mermaidSources.set(node, mermaidSourceFromNode(node));
+      node.textContent = "";
       node.removeAttribute("data-mermaid-source");
       node.removeAttribute("data-mermaid-source-format");
       node.classList.add("mermaid-pending");
@@ -129,6 +130,7 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
           node.removeAttribute("aria-busy");
           node.classList.remove("mermaid-pending");
           node.classList.add("mermaid-error");
+          node.textContent = mermaidSources.get(node) ?? "";
         }
       }
     };

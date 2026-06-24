@@ -8,7 +8,7 @@ import { renderMarkdown, renderMarkdownToHtml } from "./render-markdown";
 import { normalizeTaxonomyName, routeSegment as sharedRouteSegment } from "../../src/utils/route";
 import type { FrontMatterFile } from "./front-matter";
 
-const MARKDOWN_CACHE_VERSION = 1;
+const MARKDOWN_CACHE_VERSION = 4;
 const markdownCacheDir = path.join(rootDir, ".cache/react-blog/markdown");
 const AUTO_EXCERPT_LENGTH = 180;
 
@@ -146,10 +146,11 @@ export function splitExcerpt(markdown: string) {
       bodyMarkdown: markdown
     };
   }
+  const moreAnchorMarkup = `<span id="${moreAnchor}" class="post-more-anchor" aria-hidden="true"></span>`;
   return {
     excerptMarkdown: markdown.slice(0, match.index).trim(),
     moreAnchor,
-    bodyMarkdown: markdown.replace(marker, `<span id="${moreAnchor}" class="post-more-anchor" aria-hidden="true"></span>`).trim()
+    bodyMarkdown: markdown.replace(marker, moreAnchorMarkup).trim()
   };
 }
 

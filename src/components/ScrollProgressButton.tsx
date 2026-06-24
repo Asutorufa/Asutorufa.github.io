@@ -41,9 +41,11 @@ export function ScrollProgressButton() {
     update();
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
+    window.addEventListener("asutorufa-route-change", update);
     return () => {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
+      window.removeEventListener("asutorufa-route-change", update);
     };
   }, []);
 

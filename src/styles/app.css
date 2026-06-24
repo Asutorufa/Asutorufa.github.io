@@ -377,25 +377,51 @@ pre.shiki.code-block {
 }
 
 .article-content .mermaid.mermaid-pending {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  min-height: 8rem;
+  background: var(--blog-surface-muted);
+  border: 1px solid var(--blog-border-soft);
+  border-radius: 0.75rem;
+  min-height: clamp(8rem, 28vw, 16rem);
+  overflow: hidden;
+  position: relative;
 }
 
 .article-content .mermaid.mermaid-pending::before {
-  animation: mermaid-loading-spin 0.8s linear infinite;
-  border: 2px solid var(--blog-border);
-  border-top-color: var(--blog-accent);
-  border-radius: 999px;
+  animation: article-skeleton-shimmer 1.35s ease-in-out infinite;
+  background: linear-gradient(100deg, transparent 10%, color-mix(in srgb, var(--blog-surface) 72%, transparent) 48%, transparent 82%);
   content: "";
-  height: 1.75rem;
-  width: 1.75rem;
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-110%);
+  z-index: 2;
 }
 
-@keyframes mermaid-loading-spin {
+.article-content .mermaid.mermaid-pending::after {
+  background:
+    radial-gradient(circle at 15% 28%, var(--blog-accent-soft) 0 0.62rem, transparent 0.66rem),
+    radial-gradient(circle at 50% 52%, var(--blog-surface) 0 0.72rem, transparent 0.76rem),
+    radial-gradient(circle at 84% 30%, var(--blog-accent-soft) 0 0.62rem, transparent 0.66rem),
+    linear-gradient(var(--blog-border-soft), var(--blog-border-soft)) 21% 29% / 22% 2px no-repeat,
+    linear-gradient(var(--blog-border-soft), var(--blog-border-soft)) 57% 42% / 21% 2px no-repeat,
+    linear-gradient(var(--blog-border-soft), var(--blog-border-soft)) 18% 70% / 58% 2px no-repeat,
+    linear-gradient(var(--blog-border-soft), var(--blog-border-soft)) 18% 28% / 2px 42% no-repeat,
+    linear-gradient(var(--blog-border-soft), var(--blog-border-soft)) 82% 30% / 2px 40% no-repeat;
+  border-radius: 0.6rem;
+  content: "";
+  inset: 1.25rem;
+  opacity: 0.78;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+@keyframes article-skeleton-shimmer {
+  from {
+    transform: translateX(-110%);
+  }
+
   to {
-    transform: rotate(360deg);
+    transform: translateX(110%);
   }
 }
 
@@ -473,13 +499,18 @@ pre.shiki.code-block {
 }
 
 .article-content img.image-loading {
-  animation: article-image-loading 1.2s ease-in-out infinite;
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--blog-surface) 54%, transparent), transparent), var(--blog-surface-muted);
+  animation: article-image-loading 1.35s ease-in-out infinite;
+  background:
+    linear-gradient(100deg, transparent 10%, color-mix(in srgb, var(--blog-surface) 72%, transparent) 48%, transparent 82%),
+    linear-gradient(var(--blog-surface-muted), var(--blog-surface-muted));
   background-size:
-    180% 100%,
+    220% 100%,
     100% 100%;
-  min-height: 8rem;
+  box-shadow: inset 0 0 0 1px var(--blog-border-soft);
+  color: transparent;
+  min-height: clamp(8rem, 32vw, 22rem);
   min-width: min(100%, 16rem);
+  object-fit: contain;
 }
 
 @keyframes article-image-loading {
@@ -491,7 +522,7 @@ pre.shiki.code-block {
 
   to {
     background-position:
-      -180% 0,
+      -80% 0,
       0 0;
   }
 }
@@ -529,7 +560,8 @@ pre.shiki.code-block {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .article-content img.image-loading {
+  .article-content img.image-loading,
+  .article-content .mermaid.mermaid-pending::before {
     animation: none;
   }
 }
@@ -593,11 +625,6 @@ html.dark-mode .code-line::before {
 
 html.dark-mode .article-content .mermaid {
   background: transparent;
-}
-
-html.dark-mode .article-content .mermaid.mermaid-pending::before {
-  border-color: var(--blog-border);
-  border-top-color: var(--blog-accent);
 }
 
 html.dark-mode .article-content table {

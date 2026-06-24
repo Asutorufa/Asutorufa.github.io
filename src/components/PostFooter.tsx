@@ -59,6 +59,7 @@ export function PostFooter({ config, labels, post, olderPost, newerPost }: PostF
             className={styles.adjacentLink}
             href={olderPost.route}
             aria-label={`${labels.previous}: ${olderPost.title}`}
+            data-background-post-link=""
             variants={adjacentLinkVariants}
             whileHover={prefersReducedMotion ? undefined : "hover"}
             whileTap={prefersReducedMotion ? undefined : "tap"}
@@ -78,6 +79,7 @@ export function PostFooter({ config, labels, post, olderPost, newerPost }: PostF
             className={clsx(styles.adjacentLink, styles.adjacentNext)}
             href={newerPost.route}
             aria-label={`${labels.next}: ${newerPost.title}`}
+            data-background-post-link=""
             variants={adjacentLinkVariants}
             whileHover={prefersReducedMotion ? undefined : "hover"}
             whileTap={prefersReducedMotion ? undefined : "tap"}
