@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "hash": "981500af1043092bb16a0e2ec730b390bac9762e4bdab52aba061a0175dc40f4",
+  "hash": "d543c6a3fa9a54e1d48eb6792df4c74be930a6dc507f79fff10c3552007baa47",
   "files": [
     {
       "path": "index.html",
@@ -16,11 +16,11 @@
     },
     {
       "path": "src/animation/motion-presets.ts",
-      "hash": "d8475a243b3ba80265fbbf4e60c97b0f3098e3d4e676f3de817b2db005e0ba4f"
+      "hash": "053699a6a4595aad3e9616d5083bd3d8fd7a6ee946d844e5a440c74984e8bf7c"
     },
     {
       "path": "src/app/App.tsx",
-      "hash": "d76bcac532b4853c87921e1ec1c01494695c4fc5c8695bb6b68213c62d2ae34e"
+      "hash": "826ad4e9138c8cabd59d45eabba56735f92af9ae8b0a545a39d050d4ef97f081"
     },
     {
       "path": "src/app/app-types.ts",
@@ -43,12 +43,16 @@
       "hash": "6e0fae8f851ac2e57f23560de6ccb22cfb1a61cde26a7c10f5c597e920459f6c"
     },
     {
+      "path": "src/components/ArticleContent.tsx",
+      "hash": "6033cc42f21e319af42963cd261b40aa8d8b17a9edeb48b0ea8c61ae7dc5b27d"
+    },
+    {
       "path": "src/components/ArticleMarkdown.tsx",
-      "hash": "1f18dfb1db81fa66d1f2f1baf44343cb29dea8c91fa77dfded7747bcf8d15a38"
+      "hash": "fce651c5cac3f67982d3a8f5e815d6c9aac5451480c1a127f41d219f9f5710ef"
     },
     {
       "path": "src/components/BlogLayout.tsx",
-      "hash": "c738a055f1882d87968edda4596899043a58be28d3bbf0d6ca7e09522d97f7ec"
+      "hash": "75173f1afc89dfa6b665c669a92e68bd751fa9f1eeca8b7cdb6c9f4177f05c8f"
     },
     {
       "path": "src/components/GitalkComments.module.css",
@@ -108,7 +112,7 @@
     },
     {
       "path": "src/components/PostFooter.tsx",
-      "hash": "de2eb0a2a9991dab3f4449915069cbc0fbf40e2f92fa1874fedab2bfa7503993"
+      "hash": "eff4c78df95147081027bb9f316cba43da78516615054dc5aba89f4ce3894b0e"
     },
     {
       "path": "src/components/PostMeta.module.css",
@@ -132,7 +136,7 @@
     },
     {
       "path": "src/components/ScrollProgressButton.tsx",
-      "hash": "14c2a9e1da45489473857191203247c25e6dafab81df6b1a52640d5126b9829a"
+      "hash": "f8021825ae59a52fc0b4f376548bd76898d879dbf9e3d764dffa8003bc262fc1"
     },
     {
       "path": "src/components/SearchModal.module.css",
@@ -208,7 +212,7 @@
     },
     {
       "path": "src/pages/PostPage.tsx",
-      "hash": "3317a16f40df9ca92b7651cbf56edf2242c46962c4a38658571df6281d406ad4"
+      "hash": "46f47819b0082d6541f8c0bd93bbd90bd2e73eb0f9b430e99b010612e40f5f24"
     },
     {
       "path": "src/pages/TaxonomyPage.module.css",
@@ -228,7 +232,7 @@
     },
     {
       "path": "src/styles/app.css",
-      "hash": "a8a96f08368f0889fb95d93bedefcfcc1392b8de4330c939624561c969e9442b"
+      "hash": "1a88c237980e08bcc14171a90fa3d1492a220bc5f09fa8b842f351021d2c1c2a"
     },
     {
       "path": "src/tools/JsonFormatterTool.tsx",
