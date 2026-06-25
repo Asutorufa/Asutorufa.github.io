@@ -32,24 +32,22 @@ sequenceDiagram
 
 例えば：
 
-ユーザ：今日の注目の新聞は何ですか？
+ユーザ：
 
-gemini：
+> 今日の注目の新聞は何ですか？
 
-```txt
-今日の注目の新聞記事については、リアルタイムで変化するため、特定の新聞社名を挙げて「今日の注目の記事はこれです」と断言することは難しいです。
-```
+Gemini：
 
-chatgpt:
+> 今日の注目の新聞記事については、リアルタイムで変化するため、特定の新聞社名を挙げて「今日の注目の記事はこれです」と断言することは難しいです。
 
-```txt
-本日（2024年11月6日）の日本の注目ニュースは次のような内容が含まれている可能性があります：
+ChatGPT:
 
-アメリカ大統領選挙の最新動向 - 特に若い世代の投票行動や政策への関心が注目されています。
-国内経済とインフレの動き - 日本の物価高騰が続き、家計への影響や政府の対応が議論されています。
-アジアの地政学的緊張 - 日本周辺地域の安全保障に関連する動向が続いています。
-以上の内容が注目ニュースとして考えられますが、詳細については直接ニュースソースで確認されるとよいでしょう。
-```
+> 本日（2024年11月6日）の日本の注目ニュースは次のような内容が含まれている可能性があります：
+>
+> アメリカ大統領選挙の最新動向 - 特に若い世代の投票行動や政策への関心が注目されています。
+> 国内経済とインフレの動き - 日本の物価高騰が続き、家計への影響や政府の対応が議論されています。
+> アジアの地政学的緊張 - 日本周辺地域の安全保障に関連する動向が続いています。
+> 以上の内容が注目ニュースとして考えられますが、詳細については直接ニュースソースで確認されるとよいでしょう。
 
 geminiはリアルタイムによっての内容は回答できません。\
 chatgptはRAGか、Function Callingか、どちらかを使っていると思います。\
@@ -70,8 +68,8 @@ curl -fsSL https://ollama.com/install.sh | sh
 ```bash
 mkdir -p ~/.config/qdrant
 docker run -p 6333:6333 -p 6334:6334 \
-    -v ~/.config/qdrant:/qdrant/storage:z \
-    qdrant/qdrant
+  -v ~/.config/qdrant:/qdrant/storage:z \
+  qdrant/qdrant
 ```
 
 ### bge-large-en-v1.5をollamaで実行
@@ -96,13 +94,13 @@ cd llama.cpp/
 # python仮想環境はおすすめです
 sudo apt install python3.12-venv
 python3 -m venv python-venv
-./python-venv/bin/pip3  install -r requirements.txt
+./python-venv/bin/pip3 install -r requirements.txt
 ```
 
 GGUFに変換
 
 ```bash
- ./llama.cpp/python-venv/bin/python3 ./llama.cpp/convert_hf_to_gguf.py ./bge-large-en-v1.5/
+./llama.cpp/python-venv/bin/python3 ./llama.cpp/convert_hf_to_gguf.py ./bge-large-en-v1.5/
 cd bge-large-en-v1.5/
 echo "FROM ./bge-large-en-v1.5-F16.gguf" > Modelfile
 ollama create bge-large-en-v1.5-F16 -f Modelfile
@@ -126,72 +124,97 @@ ollama run qwen2.5:32b-instruct
 ### text embedder
 
 ```go
+package main
+
 import (
- "github.com/tmc/langchaingo/embeddings"
- "github.com/tmc/langchaingo/llms/ollama"
- "github.com/tmc/langchaingo/vectorstores/qdrant"
+	"net/url"
+
+	"github.com/tmc/langchaingo/embeddings"
+	"github.com/tmc/langchaingo/llms/ollama"
+	"github.com/tmc/langchaingo/vectorstores"
+	"github.com/tmc/langchaingo/vectorstores/qdrant"
 )
 
- llm, err := ollama.New(
-  ollama.WithModel("bge-large-en-v1.5-F16"),
-  ollama.WithServerURL("http://localhost:11434"),
- )
- if err != nil {
- panic(err)
- }
+func NewVectorStore() (vectorstores.VectorStore, error) {
+	llm, err := ollama.New(
+		ollama.WithModel("bge-large-en-v1.5-F16"),
+		ollama.WithServerURL("http://localhost:11434"),
+	)
+	if err != nil {
+		return nil, err
+	}
 
- embeder, err := embeddings.NewEmbedder(llm)
- if err != nil {
- panic(err)
- }
+	embeder, err := embeddings.NewEmbedder(llm)
+	if err != nil {
+		return nil, err
+	}
 
-qu,err := url.Parse("http://localhost:6333")
-if err != nil {
- panic(err)
+	qu, err := url.Parse("http://localhost:6333")
+	if err != nil {
+		return nil, err
+	}
+
+	qd, err := qdrant.New(
+		qdrant.WithURL(*qu),
+		qdrant.WithCollectionName("test"),
+		qdrant.WithEmbedder(embeder),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return qd, nil
 }
-
- qd, err := qdrant.New(
-  qdrant.WithURL(*qu),
-  qdrant.WithCollectionName("test"),
-  qdrant.WithEmbedder(embeder),
- )
- if err != nil {
-  return nil, err
- }
 ```
 
 テキストを導入
 
 ```go
+package main
+
+import (
+	"context"
+	"io"
+	"strings"
+
+	"github.com/tmc/langchaingo/documentloaders"
+	"github.com/tmc/langchaingo/schema"
+	"github.com/tmc/langchaingo/textsplitter"
+	"github.com/tmc/langchaingo/vectorstores"
+)
+
 // TextToChunks テキストを分割
 func TextToChunks(r io.Reader, chunkSize, chunkOverlap int) ([]schema.Document, error) {
- // 新たなドキュメンタリーローダーを作成
- docLoaded := documentloaders.NewText(r)
- // テキストを再帰的に分割し方法
- split := textsplitter.NewRecursiveCharacter()
- // 分割サイズを設定
- split.ChunkSize = chunkSize
- // 重なるサイズを設定
- split.ChunkOverlap = chunkOverlap
- // ロードして分割する
- docs, err := docLoaded.LoadAndSplit(context.Background(), split)
- if err != nil {
-  panic(err)
- }
- return docs, nil
+	// 新たなドキュメンタリーローダーを作成
+	docLoaded := documentloaders.NewText(r)
+	// テキストを再帰的に分割し方法
+	split := textsplitter.NewRecursiveCharacter()
+	// 分割サイズを設定
+	split.ChunkSize = chunkSize
+	// 重なるサイズを設定
+	split.ChunkOverlap = chunkOverlap
+	// ロードして分割する
+	docs, err := docLoaded.LoadAndSplit(context.Background(), split)
+	if err != nil {
+		return nil, err
+	}
+	return docs, nil
 }
 
-  docs, err := TextToChunks(strings.NewReader(`テストテキスト`), 300, 20)
-  if err != nil {
-  panic(err)
-  }
+func AddText(qd vectorstores.VectorStore) error {
+	docs, err := TextToChunks(strings.NewReader(`テストテキスト`), 300, 20)
+	if err != nil {
+		return err
+	}
 
+	// ベクトルデーターベースに導入
+	_, err = qd.AddDocuments(context.TODO(), docs)
+	if err != nil {
+		return err
+	}
 
-// ベクトルデーターベースに導入
- _, err := qd.AddDocuments(context.TODO(), docs)
- if err != nil {
-  panic(err)
- }
+	return nil
+}
 ```
 
 ### RAG
@@ -199,27 +222,52 @@ func TextToChunks(r io.Reader, chunkSize, chunkOverlap int) ([]schema.Document, 
 知識を検索
 
 ```go
+package main
+
+import (
+	"context"
+
+	"github.com/tmc/langchaingo/schema"
+	"github.com/tmc/langchaingo/vectorstores"
+)
+
+func RetrieveDocuments(ctx context.Context, qd vectorstores.VectorStore, prompt string) ([]schema.Document, error) {
 	optionsVector := []vectorstores.Option{
 		vectorstores.WithScoreThreshold(0.80),
 	}
 
 	retriever := vectorstores.ToRetriever(qd, 10, optionsVector...)
 
-	docRetrieved, err := retriever.GetRelevantDocuments(context.Background(), prompt)
+	docRetrieved, err := retriever.GetRelevantDocuments(ctx, prompt)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
+
+	return docRetrieved, nil
+}
 ```
 
 llmで予測する
 
 ```go
+package main
+
+import (
+	"context"
+	"fmt"
+
+	"github.com/tmc/langchaingo/llms"
+	"github.com/tmc/langchaingo/llms/ollama"
+	"github.com/tmc/langchaingo/schema"
+)
+
+func GenerateAnswer(ctx context.Context, docRetrieved []schema.Document, prompt string) error {
 	llm, err := ollama.New(
 		ollama.WithModel("qwen2.5:32b-instruct"),
 		ollama.WithServerURL("http://localhost:11434"),
 	)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	var msgs []llms.MessageContent
@@ -230,7 +278,7 @@ llmで予測する
 
 	msgs = append(msgs, llms.TextParts(llms.ChatMessageTypeHuman, prompt))
 
-	_, err := llm.GenerateContent(ctx, msgs,
+	_, err = llm.GenerateContent(ctx, msgs,
 		llms.WithTemperature(0.3),
 		llms.WithStreamingFunc(func(ctx context.Context, chunk []byte) error {
 			// 結果をストリームで標準出力に出力して
@@ -239,8 +287,11 @@ llmで予測する
 		}),
 	)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
+}
 ```
 
 <!--

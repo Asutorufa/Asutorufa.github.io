@@ -58,7 +58,7 @@ export async function renderHtml(content: ContentManifest, routes: RouteEntry[],
     const payload = routePayload(content, route, { commonContent, includeArticleBody: true });
     const embeddedPayload = routePayload(content, route, { commonContent, includeArticleBody: false });
     const outputFile = routeOutputFile(distDir, route.outputPath);
-    const cacheKey = routeCacheKey(route, embeddedPayload, rendererFingerprint);
+    const cacheKey = routeCacheKey(route, payload, rendererFingerprint);
     const cachedHtml = await readHtmlCache(route.outputPath, cacheKey);
 
     await fs.mkdir(path.dirname(outputFile), { recursive: true });

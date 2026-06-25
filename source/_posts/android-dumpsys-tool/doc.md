@@ -5,7 +5,7 @@ tags:
   - adb
 categories:
   - android
-abbrlink: '25303996'
+abbrlink: "25303996"
 date: 2019-02-01 00:00:02
 updated: 2019-02-01 00:00:02
 language: zh-Hans
@@ -72,7 +72,8 @@ DUMP OF SERVICE window:
 ```
 
 <!--more-->
-eg:  
+
+eg:\
 1.得到电池的所有信息
 
 ```bash
@@ -121,5 +122,5 @@ adb shell dumpsys account
 adb shell dumpsys account -h
 ```
 
-参考:  
+参考:\
 [What's the Android ADB shell “dumpsys” tool and what are its benefits?](https://stackoverflow.com/questions/11201659/whats-the-android-adb-shell-dumpsys-tool-and-what-are-its-benefits)

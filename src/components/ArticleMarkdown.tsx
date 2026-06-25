@@ -8,6 +8,8 @@ type ArticleMarkdownProps = {
 
 type MermaidRenderer = typeof import("mermaid").default;
 
+const MERMAID_PRELOAD_MARGIN = 720;
+
 export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
   const [scope, animate] = useAnimate<HTMLDivElement>();
   const prefersReducedMotion = useReducedMotion();
@@ -64,6 +66,8 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
 
     let cancelled = false;
     let scheduledRender = 0;
+    let scheduledVisibleRender = 0;
+    let delayedVisibleRender = 0;
     let mermaidPromise: Promise<MermaidRenderer> | undefined;
     let renderQueue = Promise.resolve();
     let intersectionObserver: IntersectionObserver | undefined;
@@ -72,7 +76,12 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
     const mermaidSources = new WeakMap<HTMLElement, string>();
 
     const getMermaid = () => {
-      mermaidPromise ??= import("mermaid").then((module) => module.default);
+      mermaidPromise ??= import("mermaid")
+        .then((module) => module.default)
+        .catch((error: unknown) => {
+          mermaidPromise = undefined;
+          throw error;
+        });
       return mermaidPromise;
     };
 
@@ -89,15 +98,15 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
       const renderableNodes = nodes.filter((node) => node.isConnected && mermaidSources.get(node));
       if (renderableNodes.length === 0) return;
 
-      const mermaid = await getMermaid();
-      if (cancelled) return;
-
-      for (const node of renderableNodes) {
-        node.removeAttribute("data-processed");
-        node.textContent = mermaidSources.get(node) ?? "";
-      }
-
       try {
+        const mermaid = await getMermaid();
+        if (cancelled) return;
+
+        for (const node of renderableNodes) {
+          node.removeAttribute("data-processed");
+          node.textContent = mermaidSources.get(node) ?? "";
+        }
+
         mermaid.initialize({
           startOnLoad: false,
           securityLevel: "loose",
@@ -125,6 +134,7 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
           renderedNodes.add(node);
         }
       } catch (error: unknown) {
+        if (cancelled) return;
         console.error("Failed to render Mermaid diagrams", error);
         for (const node of renderableNodes) {
           node.removeAttribute("aria-busy");
@@ -136,7 +146,7 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
     };
 
     const renderMermaidNodes = (nodes: HTMLElement[]) => {
-      renderQueue = renderQueue.then(() => renderMermaidNodesNow(nodes));
+      renderQueue = renderQueue.catch(() => undefined).then(() => renderMermaidNodesNow(nodes));
       renderQueue.catch((error: unknown) => {
         console.error("Failed to queue Mermaid rendering", error);
       });
@@ -150,6 +160,24 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
     };
 
     const mermaidNodes = Array.from(container.querySelectorAll<HTMLElement>(".mermaid"));
+    const renderVisibleMermaidNodes = () => {
+      const visibleNodes = mermaidNodes.filter((node) => isElementNearViewport(node, MERMAID_PRELOAD_MARGIN));
+      if (visibleNodes.length === 0) return;
+
+      for (const node of visibleNodes) {
+        intersectionObserver?.unobserve(node);
+      }
+      renderMermaidNodes(visibleNodes);
+    };
+
+    const scheduleVisibleMermaidRender = () => {
+      window.cancelAnimationFrame(scheduledVisibleRender);
+      scheduledVisibleRender = window.requestAnimationFrame(() => {
+        scheduledVisibleRender = 0;
+        renderVisibleMermaidNodes();
+      });
+    };
+
     if ("IntersectionObserver" in window) {
       intersectionObserver = new IntersectionObserver(
         (entries) => {
@@ -162,13 +190,15 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
           }
           renderMermaidNodes(visibleNodes);
         },
-        { rootMargin: "720px 0px" }
+        { rootMargin: `${MERMAID_PRELOAD_MARGIN}px 0px` }
       );
 
       for (const node of mermaidNodes) {
         prepareMermaidNode(node);
         intersectionObserver.observe(node);
       }
+      scheduleVisibleMermaidRender();
+      delayedVisibleRender = window.setTimeout(scheduleVisibleMermaidRender, 240);
     } else {
       for (const node of mermaidNodes) {
         prepareMermaidNode(node);
@@ -189,6 +219,8 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
     return () => {
       cancelled = true;
       window.clearTimeout(scheduledRender);
+      window.clearTimeout(delayedVisibleRender);
+      window.cancelAnimationFrame(scheduledVisibleRender);
       cleanupLazyImages();
       cleanupMotionBlocks();
       intersectionObserver?.disconnect();
@@ -280,7 +312,7 @@ function parseViewBoxWidth(viewBox: string | null) {
 }
 
 function hydrateMotionBlocks(container: HTMLElement, animate: ReturnType<typeof useAnimate<HTMLDivElement>>[1], prefersReducedMotion: boolean | null) {
-  const nodes = Array.from(container.querySelectorAll<HTMLElement>("h2, h3, h4, h5, h6, pre, img"));
+  const nodes = Array.from(container.querySelectorAll<HTMLElement>("pre, img"));
   if (nodes.length === 0 || !("IntersectionObserver" in window)) return () => {};
 
   const controls = new Set<{ stop: () => void }>();
@@ -335,6 +367,14 @@ function toPreviewSlide(image: HTMLImageElement) {
     src,
     width: image.naturalWidth || undefined
   };
+}
+
+function isElementNearViewport(node: HTMLElement, margin: number) {
+  const rect = node.getBoundingClientRect();
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+
+  return rect.bottom >= -margin && rect.top <= viewportHeight + margin && rect.right >= -margin && rect.left <= viewportWidth + margin;
 }
 
 function getImagePreviewOrigin(image: HTMLImageElement) {

@@ -4,7 +4,35 @@
   "markdown": {
     "lineWidth": 20,
     "tags": {
-      "go": "go"
+      "astro": "astro",
+      "bash": "sh",
+      "cjs": "js",
+      "css": "css",
+      "go": "go",
+      "htm": "html",
+      "html": "html",
+      "javascript": "js",
+      "js": "js",
+      "json": "json",
+      "jsonc": "jsonc",
+      "jsx": "jsx",
+      "less": "less",
+      "markdown": "md",
+      "md": "md",
+      "mjs": "js",
+      "mts": "ts",
+      "sass": "sass",
+      "scss": "scss",
+      "sh": "sh",
+      "shell": "sh",
+      "svelte": "svelte",
+      "toml": "toml",
+      "ts": "ts",
+      "tsx": "tsx",
+      "typescript": "ts",
+      "vue": "vue",
+      "yaml": "yaml",
+      "yml": "yaml"
     }
   },
   "toml": {},
@@ -18,6 +46,13 @@
         "command": "gofumpt",
         "exts": [
           "go"
+        ]
+      },
+      {
+        "command": "shfmt -i 2 -ci -sr",
+        "exts": [
+          "sh",
+          "bash"
         ]
       }
     ]

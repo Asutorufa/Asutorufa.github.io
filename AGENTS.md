@@ -15,6 +15,22 @@ These instructions apply to the entire repository.
 - Do not run destructive Git commands such as `git reset --hard` or `git checkout --` unless explicitly requested.
 - Use ASCII for code and generated docs unless a file already uses non-ASCII content or the content requires it.
 
+## Browser Debugging
+
+- Use Playwright for issues that depend on client-side hydration, layout, scrolling, portals, image previews, Mermaid rendering, or other browser-only behavior.
+- Build or generate the site first when testing production output, then run `npm run react:preview -- --port 4173`; if that port is busy, Vite will choose the next available port.
+- Prefer the system Chrome install for ad hoc Playwright checks to avoid requiring downloaded browsers:
+
+  ```ts
+  import { chromium } from "@playwright/test";
+
+  const browser = await chromium.launch({ channel: "chrome", headless: true });
+  ```
+
+- If a managed Playwright browser is needed, install it explicitly with `npx playwright install chromium`.
+- Keep Playwright checks focused on observable behavior: query real DOM state, computed styles, screenshots, console errors, and network failures rather than relying only on static HTML.
+- Close browsers and stop preview/dev servers before finishing. Do not commit screenshots, traces, videos, or other Playwright output unless they are intentionally requested.
+
 ## React And TypeScript
 
 - Follow the existing React component style and TypeScript types.
