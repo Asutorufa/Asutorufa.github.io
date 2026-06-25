@@ -68,7 +68,7 @@
   <id>https://asutorufa.com/posts/95db8f9/</id>
   <published>2024-11-06T10:37:12.000Z</published>
   <updated>2024-11-06T10:37:12.000Z</updated>
-  <summary>日本語はまだ勉強中ですから、変などころあったら、ぜひコメントしてください。 RAGとは RAGはRetrieval augmented generationの略です。 大規模言語モデル内容を生成する前に、promptによる外部のデーターベースに知識を検索、元のpromptと組み合わせて、アウトプットを改善するための技術です。 例えば： ユーザ：今日の注目の新聞は何ですか？ gemini： chatgpt: geminiはリアルタイムによっての内容は回答できません。\ chat</summary>
+  <summary>日本語はまだ勉強中ですから、変などころあったら、ぜひコメントしてください。 RAGとは RAGはRetrieval augmented generationの略です。 大規模言語モデル内容を生成する前に、promptによる外部のデーターベースに知識を検索、元のpromptと組み合わせて、アウトプットを改善するための技術です。 例えば： ユーザ： 今日の注目の新聞は何ですか？ Gemini： 今日の注目の新聞記事については、リアルタイムで変化するため、特定の新聞社名を挙げて「今</summary>
 </entry>
 <entry>
   <title>感觉日语是一种很随意的语言</title>
@@ -356,7 +356,7 @@
   <id>https://asutorufa.com/posts/e3707853/</id>
   <published>2019-08-03T00:18:40.000Z</published>
   <updated>2022-10-25T04:45:00.000Z</updated>
-  <summary>详细安装教程请参考arch wiki Installation guide (简体中文)),此处只记录安装后遇到的问题. 暗影精灵2 PRO 静音LED不起作用和左边耳机会有噼里啪啦声: 具体解决方法我已经写到archwiki里了,请看: Laptop/HP HP Omen 15 ax210TX grub更新菜单 安装os prober让grub检测到其他系统并自动创建引导 使用system boot(就是直接使用linux内核引导系统,不再需要grub,如果有多系统不推荐,</summary>
+  <summary>详细安装教程请参考arch wiki Installation guide (简体中文)),此处只记录安装后遇到的问题. 暗影精灵2 PRO 静音LED不起作用和左边耳机会有噼里啪啦声:\ 具体解决方法我已经写到archwiki里了,请看: Laptop/HP HP Omen 15 ax210TX grub更新菜单 安装os prober让grub检测到其他系统并自动创建引导 使用system boot(就是直接使用linux内核引导系统,不再需要grub,如果有多系统不推荐</summary>
 </entry>
 <entry>
   <title>CIDR匹配 域名匹配</title>
@@ -428,7 +428,7 @@
   <id>https://asutorufa.com/posts/25303996/</id>
   <published>2019-02-01T00:00:02.000Z</published>
   <updated>2019-02-01T00:00:02.000Z</updated>
-  <summary>查看dumpsys所有的子命令: output: eg: 1.得到电池的所有信息 2.得到wifi的所有信息 3.得到cpu的所有信息 4.得到总的存储情况 5.得到某应用的存储情况 6.得到所有的服务列表 7.得到所有的账户列表 8.获得某子命令的帮助信息 参考: What's the Android ADB shell “dumpsys” tool and what are its benefits?</summary>
+  <summary>查看dumpsys所有的子命令: output: eg:\ 1.得到电池的所有信息 2.得到wifi的所有信息 3.得到cpu的所有信息 4.得到总的存储情况 5.得到某应用的存储情况 6.得到所有的服务列表 7.得到所有的账户列表 8.获得某子命令的帮助信息 参考:\ What's the Android ADB shell “dumpsys” tool and what are its benefits?</summary>
 </entry>
 <entry>
   <title>安卓通过shell更改语言</title>

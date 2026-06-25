@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "hash": "d543c6a3fa9a54e1d48eb6792df4c74be930a6dc507f79fff10c3552007baa47",
+  "hash": "fe0707a22a11b0a21fabbc706932b1127de3a1aa44035c77672df2cdcc1396cd",
   "files": [
     {
       "path": "index.html",
@@ -8,11 +8,11 @@
     },
     {
       "path": "package-lock.json",
-      "hash": "49dd4467a4d9a69af774de8f4fdaf38e0d2ec6f32ce5c2b59aa30e3385053766"
+      "hash": "5c4b8a8206585f3897b45689352d4101002de20a7fda103e44cd620c45b36ba6"
     },
     {
       "path": "package.json",
-      "hash": "afda818b63d7893bc7dcf67f76d422324d04b67d9ee48540ae5a552cee585b3d"
+      "hash": "60bd3e08bcc582fe5f91fc1c2ecab78743eee647b93e91c73731260430aa0765"
     },
     {
       "path": "src/animation/motion-presets.ts",
@@ -48,7 +48,7 @@
     },
     {
       "path": "src/components/ArticleMarkdown.tsx",
-      "hash": "fce651c5cac3f67982d3a8f5e815d6c9aac5451480c1a127f41d219f9f5710ef"
+      "hash": "131759faa5fba1877e9307d29cecd52107fe83663b5041e3ccfcc1264907b785"
     },
     {
       "path": "src/components/BlogLayout.tsx",
