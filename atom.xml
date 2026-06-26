@@ -220,7 +220,7 @@
   <id>https://asutorufa.com/posts/931c13a4/</id>
   <published>2020-07-27T22:15:17.000Z</published>
   <updated>2020-07-27T22:15:17.000Z</updated>
-  <summary>complete document MaxMind DB File Format SpecificationDescription here is only how convert trie tree to array trie array left is 0, right is 1 value is index of array for example: index 1: next left index 2 is null, so 00 is not exist next </summary>
+  <summary>complete document MaxMind DB File Format SpecificationDescription here is only how convert trie tree to array 0100, 1011 trie trie array left is 0, right is 1 value is index of array left right byte/index 2 4 0 1 null 6 2 3 8 null 4 5 10 nu</summary>
 </entry>
 <entry>
   <title>DNS over HTTPS</title>

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "hash": "fe0707a22a11b0a21fabbc706932b1127de3a1aa44035c77672df2cdcc1396cd",
+  "hash": "28665325ed9084a03a877e355fb2c3b9d0107807ce398fa180677ff096375dc9",
   "files": [
     {
       "path": "index.html",
@@ -8,11 +8,11 @@
     },
     {
       "path": "package-lock.json",
-      "hash": "5c4b8a8206585f3897b45689352d4101002de20a7fda103e44cd620c45b36ba6"
+      "hash": "4077afc4555dbc4c400176fd3258cdf8e6568174f1f9637022ef60df89f6e85c"
     },
     {
       "path": "package.json",
-      "hash": "60bd3e08bcc582fe5f91fc1c2ecab78743eee647b93e91c73731260430aa0765"
+      "hash": "e7adef099eb578ed294985aa1683d9ff60224eaa98534871b4a58a8c66d9e012"
     },
     {
       "path": "src/animation/motion-presets.ts",
@@ -20,7 +20,7 @@
     },
     {
       "path": "src/app/App.tsx",
-      "hash": "826ad4e9138c8cabd59d45eabba56735f92af9ae8b0a545a39d050d4ef97f081"
+      "hash": "de9ccaab9cbb52c8ee5100f9781666aa8d56fa8fb1d96f1e28620884c3821e9c"
     },
     {
       "path": "src/app/app-types.ts",
