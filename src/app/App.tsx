@@ -53,8 +53,7 @@ export function App(props: AppProps) {
   const activeContentRef = useRef(props.content);
   const activeRouteRef = useRef(props.route);
 
-  const shouldShowDetailView = Boolean(detailView);
-  const activeView = shouldShowDetailView && detailView ? detailView : baseView;
+  const activeView = detailView ?? baseView;
 
   useEffect(() => {
     baseViewRef.current = baseView;
@@ -377,33 +376,7 @@ export function App(props: AppProps) {
     <>
       <Router ssrPath={activeView.route.route}>
         <BlogLayout {...activeView} routeLoading={routeLoading}>
-          <div className="relative">
-            <div
-              aria-hidden={shouldShowDetailView ? "true" : undefined}
-              style={{
-                inset: shouldShowDetailView ? 0 : undefined,
-                pointerEvents: shouldShowDetailView ? "none" : undefined,
-                position: shouldShowDetailView ? "absolute" : undefined,
-                width: "100%",
-                zIndex: 0
-              }}
-            >
-              {renderRoute(baseView)}
-            </div>
-            {detailView ? (
-              <div
-                key={detailView.route.route}
-                style={{
-                  background: "var(--blog-bg)",
-                  minHeight: "100vh",
-                  position: "relative",
-                  zIndex: 1
-                }}
-              >
-                {renderRoute(detailView)}
-              </div>
-            ) : null}
-          </div>
+          {renderRoute(activeView)}
         </BlogLayout>
       </Router>
       <ImagePreviewHost />
