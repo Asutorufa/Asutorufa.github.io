@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "hash": "bc45716e1103c18b46244433dd9549ea196fbda8fe646e41ab864507c5388787",
+  "hash": "2f365f1e37327eb55e9026192f45193067d8cbd0b46a4058fc1a273087796789",
   "files": [
     {
       "path": "index.html",
@@ -8,7 +8,7 @@
     },
     {
       "path": "package-lock.json",
-      "hash": "8a859e4acb4a2b8a94b7ac5c0700d257fa43cdf4efd4e36e7721366bab6af5b6"
+      "hash": "b621afac02e48aea6db2e1e10b31ee668b359ceaaa816ebc0106a566c6e35984"
     },
     {
       "path": "package.json",
