@@ -1,8 +1,6 @@
 import clsx from "clsx";
 import type { ComponentProps, ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
-import { MotionPresets } from "../animation/motion-presets";
 import type { UiLabels } from "../types/content";
 import { Icon } from "./Icon";
 import styles from "./Pagination.module.css";
@@ -17,7 +15,6 @@ type PaginationProps = {
 type FormSubmitHandler = NonNullable<ComponentProps<"form">["onSubmit"]>;
 
 export function Pagination({ currentPage, totalPages, labels, basePath = "/" }: PaginationProps) {
-  const prefersReducedMotion = useReducedMotion();
   const [editingCurrentPage, setEditingCurrentPage] = useState(false);
   const currentInputRef = useRef<HTMLInputElement>(null);
 
@@ -54,7 +51,7 @@ export function Pagination({ currentPage, totalPages, labels, basePath = "/" }: 
   return (
     <nav className={clsx("content-card", styles.root)} aria-label="Pagination">
       {previous ? (
-        <PaginationLink className={styles.link} href={previous} label={labels.previous} direction={-1} prefersReducedMotion={prefersReducedMotion}>
+        <PaginationLink className={styles.link} href={previous} label={labels.previous} direction={-1}>
           <Icon name="angle-left" />
         </PaginationLink>
       ) : null}
@@ -65,13 +62,10 @@ export function Pagination({ currentPage, totalPages, labels, basePath = "/" }: 
           </span>
         ) : item === currentPage ? (
           editingCurrentPage ? (
-            <motion.form
+            <form
               key={item}
               className={styles.currentForm}
               onSubmit={jumpToPage}
-              initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={MotionPresets.fast}
             >
               <input
                 ref={currentInputRef}
@@ -94,31 +88,28 @@ export function Pagination({ currentPage, totalPages, labels, basePath = "/" }: 
               <button type="submit" className="sr-only">
                 Go to page
               </button>
-            </motion.form>
+            </form>
           ) : (
-            <motion.button
+            <button
               key={item}
               type="button"
               className={styles.currentButton}
               aria-current="page"
               aria-label={`Current page ${currentPage}. Click to enter a page from 1 to ${totalPages}`}
               title={`Page ${currentPage} / ${totalPages}. Click to jump.`}
-              whileHover={prefersReducedMotion ? undefined : { y: -2, scale: 1.035 }}
-              whileTap={prefersReducedMotion ? undefined : { y: 0, scale: 0.96 }}
-              transition={MotionPresets.fast}
               onClick={() => setEditingCurrentPage(true)}
             >
               {currentPage}
-            </motion.button>
+            </button>
           )
         ) : (
-          <PaginationLink key={item} className={styles.link} href={pageHref(basePath, item)} prefersReducedMotion={prefersReducedMotion}>
+          <PaginationLink key={item} className={styles.link} href={pageHref(basePath, item)}>
             {item}
           </PaginationLink>
         )
       )}
       {next ? (
-        <PaginationLink className={styles.link} href={next} label={labels.next} direction={1} prefersReducedMotion={prefersReducedMotion}>
+        <PaginationLink className={styles.link} href={next} label={labels.next} direction={1}>
           <Icon name="angle-right" />
         </PaginationLink>
       ) : null}
@@ -132,37 +123,23 @@ function PaginationLink({
   direction = 0,
   href,
   label,
-  prefersReducedMotion
 }: {
   children: ReactNode;
   className: string;
   direction?: -1 | 0 | 1;
   href: string;
   label?: string;
-  prefersReducedMotion: boolean | null;
 }) {
-  const linkVariants = prefersReducedMotion
-    ? undefined
-    : {
-        hover: { scale: 1.06, y: -2 },
-        tap: { scale: 0.94, y: 0 }
-      };
-  const contentVariants = prefersReducedMotion || direction === 0 ? undefined : { hover: { x: direction * 2 } };
-
   return (
-    <motion.a
+    <a
       className={className}
       href={href}
       aria-label={label}
-      variants={linkVariants}
-      whileHover={prefersReducedMotion ? undefined : "hover"}
-      whileTap={prefersReducedMotion ? undefined : "tap"}
-      transition={MotionPresets.fast}
     >
-      <motion.span className={styles.linkContent} variants={contentVariants} transition={MotionPresets.fast}>
+      <span className={clsx(styles.linkContent, direction < 0 && styles.linkContentPrevious, direction > 0 && styles.linkContentNext)}>
         {children}
-      </motion.span>
-    </motion.a>
+      </span>
+    </a>
   );
 }
 

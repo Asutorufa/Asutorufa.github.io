@@ -22,14 +22,50 @@ async function copyIfExists(from: string, to: string) {
   try {
     const stat = await fs.stat(from);
     if (stat.isDirectory()) {
-      await fs.cp(from, to, { recursive: true });
+      await syncDirectory(from, to);
     } else {
       await fs.mkdir(path.dirname(to), { recursive: true });
-      await fs.copyFile(from, to);
+      await copyFileIfChanged(from, to, stat);
     }
   } catch {
-    // Optional legacy assets are skipped when absent.
+    await fs.rm(to, { recursive: true, force: true });
   }
+}
+
+async function syncDirectory(sourceDir: string, targetDir: string) {
+  const sourceEntries = await fs.readdir(sourceDir, { withFileTypes: true });
+  const sourceNames = new Set(sourceEntries.map((entry) => entry.name));
+  const targetEntries = await readDirectoryEntries(targetDir);
+
+  await fs.mkdir(targetDir, { recursive: true });
+  await Promise.all(
+    targetEntries.filter((entry) => !sourceNames.has(entry.name)).map((entry) => fs.rm(path.join(targetDir, entry.name), { recursive: true, force: true }))
+  );
+
+  await Promise.all(
+    sourceEntries.map(async (entry) => {
+      const sourcePath = path.join(sourceDir, entry.name);
+      const targetPath = path.join(targetDir, entry.name);
+      if (entry.isDirectory()) {
+        await syncDirectory(sourcePath, targetPath);
+      } else if (entry.isFile()) {
+        await copyFileIfChanged(sourcePath, targetPath, await fs.stat(sourcePath));
+      }
+    })
+  );
+}
+
+async function copyFileIfChanged(sourcePath: string, targetPath: string, sourceStat: Awaited<ReturnType<typeof fs.stat>>) {
+  try {
+    const targetStat = await fs.stat(targetPath);
+    if (targetStat.size === sourceStat.size && Math.trunc(targetStat.mtimeMs) === Math.trunc(sourceStat.mtimeMs)) return;
+  } catch {
+    // Missing targets are copied below.
+  }
+
+  await fs.mkdir(path.dirname(targetPath), { recursive: true });
+  await fs.copyFile(sourcePath, targetPath);
+  await fs.utimes(targetPath, sourceStat.atime, sourceStat.mtime);
 }
 
 async function copyPostAssets(posts: Post[], concurrency: number) {

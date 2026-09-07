@@ -48,22 +48,16 @@ export function Sidebar({ content, labels, currentRoute, post, mobile = false }:
             {navItems.map((item) => {
               const active = isActive(currentRoute, item.href);
               return (
-                <motion.a
+                <a
                   key={item.href}
                   href={item.href}
-                  animate="idle"
                   className={clsx(styles.navLink, active && styles.navLinkActive)}
-                  initial="idle"
-                  whileFocus={prefersReducedMotion ? undefined : "hover"}
-                  whileHover={prefersReducedMotion ? undefined : "hover"}
-                  whileTap={prefersReducedMotion ? undefined : { scale: 0.985, x: 1 }}
-                  transition={MotionPresets.spring}
                 >
-                  <motion.span className={styles.navIcon} variants={navIconVariants} transition={MotionPresets.spring}>
+                  <span className={styles.navIcon}>
                     <Icon name={item.icon} className="w-[1.28571429em]" />
-                  </motion.span>
+                  </span>
                   <span className={styles.navLabel}>{item.label}</span>
-                </motion.a>
+                </a>
               );
             })}
           </div>
@@ -83,21 +77,6 @@ export function Sidebar({ content, labels, currentRoute, post, mobile = false }:
 }
 
 const NAV_ITEM_HEIGHT = 40;
-
-const navIconVariants = {
-  hover: {
-    rotate: -7,
-    scale: 1.1,
-    x: 2,
-    y: -1
-  },
-  idle: {
-    rotate: 0,
-    scale: 1,
-    x: 0,
-    y: 0
-  }
-};
 
 function TocCard({ content, labels, toc, mobile }: { content: ContentManifest; labels: UiLabels; toc: TocItem[]; mobile: boolean }) {
   const [activeTab, setActiveTab] = useState<"toc" | "overview">("toc");
@@ -172,7 +151,6 @@ const tocPanelVariants = {
 
 function TocList({ toc }: { toc: TocItem[] }) {
   const [activeId, setActiveId] = useState(toc[0]?.id ?? "");
-  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     let headings: HTMLElement[] = [];
@@ -197,8 +175,6 @@ function TocList({ toc }: { toc: TocItem[] }) {
 
     setActiveId(toc[0]?.id ?? "");
     refreshHeadings();
-    const observer = new MutationObserver(refreshHeadings);
-    observer.observe(document.body, { childList: true, subtree: true });
 
     window.addEventListener("scroll", scheduleUpdate, { passive: true });
     window.addEventListener("resize", scheduleUpdate);
@@ -207,7 +183,6 @@ function TocList({ toc }: { toc: TocItem[] }) {
 
     return () => {
       if (frame) window.cancelAnimationFrame(frame);
-      observer.disconnect();
       window.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
       window.removeEventListener("hashchange", scheduleUpdate);
@@ -239,16 +214,13 @@ function TocList({ toc }: { toc: TocItem[] }) {
           return (
             <li key={item.id} className={clsx(styles.tocItem, item.level > 2 && "ml-3 text-[12px]")}>
               {active ? <motion.span layoutId="toc-indicator" className={styles.tocIndicator} transition={MotionPresets.spring} /> : null}
-              <motion.a
+              <a
                 className={clsx(styles.tocLink, active && styles.tocLinkActive)}
                 href={`#${item.id}`}
                 onClick={(event) => navigateToTocItem(event, item.id)}
-                whileHover={prefersReducedMotion ? undefined : { x: 3 }}
-                whileTap={prefersReducedMotion ? undefined : { x: 1 }}
-                transition={MotionPresets.fast}
               >
                 {item.text}
-              </motion.a>
+              </a>
             </li>
           );
         })}
@@ -298,16 +270,13 @@ function ProfileBody({ content, labels, compact = false }: { content: ContentMan
 
   return (
     <div className={clsx("text-center", compact ? "px-4 pb-5 pt-5" : "px-4 py-6")}>
-      <motion.a
+      <a
         className={clsx(styles.avatarLink, "mx-auto block h-28 w-28 rounded-full")}
         href="/about/"
         aria-label={labels.about}
-        whileHover={prefersReducedMotion ? undefined : { y: -3, scale: 1.025 }}
-        whileTap={prefersReducedMotion ? undefined : { y: 0, scale: 0.96 }}
-        transition={MotionPresets.spring}
       >
         <img src="/images/bighead.svg" alt="Asutorufa" className={clsx(styles.avatarImage, "h-28 w-28 rounded-full object-cover")} />
-      </motion.a>
+      </a>
       <div
         className={clsx(styles.statsGrid, "mt-6 grid grid-cols-3")}
         onBlur={(event) => {
@@ -330,7 +299,7 @@ function ProfileBody({ content, labels, compact = false }: { content: ContentMan
       </div>
       <div className={clsx(styles.socialGrid, "mt-5 text-[13px] font-normal")}>
         {socialLinks.map((link) => (
-          <SocialLink key={link.kind} {...link} prefersReducedMotion={prefersReducedMotion} />
+          <SocialLink key={link.kind} {...link} />
         ))}
       </div>
     </div>
@@ -404,77 +373,29 @@ function SocialLink({
   href,
   icon,
   kind,
-  label,
-  prefersReducedMotion
+  label
 }: {
   external?: boolean;
   href: string;
   icon: SocialKind;
   kind: SocialKind;
   label: string;
-  prefersReducedMotion: boolean | null;
 }) {
   return (
-    <motion.a
+    <a
       className={styles.actionLink}
       href={href}
-      animate="initial"
-      initial="initial"
+      data-kind={kind}
       target={external ? "_blank" : undefined}
       rel={external ? "noreferrer" : undefined}
-      whileFocus={prefersReducedMotion ? undefined : "hover"}
-      whileHover={prefersReducedMotion ? undefined : "hover"}
-      whileTap={prefersReducedMotion ? undefined : { scale: 0.97, y: 0 }}
-      transition={MotionPresets.spring}
     >
-      <motion.span className={styles.actionIcon} variants={socialIconVariants[kind]} transition={kind === "rss" ? MotionPresets.fast : MotionPresets.spring}>
+      <span className={styles.actionIcon}>
         <Icon name={icon} />
-      </motion.span>
+      </span>
       <span className={styles.actionLabel}>{label}</span>
-    </motion.a>
+    </a>
   );
 }
-
-const socialIconVariants = {
-  email: {
-    hover: {
-      rotate: -6,
-      x: 2,
-      y: -2
-    },
-    initial: {
-      rotate: 0,
-      x: 0,
-      y: 0
-    }
-  },
-  github: {
-    hover: {
-      rotate: -10,
-      scale: 1.12,
-      y: -2
-    },
-    initial: {
-      rotate: 0,
-      scale: 1,
-      y: 0
-    }
-  },
-  rss: {
-    hover: {
-      rotate: -8,
-      scale: 1.1,
-      x: -1,
-      y: -1
-    },
-    initial: {
-      rotate: 0,
-      scale: 1,
-      x: 0,
-      y: 0
-    }
-  }
-};
 
 function isActive(route: string, href: string) {
   if (href === "/") return route === "/";

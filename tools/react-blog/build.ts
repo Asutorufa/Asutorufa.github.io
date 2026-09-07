@@ -117,7 +117,7 @@ async function cleanDist() {
 
 async function cleanContentOutputs() {
   await fs.mkdir(distDir, { recursive: true });
-  const preserved = new Set([".vite", "assets", "stats.html"]);
+  const preserved = new Set([".vite", "assets", "stats.html", "images", "js", "ads.txt", "robots.txt", "favicon.ico"]);
   const entries = await fs.readdir(distDir, { withFileTypes: true });
   await Promise.all(
     entries

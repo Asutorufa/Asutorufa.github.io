@@ -96,51 +96,22 @@ export function SearchModal({ labels }: SearchModalProps) {
                 onClick={closeSearch}
               />
             </div>
-            <AnimatePresence initial={false}>
-              {hasQuery ? (
-                <motion.div
-                  key="search-results"
-                  className="max-h-[70vh] overflow-y-auto p-4"
-                  initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
-                  animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, height: "auto" }}
-                  exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
-                  transition={MotionPresets.fast}
-                >
-                  <AnimatePresence mode="popLayout">
-                    {results.length === 0 ? (
-                      <motion.p
-                        key="no-results"
-                        className="text-sm text-blog-muted"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={MotionPresets.fast}
-                      >
-                        {labels.noResults}
-                      </motion.p>
-                    ) : (
-                      <motion.div key="result-list" className="space-y-4">
-                        {results.map((result, index) => (
-                          <motion.a
-                            key={result.url}
-                            href={result.url}
-                            className={styles.resultCard}
-                            layout
-                            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -4 }}
-                            transition={{ ...MotionPresets.fast, delay: prefersReducedMotion ? 0 : Math.min(index * 0.025, 0.12) }}
-                          >
+            {hasQuery ? (
+              <div className="max-h-[70vh] overflow-y-auto p-4">
+                {results.length === 0 ? (
+                  <p className="text-sm text-blog-muted">{labels.noResults}</p>
+                ) : (
+                  <div className="space-y-4">
+                    {results.map((result) => (
+                      <a key={result.url} href={result.url} className={styles.resultCard}>
                             <h3 className={styles.resultTitle}>{result.title}</h3>
                             <p className={styles.resultExcerpt}>{result.content.slice(0, 160)}</p>
-                          </motion.a>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : null}
           </motion.div>
         </motion.div>
       ) : null}

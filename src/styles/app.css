@@ -133,6 +133,171 @@ html {
   scrollbar-width: thin;
 }
 
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-group(active-post-header) {
+  animation-duration: 0.42s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 12;
+}
+
+html[data-route-transition="detail-forward"]::view-transition-group(*),
+html[data-route-transition="detail-back"]::view-transition-group(*) {
+  animation-duration: 0.44s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html[data-route-transition="detail-forward"]::view-transition-group(active-post-header),
+html[data-route-transition="detail-back"]::view-transition-group(active-post-header) {
+  animation-duration: 0.42s;
+  z-index: 12;
+}
+
+html[data-route-transition="detail-forward"]::view-transition-group(*) {
+  z-index: 11;
+}
+
+::view-transition-old(active-post-header),
+::view-transition-new(active-post-header) {
+  height: 100%;
+  mix-blend-mode: normal;
+  width: 100%;
+}
+
+::view-transition-old(active-post-header) {
+  animation: post-header-old 0.28s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+::view-transition-new(active-post-header) {
+  animation: post-header-new 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+[data-post-body-transition-active="detail-forward"] {
+  animation: post-body-enter 0.34s 0.08s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+[data-post-body-transition-active="detail-back"] {
+  animation: post-body-return 0.32s 0.06s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+[data-post-body-transition-active="detail-swap"] {
+  animation: post-body-enter 0.36s 0.03s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+html[data-route-transition="detail-forward"]::view-transition-old(root) {
+  animation-name: route-detail-old-forward;
+}
+
+html[data-route-transition="detail-forward"]::view-transition-new(root) {
+  animation-name: route-detail-new-forward;
+}
+
+html[data-route-transition="detail-back"]::view-transition-old(root) {
+  animation-name: route-detail-old-back;
+}
+
+html[data-route-transition="detail-back"]::view-transition-new(root) {
+  animation-name: route-detail-new-back;
+}
+
+html[data-route-transition="detail-swap"]::view-transition-old(root),
+html[data-route-transition="route"]::view-transition-old(root) {
+  animation-name: route-fade-out;
+}
+
+html[data-route-transition="detail-swap"]::view-transition-new(root),
+html[data-route-transition="route"]::view-transition-new(root) {
+  animation-name: route-fade-in;
+}
+
+@keyframes route-detail-old-forward {
+  to {
+    opacity: 0.72;
+    transform: scale(0.992) translateY(-2px);
+  }
+}
+
+@keyframes route-detail-new-forward {
+  from {
+    opacity: 0.15;
+    transform: scale(0.997) translateY(8px);
+  }
+}
+
+@keyframes route-detail-old-back {
+  to {
+    opacity: 0.12;
+    transform: scale(0.997) translateY(8px);
+  }
+}
+
+@keyframes route-detail-new-back {
+  from {
+    opacity: 0.72;
+    transform: scale(0.992) translateY(-2px);
+  }
+}
+
+@keyframes post-header-old {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.2;
+  }
+}
+
+@keyframes post-header-new {
+  from {
+    opacity: 0.22;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes post-body-enter {
+  from {
+    opacity: 0.88;
+    transform: translateY(2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes post-body-return {
+  from {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes route-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes route-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
 body {
   margin: 0;
   min-width: 320px;
@@ -560,8 +725,14 @@ pre.shiki.code-block {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.01ms !important;
+  }
+
   .article-content img.image-loading,
-  .article-content .mermaid.mermaid-pending::before {
+  .article-content .mermaid.mermaid-pending::before,
+  [data-post-body-transition-active] {
     animation: none;
   }
 }

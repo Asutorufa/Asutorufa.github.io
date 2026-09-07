@@ -34,36 +34,35 @@ export function ScrollProgressButton() {
   const showCommentsButton = hasComments && expanded;
 
   useEffect(() => {
+    let frame = 0;
     const update = () => {
+      frame = 0;
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(max > 0 ? Math.min(100, Math.round((window.scrollY / max) * 100)) : 0);
+      const nextProgress = max > 0 ? Math.min(100, Math.round((window.scrollY / max) * 100)) : 0;
+      setProgress((current) => (current === nextProgress ? current : nextProgress));
+    };
+    const scheduleUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(update);
     };
     update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    window.addEventListener("asutorufa-route-change", update);
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    window.addEventListener("asutorufa-route-change", scheduleUpdate);
     return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-      window.removeEventListener("asutorufa-route-change", update);
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      window.removeEventListener("asutorufa-route-change", scheduleUpdate);
     };
   }, []);
 
   useEffect(() => {
     const update = () => setHasComments(Boolean(document.getElementById("comments")));
-    const scheduleUpdate = () => {
-      update();
-      window.requestAnimationFrame(update);
-      window.setTimeout(update, 250);
-    };
-    const observer = new MutationObserver(update);
-
     update();
-    observer.observe(document.body, { childList: true, subtree: true });
-    window.addEventListener("asutorufa-route-change", scheduleUpdate);
+    window.addEventListener("asutorufa-route-change", update);
     return () => {
-      observer.disconnect();
-      window.removeEventListener("asutorufa-route-change", scheduleUpdate);
+      window.removeEventListener("asutorufa-route-change", update);
     };
   }, []);
 

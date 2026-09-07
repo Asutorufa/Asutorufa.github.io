@@ -82,7 +82,8 @@
     background-color 0.16s ease,
     border-color 0.16s ease,
     box-shadow 0.16s ease,
-    color 0.16s ease;
+    color 0.16s ease,
+    transform 0.16s ease;
 }
 
 .adjacentNext {
@@ -124,6 +125,10 @@
   display: inline-flex;
   height: 2rem;
   justify-content: center;
+  transition:
+    background-color 0.16s ease,
+    color 0.16s ease,
+    transform 0.16s ease;
   width: 2rem;
 }
 
@@ -132,6 +137,15 @@
   border-color: var(--blog-accent-border);
   box-shadow: 0 10px 22px rgb(0 0 0 / 0.08);
   color: var(--blog-heading);
+  transform: translateY(-3px) scale(1.012);
+}
+
+.adjacentLink:hover .adjacentIconPrevious {
+  transform: translateX(-3px);
+}
+
+.adjacentLink:hover .adjacentIconNext {
+  transform: translateX(3px);
 }
 
 .adjacentLink:hover .adjacentTitle {
@@ -145,11 +159,26 @@
 
 .adjacentLink:active {
   box-shadow: none;
+  transform: scale(0.985);
 }
 
 :global(html.dark-mode) .adjacentLink {
   --adjacent-hover-bg: #302a27;
   --adjacent-icon-hover-bg: #3b2d28;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .adjacentLink,
+  .adjacentIcon {
+    transition: none;
+  }
+
+  .adjacentLink:hover,
+  .adjacentLink:active,
+  .adjacentLink:hover .adjacentIconPrevious,
+  .adjacentLink:hover .adjacentIconNext {
+    transform: none;
+  }
 }
 
 @media (max-width: 640px) {

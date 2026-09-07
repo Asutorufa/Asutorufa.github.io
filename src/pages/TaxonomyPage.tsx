@@ -4,8 +4,6 @@ import { Icon } from "../components/Icon";
 import { UI_LABELS } from "../data/i18n";
 import { formatDisplayDate } from "../utils/date";
 import { useMemo, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { MotionPresets } from "../animation/motion-presets";
 import styles from "./TaxonomyPage.module.css";
 
 type TaxonomyPageProps = AppProps & {
@@ -71,18 +69,15 @@ function TagCloud({ entries, labels }: { entries: TaxonomyEntry[]; labels: (type
   const [query, setQuery] = useState("");
   const normalizedQuery = normalizeSearchQuery(query);
   const hasQuery = normalizedQuery.length > 0;
-  const prefersReducedMotion = useReducedMotion();
   const popularEntries = useMemo(() => [...entries].sort(compareTagsByCount).slice(0, 16), [entries]);
   const filteredEntries = useMemo(() => {
     if (!normalizedQuery) return sortTagsByName(entries);
     return sortTagsByName(entries.filter((entry) => normalizeSearchQuery(entry.name).includes(normalizedQuery)));
   }, [entries, normalizedQuery]);
   const groups = useMemo(() => groupTags(filteredEntries, labels.otherTags), [filteredEntries, labels.otherTags]);
-  const sectionInitial = prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 };
-  const sectionExit = prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -6 };
 
   return (
-    <motion.div className={styles.tagCloud} initial={sectionInitial} animate={{ opacity: 1, y: 0 }} transition={MotionPresets.normal}>
+    <div className={styles.tagCloud}>
       <div className={styles.tagCloudTitle}>
         {labels.all} {entries.length} {labels.tag}
       </div>
@@ -98,17 +93,8 @@ function TagCloud({ entries, labels }: { entries: TaxonomyEntry[]; labels: (type
         />
       </label>
 
-      <AnimatePresence initial={false}>
-        {!hasQuery && popularEntries.length > 0 ? (
-          <motion.section
-            key="popular-tags"
-            className={styles.tagSection}
-            aria-labelledby="popular-tags-title"
-            initial={sectionInitial}
-            animate={{ opacity: 1, y: 0 }}
-            exit={sectionExit}
-            transition={MotionPresets.fast}
-          >
+      {!hasQuery && popularEntries.length > 0 ? (
+        <section className={styles.tagSection} aria-labelledby="popular-tags-title">
             <div className={styles.tagSectionHeader}>
               <h2 id="popular-tags-title" className={styles.tagSectionTitle}>
                 {labels.popularTags}
@@ -116,129 +102,72 @@ function TagCloud({ entries, labels }: { entries: TaxonomyEntry[]; labels: (type
               <span className={styles.tagSectionMeta}>{popularEntries.length}</span>
             </div>
             <div className={styles.tagList}>
-              {popularEntries.map((entry, index) => (
-                <TagLink key={entry.name} entry={entry} labels={labels} index={index} popular prefersReducedMotion={prefersReducedMotion} />
+              {popularEntries.map((entry) => (
+                <TagLink key={entry.name} entry={entry} labels={labels} popular />
               ))}
             </div>
-          </motion.section>
-        ) : null}
-      </AnimatePresence>
+        </section>
+      ) : null}
 
       <section className={styles.tagSection} aria-labelledby="all-tags-title">
         <div className={styles.tagSectionHeader}>
           <h2 id="all-tags-title" className={styles.tagSectionTitle}>
             {hasQuery ? labels.tagSearchResults : labels.allTags}
           </h2>
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.span
-              key={`${hasQuery ? "results" : "all"}-${filteredEntries.length}`}
-              className={styles.tagSectionMeta}
-              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: prefersReducedMotion ? 0 : -4 }}
-              transition={MotionPresets.fast}
-            >
-              {hasQuery ? `${filteredEntries.length}/${entries.length}` : entries.length}
-            </motion.span>
-          </AnimatePresence>
+          <span className={styles.tagSectionMeta}>{hasQuery ? `${filteredEntries.length}/${entries.length}` : entries.length}</span>
         </div>
-        <AnimatePresence mode="popLayout" initial={false}>
-          {groups.length > 0 ? (
-            groups.map((group) => (
-              <motion.div
-                key={group.label}
-                className={styles.tagGroup}
-                layout
-                initial={sectionInitial}
-                animate={{ opacity: 1, y: 0 }}
-                exit={sectionExit}
-                transition={MotionPresets.fast}
-              >
+        {groups.length > 0 ? (
+          groups.map((group) => (
+            <div key={group.label} className={styles.tagGroup}>
                 <div className={styles.tagGroupLabel}>{group.label}</div>
                 <div className={styles.tagList}>
-                  {group.entries.map((entry, index) => (
-                    <TagLink key={entry.name} entry={entry} labels={labels} index={index} prefersReducedMotion={prefersReducedMotion} />
+                  {group.entries.map((entry) => (
+                    <TagLink key={entry.name} entry={entry} labels={labels} />
                   ))}
                 </div>
-              </motion.div>
-            ))
-          ) : (
-            <motion.p
-              key="tag-no-results"
-              className={styles.tagNoResults}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={MotionPresets.fast}
-            >
-              {labels.noResults}
-            </motion.p>
-          )}
-        </AnimatePresence>
+            </div>
+          ))
+        ) : (
+          <p className={styles.tagNoResults}>{labels.noResults}</p>
+        )}
       </section>
-    </motion.div>
+    </div>
   );
 }
 
-function TagLink({
-  entry,
-  labels,
-  index,
-  popular = false,
-  prefersReducedMotion
-}: {
+function TagLink({ entry, labels, popular = false }: {
   entry: TaxonomyEntry;
   labels: (typeof UI_LABELS)[keyof typeof UI_LABELS];
-  index: number;
   popular?: boolean;
-  prefersReducedMotion: boolean | null;
 }) {
   return (
-    <motion.a
+    <a
       className={`${styles.tagLink} ${popular ? styles.tagLinkPopular : ""}`}
       href={entry.route}
       aria-label={`${entry.name}, ${entry.count} ${labels.posts}`}
-      layout
-      initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -4 }}
-      whileHover={prefersReducedMotion ? undefined : { y: -1 }}
-      whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
-      transition={{ ...MotionPresets.fast, delay: prefersReducedMotion ? 0 : Math.min(index * 0.015, 0.12) }}
     >
       <span className={styles.tagName}>{entry.name}</span>
       <span className={styles.tagCount}>{entry.count}</span>
-    </motion.a>
+    </a>
   );
 }
 
 function CategoryList({ entries, labels }: { entries: TaxonomyEntry[]; labels: (typeof UI_LABELS)[keyof typeof UI_LABELS] }) {
-  const prefersReducedMotion = useReducedMotion();
   const maxCount = Math.max(...entries.map((entry) => entry.count), 1);
   const sortedEntries = useMemo(() => [...entries].sort(compareTagsByCount), [entries]);
 
   return (
-    <motion.div
-      className={styles.categoryBoard}
-      initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={MotionPresets.normal}
-    >
+    <div className={styles.categoryBoard}>
       <div className={styles.categoryTitle}>
         {labels.all} {entries.length} {labels.category}
       </div>
       <div className={styles.categoryMatrix}>
         {sortedEntries.map((entry, index) => (
-          <motion.a
+          <a
             key={entry.name}
             className={styles.categoryTile}
             href={entry.route}
             aria-label={`${entry.name}, ${entry.count} ${labels.posts}`}
-            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={prefersReducedMotion ? undefined : { y: -1 }}
-            whileTap={prefersReducedMotion ? undefined : { scale: 0.99 }}
-            transition={{ ...MotionPresets.fast, delay: prefersReducedMotion ? 0 : Math.min(index * 0.025, 0.16) }}
           >
             <span className={styles.categoryRank}>{String(index + 1).padStart(2, "0")}</span>
             <span className={styles.categoryTileBody}>
@@ -252,10 +181,10 @@ function CategoryList({ entries, labels }: { entries: TaxonomyEntry[]; labels: (
                 <span style={{ width: `${Math.max(8, (entry.count / maxCount) * 100)}%` }} />
               </span>
             </span>
-          </motion.a>
+          </a>
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 }
 

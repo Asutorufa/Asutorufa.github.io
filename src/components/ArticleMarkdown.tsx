@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useAnimate, useReducedMotion } from "motion/react";
+import { useEffect, useRef } from "react";
 import type { ImagePreviewState } from "./ImagePreview";
 
 type ArticleMarkdownProps = {
@@ -11,15 +10,13 @@ type MermaidRenderer = typeof import("mermaid").default;
 const MERMAID_PRELOAD_MARGIN = 720;
 
 export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
-  const [scope, animate] = useAnimate<HTMLDivElement>();
-  const prefersReducedMotion = useReducedMotion();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const container = scope.current;
+    const container = containerRef.current;
     if (!container) return;
 
     const cleanupLazyImages = hydrateLazyImages(container);
-    const cleanupMotionBlocks = hydrateMotionBlocks(container, animate, prefersReducedMotion);
 
     const openImagePreview = (image: HTMLImageElement) => {
       const images = Array.from(container.querySelectorAll<HTMLImageElement>("img"));
@@ -222,7 +219,6 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
       window.clearTimeout(delayedVisibleRender);
       window.cancelAnimationFrame(scheduledVisibleRender);
       cleanupLazyImages();
-      cleanupMotionBlocks();
       intersectionObserver?.disconnect();
       observer.disconnect();
       container.removeEventListener("pointerdown", onPointerDown, true);
@@ -230,9 +226,9 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
       container.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("asutorufa-theme-change", scheduleRenderedMermaidRefresh);
     };
-  }, [animate, html, prefersReducedMotion, scope]);
+  }, [html]);
 
-  return <div ref={scope} className="article-content" data-article-body="" dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div ref={containerRef} className="article-content" data-article-body="" dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
 function hydrateLazyImages(container: HTMLElement) {
@@ -309,54 +305,6 @@ function parseViewBoxWidth(viewBox: string | null) {
     .filter((part) => Number.isFinite(part));
   if (values.length !== 4) return undefined;
   return values[2] > 0 ? values[2] : undefined;
-}
-
-function hydrateMotionBlocks(container: HTMLElement, animate: ReturnType<typeof useAnimate<HTMLDivElement>>[1], prefersReducedMotion: boolean | null) {
-  const nodes = Array.from(container.querySelectorAll<HTMLElement>("pre, img"));
-  if (nodes.length === 0 || !("IntersectionObserver" in window)) return () => {};
-
-  const controls = new Set<{ stop: () => void }>();
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        const node = entry.target as HTMLElement;
-        observer.unobserve(node);
-
-        const isImage = node instanceof HTMLImageElement;
-        const isCodeBlock = node.tagName === "PRE";
-        const playback = animate(node, getBlockTarget(isImage, isCodeBlock, prefersReducedMotion), {
-          duration: isCodeBlock ? 0.2 : 0.25,
-          ease: "easeOut"
-        });
-
-        controls.add(playback);
-        void playback.then(() => controls.delete(playback));
-      }
-    },
-    { rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
-  );
-
-  for (const node of nodes) {
-    Object.assign(node.style, getBlockInitial(node instanceof HTMLImageElement, node.tagName === "PRE", prefersReducedMotion));
-    observer.observe(node);
-  }
-
-  return () => {
-    observer.disconnect();
-    for (const playback of controls) playback.stop();
-    controls.clear();
-  };
-}
-
-function getBlockInitial(isImage: boolean, isCodeBlock: boolean, prefersReducedMotion: boolean | null) {
-  if (prefersReducedMotion || isCodeBlock) return { opacity: "0" };
-  return isImage ? { opacity: "0", transform: "scale(0.98)" } : { opacity: "0", transform: "translateY(20px)" };
-}
-
-function getBlockTarget(isImage: boolean, isCodeBlock: boolean, prefersReducedMotion: boolean | null) {
-  if (prefersReducedMotion || isCodeBlock) return { opacity: 1 };
-  return isImage ? { opacity: 1, scale: 1 } : { opacity: 1, y: 0 };
 }
 
 function toPreviewSlide(image: HTMLImageElement) {

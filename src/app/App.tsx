@@ -3,7 +3,7 @@ import { flushSync } from "react-dom";
 import { Router } from "wouter";
 import { ImagePreviewHost } from "../components/ImagePreviewHost";
 import { BlogLayout } from "../components/BlogLayout";
-import { LANGUAGE_META, UI_LABELS } from "../data/i18n";
+import { UI_LABELS } from "../data/i18n";
 import { ArchivePage } from "../pages/ArchivePage";
 import { HomePage } from "../pages/HomePage";
 import { NotFoundPage } from "../pages/NotFoundPage";
@@ -14,31 +14,32 @@ import { ToolsPage } from "../pages/ToolsPage";
 import { WipPage } from "../pages/WipPage";
 import type { ContentManifest, RouteEntry } from "../types/content";
 import type { AppProps, PagePayload } from "./app-types";
+import { currentDocumentDescription, updateDocumentMeta } from "./document-meta";
+import {
+  captureScrollPosition,
+  historyState,
+  initialScrollPosition,
+  isArticleImagePreviewTarget,
+  isDocumentScrollLocked,
+  isListRoute,
+  loadUrlDocument,
+  normalizeRoutePath,
+  restoreRoutePosition,
+  sameDocumentHash,
+  scrollPositionFromState,
+  shouldHandleLink,
+  type BackgroundRouteState,
+  type RouteHistoryState,
+  type ScrollPosition
+} from "./navigation";
 import { parsePagePayloadHtml } from "./page-payload-html";
 import { mergePagePayload } from "./page-payload";
 
-type RouteHistoryState = {
-  background?: BackgroundRouteState;
-  canGoBack?: boolean;
-  route?: string;
-  scroll?: ScrollPosition;
-  scrollX?: number;
-  scrollY?: number;
-};
-
-type BackgroundRouteState = {
-  route: string;
-  scroll: ScrollPosition;
-};
-
-type ScrollPosition = {
-  x: number;
-  y: number;
-};
-
 type ViewState = AppProps;
+type RouteTransitionKind = "detail-forward" | "detail-back" | "detail-swap" | "route";
 
 const pagePayloadCache = new Map<string, PagePayload | Promise<PagePayload>>();
+const sharedPostBodyBlockCounts = new Map<string, number>();
 const ENABLE_ROUTE_SCROLL_RESTORE = true;
 const ROUTE_RESTORE_SUPPRESSION_MS = 720;
 const SCROLL_STATE_WRITE_INTERVAL_MS = 850;
@@ -136,9 +137,20 @@ export function App(props: AppProps) {
       }
     };
 
-    const restoreAfterRender = (position: ScrollPosition, hash?: string) => {
+    const restoreAfterRender = (position: ScrollPosition, hash?: string, immediate = false, alreadyRestored = false) => {
       const run = ++restoreRun;
       suppressScrollSaveUntil = performance.now() + ROUTE_RESTORE_SUPPRESSION_MS;
+
+      if (immediate) {
+        if (!alreadyRestored) restoreRoutePosition(position, hash);
+        window.requestAnimationFrame(() => {
+          if (run !== restoreRun) return;
+          suppressScrollSaveUntil = performance.now() + 120;
+          saveCurrentScrollState(activeRouteRef.current.route, true);
+        });
+        return;
+      }
+
       window.requestAnimationFrame(() => {
         if (run !== restoreRun) return;
         window.requestAnimationFrame(() => {
@@ -163,16 +175,32 @@ export function App(props: AppProps) {
 
     ensureInitialHistoryState();
 
-    const commitViews = (nextBaseView: ViewState, nextDetailView: ViewState | null) => {
+    const commitViews = (
+      nextBaseView: ViewState,
+      nextDetailView: ViewState | null,
+      options?: {
+        restore?: { position: ScrollPosition; hash?: string };
+        sharedPostRoute?: string;
+        transition?: RouteTransitionKind;
+      }
+    ) => {
       baseViewRef.current = nextBaseView;
       detailViewRef.current = nextDetailView;
       activeContentRef.current = (nextDetailView ?? nextBaseView).content;
       activeRouteRef.current = (nextDetailView ?? nextBaseView).route;
-      flushSync(() => {
-        setBaseView(nextBaseView);
-        setDetailView(nextDetailView);
-        setRouteLoading(false);
-      });
+
+      const update = () => {
+        flushSync(() => {
+          setBaseView(nextBaseView);
+          setDetailView(nextDetailView);
+          setRouteLoading(false);
+        });
+        if (options?.restore) {
+          restoreRoutePosition(options.restore.position, options.restore.hash);
+        }
+      };
+
+      runRouteViewTransition(options?.transition ?? "route", update, options?.sharedPostRoute);
     };
 
     const loadView = async (url: URL) => {
@@ -222,10 +250,14 @@ export function App(props: AppProps) {
           },
           nextUrl
         );
-        commitViews(nextBaseView, null);
+        commitViews(nextBaseView, null, {
+          restore: { position: scroll, hash: url.hash },
+          sharedPostRoute: detailViewRef.current?.route.route,
+          transition: "detail-back"
+        });
         updateDocumentMeta(nextBaseView.content, nextBaseView.route);
         window.dispatchEvent(new Event("asutorufa-route-change"));
-        restoreAfterRender(scroll, url.hash);
+        restoreAfterRender(scroll, url.hash, true, true);
         return;
       }
 
@@ -268,10 +300,14 @@ export function App(props: AppProps) {
             replaceRouteState(nextState, nextUrl);
           }
 
-          commitViews(nextBaseView, loaded.view);
+          commitViews(nextBaseView, loaded.view, {
+            restore: options.mode === "push" ? { position: nextScroll, hash: url.hash } : undefined,
+            sharedPostRoute: options.mode === "push" ? loaded.view.route.route : undefined,
+            transition: options.mode === "push" ? "detail-forward" : "detail-swap"
+          });
           updateDocumentMeta(loaded.view.content, loaded.view.route, loaded.description);
           window.dispatchEvent(new Event("asutorufa-route-change"));
-          restoreAfterRender(nextScroll, url.hash);
+          restoreAfterRender(nextScroll, url.hash, options.mode === "push", options.mode === "push");
           return;
         }
 
@@ -290,11 +326,14 @@ export function App(props: AppProps) {
           replaceRouteState(nextState, nextUrl);
         }
 
-        commitViews(loaded.view, null);
+        commitViews(loaded.view, null, {
+          restore: options.mode === "push" ? { position: nextScroll, hash: url.hash } : undefined,
+          transition: "route"
+        });
         updateDocumentMeta(loaded.view.content, loaded.view.route, loaded.description);
         window.dispatchEvent(new Event("asutorufa-route-change"));
 
-        restoreAfterRender(nextScroll, url.hash);
+        restoreAfterRender(nextScroll, url.hash, options.mode === "push", options.mode === "push");
       } catch (error) {
         console.error("Failed to navigate", error);
         setRouteLoading(false);
@@ -382,6 +421,72 @@ export function App(props: AppProps) {
       <ImagePreviewHost />
     </>
   );
+}
+
+function runRouteViewTransition(kind: RouteTransitionKind, update: () => void, sharedPostRoute?: string) {
+  if (typeof document === "undefined" || !("startViewTransition" in document)) {
+    update();
+    return;
+  }
+
+  const root = document.documentElement;
+  root.dataset.routeTransition = kind;
+  const oldSharedElement = sharedPostRoute ? findPostTransitionElement(sharedPostRoute) : null;
+  const oldBodyBlocks = sharedPostRoute ? findPostBodyTransitionBlocks(sharedPostRoute) : [];
+  const sharedBlockCount =
+    sharedPostRoute && kind === "detail-back" ? Math.min(sharedPostBodyBlockCounts.get(sharedPostRoute) ?? 0, oldBodyBlocks.length) : oldBodyBlocks.length;
+  const oldSharedBodyBlocks = oldBodyBlocks.slice(0, sharedBlockCount);
+  if (sharedPostRoute && kind === "detail-forward") sharedPostBodyBlockCounts.set(sharedPostRoute, sharedBlockCount);
+  if (oldSharedElement) oldSharedElement.style.viewTransitionName = "active-post-header";
+  setPostBodyTransitionNames(oldSharedBodyBlocks);
+
+  const transition = document.startViewTransition(() => {
+    update();
+    const newSharedElement = sharedPostRoute ? findPostTransitionElement(sharedPostRoute) : null;
+    if (newSharedElement) newSharedElement.style.viewTransitionName = "active-post-header";
+    const newSharedBodyBlocks = sharedPostRoute ? findPostBodyTransitionBlocks(sharedPostRoute) : [];
+    setPostBodyTransitionNames(newSharedBodyBlocks.slice(0, oldSharedBodyBlocks.length));
+    const newBodyElement = sharedPostRoute ? findPostBodyTransitionElement(sharedPostRoute) : null;
+    if (newBodyElement) newBodyElement.dataset.postBodyTransitionActive = kind;
+  });
+
+  void transition.finished.finally(() => {
+    for (const element of document.querySelectorAll<HTMLElement>('[style*="view-transition-name"]')) {
+      if (element.style.viewTransitionName === "active-post-header" || element.style.viewTransitionName.startsWith("active-post-body-")) {
+        element.style.removeProperty("view-transition-name");
+      }
+    }
+    for (const element of document.querySelectorAll<HTMLElement>("[data-post-body-transition-active]")) {
+      delete element.dataset.postBodyTransitionActive;
+    }
+    if (sharedPostRoute && kind === "detail-back") sharedPostBodyBlockCounts.delete(sharedPostRoute);
+    if (root.dataset.routeTransition === kind) delete root.dataset.routeTransition;
+  });
+}
+
+function findPostTransitionElement(route: string) {
+  return Array.from(document.querySelectorAll<HTMLElement>("[data-post-transition]")).find((element) => element.dataset.postTransition === route) ?? null;
+}
+
+function findPostBodyTransitionElement(route: string) {
+  return (
+    Array.from(document.querySelectorAll<HTMLElement>("[data-post-body-transition]")).find(
+      (element) => element.dataset.postBodyTransition === route
+    ) ?? null
+  );
+}
+
+function findPostBodyTransitionBlocks(route: string) {
+  const body = findPostBodyTransitionElement(route);
+  if (!body) return [];
+  const articleContent = body.querySelector<HTMLElement>(".article-content");
+  return articleContent ? Array.from(articleContent.children).filter((element): element is HTMLElement => element instanceof HTMLElement) : [];
+}
+
+function setPostBodyTransitionNames(elements: HTMLElement[]) {
+  elements.forEach((element, index) => {
+    element.style.viewTransitionName = `active-post-body-${index}`;
+  });
 }
 
 function renderRoute(props: AppProps) {
@@ -477,199 +582,3 @@ function adjacentPost(posts: ContentManifest["posts"], abbrlink: string, offset:
   return index >= 0 ? posts[index + offset] : undefined;
 }
 
-function isListRoute(route: RouteEntry) {
-  return (
-    route.kind === "wip" ||
-    route.kind === "home" ||
-    route.kind === "archives" ||
-    route.kind === "archive-year" ||
-    route.kind === "archive-month" ||
-    route.kind === "archives-page" ||
-    route.kind === "archive-year-page" ||
-    route.kind === "archive-month-page" ||
-    route.kind === "tag" ||
-    route.kind === "tag-page" ||
-    route.kind === "category" ||
-    route.kind === "category-page"
-  );
-}
-
-function shouldHandleLink(anchor: HTMLAnchorElement) {
-  if (anchor.target && anchor.target !== "_self") return false;
-  if (anchor.hasAttribute("download")) return false;
-
-  const url = new URL(anchor.href);
-  if (url.origin !== window.location.origin) return false;
-
-  const path = decodeURI(url.pathname);
-  if (path.startsWith("/assets/") || path.startsWith("/images/") || path.startsWith("/manifest/")) return false;
-  if (/\.[a-z0-9]+$/i.test(path) && !path.endsWith("/index.html") && path !== "/404.html") return false;
-
-  return true;
-}
-
-function isDocumentScrollLocked() {
-  return document.documentElement.dataset.scrollLocked === "true";
-}
-
-function isArticleImagePreviewTarget(target: EventTarget | null) {
-  if (!(target instanceof Element)) return false;
-  return Boolean(target.closest("img")?.closest("[data-article-body]"));
-}
-
-function sameDocumentHash(url: URL) {
-  if (!url.hash) return false;
-  return url.pathname === window.location.pathname && url.search === window.location.search;
-}
-
-function loadUrlDocument(url: URL) {
-  const nextUrl = url.toString();
-  if (nextUrl === window.location.href) {
-    window.location.reload();
-    return;
-  }
-  window.location.href = nextUrl;
-}
-
-function normalizeRoutePath(pathname: string) {
-  let value = decodeURI(pathname);
-  if (value.endsWith("/index.html")) {
-    value = `${value.slice(0, -"index.html".length)}`;
-  }
-  if (!value.startsWith("/")) value = `/${value}`;
-  if (value === "") value = "/";
-  if (!value.endsWith("/") && !value.endsWith(".html")) value = `${value}/`;
-  return value;
-}
-
-function updateDocumentMeta(content: ContentManifest, route: AppProps["route"], descriptionOverride?: string) {
-  const language = LANGUAGE_META[route.language];
-  const title = route.title === content.config.title ? content.config.title : `${route.title} - ${content.config.title}`;
-  const description = descriptionOverride ?? routeDescription(content, route);
-  const canonical = new URL(route.route === "/404.html" ? "/" : route.route, content.config.url).toString();
-
-  document.title = title;
-  document.documentElement.lang = language.htmlLang;
-  document.documentElement.dir = language.textDirection;
-  setMeta("name", "description", description);
-  setMeta("property", "og:title", route.title);
-  setMeta("property", "og:url", canonical);
-  setMeta("property", "og:description", description);
-  setMeta("property", "og:locale", language.locale);
-  document.querySelector('link[rel="canonical"]')?.setAttribute("href", canonical);
-}
-
-function routeDescription(content: ContentManifest, route: RouteEntry) {
-  if (route.kind === "post" && route.params?.abbrlink) {
-    const post = content.posts.find((item) => item.abbrlink === route.params?.abbrlink);
-    return post?.plainText.slice(0, 160) ?? content.config.subtitle;
-  }
-  if (route.kind === "wip-post" && route.params?.abbrlink) {
-    const post = content.wipPosts.find((item) => item.abbrlink === route.params?.abbrlink);
-    return post?.plainText.slice(0, 160) ?? content.config.subtitle;
-  }
-  return content.config.description || content.config.subtitle;
-}
-
-function setMeta(attribute: "name" | "property", key: string, value: string) {
-  document.querySelector(`meta[${attribute}="${key}"]`)?.setAttribute("content", value);
-}
-
-function currentDocumentDescription() {
-  if (typeof document === "undefined") return undefined;
-  return document.querySelector('meta[name="description"]')?.getAttribute("content") ?? undefined;
-}
-
-function initialScrollPosition(): ScrollPosition {
-  return { x: 0, y: 0 };
-}
-
-function captureScrollPosition(): ScrollPosition {
-  return {
-    x: window.scrollX,
-    y: window.scrollY
-  };
-}
-
-function scrollPositionFromState(state: RouteHistoryState): ScrollPosition {
-  if (state.scroll) return state.scroll;
-  return {
-    x: state.scrollX ?? 0,
-    y: state.scrollY ?? 0
-  };
-}
-
-function restoreScrollPosition(position: ScrollPosition) {
-  instantScrollTo(position);
-}
-
-function restoreRoutePosition(position: ScrollPosition, hash?: string) {
-  if (hash && restoreHashPosition(hash)) {
-    return;
-  }
-  restoreScrollPosition(position);
-}
-
-function restoreHashPosition(hash: string) {
-  const anchor = document.getElementById(decodeURIComponent(hash.slice(1)));
-  if (!anchor) return false;
-
-  instantScrollTo({
-    x: 0,
-    y: window.scrollY + anchor.getBoundingClientRect().top
-  });
-  return true;
-}
-
-function instantScrollTo(position: ScrollPosition) {
-  const maxScrollX = Math.max(0, document.documentElement.scrollWidth - window.innerWidth);
-  const maxScrollY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-  const scrollX = Math.max(0, Math.min(position.x, maxScrollX));
-  const scrollY = Math.max(0, Math.min(position.y, maxScrollY));
-
-  if (Math.abs(window.scrollX - scrollX) < 2 && Math.abs(window.scrollY - scrollY) < 2) return;
-
-  const root = document.documentElement;
-  const previousScrollBehavior = root.style.scrollBehavior;
-  root.style.scrollBehavior = "auto";
-  window.scrollTo({ left: scrollX, top: scrollY, behavior: "auto" });
-  window.requestAnimationFrame(() => {
-    root.style.scrollBehavior = previousScrollBehavior;
-  });
-}
-
-function historyState(value: unknown): RouteHistoryState {
-  if (!value || typeof value !== "object") return {};
-  const state = value as RouteHistoryState;
-  const scroll = scrollPositionValue(state.scroll);
-  return {
-    background: backgroundRouteValue(state.background),
-    canGoBack: state.canGoBack === true ? true : undefined,
-    route: typeof state.route === "string" ? state.route : undefined,
-    scroll,
-    scrollX: typeof state.scrollX === "number" ? state.scrollX : undefined,
-    scrollY: typeof state.scrollY === "number" ? state.scrollY : undefined
-  };
-}
-
-function backgroundRouteValue(value: unknown): BackgroundRouteState | undefined {
-  if (!value || typeof value !== "object") return undefined;
-  const background = value as Partial<BackgroundRouteState>;
-  const scroll = scrollPositionValue(background.scroll);
-  if (typeof background.route !== "string" || !scroll) return undefined;
-  return {
-    route: background.route,
-    scroll
-  };
-}
-
-function scrollPositionValue(value: unknown): ScrollPosition | undefined {
-  if (!value || typeof value !== "object") return undefined;
-  const position = value as Partial<ScrollPosition>;
-  if (typeof position.x !== "number" || typeof position.y !== "number") return undefined;
-
-  return {
-    x: position.x,
-    y: position.y
-  };
-}

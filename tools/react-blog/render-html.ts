@@ -1,12 +1,12 @@
+import fg from "fast-glob";
+import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createHash } from "node:crypto";
-import fg from "fast-glob";
-import type { ContentManifest, RouteEntry } from "../../src/types/content";
 import type { AppProps } from "../../src/app/app-types";
 import { mergePagePayload } from "../../src/app/page-payload";
-import { distDir, rootDir } from "./paths";
+import type { ContentManifest, RouteEntry } from "../../src/types/content";
 import { buildConcurrency, mapConcurrent } from "./concurrency";
+import { contentIndex } from "./content-index";
 import {
   commonContentForClient,
   pageForPayload,
@@ -18,6 +18,7 @@ import {
   renderHtmlShell,
   routeOutputFile
 } from "./html";
+import { distDir, rootDir } from "./paths";
 
 export type PageRenderer = (props: AppProps) => string;
 export type PageRendererLoader = () => Promise<PageRenderer>;
@@ -25,7 +26,7 @@ export type PageRendererLoader = () => Promise<PageRenderer>;
 type HtmlCacheEntry = {
   version: typeof HTML_CACHE_VERSION;
   key: string;
-  html: string;
+  appHtml: string;
 };
 
 type HtmlCacheStats = {
@@ -35,7 +36,7 @@ type HtmlCacheStats = {
   errors: number;
 };
 
-const HTML_CACHE_VERSION = 1;
+const HTML_CACHE_VERSION = 2;
 const htmlCacheDir = path.join(rootDir, ".cache/react-blog/html");
 
 const htmlCacheStats: HtmlCacheStats = {
@@ -52,24 +53,23 @@ export async function renderHtml(content: ContentManifest, routes: RouteEntry[],
   const assets = readViteAssets(manifest);
   const commonContent = commonContentForClient(content);
   const concurrency = buildConcurrency();
-  const rendererFingerprint = await createHtmlRendererFingerprint(manifest);
+  const rendererFingerprint = await createHtmlRendererFingerprint();
 
   await mapConcurrent(routes, concurrency, async (route) => {
     const payload = routePayload(content, route, { commonContent, includeArticleBody: true });
     const embeddedPayload = routePayload(content, route, { commonContent, includeArticleBody: false });
     const outputFile = routeOutputFile(distDir, route.outputPath);
     const cacheKey = routeCacheKey(route, payload, rendererFingerprint);
-    const cachedHtml = await readHtmlCache(route.outputPath, cacheKey);
+    const cachedAppHtml = await readHtmlCache(route.outputPath, cacheKey);
 
     await fs.mkdir(path.dirname(outputFile), { recursive: true });
-    if (cachedHtml) {
-      await fs.writeFile(outputFile, cachedHtml);
-      return;
+    let appHtml = cachedAppHtml;
+    if (!appHtml) {
+      const renderPage = await loadRenderPage();
+      const appProps = { content: mergePagePayload(commonContent, payload), route };
+      appHtml = renderPage(appProps);
+      await writeHtmlCache(route.outputPath, cacheKey, appHtml);
     }
-
-    const renderPage = await loadRenderPage();
-    const appProps = { content: mergePagePayload(commonContent, payload), route };
-    const appHtml = renderPage(appProps);
     const html = renderHtmlShell({
       appHtml,
       assets,
@@ -78,7 +78,6 @@ export async function renderHtml(content: ContentManifest, routes: RouteEntry[],
       route
     });
     await fs.writeFile(outputFile, html);
-    await writeHtmlCache(route.outputPath, cacheKey, html);
   });
 }
 
@@ -93,7 +92,7 @@ function resetHtmlCacheStats() {
   htmlCacheStats.errors = 0;
 }
 
-function routePayload(
+export function routePayload(
   content: ContentManifest,
   route: RouteEntry,
   options: { commonContent: ReturnType<typeof commonContentForClient>; includeArticleBody: boolean }
@@ -120,9 +119,10 @@ function routePayload(
 function articlePosts(content: ContentManifest, route: RouteEntry, options: { includeArticleBody: boolean }) {
   const abbrlink = route.params?.abbrlink ?? "";
   const posts = route.kind === "wip-post" ? content.wipPosts : content.posts;
-  const index = posts.findIndex((item) => item.abbrlink === abbrlink);
-  const post = posts[index];
+  const lookup = contentIndex(content);
+  const post = route.kind === "wip-post" ? lookup.wipPostsByAbbrlink.get(abbrlink) : lookup.postsByAbbrlink.get(abbrlink);
   if (!post) return undefined;
+  const index = posts.indexOf(post);
 
   return {
     newerPost: posts[index - 1] ? postForAdjacentPayload(posts[index - 1]) : undefined,
@@ -152,6 +152,7 @@ function listPosts(content: ContentManifest, route: RouteEntry) {
 }
 
 function postsForListRoute(content: ContentManifest, route: RouteEntry) {
+  const index = contentIndex(content);
   switch (route.kind) {
     case "wip":
       return content.wipPosts;
@@ -161,28 +162,29 @@ function postsForListRoute(content: ContentManifest, route: RouteEntry) {
       return content.posts;
     case "archive-year":
     case "archive-year-page":
-      return content.posts.filter((post) => post.date.startsWith(route.params?.year ?? ""));
+      return index.postsByYear.get(route.params?.year ?? "") ?? [];
     case "archive-month":
     case "archive-month-page":
-      return content.posts.filter((post) => post.date.startsWith(`${route.params?.year ?? ""}-${route.params?.month ?? ""}`));
+      return index.postsByMonth.get(`${route.params?.year ?? ""}-${route.params?.month ?? ""}`) ?? [];
     case "tag":
     case "tag-page":
-      return content.posts.filter((post) => post.tags.includes(route.params?.tag ?? ""));
+      return index.postsByTag.get(route.params?.tag ?? "") ?? [];
     case "category":
     case "category-page":
-      return content.posts.filter((post) => post.categories.includes(route.params?.category ?? ""));
+      return index.postsByCategory.get(route.params?.category ?? "") ?? [];
     default:
       return undefined;
   }
 }
 
 function routeDescription(content: ContentManifest, route: RouteEntry) {
+  const index = contentIndex(content);
   if (route.kind === "post" && route.params?.abbrlink) {
-    const post = content.posts.find((item) => item.abbrlink === route.params?.abbrlink);
+    const post = index.postsByAbbrlink.get(route.params.abbrlink);
     return post?.plainText.slice(0, 160) ?? content.config.subtitle;
   }
   if (route.kind === "wip-post" && route.params?.abbrlink) {
-    const post = content.wipPosts.find((item) => item.abbrlink === route.params?.abbrlink);
+    const post = index.wipPostsByAbbrlink.get(route.params.abbrlink);
     return post?.plainText.slice(0, 160) ?? content.config.subtitle;
   }
   return content.config.description || content.config.subtitle;
@@ -205,9 +207,9 @@ function routeCacheKey(route: RouteEntry, embeddedPayload: unknown, rendererFing
 async function readHtmlCache(outputPath: string, key: string) {
   try {
     const entry = JSON.parse(await fs.readFile(htmlCachePath(outputPath), "utf8")) as Partial<HtmlCacheEntry>;
-    if (entry.version === HTML_CACHE_VERSION && entry.key === key && typeof entry.html === "string") {
+    if (entry.version === HTML_CACHE_VERSION && entry.key === key && typeof entry.appHtml === "string") {
       htmlCacheStats.hits += 1;
-      return entry.html;
+      return entry.appHtml;
     }
   } catch {
     // Missing or malformed route HTML cache entries are treated as cache misses.
@@ -217,14 +219,14 @@ async function readHtmlCache(outputPath: string, key: string) {
   return undefined;
 }
 
-async function writeHtmlCache(outputPath: string, key: string, html: string) {
+async function writeHtmlCache(outputPath: string, key: string, appHtml: string) {
   try {
     const cachePath = htmlCachePath(outputPath);
     await fs.mkdir(path.dirname(cachePath), { recursive: true });
     const entry: HtmlCacheEntry = {
       version: HTML_CACHE_VERSION,
       key,
-      html
+      appHtml
     };
     await fs.writeFile(cachePath, `${JSON.stringify(entry)}\n`);
     htmlCacheStats.writes += 1;
@@ -238,18 +240,16 @@ function htmlCachePath(outputPath: string) {
   return path.join(htmlCacheDir, `${outputHash}.json`);
 }
 
-async function createHtmlRendererFingerprint(manifest: unknown) {
-  const files = await fg(["src/**/*", "tools/react-blog/html.tsx", "tools/react-blog/render-html.ts", "package-lock.json"], {
+async function createHtmlRendererFingerprint() {
+  const files = await fg(["src/**/*", "package-lock.json"], {
     absolute: false,
     cwd: rootDir,
     dot: true,
-    ignore: ["src/generated/**"],
+    ignore: ["src/generated/**", "src/styles/app.css", "src/app/entry-client.tsx", "src/app/navigation.ts", "src/app/document-meta.ts"],
     onlyFiles: true
   });
   const hash = createHash("sha256");
   hash.update(String(HTML_CACHE_VERSION));
-  hash.update("\0");
-  hash.update(JSON.stringify(manifest));
   hash.update("\0");
 
   for (const filePath of files.sort()) {

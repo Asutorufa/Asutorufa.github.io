@@ -10,14 +10,7 @@ type PostPageProps = AppProps & {
 };
 
 export function PostPage({ content, route, abbrlink }: PostPageProps) {
-  const posts = route.kind === "wip-post" ? content.wipPosts : content.posts;
-  const post = posts.find((item) => item.abbrlink === abbrlink);
-
-  if (!post) {
-    return <p>Post not found.</p>;
-  }
-
-  const labels = UI_LABELS[post.language];
+  const labels = UI_LABELS[route.language];
   return <ArticleContent content={content} route={route} abbrlink={abbrlink} leading={<PostBackButton label={labels.back} />} />;
 }
 

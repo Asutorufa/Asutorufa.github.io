@@ -1,9 +1,11 @@
 import path from "node:path";
 import { DEFAULT_LANGUAGE } from "../../src/data/i18n";
 import type { ContentManifest, Post, RouteEntry } from "../../src/types/content";
+import { contentIndex } from "./content-index";
 
 export function buildRoutes(content: ContentManifest): RouteEntry[] {
   const routes: RouteEntry[] = [];
+  const index = contentIndex(content);
   const totalPages = Math.max(1, Math.ceil(content.posts.length / content.config.perPage));
 
   for (let page = 1; page <= totalPages; page += 1) {
@@ -77,7 +79,7 @@ export function buildRoutes(content: ContentManifest): RouteEntry[] {
   }
 
   for (const archive of content.archives) {
-    const postsInYear = content.posts.filter((post) => post.date.startsWith(archive.year));
+    const postsInYear = index.postsByYear.get(archive.year) ?? [];
     routes.push({
       route: archive.route,
       outputPath: routeToOutputPath(archive.route),
@@ -100,7 +102,7 @@ export function buildRoutes(content: ContentManifest): RouteEntry[] {
   }
 
   for (const month of collectArchiveMonths(content.posts)) {
-    const postsInMonth = content.posts.filter((post) => post.date.startsWith(`${month.year}-${month.month}`));
+    const postsInMonth = index.postsByMonth.get(`${month.year}-${month.month}`) ?? [];
     routes.push({
       route: `/archives/${month.year}/${month.month}/`,
       outputPath: routeToOutputPath(`/archives/${month.year}/${month.month}/`),
@@ -131,7 +133,7 @@ export function buildRoutes(content: ContentManifest): RouteEntry[] {
   });
 
   for (const tag of content.tags) {
-    const tagPosts = content.posts.filter((post) => post.tags.includes(tag.name));
+    const tagPosts = index.postsByTag.get(tag.name) ?? [];
     routes.push({
       route: tag.route,
       outputPath: routeToOutputPath(tag.route),
@@ -162,7 +164,7 @@ export function buildRoutes(content: ContentManifest): RouteEntry[] {
   });
 
   for (const category of content.categories) {
-    const categoryPosts = content.posts.filter((post) => post.categories.includes(category.name));
+    const categoryPosts = index.postsByCategory.get(category.name) ?? [];
     routes.push({
       route: category.route,
       outputPath: routeToOutputPath(category.route),
