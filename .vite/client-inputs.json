@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "hash": "2f365f1e37327eb55e9026192f45193067d8cbd0b46a4058fc1a273087796789",
+  "hash": "b4e9274951d2d1ee68d0afa264aec0ddb0780a477e32de2ca270b32435d9bdc0",
   "files": [
     {
       "path": "index.html",
@@ -8,11 +8,11 @@
     },
     {
       "path": "package-lock.json",
-      "hash": "b621afac02e48aea6db2e1e10b31ee668b359ceaaa816ebc0106a566c6e35984"
+      "hash": "4ac66bedc785c652f049031487e827e9a232be73d425b85f8f39b900641d6793"
     },
     {
       "path": "package.json",
-      "hash": "e7adef099eb578ed294985aa1683d9ff60224eaa98534871b4a58a8c66d9e012"
+      "hash": "8d9e18fe24f0511092f0e8ae47c48fee2da1c7bfe856ec07851e14d438bdbe10"
     },
     {
       "path": "src/animation/motion-presets.ts",
@@ -20,15 +20,23 @@
     },
     {
       "path": "src/app/App.tsx",
-      "hash": "de9ccaab9cbb52c8ee5100f9781666aa8d56fa8fb1d96f1e28620884c3821e9c"
+      "hash": "8c5a8732e590cf15c3faf923c02cd21654bd2d35343efe251460cc0648085f5e"
     },
     {
       "path": "src/app/app-types.ts",
       "hash": "94ce90898f701498be03c5d47312ceea84ffb21e05151a23938b7dada7ba6a5d"
     },
     {
+      "path": "src/app/document-meta.ts",
+      "hash": "1b282ceb905cc67f76f94973d332ceffd8ec59fbcb69afa59b6931ccdb3e1ff8"
+    },
+    {
       "path": "src/app/entry-client.tsx",
       "hash": "4fa7dfb4e6e1e341a6cb2bd8e6b9588f3fe440a3f1f84e48f779c18bacbcf1d8"
+    },
+    {
+      "path": "src/app/navigation.ts",
+      "hash": "86cbe21a7ba936595d8139ae236648be7792774202f8ccd658f4e1b2bd637496"
     },
     {
       "path": "src/app/page-payload-html.ts",
@@ -44,11 +52,11 @@
     },
     {
       "path": "src/components/ArticleContent.tsx",
-      "hash": "6033cc42f21e319af42963cd261b40aa8d8b17a9edeb48b0ea8c61ae7dc5b27d"
+      "hash": "7d05992e17e756a60788bc18278b1079236536b916cf351f0e936b185fa64b57"
     },
     {
       "path": "src/components/ArticleMarkdown.tsx",
-      "hash": "131759faa5fba1877e9307d29cecd52107fe83663b5041e3ccfcc1264907b785"
+      "hash": "32b91b57c9c8e0956d237c10bd9784e882cb20b77238e100e75de2a7b06154d2"
     },
     {
       "path": "src/components/BlogLayout.tsx",
@@ -92,27 +100,27 @@
     },
     {
       "path": "src/components/Pagination.module.css",
-      "hash": "af5c3c940771bbaf2fd2a902751a31cf91657b760c49fc8ab5bae0f24a775898"
+      "hash": "d41c7a31ac34ebb999eab79a53b1760dbaa768389c4d3e4e43a6c39b539521fd"
     },
     {
       "path": "src/components/Pagination.tsx",
-      "hash": "b4aef0e04f370d48b43869ecc7c438733d81fe809cb40c539ecb166d5774dc3b"
+      "hash": "39db904868cd1bdef516b1b5061a8661b772f10cc29cfdd75ef28aed8d145719"
     },
     {
       "path": "src/components/PostCard.module.css",
-      "hash": "770ac32c80fcf53a16b574059a13a98e845fb76f426c5165c51ba8353fcc2b98"
+      "hash": "e682d5912967fa19355b7e4ecb8d970e916aecdf0c71d504dcf24b2d5053d5c3"
     },
     {
       "path": "src/components/PostCard.tsx",
-      "hash": "2ad30dbb2b35dc9403598766bae33fdbe266cefae898baf69dfad4bafb5a8eb0"
+      "hash": "e30ed9cbea9c33c978afb0fc720ea69cbea0310e91709f59041ae636c7978d60"
     },
     {
       "path": "src/components/PostFooter.module.css",
-      "hash": "589f7c10ef3b00fec6d4eb00110c3e0175654fb8b10393d8739d79d86cfd9981"
+      "hash": "c02500ba1f4839a8396d58ab814820c1215b2bd6954e8add04db830c65b5586b"
     },
     {
       "path": "src/components/PostFooter.tsx",
-      "hash": "eff4c78df95147081027bb9f316cba43da78516615054dc5aba89f4ce3894b0e"
+      "hash": "68b49480c3b33666836f4e6e6bc896a5dda2584c9971b5ae88d466bed8777bc8"
     },
     {
       "path": "src/components/PostMeta.module.css",
@@ -136,7 +144,7 @@
     },
     {
       "path": "src/components/ScrollProgressButton.tsx",
-      "hash": "f8021825ae59a52fc0b4f376548bd76898d879dbf9e3d764dffa8003bc262fc1"
+      "hash": "7dfccbacbfe4fd4f3fce3a77dd641a1a1bd571a0e7426e3df5218c25677d9425"
     },
     {
       "path": "src/components/SearchModal.module.css",
@@ -144,15 +152,15 @@
     },
     {
       "path": "src/components/SearchModal.tsx",
-      "hash": "e70a054a669e1c50cbd68fa1c584984c3d0a47b8c697c9c2dc4647f9876a3c32"
+      "hash": "c9150fae830b5784009bb4fb73894c5f89fcec902234668dcc59740c75a87cc3"
     },
     {
       "path": "src/components/Sidebar.module.css",
-      "hash": "422eb67745be56855c8eca562c63e0e58dd0be2bad36acfc4a1aa147ee3f7ad2"
+      "hash": "4848655a94e08ee3afbff0e7d5a06adf56a5ec6b739785b71ed794e6f9025152"
     },
     {
       "path": "src/components/Sidebar.tsx",
-      "hash": "f1b57b1606d43c951ba25f0930dcee2b286c10a24bdb1b4bba3dbfa1c0456d40"
+      "hash": "d85f3769e3348476badc2cecc9231c9899ccdb832d21ae1645826889aca9e23c"
     },
     {
       "path": "src/components/SiteFooter.module.css",
@@ -212,15 +220,15 @@
     },
     {
       "path": "src/pages/PostPage.tsx",
-      "hash": "46f47819b0082d6541f8c0bd93bbd90bd2e73eb0f9b430e99b010612e40f5f24"
+      "hash": "af8ae1a44f67e6baff36f2fd1bf31981b27372d1ae94f03fcb5a9bb03aa686c1"
     },
     {
       "path": "src/pages/TaxonomyPage.module.css",
-      "hash": "b1e748461c01a33bec63bd4ff3b8c600890b5688c7eb856b0744323cd186129d"
+      "hash": "bd9ff88ec851c8cd0ca37d433f175adff9f0d147f89b10d70b83961da8591a20"
     },
     {
       "path": "src/pages/TaxonomyPage.tsx",
-      "hash": "6f5815401bb342a3922b8fdf2da0ed8136834368c487fe19084b06cc6d8b24ff"
+      "hash": "acc1aacde3a05184a22090264b9b90b689962fa6a61964b0bc1ea5f5a9b30479"
     },
     {
       "path": "src/pages/ToolsPage.tsx",
@@ -232,7 +240,7 @@
     },
     {
       "path": "src/styles/app.css",
-      "hash": "1a88c237980e08bcc14171a90fa3d1492a220bc5f09fa8b842f351021d2c1c2a"
+      "hash": "4d27a4099f0f28e6c0364016db84c1a63f3ce43b8b638e51db780ec64d1fb840"
     },
     {
       "path": "src/tools/JsonFormatterTool.tsx",
