@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "hash": "bc678f085c9d9b7b9ea007a7c11ea400a9169fab61925393dfe52392ec5c26cb",
+  "hash": "9b6bdcc70e77cdd2f7eb0d5bffd1a2b475e7d1d3b7d586ef4347a331458190ad",
   "files": [
     {
       "path": "index.html",
@@ -8,11 +8,11 @@
     },
     {
       "path": "package-lock.json",
-      "hash": "4ac66bedc785c652f049031487e827e9a232be73d425b85f8f39b900641d6793"
+      "hash": "e71264f7a4f1b06d30e9db0d802cd5f1248815e89470e1a8301f978d65d1a392"
     },
     {
       "path": "package.json",
-      "hash": "e92b5ebe2a32f1914f46ed57593a287c9cd1674b9c352f2468627410be7fc679"
+      "hash": "1a7b897201245e3e1dbdab1f0b84352583785826709cb858101d3b2990c4b1b4"
     },
     {
       "path": "src/animation/motion-presets.ts",
@@ -28,7 +28,7 @@
     },
     {
       "path": "src/app/document-meta.ts",
-      "hash": "53e4fb7072ef591136c00fead839cac7533025d447db0e23aa30a066d6b67e6e"
+      "hash": "fdb0e76a5aeced1b2b1092dff4a0075eba655609730b6fd35eb9e92126676eb3"
     },
     {
       "path": "src/app/entry-client.tsx",
@@ -179,8 +179,16 @@
       "hash": "f4796dde82e47409aa8cfbef76c20c4cf84a77a0a63d31831872ae0bccd2cc75"
     },
     {
+      "path": "src/components/ThreatArticleMarkdown.module.css",
+      "hash": "7660172f517115cc8f0153e149dad7a0592a26044dd4cd2ff150dad6e7b87abd"
+    },
+    {
+      "path": "src/components/ThreatArticleMarkdown.tsx",
+      "hash": "0227a51f9195c5e5b9146060d7ac5b6fd335853d8daaafd53b98dd7a547b3eff"
+    },
+    {
       "path": "src/data/i18n.ts",
-      "hash": "70fa8c7978d51a4feede7cdb8626c1fc9ec79706e79e35f7501222f24a12e812"
+      "hash": "99e787719b44222ac45e111f8368fd54a5a49698ed34dd5ee6223b59f26fa0e7"
     },
     {
       "path": "src/data/menu.ts",
@@ -232,11 +240,11 @@
     },
     {
       "path": "src/pages/ThreatReportPage.tsx",
-      "hash": "17e742813cb447680723fecad31431b8549d85637ff4c8f04d1294f42fc6b79d"
+      "hash": "79d509ed1d12a427caef36b442853873cd993cd1b110cd043248357431abe8b0"
     },
     {
       "path": "src/pages/ThreatsPage.module.css",
-      "hash": "fc1c0140349d8cf8337754c7e738731213d602d6e06f414ea38b737264edef83"
+      "hash": "fc8c2aac0bc8550dd9f37ba9c3caae05c6fa73b7ded630f5180b51c7529d2315"
     },
     {
       "path": "src/pages/ThreatsPage.tsx",
@@ -288,7 +296,7 @@
     },
     {
       "path": "src/types/content.ts",
-      "hash": "3f0bacea560a9191d05a50318f418ca60576bf1bba27e615f89a4ed5b98cd709"
+      "hash": "597092728701fe379893daf7bd75bbe2e6aba7010c9f58680afea214bf7418ed"
     },
     {
       "path": "src/types/css.d.ts",
