@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "hash": "d8fc7d38f62324936668c5a200d2553aa6543da683578ec28541275201f4fd45",
+  "hash": "38260f54ae56e7531aad80c3b53374758be24739e0bd8b45c5bc0ad1707dcc5b",
   "files": [
     {
       "path": "index.html",
@@ -180,7 +180,7 @@
     },
     {
       "path": "src/components/ThreatArticleMarkdown.module.css",
-      "hash": "7660172f517115cc8f0153e149dad7a0592a26044dd4cd2ff150dad6e7b87abd"
+      "hash": "c8c1fc185e1c89197ff4cf1ffa022970f3d561b186e875efac756d15cdcd4abf"
     },
     {
       "path": "src/components/ThreatArticleMarkdown.tsx",
