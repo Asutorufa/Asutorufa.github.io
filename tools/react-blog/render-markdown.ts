@@ -3,7 +3,8 @@ import markdownItKatex from "@renbaoshuo/markdown-it-katex";
 import { createHighlighter, type Highlighter } from "shiki";
 import type { TocItem } from "../../src/types/content";
 
-type RenderRule = NonNullable<MarkdownIt["renderer"]["rules"][string]>;
+type MarkdownItInstance = InstanceType<typeof MarkdownIt>;
+type RenderRule = NonNullable<MarkdownItInstance["renderer"]["rules"][string]>;
 
 const shikiLanguages = [
   "asm",
@@ -40,7 +41,7 @@ const shikiLanguages = [
   "yaml"
 ];
 
-let markdownPromise: Promise<MarkdownIt> | undefined;
+let markdownPromise: Promise<MarkdownItInstance> | undefined;
 
 export async function renderMarkdownToHtml(source: string, options: RenderOptions = {}) {
   return (await renderMarkdown(source, options)).html;
@@ -67,7 +68,7 @@ async function createMarkdown() {
     langs: shikiLanguages
   });
 
-  const markdown: MarkdownIt = new MarkdownIt({
+  const markdown: MarkdownItInstance = new MarkdownIt({
     html: true,
     linkify: true,
     typographer: true,
@@ -112,7 +113,7 @@ async function createMarkdown() {
     const state = env as RenderEnv;
     const src = token.attrGet("src");
     if (src) {
-      token.attrSet("src", resolveAssetSrc(src, state.assetBasePath));
+      token.attrSet("src", resolveAssetSrc(String(src), state.assetBasePath));
     }
     token.attrSet("loading", token.attrGet("loading") ?? "lazy");
     token.attrSet("decoding", token.attrGet("decoding") ?? "async");
@@ -210,7 +211,7 @@ const THREAT_SECTION_TITLES: Record<ThreatSectionKind, Set<string>> = {
   actions: new Set(["priority actions", "优先行动", "優先対応"])
 };
 
-function renderThreatDocument(markdown: MarkdownIt, tokens: Token[], env: RenderEnv) {
+function renderThreatDocument(markdown: MarkdownItInstance, tokens: Token[], env: RenderEnv) {
   let html = "";
   let cursor = 0;
 
@@ -248,7 +249,7 @@ function renderThreatDocument(markdown: MarkdownIt, tokens: Token[], env: Render
   return html;
 }
 
-function renderThreatContent(markdown: MarkdownIt, tokens: Token[], env: RenderEnv, sectionKind?: ThreatSectionKind, wrapEvents = true) {
+function renderThreatContent(markdown: MarkdownItInstance, tokens: Token[], env: RenderEnv, sectionKind?: ThreatSectionKind, wrapEvents = true) {
   let html = "";
   let cursor = 0;
   let styledListRendered = false;
@@ -299,11 +300,11 @@ function renderThreatContent(markdown: MarkdownIt, tokens: Token[], env: RenderE
   return html + renderThreatRange(markdown, tokens, 0, tokens.length, env);
 }
 
-function renderThreatRange(markdown: MarkdownIt, tokens: Token[], start: number, end: number, env: RenderEnv) {
+function renderThreatRange(markdown: MarkdownItInstance, tokens: Token[], start: number, end: number, env: RenderEnv) {
   return start === end ? "" : markdown.renderer.render(tokens.slice(start, end), markdown.options, env);
 }
 
-function renderFactGrid(markdown: MarkdownIt, token: Token, env: RenderEnv) {
+function renderFactGrid(markdown: MarkdownItInstance, token: Token, env: RenderEnv) {
   const facts = metadataFacts(token);
   if (!facts) return renderThreatRange(markdown, [token], 0, 1, env);
 
@@ -312,7 +313,7 @@ function renderFactGrid(markdown: MarkdownIt, token: Token, env: RenderEnv) {
     .join("")}</dl>`;
 }
 
-function renderThreatDetails(markdown: MarkdownIt, tokens: Token[], start: number, end: number, env: RenderEnv) {
+function renderThreatDetails(markdown: MarkdownItInstance, tokens: Token[], start: number, end: number, env: RenderEnv) {
   const label = tokens[start + 1]?.content.trim() ?? "Details";
   const count = countListItems(tokens.slice(start + 3, end));
   const countLabel = count > 0 ? ` <span class="threat-detail-count">(${count})</span>` : "";
@@ -320,7 +321,7 @@ function renderThreatDetails(markdown: MarkdownIt, tokens: Token[], start: numbe
   return `<details class="threat-details"><summary>${escapeHtml(label)}${countLabel}</summary><div class="threat-details-body">${body}</div></details>`;
 }
 
-function renderThreatList(markdown: MarkdownIt, tokens: Token[], env: RenderEnv, sectionKind: ThreatSectionKind) {
+function renderThreatList(markdown: MarkdownItInstance, tokens: Token[], env: RenderEnv, sectionKind: ThreatSectionKind) {
   const listTokens = tokens.map((token) => cloneToken(token));
   const listClass = sectionKind === "changes" ? "threat-change-list" : "threat-action-list";
   const listOpen = listTokens.find((token) => isListOpen(token));
