@@ -475,6 +475,24 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://asutorufa.com/threats/zh-Hans/</loc>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://asutorufa.com/threats/en/</loc>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://asutorufa.com/threats/</loc>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://asutorufa.com/about/index.html</loc>
     <lastmod>2017-10-08</lastmod>
     <changefreq>monthly</changefreq>

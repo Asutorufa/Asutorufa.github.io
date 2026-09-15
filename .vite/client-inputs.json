@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "hash": "b4e9274951d2d1ee68d0afa264aec0ddb0780a477e32de2ca270b32435d9bdc0",
+  "hash": "cf275e5986125fbc8bda564d2be30fc822da08f7888f252ab77a57c92e2fc057",
   "files": [
     {
       "path": "index.html",
@@ -12,7 +12,7 @@
     },
     {
       "path": "package.json",
-      "hash": "8d9e18fe24f0511092f0e8ae47c48fee2da1c7bfe856ec07851e14d438bdbe10"
+      "hash": "e92b5ebe2a32f1914f46ed57593a287c9cd1674b9c352f2468627410be7fc679"
     },
     {
       "path": "src/animation/motion-presets.ts",
@@ -20,15 +20,15 @@
     },
     {
       "path": "src/app/App.tsx",
-      "hash": "8c5a8732e590cf15c3faf923c02cd21654bd2d35343efe251460cc0648085f5e"
+      "hash": "ebb8b6130978ecdbfffa6e2b0d288092b9ef11c8af96b6e2ae3f9abff8eb56bd"
     },
     {
       "path": "src/app/app-types.ts",
-      "hash": "94ce90898f701498be03c5d47312ceea84ffb21e05151a23938b7dada7ba6a5d"
+      "hash": "3deef233d656cfc90d8b3c22f3f6339004166616a28218652acbc9af343f8d73"
     },
     {
       "path": "src/app/document-meta.ts",
-      "hash": "1b282ceb905cc67f76f94973d332ceffd8ec59fbcb69afa59b6931ccdb3e1ff8"
+      "hash": "4f87e846cd0e753efb4bf4a5a86e9c58a0992d8f27eb415d6b0e921384a9bff3"
     },
     {
       "path": "src/app/entry-client.tsx",
@@ -36,15 +36,15 @@
     },
     {
       "path": "src/app/navigation.ts",
-      "hash": "86cbe21a7ba936595d8139ae236648be7792774202f8ccd658f4e1b2bd637496"
+      "hash": "1cbf39801ceba819c875bddecad295f82ca3d954927ab87a0337dbef8762d586"
     },
     {
       "path": "src/app/page-payload-html.ts",
-      "hash": "2b0f27bf8380d9521d869cb1bf328d31605a0b47fef8c08d664b6cc623223004"
+      "hash": "98d0c98c388a1c72a944d6f18b81e5ac2f2f2f1e305d36193732eabb947b75e6"
     },
     {
       "path": "src/app/page-payload.ts",
-      "hash": "e80fc3cff7e4340d5afb68664855dbf126686d739042aeb17f0e457a275f8e4a"
+      "hash": "bc5126bfb17cbc8568074842d0363e31bdfb21e7ffadea87c47d80bba7313cea"
     },
     {
       "path": "src/app/render-page.tsx",
@@ -60,7 +60,7 @@
     },
     {
       "path": "src/components/BlogLayout.tsx",
-      "hash": "75173f1afc89dfa6b665c669a92e68bd751fa9f1eeca8b7cdb6c9f4177f05c8f"
+      "hash": "3841dc4f752dd610b23bfa1ddd528eaa23fabdb837056160a8144ef3b96d8995"
     },
     {
       "path": "src/components/GitalkComments.module.css",
@@ -72,7 +72,7 @@
     },
     {
       "path": "src/components/Icon.tsx",
-      "hash": "5d82725463d11893a85dd969d8a63c42092d79b99a3610b6a5223456a2d3da7c"
+      "hash": "c4257e2e47394248d4dcb8de16158d2678384b87cb8e145e3c6c915f51d10001"
     },
     {
       "path": "src/components/IconButton.tsx",
@@ -160,7 +160,7 @@
     },
     {
       "path": "src/components/Sidebar.tsx",
-      "hash": "d85f3769e3348476badc2cecc9231c9899ccdb832d21ae1645826889aca9e23c"
+      "hash": "6fa488479933c78b1d25c62d85ee7dffeda1d3fd62a6ae701bb4f8d32f6ffa93"
     },
     {
       "path": "src/components/SiteFooter.module.css",
@@ -180,11 +180,11 @@
     },
     {
       "path": "src/data/i18n.ts",
-      "hash": "5b23e9c238153ff4c65ebefad121b435a24a39f8a77943ccd4fdfc9063fa2646"
+      "hash": "0587cfa615d7deab248620e7ca6cda8f682c79c8d4090059b2dbbbb2a6b477c6"
     },
     {
       "path": "src/data/menu.ts",
-      "hash": "9d1b2d23a8ccdc68fc84c0a0cca02e7944923247e681836c8df9c506d60a85e0"
+      "hash": "59e71fadd4b6bac87017f53077bbc5e7281a09df6cd42c6303857948ec23d560"
     },
     {
       "path": "src/hooks/useBodyScrollLock.ts",
@@ -229,6 +229,18 @@
     {
       "path": "src/pages/TaxonomyPage.tsx",
       "hash": "acc1aacde3a05184a22090264b9b90b689962fa6a61964b0bc1ea5f5a9b30479"
+    },
+    {
+      "path": "src/pages/ThreatReportPage.tsx",
+      "hash": "7059255c31dfaba51d9e388f50191e197406ec2feb75bce1ecf8eb2163e2747f"
+    },
+    {
+      "path": "src/pages/ThreatsPage.module.css",
+      "hash": "e7c6e9987316eefb91be19470d0fcf15338cd03aefec73a61fd2efd5aa8c9921"
+    },
+    {
+      "path": "src/pages/ThreatsPage.tsx",
+      "hash": "f49a00efd28dfa8c10d258f7ccd231f2be4ee6625936d8109e0c5143de6875dd"
     },
     {
       "path": "src/pages/ToolsPage.tsx",
@@ -276,7 +288,7 @@
     },
     {
       "path": "src/types/content.ts",
-      "hash": "42d1ad1d249ecff44aff3603c731d996abbbff0ee4c6fd7adfd439ef25a5a6c0"
+      "hash": "a890a2859a282801ddf74d7ec8953dc10ecd3b5a2300c0d029e1079fed5af947"
     },
     {
       "path": "src/types/css.d.ts",
@@ -295,12 +307,16 @@
       "hash": "129fa291f4ae1c71dcc975bfb335397bb8f354a999f17c6bdee27ba348225782"
     },
     {
+      "path": "src/utils/threats.ts",
+      "hash": "3623373491c34dd24634fc4e9b295aad88c5a927bf1690a0b79285347260569c"
+    },
+    {
       "path": "tsconfig.json",
       "hash": "32f6368bf52e2db31779567d2d69e161a493a3d8eddeeecde6f3ceb890f126b3"
     },
     {
       "path": "vite.config.mts",
-      "hash": "54b16b9e4c716c095c9bd687c4ee14f13d1403fa466b984a50d58013f6fdfe49"
+      "hash": "4658abf93d746181409b7611be7721b1681b2b24ee74d08c3db9ba95d0257349"
     }
   ]
 }
