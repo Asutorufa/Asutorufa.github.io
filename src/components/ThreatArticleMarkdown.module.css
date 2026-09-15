@@ -92,6 +92,7 @@
 .root :global(.article-content .threat-details) {
   border-top: 1px solid var(--blog-border-soft);
   margin-top: 1rem;
+  margin-inline: 0.35rem;
   padding-top: 0.1rem;
 }
 
@@ -101,7 +102,7 @@
   font-size: 0.82rem;
   font-weight: 600;
   list-style-position: outside;
-  padding: 0.55rem 0.15rem;
+  padding: 0.55rem 0.35rem;
 }
 
 .root :global(.article-content .threat-details summary:hover) {
@@ -227,6 +228,14 @@
 
   .root :global(.article-content .threat-fact-grid > div:last-child) {
     border-bottom: 0;
+  }
+
+  .root :global(.article-content .threat-details) {
+    margin-inline: 0.15rem;
+  }
+
+  .root :global(.article-content .threat-details summary) {
+    padding-inline: 0.25rem;
   }
 
   .root :global(.article-content .threat-change-list > li),
