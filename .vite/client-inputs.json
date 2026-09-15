@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "hash": "38260f54ae56e7531aad80c3b53374758be24739e0bd8b45c5bc0ad1707dcc5b",
+  "hash": "e7d36ecb2fc15cb8301440f7a2f201edf1ba73f5f61591975d1d3a862835ab9f",
   "files": [
     {
       "path": "index.html",
@@ -20,11 +20,11 @@
     },
     {
       "path": "src/app/App.tsx",
-      "hash": "5b450b2aee7342eca39ae704b7dfe837fed3182c4d430830bf82c65421dad0e6"
+      "hash": "c286f82642810fb202c6625128fb55189520d8bf2060273fc79e86a2441248c8"
     },
     {
       "path": "src/app/app-types.ts",
-      "hash": "5716b257831068185ad5b1cd7378113197c6189177f52dd5469a25b24de73b9e"
+      "hash": "5871f339d4d069bcd22c87c585372ce4ff0c62c9f010dc0d30c7f83463b51167"
     },
     {
       "path": "src/app/document-meta.ts",
@@ -60,7 +60,7 @@
     },
     {
       "path": "src/components/BlogLayout.tsx",
-      "hash": "3841dc4f752dd610b23bfa1ddd528eaa23fabdb837056160a8144ef3b96d8995"
+      "hash": "c5b03eac7cf23ece52ce9f9130c55b466ea6ae0ddc54cab89560b51a4e73fe27"
     },
     {
       "path": "src/components/GitalkComments.module.css",
@@ -96,7 +96,7 @@
     },
     {
       "path": "src/components/MobileHeader.tsx",
-      "hash": "4510749db92786b8145acddea2095194f613ed49c58843f4215ea5b8dbbb5912"
+      "hash": "c9f0f95ca3de891a1a89436bb87c4eb9fc3aa269127b46e1b5d34213a07a7429"
     },
     {
       "path": "src/components/Pagination.module.css",
@@ -160,7 +160,7 @@
     },
     {
       "path": "src/components/Sidebar.tsx",
-      "hash": "1557123e609562e5fc762420c4da5e5faa508eb38e35a67eb49d9e62c97046e9"
+      "hash": "90836bd6ebcdb2eda6a996ad358837762cc40648118b047ddf3dda5e754c31ca"
     },
     {
       "path": "src/components/SiteFooter.module.css",
@@ -169,6 +169,14 @@
     {
       "path": "src/components/SiteFooter.tsx",
       "hash": "1c4f179d77fa92651a7403bd60234b2b743bce9eb627fc30e3368f6146182f64"
+    },
+    {
+      "path": "src/components/SiteLanguageSwitcher.module.css",
+      "hash": "6a3ef7d570ac29d1114b375d4eb74e9df2353b48014346716d0c6fc3477251d7"
+    },
+    {
+      "path": "src/components/SiteLanguageSwitcher.tsx",
+      "hash": "c229cfa7ce38e849d5e1550462c2e4163d9d57021d39293d1863cd3ccbf5d6e3"
     },
     {
       "path": "src/components/ThemeToggle.module.css",
@@ -188,7 +196,7 @@
     },
     {
       "path": "src/data/i18n.ts",
-      "hash": "99e787719b44222ac45e111f8368fd54a5a49698ed34dd5ee6223b59f26fa0e7"
+      "hash": "ecbbac78c5b63497187ee486f33b15134bdeba298fb58d3fb106a713ad161d80"
     },
     {
       "path": "src/data/menu.ts",
@@ -240,15 +248,15 @@
     },
     {
       "path": "src/pages/ThreatReportPage.tsx",
-      "hash": "79d509ed1d12a427caef36b442853873cd993cd1b110cd043248357431abe8b0"
+      "hash": "bf93d619fb4a52591e8b07638a159d16770641f0e5f4bc6ee14ee5fa09e81455"
     },
     {
       "path": "src/pages/ThreatsPage.module.css",
-      "hash": "fc8c2aac0bc8550dd9f37ba9c3caae05c6fa73b7ded630f5180b51c7529d2315"
+      "hash": "8e74443cbec8006807a287424a7802537c21c41aa69d656273a3fe57c3300330"
     },
     {
       "path": "src/pages/ThreatsPage.tsx",
-      "hash": "54b20a83e584b9e229c2a4dccb952da268e4e44e5f949369c8bbceb35a3ef167"
+      "hash": "5dc38c241e69cad3a83e489930ca9fad378e5fa98973d39031386222f6c84348"
     },
     {
       "path": "src/pages/ToolsPage.tsx",
@@ -296,7 +304,7 @@
     },
     {
       "path": "src/types/content.ts",
-      "hash": "597092728701fe379893daf7bd75bbe2e6aba7010c9f58680afea214bf7418ed"
+      "hash": "35f5aad3db065794d3c5d2fdc90715ac04a4457d09ad0573873d85197e0d1cc2"
     },
     {
       "path": "src/types/css.d.ts",
@@ -311,12 +319,16 @@
       "hash": "681f2641bca01dd7e6c1dbcf58ec54dc68b5ceba8224bf87d6dd52b7545883b7"
     },
     {
+      "path": "src/utils/language.ts",
+      "hash": "ef0632679f2a45c3fb2aa4f45c921503c95f0a6c870d9b97d7e15b01cf763d51"
+    },
+    {
       "path": "src/utils/route.ts",
       "hash": "129fa291f4ae1c71dcc975bfb335397bb8f354a999f17c6bdee27ba348225782"
     },
     {
       "path": "src/utils/threats.ts",
-      "hash": "2d50fdad9df2e677e79aa02c27d5b8bc1cee0a8acaf86a114627ba471064987c"
+      "hash": "1532b3a08e6b56e8baa0e582fdf54957a25d7fa9896affb1a53f541e2858cc12"
     },
     {
       "path": "tsconfig.json",
