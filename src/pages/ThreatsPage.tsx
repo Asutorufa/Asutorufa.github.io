@@ -4,7 +4,7 @@ import type { ThreatReport, UiLabels } from "../types/content";
 import { formatDisplayDate } from "../utils/date";
 import { Icon } from "../components/Icon";
 import { Pagination } from "../components/Pagination";
-import { THREAT_LANGUAGES, threatFeedRoute, threatListRoute } from "../utils/threats";
+import { rememberThreatLanguage, THREAT_LANGUAGES, threatFeedRoute, threatListRoute } from "../utils/threats";
 import styles from "./ThreatsPage.module.css";
 
 type ThreatsPageProps = AppProps & {
@@ -35,7 +35,7 @@ export function ThreatsPage({ content, route, page }: ThreatsPageProps) {
                   {labels.threatLanguageNames[language]}
                 </span>
               ) : (
-                <a key={language} href={threatListRoute(language, page)} data-background-post-link="">
+                <a key={language} href={threatListRoute(language, page)} data-background-post-link="" onClick={() => rememberThreatLanguage(language)}>
                   {labels.threatLanguageNames[language]}
                 </a>
               )

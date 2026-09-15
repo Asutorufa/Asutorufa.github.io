@@ -7,10 +7,10 @@ type MenuItem = {
   icon: IconName;
 };
 
-export function menuItems(labels: UiLabels): MenuItem[] {
+export function menuItems(labels: UiLabels, threatHref = "/threats/"): MenuItem[] {
   return [
     { href: "/", label: labels.home, icon: "home" },
-    { href: "/threats/", label: labels.threatIntelligence, icon: "shield-alert" },
+    { href: threatHref, label: labels.threatIntelligence, icon: "shield-alert" },
     { href: "/tags/", label: labels.tags, icon: "tags" },
     { href: "/categories/", label: labels.categories, icon: "table" },
     { href: "/archives/", label: labels.archives, icon: "archive" },

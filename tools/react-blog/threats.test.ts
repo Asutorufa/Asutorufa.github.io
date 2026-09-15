@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
 import type { ContentManifest, RouteEntry, SiteLanguage, ThreatReport } from "../../src/types/content";
-import { THREAT_LANGUAGES, threatFeedRoute, threatReportRoute, threatTranslationsForReport } from "../../src/utils/threats";
+import { THREAT_LANGUAGES, threatFeedRoute, threatLanguageFromBrowserLanguages, threatReportRoute, threatTranslationsForReport } from "../../src/utils/threats";
 import { buildRoutes } from "./build-routes";
 import { contentIndex } from "./content-index";
 import { assertThreatReportConsistency, collectThreatReports } from "./collect-content";
@@ -31,6 +31,14 @@ test("parses the zh-Hans, en, and ja representations of one report", async () =>
     new Set(["/threats/zh-Hans/2026-09-15/", "/threats/en/2026-09-15/", "/threats/2026-09-15/"])
   );
   assert.deepEqual(reports.find((report) => report.language === "zh-Hans")?.tags, ["CVE-2026-12345", "ransomware", "supply-chain", "zero-day"]);
+});
+
+test("orders threat languages and resolves browser language fallback", () => {
+  assert.deepEqual(THREAT_LANGUAGES, ["ja", "en", "zh-Hans"]);
+  assert.equal(threatLanguageFromBrowserLanguages(["ja-JP", "en-US"]), "ja");
+  assert.equal(threatLanguageFromBrowserLanguages(["en-US", "ja-JP"]), "en");
+  assert.equal(threatLanguageFromBrowserLanguages(["zh-CN"]), "zh-Hans");
+  assert.equal(threatLanguageFromBrowserLanguages(["fr-FR", "de-DE"]), "en");
 });
 
 test("requires the date directory, id, date, and language filename to agree", async () => {

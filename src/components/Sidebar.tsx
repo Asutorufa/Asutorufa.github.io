@@ -3,6 +3,7 @@ import type { MouseEvent } from "react";
 import { useEffect, useId, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { MotionPresets } from "../animation/motion-presets";
+import { preferredThreatLanguage, THREAT_DEFAULT_LANGUAGE, THREAT_LANGUAGE_CHANGE_EVENT, threatListRoute } from "../utils/threats";
 import type { ContentManifest, Post, TocItem, UiLabels } from "../types/content";
 import { menuItems } from "../data/menu";
 import { ThemeToggle } from "./ThemeToggle";
@@ -22,7 +23,14 @@ export function Sidebar({ content, labels, currentRoute, post, toc, mobile = fal
   const activeToc = toc ?? post?.toc ?? [];
   const hasToc = activeToc.length > 0;
   const prefersReducedMotion = useReducedMotion();
-  const navItems = menuItems(labels);
+  const [threatLanguage, setThreatLanguage] = useState(THREAT_DEFAULT_LANGUAGE);
+  useEffect(() => {
+    const updateThreatLanguage = () => setThreatLanguage(preferredThreatLanguage());
+    updateThreatLanguage();
+    window.addEventListener(THREAT_LANGUAGE_CHANGE_EVENT, updateThreatLanguage);
+    return () => window.removeEventListener(THREAT_LANGUAGE_CHANGE_EVENT, updateThreatLanguage);
+  }, []);
+  const navItems = menuItems(labels, threatListRoute(threatLanguage));
   const activeNavIndex = navItems.findIndex((item) => isActive(currentRoute, item.href));
 
   return (

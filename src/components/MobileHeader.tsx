@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { MotionPresets } from "../animation/motion-presets";
+import { preferredThreatLanguage, THREAT_DEFAULT_LANGUAGE, THREAT_LANGUAGE_CHANGE_EVENT, threatListRoute } from "../utils/threats";
 import type { UiLabels } from "../types/content";
 import { menuItems } from "../data/menu";
 import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
@@ -20,8 +21,9 @@ type MobileHeaderProps = {
 
 export function MobileHeader({ title, subtitle, labels, currentRoute }: MobileHeaderProps) {
   const [open, setOpen] = useState(false);
+  const [threatLanguage, setThreatLanguage] = useState(THREAT_DEFAULT_LANGUAGE);
   const prefersReducedMotion = useReducedMotion();
-  const navItems = menuItems(labels);
+  const navItems = menuItems(labels, threatListRoute(threatLanguage));
   const activeNavIndex = navItems.findIndex((item) => isActive(currentRoute, item.href));
   const closeMenu = () => setOpen(false);
 
@@ -31,6 +33,13 @@ export function MobileHeader({ title, subtitle, labels, currentRoute }: MobileHe
   useEffect(() => {
     closeMenu();
   }, [currentRoute]);
+
+  useEffect(() => {
+    const updateThreatLanguage = () => setThreatLanguage(preferredThreatLanguage());
+    updateThreatLanguage();
+    window.addEventListener(THREAT_LANGUAGE_CHANGE_EVENT, updateThreatLanguage);
+    return () => window.removeEventListener(THREAT_LANGUAGE_CHANGE_EVENT, updateThreatLanguage);
+  }, []);
 
   return (
     <header className={styles.header}>
