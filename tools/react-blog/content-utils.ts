@@ -9,7 +9,7 @@ import { renderMarkdown, renderMarkdownToHtml } from "./render-markdown";
 import { normalizeTaxonomyName, routeSegment as sharedRouteSegment } from "../../src/utils/route";
 import type { FrontMatterFile } from "./front-matter";
 
-const MARKDOWN_CACHE_VERSION = 5;
+const MARKDOWN_CACHE_VERSION = 6;
 const markdownCacheDir = path.join(rootDir, ".cache/react-blog/markdown");
 const AUTO_EXCERPT_LENGTH = 180;
 
@@ -452,6 +452,8 @@ export async function createThreatReport(
     tags: asThreatFactArray(data.tags),
     cves: asThreatFactArray(data.cves),
     iocs: asThreatFactArray(data.iocs),
+    generator: optionalString(data.generator),
+    model: optionalString(data.model),
     generated: asBoolean(data.generated),
     ...counts,
     language: languageName,
@@ -528,7 +530,7 @@ async function renderThreatMarkdownWithCache(sourcePath: string, parsed: FrontMa
   const cached = await readMarkdownCache<MarkdownBodyRender>(cachePath, key);
   if (cached) return cached;
 
-  const value = await renderMarkdownDocument(parsed.content.trim(), data, route);
+  const value = await renderMarkdownDocument(parsed.content.trim(), data, route, "threat");
   await writeMarkdownCache(cachePath, key, value);
   return value;
 }
@@ -567,8 +569,8 @@ async function renderPostMarkdown(parsed: FrontMatterFile<string>, data: Record<
   };
 }
 
-async function renderMarkdownDocument(markdown: string, data: Record<string, unknown>, route: string): Promise<MarkdownBodyRender> {
-  const body = await renderMarkdown(markdown, { assetBasePath: route });
+async function renderMarkdownDocument(markdown: string, data: Record<string, unknown>, route: string, variant?: "threat"): Promise<MarkdownBodyRender> {
+  const body = await renderMarkdown(markdown, { assetBasePath: route, variant });
   return {
     bodyMarkdown: markdown,
     bodyHtml: body.html,
@@ -626,6 +628,11 @@ async function markdownCacheKey(kind: "page" | "post" | "threat", parsed: FrontM
 function markdownCachePath(kind: "page" | "post" | "threat", sourcePath: string) {
   const sourceHash = createHash("sha256").update(sourcePath).digest("hex");
   return path.join(markdownCacheDir, kind, `${sourceHash}.json`);
+}
+
+function optionalString(value: unknown) {
+  const result = asString(value).trim();
+  return result || undefined;
 }
 
 async function markdownRendererFingerprint() {

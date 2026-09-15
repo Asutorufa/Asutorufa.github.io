@@ -253,7 +253,7 @@ export function assertThreatReportConsistency(reports: ThreatReport[]) {
   for (const [id, group] of byId) {
     const reference = group[0];
     for (const report of group.slice(1)) {
-      for (const field of ["date", "total", "critical", "high", "medium", "low", "exploited", "tags", "cves", "iocs"] as const) {
+      for (const field of ["date", "total", "critical", "high", "medium", "low", "exploited", "tags", "cves", "iocs", "generator", "model"] as const) {
         if (!sameThreatFact(reference[field], report[field])) {
           throw new Error(`Inconsistent threat report fact ${field} for id ${id}: ${reference.sourcePath} and ${report.sourcePath}`);
         }

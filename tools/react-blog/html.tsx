@@ -20,6 +20,8 @@ export function renderHtmlShell(options: { appHtml: string; assets: ClientAssets
   const canonical = new URL(route.route === "/404.html" ? "/" : route.route, content.config.url).toString();
   const description = routeDescription(content, route);
   const title = route.title === content.config.title ? content.config.title : `${route.title} - ${content.config.title}`;
+  const threatReport = route.kind === "threat-report" ? pagePayload.threatReport : undefined;
+  const threatOgImage = threatReport ? new URL(`${threatReport.route}og.png`, content.config.url).toString() : undefined;
 
   const shell = (
     <html lang={language.htmlLang} dir={language.textDirection}>
@@ -30,14 +32,18 @@ export function renderHtmlShell(options: { appHtml: string; assets: ClientAssets
         <meta name="color-scheme" content="light dark" />
         <meta name="theme-color" content={THEME_COLOR_LIGHT} />
         <meta name="description" content={description} />
-        <meta name="keywords" content="program" />
+        <meta name="keywords" content={threatReport ? threatKeywords(threatReport) : "program"} />
         <meta property="og:type" content={route.kind === "post" || route.kind === "wip-post" || route.kind === "threat-report" ? "article" : "website"} />
         <meta property="og:title" content={route.title} />
         <meta property="og:url" content={canonical} />
         <meta property="og:site_name" content={content.config.title} />
         <meta property="og:description" content={description} />
         <meta property="og:locale" content={language.locale} />
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content={threatOgImage ? "summary_large_image" : "summary"} />
+        {threatOgImage ? <meta property="og:image" content={threatOgImage} /> : null}
+        {threatOgImage ? <meta property="og:image:width" content="1200" /> : null}
+        {threatOgImage ? <meta property="og:image:height" content="630" /> : null}
+        {threatOgImage ? <meta name="twitter:image" content={threatOgImage} /> : null}
         <link rel="canonical" href={canonical} />
         {threatAlternateEntries(content.threatReports, route).map((entry) => (
           <link
@@ -118,6 +124,10 @@ function routeDescription(content: ContentManifest, route: RouteEntry) {
     return report?.summary || report?.plainText.slice(0, 160) || content.config.subtitle;
   }
   return content.config.description || content.config.subtitle;
+}
+
+function threatKeywords(report: ThreatReport) {
+  return [...new Set([...report.cves, ...report.tags].map((value) => value.trim()).filter(Boolean))].slice(0, 24).join(", ");
 }
 
 function canonicalHostRedirectScript(siteUrl: string) {

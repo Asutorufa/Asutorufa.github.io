@@ -15,6 +15,7 @@ import { sitemapXml } from "./generate-sitemap";
 import { renderHtmlShell } from "./html";
 import { threatFeedXml } from "./generate-threat-feed";
 import { parseFrontMatter } from "./front-matter";
+import { renderMarkdown } from "./render-markdown";
 import { routePayload } from "./render-html";
 
 test("parses the zh-Hans, en, and ja representations of one report", async () => {
@@ -70,6 +71,42 @@ test("rejects duplicate id-language pairs and cross-language fact differences", 
   });
 });
 
+test("parses generator metadata and enforces it across translations", async () => {
+  const source = reportMarkdown("2026-09-15", "en").replace("generated: true", "generated: true\ngenerator: ChatGPT\nmodel: GPT-5.6 Sol");
+  const report = await createThreatReport("source/_threats/2026-09-15/en.md", parseFrontMatter(source), []);
+  assert.equal(report.generator, "ChatGPT");
+  assert.equal(report.model, "GPT-5.6 Sol");
+
+  const reference = makeReport("2026-09-15", "en");
+  const translated = { ...makeReport("2026-09-15", "ja"), generator: "Other generator" };
+  assert.throws(() => assertThreatReportConsistency([reference, translated]), /Inconsistent threat report fact generator/);
+});
+
+test("renders Threat facts, event boundaries, native details, and quiet section labels", async () => {
+  const result = await renderMarkdown(
+    `## Changes since yesterday\n\n- **NEW:** A new exploit was observed.\n- **ONGOING:** Monitoring continues.\n\n## Priority actions\n\n- **Immediate:** Patch the affected service.\n- **Monitor:** Review telemetry.\n\n### Example event\n\n> Why it matters\n\n**Severity:** Critical  \n**CVE:** CVE-2026-12345  \n**Affected:** Example product\n\n#### IOC\n\n- \`evil.example.com\`\n\n#### Impact\n\nThe impact is limited.`,
+    { variant: "threat" }
+  );
+
+  assert.equal(result.html.includes('<section class="threat-event">'), true);
+  assert.equal(result.html.includes('<dl class="threat-fact-grid">'), true);
+  assert.equal(result.html.includes('<details class="threat-details">'), true);
+  assert.equal(result.html.includes('class="threat-change-list"'), true);
+  assert.equal(result.html.includes('class="threat-action-list"'), true);
+  assert.equal(result.html.includes('class="threat-section-heading'), true);
+  assert.equal(result.html.includes("<h4>Impact</h4>"), true);
+  assert.equal(
+    result.toc.every((item) => item.level === 2 || item.level === 3),
+    true
+  );
+});
+
+test("leaves ordinary Markdown rendering outside the Threat variant", async () => {
+  const result = await renderMarkdown("### Event\n\n#### Details\n\nText");
+  assert.equal(result.html.includes('class="threat-event"'), false);
+  assert.equal(result.html.includes("<h4>Details</h4>"), true);
+});
+
 test("rejects invalid counts and overlong summaries", async () => {
   await assert.rejects(
     () => createThreatReport("source/_threats/2026-09-15/en.md", parseFrontMatter(reportMarkdown("2026-09-15", "en", "critical: -1")), []),
@@ -120,7 +157,7 @@ test("emits canonical, hreflang, x-default, and language-specific sitemap entrie
     appHtml: "<main>Threat</main>",
     assets: { scripts: [], styles: [] },
     content,
-    pagePayload: { route: enRoute },
+    pagePayload: { route: enRoute, threatReport: content.threatReports.find((report) => report.language === "en") },
     route: enRoute
   });
   assert.equal(html.includes('<link rel="canonical" href="https://asutorufa.com/threats/en/2026-09-15/"'), true);
@@ -130,6 +167,9 @@ test("emits canonical, hreflang, x-default, and language-specific sitemap entrie
   assert.equal(hasAlternate(html, "x-default", "https://asutorufa.com/threats/2026-09-15/"), true);
   assert.equal(html.includes('type="application/rss+xml"'), true);
   assert.equal(html.includes("https://asutorufa.com/threats/en/rss.xml"), true);
+  assert.equal(html.includes('name="keywords" content="CVE-2026-12345, CVE-2026-23456, ransomware, supply-chain, zero-day"'), true);
+  assert.equal(html.includes('property="og:image" content="https://asutorufa.com/threats/en/2026-09-15/og.png"'), true);
+  assert.equal(html.includes('name="twitter:card" content="summary_large_image"'), true);
 
   const sitemap = sitemapXml(content, routes);
   for (const language of THREAT_LANGUAGES) {

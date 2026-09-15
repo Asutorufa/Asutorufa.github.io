@@ -16,6 +16,11 @@ export function updateDocumentMeta(content: ContentManifest, route: RouteEntry, 
   setMeta("property", "og:url", canonical);
   setMeta("property", "og:description", description);
   setMeta("property", "og:locale", language.locale);
+  const threatReport =
+    route.kind === "threat-report" ? content.threatReports.find((report) => report.id === route.params?.id && report.language === route.language) : undefined;
+  setMeta("name", "keywords", threatReport ? threatKeywords(threatReport) : "program");
+  setMeta("name", "twitter:card", threatReport ? "summary_large_image" : "summary");
+  updateThreatOgMetadata(content, threatReport);
   document.querySelector('link[rel="canonical"]')?.setAttribute("href", canonical);
   updateThreatAlternates(content, route);
   updateThreatFeedLink(content, route);
@@ -78,6 +83,31 @@ function updateThreatFeedLink(content: ContentManifest, route: RouteEntry) {
   document.head.append(next);
 }
 
+function updateThreatOgMetadata(content: ContentManifest, report: ContentManifest["threatReports"][number] | undefined) {
+  const image = report ? new URL(`${report.route}og.png`, content.config.url).toString() : undefined;
+  setOptionalMeta("property", "og:image", image);
+  setOptionalMeta("property", "og:image:width", image ? "1200" : undefined);
+  setOptionalMeta("property", "og:image:height", image ? "630" : undefined);
+  setOptionalMeta("name", "twitter:image", image);
+}
+
+function threatKeywords(report: ContentManifest["threatReports"][number]) {
+  return [...new Set([...report.cves, ...report.tags].map((value) => value.trim()).filter(Boolean))].slice(0, 24).join(", ");
+}
+
 function setMeta(attribute: "name" | "property", key: string, value: string) {
   document.querySelector(`meta[${attribute}="${key}"]`)?.setAttribute("content", value);
+}
+
+function setOptionalMeta(attribute: "name" | "property", key: string, value: string | undefined) {
+  const selector = `meta[${attribute}="${key}"]`;
+  const existing = document.querySelector<HTMLMetaElement>(selector);
+  if (!value) {
+    existing?.remove();
+    return;
+  }
+  const meta = existing ?? document.createElement("meta");
+  meta.setAttribute(attribute, key);
+  meta.content = value;
+  if (!existing) document.head.append(meta);
 }

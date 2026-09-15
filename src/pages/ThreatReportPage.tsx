@@ -1,9 +1,9 @@
 import type { AppProps } from "../app/app-types";
 import { UI_LABELS } from "../data/i18n";
 import { formatDisplayDate } from "../utils/date";
-import { ArticleMarkdown } from "../components/ArticleMarkdown";
 import { GitalkComments } from "../components/GitalkComments";
 import { Icon } from "../components/Icon";
+import { ThreatArticleMarkdown } from "../components/ThreatArticleMarkdown";
 import { rememberThreatLanguage, sortThreatReportsByDateDesc, threatTranslationsForReport } from "../utils/threats";
 import styles from "./ThreatsPage.module.css";
 
@@ -72,11 +72,34 @@ export function ThreatReportPage({ content, route, id }: ThreatReportPageProps) 
             <Metric label={labels.exploited} value={report.exploited} kind="exploited" />
             <Metric label={labels.threats} value={report.total} kind="total" />
           </div>
+          {report.cves.length > 0 || report.iocs.length > 0 ? (
+            <div className={styles.secondaryFacts} aria-label={labels.threatIntelligence}>
+              {report.cves.length > 0 ? <span>{report.cves.length} CVEs</span> : null}
+              {report.iocs.length > 0 ? <span>{report.iocs.length} IOCs</span> : null}
+            </div>
+          ) : null}
+          {report.cves.length > 0 ? (
+            <div className={styles.cveChips} aria-label="CVE">
+              {report.cves.slice(0, 5).map((cve) => (
+                <span key={cve}>{cve}</span>
+              ))}
+            </div>
+          ) : null}
         </section>
 
         <div className="mt-10" data-post-body-transition={report.route}>
-          <ArticleMarkdown html={report.bodyHtml} />
+          <ThreatArticleMarkdown html={report.bodyHtml} />
         </div>
+
+        {report.generator || report.model ? (
+          <footer className={styles.generationFooter}>
+            <span>{labels.generatedBy}</span>
+            {report.generator ? <strong>{report.generator}</strong> : null}
+            {report.generator && report.model ? <span aria-hidden="true">·</span> : null}
+            {report.model ? <strong>{report.model}</strong> : null}
+            <time dateTime={report.date}>{formatDisplayDate(report.date)}</time>
+          </footer>
+        ) : null}
 
         <nav className={styles.reportNavigation} aria-label={labels.threatIntelligence}>
           {previousReport ? (

@@ -31,6 +31,7 @@ export type UiLabels = {
   noThreatReports: string;
   previousReport: string;
   nextReport: string;
+  generatedBy: string;
   threatLanguageNames: Record<SiteLanguage, string>;
   search: string;
   menu: string;
@@ -123,6 +124,8 @@ export type ThreatReport = {
   tags: string[];
   cves: string[];
   iocs: string[];
+  generator?: string;
+  model?: string;
   generated: boolean;
   total: number;
   critical: number;

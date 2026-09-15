@@ -1,0 +1,243 @@
+.root :global(.article-content) {
+  font-size: 0.98rem;
+}
+
+.root :global(.article-content h2) {
+  margin-top: 2.2rem;
+}
+
+.root :global(.article-content h3) {
+  border-bottom: 0;
+  font-size: 1.12rem;
+  margin-top: 0;
+}
+
+.root :global(.article-content h4) {
+  border-bottom: 0;
+  color: var(--blog-accent-strong);
+  font-size: 0.82rem;
+  font-weight: 650;
+  letter-spacing: 0.035em;
+  margin-top: 1.2rem;
+}
+
+.root :global(.article-content .threat-event) {
+  background: color-mix(in srgb, var(--blog-surface-muted) 42%, transparent);
+  border: 1px solid var(--blog-border-soft);
+  border-left: 2px solid var(--blog-accent-line);
+  border-radius: 0.75rem;
+  margin-top: 1.5rem;
+  overflow: hidden;
+  padding: 1.05rem 1.1rem 1.15rem;
+}
+
+.root :global(.article-content .threat-event > h3:first-child) {
+  color: var(--blog-heading);
+}
+
+.root :global(.article-content .threat-event > blockquote:first-of-type) {
+  background: color-mix(in srgb, var(--blog-accent-soft) 38%, transparent);
+  border-left-width: 3px;
+  border-radius: 0 0.45rem 0.45rem 0;
+  padding: 0.35rem 0.8rem;
+}
+
+.root :global(.article-content .threat-fact-grid) {
+  border: 1px solid var(--blog-border-soft);
+  border-radius: 0.6rem;
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.root :global(.article-content .threat-fact-grid > div) {
+  border-bottom: 1px solid var(--blog-border-soft);
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+  padding: 0.6rem 0.7rem;
+}
+
+.root :global(.article-content .threat-fact-grid > div:nth-child(odd)) {
+  border-right: 1px solid var(--blog-border-soft);
+}
+
+.root :global(.article-content .threat-fact-grid > div:nth-last-child(-n + 2)) {
+  border-bottom: 0;
+}
+
+.root :global(.article-content .threat-fact-grid dt) {
+  color: var(--blog-faint);
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.root :global(.article-content .threat-fact-grid dd) {
+  color: var(--blog-text);
+  font-size: 0.88rem;
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.root :global(.article-content .threat-fact-grid dd code),
+.root :global(.article-content .threat-details-body code) {
+  overflow-wrap: anywhere;
+}
+
+.root :global(.article-content .threat-details) {
+  border-top: 1px solid var(--blog-border-soft);
+  margin-top: 1rem;
+  padding-top: 0.1rem;
+}
+
+.root :global(.article-content .threat-details summary) {
+  color: var(--blog-muted);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  list-style-position: outside;
+  padding: 0.55rem 0.15rem;
+}
+
+.root :global(.article-content .threat-details summary:hover) {
+  color: var(--blog-accent-strong);
+}
+
+.root :global(.article-content .threat-details summary:focus-visible) {
+  border-radius: 0.25rem;
+  outline: 2px solid var(--blog-accent);
+  outline-offset: 2px;
+}
+
+.root :global(.article-content .threat-detail-count) {
+  color: var(--blog-faint);
+  font-weight: 500;
+}
+
+.root :global(.article-content .threat-details-body) {
+  padding: 0.1rem 0 0.45rem;
+}
+
+.root :global(.article-content .threat-details-body > *:first-child) {
+  margin-top: 0.45rem;
+}
+
+.root :global(.article-content .threat-section-heading) {
+  border-bottom: 0;
+  font-size: 1.28rem;
+  margin-bottom: 0.25rem;
+}
+
+.root :global(.article-content .threat-change-list),
+.root :global(.article-content .threat-action-list) {
+  list-style: none;
+  margin: 0.85rem 0 1.25rem;
+  padding: 0;
+}
+
+.root :global(.article-content .threat-change-list > li),
+.root :global(.article-content .threat-action-list > li) {
+  border-bottom: 1px solid var(--blog-border-soft);
+  display: grid;
+  gap: 0.15rem 0.85rem;
+  grid-template-columns: 6.2rem minmax(0, 1fr);
+  margin: 0;
+  padding: 0.72rem 0;
+}
+
+.root :global(.article-content .threat-change-list > li:last-child),
+.root :global(.article-content .threat-action-list > li:last-child) {
+  border-bottom: 0;
+}
+
+.root :global(.article-content .threat-change-list > li > p),
+.root :global(.article-content .threat-action-list > li > p) {
+  margin: 0;
+}
+
+.root :global(.article-content .threat-change-list > li > p > strong:first-child),
+.root :global(.article-content .threat-change-list > li > strong:first-child),
+.root :global(.article-content .threat-action-list > li > p > strong:first-child) {
+  color: var(--blog-accent-strong);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.root :global(.article-content .threat-action-list > li > strong:first-child) {
+  color: var(--blog-accent-strong);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.root :global(.article-content .threat-change-list > li[data-threat-status="ongoing"] > p > strong:first-child),
+.root :global(.article-content .threat-change-list > li[data-threat-status="ongoing"] > strong:first-child),
+.root :global(.article-content .threat-action-list > li[data-threat-status="monitor"] > p > strong:first-child) {
+  color: var(--blog-muted);
+}
+
+.root :global(.article-content .threat-action-list > li[data-threat-status="monitor"] > strong:first-child) {
+  color: var(--blog-muted);
+}
+
+.root :global(.article-content .threat-change-list > li[data-threat-status="resolved"] > p > strong:first-child),
+.root :global(.article-content .threat-change-list > li[data-threat-status="resolved"] > strong:first-child) {
+  color: var(--blog-success-text, var(--blog-muted));
+}
+
+.root :global(.article-content .threat-action-list > li[data-threat-status="immediate"]) {
+  border-left: 2px solid var(--blog-accent-line);
+  padding-left: 0.7rem;
+}
+
+.root :global(.article-content .threat-action-list > li[data-threat-status="immediate"] > p > strong:first-child) {
+  color: var(--blog-heading);
+}
+
+.root :global(.article-content .threat-action-list > li[data-threat-status="immediate"] > strong:first-child) {
+  color: var(--blog-heading);
+}
+
+.root :global(.article-content .threat-action-list > li[data-threat-status="today"] > p > strong:first-child),
+.root :global(.article-content .threat-action-list > li[data-threat-status="today"] > strong:first-child) {
+  color: var(--blog-accent-strong);
+}
+
+@media (max-width: 640px) {
+  .root :global(.article-content .threat-event) {
+    padding: 0.9rem 0.8rem 1rem;
+  }
+
+  .root :global(.article-content .threat-fact-grid) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .root :global(.article-content .threat-fact-grid > div),
+  .root :global(.article-content .threat-fact-grid > div:nth-child(odd)),
+  .root :global(.article-content .threat-fact-grid > div:nth-last-child(-n + 2)) {
+    border-bottom: 1px solid var(--blog-border-soft);
+    border-right: 0;
+  }
+
+  .root :global(.article-content .threat-fact-grid > div:last-child) {
+    border-bottom: 0;
+  }
+
+  .root :global(.article-content .threat-change-list > li),
+  .root :global(.article-content .threat-action-list > li) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root :global(.article-content a) {
+    transition: none;
+  }
+}

@@ -13,6 +13,7 @@ import { generateFeed } from "./generate-feed";
 import { generateSearch } from "./generate-search";
 import { generateSitemap } from "./generate-sitemap";
 import { generateThreatFeeds } from "./generate-threat-feed";
+import { generateThreatOgImages } from "./generate-threat-og";
 import { writeClientCommonModule } from "./generate-client-common";
 import { getMarkdownCacheStats } from "./content-utils";
 import { getHtmlCacheStats, renderHtml, type PageRenderer } from "./render-html";
@@ -87,6 +88,7 @@ async function build() {
     Promise.all([
       timeStage(timings, "generate feed", () => generateFeed(content)),
       timeStage(timings, "generate threat feeds", () => generateThreatFeeds(content)),
+      timeStage(timings, "generate threat OG images", () => generateThreatOgImages(content)),
       timeStage(timings, "generate sitemap", () => generateSitemap(content, routes)),
       timeStage(timings, "generate search", () => generateSearch(content)),
       timeStage(timings, "copy static assets", () => copyStaticAssets(content))
