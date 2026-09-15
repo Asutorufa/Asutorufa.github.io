@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>脅威インテリジェンス</title>
+    <link>https://asutorufa.com/threats/</link>
+    <atom:link href="https://asutorufa.com/threats/rss.xml" rel="self" type="application/rss+xml" />
+    <description>公開情報から収集した日々のセキュリティインテリジェンス。</description>
+    <language>ja</language>
+    <lastBuildDate>Tue, 15 Sep 2026 06:58:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-14</title>
+      <link>https://asutorufa.com/threats/2026-09-14/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-09-14/</guid>
+      <pubDate>Tue, 15 Sep 2026 06:58:00 GMT</pubDate>
+      <description>9月14日に最も緊急度が高かった新規脅威は Cisco Secure Email Gateway の CVE-2026-76461 です。未認証のリモート攻撃者が細工したメールを通じて root 権限で任意コマンドを実行でき、Cisco は実際の悪用を確認、CISA も同日に KEV へ追加しました。ほかに Metabase CVE-2026-72898 を悪用した Mathspace の情報漏えい、IDScan.net の本人確認データ侵害の続報、日本の JVN が公開した FLEXLAN、YAMAP、ExLlamaV3 の脆弱性が注目されます。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-13</title>
+      <link>https://asutorufa.com/threats/2026-09-13/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-09-13/</guid>
+      <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
+      <description>2026-09-13 時点で最も注目すべき脅威は、実際に悪用が確認された DevOps、リモート管理、エッジ機器の脆弱性と、複数の国家背景クラスタが急速に採用した BlueMoon の Chrome/Windows ゼロデイ連鎖です。CISA は 5 件の KEV を追加し、PaperCut と GitLab でも実攻撃が確認されました。一方で Check Point は 2 件の重大な VPN RCE を公開し、Brevo の事案は Trezor ユーザーを狙ったフィッシングにつながりました。</description>
+    </item>
+  </channel>
+</rss>

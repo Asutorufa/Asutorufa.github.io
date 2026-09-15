@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>威胁情报</title>
+    <link>https://asutorufa.com/threats/zh-Hans/</link>
+    <atom:link href="https://asutorufa.com/threats/zh-Hans/rss.xml" rel="self" type="application/rss+xml" />
+    <description>从公开来源收集的每日安全情报。</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 15 Sep 2026 06:58:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-14</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-14/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-14/</guid>
+      <pubDate>Tue, 15 Sep 2026 06:58:00 GMT</pubDate>
+      <description>9 月 14 日最紧急的新威胁来自 Cisco Secure Email Gateway：CVE-2026-76461 可由未认证远程攻击者通过恶意邮件触发 root 级命令执行，Cisco 已确认在野利用，CISA 同日纳入 KEV。当天还值得关注 Mathspace 因 Metabase CVE-2026-72898 遭入侵的数据泄露、IDScan.net 身份数据事件后续，以及日本 JVN 新增的 FLEXLAN、YAMAP 与 ExLlamaV3 安全问题。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-13</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-13/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-13/</guid>
+      <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
+      <description>截至 2026-09-13，最值得关注的威胁集中在已确认在野利用的开发运维、远程管理和边界设备漏洞，以及由多组国家背景攻击者快速采用的 BlueMoon 浏览器/Windows 零日利用链。CISA 新增 5 个 KEV，PaperCut 与 GitLab 也出现现实攻击；同时 Check Point 披露两项关键 VPN RCE，Brevo 事件导致 Trezor 用户遭定向钓鱼。</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Threat Intelligence</title>
+    <link>https://asutorufa.com/threats/en/</link>
+    <atom:link href="https://asutorufa.com/threats/en/rss.xml" rel="self" type="application/rss+xml" />
+    <description>Daily security intelligence collected from public sources.</description>
+    <language>en</language>
+    <lastBuildDate>Tue, 15 Sep 2026 06:58:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-14</title>
+      <link>https://asutorufa.com/threats/en/2026-09-14/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-14/</guid>
+      <pubDate>Tue, 15 Sep 2026 06:58:00 GMT</pubDate>
+      <description>The most urgent new threat on September 14 was Cisco Secure Email Gateway CVE-2026-76461: an unauthenticated remote attacker can trigger root-level command execution through a crafted email. Cisco confirmed active exploitation and CISA added it to KEV the same day. Other notable items include the Mathspace breach via Metabase CVE-2026-72898, follow-up on the IDScan.net identity-data incident, and new JVN disclosures affecting FLEXLAN, YAMAP and ExLlamaV3.</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-13</title>
+      <link>https://asutorufa.com/threats/en/2026-09-13/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-13/</guid>
+      <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
+      <description>As of 2026-09-13, the most urgent threats center on actively exploited DevOps, remote-management and edge-device vulnerabilities, plus the BlueMoon browser/Windows zero-day chain rapidly adopted by multiple state-aligned clusters. CISA added five KEVs, PaperCut and GitLab saw real-world attack activity, while Check Point disclosed two critical VPN RCEs and the Brevo incident enabled targeted phishing against Trezor users.</description>
+    </item>
+  </channel>
+</rss>
