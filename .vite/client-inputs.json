@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "hash": "9b6bdcc70e77cdd2f7eb0d5bffd1a2b475e7d1d3b7d586ef4347a331458190ad",
+  "hash": "295f21a0b72bcc7eee616cb04f774e33d76caaf616c645d2cb08726a5c16ff01",
   "files": [
     {
       "path": "index.html",
@@ -8,11 +8,11 @@
     },
     {
       "path": "package-lock.json",
-      "hash": "e71264f7a4f1b06d30e9db0d802cd5f1248815e89470e1a8301f978d65d1a392"
+      "hash": "8f4c6647f8d577e514647bde4bebefb8bdc50321e9842da0839c8fea0807e029"
     },
     {
       "path": "package.json",
-      "hash": "1a7b897201245e3e1dbdab1f0b84352583785826709cb858101d3b2990c4b1b4"
+      "hash": "0e733914fd8a29b2428f30e1e1124d0a11b7576655b2b8181bb6e88b4f39900e"
     },
     {
       "path": "src/animation/motion-presets.ts",
