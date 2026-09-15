@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "hash": "67f0e8a0454e1b5bf7a8329022b9989b98e79197b61c79c673ecc65fd88255fc",
+  "hash": "bc678f085c9d9b7b9ea007a7c11ea400a9169fab61925393dfe52392ec5c26cb",
   "files": [
     {
       "path": "index.html",
@@ -20,7 +20,7 @@
     },
     {
       "path": "src/app/App.tsx",
-      "hash": "ebb8b6130978ecdbfffa6e2b0d288092b9ef11c8af96b6e2ae3f9abff8eb56bd"
+      "hash": "5b450b2aee7342eca39ae704b7dfe837fed3182c4d430830bf82c65421dad0e6"
     },
     {
       "path": "src/app/app-types.ts",
@@ -96,7 +96,7 @@
     },
     {
       "path": "src/components/MobileHeader.tsx",
-      "hash": "939cf303bcb3cbdb35c4362e25b73521c0f3ab131fb1071f4355600b4aa3a31f"
+      "hash": "4510749db92786b8145acddea2095194f613ed49c58843f4215ea5b8dbbb5912"
     },
     {
       "path": "src/components/Pagination.module.css",
@@ -160,7 +160,7 @@
     },
     {
       "path": "src/components/Sidebar.tsx",
-      "hash": "6fa488479933c78b1d25c62d85ee7dffeda1d3fd62a6ae701bb4f8d32f6ffa93"
+      "hash": "1557123e609562e5fc762420c4da5e5faa508eb38e35a67eb49d9e62c97046e9"
     },
     {
       "path": "src/components/SiteFooter.module.css",
@@ -180,11 +180,11 @@
     },
     {
       "path": "src/data/i18n.ts",
-      "hash": "0587cfa615d7deab248620e7ca6cda8f682c79c8d4090059b2dbbbb2a6b477c6"
+      "hash": "70fa8c7978d51a4feede7cdb8626c1fc9ec79706e79e35f7501222f24a12e812"
     },
     {
       "path": "src/data/menu.ts",
-      "hash": "59e71fadd4b6bac87017f53077bbc5e7281a09df6cd42c6303857948ec23d560"
+      "hash": "c84964d556e94f971c7004e06359529a97e01fbd9aa2fc9b8a567800165542fa"
     },
     {
       "path": "src/hooks/useBodyScrollLock.ts",
@@ -232,7 +232,7 @@
     },
     {
       "path": "src/pages/ThreatReportPage.tsx",
-      "hash": "7059255c31dfaba51d9e388f50191e197406ec2feb75bce1ecf8eb2163e2747f"
+      "hash": "17e742813cb447680723fecad31431b8549d85637ff4c8f04d1294f42fc6b79d"
     },
     {
       "path": "src/pages/ThreatsPage.module.css",
@@ -240,7 +240,7 @@
     },
     {
       "path": "src/pages/ThreatsPage.tsx",
-      "hash": "663b4cdf023899f865df125785ed858711d3122a186db94a03e15897d7850606"
+      "hash": "54b20a83e584b9e229c2a4dccb952da268e4e44e5f949369c8bbceb35a3ef167"
     },
     {
       "path": "src/pages/ToolsPage.tsx",
@@ -308,7 +308,7 @@
     },
     {
       "path": "src/utils/threats.ts",
-      "hash": "28799faee8a3321b0950f80b4d5aacf1bd973ad3a4e71731888784eaaf12f317"
+      "hash": "2d50fdad9df2e677e79aa02c27d5b8bc1cee0a8acaf86a114627ba471064987c"
     },
     {
       "path": "tsconfig.json",
