@@ -188,6 +188,7 @@ export type ContentManifest = {
     totalPages: number;
     totalReports: number;
   };
+  currentThreatLanguages?: SiteLanguage[];
   languageFallbacks?: Array<{ sourcePath: string; rawLanguage: string }>;
 };
 

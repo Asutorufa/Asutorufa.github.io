@@ -1,6 +1,6 @@
 import { LANGUAGE_META } from "../data/i18n";
 import type { ContentManifest, RouteEntry } from "../types/content";
-import { threatAlternateEntries } from "../utils/threats";
+import { threatAlternateEntries, threatFeedRoute } from "../utils/threats";
 
 export function updateDocumentMeta(content: ContentManifest, route: RouteEntry, descriptionOverride?: string) {
   const language = LANGUAGE_META[route.language];
@@ -18,6 +18,7 @@ export function updateDocumentMeta(content: ContentManifest, route: RouteEntry, 
   setMeta("property", "og:locale", language.locale);
   document.querySelector('link[rel="canonical"]')?.setAttribute("href", canonical);
   updateThreatAlternates(content, route);
+  updateThreatFeedLink(content, route);
 }
 
 export function currentDocumentDescription() {
@@ -52,6 +53,29 @@ function updateThreatAlternates(content: ContentManifest, route: RouteEntry) {
     link.dataset.threatAlternate = "true";
     canonical?.after(link);
   }
+}
+
+function updateThreatFeedLink(content: ContentManifest, route: RouteEntry) {
+  const link = document.querySelector<HTMLLinkElement>("link[data-threat-feed]");
+  const threatRoute = route.kind === "threats" || route.kind === "threats-page" || route.kind === "threat-report";
+  if (!threatRoute) {
+    link?.remove();
+    return;
+  }
+
+  if (link) {
+    link.href = new URL(threatFeedRoute(route.language), content.config.url).toString();
+    link.title = `${route.title} RSS`;
+    return;
+  }
+
+  const next = document.createElement("link");
+  next.rel = "alternate";
+  next.href = new URL(threatFeedRoute(route.language), content.config.url).toString();
+  next.title = `${route.title} RSS`;
+  next.type = "application/rss+xml";
+  next.dataset.threatFeed = "true";
+  document.head.append(next);
 }
 
 function setMeta(attribute: "name" | "property", key: string, value: string) {

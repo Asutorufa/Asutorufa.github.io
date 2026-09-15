@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
 import type { ContentManifest, RouteEntry, SiteLanguage, ThreatReport } from "../../src/types/content";
-import { THREAT_LANGUAGES, threatReportRoute, threatTranslationsForReport } from "../../src/utils/threats";
+import { THREAT_LANGUAGES, threatFeedRoute, threatReportRoute, threatTranslationsForReport } from "../../src/utils/threats";
 import { buildRoutes } from "./build-routes";
 import { contentIndex } from "./content-index";
 import { assertThreatReportConsistency, collectThreatReports } from "./collect-content";
@@ -13,6 +13,7 @@ import { feedXml } from "./generate-feed";
 import { searchRecords } from "./generate-search";
 import { sitemapXml } from "./generate-sitemap";
 import { renderHtmlShell } from "./html";
+import { threatFeedXml } from "./generate-threat-feed";
 import { parseFrontMatter } from "./front-matter";
 import { routePayload } from "./render-html";
 
@@ -119,11 +120,26 @@ test("emits canonical, hreflang, x-default, and language-specific sitemap entrie
   assert.equal(hasAlternate(html, "en", "https://asutorufa.com/threats/en/2026-09-15/"), true);
   assert.equal(hasAlternate(html, "ja", "https://asutorufa.com/threats/2026-09-15/"), true);
   assert.equal(hasAlternate(html, "x-default", "https://asutorufa.com/threats/2026-09-15/"), true);
+  assert.equal(html.includes('type="application/rss+xml"'), true);
+  assert.equal(html.includes("https://asutorufa.com/threats/en/rss.xml"), true);
 
   const sitemap = sitemapXml(content, routes);
   for (const language of THREAT_LANGUAGES) {
     assert.equal(sitemap.includes(`https://asutorufa.com${threatReportRoute(language, "2026-09-15")}`), true);
   }
+});
+
+test("generates an isolated RSS feed for each threat language", () => {
+  const reports = THREAT_LANGUAGES.map((language) => makeReport("2026-09-15", language));
+  const content = makeContent(reports);
+
+  assert.equal(threatFeedRoute("ja"), "/threats/rss.xml");
+  assert.equal(threatFeedRoute("en"), "/threats/en/rss.xml");
+  assert.equal(threatFeedRoute("zh-Hans"), "/threats/zh-Hans/rss.xml");
+  const feed = threatFeedXml(content, "en");
+  assert.equal(feed.includes("Threat Intelligence Daily · 2026-09-15 (en)"), true);
+  assert.equal(feed.includes("Threat Intelligence Daily · 2026-09-15 (ja)"), false);
+  assert.equal(feed.includes("/threats/en/2026-09-15/"), true);
 });
 
 test("keeps threat intelligence isolated from ordinary blog indexes, search, and RSS", () => {

@@ -5,6 +5,7 @@ import path from "node:path";
 import type { AppProps } from "../../src/app/app-types";
 import { mergePagePayload } from "../../src/app/page-payload";
 import type { ContentManifest, RouteEntry } from "../../src/types/content";
+import { THREAT_LANGUAGES } from "../../src/utils/threats";
 import { buildConcurrency, mapConcurrent } from "./concurrency";
 import { contentIndex } from "./content-index";
 import {
@@ -123,6 +124,7 @@ export function routePayload(
     threatReports: threatList?.reports.map(threatReportForListPayload),
     totalThreatPages: threatList?.totalPages,
     totalThreatReports: threatList?.totalReports,
+    availableThreatLanguages: threatList?.availableLanguages,
     page: route.kind === "page" ? pagePayload(content, route.route, options) : undefined,
     tags: route.kind === "tags" ? content.tags : undefined,
     categories: route.kind === "categories" ? content.categories : undefined,
@@ -191,8 +193,16 @@ function listThreatReports(content: ContentManifest, route: RouteEntry) {
   return {
     reports: languageReports.slice(start, start + THREAT_REPORTS_PER_PAGE),
     totalPages,
-    totalReports
+    totalReports,
+    availableLanguages: availableThreatLanguages(content, page)
   };
+}
+
+function availableThreatLanguages(content: ContentManifest, page: number) {
+  return THREAT_LANGUAGES.filter((language) => {
+    const totalReports = content.threatReports.filter((report) => report.language === language).length;
+    return page <= Math.max(1, Math.ceil(totalReports / THREAT_REPORTS_PER_PAGE));
+  });
 }
 
 function postsForListRoute(content: ContentManifest, route: RouteEntry) {

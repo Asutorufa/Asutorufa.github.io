@@ -4,7 +4,7 @@ import { PAGE_PAYLOAD_SCRIPT_ID } from "../../src/app/page-payload-html";
 import { LANGUAGE_META } from "../../src/data/i18n";
 import type { CommonContent, PagePayload } from "../../src/app/app-types";
 import type { ContentManifest, Post, RouteEntry, ThreatReport } from "../../src/types/content";
-import { threatAlternateEntries } from "../../src/utils/threats";
+import { threatAlternateEntries, threatFeedRoute } from "../../src/utils/threats";
 
 export type ClientAssets = {
   scripts: string[];
@@ -49,6 +49,15 @@ export function renderHtmlShell(options: { appHtml: string; assets: ClientAssets
           />
         ))}
         <link rel="alternate" href="/atom.xml" title={content.config.title} type="application/atom+xml" />
+        {isThreatRoute(route) ? (
+          <link
+            rel="alternate"
+            href={new URL(threatFeedRoute(route.language), content.config.url).toString()}
+            title={`${route.title} RSS`}
+            type="application/rss+xml"
+            data-threat-feed="true"
+          />
+        ) : null}
         <link rel="icon" type="image/svg+xml" href="/images/bighead.svg" />
         <script dangerouslySetInnerHTML={{ __html: canonicalHostRedirectScript(content.config.url) }} />
         <script dangerouslySetInnerHTML={{ __html: themeBootstrapScript() }} />
@@ -69,6 +78,10 @@ export function renderHtmlShell(options: { appHtml: string; assets: ClientAssets
   );
 
   return `<!doctype html>${renderToStaticMarkup(shell)}`;
+}
+
+function isThreatRoute(route: RouteEntry) {
+  return route.kind === "threats" || route.kind === "threats-page" || route.kind === "threat-report";
 }
 
 export function readViteAssets(manifest: Record<string, { file?: string; css?: string[]; imports?: string[] }>): ClientAssets {

@@ -13,6 +13,11 @@ export function threatReportRoute(language: SiteLanguage, id: string) {
   return language === THREAT_DEFAULT_LANGUAGE ? `/threats/${id}/` : `/threats/${language}/${id}/`;
 }
 
+export function threatFeedRoute(language: SiteLanguage) {
+  const prefix = language === THREAT_DEFAULT_LANGUAGE ? "/threats" : `/threats/${language}`;
+  return `${prefix}/rss.xml`;
+}
+
 export function threatReportsForLanguage(reports: ThreatReport[], language: SiteLanguage) {
   return reports.filter((report) => report.language === language);
 }

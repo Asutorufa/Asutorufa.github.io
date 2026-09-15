@@ -23,6 +23,7 @@ export function mergePagePayload(content: CommonContent, payload: PagePayload): 
           totalReports: payload.totalThreatReports ?? payload.threatReports.length
         }
       : undefined,
+    currentThreatLanguages: payload.availableThreatLanguages,
     posts: routeIsWip ? [] : routePosts,
     wipPosts: routeIsWip ? routePosts : [],
     pages: payload.page ? [payload.page] : [],
