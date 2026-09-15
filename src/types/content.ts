@@ -32,6 +32,7 @@ export type UiLabels = {
   previousReport: string;
   nextReport: string;
   generatedBy: string;
+  language: string;
   threatLanguageNames: Record<SiteLanguage, string>;
   search: string;
   menu: string;

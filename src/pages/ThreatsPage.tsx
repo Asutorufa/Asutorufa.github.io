@@ -4,7 +4,7 @@ import type { ThreatReport, UiLabels } from "../types/content";
 import { formatDisplayDate } from "../utils/date";
 import { Icon } from "../components/Icon";
 import { Pagination } from "../components/Pagination";
-import { rememberThreatLanguage, THREAT_LANGUAGES, threatFeedRoute, threatListRoute } from "../utils/threats";
+import { threatFeedRoute, threatListRoute } from "../utils/threats";
 import styles from "./ThreatsPage.module.css";
 
 type ThreatsPageProps = AppProps & {
@@ -16,7 +16,6 @@ export function ThreatsPage({ content, route, page }: ThreatsPageProps) {
   const reports = content.threatReports;
   const latest = reports[0];
   const totalPages = content.currentThreatList?.totalPages ?? Math.max(1, Math.ceil(content.stats.threatReports / 30));
-  const availableLanguages = content.currentThreatLanguages ?? THREAT_LANGUAGES;
 
   return (
     <section>
@@ -28,19 +27,6 @@ export function ThreatsPage({ content, route, page }: ThreatsPageProps) {
         <h1 className="mt-3 text-[1.8em] font-normal text-blog-heading">{labels.threatIntelligence}</h1>
         <p className="mt-3 max-w-2xl text-[14px] leading-7 text-blog-muted">{labels.threatDescription}</p>
         <div className={styles.listToolbar}>
-          <nav className={styles.languageSwitcher} aria-label={labels.threatIntelligence}>
-            {availableLanguages.map((language) =>
-              language === route.language ? (
-                <span key={language} aria-current="page">
-                  {labels.threatLanguageNames[language]}
-                </span>
-              ) : (
-                <a key={language} href={threatListRoute(language, page)} data-background-post-link="" onClick={() => rememberThreatLanguage(language)}>
-                  {labels.threatLanguageNames[language]}
-                </a>
-              )
-            )}
-          </nav>
           <a className={styles.feedLink} href={threatFeedRoute(route.language)}>
             <Icon name="rss" />
             <span>{labels.rss}</span>

@@ -28,11 +28,18 @@ export function BlogLayout({ content, route, routeLoading = false, children }: B
   return (
     <MotionConfig reducedMotion="user">
       <div className="site-shell min-h-screen bg-blog-bg text-blog-text" dir={meta.textDirection}>
-        <MobileHeader labels={labels} title={content.config.title} subtitle={content.config.subtitle} currentRoute={route.route} />
+        <MobileHeader
+          content={content}
+          labels={labels}
+          route={route}
+          title={content.config.title}
+          subtitle={content.config.subtitle}
+          currentRoute={route.route}
+        />
         <div className="mx-auto flex w-full max-w-[1680px] gap-5 px-2 py-2 md:px-5 lg:items-stretch lg:px-8 lg:py-7">
           <main className="min-w-0 flex-1">{children}</main>
           <aside className="hidden w-[240px] shrink-0 self-stretch lg:block">
-            <Sidebar content={content} labels={labels} currentRoute={route.route} post={currentPost} toc={currentThreatReport?.toc} />
+            <Sidebar content={content} labels={labels} route={route} currentRoute={route.route} post={currentPost} toc={currentThreatReport?.toc} />
           </aside>
         </div>
         <SiteFooter config={content.config} />

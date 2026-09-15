@@ -3,9 +3,11 @@ import type { MouseEvent } from "react";
 import { useEffect, useId, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { MotionPresets } from "../animation/motion-presets";
-import { preferredThreatLanguage, THREAT_DEFAULT_LANGUAGE, THREAT_LANGUAGE_CHANGE_EVENT, threatListRoute } from "../utils/threats";
-import type { ContentManifest, Post, TocItem, UiLabels } from "../types/content";
+import { preferredSiteLanguage, SITE_LANGUAGE_CHANGE_EVENT } from "../utils/language";
+import { threatListRoute } from "../utils/threats";
+import type { ContentManifest, Post, RouteEntry, TocItem, UiLabels } from "../types/content";
 import { menuItems } from "../data/menu";
+import { SiteLanguageSwitcher } from "./SiteLanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
 import { Icon } from "./Icon";
 import styles from "./Sidebar.module.css";
@@ -13,24 +15,25 @@ import styles from "./Sidebar.module.css";
 type SidebarProps = {
   content: ContentManifest;
   labels: UiLabels;
+  route: RouteEntry;
   currentRoute: string;
   post?: Post;
   toc?: TocItem[];
   mobile?: boolean;
 };
 
-export function Sidebar({ content, labels, currentRoute, post, toc, mobile = false }: SidebarProps) {
+export function Sidebar({ content, labels, route, currentRoute, post, toc, mobile = false }: SidebarProps) {
   const activeToc = toc ?? post?.toc ?? [];
   const hasToc = activeToc.length > 0;
   const prefersReducedMotion = useReducedMotion();
-  const [threatLanguage, setThreatLanguage] = useState(THREAT_DEFAULT_LANGUAGE);
+  const [siteLanguage, setSiteLanguage] = useState(route.language);
   useEffect(() => {
-    const updateThreatLanguage = () => setThreatLanguage(preferredThreatLanguage());
-    updateThreatLanguage();
-    window.addEventListener(THREAT_LANGUAGE_CHANGE_EVENT, updateThreatLanguage);
-    return () => window.removeEventListener(THREAT_LANGUAGE_CHANGE_EVENT, updateThreatLanguage);
-  }, []);
-  const navItems = menuItems(labels, threatListRoute(threatLanguage));
+    const updateSiteLanguage = () => setSiteLanguage(preferredSiteLanguage());
+    updateSiteLanguage();
+    window.addEventListener(SITE_LANGUAGE_CHANGE_EVENT, updateSiteLanguage);
+    return () => window.removeEventListener(SITE_LANGUAGE_CHANGE_EVENT, updateSiteLanguage);
+  }, [route.route]);
+  const navItems = menuItems(labels, threatListRoute(siteLanguage));
   const activeNavIndex = navItems.findIndex((item) => isActive(currentRoute, item.href));
 
   return (
@@ -69,6 +72,7 @@ export function Sidebar({ content, labels, currentRoute, post, toc, mobile = fal
           </div>
           <div className="px-5 pt-3">
             <ThemeToggle labels={labels} />
+            <SiteLanguageSwitcher content={content} route={route} labels={labels} />
           </div>
         </nav>
       </section>

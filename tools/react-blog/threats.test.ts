@@ -4,6 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { test } from "node:test";
 import type { ContentManifest, RouteEntry, SiteLanguage, ThreatReport } from "../../src/types/content";
+import { SITE_LANGUAGES, siteLanguageFromBrowserLanguages } from "../../src/utils/language";
 import { THREAT_LANGUAGES, threatFeedRoute, threatLanguageFromBrowserLanguages, threatReportRoute, threatTranslationsForReport } from "../../src/utils/threats";
 import { buildRoutes } from "./build-routes";
 import { contentIndex } from "./content-index";
@@ -35,7 +36,12 @@ test("parses the zh-Hans, en, and ja representations of one report", async () =>
 });
 
 test("orders threat languages and resolves browser language fallback", () => {
+  assert.deepEqual(SITE_LANGUAGES, ["ja", "en", "zh-Hans"]);
   assert.deepEqual(THREAT_LANGUAGES, ["ja", "en", "zh-Hans"]);
+  assert.equal(siteLanguageFromBrowserLanguages(["ja-JP", "en-US"]), "ja");
+  assert.equal(siteLanguageFromBrowserLanguages(["en-US", "ja-JP"]), "en");
+  assert.equal(siteLanguageFromBrowserLanguages(["zh-CN"]), "zh-Hans");
+  assert.equal(siteLanguageFromBrowserLanguages(["fr-FR", "de-DE"]), "en");
   assert.equal(threatLanguageFromBrowserLanguages(["ja-JP", "en-US"]), "ja");
   assert.equal(threatLanguageFromBrowserLanguages(["en-US", "ja-JP"]), "en");
   assert.equal(threatLanguageFromBrowserLanguages(["zh-CN"]), "zh-Hans");

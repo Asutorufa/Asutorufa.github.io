@@ -194,33 +194,6 @@
   margin-top: 0.8rem;
 }
 
-.listToolbar .languageSwitcher {
-  margin-top: 0;
-}
-
-.languageSwitcher {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-.languageSwitcher a,
-.languageSwitcher span {
-  border-bottom: 1px solid transparent;
-  color: var(--blog-muted);
-  font-size: 0.78rem;
-  padding-bottom: 0.15rem;
-}
-
-.languageSwitcher a:hover,
-.languageSwitcher span[aria-current="page"] {
-  border-color: var(--blog-accent-border);
-  color: var(--blog-accent-strong);
-}
-
 .reportSummary {
   background: var(--blog-surface-muted);
   border: 1px solid var(--blog-border-soft);

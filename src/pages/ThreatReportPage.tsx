@@ -4,7 +4,7 @@ import { formatDisplayDate } from "../utils/date";
 import { GitalkComments } from "../components/GitalkComments";
 import { Icon } from "../components/Icon";
 import { ThreatArticleMarkdown } from "../components/ThreatArticleMarkdown";
-import { rememberThreatLanguage, sortThreatReportsByDateDesc, threatTranslationsForReport } from "../utils/threats";
+import { sortThreatReportsByDateDesc } from "../utils/threats";
 import styles from "./ThreatsPage.module.css";
 
 type ThreatReportPageProps = AppProps & {
@@ -23,7 +23,6 @@ export function ThreatReportPage({ content, route, id }: ThreatReportPageProps) 
   const reportIndex = languageReports.indexOf(report);
   const previousReport = languageReports[reportIndex + 1];
   const nextReport = languageReports[reportIndex - 1];
-  const translations = threatTranslationsForReport(content.threatReports, report.id);
 
   return (
     <>
@@ -42,24 +41,6 @@ export function ThreatReportPage({ content, route, id }: ThreatReportPageProps) 
               </time>
             ) : null}
           </div>
-          <nav className={styles.languageSwitcher} aria-label={labels.threatIntelligence}>
-            {translations.map((translation) =>
-              translation.language === report.language ? (
-                <span key={translation.language} aria-current="page">
-                  {labels.threatLanguageNames[translation.language]}
-                </span>
-              ) : (
-                <a
-                  key={translation.language}
-                  href={translation.route}
-                  data-background-post-link=""
-                  onClick={() => rememberThreatLanguage(translation.language)}
-                >
-                  {labels.threatLanguageNames[translation.language]}
-                </a>
-              )
-            )}
-          </nav>
         </header>
 
         <section className={styles.reportSummary} aria-label={labels.threatIntelligence}>

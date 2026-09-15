@@ -35,6 +35,7 @@ export type PagePayload = {
 declare global {
   interface WindowEventMap {
     "asutorufa-theme-change": CustomEvent<{ mode: "system" | "light" | "dark"; dark: boolean }>;
+    "asutorufa-language-change": Event;
     "asutorufa-route-change": Event;
     "asutorufa-image-preview": CustomEvent<ImagePreviewState>;
   }

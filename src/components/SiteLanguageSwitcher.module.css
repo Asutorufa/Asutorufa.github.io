@@ -1,0 +1,52 @@
+.root {
+  border-top: 1px solid var(--blog-border-muted);
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+}
+
+.label {
+  color: var(--blog-faint);
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.45rem;
+}
+
+.option {
+  appearance: none;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--blog-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.73rem;
+  line-height: 1.25;
+  padding: 0.28rem 0.45rem;
+  text-decoration: none;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.option:hover,
+.option:focus-visible,
+.active {
+  background: var(--blog-accent-soft);
+  border-color: var(--blog-accent-border);
+  color: var(--blog-accent-strong);
+  outline: 0;
+}
+
+.option:focus-visible {
+  box-shadow: 0 0 0 2px var(--blog-accent-ring);
+}

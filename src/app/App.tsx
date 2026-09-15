@@ -36,7 +36,8 @@ import {
 } from "./navigation";
 import { parsePagePayloadHtml } from "./page-payload-html";
 import { mergePagePayload } from "./page-payload";
-import { preferredThreatLanguage, rememberThreatLanguage, sortThreatReportsByDateDesc, THREAT_DEFAULT_LANGUAGE, threatListRoute } from "../utils/threats";
+import { preferredSiteLanguage, rememberSiteLanguage } from "../utils/language";
+import { sortThreatReportsByDateDesc, THREAT_DEFAULT_LANGUAGE, threatListRoute } from "../utils/threats";
 
 type ViewState = AppProps;
 type RouteTransitionKind = "detail-forward" | "detail-back" | "detail-swap" | "route";
@@ -63,7 +64,7 @@ export function App(props: AppProps) {
     if (typeof window === "undefined") return;
     if (activeView.route.route !== threatListRoute(THREAT_DEFAULT_LANGUAGE)) return;
 
-    const preferred = preferredThreatLanguage();
+    const preferred = preferredSiteLanguage();
     if (preferred === activeView.route.language) return;
     window.location.replace(new URL(threatListRoute(preferred), window.location.href).toString());
   }, [activeView.route.language, activeView.route.route]);
@@ -72,7 +73,7 @@ export function App(props: AppProps) {
     const route = activeView.route;
     if (route.kind !== "threats" && route.kind !== "threats-page" && route.kind !== "threat-report") return;
     if (route.route === threatListRoute(THREAT_DEFAULT_LANGUAGE)) return;
-    rememberThreatLanguage(route.language);
+    rememberSiteLanguage(route.language);
   }, [activeView.route]);
 
   useEffect(() => {

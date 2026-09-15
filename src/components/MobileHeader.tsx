@@ -2,28 +2,32 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { MotionPresets } from "../animation/motion-presets";
-import { preferredThreatLanguage, THREAT_DEFAULT_LANGUAGE, THREAT_LANGUAGE_CHANGE_EVENT, threatListRoute } from "../utils/threats";
-import type { UiLabels } from "../types/content";
+import { preferredSiteLanguage, SITE_LANGUAGE_CHANGE_EVENT } from "../utils/language";
+import { threatListRoute } from "../utils/threats";
+import type { ContentManifest, RouteEntry, UiLabels } from "../types/content";
 import { menuItems } from "../data/menu";
 import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
 import { useEscapeKey } from "../hooks/useEscapeKey";
 import { ThemeToggle } from "./ThemeToggle";
 import { Icon } from "./Icon";
 import { IconButton } from "./IconButton";
+import { SiteLanguageSwitcher } from "./SiteLanguageSwitcher";
 import styles from "./MobileHeader.module.css";
 
 type MobileHeaderProps = {
   title: string;
   subtitle: string;
+  content: ContentManifest;
+  route: RouteEntry;
   labels: UiLabels;
   currentRoute: string;
 };
 
-export function MobileHeader({ title, subtitle, labels, currentRoute }: MobileHeaderProps) {
+export function MobileHeader({ title, subtitle, content, route, labels, currentRoute }: MobileHeaderProps) {
   const [open, setOpen] = useState(false);
-  const [threatLanguage, setThreatLanguage] = useState(THREAT_DEFAULT_LANGUAGE);
+  const [siteLanguage, setSiteLanguage] = useState(route.language);
   const prefersReducedMotion = useReducedMotion();
-  const navItems = menuItems(labels, threatListRoute(threatLanguage));
+  const navItems = menuItems(labels, threatListRoute(siteLanguage));
   const activeNavIndex = navItems.findIndex((item) => isActive(currentRoute, item.href));
   const closeMenu = () => setOpen(false);
 
@@ -35,11 +39,11 @@ export function MobileHeader({ title, subtitle, labels, currentRoute }: MobileHe
   }, [currentRoute]);
 
   useEffect(() => {
-    const updateThreatLanguage = () => setThreatLanguage(preferredThreatLanguage());
-    updateThreatLanguage();
-    window.addEventListener(THREAT_LANGUAGE_CHANGE_EVENT, updateThreatLanguage);
-    return () => window.removeEventListener(THREAT_LANGUAGE_CHANGE_EVENT, updateThreatLanguage);
-  }, []);
+    const updateSiteLanguage = () => setSiteLanguage(preferredSiteLanguage());
+    updateSiteLanguage();
+    window.addEventListener(SITE_LANGUAGE_CHANGE_EVENT, updateSiteLanguage);
+    return () => window.removeEventListener(SITE_LANGUAGE_CHANGE_EVENT, updateSiteLanguage);
+  }, [route.route]);
 
   return (
     <header className={styles.header}>
@@ -119,6 +123,7 @@ export function MobileHeader({ title, subtitle, labels, currentRoute }: MobileHe
 
               <div className={styles.footer}>
                 <ThemeToggle labels={labels} />
+                <SiteLanguageSwitcher content={content} route={route} labels={labels} />
               </div>
             </motion.nav>
           </motion.div>
