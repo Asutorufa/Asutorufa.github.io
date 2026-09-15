@@ -1,5 +1,6 @@
 import { LANGUAGE_META } from "../data/i18n";
 import type { ContentManifest, RouteEntry } from "../types/content";
+import { threatAlternateEntries } from "../utils/threats";
 
 export function updateDocumentMeta(content: ContentManifest, route: RouteEntry, descriptionOverride?: string) {
   const language = LANGUAGE_META[route.language];
@@ -16,6 +17,7 @@ export function updateDocumentMeta(content: ContentManifest, route: RouteEntry, 
   setMeta("property", "og:description", description);
   setMeta("property", "og:locale", language.locale);
   document.querySelector('link[rel="canonical"]')?.setAttribute("href", canonical);
+  updateThreatAlternates(content, route);
 }
 
 export function currentDocumentDescription() {
@@ -32,7 +34,24 @@ function routeDescription(content: ContentManifest, route: RouteEntry) {
     const post = content.wipPosts.find((item) => item.abbrlink === route.params?.abbrlink);
     return post?.plainText.slice(0, 160) ?? content.config.subtitle;
   }
+  if (route.kind === "threat-report" && route.params?.id) {
+    const report = content.threatReports.find((item) => item.id === route.params?.id && item.language === route.language);
+    return report?.summary || report?.plainText.slice(0, 160) || content.config.subtitle;
+  }
   return content.config.description || content.config.subtitle;
+}
+
+function updateThreatAlternates(content: ContentManifest, route: RouteEntry) {
+  document.querySelectorAll("link[data-threat-alternate]").forEach((element) => element.remove());
+  const canonical = document.querySelector("link[rel=canonical]");
+  for (const entry of threatAlternateEntries(content.threatReports, route)) {
+    const link = document.createElement("link");
+    link.rel = "alternate";
+    link.hreflang = entry.hreflang;
+    link.href = new URL(entry.route, content.config.url).toString();
+    link.dataset.threatAlternate = "true";
+    canonical?.after(link);
+  }
 }
 
 function setMeta(attribute: "name" | "property", key: string, value: string) {

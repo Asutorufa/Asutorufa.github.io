@@ -6,6 +6,10 @@ import { distDir } from "./paths";
 import { escapeHtml } from "./html";
 
 export async function generateFeed(content: ContentManifest) {
+  await fs.writeFile(path.join(distDir, "atom.xml"), feedXml(content));
+}
+
+export function feedXml(content: ContentManifest) {
   const updated = content.posts[0]?.updated ?? content.posts[0]?.date ?? new Date().toISOString();
   const entries = content.posts.slice(0, 100).map((post) => {
     const url = new URL(post.route, content.config.url).toString();
@@ -31,7 +35,7 @@ ${entries.join("\n")}
 </feed>
 `;
 
-  await fs.writeFile(path.join(distDir, "atom.xml"), xml);
+  return xml;
 }
 
 function toIso(value: string) {

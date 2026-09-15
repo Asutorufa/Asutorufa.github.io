@@ -32,7 +32,9 @@ export function isListRoute(route: RouteEntry) {
     route.kind === "tag" ||
     route.kind === "tag-page" ||
     route.kind === "category" ||
-    route.kind === "category-page"
+    route.kind === "category-page" ||
+    route.kind === "threats" ||
+    route.kind === "threats-page"
   );
 }
 

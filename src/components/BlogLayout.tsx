@@ -21,6 +21,9 @@ export function BlogLayout({ content, route, routeLoading = false, children }: B
   const meta = LANGUAGE_META[language];
   const currentPosts = route.kind === "wip-post" ? content.wipPosts : content.posts;
   const currentPost = route.params?.abbrlink ? currentPosts.find((post) => post.abbrlink === route.params?.abbrlink) : undefined;
+  const currentThreatReport = route.params?.id
+    ? content.threatReports.find((report) => report.id === route.params?.id && report.language === route.language)
+    : undefined;
 
   return (
     <MotionConfig reducedMotion="user">
@@ -29,7 +32,7 @@ export function BlogLayout({ content, route, routeLoading = false, children }: B
         <div className="mx-auto flex w-full max-w-[1680px] gap-5 px-2 py-2 md:px-5 lg:items-stretch lg:px-8 lg:py-7">
           <main className="min-w-0 flex-1">{children}</main>
           <aside className="hidden w-[240px] shrink-0 self-stretch lg:block">
-            <Sidebar content={content} labels={labels} currentRoute={route.route} post={currentPost} />
+            <Sidebar content={content} labels={labels} currentRoute={route.route} post={currentPost} toc={currentThreatReport?.toc} />
           </aside>
         </div>
         <SiteFooter config={content.config} />

@@ -2,13 +2,14 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { createHash } from "node:crypto";
 import { LANGUAGE_META, normalizeLanguage } from "../../src/data/i18n";
-import type { Page, Post } from "../../src/types/content";
+import type { Page, Post, ThreatReport, TocItem } from "../../src/types/content";
+import { THREAT_LANGUAGES, threatReportRoute } from "../../src/utils/threats";
 import { rootDir, toPosixPath } from "./paths";
 import { renderMarkdown, renderMarkdownToHtml } from "./render-markdown";
 import { normalizeTaxonomyName, routeSegment as sharedRouteSegment } from "../../src/utils/route";
 import type { FrontMatterFile } from "./front-matter";
 
-const MARKDOWN_CACHE_VERSION = 4;
+const MARKDOWN_CACHE_VERSION = 5;
 const markdownCacheDir = path.join(rootDir, ".cache/react-blog/markdown");
 const AUTO_EXCERPT_LENGTH = 180;
 
@@ -27,6 +28,15 @@ type PostMarkdownRender = {
 type PageMarkdownRender = {
   bodyHtml: string;
   plainText: string;
+};
+
+type MarkdownBodyRender = {
+  bodyMarkdown: string;
+  bodyHtml: string;
+  plainText: string;
+  toc: TocItem[];
+  math: boolean;
+  mermaid: boolean;
 };
 
 type MarkdownCacheEntry<T> = {
@@ -85,6 +95,18 @@ export function asBoolean(value: unknown, fallback = false) {
   return fallback;
 }
 
+export function asNonNegativeInteger(value: unknown, fieldName: string, sourcePath: string) {
+  if (value === undefined) return 0;
+
+  const number = typeof value === "number" ? value : typeof value === "string" && /^\d+$/.test(value.trim()) ? Number(value.trim()) : Number.NaN;
+
+  if (!Number.isSafeInteger(number) || number < 0) {
+    throw new Error(`Invalid ${fieldName} in ${sourcePath}: expected a non-negative integer`);
+  }
+
+  return number;
+}
+
 export function asTaxonomyArray(value: unknown) {
   const seen = new Set<string>();
   const result: string[] = [];
@@ -134,6 +156,10 @@ export function comparePostsByDateDesc(a: Post, b: Post) {
   const aDate = parseLooseDate(a.date)?.getTime() ?? 0;
   const bDate = parseLooseDate(b.date)?.getTime() ?? 0;
   return bDate - aDate;
+}
+
+export function compareThreatReportsByDateDesc(a: ThreatReport, b: ThreatReport) {
+  return b.date.localeCompare(a.date) || a.id.localeCompare(b.id) || a.language.localeCompare(b.language);
 }
 
 export function splitExcerpt(markdown: string) {
@@ -355,6 +381,103 @@ export async function createPost(
   };
 }
 
+export async function createThreatReport(
+  filePath: string,
+  parsed: FrontMatterFile<string>,
+  _fallbackCollector: Array<{ sourcePath: string; rawLanguage: string }>
+): Promise<ThreatReport> {
+  const sourcePath = toPosixPath(filePath);
+  const languageFile = path.basename(filePath, ".md");
+  const directoryDate = path.basename(path.dirname(filePath));
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(directoryDate) || !isValidIsoDate(directoryDate)) {
+    throw new Error(`Invalid threat report directory in ${sourcePath}: expected source/_threats/YYYY-MM-DD/`);
+  }
+  if (!THREAT_LANGUAGES.includes(languageFile as (typeof THREAT_LANGUAGES)[number])) {
+    throw new Error(`Invalid threat report language filename in ${sourcePath}: expected zh-Hans.md, en.md, or ja.md`);
+  }
+
+  const data = parsed.data as Record<string, unknown>;
+  const id = asString(data.id).trim();
+  if (!id) {
+    throw new Error(`Missing threat report id in ${sourcePath}`);
+  }
+  if (id !== directoryDate) {
+    throw new Error(`Threat report id mismatch in ${sourcePath}: directory is ${directoryDate}, front matter id is ${id}`);
+  }
+  const date = rawFrontMatterValue(parsed, "date") || normalizeDate(data.date);
+  if (date !== id) {
+    throw new Error(`Threat report date mismatch in ${sourcePath}: filename is ${id}, front matter date is ${date || "missing"}`);
+  }
+
+  const rawLanguage = asString(data.language).trim();
+  if (rawLanguage !== languageFile) {
+    throw new Error(`Threat report language mismatch in ${sourcePath}: filename is ${languageFile}, front matter language is ${rawLanguage || "missing"}`);
+  }
+
+  const summary = asString(data.summary).trim();
+  if (summary.length > 500) {
+    throw new Error(`Threat report summary is too long in ${sourcePath}: maximum length is 500 characters`);
+  }
+
+  const counts = {
+    total: asNonNegativeInteger(data.total, "total", sourcePath),
+    critical: asNonNegativeInteger(data.critical, "critical", sourcePath),
+    high: asNonNegativeInteger(data.high, "high", sourcePath),
+    medium: asNonNegativeInteger(data.medium, "medium", sourcePath),
+    low: asNonNegativeInteger(data.low, "low", sourcePath),
+    exploited: asNonNegativeInteger(data.exploited, "exploited", sourcePath)
+  };
+  const severityTotal = counts.critical + counts.high + counts.medium + counts.low;
+  if (severityTotal > counts.total) {
+    throw new Error(`Invalid threat severity counts in ${sourcePath}: critical + high + medium + low cannot exceed total`);
+  }
+  if (counts.exploited > counts.total) {
+    throw new Error(`Invalid threat counts in ${sourcePath}: exploited cannot exceed total`);
+  }
+
+  const languageName = languageFile as ThreatReport["language"];
+  const route = threatReportRoute(languageName, id) as ThreatReport["route"];
+  const rendered = await renderThreatMarkdownWithCache(sourcePath, parsed, data, route);
+  const meta = LANGUAGE_META[languageName];
+
+  return {
+    kind: "threat-report",
+    sourcePath,
+    route,
+    id,
+    title: asString(data.title, `Threat Intelligence Daily · ${id}`).trim(),
+    date: id,
+    updated: rawFrontMatterValue(parsed, "updated") || normalizeDate(data.updated) || undefined,
+    summary,
+    tags: asThreatFactArray(data.tags),
+    cves: asThreatFactArray(data.cves),
+    iocs: asThreatFactArray(data.iocs),
+    generated: asBoolean(data.generated),
+    ...counts,
+    language: languageName,
+    htmlLang: meta.htmlLang,
+    locale: meta.locale,
+    textDirection: meta.textDirection,
+    dateLocale: meta.dateLocale,
+    bodyMarkdown: rendered.bodyMarkdown,
+    bodyHtml: rendered.bodyHtml,
+    rawMarkdown: parsed.content,
+    plainText: rendered.plainText,
+    toc: rendered.toc,
+    math: rendered.math,
+    mermaid: rendered.mermaid
+  };
+}
+
+function asThreatFactArray(value: unknown) {
+  return [...new Set(asStringArray(value))].sort((a, b) => a.localeCompare(b));
+}
+
+function isValidIsoDate(value: string) {
+  const date = new Date(`${value}T00:00:00Z`);
+  return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
+}
+
 function postRoute(abbrlink: string, wip: boolean): Post["route"] {
   return wip ? `/wip/${abbrlink}/` : `/posts/${abbrlink}/`;
 }
@@ -399,6 +522,17 @@ async function renderPostMarkdownWithCache(sourcePath: string, parsed: FrontMatt
   return value;
 }
 
+async function renderThreatMarkdownWithCache(sourcePath: string, parsed: FrontMatterFile<string>, data: Record<string, unknown>, route: ThreatReport["route"]) {
+  const key = await markdownCacheKey("threat", parsed);
+  const cachePath = markdownCachePath("threat", sourcePath);
+  const cached = await readMarkdownCache<MarkdownBodyRender>(cachePath, key);
+  if (cached) return cached;
+
+  const value = await renderMarkdownDocument(parsed.content.trim(), data, route);
+  await writeMarkdownCache(cachePath, key, value);
+  return value;
+}
+
 async function renderPageMarkdownWithCache(sourcePath: string, parsed: FrontMatterFile<string>) {
   const key = await markdownCacheKey("page", parsed);
   const cachePath = markdownCachePath("page", sourcePath);
@@ -418,18 +552,30 @@ async function renderPostMarkdown(parsed: FrontMatterFile<string>, data: Record<
   const { excerptMarkdown, moreAnchor, bodyMarkdown } = splitExcerpt(parsed.content.trim());
   const markdownOptions = { assetBasePath: route };
   const excerptHtml = excerptMarkdown ? await renderMarkdownToHtml(excerptMarkdown, markdownOptions) : "";
-  const body = await renderMarkdown(bodyMarkdown, markdownOptions);
+  const body = await renderMarkdownDocument(bodyMarkdown, data, route);
 
   return {
     excerptMarkdown,
     excerptHtml,
     moreAnchor,
-    bodyMarkdown,
-    bodyHtml: body.html,
+    bodyMarkdown: body.bodyMarkdown,
+    bodyHtml: body.bodyHtml,
     plainText: makePlainText(parsed.content),
     toc: body.toc,
-    math: detectMath(data, parsed.content),
-    mermaid: detectMermaid(parsed.content)
+    math: body.math,
+    mermaid: body.mermaid
+  };
+}
+
+async function renderMarkdownDocument(markdown: string, data: Record<string, unknown>, route: string): Promise<MarkdownBodyRender> {
+  const body = await renderMarkdown(markdown, { assetBasePath: route });
+  return {
+    bodyMarkdown: markdown,
+    bodyHtml: body.html,
+    plainText: makePlainText(markdown),
+    toc: body.toc,
+    math: detectMath(data, markdown),
+    mermaid: detectMermaid(markdown)
   };
 }
 
@@ -463,7 +609,7 @@ async function writeMarkdownCache<T>(cachePath: string, key: string, value: T) {
   }
 }
 
-async function markdownCacheKey(kind: "page" | "post", parsed: FrontMatterFile<string>) {
+async function markdownCacheKey(kind: "page" | "post" | "threat", parsed: FrontMatterFile<string>) {
   const hash = createHash("sha256");
   hash.update(String(MARKDOWN_CACHE_VERSION));
   hash.update("\0");
@@ -477,7 +623,7 @@ async function markdownCacheKey(kind: "page" | "post", parsed: FrontMatterFile<s
   return hash.digest("hex");
 }
 
-function markdownCachePath(kind: "page" | "post", sourcePath: string) {
+function markdownCachePath(kind: "page" | "post" | "threat", sourcePath: string) {
   const sourceHash = createHash("sha256").update(sourcePath).digest("hex");
   return path.join(markdownCacheDir, kind, `${sourceHash}.json`);
 }

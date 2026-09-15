@@ -1,4 +1,4 @@
-import type { ContentManifest, Page, Post, RouteEntry } from "../types/content";
+import type { ContentManifest, Page, Post, RouteEntry, ThreatReport } from "../types/content";
 import type { ImagePreviewState } from "../components/ImagePreview";
 
 export type AppProps = {
@@ -18,6 +18,13 @@ export type PagePayload = {
   posts?: Post[];
   totalPages?: number;
   totalPosts?: number;
+  threatReports?: ThreatReport[];
+  totalThreatPages?: number;
+  totalThreatReports?: number;
+  threatReport?: ThreatReport;
+  previousThreatReport?: ThreatReport;
+  nextThreatReport?: ThreatReport;
+  threatReportTranslations?: ThreatReport[];
   page?: Page;
   tags?: ContentManifest["tags"];
   categories?: ContentManifest["categories"];

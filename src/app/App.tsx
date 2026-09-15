@@ -11,6 +11,8 @@ import { PageView } from "../pages/PageView";
 import { PostPage } from "../pages/PostPage";
 import { TaxonomyPage } from "../pages/TaxonomyPage";
 import { ToolsPage } from "../pages/ToolsPage";
+import { ThreatReportPage } from "../pages/ThreatReportPage";
+import { ThreatsPage } from "../pages/ThreatsPage";
 import { WipPage } from "../pages/WipPage";
 import type { ContentManifest, RouteEntry } from "../types/content";
 import type { AppProps, PagePayload } from "./app-types";
@@ -34,6 +36,7 @@ import {
 } from "./navigation";
 import { parsePagePayloadHtml } from "./page-payload-html";
 import { mergePagePayload } from "./page-payload";
+import { sortThreatReportsByDateDesc } from "../utils/threats";
 
 type ViewState = AppProps;
 type RouteTransitionKind = "detail-forward" | "detail-back" | "detail-swap" | "route";
@@ -470,9 +473,7 @@ function findPostTransitionElement(route: string) {
 
 function findPostBodyTransitionElement(route: string) {
   return (
-    Array.from(document.querySelectorAll<HTMLElement>("[data-post-body-transition]")).find(
-      (element) => element.dataset.postBodyTransition === route
-    ) ?? null
+    Array.from(document.querySelectorAll<HTMLElement>("[data-post-body-transition]")).find((element) => element.dataset.postBodyTransition === route) ?? null
   );
 }
 
@@ -518,6 +519,11 @@ function renderRoute(props: AppProps) {
     case "category":
     case "category-page":
       return <TaxonomyPage {...props} type="category" name={route.params?.category} page={Number(route.params?.page ?? "1")} />;
+    case "threats":
+    case "threats-page":
+      return <ThreatsPage {...props} page={Number(route.params?.page ?? "1")} />;
+    case "threat-report":
+      return <ThreatReportPage {...props} id={route.params?.id ?? ""} />;
     case "tools":
       return <ToolsPage {...props} />;
     case "not-found":
@@ -557,6 +563,10 @@ function routeHtmlUrl(routePath: string) {
 
 function payloadFromContent(content: ContentManifest, route: RouteEntry): PagePayload {
   const routePosts = route.kind === "wip" || route.kind === "wip-post" ? content.wipPosts : content.posts;
+  const threatReports = sortThreatReportsByDateDesc(content.threatReports.filter((report) => report.language === route.language));
+  const reportIndex = route.params?.id ? threatReports.findIndex((report) => report.id === route.params?.id) : -1;
+  const threatReport = reportIndex >= 0 ? threatReports[reportIndex] : undefined;
+  const translatedThreatReports = route.params?.id ? content.threatReports.filter((report) => report.id === route.params?.id) : [];
   return {
     route,
     commonContent: {
@@ -570,6 +580,13 @@ function payloadFromContent(content: ContentManifest, route: RouteEntry): PagePa
     posts: isListRoute(route) ? routePosts : undefined,
     totalPages: isListRoute(route) ? content.currentList?.totalPages : undefined,
     totalPosts: isListRoute(route) ? content.currentList?.totalPosts : undefined,
+    threatReports: route.kind === "threats" || route.kind === "threats-page" ? threatReports : undefined,
+    totalThreatPages: route.kind === "threats" || route.kind === "threats-page" ? content.currentThreatList?.totalPages : undefined,
+    totalThreatReports: route.kind === "threats" || route.kind === "threats-page" ? content.currentThreatList?.totalReports : undefined,
+    threatReport,
+    previousThreatReport: reportIndex >= 0 ? threatReports[reportIndex + 1] : undefined,
+    nextThreatReport: reportIndex >= 0 ? threatReports[reportIndex - 1] : undefined,
+    threatReportTranslations: translatedThreatReports,
     page: route.kind === "page" ? content.pages.find((page) => page.route === route.route) : undefined,
     tags: route.kind === "tags" ? content.tags : undefined,
     categories: route.kind === "categories" ? content.categories : undefined,
@@ -581,4 +598,3 @@ function adjacentPost(posts: ContentManifest["posts"], abbrlink: string, offset:
   const index = posts.findIndex((post) => post.abbrlink === abbrlink);
   return index >= 0 ? posts[index + offset] : undefined;
 }
-

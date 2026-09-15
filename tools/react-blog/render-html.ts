@@ -14,11 +14,15 @@ import {
   postForArticlePayload,
   postForEmbeddedArticlePayload,
   postForListPayload,
+  threatReportForAdjacentPayload,
+  threatReportForArticlePayload,
+  threatReportForEmbeddedArticlePayload,
+  threatReportForListPayload,
   readViteAssets,
   renderHtmlShell,
   routeOutputFile
 } from "./html";
-import { distDir, rootDir } from "./paths";
+import { THREAT_REPORTS_PER_PAGE, distDir, rootDir } from "./paths";
 
 export type PageRenderer = (props: AppProps) => string;
 export type PageRendererLoader = () => Promise<PageRenderer>;
@@ -59,7 +63,8 @@ export async function renderHtml(content: ContentManifest, routes: RouteEntry[],
     const payload = routePayload(content, route, { commonContent, includeArticleBody: true });
     const embeddedPayload = routePayload(content, route, { commonContent, includeArticleBody: false });
     const outputFile = routeOutputFile(distDir, route.outputPath);
-    const cacheKey = routeCacheKey(route, payload, rendererFingerprint);
+    const cachePayload = route.kind === "threat-report" ? payload : embeddedPayload;
+    const cacheKey = routeCacheKey(route, cachePayload, rendererFingerprint);
     const cachedAppHtml = await readHtmlCache(route.outputPath, cacheKey);
 
     await fs.mkdir(path.dirname(outputFile), { recursive: true });
@@ -99,6 +104,8 @@ export function routePayload(
 ) {
   const list = listPosts(content, route);
   const article = route.params?.abbrlink ? articlePosts(content, route, options) : undefined;
+  const threatList = listThreatReports(content, route);
+  const threatArticle = route.params?.id ? articleThreatReport(content, route, options) : undefined;
   return {
     route,
     commonContent: options.commonContent,
@@ -109,10 +116,32 @@ export function routePayload(
     posts: list?.posts.map(postForListPayload),
     totalPages: list?.totalPages,
     totalPosts: list?.totalPosts,
+    threatReport: threatArticle?.report,
+    previousThreatReport: threatArticle?.previousReport,
+    nextThreatReport: threatArticle?.nextReport,
+    threatReportTranslations: threatArticle?.translations,
+    threatReports: threatList?.reports.map(threatReportForListPayload),
+    totalThreatPages: threatList?.totalPages,
+    totalThreatReports: threatList?.totalReports,
     page: route.kind === "page" ? pagePayload(content, route.route, options) : undefined,
     tags: route.kind === "tags" ? content.tags : undefined,
     categories: route.kind === "categories" ? content.categories : undefined,
     archives: route.kind === "archives" ? content.archives : undefined
+  };
+}
+
+function articleThreatReport(content: ContentManifest, route: RouteEntry, options: { includeArticleBody: boolean }) {
+  const id = route.params?.id ?? "";
+  const reports = content.threatReports.filter((item) => item.language === route.language);
+  const report = contentIndex(content).threatReportsById.get(id)?.get(route.language);
+  if (!report) return undefined;
+
+  const index = reports.indexOf(report);
+  return {
+    report: options.includeArticleBody ? threatReportForArticlePayload(report) : threatReportForEmbeddedArticlePayload(report),
+    previousReport: reports[index + 1] ? threatReportForAdjacentPayload(reports[index + 1]) : undefined,
+    nextReport: reports[index - 1] ? threatReportForAdjacentPayload(reports[index - 1]) : undefined,
+    translations: [...(contentIndex(content).threatReportsById.get(id)?.values() ?? [])].map(threatReportForAdjacentPayload)
   };
 }
 
@@ -151,6 +180,21 @@ function listPosts(content: ContentManifest, route: RouteEntry) {
   };
 }
 
+function listThreatReports(content: ContentManifest, route: RouteEntry) {
+  if (route.kind !== "threats" && route.kind !== "threats-page") return undefined;
+
+  const page = Number(route.params?.page ?? "1");
+  const languageReports = content.threatReports.filter((report) => report.language === route.language);
+  const totalReports = languageReports.length;
+  const totalPages = Math.max(1, Math.ceil(totalReports / THREAT_REPORTS_PER_PAGE));
+  const start = (page - 1) * THREAT_REPORTS_PER_PAGE;
+  return {
+    reports: languageReports.slice(start, start + THREAT_REPORTS_PER_PAGE),
+    totalPages,
+    totalReports
+  };
+}
+
 function postsForListRoute(content: ContentManifest, route: RouteEntry) {
   const index = contentIndex(content);
   switch (route.kind) {
@@ -186,6 +230,10 @@ function routeDescription(content: ContentManifest, route: RouteEntry) {
   if (route.kind === "wip-post" && route.params?.abbrlink) {
     const post = index.wipPostsByAbbrlink.get(route.params.abbrlink);
     return post?.plainText.slice(0, 160) ?? content.config.subtitle;
+  }
+  if (route.kind === "threat-report" && route.params?.id) {
+    const report = content.threatReports.find((item) => item.id === route.params?.id && item.language === route.language);
+    return report?.summary || report?.plainText.slice(0, 160) || content.config.subtitle;
   }
   return content.config.description || content.config.subtitle;
 }

@@ -21,6 +21,9 @@ export default defineConfig({
   preview: {
     allowedHosts: ["5600g.taild2025.ts.net"]
   },
+  server: {
+    allowedHosts: ["5600g.taild2025.ts.net"]
+  },
   build: {
     outDir: "dist-react",
     assetsDir: "assets",

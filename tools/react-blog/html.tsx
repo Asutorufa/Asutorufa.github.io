@@ -3,7 +3,8 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { PAGE_PAYLOAD_SCRIPT_ID } from "../../src/app/page-payload-html";
 import { LANGUAGE_META } from "../../src/data/i18n";
 import type { CommonContent, PagePayload } from "../../src/app/app-types";
-import type { ContentManifest, Post, RouteEntry } from "../../src/types/content";
+import type { ContentManifest, Post, RouteEntry, ThreatReport } from "../../src/types/content";
+import { threatAlternateEntries } from "../../src/utils/threats";
 
 export type ClientAssets = {
   scripts: string[];
@@ -30,7 +31,7 @@ export function renderHtmlShell(options: { appHtml: string; assets: ClientAssets
         <meta name="theme-color" content={THEME_COLOR_LIGHT} />
         <meta name="description" content={description} />
         <meta name="keywords" content="program" />
-        <meta property="og:type" content={route.kind === "post" || route.kind === "wip-post" ? "article" : "website"} />
+        <meta property="og:type" content={route.kind === "post" || route.kind === "wip-post" || route.kind === "threat-report" ? "article" : "website"} />
         <meta property="og:title" content={route.title} />
         <meta property="og:url" content={canonical} />
         <meta property="og:site_name" content={content.config.title} />
@@ -38,6 +39,15 @@ export function renderHtmlShell(options: { appHtml: string; assets: ClientAssets
         <meta property="og:locale" content={language.locale} />
         <meta name="twitter:card" content="summary" />
         <link rel="canonical" href={canonical} />
+        {threatAlternateEntries(content.threatReports, route).map((entry) => (
+          <link
+            key={`${entry.hreflang}-${entry.route}`}
+            rel="alternate"
+            hrefLang={entry.hreflang}
+            href={new URL(entry.route, content.config.url).toString()}
+            data-threat-alternate="true"
+          />
+        ))}
         <link rel="alternate" href="/atom.xml" title={content.config.title} type="application/atom+xml" />
         <link rel="icon" type="image/svg+xml" href="/images/bighead.svg" />
         <script dangerouslySetInnerHTML={{ __html: canonicalHostRedirectScript(content.config.url) }} />
@@ -89,6 +99,10 @@ function routeDescription(content: ContentManifest, route: RouteEntry) {
   if (route.kind === "wip-post" && route.params?.abbrlink) {
     const post = content.wipPosts.find((item) => item.abbrlink === route.params?.abbrlink);
     return post?.plainText.slice(0, 160) ?? content.config.subtitle;
+  }
+  if (route.kind === "threat-report" && route.params?.id) {
+    const report = content.threatReports.find((item) => item.id === route.params?.id && item.language === route.language);
+    return report?.summary || report?.plainText.slice(0, 160) || content.config.subtitle;
   }
   return content.config.description || content.config.subtitle;
 }
@@ -143,6 +157,22 @@ export function postForEmbeddedArticlePayload(post: Post): Post {
   });
 }
 
+export function threatReportForListPayload(report: ThreatReport): ThreatReport {
+  return stripThreatReportForClient(report, { bodyHtml: "", toc: [], includeFacts: false });
+}
+
+export function threatReportForAdjacentPayload(report: ThreatReport): ThreatReport {
+  return stripThreatReportForClient(report, { bodyHtml: "", toc: [], includeFacts: false });
+}
+
+export function threatReportForArticlePayload(report: ThreatReport): ThreatReport {
+  return stripThreatReportForClient(report, { bodyHtml: report.bodyHtml, toc: report.toc, includeFacts: true });
+}
+
+export function threatReportForEmbeddedArticlePayload(report: ThreatReport): ThreatReport {
+  return stripThreatReportForClient(report, { bodyHtml: "", toc: report.toc, includeFacts: true });
+}
+
 export function pageForPayload(contentPage: ContentManifest["pages"][number], options: { bodyHtml?: string } = {}): ContentManifest["pages"][number] {
   return stripPageForClient(contentPage, options.bodyHtml ?? contentPage.bodyHtml);
 }
@@ -167,6 +197,20 @@ function stripPageForClient(contentPage: ContentManifest["pages"][number], bodyH
     bodyHtml,
     rawMarkdown: "",
     plainText: ""
+  };
+}
+
+function stripThreatReportForClient(report: ThreatReport, options: { bodyHtml: string; toc: ThreatReport["toc"]; includeFacts: boolean }): ThreatReport {
+  return {
+    ...report,
+    tags: options.includeFacts ? report.tags : [],
+    cves: options.includeFacts ? report.cves : [],
+    iocs: options.includeFacts ? report.iocs : [],
+    bodyMarkdown: "",
+    bodyHtml: options.bodyHtml,
+    rawMarkdown: "",
+    plainText: "",
+    toc: options.toc
   };
 }
 

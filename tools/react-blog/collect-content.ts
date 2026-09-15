@@ -1,12 +1,20 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import fg from "fast-glob";
-import type { BlogConfig, ContentManifest, Post } from "../../src/types/content";
+import type { BlogConfig, ContentManifest, Post, ThreatReport } from "../../src/types/content";
 import { DEFAULT_LANGUAGE } from "../../src/data/i18n";
 import { formatTaxonomyName, normalizeTaxonomyName } from "../../src/utils/route";
-import { comparePostsByDateDesc, createPage, createPost, resetMarkdownCacheStats, routeSegment } from "./content-utils";
+import {
+  comparePostsByDateDesc,
+  compareThreatReportsByDateDesc,
+  createPage,
+  createPost,
+  createThreatReport,
+  resetMarkdownCacheStats,
+  routeSegment
+} from "./content-utils";
 import { parseFrontMatter } from "./front-matter";
-import { postsDir, rootDir, sourceDir, toPosixPath } from "./paths";
+import { postsDir, rootDir, sourceDir, threatsDir, toPosixPath } from "./paths";
 
 const config: BlogConfig = {
   title: "Asutorufaのブログ",
@@ -39,6 +47,8 @@ export async function collectContent(): Promise<ContentManifest> {
   const posts = allPosts.filter((post) => !post.wip);
   const wipPosts = allPosts.filter((post) => post.wip);
 
+  const threatReports = await collectThreatReports(threatsDir, languageFallbacks);
+
   applyTaxonomyDisplayNames(posts);
   applyTaxonomyDisplayNames(wipPosts);
   assertUniquePostRoutes(allPosts);
@@ -66,6 +76,7 @@ export async function collectContent(): Promise<ContentManifest> {
     stats: {
       posts: posts.length,
       pages: pages.length,
+      threatReports: new Set(threatReports.map((report) => report.id)).size,
       tags: tags.length,
       categories: categories.length,
       archives: archives.length
@@ -73,11 +84,45 @@ export async function collectContent(): Promise<ContentManifest> {
     posts,
     wipPosts,
     pages,
+    threatReports,
     tags,
     categories,
     archives,
     languageFallbacks
   };
+}
+
+export async function collectThreatReports(
+  directory = threatsDir,
+  fallbackCollector: Array<{ sourcePath: string; rawLanguage: string }> = []
+): Promise<ThreatReport[]> {
+  const directFiles = await fg("*.md", {
+    cwd: directory,
+    absolute: true,
+    onlyFiles: true
+  });
+  if (directFiles.length > 0) {
+    throw new Error(
+      `Threat report files must be stored under source/_threats/YYYY-MM-DD/<language>.md: ${toPosixPath(path.relative(rootDir, directFiles[0]))}`
+    );
+  }
+
+  const files = await fg("*/*.md", {
+    cwd: directory,
+    absolute: true,
+    onlyFiles: true
+  });
+  const reports = (
+    await Promise.all(
+      files.map(async (filePath) => {
+        const raw = await fs.readFile(filePath, "utf8");
+        return createThreatReport(path.relative(rootDir, filePath), parseFrontMatter(raw), fallbackCollector);
+      })
+    )
+  ).sort(compareThreatReportsByDateDesc);
+
+  assertThreatReportConsistency(reports);
+  return reports;
 }
 
 export function siteDefaultLanguage() {
@@ -187,6 +232,41 @@ function assertUniquePostRoutes(posts: Post[]) {
     }
     seen.set(post.route, post.sourcePath);
   }
+}
+
+export function assertThreatReportConsistency(reports: ThreatReport[]) {
+  const seen = new Map<string, string>();
+  const byId = new Map<string, ThreatReport[]>();
+
+  for (const report of reports) {
+    const key = `${report.id}:${report.language}`;
+    const previous = seen.get(key);
+    if (previous) {
+      throw new Error(`Duplicate threat report (id, language) ${key}: ${previous} and ${report.sourcePath}`);
+    }
+    seen.set(key, report.sourcePath);
+    const group = byId.get(report.id);
+    if (group) group.push(report);
+    else byId.set(report.id, [report]);
+  }
+
+  for (const [id, group] of byId) {
+    const reference = group[0];
+    for (const report of group.slice(1)) {
+      for (const field of ["date", "total", "critical", "high", "medium", "low", "exploited", "tags", "cves", "iocs"] as const) {
+        if (!sameThreatFact(reference[field], report[field])) {
+          throw new Error(`Inconsistent threat report fact ${field} for id ${id}: ${reference.sourcePath} and ${report.sourcePath}`);
+        }
+      }
+    }
+  }
+}
+
+function sameThreatFact(left: unknown, right: unknown) {
+  if (Array.isArray(left) && Array.isArray(right)) {
+    return left.length === right.length && left.every((value, index) => value === right[index]);
+  }
+  return left === right;
 }
 
 export function sourceRelativePath(filePath: string) {

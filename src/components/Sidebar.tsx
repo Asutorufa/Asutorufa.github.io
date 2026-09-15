@@ -14,11 +14,13 @@ type SidebarProps = {
   labels: UiLabels;
   currentRoute: string;
   post?: Post;
+  toc?: TocItem[];
   mobile?: boolean;
 };
 
-export function Sidebar({ content, labels, currentRoute, post, mobile = false }: SidebarProps) {
-  const hasToc = Boolean(post?.toc.length);
+export function Sidebar({ content, labels, currentRoute, post, toc, mobile = false }: SidebarProps) {
+  const activeToc = toc ?? post?.toc ?? [];
+  const hasToc = activeToc.length > 0;
   const prefersReducedMotion = useReducedMotion();
   const navItems = menuItems(labels);
   const activeNavIndex = navItems.findIndex((item) => isActive(currentRoute, item.href));
@@ -48,11 +50,7 @@ export function Sidebar({ content, labels, currentRoute, post, mobile = false }:
             {navItems.map((item) => {
               const active = isActive(currentRoute, item.href);
               return (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className={clsx(styles.navLink, active && styles.navLinkActive)}
-                >
+                <a key={item.href} href={item.href} className={clsx(styles.navLink, active && styles.navLinkActive)}>
                   <span className={styles.navIcon}>
                     <Icon name={item.icon} className="w-[1.28571429em]" />
                   </span>
@@ -67,8 +65,8 @@ export function Sidebar({ content, labels, currentRoute, post, mobile = false }:
         </nav>
       </section>
 
-      {hasToc && post ? (
-        <TocCard content={content} labels={labels} toc={post.toc} mobile={mobile} />
+      {hasToc ? (
+        <TocCard content={content} labels={labels} toc={activeToc} mobile={mobile} />
       ) : (
         <ProfileCard content={content} labels={labels} sticky={!mobile} />
       )}
@@ -214,11 +212,7 @@ function TocList({ toc }: { toc: TocItem[] }) {
           return (
             <li key={item.id} className={clsx(styles.tocItem, item.level > 2 && "ml-3 text-[12px]")}>
               {active ? <motion.span layoutId="toc-indicator" className={styles.tocIndicator} transition={MotionPresets.spring} /> : null}
-              <a
-                className={clsx(styles.tocLink, active && styles.tocLinkActive)}
-                href={`#${item.id}`}
-                onClick={(event) => navigateToTocItem(event, item.id)}
-              >
+              <a className={clsx(styles.tocLink, active && styles.tocLinkActive)} href={`#${item.id}`} onClick={(event) => navigateToTocItem(event, item.id)}>
                 {item.text}
               </a>
             </li>
@@ -270,11 +264,7 @@ function ProfileBody({ content, labels, compact = false }: { content: ContentMan
 
   return (
     <div className={clsx("text-center", compact ? "px-4 pb-5 pt-5" : "px-4 py-6")}>
-      <a
-        className={clsx(styles.avatarLink, "mx-auto block h-28 w-28 rounded-full")}
-        href="/about/"
-        aria-label={labels.about}
-      >
+      <a className={clsx(styles.avatarLink, "mx-auto block h-28 w-28 rounded-full")} href="/about/" aria-label={labels.about}>
         <img src="/images/bighead.svg" alt="Asutorufa" className={clsx(styles.avatarImage, "h-28 w-28 rounded-full object-cover")} />
       </a>
       <div
@@ -368,27 +358,9 @@ const statLabelVariants = {
 
 type SocialKind = "email" | "github" | "rss";
 
-function SocialLink({
-  external,
-  href,
-  icon,
-  kind,
-  label
-}: {
-  external?: boolean;
-  href: string;
-  icon: SocialKind;
-  kind: SocialKind;
-  label: string;
-}) {
+function SocialLink({ external, href, icon, kind, label }: { external?: boolean; href: string; icon: SocialKind; kind: SocialKind; label: string }) {
   return (
-    <a
-      className={styles.actionLink}
-      href={href}
-      data-kind={kind}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noreferrer" : undefined}
-    >
+    <a className={styles.actionLink} href={href} data-kind={kind} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}>
       <span className={styles.actionIcon}>
         <Icon name={icon} />
       </span>

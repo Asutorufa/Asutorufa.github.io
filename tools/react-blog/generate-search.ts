@@ -5,7 +5,15 @@ import { distDir } from "./paths";
 import { escapeHtml } from "./html";
 
 export async function generateSearch(content: ContentManifest) {
-  const records = content.posts.map((post) => ({
+  const records = searchRecords(content);
+  const xml = searchXml(records);
+
+  await fs.writeFile(path.join(distDir, "search.xml"), xml);
+  await fs.writeFile(path.join(distDir, "search.json"), JSON.stringify(records, null, 2));
+}
+
+export function searchRecords(content: ContentManifest) {
+  return content.posts.map((post) => ({
     title: post.title,
     url: post.route,
     language: post.language,
@@ -13,8 +21,10 @@ export async function generateSearch(content: ContentManifest) {
     categories: post.categories,
     content: post.plainText
   }));
+}
 
-  const xml = `<?xml version="1.0" encoding="utf-8"?>
+export function searchXml(records: ReturnType<typeof searchRecords>) {
+  return `<?xml version="1.0" encoding="utf-8"?>
 <search>
 ${records
   .map(
@@ -28,7 +38,4 @@ ${records
   .join("\n")}
 </search>
 `;
-
-  await fs.writeFile(path.join(distDir, "search.xml"), xml);
-  await fs.writeFile(path.join(distDir, "search.json"), JSON.stringify(records, null, 2));
 }

@@ -229,6 +229,7 @@ async function printReport(content: Awaited<ReturnType<typeof collectContent>>, 
   console.log(`posts: ${content.posts.length}`);
   console.log(`wip posts: ${content.wipPosts.length}`);
   console.log(`pages: ${content.pages.length}`);
+  console.log(`threat reports: ${content.stats.threatReports}`);
   console.log(`routes: ${routeCount}`);
   console.log(`tags: ${content.tags.length}`);
   console.log(`categories: ${content.categories.length}`);

@@ -5,6 +5,10 @@ import { formatDate, parseLooseDate } from "./content-utils";
 import { distDir } from "./paths";
 
 export async function generateSitemap(content: ContentManifest, routes: RouteEntry[]) {
+  await fs.writeFile(path.join(distDir, "sitemap.xml"), sitemapXml(content, routes));
+}
+
+export function sitemapXml(content: ContentManifest, routes: RouteEntry[]) {
   const urls = routes
     .filter((route) => route.kind !== "not-found" && route.kind !== "wip" && route.kind !== "wip-post")
     .map((route) => sitemapEntry(content, route))
@@ -16,7 +20,7 @@ ${urls}
 </urlset>
 `;
 
-  await fs.writeFile(path.join(distDir, "sitemap.xml"), xml);
+  return xml;
 }
 
 function sitemapEntry(content: ContentManifest, route: RouteEntry) {
@@ -44,6 +48,15 @@ function routeLastmod(content: ContentManifest, route: RouteEntry) {
     return formatDate(post?.updated || post?.date);
   }
 
+  if (route.kind === "threat-report" && route.params?.id) {
+    const report = content.threatReports.find((item) => item.id === route.params?.id && item.language === route.language);
+    return formatDate(report?.updated || report?.date);
+  }
+
+  if (route.kind === "threats" || route.kind === "threats-page") {
+    return latestThreatDate(content, route.language);
+  }
+
   if (route.kind === "page") {
     const page = content.pages.find((item) => item.route === route.route);
     return formatDate(page?.updated || page?.date) || latestPostDate(content);
@@ -68,6 +81,18 @@ function routeLastmod(content: ContentManifest, route: RouteEntry) {
   }
 
   return latestPostDate(content);
+}
+
+function latestThreatDate(content: ContentManifest, language?: ContentManifest["threatReports"][number]["language"]) {
+  const reports = language ? content.threatReports.filter((report) => report.language === language) : content.threatReports;
+  const latest = reports.reduce<string | undefined>((result, report) => {
+    const candidate = report.updated || report.date;
+    if (!result) return candidate;
+    const resultTime = parseLooseDate(result)?.getTime() ?? 0;
+    const candidateTime = parseLooseDate(candidate)?.getTime() ?? 0;
+    return candidateTime > resultTime ? candidate : result;
+  }, undefined);
+  return formatDate(latest);
 }
 
 function latestPostDate(content: ContentManifest, filter?: (post: ContentManifest["posts"][number]) => boolean) {

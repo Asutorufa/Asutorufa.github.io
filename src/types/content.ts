@@ -19,6 +19,19 @@ export type UiLabels = {
   about: string;
   friends: string;
   tools: string;
+  threatIntelligence: string;
+  threats: string;
+  threatDescription: string;
+  latest: string;
+  critical: string;
+  high: string;
+  medium: string;
+  low: string;
+  exploited: string;
+  noThreatReports: string;
+  previousReport: string;
+  nextReport: string;
+  threatLanguageNames: Record<SiteLanguage, string>;
   search: string;
   menu: string;
   closeSearch: string;
@@ -98,6 +111,39 @@ export type Post = {
   mermaid: boolean;
 };
 
+export type ThreatReport = {
+  kind: "threat-report";
+  sourcePath: string;
+  route: `/threats/${string}/` | `/threats/${SiteLanguage}/${string}/`;
+  id: string;
+  title: string;
+  date: string;
+  updated?: string;
+  summary: string;
+  tags: string[];
+  cves: string[];
+  iocs: string[];
+  generated: boolean;
+  total: number;
+  critical: number;
+  high: number;
+  medium: number;
+  low: number;
+  exploited: number;
+  language: SiteLanguage;
+  htmlLang: string;
+  locale: string;
+  textDirection: "ltr" | "rtl";
+  dateLocale: string;
+  bodyMarkdown: string;
+  bodyHtml: string;
+  rawMarkdown: string;
+  plainText: string;
+  toc: TocItem[];
+  math: boolean;
+  mermaid: boolean;
+};
+
 export type Page = {
   kind: "page";
   sourcePath: string;
@@ -122,6 +168,7 @@ export type ContentManifest = {
   stats: {
     posts: number;
     pages: number;
+    threatReports: number;
     tags: number;
     categories: number;
     archives: number;
@@ -129,12 +176,17 @@ export type ContentManifest = {
   posts: Post[];
   wipPosts: Post[];
   pages: Page[];
+  threatReports: ThreatReport[];
   tags: Array<{ name: string; route: string; count: number }>;
   categories: Array<{ name: string; route: string; count: number }>;
   archives: Array<{ year: string; route: string; count: number }>;
   currentList?: {
     totalPages: number;
     totalPosts: number;
+  };
+  currentThreatList?: {
+    totalPages: number;
+    totalReports: number;
   };
   languageFallbacks?: Array<{ sourcePath: string; rawLanguage: string }>;
 };
@@ -157,6 +209,9 @@ export type RouteKind =
   | "category-page"
   | "wip"
   | "wip-post"
+  | "threats"
+  | "threats-page"
+  | "threat-report"
   | "tools"
   | "not-found";
 

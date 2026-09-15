@@ -21,7 +21,8 @@ function hydratePayloadBody(payload: PagePayload, doc: Document): PagePayload {
 
   const post = payload.post && payload.post.bodyHtml === "" ? { ...payload.post, bodyHtml } : payload.post;
   const page = payload.page && payload.page.bodyHtml === "" ? { ...payload.page, bodyHtml } : payload.page;
+  const threatReport = payload.threatReport && payload.threatReport.bodyHtml === "" ? { ...payload.threatReport, bodyHtml } : payload.threatReport;
 
-  if (post === payload.post && page === payload.page) return payload;
-  return { ...payload, post, page };
+  if (post === payload.post && page === payload.page && threatReport === payload.threatReport) return payload;
+  return { ...payload, post, page, threatReport };
 }

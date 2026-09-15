@@ -1,7 +1,9 @@
 import path from "node:path";
-import { DEFAULT_LANGUAGE } from "../../src/data/i18n";
+import { DEFAULT_LANGUAGE, UI_LABELS } from "../../src/data/i18n";
 import type { ContentManifest, Post, RouteEntry } from "../../src/types/content";
+import { THREAT_LANGUAGES, threatListRoute } from "../../src/utils/threats";
 import { contentIndex } from "./content-index";
+import { THREAT_REPORTS_PER_PAGE } from "./paths";
 
 export function buildRoutes(content: ContentManifest): RouteEntry[] {
   const routes: RouteEntry[] = [];
@@ -27,6 +29,34 @@ export function buildRoutes(content: ContentManifest): RouteEntry[] {
       title: post.title,
       language: post.language,
       params: { abbrlink: post.abbrlink }
+    });
+  }
+
+  for (const language of THREAT_LANGUAGES) {
+    const languageReports = content.threatReports.filter((report) => report.language === language);
+    const threatTotalPages = Math.max(1, Math.ceil(languageReports.length / THREAT_REPORTS_PER_PAGE));
+    const labels = UI_LABELS[language];
+    for (let page = 1; page <= threatTotalPages; page += 1) {
+      const route = threatListRoute(language, page);
+      routes.push({
+        route,
+        outputPath: routeToOutputPath(route),
+        kind: page === 1 ? "threats" : "threats-page",
+        title: page === 1 ? labels.threatIntelligence : `${labels.threatIntelligence} - Page ${page}`,
+        language,
+        params: { page: String(page) }
+      });
+    }
+  }
+
+  for (const report of content.threatReports) {
+    routes.push({
+      route: report.route,
+      outputPath: routeToOutputPath(report.route),
+      kind: "threat-report",
+      title: report.title,
+      language: report.language,
+      params: { id: report.id }
     });
   }
 

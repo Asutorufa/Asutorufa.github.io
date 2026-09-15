@@ -27,6 +27,7 @@ import {
   Rss,
   Search,
   SendHorizontal,
+  ShieldAlert,
   Sun,
   Tags,
   Trash2,
@@ -67,6 +68,7 @@ export type IconName =
   | "reply"
   | "rss"
   | "search"
+  | "shield-alert"
   | "send"
   | "sun"
   | "table"
@@ -111,6 +113,7 @@ const icons: Record<Exclude<IconName, "github">, LucideIcon> = {
   reply: Reply,
   rss: Rss,
   search: Search,
+  "shield-alert": ShieldAlert,
   send: SendHorizontal,
   sun: Sun,
   table: Grid3X3,

@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import type { Stats } from "node:fs";
 import path from "node:path";
 import type { ContentManifest, Post } from "../../src/types/content";
 import { distDir, fromRoot, rootDir } from "./paths";
@@ -55,7 +56,7 @@ async function syncDirectory(sourceDir: string, targetDir: string) {
   );
 }
 
-async function copyFileIfChanged(sourcePath: string, targetPath: string, sourceStat: Awaited<ReturnType<typeof fs.stat>>) {
+async function copyFileIfChanged(sourcePath: string, targetPath: string, sourceStat: Stats) {
   try {
     const targetStat = await fs.stat(targetPath);
     if (targetStat.size === sourceStat.size && Math.trunc(targetStat.mtimeMs) === Math.trunc(sourceStat.mtimeMs)) return;
