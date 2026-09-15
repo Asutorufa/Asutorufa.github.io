@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/zh-Hans/rss.xml" rel="self" type="application/rss+xml" />
     <description>从公开来源收集的每日安全情报。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 15 Sep 2026 06:58:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 15 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-15</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-15/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-15/</guid>
+      <pubDate>Tue, 15 Sep 2026 23:00:00 GMT</pubDate>
+      <description>9 月 15 日最值得关注的新进展包括：N-able N-central 零日漏洞利用已出现明确的勒索软件预部署攻击链；FreeRDP 3.31.0 修复新的认证前策略绕过与堆溢出；JFrog 将 GemStuffer 关联 RubyGems 包扩大到 3,022 个；DDRop 协调披露展示了针对机密计算内存完整性的低成本物理攻击。Linux RPC/RDMA 与 SUNRPC 修复也需要按实际启用场景排查。</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-14</title>
       <link>https://asutorufa.com/threats/zh-Hans/2026-09-14/</link>

@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/en/rss.xml" rel="self" type="application/rss+xml" />
     <description>Daily security intelligence collected from public sources.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 15 Sep 2026 06:58:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 15 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-15</title>
+      <link>https://asutorufa.com/threats/en/2026-09-15/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-15/</guid>
+      <pubDate>Tue, 15 Sep 2026 23:00:00 GMT</pubDate>
+      <description>September 15 brought a high-confidence ransomware-prepositioning update around N-able N-central, fresh FreeRDP 3.31.0 security fixes, new JFrog analysis of 3,022 GemStuffer-linked RubyGems packages, and coordinated disclosure of the DDRop physical attack against confidential-computing memory integrity. Linux RPC/RDMA and SUNRPC fixes also warrant review where the affected transports are enabled.</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-14</title>
       <link>https://asutorufa.com/threats/en/2026-09-14/</link>
