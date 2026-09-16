@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/zh-Hans/rss.xml" rel="self" type="application/rss+xml" />
     <description>从公开来源收集的每日安全情报。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 15 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-16</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-16/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-16/</guid>
+      <pubDate>Wed, 16 Sep 2026 23:00:00 GMT</pubDate>
+      <description>Google 9 月 Pixel 公告确认 CVE-2026-58704 存在有限的定向利用迹象。英国 NCSC、美国 FBI 与荷兰 AIVD 公布了伊朗关联 CHOSEN BRICK 间谍软件的技术细节；Kaspersky 则披露 NightEagle 使用失窃 VPN 凭据、GhostContainer、RDP 隧道和 BlueKeep 攻击俄罗斯企业。OPSWAT 同时公开了两项已修复的 TP-Link Tapo C200 网络侧漏洞。</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-15</title>
       <link>https://asutorufa.com/threats/zh-Hans/2026-09-15/</link>

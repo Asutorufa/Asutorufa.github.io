@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/rss.xml" rel="self" type="application/rss+xml" />
     <description>公開情報から収集した日々のセキュリティインテリジェンス。</description>
     <language>ja</language>
-    <lastBuildDate>Tue, 15 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-16</title>
+      <link>https://asutorufa.com/threats/2026-09-16/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-09-16/</guid>
+      <pubDate>Wed, 16 Sep 2026 23:00:00 GMT</pubDate>
+      <description>Google の9月 Pixel Bulletin は CVE-2026-58704 が限定的な標的型攻撃で悪用されている可能性を確認した。英国 NCSC、米 FBI、オランダ AIVD はイラン関連の CHOSEN BRICK スパイウェアの技術情報を公開し、Kaspersky は窃取 VPN 認証情報、GhostContainer、RDP トンネル、BlueKeep を使う NightEagle のロシア企業侵害を報告した。OPSWAT は修正済みの TP-Link Tapo C200 脆弱性2件も詳報した。</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-15</title>
       <link>https://asutorufa.com/threats/2026-09-15/</link>

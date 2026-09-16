@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/en/rss.xml" rel="self" type="application/rss+xml" />
     <description>Daily security intelligence collected from public sources.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 15 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-16</title>
+      <link>https://asutorufa.com/threats/en/2026-09-16/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-16/</guid>
+      <pubDate>Wed, 16 Sep 2026 23:00:00 GMT</pubDate>
+      <description>Google's September Pixel bulletin confirms limited targeted exploitation of CVE-2026-58704. UK, US and Dutch agencies published technical details for Iran-linked CHOSEN BRICK spyware, while Kaspersky documented NightEagle intrusions using stolen VPN credentials, GhostContainer, RDP tunneling and BlueKeep. OPSWAT also published details for two patched TP-Link Tapo C200 flaws requiring network access.</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-15</title>
       <link>https://asutorufa.com/threats/en/2026-09-15/</link>
