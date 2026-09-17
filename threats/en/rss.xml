@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/en/rss.xml" rel="self" type="application/rss+xml" />
     <description>Daily security intelligence collected from public sources.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 16 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-17</title>
+      <link>https://asutorufa.com/threats/en/2026-09-17/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-17/</guid>
+      <pubDate>Thu, 17 Sep 2026 23:00:00 GMT</pubDate>
+      <description>Cisco disclosed an actively exploited, unauthenticated ISE authentication bypass with a CVSS score of 10.0. ESET documented FamousSparrow's new SparroWocky backdoor against Latin American governments, while CrowdStrike described PhantomRaven malware distributed through npm. Malwarebytes also tracked a large T-Mobile-themed SMS phishing campaign, and JVN published a fixed hard-coded-key flaw in Tohoku Electric Power's Yorisou e Net app.</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-16</title>
       <link>https://asutorufa.com/threats/en/2026-09-16/</link>

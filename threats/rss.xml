@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/rss.xml" rel="self" type="application/rss+xml" />
     <description>公開情報から収集した日々のセキュリティインテリジェンス。</description>
     <language>ja</language>
-    <lastBuildDate>Wed, 16 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-17</title>
+      <link>https://asutorufa.com/threats/2026-09-17/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-09-17/</guid>
+      <pubDate>Thu, 17 Sep 2026 23:00:00 GMT</pubDate>
+      <description>Cisco は、実際の攻撃で悪用されている CVSS 10.0 の ISE 認証バイパス脆弱性を公開した。ESET は FamousSparrow が中南米の政府機関に新型バックドア SparroWocky を展開していることを報告し、CrowdStrike は npm 経由で配布された PhantomRaven 情報窃取マルウェアを分析した。Malwarebytes は大規模な T-Mobile テーマの SMS フィッシングを追跡し、JVN は東北電力「よりそうeねっと」の修正済みハードコード鍵問題を公開した。</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-16</title>
       <link>https://asutorufa.com/threats/2026-09-16/</link>

@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/zh-Hans/rss.xml" rel="self" type="application/rss+xml" />
     <description>从公开来源收集的每日安全情报。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 16 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-17</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-17/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-17/</guid>
+      <pubDate>Thu, 17 Sep 2026 23:00:00 GMT</pubDate>
+      <description>Cisco 披露正在被利用的 ISE 未认证身份验证绕过漏洞，CVSS 10.0。ESET 记录了 FamousSparrow 使用新后门 SparroWocky 攻击拉丁美洲政府机构；CrowdStrike 披露通过 npm 分发的 PhantomRaven 信息窃取程序。Malwarebytes 同时跟踪到大规模 T-Mobile 主题短信钓鱼活动，JVN 则公布了东电「よりそうeねっと」应用中已修复的硬编码密钥漏洞。</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-16</title>
       <link>https://asutorufa.com/threats/zh-Hans/2026-09-16/</link>
