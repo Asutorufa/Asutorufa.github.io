@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "hash": "e7d36ecb2fc15cb8301440f7a2f201edf1ba73f5f61591975d1d3a862835ab9f",
+  "hash": "f3b6e8ca079745f27385564b68eae6231578f62d0edbf7667d70e75b1e2193d9",
   "files": [
     {
       "path": "index.html",
@@ -20,7 +20,7 @@
     },
     {
       "path": "src/app/App.tsx",
-      "hash": "c286f82642810fb202c6625128fb55189520d8bf2060273fc79e86a2441248c8"
+      "hash": "061d386024c2b64895a3e33c54c8251566760be23cef53a334b85d9b063cc593"
     },
     {
       "path": "src/app/app-types.ts",
@@ -52,15 +52,15 @@
     },
     {
       "path": "src/components/ArticleContent.tsx",
-      "hash": "7d05992e17e756a60788bc18278b1079236536b916cf351f0e936b185fa64b57"
+      "hash": "2f2b85ce25a6626122c94f66066163d10da063350cc92bfda177478d7c1cc9dd"
     },
     {
       "path": "src/components/ArticleMarkdown.tsx",
-      "hash": "32b91b57c9c8e0956d237c10bd9784e882cb20b77238e100e75de2a7b06154d2"
+      "hash": "dbf4efebe09c785f177827b386515653eea9d30e2daa3cf9a9c360c472cb14a5"
     },
     {
       "path": "src/components/BlogLayout.tsx",
-      "hash": "c5b03eac7cf23ece52ce9f9130c55b466ea6ae0ddc54cab89560b51a4e73fe27"
+      "hash": "9f65e6ac726d23bdb6f17f873b7743e6572a6b808342d6bf5193d0d6b8bfa54e"
     },
     {
       "path": "src/components/GitalkComments.module.css",
@@ -112,7 +112,7 @@
     },
     {
       "path": "src/components/PostCard.tsx",
-      "hash": "e30ed9cbea9c33c978afb0fc720ea69cbea0310e91709f59041ae636c7978d60"
+      "hash": "760800c2ca22885c278a10b5f329389e9eea833427a0ab477bf96e4a69534d67"
     },
     {
       "path": "src/components/PostFooter.module.css",
@@ -128,7 +128,7 @@
     },
     {
       "path": "src/components/PostMeta.tsx",
-      "hash": "b54805571c1a8b0ee956eb8f4bec0e4ee492412f475b0506e4caefc788b5f19e"
+      "hash": "3b3f7f80ea577e22422ef95fb4b005d763bc8a0e12d4e50eed29679b0add82c0"
     },
     {
       "path": "src/components/RouteLoading.module.css",
@@ -171,12 +171,16 @@
       "hash": "1c4f179d77fa92651a7403bd60234b2b743bce9eb627fc30e3368f6146182f64"
     },
     {
+      "path": "src/components/SiteLanguageProvider.tsx",
+      "hash": "f8c7762bcc44f25c3573f906ef4e34deba8c44bdd2c79ef94b89adba7c5d19c4"
+    },
+    {
       "path": "src/components/SiteLanguageSwitcher.module.css",
-      "hash": "6a3ef7d570ac29d1114b375d4eb74e9df2353b48014346716d0c6fc3477251d7"
+      "hash": "7d3601edc4ee737d86d9ab12158e860a5ca8c6d20cab4648fae0b3f1a7fcde7b"
     },
     {
       "path": "src/components/SiteLanguageSwitcher.tsx",
-      "hash": "c229cfa7ce38e849d5e1550462c2e4163d9d57021d39293d1863cd3ccbf5d6e3"
+      "hash": "e07bbde5070a9d6d0d933af8fcc4cb8c56870a5931bf34fe0a68ab729167bf2e"
     },
     {
       "path": "src/components/ThemeToggle.module.css",
@@ -216,19 +220,19 @@
     },
     {
       "path": "src/pages/ArchivePage.tsx",
-      "hash": "fd99752de358d2fcbdb0f73731e6e17cd94117fd6680f1b3ef4d62721aad514d"
+      "hash": "b46c09e3f8173ad3818f2039049672085d6d098aa84b150fcfbcb383afdfffa3"
     },
     {
       "path": "src/pages/HomePage.tsx",
-      "hash": "c094a684fc6999cb5ac7ebff2f80eda8ee83c020be9b87dec6d8779300f4005b"
+      "hash": "834b2145093225fd726abd8d4d2731f10c5a9d9325e98f2c26cd82666d6b003e"
     },
     {
       "path": "src/pages/NotFoundPage.tsx",
-      "hash": "6b7f4e7a360cc334dc465cbc5a95d17bf6ef0f85db563118663ea2e2ca06692e"
+      "hash": "a26f75b84da9e0f9e279bab9653a7f61edf78188ea39b38da4732bb9e57dbeab"
     },
     {
       "path": "src/pages/PageView.tsx",
-      "hash": "dc10521a5f173d66ee257405ef4b073659c6a00b73b39ede9b8ca23b4770dbe0"
+      "hash": "db82c9beaf7a1c6bd8a7dceaad196e13771df28b9d09ec7ca7a1222175ea9b5f"
     },
     {
       "path": "src/pages/PostPage.module.css",
@@ -236,7 +240,7 @@
     },
     {
       "path": "src/pages/PostPage.tsx",
-      "hash": "af8ae1a44f67e6baff36f2fd1bf31981b27372d1ae94f03fcb5a9bb03aa686c1"
+      "hash": "7f0628dc0d1c855181a81852fe1fc84f1ef35614d88efa67151b8c8ff0c1d7d8"
     },
     {
       "path": "src/pages/TaxonomyPage.module.css",
@@ -244,11 +248,11 @@
     },
     {
       "path": "src/pages/TaxonomyPage.tsx",
-      "hash": "acc1aacde3a05184a22090264b9b90b689962fa6a61964b0bc1ea5f5a9b30479"
+      "hash": "7842b922bde75368ae6531aabde145c33f1e48e021a55b75826b8088a32ab47b"
     },
     {
       "path": "src/pages/ThreatReportPage.tsx",
-      "hash": "bf93d619fb4a52591e8b07638a159d16770641f0e5f4bc6ee14ee5fa09e81455"
+      "hash": "b913d44509856c98723d0264d81b13de57ea921d74d6358f5e10674f3eb77e65"
     },
     {
       "path": "src/pages/ThreatsPage.module.css",
@@ -256,19 +260,19 @@
     },
     {
       "path": "src/pages/ThreatsPage.tsx",
-      "hash": "5dc38c241e69cad3a83e489930ca9fad378e5fa98973d39031386222f6c84348"
+      "hash": "54a353c37d7c52ebab00a7304583d569c67280483a03acc2c4237d7c51dae807"
     },
     {
       "path": "src/pages/ToolsPage.tsx",
-      "hash": "bef485305f8cf24d8d12875b4804c253f213f0cb1da25919a39b21f2fd1f1f49"
+      "hash": "ee3f2bce326a541b4f42545b91d24f59e49216b8ca05aa9e28289c0668683979"
     },
     {
       "path": "src/pages/WipPage.tsx",
-      "hash": "c4cf98ab293cdcde97c3bbac80635c97a19f5ef60e5aa5bf8e7a796b6895a845"
+      "hash": "86c13f4b8d0a1824e8a639c9e9c3325f02e37086c14a83dff7a3508c0811bad5"
     },
     {
       "path": "src/styles/app.css",
-      "hash": "4d27a4099f0f28e6c0364016db84c1a63f3ce43b8b638e51db780ec64d1fb840"
+      "hash": "d19604f5cf9cef87a8c6d7493c47bdd44533dd76aa680ca71d171d51048e553f"
     },
     {
       "path": "src/tools/JsonFormatterTool.tsx",
