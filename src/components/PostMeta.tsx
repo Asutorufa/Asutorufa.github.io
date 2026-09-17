@@ -1,8 +1,8 @@
-import { UI_LABELS } from "../data/i18n";
 import type { Post } from "../types/content";
 import { formatDisplayDate } from "../utils/date";
 import { taxonomyRoute } from "../utils/route";
 import { Icon } from "./Icon";
+import { useSiteLabels } from "./SiteLanguageProvider";
 import styles from "./PostMeta.module.css";
 
 type PostMetaProps = {
@@ -10,7 +10,7 @@ type PostMetaProps = {
 };
 
 export function PostMeta({ post }: PostMetaProps) {
-  const labels = UI_LABELS[post.language];
+  const labels = useSiteLabels(post.language);
   const showTaxonomy = !post.wip;
 
   return (

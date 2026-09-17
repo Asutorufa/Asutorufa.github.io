@@ -1,9 +1,9 @@
 import type { AppProps } from "../app/app-types";
-import { UI_LABELS } from "../data/i18n";
 import type { ThreatReport, UiLabels } from "../types/content";
 import { formatDisplayDate } from "../utils/date";
 import { Icon } from "../components/Icon";
 import { Pagination } from "../components/Pagination";
+import { useSiteLabels } from "../components/SiteLanguageProvider";
 import { threatFeedRoute, threatListRoute } from "../utils/threats";
 import styles from "./ThreatsPage.module.css";
 
@@ -12,7 +12,7 @@ type ThreatsPageProps = AppProps & {
 };
 
 export function ThreatsPage({ content, route, page }: ThreatsPageProps) {
-  const labels = UI_LABELS[route.language];
+  const labels = useSiteLabels(route.language);
   const reports = content.threatReports;
   const latest = reports[0];
   const totalPages = content.currentThreatList?.totalPages ?? Math.max(1, Math.ceil(content.stats.threatReports / 30));

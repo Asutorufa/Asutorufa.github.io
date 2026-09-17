@@ -1,8 +1,9 @@
 import type { AppProps } from "../app/app-types";
 import { Pagination } from "../components/Pagination";
 import { Icon } from "../components/Icon";
-import { UI_LABELS } from "../data/i18n";
+import { useSiteLabels } from "../components/SiteLanguageProvider";
 import { formatDisplayDate } from "../utils/date";
+import type { UiLabels } from "../types/content";
 import { useMemo, useState } from "react";
 import styles from "./TaxonomyPage.module.css";
 
@@ -18,7 +19,7 @@ export function TaxonomyPage({ content, route, type, name, page = 1 }: TaxonomyP
   const entries = type === "tag" ? content.tags : content.categories;
   const totalPages = content.currentList?.totalPages ?? 1;
   const posts = name ? content.posts : [];
-  const labels = UI_LABELS[route.language];
+  const labels = useSiteLabels(route.language);
   const pluralTitle = type === "tag" ? labels.tags : labels.categories;
   const singularTitle = type === "tag" ? labels.tag : labels.category;
 
@@ -65,7 +66,7 @@ function formatTaxonomyDate(value?: string) {
   return formatDisplayDate(value).slice(5);
 }
 
-function TagCloud({ entries, labels }: { entries: TaxonomyEntry[]; labels: (typeof UI_LABELS)[keyof typeof UI_LABELS] }) {
+function TagCloud({ entries, labels }: { entries: TaxonomyEntry[]; labels: UiLabels }) {
   const [query, setQuery] = useState("");
   const normalizedQuery = normalizeSearchQuery(query);
   const hasQuery = normalizedQuery.length > 0;
@@ -95,17 +96,17 @@ function TagCloud({ entries, labels }: { entries: TaxonomyEntry[]; labels: (type
 
       {!hasQuery && popularEntries.length > 0 ? (
         <section className={styles.tagSection} aria-labelledby="popular-tags-title">
-            <div className={styles.tagSectionHeader}>
-              <h2 id="popular-tags-title" className={styles.tagSectionTitle}>
-                {labels.popularTags}
-              </h2>
-              <span className={styles.tagSectionMeta}>{popularEntries.length}</span>
-            </div>
-            <div className={styles.tagList}>
-              {popularEntries.map((entry) => (
-                <TagLink key={entry.name} entry={entry} labels={labels} popular />
-              ))}
-            </div>
+          <div className={styles.tagSectionHeader}>
+            <h2 id="popular-tags-title" className={styles.tagSectionTitle}>
+              {labels.popularTags}
+            </h2>
+            <span className={styles.tagSectionMeta}>{popularEntries.length}</span>
+          </div>
+          <div className={styles.tagList}>
+            {popularEntries.map((entry) => (
+              <TagLink key={entry.name} entry={entry} labels={labels} popular />
+            ))}
+          </div>
         </section>
       ) : null}
 
@@ -119,12 +120,12 @@ function TagCloud({ entries, labels }: { entries: TaxonomyEntry[]; labels: (type
         {groups.length > 0 ? (
           groups.map((group) => (
             <div key={group.label} className={styles.tagGroup}>
-                <div className={styles.tagGroupLabel}>{group.label}</div>
-                <div className={styles.tagList}>
-                  {group.entries.map((entry) => (
-                    <TagLink key={entry.name} entry={entry} labels={labels} />
-                  ))}
-                </div>
+              <div className={styles.tagGroupLabel}>{group.label}</div>
+              <div className={styles.tagList}>
+                {group.entries.map((entry) => (
+                  <TagLink key={entry.name} entry={entry} labels={labels} />
+                ))}
+              </div>
             </div>
           ))
         ) : (
@@ -135,24 +136,16 @@ function TagCloud({ entries, labels }: { entries: TaxonomyEntry[]; labels: (type
   );
 }
 
-function TagLink({ entry, labels, popular = false }: {
-  entry: TaxonomyEntry;
-  labels: (typeof UI_LABELS)[keyof typeof UI_LABELS];
-  popular?: boolean;
-}) {
+function TagLink({ entry, labels, popular = false }: { entry: TaxonomyEntry; labels: UiLabels; popular?: boolean }) {
   return (
-    <a
-      className={`${styles.tagLink} ${popular ? styles.tagLinkPopular : ""}`}
-      href={entry.route}
-      aria-label={`${entry.name}, ${entry.count} ${labels.posts}`}
-    >
+    <a className={`${styles.tagLink} ${popular ? styles.tagLinkPopular : ""}`} href={entry.route} aria-label={`${entry.name}, ${entry.count} ${labels.posts}`}>
       <span className={styles.tagName}>{entry.name}</span>
       <span className={styles.tagCount}>{entry.count}</span>
     </a>
   );
 }
 
-function CategoryList({ entries, labels }: { entries: TaxonomyEntry[]; labels: (typeof UI_LABELS)[keyof typeof UI_LABELS] }) {
+function CategoryList({ entries, labels }: { entries: TaxonomyEntry[]; labels: UiLabels }) {
   const maxCount = Math.max(...entries.map((entry) => entry.count), 1);
   const sortedEntries = useMemo(() => [...entries].sort(compareTagsByCount), [entries]);
 
@@ -163,12 +156,7 @@ function CategoryList({ entries, labels }: { entries: TaxonomyEntry[]; labels: (
       </div>
       <div className={styles.categoryMatrix}>
         {sortedEntries.map((entry, index) => (
-          <a
-            key={entry.name}
-            className={styles.categoryTile}
-            href={entry.route}
-            aria-label={`${entry.name}, ${entry.count} ${labels.posts}`}
-          >
+          <a key={entry.name} className={styles.categoryTile} href={entry.route} aria-label={`${entry.name}, ${entry.count} ${labels.posts}`}>
             <span className={styles.categoryRank}>{String(index + 1).padStart(2, "0")}</span>
             <span className={styles.categoryTileBody}>
               <span className={styles.categoryTileMain}>

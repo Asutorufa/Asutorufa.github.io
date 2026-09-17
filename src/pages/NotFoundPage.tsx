@@ -1,11 +1,13 @@
 import { motion, useReducedMotion } from "motion/react";
-import type { UiLabels } from "../types/content";
+import type { SiteLanguage } from "../types/content";
+import { useSiteLabels } from "../components/SiteLanguageProvider";
 
 type NotFoundPageProps = {
-  labels: UiLabels;
+  fallbackLanguage?: SiteLanguage;
 };
 
-export function NotFoundPage({ labels }: NotFoundPageProps) {
+export function NotFoundPage({ fallbackLanguage = "en" }: NotFoundPageProps) {
+  const labels = useSiteLabels(fallbackLanguage);
   const prefersReducedMotion = useReducedMotion();
 
   return (

@@ -83,8 +83,11 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
     };
 
     const prepareMermaidNode = (node: HTMLElement) => {
-      mermaidSources.set(node, mermaidSourceFromNode(node));
-      node.textContent = "";
+      const source = mermaidSourceFromNode(node);
+      const loadingLabel = node.querySelector<HTMLElement>(".mermaid-loading-label");
+      mermaidSources.set(node, source);
+      node.replaceChildren();
+      if (loadingLabel) node.append(loadingLabel);
       node.removeAttribute("data-mermaid-source");
       node.removeAttribute("data-mermaid-source-format");
       node.classList.add("mermaid-pending");
@@ -101,6 +104,7 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
 
         for (const node of renderableNodes) {
           node.removeAttribute("data-processed");
+          node.querySelector(".mermaid-loading-label")?.remove();
           node.textContent = mermaidSources.get(node) ?? "";
         }
 
@@ -127,6 +131,8 @@ export function ArticleMarkdown({ html }: ArticleMarkdownProps) {
         for (const node of renderableNodes) {
           normalizeMermaidSvgSize(node);
           node.removeAttribute("aria-busy");
+          node.removeAttribute("aria-live");
+          node.removeAttribute("role");
           node.classList.remove("mermaid-pending");
           renderedNodes.add(node);
         }

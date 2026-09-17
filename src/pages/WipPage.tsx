@@ -1,10 +1,10 @@
-import { UI_LABELS } from "../data/i18n";
 import { Icon } from "../components/Icon";
 import { formatDisplayDate } from "../utils/date";
 import type { AppProps } from "../app/app-types";
+import { useSiteLabels } from "../components/SiteLanguageProvider";
 
 export function WipPage({ content, route }: AppProps) {
-  const labels = UI_LABELS[route.language];
+  const labels = useSiteLabels(route.language);
   const posts = content.wipPosts;
 
   return (

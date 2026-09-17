@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { AppProps } from "../app/app-types";
 import { ArticleContent } from "../components/ArticleContent";
 import { Icon } from "../components/Icon";
-import { UI_LABELS } from "../data/i18n";
+import { useSiteLabels } from "../components/SiteLanguageProvider";
 import styles from "./PostPage.module.css";
 
 type PostPageProps = AppProps & {
@@ -10,7 +10,7 @@ type PostPageProps = AppProps & {
 };
 
 export function PostPage({ content, route, abbrlink }: PostPageProps) {
-  const labels = UI_LABELS[route.language];
+  const labels = useSiteLabels(route.language);
   return <ArticleContent content={content} route={route} abbrlink={abbrlink} leading={<PostBackButton label={labels.back} />} />;
 }
 

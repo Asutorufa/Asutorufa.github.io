@@ -542,51 +542,39 @@ pre.shiki.code-block {
 }
 
 .article-content .mermaid.mermaid-pending {
+  align-items: center;
   background: var(--blog-surface-muted);
   border: 1px solid var(--blog-border-soft);
   border-radius: 0.75rem;
-  min-height: clamp(8rem, 28vw, 16rem);
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  min-height: clamp(7rem, 20vw, 11rem);
   overflow: hidden;
-  position: relative;
+  padding: 1.25rem;
 }
 
 .article-content .mermaid.mermaid-pending::before {
-  animation: article-skeleton-shimmer 1.35s ease-in-out infinite;
-  background: linear-gradient(100deg, transparent 10%, color-mix(in srgb, var(--blog-surface) 72%, transparent) 48%, transparent 82%);
+  animation: mermaid-loading-spin 0.85s linear infinite;
+  border: 2px solid var(--blog-border);
+  border-radius: 50%;
   content: "";
-  inset: 0;
-  pointer-events: none;
-  position: absolute;
-  transform: translateX(-110%);
-  z-index: 2;
+  border-top-color: var(--blog-accent-line);
+  flex: 0 0 auto;
+  height: 1.1rem;
+  width: 1.1rem;
 }
 
-.article-content .mermaid.mermaid-pending::after {
-  background:
-    radial-gradient(circle at 15% 28%, var(--blog-accent-soft) 0 0.62rem, transparent 0.66rem),
-    radial-gradient(circle at 50% 52%, var(--blog-surface) 0 0.72rem, transparent 0.76rem),
-    radial-gradient(circle at 84% 30%, var(--blog-accent-soft) 0 0.62rem, transparent 0.66rem),
-    linear-gradient(var(--blog-border-soft), var(--blog-border-soft)) 21% 29% / 22% 2px no-repeat,
-    linear-gradient(var(--blog-border-soft), var(--blog-border-soft)) 57% 42% / 21% 2px no-repeat,
-    linear-gradient(var(--blog-border-soft), var(--blog-border-soft)) 18% 70% / 58% 2px no-repeat,
-    linear-gradient(var(--blog-border-soft), var(--blog-border-soft)) 18% 28% / 2px 42% no-repeat,
-    linear-gradient(var(--blog-border-soft), var(--blog-border-soft)) 82% 30% / 2px 40% no-repeat;
-  border-radius: 0.6rem;
-  content: "";
-  inset: 1.25rem;
-  opacity: 0.78;
-  pointer-events: none;
-  position: absolute;
-  z-index: 1;
+.article-content .mermaid-loading-label {
+  color: var(--blog-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
-@keyframes article-skeleton-shimmer {
-  from {
-    transform: translateX(-110%);
-  }
-
+@keyframes mermaid-loading-spin {
   to {
-    transform: translateX(110%);
+    transform: rotate(360deg);
   }
 }
 

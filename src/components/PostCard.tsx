@@ -1,8 +1,8 @@
 import type { Post } from "../types/content";
-import { UI_LABELS } from "../data/i18n";
 import clsx from "clsx";
 import { ArticleMarkdown } from "./ArticleMarkdown";
 import { PostMeta } from "./PostMeta";
+import { useSiteLabels } from "./SiteLanguageProvider";
 import styles from "./PostCard.module.css";
 
 type PostCardProps = {
@@ -10,7 +10,7 @@ type PostCardProps = {
 };
 
 export function PostCard({ post }: PostCardProps) {
-  const labels = UI_LABELS[post.language];
+  const labels = useSiteLabels(post.language);
 
   return (
     <article className="content-card mb-3 px-4 py-8 [contain:paint] md:mb-5 md:px-8 md:py-14 lg:px-10" data-scroll-route={post.route}>

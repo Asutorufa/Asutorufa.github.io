@@ -1,6 +1,6 @@
 import type { AppProps } from "../app/app-types";
 import { Pagination } from "../components/Pagination";
-import { UI_LABELS } from "../data/i18n";
+import { useSiteLabels } from "../components/SiteLanguageProvider";
 import styles from "./ArchivePage.module.css";
 
 type ArchivePageProps = AppProps & {
@@ -14,7 +14,7 @@ export function ArchivePage({ content, route, year, month, page = 1 }: ArchivePa
   const totalPosts = content.currentList?.totalPosts ?? content.stats.posts;
   const posts = content.posts;
   const groups = groupPostsByYear(posts);
-  const labels = UI_LABELS[route.language];
+  const labels = useSiteLabels(route.language);
   const title = month && year ? `${labels.archiveTitle}: ${year}/${month}` : year ? `${labels.archiveTitle}: ${year}` : labels.archiveTitle;
 
   return (

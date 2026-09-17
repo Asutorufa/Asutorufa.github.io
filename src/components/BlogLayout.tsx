@@ -1,7 +1,8 @@
 import type { PropsWithChildren } from "react";
 import { MotionConfig } from "motion/react";
 import type { AppProps } from "../app/app-types";
-import { LANGUAGE_META, UI_LABELS } from "../data/i18n";
+import { LANGUAGE_META } from "../data/i18n";
+import { useSiteLabels } from "./SiteLanguageProvider";
 import { Sidebar } from "./Sidebar";
 import { MobileHeader } from "./MobileHeader";
 import { RouteLoading } from "./RouteLoading";
@@ -16,9 +17,8 @@ type BlogLayoutProps = PropsWithChildren<
 >;
 
 export function BlogLayout({ content, route, routeLoading = false, children }: BlogLayoutProps) {
-  const language = route.language;
-  const labels = UI_LABELS[language];
-  const meta = LANGUAGE_META[language];
+  const labels = useSiteLabels(route.language);
+  const meta = LANGUAGE_META[route.language];
   const currentPosts = route.kind === "wip-post" ? content.wipPosts : content.posts;
   const currentPost = route.params?.abbrlink ? currentPosts.find((post) => post.abbrlink === route.params?.abbrlink) : undefined;
   const currentThreatReport = route.params?.id

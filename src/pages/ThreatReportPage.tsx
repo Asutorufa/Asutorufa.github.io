@@ -1,9 +1,9 @@
 import type { AppProps } from "../app/app-types";
-import { UI_LABELS } from "../data/i18n";
 import { formatDisplayDate } from "../utils/date";
 import { GitalkComments } from "../components/GitalkComments";
 import { Icon } from "../components/Icon";
 import { ThreatArticleMarkdown } from "../components/ThreatArticleMarkdown";
+import { useSiteLabels } from "../components/SiteLanguageProvider";
 import { sortThreatReportsByDateDesc } from "../utils/threats";
 import styles from "./ThreatsPage.module.css";
 
@@ -13,7 +13,7 @@ type ThreatReportPageProps = AppProps & {
 
 export function ThreatReportPage({ content, route, id }: ThreatReportPageProps) {
   const report = content.threatReports.find((item) => item.id === id && item.language === route.language);
-  const labels = UI_LABELS[route.language];
+  const labels = useSiteLabels(route.language);
 
   if (!report) {
     return <p>{labels.notFound}</p>;

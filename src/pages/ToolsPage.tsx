@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { AppProps } from "../app/app-types";
 import { MotionPresets } from "../animation/motion-presets";
 import { Icon } from "../components/Icon";
-import { UI_LABELS } from "../data/i18n";
+import { useSiteLabels } from "../components/SiteLanguageProvider";
 import { JsonFormatterTool } from "../tools/JsonFormatterTool";
 import { TimestampTool } from "../tools/TimestampTool";
 import { TOOL_CLASS } from "../tools/toolStyles";
@@ -12,7 +12,7 @@ import { TOOL_CLASS } from "../tools/toolStyles";
 type ToolId = "time" | "json";
 
 export function ToolsPage({ route }: AppProps) {
-  const labels = UI_LABELS[route.language];
+  const labels = useSiteLabels(route.language);
   const [activeTool, setActiveTool] = useState<ToolId>("time");
   const indicatorId = useId();
   const prefersReducedMotion = useReducedMotion();

@@ -9,7 +9,7 @@ import { renderMarkdown, renderMarkdownToHtml } from "./render-markdown";
 import { normalizeTaxonomyName, routeSegment as sharedRouteSegment } from "../../src/utils/route";
 import type { FrontMatterFile } from "./front-matter";
 
-const MARKDOWN_CACHE_VERSION = 6;
+const MARKDOWN_CACHE_VERSION = 7;
 const markdownCacheDir = path.join(rootDir, ".cache/react-blog/markdown");
 const AUTO_EXCERPT_LENGTH = 180;
 
@@ -552,7 +552,7 @@ async function renderPageMarkdownWithCache(sourcePath: string, parsed: FrontMatt
 
 async function renderPostMarkdown(parsed: FrontMatterFile<string>, data: Record<string, unknown>, route: Post["route"]): Promise<PostMarkdownRender> {
   const { excerptMarkdown, moreAnchor, bodyMarkdown } = splitExcerpt(parsed.content.trim());
-  const markdownOptions = { assetBasePath: route };
+  const markdownOptions = { assetBasePath: route, language: normalizeLanguage(data.language).language };
   const excerptHtml = excerptMarkdown ? await renderMarkdownToHtml(excerptMarkdown, markdownOptions) : "";
   const body = await renderMarkdownDocument(bodyMarkdown, data, route);
 
@@ -570,7 +570,7 @@ async function renderPostMarkdown(parsed: FrontMatterFile<string>, data: Record<
 }
 
 async function renderMarkdownDocument(markdown: string, data: Record<string, unknown>, route: string, variant?: "threat"): Promise<MarkdownBodyRender> {
-  const body = await renderMarkdown(markdown, { assetBasePath: route, variant });
+  const body = await renderMarkdown(markdown, { assetBasePath: route, language: normalizeLanguage(data.language).language, variant });
   return {
     bodyMarkdown: markdown,
     bodyHtml: body.html,

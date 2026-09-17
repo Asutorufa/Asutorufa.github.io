@@ -113,6 +113,13 @@ test("leaves ordinary Markdown rendering outside the Threat variant", async () =
   assert.equal(result.html.includes("<h4>Details</h4>"), true);
 });
 
+test("renders an accessible localized Mermaid loading state", async () => {
+  const result = await renderMarkdown("```mermaid\nflowchart LR\n  A --> B\n```", { language: "zh-Hans" });
+  assert.equal(result.html.includes('class="mermaid mermaid-pending"'), true);
+  assert.equal(result.html.includes('role="status"'), true);
+  assert.equal(result.html.includes("正在加载图表..."), true);
+});
+
 test("rejects invalid counts and overlong summaries", async () => {
   await assert.rejects(
     () => createThreatReport("source/_threats/2026-09-15/en.md", parseFrontMatter(reportMarkdown("2026-09-15", "en", "critical: -1")), []),

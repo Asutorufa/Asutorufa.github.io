@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 import type { AppProps } from "../app/app-types";
-import { UI_LABELS } from "../data/i18n";
 import { ArticleMarkdown } from "./ArticleMarkdown";
 import { GitalkComments } from "./GitalkComments";
 import { PostFooter } from "./PostFooter";
 import { PostMeta } from "./PostMeta";
+import { useSiteLabels, useSiteLanguage } from "./SiteLanguageProvider";
 
 type ArticleContentProps = AppProps & {
   abbrlink: string;
@@ -12,6 +12,8 @@ type ArticleContentProps = AppProps & {
 };
 
 export function ArticleContent({ content, route, abbrlink, leading }: ArticleContentProps) {
+  const labels = useSiteLabels(route.language);
+  const uiLanguage = useSiteLanguage(route.language);
   const posts = route.kind === "wip-post" ? content.wipPosts : content.posts;
   const index = posts.findIndex((item) => item.abbrlink === abbrlink);
   const post = posts[index];
@@ -20,7 +22,6 @@ export function ArticleContent({ content, route, abbrlink, leading }: ArticleCon
     return <p>Post not found.</p>;
   }
 
-  const labels = UI_LABELS[post.language];
   const newerPost = index > 0 ? posts[index - 1] : undefined;
   const olderPost = index < posts.length - 1 ? posts[index + 1] : undefined;
   const showComments = route.kind === "post" && post.comments;
@@ -42,7 +43,7 @@ export function ArticleContent({ content, route, abbrlink, leading }: ArticleCon
       </article>
       {showComments ? (
         <section id="comments" className="content-card mt-4 overflow-hidden px-4 py-5 md:mt-6 md:px-8 md:py-7 lg:px-10">
-          <GitalkComments id={post.route} language={post.language} />
+          <GitalkComments id={post.route} language={uiLanguage} />
         </section>
       ) : null}
     </>

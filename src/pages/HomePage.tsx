@@ -1,7 +1,7 @@
 import type { AppProps } from "../app/app-types";
 import { Pagination } from "../components/Pagination";
 import { PostCard } from "../components/PostCard";
-import { UI_LABELS } from "../data/i18n";
+import { useSiteLabels } from "../components/SiteLanguageProvider";
 
 type HomePageProps = AppProps & {
   page: number;
@@ -10,7 +10,7 @@ type HomePageProps = AppProps & {
 export function HomePage({ content, route, page }: HomePageProps) {
   const totalPages = content.currentList?.totalPages ?? Math.max(1, Math.ceil(content.stats.posts / content.config.perPage));
   const posts = content.posts;
-  const labels = UI_LABELS[route.language];
+  const labels = useSiteLabels(route.language);
 
   return (
     <section>

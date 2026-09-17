@@ -1,52 +1,80 @@
 .root {
-  border-top: 1px solid var(--blog-border-muted);
-  margin-top: 0.8rem;
-  padding-top: 0.8rem;
+  background: var(--blog-bg);
+  border: 1px solid var(--blog-border);
+  border-radius: 999px;
+  display: grid;
+  gap: 2px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 0.55rem;
+  padding: 2px;
 }
 
-.label {
-  color: var(--blog-faint);
-  display: block;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem;
-  margin-top: 0.45rem;
-}
-
-.option {
+.button {
   appearance: none;
   background: transparent;
-  border: 1px solid transparent;
+  border: 0;
   border-radius: 999px;
   color: var(--blog-muted);
   cursor: pointer;
+  display: inline-flex;
   font: inherit;
-  font-size: 0.73rem;
-  line-height: 1.25;
-  padding: 0.28rem 0.45rem;
+  font-size: 12px;
+  gap: 0.25rem;
+  justify-content: center;
+  line-height: 1.7;
+  min-width: 0;
+  padding: 0.12rem 0.35rem;
+  position: relative;
   text-decoration: none;
   transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
+    color 0.15s ease,
+    transform 0.15s ease;
 }
 
-.option:hover,
-.option:focus-visible,
+.button:hover {
+  color: var(--blog-accent-hover);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
 .active {
-  background: var(--blog-accent-soft);
-  border-color: var(--blog-accent-border);
-  color: var(--blog-accent-strong);
+  color: #b94720;
+}
+
+.indicator {
+  background: #ffe2d4;
+  border-radius: inherit;
+  box-shadow: 0 4px 10px rgb(255 91 37 / 0.12);
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+}
+
+.button:focus-visible {
+  box-shadow: 0 0 0 2px var(--blog-accent-ring);
   outline: 0;
 }
 
-.option:focus-visible {
-  box-shadow: 0 0 0 2px var(--blog-accent-ring);
+.label {
+  overflow: hidden;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+:global(html.dark-mode) .root {
+  background: #202020;
+  border-color: var(--blog-border-soft);
+}
+
+:global(html.dark-mode) .active {
+  color: #ffe4d8;
+}
+
+:global(html.dark-mode) .indicator {
+  background: #5a372b;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.18);
 }

@@ -3,7 +3,7 @@ import { flushSync } from "react-dom";
 import { Router } from "wouter";
 import { ImagePreviewHost } from "../components/ImagePreviewHost";
 import { BlogLayout } from "../components/BlogLayout";
-import { UI_LABELS } from "../data/i18n";
+import { SiteLanguageProvider } from "../components/SiteLanguageProvider";
 import { ArchivePage } from "../pages/ArchivePage";
 import { HomePage } from "../pages/HomePage";
 import { NotFoundPage } from "../pages/NotFoundPage";
@@ -434,9 +434,11 @@ export function App(props: AppProps) {
   return (
     <>
       <Router ssrPath={activeView.route.route}>
-        <BlogLayout {...activeView} routeLoading={routeLoading}>
-          {renderRoute(activeView)}
-        </BlogLayout>
+        <SiteLanguageProvider route={activeView.route}>
+          <BlogLayout {...activeView} routeLoading={routeLoading}>
+            {renderRoute(activeView)}
+          </BlogLayout>
+        </SiteLanguageProvider>
       </Router>
       <ImagePreviewHost />
     </>
@@ -509,7 +511,6 @@ function setPostBodyTransitionNames(elements: HTMLElement[]) {
 
 function renderRoute(props: AppProps) {
   const { route } = props;
-  const labels = UI_LABELS[route.language];
 
   switch (route.kind) {
     case "home":
@@ -544,9 +545,9 @@ function renderRoute(props: AppProps) {
     case "tools":
       return <ToolsPage {...props} />;
     case "not-found":
-      return <NotFoundPage labels={labels} />;
+      return <NotFoundPage fallbackLanguage={route.language} />;
     default:
-      return <NotFoundPage labels={labels} />;
+      return <NotFoundPage fallbackLanguage={route.language} />;
   }
 }
 

@@ -8,3 +8,4 @@ dist-react/
 src/generated/blog-common.ts
 .deploy*/
 .vscode
+.codebase-index

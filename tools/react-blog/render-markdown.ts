@@ -1,7 +1,7 @@
 import MarkdownIt, { type Token } from "markdown-it";
 import markdownItKatex from "@renbaoshuo/markdown-it-katex";
 import { createHighlighter, type Highlighter } from "shiki";
-import type { TocItem } from "../../src/types/content";
+import type { SiteLanguage, TocItem } from "../../src/types/content";
 
 type MarkdownItInstance = InstanceType<typeof MarkdownIt>;
 type RenderRule = NonNullable<MarkdownItInstance["renderer"]["rules"][string]>;
@@ -49,7 +49,12 @@ export async function renderMarkdownToHtml(source: string, options: RenderOption
 
 export async function renderMarkdown(source: string, options: RenderOptions = {}): Promise<{ html: string; toc: TocItem[] }> {
   const markdown = await getMarkdown();
-  const env: RenderEnv = { assetBasePath: options.assetBasePath, toc: [], slugs: new Map() };
+  const env: RenderEnv = {
+    assetBasePath: options.assetBasePath,
+    mermaidLoadingLabel: mermaidLoadingLabel(options.language),
+    toc: [],
+    slugs: new Map()
+  };
   const tokens = options.variant === "threat" ? markdown.parse(source, env) : undefined;
   return {
     html: tokens ? renderThreatDocument(markdown, tokens, env) : markdown.render(source, env),
@@ -100,7 +105,10 @@ async function createMarkdown() {
     const language = token.info.trim().split(/\s+/)[0]?.toLowerCase();
 
     if (language === "mermaid") {
-      return `<div class="mermaid mermaid-pending" aria-busy="true"><template data-mermaid-source>${escapeHtml(token.content)}</template></div>`;
+      const state = env as RenderEnv;
+      return `<div class="mermaid mermaid-pending" aria-busy="true" aria-live="polite" role="status"><span class="mermaid-loading-label">${escapeHtml(
+        state.mermaidLoadingLabel ?? mermaidLoadingLabel()
+      )}</span><template data-mermaid-source>${escapeHtml(token.content)}</template></div>`;
     }
 
     return defaultFence(tokens, idx, options, env, self);
@@ -144,14 +152,26 @@ async function createMarkdown() {
 
 type RenderEnv = {
   assetBasePath?: string;
+  mermaidLoadingLabel?: string;
   toc?: TocItem[];
   slugs?: Map<string, number>;
 };
 
 type RenderOptions = {
   assetBasePath?: string;
+  language?: SiteLanguage;
   variant?: "threat";
 };
+
+const MERMAID_LOADING_LABELS: Record<SiteLanguage, string> = {
+  en: "Loading diagram...",
+  ja: "図を読み込んでいます...",
+  "zh-Hans": "正在加载图表..."
+};
+
+function mermaidLoadingLabel(language: SiteLanguage = "en") {
+  return MERMAID_LOADING_LABELS[language];
+}
 
 type ThreatSectionKind = "changes" | "actions";
 
