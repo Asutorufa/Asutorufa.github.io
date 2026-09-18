@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/en/rss.xml" rel="self" type="application/rss+xml" />
     <description>Daily security intelligence collected from public sources.</description>
     <language>en</language>
-    <lastBuildDate>Thu, 17 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-18</title>
+      <link>https://asutorufa.com/threats/en/2026-09-18/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-18/</guid>
+      <pubDate>Fri, 18 Sep 2026 23:00:00 GMT</pubDate>
+      <description>Japan and international partners attributed the WaterPlum fake-recruitment campaign to North Korea and documented more than 30,000 infected devices. AIR disclosed Plugin4Shell across major AI coding agents, Check Point patched an unauthenticated root RCE in management servers, Microsoft disclosed a server-side-mitigated Azure AI Foundry flaw rated CVSS 10.0, and Zscaler detailed APT36's RapidRust espionage tooling.</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-17</title>
       <link>https://asutorufa.com/threats/en/2026-09-17/</link>

@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/zh-Hans/rss.xml" rel="self" type="application/rss+xml" />
     <description>从公开来源收集的每日安全情报。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 17 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>威胁情报日报 · 2026-09-18</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-18/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-18/</guid>
+      <pubDate>Fri, 18 Sep 2026 23:00:00 GMT</pubDate>
+      <description>日本及国际合作机构将 WaterPlum 假招聘攻击公开归因于朝鲜，并披露超过 3 万台设备感染。AIR 公布影响主要 AI 编码代理的 Plugin4Shell；Check Point 修复管理服务器未认证 root RCE；Microsoft 披露并已在服务端缓解 CVSS 10.0 的 Azure AI Foundry 漏洞；Zscaler 公开 APT36 RapidRust 间谍活动的新工具链。</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-17</title>
       <link>https://asutorufa.com/threats/zh-Hans/2026-09-17/</link>

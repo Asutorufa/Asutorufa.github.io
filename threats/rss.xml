@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/rss.xml" rel="self" type="application/rss+xml" />
     <description>公開情報から収集した日々のセキュリティインテリジェンス。</description>
     <language>ja</language>
-    <lastBuildDate>Thu, 17 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>脅威インテリジェンス日報 · 2026-09-18</title>
+      <link>https://asutorufa.com/threats/2026-09-18/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-09-18/</guid>
+      <pubDate>Fri, 18 Sep 2026 23:00:00 GMT</pubDate>
+      <description>日本と各国機関は、偽の採用活動を使う WaterPlum を北朝鮮に帰属させ、3万台を超える端末の感染を公表した。AIR は主要 AI コーディングエージェントに影響する Plugin4Shell を公開。Check Point は管理サーバーの未認証 root RCE を修正し、Microsoft は CVSS 10.0 の Azure AI Foundry 脆弱性をサービス側で緩和した。Zscaler は APT36 の RapidRust ツール群を報告した。</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-17</title>
       <link>https://asutorufa.com/threats/2026-09-17/</link>
