@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/zh-Hans/rss.xml" rel="self" type="application/rss+xml" />
     <description>从公开来源收集的每日安全情报。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 18 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 19 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>威胁情报日报 · 2026-09-19</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-19/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-19/</guid>
+      <pubDate>Sat, 19 Sep 2026 23:00:00 GMT</pubDate>
+      <description>CISA 将三个已确认遭利用的 Linux 内核漏洞加入 KEV，修复期限为 9 月 21 日。WordPress 7.1.1 修复了后来被演示为 Click2Shell 的恶意 URL 主题安装路径；Chrome 153 修复 Dawn 与 WebGL 的 Critical 内存安全漏洞；vm2 3.11.7 修复多项沙箱边界问题，包括宿主进程代码执行与 TLS 信任库修改。</description>
+    </item>
     <item>
       <title>威胁情报日报 · 2026-09-18</title>
       <link>https://asutorufa.com/threats/zh-Hans/2026-09-18/</link>

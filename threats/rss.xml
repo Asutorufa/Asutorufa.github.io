@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/rss.xml" rel="self" type="application/rss+xml" />
     <description>公開情報から収集した日々のセキュリティインテリジェンス。</description>
     <language>ja</language>
-    <lastBuildDate>Fri, 18 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 19 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>脅威インテリジェンス日報 · 2026-09-19</title>
+      <link>https://asutorufa.com/threats/2026-09-19/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-09-19/</guid>
+      <pubDate>Sat, 19 Sep 2026 23:00:00 GMT</pubDate>
+      <description>CISA は実悪用が確認された Linux kernel の3件を KEV に追加し、9月21日を対処期限とした。WordPress 7.1.1 は後に Click2Shell として実証された crafted URL 経由のテーマ導入経路を修正。Chrome 153 は Dawn と WebGL の Critical なメモリ安全性問題を修正し、vm2 3.11.7 はホストプロセスでのコード実行や TLS trust store 変更を含む複数の sandbox 境界不備を修正した。</description>
+    </item>
     <item>
       <title>脅威インテリジェンス日報 · 2026-09-18</title>
       <link>https://asutorufa.com/threats/2026-09-18/</link>

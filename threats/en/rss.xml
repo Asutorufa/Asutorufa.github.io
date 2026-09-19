@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/en/rss.xml" rel="self" type="application/rss+xml" />
     <description>Daily security intelligence collected from public sources.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 18 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 19 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-19</title>
+      <link>https://asutorufa.com/threats/en/2026-09-19/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-19/</guid>
+      <pubDate>Sat, 19 Sep 2026 23:00:00 GMT</pubDate>
+      <description>CISA added three actively exploited Linux kernel flaws to KEV with a September 21 remediation target. WordPress 7.1.1 fixes a crafted-URL theme-install path later demonstrated as Click2Shell, Chrome 153 fixes critical Dawn and WebGL memory-safety bugs, and vm2 3.11.7 closes multiple sandbox-boundary failures including host-process RCE and TLS trust-store manipulation.</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-18</title>
       <link>https://asutorufa.com/threats/en/2026-09-18/</link>
