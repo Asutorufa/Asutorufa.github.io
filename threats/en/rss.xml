@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/en/rss.xml" rel="self" type="application/rss+xml" />
     <description>Daily security intelligence collected from public sources.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 19 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 20 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-20</title>
+      <link>https://asutorufa.com/threats/en/2026-09-20/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-20/</guid>
+      <pubDate>Sun, 20 Sep 2026 23:00:00 GMT</pubDate>
+      <description>ConoHa WING disclosed unauthorized access to customer web-server areas affecting 426 accounts. Checkmarx documented an npm malware campaign that moves execution from install scripts into normal library runtime, while working exploits are now public for four patched Linux kernel local-root flaws.</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-19</title>
       <link>https://asutorufa.com/threats/en/2026-09-19/</link>

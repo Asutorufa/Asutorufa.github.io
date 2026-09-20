@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/zh-Hans/rss.xml" rel="self" type="application/rss+xml" />
     <description>从公开来源收集的每日安全情报。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 19 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 20 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>威胁情报日报 · 2026-09-20</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-20/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-20/</guid>
+      <pubDate>Sun, 20 Sep 2026 23:00:00 GMT</pubDate>
+      <description>ConoHa WING 披露部分客户 Web 服务器区域遭第三方未授权访问，确认影响 426 个账号。Checkmarx 公布一组 npm 恶意包，其执行点从安装脚本转移到正常库运行阶段；Linux kernel 另有四个已修复的本地提权漏洞公开了可用 exploit。</description>
+    </item>
     <item>
       <title>威胁情报日报 · 2026-09-19</title>
       <link>https://asutorufa.com/threats/zh-Hans/2026-09-19/</link>

@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/rss.xml" rel="self" type="application/rss+xml" />
     <description>公開情報から収集した日々のセキュリティインテリジェンス。</description>
     <language>ja</language>
-    <lastBuildDate>Sat, 19 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 20 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>脅威インテリジェンス日報 · 2026-09-20</title>
+      <link>https://asutorufa.com/threats/2026-09-20/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-09-20/</guid>
+      <pubDate>Sun, 20 Sep 2026 23:00:00 GMT</pubDate>
+      <description>ConoHa WING は一部顧客の Web サーバー領域への第三者による不正アクセスを公表し、426アカウントへの影響を確認した。Checkmarx は実行点を install script から通常の library runtime に移した npm malware campaign を報告。Linux kernel では修正済みの4件の local root 脆弱性について動作する exploit が公開された。</description>
+    </item>
     <item>
       <title>脅威インテリジェンス日報 · 2026-09-19</title>
       <link>https://asutorufa.com/threats/2026-09-19/</link>
