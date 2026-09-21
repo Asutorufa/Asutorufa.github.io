@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/rss.xml" rel="self" type="application/rss+xml" />
     <description>公開情報から収集した日々のセキュリティインテリジェンス。</description>
     <language>ja</language>
-    <lastBuildDate>Sun, 20 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 21 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-21</title>
+      <link>https://asutorufa.com/threats/2026-09-21/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-09-21/</guid>
+      <pubDate>Mon, 21 Sep 2026 23:00:00 GMT</pubDate>
+      <description>Fortinet のテレメトリで Orkes Conductor の未認証 RCE の実悪用が確認された。Kaspersky は Group Policy を使いファイル暗号化なしで恐喝した製造業への侵入を報告し、Securonix は TASK#STOMP を文書窃取と遠隔コマンド実行を行う持続型 PowerShell バックドアと確認した。</description>
+    </item>
     <item>
       <title>脅威インテリジェンス日報 · 2026-09-20</title>
       <link>https://asutorufa.com/threats/2026-09-20/</link>

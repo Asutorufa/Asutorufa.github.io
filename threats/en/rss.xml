@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/en/rss.xml" rel="self" type="application/rss+xml" />
     <description>Daily security intelligence collected from public sources.</description>
     <language>en</language>
-    <lastBuildDate>Sun, 20 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 21 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-21</title>
+      <link>https://asutorufa.com/threats/en/2026-09-21/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-21/</guid>
+      <pubDate>Mon, 21 Sep 2026 23:00:00 GMT</pubDate>
+      <description>Fortinet telemetry confirms active exploitation of an unauthenticated Orkes Conductor RCE. Kaspersky documented a manufacturing intrusion where attackers used Group Policy for encryptionless extortion, while Securonix decoded TASK#STOMP as a persistent PowerShell backdoor for document theft and remote command execution.</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-20</title>
       <link>https://asutorufa.com/threats/en/2026-09-20/</link>

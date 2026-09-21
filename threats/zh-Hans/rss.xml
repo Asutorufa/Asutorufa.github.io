@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/zh-Hans/rss.xml" rel="self" type="application/rss+xml" />
     <description>从公开来源收集的每日安全情报。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 20 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 21 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-21</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-21/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-21/</guid>
+      <pubDate>Mon, 21 Sep 2026 23:00:00 GMT</pubDate>
+      <description>Fortinet 遥测确认 Orkes Conductor 未认证 RCE 正遭实际利用。Kaspersky 披露一起制造业入侵：攻击者通过 Group Policy 实施不加密文件的勒索；Securonix 则解码 TASK#STOMP，确认其具备持续文档窃取和远程命令执行能力。</description>
+    </item>
     <item>
       <title>威胁情报日报 · 2026-09-20</title>
       <link>https://asutorufa.com/threats/zh-Hans/2026-09-20/</link>
