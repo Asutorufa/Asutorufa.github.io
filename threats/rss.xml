@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/rss.xml" rel="self" type="application/rss+xml" />
     <description>公開情報から収集した日々のセキュリティインテリジェンス。</description>
     <language>ja</language>
-    <lastBuildDate>Mon, 21 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 23:02:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-22</title>
+      <link>https://asutorufa.com/threats/2026-09-22/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-09-22/</guid>
+      <pubDate>Tue, 22 Sep 2026 23:02:00 GMT</pubDate>
+      <description>CISA は実悪用が確認された Zyxel GS1900 のコマンド実行脆弱性を KEV に追加し、関連攻撃では 996 台のスイッチが侵害された。Microsoft は 12,000 超のメールボックス侵害に関与した EvilTokens を妨害した。Volexity は Chrome/Windows のゼロデイ連鎖を使う3組目の中国系アクターを確認し、Arctic Wolf は Veeam Agent のローカル権限昇格脆弱性の実悪用を報告した。</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-21</title>
       <link>https://asutorufa.com/threats/2026-09-21/</link>

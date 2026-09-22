@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/zh-Hans/rss.xml" rel="self" type="application/rss+xml" />
     <description>从公开来源收集的每日安全情报。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 21 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 23:02:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-22</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-22/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-22/</guid>
+      <pubDate>Tue, 22 Sep 2026 23:02:00 GMT</pubDate>
+      <description>CISA 将已遭利用的 Zyxel GS1900 命令执行漏洞加入 KEV，相关攻击已入侵 996 台交换机。Microsoft 在超过 1.2 万个邮箱遭入侵后联合打击 EvilTokens。Volexity 确认第三个中国关联攻击者使用 Chrome/Windows 零日链；Arctic Wolf 则报告 Veeam Agent 本地提权漏洞已遭实际利用。</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-21</title>
       <link>https://asutorufa.com/threats/zh-Hans/2026-09-21/</link>

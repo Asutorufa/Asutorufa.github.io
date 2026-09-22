@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/en/rss.xml" rel="self" type="application/rss+xml" />
     <description>Daily security intelligence collected from public sources.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 21 Sep 2026 23:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 23:02:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-22</title>
+      <link>https://asutorufa.com/threats/en/2026-09-22/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-22/</guid>
+      <pubDate>Tue, 22 Sep 2026 23:02:00 GMT</pubDate>
+      <description>CISA added an actively exploited Zyxel GS1900 command-execution flaw to KEV after a campaign compromised 996 switches. Microsoft disrupted EvilTokens after more than 12,000 inbox compromises. Volexity linked a third China-aligned actor to a shared Chrome/Windows zero-day chain, while Arctic Wolf reports active exploitation of a Veeam Agent local privilege-escalation flaw.</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-21</title>
       <link>https://asutorufa.com/threats/en/2026-09-21/</link>
