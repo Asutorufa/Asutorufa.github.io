@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/en/rss.xml" rel="self" type="application/rss+xml" />
     <description>Daily security intelligence collected from public sources.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 22 Sep 2026 23:02:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2026 22:58:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-23</title>
+      <link>https://asutorufa.com/threats/en/2026-09-23/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-23/</guid>
+      <pubDate>Wed, 23 Sep 2026 22:58:00 GMT</pubDate>
+      <description>Four threat events require action: Check Point confirmed exploitation of two pre-authentication flaws, F5 disclosed an exploited BIG-IP APM zero-day, Arista reported active exploitation of a VeloCloud Orchestrator flaw, and compromised MemTensor npm/PyPI releases shipped the sckit credential-stealing worm.</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-22</title>
       <link>https://asutorufa.com/threats/en/2026-09-22/</link>

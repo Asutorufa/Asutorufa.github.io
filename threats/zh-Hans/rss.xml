@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/zh-Hans/rss.xml" rel="self" type="application/rss+xml" />
     <description>从公开来源收集的每日安全情报。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 22 Sep 2026 23:02:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2026 22:58:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-23</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-23/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-23/</guid>
+      <pubDate>Wed, 23 Sep 2026 22:58:00 GMT</pubDate>
+      <description>今日保留 4 个事件：Check Point 确认两项无需认证漏洞已遭利用；F5 披露遭零日利用的 BIG-IP APM 漏洞；Arista 确认 VeloCloud Orchestrator 漏洞存在在野利用；MemTensor 的 npm/PyPI 恶意版本投递 sckit 凭据窃取蠕虫。</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-22</title>
       <link>https://asutorufa.com/threats/zh-Hans/2026-09-22/</link>

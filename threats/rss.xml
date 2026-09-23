@@ -6,7 +6,14 @@
     <atom:link href="https://asutorufa.com/threats/rss.xml" rel="self" type="application/rss+xml" />
     <description>公開情報から収集した日々のセキュリティインテリジェンス。</description>
     <language>ja</language>
-    <lastBuildDate>Tue, 22 Sep 2026 23:02:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2026 22:58:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-23</title>
+      <link>https://asutorufa.com/threats/2026-09-23/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-09-23/</guid>
+      <pubDate>Wed, 23 Sep 2026 22:58:00 GMT</pubDate>
+      <description>本日は4件を収録した。Check Pointは認証前の2件の脆弱性に対する悪用を確認。F5はBIG-IP APMのゼロデイ悪用、AristaはVeloCloud Orchestratorの実悪用を公表した。MemTensorではnpm/PyPIの不正リリースから認証情報窃取ワームsckitが配布された。</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-22</title>
       <link>https://asutorufa.com/threats/2026-09-22/</link>
