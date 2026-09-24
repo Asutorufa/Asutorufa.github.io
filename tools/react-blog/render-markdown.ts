@@ -347,14 +347,68 @@ function renderThreatList(markdown: MarkdownItInstance, tokens: Token[], env: Re
   const listOpen = listTokens.find((token) => isListOpen(token));
   listOpen?.attrJoin("class", listClass);
 
-  for (let index = 0; index < listTokens.length; index += 1) {
-    if (listTokens[index].type !== "list_item_open") continue;
-    const inline = listTokens.slice(index + 1).find((token) => token.type === "inline");
-    const status = inline ? threatStatus(inline.content) : undefined;
-    if (status) listTokens[index].attrSet("data-threat-status", status);
+  const listOpenIndex = listTokens.findIndex((token) => isListOpen(token));
+  let listCloseIndex = -1;
+  for (let index = listOpenIndex + 1; index < listTokens.length; index += 1) {
+    if (listTokens[index].type === "bullet_list_close" || listTokens[index].type === "ordered_list_close") listCloseIndex = index;
+  }
+  if (listOpenIndex === -1 || listCloseIndex === -1) return markdown.renderer.render(listTokens, markdown.options, env);
+
+  let html = markdown.renderer.render([listTokens[listOpenIndex]], markdown.options, env);
+  let cursor = listOpenIndex + 1;
+
+  while (cursor < listCloseIndex) {
+    const token = listTokens[cursor];
+    if (token.type !== "list_item_open") {
+      html += markdown.renderer.render([token], markdown.options, env);
+      cursor += 1;
+      continue;
+    }
+
+    const end = matchingBlockEnd(listTokens, cursor);
+    const itemTokens = listTokens.slice(cursor, end);
+    const inlineTokens = itemTokens.filter((itemToken) => itemToken.type === "inline");
+    const simpleParagraph = itemTokens.every((itemToken) =>
+      ["list_item_open", "paragraph_open", "inline", "paragraph_close", "list_item_close"].includes(itemToken.type)
+    );
+    const itemOpen = itemTokens[0];
+    const status = inlineTokens[0] ? threatStatus(inlineTokens[0].content) : undefined;
+    if (status) itemOpen.attrSet("data-threat-status", status);
+
+    if (simpleParagraph && inlineTokens.length === 1) {
+      const inline = inlineTokens[0];
+      const label = status ? splitThreatListLabel(inline.content) : undefined;
+      if (label) itemOpen.attrSet("data-threat-label", "");
+
+      html += markdown.renderer.render([itemOpen], markdown.options, env);
+      if (label) {
+        html += `<span class="threat-list-status">${markdown.renderInline(label.markdown, env)}</span>`;
+        html += `<span class="threat-list-content">${markdown.renderInline(label.body, env)}</span>`;
+      } else {
+        const content = markdown.renderer.render(itemTokens.slice(1, -1), markdown.options, env);
+        html += `<span class="threat-list-content">${content}</span>`;
+      }
+      html += markdown.renderer.render([itemTokens[itemTokens.length - 1]], markdown.options, env);
+    } else {
+      itemOpen.attrJoin("class", "threat-list-item-flow");
+      html += markdown.renderer.render(itemTokens, markdown.options, env);
+    }
+    cursor = end;
   }
 
-  return markdown.renderer.render(listTokens, markdown.options, env);
+  html += markdown.renderer.render([listTokens[listCloseIndex]], markdown.options, env);
+  return html;
+}
+
+function splitThreatListLabel(content: string) {
+  const boldLabel = /^\s*(\*\*[^*]+?[:：]\*\*)\s*/u.exec(content);
+  if (boldLabel) {
+    return { markdown: boldLabel[1], body: content.slice(boldLabel[0].length) };
+  }
+
+  const plainLabel = /^\s*([^:：\n]{1,48}[:：])\s*/u.exec(content);
+  if (!plainLabel) return undefined;
+  return { markdown: plainLabel[1], body: content.slice(plainLabel[0].length) };
 }
 
 function nextTopLevelHeading(tokens: Token[], start: number, predicate: (level: number) => boolean = () => true) {
@@ -441,9 +495,8 @@ function countListItems(tokens: Token[]) {
 
 function threatStatus(content: string) {
   const value = normalizeThreatLabel(content).replace(/^\*+|\*+$/g, "");
-  const match = /^(new|updated|ongoing|resolved|immediate|today|monitor|新增|更新|持续|已解决|立即|今日|监控|新規|継続|解決|至急|本日|監視)(?=:|\*|\s|$)/.exec(
-    value
-  );
+  const match =
+    /^(new|updated|ongoing|resolved|immediate|today|monitor|新增|更新|持续|已解决|立即|今日|监控|新規|継続|解決|至急|本日|監視)(?=:|：|\*|\s|$)/.exec(value);
   if (!match) return undefined;
   const statusMap: Record<string, string> = {
     new: "new",

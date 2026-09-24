@@ -156,6 +156,11 @@
   border-bottom: 0;
 }
 
+.root :global(.article-content .threat-change-list > li.threat-list-item-flow),
+.root :global(.article-content .threat-action-list > li.threat-list-item-flow) {
+  display: block;
+}
+
 .root :global(.article-content .threat-change-list > li > p),
 .root :global(.article-content .threat-action-list > li > p) {
   margin: 0;
@@ -163,11 +168,35 @@
 
 .root :global(.article-content .threat-change-list > li > p > strong:first-child),
 .root :global(.article-content .threat-change-list > li > strong:first-child),
-.root :global(.article-content .threat-action-list > li > p > strong:first-child) {
+.root :global(.article-content .threat-action-list > li > p > strong:first-child),
+.root :global(.article-content .threat-list-status) {
   color: var(--blog-accent-strong);
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.root :global(.article-content .threat-list-status),
+.root :global(.article-content .threat-list-content) {
+  min-width: 0;
+}
+
+.root :global(.article-content .threat-list-content) {
+  overflow-wrap: anywhere;
+}
+
+.root :global(.article-content .threat-list-content > p) {
+  margin: 0;
+}
+
+.root :global(.article-content .threat-list-content code) {
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.root :global(.article-content .threat-action-list > li:not([data-threat-label]) > .threat-list-content),
+.root :global(.article-content .threat-change-list > li:not([data-threat-label]) > .threat-list-content) {
+  grid-column: 1 / -1;
 }
 
 .root :global(.article-content .threat-action-list > li > strong:first-child) {
@@ -179,7 +208,9 @@
 
 .root :global(.article-content .threat-change-list > li[data-threat-status="ongoing"] > p > strong:first-child),
 .root :global(.article-content .threat-change-list > li[data-threat-status="ongoing"] > strong:first-child),
-.root :global(.article-content .threat-action-list > li[data-threat-status="monitor"] > p > strong:first-child) {
+.root :global(.article-content .threat-action-list > li[data-threat-status="monitor"] > p > strong:first-child),
+.root :global(.article-content .threat-change-list > li[data-threat-status="ongoing"] > .threat-list-status),
+.root :global(.article-content .threat-action-list > li[data-threat-status="monitor"] > .threat-list-status) {
   color: var(--blog-muted);
 }
 
@@ -197,7 +228,8 @@
   padding-left: 0.7rem;
 }
 
-.root :global(.article-content .threat-action-list > li[data-threat-status="immediate"] > p > strong:first-child) {
+.root :global(.article-content .threat-action-list > li[data-threat-status="immediate"] > p > strong:first-child),
+.root :global(.article-content .threat-action-list > li[data-threat-status="immediate"] > .threat-list-status) {
   color: var(--blog-heading);
 }
 
@@ -206,7 +238,8 @@
 }
 
 .root :global(.article-content .threat-action-list > li[data-threat-status="today"] > p > strong:first-child),
-.root :global(.article-content .threat-action-list > li[data-threat-status="today"] > strong:first-child) {
+.root :global(.article-content .threat-action-list > li[data-threat-status="today"] > strong:first-child),
+.root :global(.article-content .threat-action-list > li[data-threat-status="today"] > .threat-list-status) {
   color: var(--blog-accent-strong);
 }
 
