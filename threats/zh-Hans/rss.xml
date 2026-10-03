@@ -6,7 +6,70 @@
     <atom:link href="https://asutorufa.com/threats/zh-Hans/rss.xml" rel="self" type="application/rss+xml" />
     <description>从公开来源收集的每日安全情报。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 23 Sep 2026 22:58:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2026 03:45:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-02</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-10-02/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-10-02/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:45:00 GMT</pubDate>
+      <description>10 月 2 日保留 3 个不同类型的风险：GitLab 修复 CVSS 9.9 的 AI Gateway sandbox escape，可进一步执行命令；Dell 披露多项 Container Storage Modules Critical 漏洞，其中两项认证缺失为 CVSS 10.0；Frontline Education 开始通知学区，第三方软件漏洞曾导致员工数据被未授权访问。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-01</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-10-01/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-10-01/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:45:00 GMT</pubDate>
+      <description>10 月 1 日包含一个已遭利用的 FortiMail 零日、两项定向攻击研究和一个固件安全公告：Fortinet 披露 CVE-2026-104286 及攻击 IOC；Proofpoint 发布 TA419 针对 AI 政策专家的凭据钓鱼；Symantec 描述 Longlegs/Warlock 对关键基础设施的入侵；CERT/CC 发布 InsydeH2O IHISI SMM 内存写入问题。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-30</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-30/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-30/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:45:00 GMT</pubDate>
+      <description>9 月 30 日新增两项已遭利用的边界/服务器漏洞，并补充 NetScaler 后渗透细节：Microsoft 追踪 Zimbra CVE-2026-73570 利用活动；Cisco 确认 Catalyst SD-WAN Manager CVE-2026-76504 已遭利用；Unit 42 更新 NetScaler 基础设施与持久化信息；JVN 发布 FUJIFILM/Sharp 多功能一体机路径遍历漏洞。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-29</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-29/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-29/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:30:00 GMT</pubDate>
+      <description>9 月 29 日同时出现两类主动攻击研究和两组基础软件漏洞：Microsoft 披露利用 MSP360 与 ScreenConnect 的钓鱼活动，以及 Star Blizzard 的 RedFlick 投递技术；JVN 发布 Pgpool-II 7 项 CVE；CERT/CC 披露 Authlib JWS 签名校验绕过。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-28</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-28/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-28/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:30:00 GMT</pubDate>
+      <description>9 月 28 日新增的是上下文而不是一批新 CVE：Unit 42 统计到 5 万多个可能受 NetScaler 零日影响的公网实例，并披露 web shell/持久化活动；Microsoft 发布 NeedyMantis 后渗透框架；Kiteworks 在恢复系统时确认修复了一个此前未知的 Critical 漏洞；JVN 发布 BUFFALO Wi-Fi 修复。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-27</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-27/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-27/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:30:00 GMT</pubDate>
+      <description>9 月 27 日主要有两项变化：Citrix 披露 NetScaler 两个零日漏洞，并确认未缓解设备已遭利用；Kiteworks 同日解除预防性停机建议，厂商仍未发现客户系统失陷证据。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-26</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-26/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-26/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:20:00 GMT</pubDate>
+      <description>9 月 26 日相对安静，但仍有 3 个需要记录的事件：京王プラザホテル确认勒索软件导致系统故障；Mini Shai-Hulud 相关 GitHub Actions 在重新启用后再次被禁用；Kiteworks 根据联邦情报建议客户执行 9 小时预防性停机，当时没有确认失陷。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-25</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-25/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-25/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:20:00 GMT</pubDate>
+      <description>9 月 25 日保留 5 个事件：SharePoint CVE-2026-65660 与 MikroTik CVE-2026-67279 进入已利用队列；WordPress CVE-2026-87902 正式进入 CISA KEV；Microsoft 披露 Storm-3168 在 Azure 中的破坏性操作；JVN 发布 baserCMS 与 BcAddonMigrator 修复。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-24</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-09-24/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-09-24/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:20:00 GMT</pubDate>
+      <description>9 月 24 日保留 6 个事件。CISA 将已遭利用的 WSO2 与 Adobe Commerce 漏洞加入 KEV；WordPress 与 Roundcube 需要快速修补；Microsoft 披露 Storm-2570 勒索软件关联活动；SolarWinds 修复 Observability Self-Hosted 中两条无需认证的 RCE 路径。</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-23</title>
       <link>https://asutorufa.com/threats/zh-Hans/2026-09-23/</link>

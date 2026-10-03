@@ -6,7 +6,70 @@
     <atom:link href="https://asutorufa.com/threats/en/rss.xml" rel="self" type="application/rss+xml" />
     <description>Daily security intelligence collected from public sources.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 23 Sep 2026 22:58:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2026 03:45:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-02</title>
+      <link>https://asutorufa.com/threats/en/2026-10-02/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-10-02/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:45:00 GMT</pubDate>
+      <description>October 2 centered on three distinct risks: GitLab patched a CVSS 9.9 AI Gateway sandbox escape that can lead to command execution, Dell disclosed multiple critical Container Storage Modules flaws including two CVSS 10.0 authentication failures, and Frontline Education began notifying school districts after a third-party software vulnerability exposed employee data.</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-01</title>
+      <link>https://asutorufa.com/threats/en/2026-10-01/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-10-01/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:45:00 GMT</pubDate>
+      <description>October 1 combined an actively exploited FortiMail zero-day with two targeted campaigns and a firmware security note: Fortinet disclosed CVE-2026-104286 and attack IOCs, Proofpoint detailed TA419 credential phishing against AI-policy experts, Symantec described Longlegs/Warlock attacks on critical infrastructure, and CERT/CC published InsydeH2O IHISI SMM memory-write findings.</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-30</title>
+      <link>https://asutorufa.com/threats/en/2026-09-30/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-30/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:45:00 GMT</pubDate>
+      <description>September 30 brought two newly documented actively exploited edge/server flaws and a deeper NetScaler follow-up: Microsoft traced exploitation of Zimbra CVE-2026-73570, Cisco confirmed active exploitation of Catalyst SD-WAN Manager CVE-2026-76504, Unit 42 expanded NetScaler post-exploitation findings, and JVN published a path-traversal issue affecting FUJIFILM/Sharp multifunction printers.</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-29</title>
+      <link>https://asutorufa.com/threats/en/2026-09-29/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-29/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:30:00 GMT</pubDate>
+      <description>September 29 combined two active threat-research disclosures with two library/server vulnerability sets: Microsoft described phishing that abuses MSP360 and ScreenConnect plus Star Blizzard's RedFlick delivery technique, while JVN published seven Pgpool-II CVEs and CERT/CC disclosed an Authlib JWS signature-verification bypass.</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-28</title>
+      <link>https://asutorufa.com/threats/en/2026-09-28/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-28/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:30:00 GMT</pubDate>
+      <description>September 28 added context rather than another flood of CVEs: Unit 42 counted more than 50,000 potentially vulnerable NetScaler instances after zero-day exploitation, Microsoft documented the NeedyMantis post-compromise framework, Kiteworks restored systems after identifying and fixing a previously unknown critical issue, and JVN published BUFFALO Wi-Fi fixes.</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-27</title>
+      <link>https://asutorufa.com/threats/en/2026-09-27/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-27/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:30:00 GMT</pubDate>
+      <description>Two developments defined September 27: Citrix disclosed two NetScaler zero-days already exploited against unmitigated appliances, while Kiteworks lifted its precautionary shutdown recommendation and still reported no evidence of customer compromise.</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-26</title>
+      <link>https://asutorufa.com/threats/en/2026-09-26/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-26/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:20:00 GMT</pubDate>
+      <description>September 26 was quieter but still produced three operationally relevant events: Keio Plaza Hotel confirmed a ransomware-caused system outage, the Mini Shai-Hulud GitHub Actions incident reached a containment update, and Kiteworks asked customers to perform a precautionary nine-hour shutdown after federal threat intelligence.</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-25</title>
+      <link>https://asutorufa.com/threats/en/2026-09-25/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-25/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:20:00 GMT</pubDate>
+      <description>September 25 added four actionable exploitation updates and one Japanese CMS disclosure set: SharePoint CVE-2026-65660 and MikroTik CVE-2026-67279 entered the exploited-vulnerability queue, WordPress CVE-2026-87902 reached CISA KEV, Microsoft detailed Storm-3168 destructive Azure activity, and JVN published baserCMS fixes.</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-09-24</title>
+      <link>https://asutorufa.com/threats/en/2026-09-24/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-09-24/</guid>
+      <pubDate>Sat, 03 Oct 2026 03:20:00 GMT</pubDate>
+      <description>Six events were retained for September 24. CISA added exploited WSO2 and Adobe Commerce flaws to KEV; WordPress and Roundcube exploitation required rapid patching; Microsoft documented Storm-2570 ransomware affiliate activity; and SolarWinds fixed two unauthenticated RCE paths in Observability Self-Hosted.</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-09-23</title>
       <link>https://asutorufa.com/threats/en/2026-09-23/</link>
