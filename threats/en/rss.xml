@@ -6,7 +6,56 @@
     <atom:link href="https://asutorufa.com/threats/en/rss.xml" rel="self" type="application/rss+xml" />
     <description>Daily security intelligence collected from public sources.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 03 Oct 2026 03:45:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 10 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-09</title>
+      <link>https://asutorufa.com/threats/en/2026-10-09/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-10-09/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>October 9 retained four events: Citrix disclosed CVE-2026-107406, a Critical NetScaler SAML memory-overflow issue that can lead to RCE or DoS; BeyondTrust announced a Critical Remote Support vulnerability with SaaS patching and self-hosted action required; Tenable disclosed a Hermes Agent PKCE redirect-parser flaw enabling session takeover; and JPCERT/CC updated its alert on recurring unauthorized access and large-scale personal-data leaks in Japan.</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-08</title>
+      <link>https://asutorufa.com/threats/en/2026-10-08/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-10-08/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>October 8 retained four events: Atlassian CVE-2026-21589 moved into confirmed in-the-wild exploitation; Huntress observed AhsayCBS CVE-2026-105133/105134 being chained for SYSTEM-level RCE; tensorlake npm 0.5.144 was published with a Shai-Hulud worm; and the DOJ/FBI seized infrastructure tied to Flax Typhoon's Microscan and FishHub tooling.</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-07</title>
+      <link>https://asutorufa.com/threats/en/2026-10-07/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-10-07/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>October 7 retained four events. Cisco's scheduled release included multiple unauthenticated root-RCE paths in NX-OS and a separate License On-Prem hardening set with a CVSS 10 signature-verification flaw; Splunk Enterprise fixed a multi-CVE advisory with a 9.8 maximum score; and IDC Frontier confirmed ransomware behind the IDCF Cloud East Japan Region 1 outage affecting 495 customers.</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-06</title>
+      <link>https://asutorufa.com/threats/en/2026-10-06/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-10-06/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>October 6 retained four events: Chrome 155 shipped 247 security fixes including four Critical use-after-free CVEs; Veeam fixed a CVSS 9.4 Backup &amp; Replication RCE; SonicWall patched four SMA1000 flaws led by a CVSS 10 SSRF; and Google described hijacks of .gh, .sl and .as registries that enabled unauthorized DNS changes and HTTPS certificates.</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-05</title>
+      <link>https://asutorufa.com/threats/en/2026-10-05/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-10-05/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>October 5 retained three events: Atlassian disclosed CVE-2026-21589 across eight Data Center products with no exploitation found by the vendor at publication time; Denmark opened an investigation into large-scale automated CPR lookups; and Zammad clarified the practical scope of two CVEs already associated with active exploitation.</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-04</title>
+      <link>https://asutorufa.com/threats/en/2026-10-04/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-10-04/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>October 4 retained two events. Citrix NetScaler CVE-2026-88779 moved from a high-severity SAML denial-of-service issue to an actively exploited/KEV priority. AhsayCBS also received two newly disclosed flaws, including an unauthenticated RCE path in its Replication Receiver.</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-03</title>
+      <link>https://asutorufa.com/threats/en/2026-10-03/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/en/2026-10-03/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>October 3 retained four events: CISA had moved the exploited Zammad session-hijack flaw into KEV, Citrix disclosed a high-severity NetScaler SAML denial-of-service issue, Bouncy Castle published a critical MLS identity-binding CVE, and Fortra disclosed a root-level BoKS command-injection path.</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-10-02</title>
       <link>https://asutorufa.com/threats/en/2026-10-02/</link>

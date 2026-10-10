@@ -6,7 +6,56 @@
     <atom:link href="https://asutorufa.com/threats/zh-Hans/rss.xml" rel="self" type="application/rss+xml" />
     <description>从公开来源收集的每日安全情报。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 03 Oct 2026 03:45:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 10 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-09</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-10-09/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-10-09/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>10 月 9 日保留 4 个事件：Citrix 披露 CVE-2026-107406，NetScaler SAML 场景中的 Critical 内存溢出可导致 RCE 或 DoS；BeyondTrust 公布 Remote Support Critical 漏洞，SaaS 自动修补而部分自托管环境需手动处理；Tenable 披露 Hermes Agent PKCE redirect parser 导致 session takeover；JPCERT/CC 更新日本国内连续未授权访问与大规模个人信息泄露的注意喚起。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-08</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-10-08/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-10-08/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>10 月 8 日保留 4 个事件：Atlassian CVE-2026-21589 状态更新为已观察到在野利用；Huntress 观测到攻击者串联 AhsayCBS CVE-2026-105133/105134 获取 SYSTEM 级 RCE；tensorlake npm 0.5.144 被植入 Shai-Hulud 蠕虫；美国 DOJ/FBI 扣押了与 Flax Typhoon Microscan、FishHub 工具相关的基础设施。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-07</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-10-07/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-10-07/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>10 月 7 日保留 4 个事件。Cisco 定期安全发布中包含多条 NX-OS 无需认证 root RCE 路径，以及一组独立的 License On-Prem hardening 漏洞，其中 signature verification 问题为 CVSS 10；Splunk Enterprise 修复最高 9.8 的多 CVE 公告；IDC Frontier 确认 IDCF Cloud 东日本 Region 1 故障由勒索软件造成，影响 495 家企业和地方政府客户。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-06</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-10-06/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-10-06/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>10 月 6 日保留 4 个事件：Chrome 155 发布 247 项安全修复，其中包含 4 个 Critical UAF；Veeam 修复 CVSS 9.4 的 Backup &amp; Replication RCE；SonicWall 修复 4 项 SMA1000 漏洞，最高为 CVSS 10 SSRF；Google 还披露 .gh、.sl、.as registry 遭劫持后出现 DNS 篡改与未授权 HTTPS 证书。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-05</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-10-05/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-10-05/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>10 月 5 日保留 3 个事件：Atlassian 披露 CVE-2026-21589，覆盖 8 类 Data Center 产品，厂商当日调查尚未发现利用；丹麦监管机构开始调查大规模自动化 CPR 查询；Zammad 则澄清两项已与主动利用关联 CVE 的实际影响范围。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-04</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-10-04/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-10-04/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>10 月 4 日保留 2 个事件。Citrix NetScaler CVE-2026-88779 从高危 SAML 拒绝服务问题上升为已遭利用/KEV 优先项；AhsayCBS 同日出现两项新披露漏洞，其中 Replication Receiver 存在无需认证的远程代码执行路径。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-03</title>
+      <link>https://asutorufa.com/threats/zh-Hans/2026-10-03/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/zh-Hans/2026-10-03/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>10 月 3 日保留 4 个事件：CISA 已将遭利用的 Zammad 会话劫持漏洞加入 KEV；Citrix 披露 NetScaler SAML 场景的高危拒绝服务漏洞；Bouncy Castle 发布 MLS 身份绑定 Critical CVE；Fortra 披露 BoKS 中可由管理接口触发、最终以 root 执行命令的注入问题。</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-10-02</title>
       <link>https://asutorufa.com/threats/zh-Hans/2026-10-02/</link>

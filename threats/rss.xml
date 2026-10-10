@@ -6,7 +6,56 @@
     <atom:link href="https://asutorufa.com/threats/rss.xml" rel="self" type="application/rss+xml" />
     <description>公開情報から収集した日々のセキュリティインテリジェンス。</description>
     <language>ja</language>
-    <lastBuildDate>Sat, 03 Oct 2026 03:45:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 10 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-09</title>
+      <link>https://asutorufa.com/threats/2026-10-09/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-10-09/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>10月9日は4件を採用した。CitrixはNetScalerのSAML構成でRCEまたはDoSにつながるCriticalなCVE-2026-107406を公開。BeyondTrustはRemote SupportのCritical脆弱性を告知し、SaaSは自動patch、self-hostedの一部は手動対応が必要。TenableはHermes AgentのPKCE redirect parser不整合によるsession takeoverを公開し、JPCERT/CCは国内で相次ぐ不正accessと個人情報漏えいの注意喚起を更新した。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-08</title>
+      <link>https://asutorufa.com/threats/2026-10-08/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-10-08/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>10月8日は4件を採用した。Atlassian CVE-2026-21589はin-the-wild exploitation確認へ更新。HuntressはAhsayCBS CVE-2026-105133/105134をchainしたSYSTEM-level RCEを観測した。tensorlake npm 0.5.144にはShai-Hulud wormが混入し、米DOJ/FBIはFlax TyphoonのMicroscan/FishHub関連infrastructureを押収した。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-07</title>
+      <link>https://asutorufa.com/threats/2026-10-07/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-10-07/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>10月7日は4件を採用した。Ciscoの定例security releaseにはNX-OSの複数unauthenticated root RCEと、CVSS 10のsignature verification flawを含むLicense On-Prem hardeningが入った。Splunk Enterpriseは最高9.8のmulti-CVE advisoryを修正し、IDC FrontierはIDCFクラウド東日本リージョン1の障害がransomwareで、495社・自治体に影響したと確認した。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-06</title>
+      <link>https://asutorufa.com/threats/2026-10-06/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-10-06/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>10月6日は4件を採用した。Chrome 155は247件のsecurity fixを含み、4件のCritical UAFを修正。VeeamはCVSS 9.4のBackup &amp; Replication RCE、SonicWallはCVSS 10 SSRFを含むSMA1000の4件を修正した。Googleはさらに、.gh/.sl/.as registry侵害によるDNS変更と未承認HTTPS certificate発行を説明した。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-05</title>
+      <link>https://asutorufa.com/threats/2026-10-05/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-10-05/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>10月5日は3件を採用した。Atlassianは8種類のData Center製品に影響するCVE-2026-21589を公開し、当日時点の調査では悪用を確認していなかった。デンマークでは大規模なCPR自動照会の調査が始まり、Zammadはactive exploitationと関連付けられた2件のCVEについて実際の影響範囲を整理した。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-04</title>
+      <link>https://asutorufa.com/threats/2026-10-04/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-10-04/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>10月4日は2件を採用した。Citrix NetScaler CVE-2026-88779はSAML構成に対するHighのDoS脆弱性から、悪用確認済み/KEV優先項目へ変化した。AhsayCBSでは認証処理の欠陥とReplication Receiverの認証不要RCEを含む2件の脆弱性が公開された。</description>
+    </item>
+    <item>
+      <title>Threat Intelligence Daily · 2026-10-03</title>
+      <link>https://asutorufa.com/threats/2026-10-03/</link>
+      <guid isPermaLink="true">https://asutorufa.com/threats/2026-10-03/</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>10月3日は4件を採用した。CISAは悪用確認済みのZammadセッションハイジャック脆弱性をKEVへ追加済み。CitrixはNetScalerのSAML構成に影響するHighのDoS脆弱性を公開し、Bouncy CastleはMLSのidentity bindingに関するCritical CVE、FortraはBoKS Master上でroot command executionにつながるcommand injectionを公開した。</description>
+    </item>
     <item>
       <title>Threat Intelligence Daily · 2026-10-02</title>
       <link>https://asutorufa.com/threats/2026-10-02/</link>
