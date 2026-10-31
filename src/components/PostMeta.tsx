@@ -20,27 +20,23 @@ export function PostMeta({ post }: PostMetaProps) {
           <Icon name="calendar" className="mr-2" />
           {labels.postedOn} {formatDisplayDate(post.date)}
         </span>
-        <span className={styles.separator}>|</span>
         <span>
           <Icon name="calendar-check" className="mr-2" />
           {labels.modified} {formatDisplayDate(post.updated ?? post.date)}
         </span>
         {showTaxonomy && post.categories.length > 0 ? (
-          <>
-            <span className={styles.separator}>|</span>
-            <span>
-              <Icon name="folder" className="mr-2" />
-              {labels.inCategory}{" "}
-              {post.categories.map((category, index) => (
-                <span key={category}>
-                  <a className={styles.link} href={taxonomyRoute("categories", category)}>
-                    {category}
-                  </a>
-                  {index < post.categories.length - 1 ? ", " : ""}
-                </span>
-              ))}
-            </span>
-          </>
+          <span>
+            <Icon name="folder" className="mr-2" />
+            {labels.inCategory}{" "}
+            {post.categories.map((category, index) => (
+              <span key={category}>
+                <a className={styles.link} href={taxonomyRoute("categories", category)}>
+                  {category}
+                </a>
+                {index < post.categories.length - 1 ? ", " : ""}
+              </span>
+            ))}
+          </span>
         ) : null}
       </div>
       {showTaxonomy && post.tags.length > 0 ? (

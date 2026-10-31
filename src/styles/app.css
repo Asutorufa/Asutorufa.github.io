@@ -33,8 +33,8 @@
   --blog-text: #555;
   --blog-heading: #444;
   --blog-strong: #222;
-  --blog-muted: #777;
-  --blog-faint: #999;
+  --blog-muted: #666;
+  --blog-faint: #707070;
   --blog-border: #e5e5e5;
   --blog-border-soft: #ececec;
   --blog-border-muted: #ededed;
@@ -43,12 +43,14 @@
   --blog-accent: #ff5b25;
   --blog-accent-hover: #d85a2a;
   --blog-accent-active: #e14d1d;
-  --blog-accent-strong: #c94f25;
+  --blog-accent-strong: #bd4519;
   --blog-accent-line: #ff7a45;
   --blog-accent-soft: #fff4ed;
   --blog-accent-softer: #fff8f4;
   --blog-accent-border: #ffb28f;
   --blog-accent-ring: #ffc3aa;
+  --blog-accent-fill: #c2410c;
+  --blog-accent-fill-hover: #a8380a;
   --blog-accent-secondary-hover: #ffe9de;
   --blog-error-bg: #fff0f0;
   --blog-error-border: #ffd2d2;
@@ -73,6 +75,7 @@
   --blog-focus-shadow: 0 0 0 3px rgb(255 178 143 / 0.35);
   --blog-shadow: 0 2px 8px rgb(0 0 0 / 0.12);
   --blog-theme-color: #f7f7f7;
+  --motion-hover: 0.16s;
 }
 
 html.dark-mode {
@@ -100,6 +103,8 @@ html.dark-mode {
   --blog-accent-softer: #302a27;
   --blog-accent-border: #8a5a48;
   --blog-accent-ring: #9a6a56;
+  --blog-accent-fill: #b8491f;
+  --blog-accent-fill-hover: #a64119;
   --blog-accent-secondary-hover: #3d302a;
   --blog-error-bg: #3a2525;
   --blog-error-border: #6c3737;
@@ -133,10 +138,24 @@ html {
   scrollbar-width: thin;
 }
 
+/* Pages sit at different scroll offsets, so the old page leaves before the new one arrives to avoid ghosting. */
 ::view-transition-old(root),
+::view-transition-old(*):only-child {
+  animation: route-fade-out 0.1s ease-out both;
+}
+
 ::view-transition-new(root) {
-  animation-duration: 0.3s;
-  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation: route-fade-in 0.24s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+html[data-route-transition="theme"]::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html[data-route-transition="theme"]::view-transition-new(root) {
+  animation: route-fade-in 0.2s ease both;
+  mix-blend-mode: normal;
 }
 
 ::view-transition-group(active-post-header) {
@@ -188,57 +207,25 @@ html[data-route-transition="detail-forward"]::view-transition-group(*) {
   animation: post-body-enter 0.36s 0.03s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-html[data-route-transition="detail-forward"]::view-transition-old(root) {
-  animation-name: route-detail-old-forward;
-}
-
 html[data-route-transition="detail-forward"]::view-transition-new(root) {
   animation-name: route-detail-new-forward;
-}
-
-html[data-route-transition="detail-back"]::view-transition-old(root) {
-  animation-name: route-detail-old-back;
 }
 
 html[data-route-transition="detail-back"]::view-transition-new(root) {
   animation-name: route-detail-new-back;
 }
 
-html[data-route-transition="detail-swap"]::view-transition-old(root),
-html[data-route-transition="route"]::view-transition-old(root) {
-  animation-name: route-fade-out;
-}
-
-html[data-route-transition="detail-swap"]::view-transition-new(root),
-html[data-route-transition="route"]::view-transition-new(root) {
-  animation-name: route-fade-in;
-}
-
-@keyframes route-detail-old-forward {
-  to {
-    opacity: 0.72;
-    transform: scale(0.992) translateY(-2px);
-  }
-}
-
 @keyframes route-detail-new-forward {
   from {
-    opacity: 0.15;
-    transform: scale(0.997) translateY(8px);
-  }
-}
-
-@keyframes route-detail-old-back {
-  to {
-    opacity: 0.12;
-    transform: scale(0.997) translateY(8px);
+    opacity: 0;
+    transform: translateY(8px);
   }
 }
 
 @keyframes route-detail-new-back {
   from {
-    opacity: 0.72;
-    transform: scale(0.992) translateY(-2px);
+    opacity: 0;
+    transform: translateY(-4px);
   }
 }
 
@@ -377,6 +364,13 @@ a {
   margin-top: 1rem;
 }
 
+/* Prose keeps a readable measure; code, tables, diagrams and math use the full card width. */
+.article-content > :where(:not(pre, table, .mermaid, .katex-display)) {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 47.5rem;
+}
+
 .post-more-anchor {
   display: inline-block;
   height: 0;
@@ -417,8 +411,8 @@ a {
 .article-content a {
   border-bottom: 1px solid #999;
   transition:
-    border-color 0.15s ease,
-    color 0.15s ease;
+    border-color var(--motion-hover) ease,
+    color var(--motion-hover) ease;
 }
 
 .article-content a:hover {
@@ -713,9 +707,10 @@ pre.shiki.code-block {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation-duration: 0.01ms !important;
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
   }
 
   .article-content img.image-loading,

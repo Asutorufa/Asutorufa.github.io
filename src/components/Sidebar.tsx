@@ -38,7 +38,7 @@ export function Sidebar({ content, labels, route, currentRoute, post, toc, mobil
 
   return (
     <div className={clsx(mobile ? "mt-4 space-y-4" : "h-full space-y-3")}>
-      <section className="overflow-hidden rounded-2xl bg-blog-surface shadow-blog">
+      <section className="overflow-hidden rounded-2xl bg-blog-surface shadow-blog" data-sidebar-card="">
         <div className="px-4 py-5 text-center">
           <a
             href="/"
@@ -102,7 +102,10 @@ function TocCard({ content, labels, toc, mobile }: { content: ContentManifest; l
   };
 
   return (
-    <section className={clsx("flex flex-col overflow-hidden rounded-2xl bg-blog-surface shadow-blog", !mobile && "sticky top-4 max-h-[calc(100vh-2rem)]")}>
+    <section
+      className={clsx("flex flex-col overflow-hidden rounded-2xl bg-blog-surface shadow-blog", !mobile && "sticky top-4 max-h-[calc(100vh-2rem)]")}
+      data-sidebar-card=""
+    >
       <div className={styles.tocTabs}>
         {[
           ["toc", labels.postToc],
@@ -253,7 +256,7 @@ function activeHeadingFromViewport(headings: HTMLElement[]) {
 
 function ProfileCard({ content, labels, sticky }: { content: ContentManifest; labels: UiLabels; sticky: boolean }) {
   return (
-    <section className={clsx("overflow-hidden rounded-2xl bg-blog-surface shadow-blog", sticky && "sticky top-4")}>
+    <section className={clsx("overflow-hidden rounded-2xl bg-blog-surface shadow-blog", sticky && "sticky top-4")} data-sidebar-card="">
       <ProfileBody content={content} labels={labels} />
     </section>
   );

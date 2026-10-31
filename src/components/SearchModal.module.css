@@ -44,8 +44,8 @@
   display: block;
   padding: 1rem;
   transition:
-    background-color 0.18s ease,
-    border-color 0.18s ease;
+    background-color var(--motion-hover) ease,
+    border-color var(--motion-hover) ease;
 }
 
 .resultCard:hover {
@@ -67,7 +67,7 @@
 .resultTitle {
   color: var(--blog-text);
   font-weight: 600;
-  transition: color 0.18s ease;
+  transition: color var(--motion-hover) ease;
 }
 
 .resultCard:hover .resultTitle {

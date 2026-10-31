@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { Router } from "wouter";
 import { ImagePreviewHost } from "../components/ImagePreviewHost";
+import { canUseViewTransition } from "../animation/view-transition";
 import { BlogLayout } from "../components/BlogLayout";
 import { SiteLanguageProvider } from "../components/SiteLanguageProvider";
 import { ArchivePage } from "../pages/ArchivePage";
@@ -446,33 +447,42 @@ export function App(props: AppProps) {
 }
 
 function runRouteViewTransition(kind: RouteTransitionKind, update: () => void, sharedPostRoute?: string) {
-  if (typeof document === "undefined" || !("startViewTransition" in document)) {
+  if (!canUseViewTransition()) {
     update();
     return;
   }
 
   const root = document.documentElement;
   root.dataset.routeTransition = kind;
+  const oldScrollY = window.scrollY;
+  setSidebarTransitionNames(true);
   const oldSharedElement = sharedPostRoute ? findPostTransitionElement(sharedPostRoute) : null;
   const oldBodyBlocks = sharedPostRoute ? findPostBodyTransitionBlocks(sharedPostRoute) : [];
   const sharedBlockCount =
     sharedPostRoute && kind === "detail-back" ? Math.min(sharedPostBodyBlockCounts.get(sharedPostRoute) ?? 0, oldBodyBlocks.length) : oldBodyBlocks.length;
   const oldSharedBodyBlocks = oldBodyBlocks.slice(0, sharedBlockCount);
   if (sharedPostRoute && kind === "detail-forward") sharedPostBodyBlockCounts.set(sharedPostRoute, sharedBlockCount);
-  if (oldSharedElement) oldSharedElement.style.viewTransitionName = "active-post-header";
-  setPostBodyTransitionNames(oldSharedBodyBlocks);
+  // The post only morphs when its header is on screen in both pages; otherwise it would fly across the page, so it fades with the root.
+  const headerShared = oldSharedElement !== null && isInViewport(oldSharedElement);
+  if (headerShared) oldSharedElement.style.viewTransitionName = "active-post-header";
+  if (headerShared) setPostBodyTransitionNames(oldSharedBodyBlocks);
 
   const transition = document.startViewTransition(() => {
     update();
+    // The sidebar only stays in place when both pages sit at the same scroll offset.
+    setSidebarTransitionNames(window.scrollY === oldScrollY);
     const newSharedElement = sharedPostRoute ? findPostTransitionElement(sharedPostRoute) : null;
-    if (newSharedElement) newSharedElement.style.viewTransitionName = "active-post-header";
-    const newSharedBodyBlocks = sharedPostRoute ? findPostBodyTransitionBlocks(sharedPostRoute) : [];
-    setPostBodyTransitionNames(newSharedBodyBlocks.slice(0, oldSharedBodyBlocks.length));
+    if (headerShared && newSharedElement && isInViewport(newSharedElement)) {
+      newSharedElement.style.viewTransitionName = "active-post-header";
+      const newSharedBodyBlocks = sharedPostRoute ? findPostBodyTransitionBlocks(sharedPostRoute) : [];
+      setPostBodyTransitionNames(newSharedBodyBlocks.slice(0, oldSharedBodyBlocks.length));
+    }
     const newBodyElement = sharedPostRoute ? findPostBodyTransitionElement(sharedPostRoute) : null;
     if (newBodyElement) newBodyElement.dataset.postBodyTransitionActive = kind;
   });
 
   void transition.finished.finally(() => {
+    setSidebarTransitionNames(false);
     for (const element of document.querySelectorAll<HTMLElement>('[style*="view-transition-name"]')) {
       if (element.style.viewTransitionName === "active-post-header" || element.style.viewTransitionName.startsWith("active-post-body-")) {
         element.style.removeProperty("view-transition-name");
@@ -483,6 +493,13 @@ function runRouteViewTransition(kind: RouteTransitionKind, update: () => void, s
     }
     if (sharedPostRoute && kind === "detail-back") sharedPostBodyBlockCounts.delete(sharedPostRoute);
     if (root.dataset.routeTransition === kind) delete root.dataset.routeTransition;
+  });
+}
+
+function setSidebarTransitionNames(enabled: boolean) {
+  document.querySelectorAll<HTMLElement>("[data-sidebar-card]").forEach((element, index) => {
+    if (enabled) element.style.viewTransitionName = `sidebar-card-${index}`;
+    else element.style.removeProperty("view-transition-name");
   });
 }
 
@@ -507,6 +524,11 @@ function setPostBodyTransitionNames(elements: HTMLElement[]) {
   elements.forEach((element, index) => {
     element.style.viewTransitionName = `active-post-body-${index}`;
   });
+}
+
+function isInViewport(element: HTMLElement) {
+  const rect = element.getBoundingClientRect();
+  return rect.bottom > 0 && rect.top < window.innerHeight;
 }
 
 function renderRoute(props: AppProps) {

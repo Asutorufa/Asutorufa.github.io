@@ -137,16 +137,10 @@ const MOBILE_NAV_ITEM_STEP = 51.2;
 
 const mobileNavIconVariants = {
   hover: {
-    rotate: -7,
-    scale: 1.08,
-    x: 2,
-    y: -1
+    x: 2
   },
   idle: {
-    rotate: 0,
-    scale: 1,
-    x: 0,
-    y: 0
+    x: 0
   }
 };
 

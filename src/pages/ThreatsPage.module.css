@@ -42,7 +42,7 @@
 
 .latestTitle a,
 .cardTitle a {
-  transition: color 0.15s ease;
+  transition: color var(--motion-hover) ease;
 }
 
 .latestTitle a:hover,
@@ -79,8 +79,8 @@
 .card {
   padding: 1.2rem 1.25rem;
   transition:
-    border-color 0.15s ease,
-    transform 0.15s ease;
+    border-color var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
 }
 
 .card:hover {
@@ -178,9 +178,9 @@
   gap: 0.35rem;
   padding: 0.35rem 0.65rem;
   transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
+    background-color var(--motion-hover) ease,
+    border-color var(--motion-hover) ease,
+    color var(--motion-hover) ease;
 }
 
 .feedLink:hover {
@@ -296,9 +296,9 @@
   min-width: 0;
   padding: 0.6rem;
   transition:
-    background-color 0.15s ease,
-    color 0.15s ease,
-    border-color 0.15s ease;
+    background-color var(--motion-hover) ease,
+    color var(--motion-hover) ease,
+    border-color var(--motion-hover) ease;
 }
 
 .reportNavigation a:last-child {

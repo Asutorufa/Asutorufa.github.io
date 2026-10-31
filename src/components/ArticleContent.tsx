@@ -30,7 +30,7 @@ export function ArticleContent({ content, route, abbrlink, leading }: ArticleCon
     <>
       <article className="content-card px-4 py-8 [contain:paint] md:px-8 md:py-14 lg:px-10">
         {leading}
-        <header className="mb-12 text-center md:mb-16" data-post-transition={post.route}>
+        <header className="mb-8 text-center md:mb-16" data-post-transition={post.route}>
           <h1 className="text-[1.7em] font-normal leading-normal text-blog-heading">{post.title}</h1>
           <div>
             <PostMeta post={post} />

@@ -122,6 +122,7 @@ export function ScrollProgressButton() {
     <motion.div
       ref={rootRef}
       layout
+      layoutRoot
       className={clsx(styles.root, progress > 3 && styles.visible, expanded && styles.expanded)}
       initial={false}
       animate={

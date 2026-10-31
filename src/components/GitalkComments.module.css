@@ -31,8 +31,8 @@
   color: var(--blog-faint);
   font-size: 0.78rem;
   transition:
-    border-color 0.15s ease,
-    color 0.15s ease;
+    border-color var(--motion-hover) ease,
+    color var(--motion-hover) ease;
 }
 
 .issue:hover {
@@ -60,9 +60,9 @@
   min-width: 0;
   padding: 0.28rem 0.55rem 0.28rem 0.32rem;
   transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
+    background-color var(--motion-hover) ease,
+    border-color var(--motion-hover) ease,
+    color var(--motion-hover) ease;
 }
 
 .user:hover {
@@ -96,11 +96,11 @@
   line-height: 1;
   min-height: 2.35rem;
   transition:
-    background-color 0.16s ease,
-    border-color 0.16s ease,
-    color 0.16s ease,
-    opacity 0.16s ease,
-    transform 0.16s ease;
+    background-color var(--motion-hover) ease,
+    border-color var(--motion-hover) ease,
+    color var(--motion-hover) ease,
+    opacity var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
 }
 
 .buttonBase:hover {
@@ -120,14 +120,14 @@
 }
 
 .buttonPrimary {
-  background: #ff7040;
-  border-color: #ff7040;
+  background: var(--blog-accent-fill);
+  border-color: var(--blog-accent-fill);
   color: #fff;
 }
 
 .buttonPrimary:hover {
-  background: #e85d2d;
-  border-color: #e85d2d;
+  background: var(--blog-accent-fill-hover);
+  border-color: var(--blog-accent-fill-hover);
   color: #fff;
 }
 
@@ -298,8 +298,8 @@
   padding: 0.65rem 0.75rem;
   resize: vertical;
   transition:
-    border-color 0.15s ease,
-    box-shadow 0.15s ease;
+    border-color var(--motion-hover) ease,
+    box-shadow var(--motion-hover) ease;
   width: 100%;
 }
 
@@ -409,9 +409,9 @@
   line-height: 1;
   padding: 0.28rem 0.45rem;
   transition:
-    background-color 0.15s ease,
-    color 0.15s ease,
-    opacity 0.15s ease;
+    background-color var(--motion-hover) ease,
+    color var(--motion-hover) ease,
+    opacity var(--motion-hover) ease;
 }
 
 .action:hover {
