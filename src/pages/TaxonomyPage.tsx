@@ -189,7 +189,7 @@ function sortTagsByName(entries: TaxonomyEntry[]) {
 }
 
 function compareTagNames(a: TaxonomyEntry, b: TaxonomyEntry) {
-  return a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: "base" });
+  return a.name.localeCompare(b.name, "en-US", { numeric: true, sensitivity: "base" });
 }
 
 function groupTags(entries: TaxonomyEntry[], otherLabel: string) {
@@ -204,7 +204,7 @@ function groupTags(entries: TaxonomyEntry[], otherLabel: string) {
 }
 
 function tagGroupLabel(name: string, otherLabel: string) {
-  const first = name.trim().charAt(0).toLocaleUpperCase();
+  const first = name.trim().charAt(0).toLocaleUpperCase("en-US");
   if (/^[A-Z]$/.test(first)) return first;
   if (/^[0-9]$/.test(first)) return "0-9";
   return otherLabel;

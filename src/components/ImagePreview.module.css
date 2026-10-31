@@ -98,10 +98,10 @@
   min-width: 2.45rem;
   padding: 0;
   transition:
-    background 0.16s ease,
-    color 0.16s ease,
-    opacity 0.16s ease,
-    transform 0.16s ease;
+    background var(--motion-hover) ease,
+    color var(--motion-hover) ease,
+    opacity var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
 }
 
 .button:hover:not(:disabled),

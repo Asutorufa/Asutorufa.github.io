@@ -24,8 +24,8 @@
   min-width: 0;
   padding: 0.35rem 0.45rem;
   transition:
-    background-color 0.15s ease,
-    color 0.15s ease;
+    background-color var(--motion-hover) ease,
+    color var(--motion-hover) ease;
 }
 
 .brand:hover {
@@ -71,9 +71,9 @@
   height: 2.15rem;
   justify-content: center;
   transition:
-    background-color 0.15s ease,
-    color 0.15s ease,
-    transform 0.15s ease;
+    background-color var(--motion-hover) ease,
+    color var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
   width: 2.15rem;
 }
 
@@ -100,11 +100,11 @@
 
 .inner {
   background: var(--blog-mobile-header-bg);
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
   box-shadow: var(--blog-mobile-header-shadow);
-  min-height: 8.2rem;
-  padding: 2.3rem 5rem 2rem;
+  min-height: 4rem;
+  padding: 0.55rem 4rem;
   position: relative;
   text-align: center;
 }
@@ -120,8 +120,8 @@
   padding: 0 0.8rem;
   position: relative;
   transition:
-    color 0.15s ease,
-    transform 0.15s ease;
+    color var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
   z-index: 1;
 }
 
@@ -191,8 +191,8 @@
   height: 2px;
   transform-origin: center;
   transition:
-    opacity 0.16s ease,
-    transform 0.18s ease;
+    opacity var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
 }
 
 .lineFirstOpen {
@@ -241,18 +241,17 @@
 
 .subtitle {
   color: var(--blog-text);
-  font-size: 0.82rem;
-  line-height: 1.8;
-  margin-top: 0.35rem;
+  font-size: 0.74rem;
+  line-height: 1.4;
 }
 
 .title {
   color: var(--blog-strong);
   display: block;
-  font-size: 1.45rem;
+  font-size: 1.15rem;
   font-weight: 500;
   line-height: 1.5;
-  transition: color 0.15s ease;
+  transition: color var(--motion-hover) ease;
 }
 
 .title:hover {
@@ -269,18 +268,18 @@
   color: var(--blog-strong);
   cursor: pointer;
   display: inline-flex;
-  height: 2.8rem;
+  height: 2.5rem;
   justify-content: center;
-  left: 1rem;
+  left: 0.75rem;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   transition:
-    background-color 0.18s ease,
-    box-shadow 0.18s ease,
-    color 0.15s ease,
-    transform 0.18s ease;
-  width: 2.8rem;
+    background-color var(--motion-hover) ease,
+    box-shadow var(--motion-hover) ease,
+    color var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
+  width: 2.5rem;
 }
 
 .trigger:hover {

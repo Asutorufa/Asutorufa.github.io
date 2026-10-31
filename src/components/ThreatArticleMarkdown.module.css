@@ -2,6 +2,12 @@
   font-size: 0.98rem;
 }
 
+.root :global(.article-content) > * {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: none;
+}
+
 .root :global(.article-content h2) {
   margin-top: 2.2rem;
 }

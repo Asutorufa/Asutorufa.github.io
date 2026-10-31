@@ -19,10 +19,10 @@
   padding: 5px 1.25rem;
   position: relative;
   transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    box-shadow 0.15s ease,
-    color 0.15s ease;
+    background-color var(--motion-hover) ease,
+    border-color var(--motion-hover) ease,
+    box-shadow var(--motion-hover) ease,
+    color var(--motion-hover) ease;
 }
 
 .navLink:hover,
@@ -59,13 +59,13 @@
   line-height: 1;
   position: relative;
   transform-origin: center;
-  transition: transform 0.18s ease;
+  transition: transform var(--motion-hover) ease;
   z-index: 1;
 }
 
 .navLink:hover .navIcon,
 .navLink:focus-visible .navIcon {
-  transform: translate(2px, -1px) rotate(-7deg) scale(1.1);
+  transform: translateX(2px);
 }
 
 .navLabel {
@@ -103,7 +103,7 @@
   min-width: 0;
   padding: 0.42rem 0.55rem;
   position: relative;
-  transition: color 0.15s ease;
+  transition: color var(--motion-hover) ease;
 }
 
 .tocTab:hover {
@@ -179,9 +179,9 @@
   position: relative;
   text-overflow: ellipsis;
   transition:
-    border-color 0.15s ease,
-    color 0.15s ease,
-    transform 0.15s ease;
+    border-color var(--motion-hover) ease,
+    color var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
   white-space: nowrap;
   z-index: 1;
 }
@@ -209,11 +209,11 @@
 
 .avatarLink {
   position: relative;
-  transition: transform 0.18s ease;
+  transition: transform var(--motion-hover) ease;
 }
 
 .avatarLink:hover {
-  transform: translateY(-3px) scale(1.025);
+  transform: translateY(-1px);
 }
 
 .avatarLink:active {
@@ -224,8 +224,8 @@
   border: 1px solid var(--blog-border);
   box-shadow: 0 10px 24px rgb(0 0 0 / 0.1);
   transition:
-    border-color 0.22s ease,
-    box-shadow 0.22s ease;
+    border-color var(--motion-hover) ease,
+    box-shadow var(--motion-hover) ease;
 }
 
 .avatarLink:hover .avatarImage {
@@ -350,11 +350,11 @@
   padding: 0.34rem 0.58rem;
   position: relative;
   transition:
-    background-color 0.18s ease,
-    border-color 0.18s ease,
-    color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
+    background-color var(--motion-hover) ease,
+    border-color var(--motion-hover) ease,
+    color var(--motion-hover) ease,
+    box-shadow var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
   white-space: nowrap;
 }
 
@@ -378,22 +378,12 @@
   justify-content: center;
   line-height: 1;
   transform-origin: center;
-  transition: transform 0.18s ease;
+  transition: transform var(--motion-hover) ease;
 }
 
-.actionLink[data-kind="email"]:hover .actionIcon,
-.actionLink[data-kind="email"]:focus-visible .actionIcon {
-  transform: translate(2px, -2px) rotate(-6deg);
-}
-
-.actionLink[data-kind="github"]:hover .actionIcon,
-.actionLink[data-kind="github"]:focus-visible .actionIcon {
-  transform: translateY(-2px) rotate(-10deg) scale(1.12);
-}
-
-.actionLink[data-kind="rss"]:hover .actionIcon,
-.actionLink[data-kind="rss"]:focus-visible .actionIcon {
-  transform: translate(-1px, -1px) rotate(-8deg) scale(1.1);
+.actionLink:hover .actionIcon,
+.actionLink:focus-visible .actionIcon {
+  transform: translateY(-1px);
 }
 
 .actionLabel {
@@ -422,12 +412,8 @@
   .navLink:focus-visible .navIcon,
   .tocLink:hover,
   .tocLink:active,
-  .actionLink[data-kind="email"]:hover .actionIcon,
-  .actionLink[data-kind="email"]:focus-visible .actionIcon,
-  .actionLink[data-kind="github"]:hover .actionIcon,
-  .actionLink[data-kind="github"]:focus-visible .actionIcon,
-  .actionLink[data-kind="rss"]:hover .actionIcon,
-  .actionLink[data-kind="rss"]:focus-visible .actionIcon {
+  .actionLink:hover .actionIcon,
+  .actionLink:focus-visible .actionIcon {
     transform: none;
   }
 }

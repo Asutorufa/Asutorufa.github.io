@@ -26,8 +26,8 @@
   padding: 0.12rem 0.35rem;
   position: relative;
   transition:
-    color 0.15s ease,
-    transform 0.15s ease;
+    color var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
 }
 
 .button:hover {

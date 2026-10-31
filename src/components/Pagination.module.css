@@ -23,18 +23,18 @@
   min-width: 2.15rem;
   padding: 0 0.62rem;
   transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    box-shadow 0.15s ease,
-    color 0.15s ease,
-    transform 0.15s ease;
+    background-color var(--motion-hover) ease,
+    border-color var(--motion-hover) ease,
+    box-shadow var(--motion-hover) ease,
+    color var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
 }
 
 .link:hover {
   background: var(--blog-accent-soft);
   border-color: var(--blog-accent-border);
   color: var(--blog-accent-hover);
-  transform: translateY(-2px) scale(1.06);
+  transform: translateY(-1px);
 }
 
 .link:active {
@@ -46,7 +46,7 @@
   display: inline-flex;
   justify-content: center;
   line-height: 1;
-  transition: transform 0.15s ease;
+  transition: transform var(--motion-hover) ease;
 }
 
 .link:hover .linkContentPrevious {
@@ -60,9 +60,8 @@
 .currentButton,
 .currentForm {
   align-items: center;
-  background: var(--blog-accent);
-  border: 1px solid var(--blog-accent);
-  border-color: var(--blog-accent);
+  background: var(--blog-accent-fill);
+  border: 1px solid var(--blog-accent-fill);
   border-radius: 999px;
   box-shadow: 0 8px 18px rgb(255 91 37 / 0.18);
   color: #fff;
@@ -72,8 +71,8 @@
   min-width: 2.15rem;
   padding: 0 0.58rem;
   transition:
-    box-shadow 0.15s ease,
-    transform 0.15s ease;
+    box-shadow var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
 }
 
 .currentButton {
@@ -83,7 +82,7 @@
 }
 
 .currentButton:hover {
-  transform: translateY(-2px) scale(1.035);
+  transform: translateY(-1px);
 }
 
 .currentButton:active {

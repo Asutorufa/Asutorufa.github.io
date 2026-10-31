@@ -39,9 +39,9 @@
   line-height: 1;
   overflow: hidden;
   transition:
-    background 0.18s ease,
-    box-shadow 0.18s ease,
-    color 0.15s ease;
+    background var(--motion-hover) ease,
+    box-shadow var(--motion-hover) ease,
+    color var(--motion-hover) ease;
 }
 
 .progressButton {
@@ -59,7 +59,7 @@
 .root:hover .button,
 .expanded .button,
 .button:focus-visible {
-  --scroll-button-bg: rgb(255 91 37 / 0.92);
+  --scroll-button-bg: color-mix(in srgb, var(--blog-accent-fill) 92%, transparent);
   --scroll-progress-color: #fff;
 
   box-shadow: 0 16px 32px rgb(255 91 37 / 0.2);
@@ -101,7 +101,7 @@
 :global(html.dark-mode) .root:hover .button,
 :global(html.dark-mode) .expanded .button,
 :global(html.dark-mode) .button:focus-visible {
-  --scroll-button-bg: rgb(176 96 67 / 0.92);
+  --scroll-button-bg: color-mix(in srgb, var(--blog-accent-fill) 92%, transparent);
   --scroll-progress-color: #fff;
 
   box-shadow: 0 16px 34px rgb(0 0 0 / 0.42);

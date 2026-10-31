@@ -27,8 +27,8 @@
   position: relative;
   text-decoration: none;
   transition:
-    color 0.15s ease,
-    transform 0.15s ease;
+    color var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
 }
 
 .button:hover {

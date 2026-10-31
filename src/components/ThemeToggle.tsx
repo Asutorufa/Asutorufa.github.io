@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { useEffect, useId, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { MotionPresets } from "../animation/motion-presets";
+import { canUseViewTransition } from "../animation/view-transition";
 import type { UiLabels } from "../types/content";
 import { Icon, type IconName } from "./Icon";
 import styles from "./ThemeToggle.module.css";
@@ -102,12 +103,16 @@ function applyTheme(mode: ThemeMode, options: { animate?: boolean } = {}) {
     window.dispatchEvent(new CustomEvent("asutorufa-theme-change", { detail: { mode, dark } }));
   };
 
-  if (options.animate === false) {
+  if (options.animate === false || !canUseViewTransition()) {
     update();
     return;
   }
 
-  update();
+  const root = document.documentElement;
+  root.dataset.routeTransition = "theme";
+  void document.startViewTransition(update).finished.finally(() => {
+    if (root.dataset.routeTransition === "theme") delete root.dataset.routeTransition;
+  });
 }
 
 function readThemeColor(fallback: string) {

@@ -22,7 +22,7 @@
   margin-top: -5px;
   position: absolute;
   top: 50%;
-  transition: background-color 0.2s ease;
+  transition: background-color var(--motion-hover) ease;
   width: 8px;
 }
 
@@ -56,7 +56,7 @@
   grid-template-columns: 44px minmax(0, 1fr);
   margin: 30px 0;
   padding: 0 0 8px 20px;
-  transition: border-color 0.2s ease;
+  transition: border-color var(--motion-hover) ease;
 }
 
 .entry::before {
@@ -86,7 +86,7 @@
   font-size: 16px;
   font-weight: 400;
   line-height: inherit;
-  transition: color 0.15s ease;
+  transition: color var(--motion-hover) ease;
 }
 
 .entry a:hover {
@@ -122,7 +122,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  transition: color 0.15s ease;
+  transition: color var(--motion-hover) ease;
 }
 
 .tagSearchInput {
@@ -136,9 +136,9 @@
   outline: none;
   padding: 0 1rem 0 2.65rem;
   transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    box-shadow 0.15s ease;
+    background-color var(--motion-hover) ease,
+    border-color var(--motion-hover) ease,
+    box-shadow var(--motion-hover) ease;
   width: 100%;
 }
 
@@ -220,10 +220,10 @@
   min-height: 30px;
   padding: 0.15rem 0.4rem;
   transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease,
-    transform 0.15s ease;
+    background-color var(--motion-hover) ease,
+    border-color var(--motion-hover) ease,
+    color var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
 }
 
 .tagLink:hover,
@@ -261,9 +261,9 @@
   line-height: 1.35;
   text-align: center;
   transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
+    background-color var(--motion-hover) ease,
+    border-color var(--motion-hover) ease,
+    color var(--motion-hover) ease;
 }
 
 .tagCount::before {
@@ -306,9 +306,9 @@
   min-width: 0;
   padding: 0.95rem 1rem 0.95rem 0;
   transition:
-    background-color 0.15s ease,
-    color 0.15s ease,
-    transform 0.15s ease;
+    background-color var(--motion-hover) ease,
+    color var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
 }
 
 .categoryTile:nth-last-child(-n + 2) {
@@ -333,7 +333,7 @@
 @media (prefers-reduced-motion: reduce) {
   .tagLink,
   .categoryTile {
-    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    transition: background-color var(--motion-hover) ease, border-color var(--motion-hover) ease, color var(--motion-hover) ease;
   }
 
   .tagLink:hover,
@@ -380,7 +380,7 @@
   line-height: 1.7;
   min-width: 0;
   overflow-wrap: anywhere;
-  transition: color 0.15s ease;
+  transition: color var(--motion-hover) ease;
 }
 
 .categoryTile:hover .categoryName,
@@ -409,7 +409,7 @@
   border-radius: inherit;
   display: block;
   height: 100%;
-  transition: background-color 0.15s ease;
+  transition: background-color var(--motion-hover) ease;
 }
 
 .categoryTile:hover .categoryMeter span,

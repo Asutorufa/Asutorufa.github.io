@@ -42,8 +42,8 @@
   border-bottom: 1px solid var(--blog-faint);
   color: var(--blog-heading);
   transition:
-    border-color 0.15s ease,
-    color 0.15s ease;
+    border-color var(--motion-hover) ease,
+    color var(--motion-hover) ease;
 }
 
 .infoLink:hover {
@@ -79,11 +79,11 @@
   --adjacent-hover-bg: #fff8f4;
   --adjacent-icon-hover-bg: #ffe8dc;
   transition:
-    background-color 0.16s ease,
-    border-color 0.16s ease,
-    box-shadow 0.16s ease,
-    color 0.16s ease,
-    transform 0.16s ease;
+    background-color var(--motion-hover) ease,
+    border-color var(--motion-hover) ease,
+    box-shadow var(--motion-hover) ease,
+    color var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
 }
 
 .adjacentNext {
@@ -126,9 +126,9 @@
   height: 2rem;
   justify-content: center;
   transition:
-    background-color 0.16s ease,
-    color 0.16s ease,
-    transform 0.16s ease;
+    background-color var(--motion-hover) ease,
+    color var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
   width: 2rem;
 }
 
@@ -137,7 +137,7 @@
   border-color: var(--blog-accent-border);
   box-shadow: 0 10px 22px rgb(0 0 0 / 0.08);
   color: var(--blog-heading);
-  transform: translateY(-3px) scale(1.012);
+  transform: translateY(-1px);
 }
 
 .adjacentLink:hover .adjacentIconPrevious {
