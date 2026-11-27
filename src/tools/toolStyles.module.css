@@ -412,6 +412,10 @@
   z-index: 2;
 }
 
+.clockFace[data-dragging="true"] .clockHand {
+  transition: none;
+}
+
 .clockHand::after {
   background: var(--blog-accent);
   border: 3px solid var(--blog-surface);

@@ -12,22 +12,24 @@
 
 .title::before,
 .entry::before {
-  background: #b8b8b8;
-  border: 1px solid var(--blog-surface);
+  background: var(--blog-faint);
+  border: 1.5px solid var(--blog-surface);
   border-radius: 999px;
   content: "";
-  height: 8px;
+  height: 9px;
   left: 0;
-  margin-left: -5px;
-  margin-top: -5px;
+  margin-left: -6.5px;
+  margin-top: -4.5px;
   position: absolute;
   top: 50%;
-  transition: background-color var(--motion-hover) ease;
-  width: 8px;
+  transition:
+    background-color var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
+  width: 9px;
 }
 
 .title {
-  margin: 0 0 3.8rem 20px;
+  margin: 0 0 3.2rem 20px;
 }
 
 .title::before {
@@ -35,7 +37,7 @@
 }
 
 .title h1 {
-  color: var(--blog-text);
+  color: var(--blog-heading);
   font-size: 1.65rem;
   font-weight: 700;
   line-height: 1.4;
@@ -45,40 +47,42 @@
 .title span {
   color: var(--blog-faint);
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .entry {
   align-items: baseline;
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px dashed var(--blog-border);
   display: grid;
-  gap: 0;
-  grid-template-columns: 44px minmax(0, 1fr);
-  margin: 30px 0;
-  padding: 0 0 8px 20px;
+  gap: 0.5rem;
+  grid-template-columns: 52px minmax(0, 1fr);
+  margin: 24px 0;
+  padding: 0 0 10px 20px;
   transition: border-color var(--motion-hover) ease;
 }
 
 .entry::before {
-  height: 6px;
-  margin-left: -4px;
+  height: 7px;
+  margin-left: -5.5px;
   margin-top: 0;
-  top: 12px;
-  width: 6px;
+  top: 11px;
+  width: 7px;
 }
 
 .entry:hover {
-  border-bottom-color: var(--blog-muted);
+  border-bottom-color: var(--blog-accent-border);
 }
 
 .entry:hover::before {
-  background: var(--blog-strong);
+  background: var(--blog-accent);
+  transform: scale(1.2);
 }
 
 .entry time {
-  color: var(--blog-text);
+  color: var(--blog-faint);
   font-size: 12px;
-  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
 }
 
 .entry a {
@@ -86,11 +90,14 @@
   font-size: 16px;
   font-weight: 400;
   line-height: inherit;
-  transition: color var(--motion-hover) ease;
+  transition:
+    color var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
 }
 
 .entry a:hover {
   color: var(--blog-accent);
+  transform: translateX(3px);
 }
 
 .tagCloud {
@@ -331,11 +338,18 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .entry::before,
+  .entry a,
   .tagLink,
   .categoryTile {
-    transition: background-color var(--motion-hover) ease, border-color var(--motion-hover) ease, color var(--motion-hover) ease;
+    transition:
+      background-color var(--motion-hover) ease,
+      border-color var(--motion-hover) ease,
+      color var(--motion-hover) ease;
   }
 
+  .entry:hover::before,
+  .entry a:hover,
   .tagLink:hover,
   .tagLink:focus-visible,
   .tagLink:active,
@@ -415,20 +429,6 @@
 .categoryTile:hover .categoryMeter span,
 .categoryTile:focus-visible .categoryMeter span {
   background: var(--blog-accent-line);
-}
-
-:global(html.dark-mode) .title::before,
-:global(html.dark-mode) .entry::before {
-  background: var(--blog-faint);
-  border-color: var(--blog-surface);
-}
-
-:global(html.dark-mode) .entry {
-  border-bottom-color: var(--blog-muted);
-}
-
-:global(html.dark-mode) .entry:hover {
-  border-bottom-color: var(--blog-faint);
 }
 
 @media (max-width: 640px) {

@@ -86,7 +86,7 @@
 .buttonBase {
   align-items: center;
   appearance: none;
-  border: 1px solid #e4e4e4;
+  border: 1px solid var(--blog-border);
   border-radius: 999px;
   cursor: pointer;
   display: inline-flex;
@@ -289,7 +289,7 @@
 .editTextarea {
   appearance: none;
   background: var(--blog-surface);
-  border: 1px solid #dedede;
+  border: 1px solid var(--blog-border);
   border-radius: 7px;
   color: var(--blog-heading);
   display: block;
@@ -315,8 +315,8 @@
 
 .textarea:focus,
 .editTextarea:focus {
-  border-color: #ff9a73;
-  box-shadow: 0 0 0 3px rgb(255 122 69 / 0.12);
+  border-color: var(--blog-accent-border);
+  box-shadow: var(--blog-focus-shadow);
   outline: none;
 }
 
@@ -420,8 +420,8 @@
 }
 
 .actionDanger:hover {
-  background: #fff0ed;
-  color: #c83f1f;
+  background: var(--blog-error-bg);
+  color: var(--blog-error-text);
 }
 
 .action:disabled {

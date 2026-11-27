@@ -272,9 +272,7 @@ export function ImagePreview({ preview, onClose }: ImagePreviewProps) {
 
   const imageDrag = scale > MIN_SCALE ? true : canMove ? "x" : false;
   const imageDragConstraints =
-    scale > MIN_SCALE
-      ? { left: -panLimits.maxX, right: panLimits.maxX, top: -panLimits.maxY, bottom: panLimits.maxY }
-      : { left: 0, right: 0 };
+    scale > MIN_SCALE ? { left: -panLimits.maxX, right: panLimits.maxX, top: -panLimits.maxY, bottom: panLimits.maxY } : { left: 0, right: 0 };
   const imageStyle = useMemo(() => ({ cursor: scale > MIN_SCALE || canMove ? "grab" : "zoom-in" }), [canMove, scale]);
 
   const markImageElement = useCallback((image: HTMLImageElement | null) => {
@@ -370,22 +368,40 @@ export function ImagePreview({ preview, onClose }: ImagePreviewProps) {
         ) : null}
       </AnimatePresence>
 
-      {visible && activeSlide && canMove ? (
-        <>
-          <IconButton className={`${styles.button} ${styles.previous}`} icon="chevron-left" label="Previous image" onClick={() => move(-1)} />
-          <IconButton className={`${styles.button} ${styles.next}`} icon="chevron-right" label="Next image" onClick={() => move(1)} />
-        </>
-      ) : null}
+      <AnimatePresence>
+        {visible && activeSlide && canMove ? (
+          <motion.div
+            key="nav-arrows"
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: 1,
+              transition: { delay: prefersReducedMotion ? 0 : 0.08, duration: prefersReducedMotion ? 0 : 0.18, ease: [0.22, 1, 0.36, 1] }
+            }}
+            exit={{ opacity: 0, transition: { duration: prefersReducedMotion ? 0 : 0.14, ease: "easeOut" } }}
+          >
+            <IconButton className={`${styles.button} ${styles.previous}`} icon="chevron-left" label="Previous image" onClick={() => move(-1)} />
+            <IconButton className={`${styles.button} ${styles.next}`} icon="chevron-right" label="Next image" onClick={() => move(1)} />
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
 
       <AnimatePresence>
         {visible && activeSlide ? (
           <motion.div
             key="toolbar"
             className={styles.toolbar}
-            initial={prefersReducedMotion ? { opacity: 1, x: "-50%" } : { opacity: 0, x: "-50%", y: -8 }}
-            animate={{ opacity: 1, x: "-50%", y: 0 }}
-            exit={prefersReducedMotion ? { opacity: 0, x: "-50%" } : { opacity: 0, x: "-50%", y: -8 }}
-            transition={{ delay: prefersReducedMotion ? 0 : 0.14, duration: prefersReducedMotion ? 0 : 0.18, ease: "easeOut" }}
+            initial={prefersReducedMotion ? { opacity: 0, x: "-50%" } : { opacity: 0, x: "-50%", y: -8 }}
+            animate={{
+              opacity: 1,
+              x: "-50%",
+              y: 0,
+              transition: { delay: prefersReducedMotion ? 0 : 0.08, duration: prefersReducedMotion ? 0 : 0.18, ease: [0.22, 1, 0.36, 1] }
+            }}
+            exit={
+              prefersReducedMotion
+                ? { opacity: 0, x: "-50%", transition: { duration: 0 } }
+                : { opacity: 0, x: "-50%", y: -6, transition: { duration: 0.14, ease: "easeOut" } }
+            }
           >
             <IconButton className={styles.button} icon="zoom-out" label="Zoom out" disabled={!canZoomOut} onClick={() => zoom(-1)} />
             <button className={styles.scaleButton} type="button" onClick={resetImageTransform} disabled={scale === MIN_SCALE}>
@@ -402,10 +418,18 @@ export function ImagePreview({ preview, onClose }: ImagePreviewProps) {
           <motion.p
             key="counter"
             className={styles.counter}
-            initial={prefersReducedMotion ? { opacity: 1, x: "-50%" } : { opacity: 0, x: "-50%", y: 8 }}
-            animate={{ opacity: 1, x: "-50%", y: 0 }}
-            exit={prefersReducedMotion ? { opacity: 0, x: "-50%" } : { opacity: 0, x: "-50%", y: 8 }}
-            transition={{ delay: prefersReducedMotion ? 0 : 0.14, duration: prefersReducedMotion ? 0 : 0.18, ease: "easeOut" }}
+            initial={prefersReducedMotion ? { opacity: 0, x: "-50%" } : { opacity: 0, x: "-50%", y: 8 }}
+            animate={{
+              opacity: 1,
+              x: "-50%",
+              y: 0,
+              transition: { delay: prefersReducedMotion ? 0 : 0.08, duration: prefersReducedMotion ? 0 : 0.18, ease: [0.22, 1, 0.36, 1] }
+            }}
+            exit={
+              prefersReducedMotion
+                ? { opacity: 0, x: "-50%", transition: { duration: 0 } }
+                : { opacity: 0, x: "-50%", y: 6, transition: { duration: 0.14, ease: "easeOut" } }
+            }
           >
             {index + 1} / {slides.length}
           </motion.p>
@@ -500,12 +524,12 @@ function getFigureTransition(prefersReducedMotion: boolean | null) {
   if (prefersReducedMotion) return { duration: 0 };
 
   return {
-    borderRadius: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
-    opacity: { duration: 0.18 },
-    scaleX: { type: "spring", stiffness: 420, damping: 38, mass: 0.8 },
-    scaleY: { type: "spring", stiffness: 420, damping: 38, mass: 0.8 },
-    x: { type: "spring", stiffness: 420, damping: 38, mass: 0.8 },
-    y: { type: "spring", stiffness: 420, damping: 38, mass: 0.8 }
+    borderRadius: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+    opacity: { duration: 0.16 },
+    scaleX: { type: "spring", stiffness: 460, damping: 40, mass: 0.85 },
+    scaleY: { type: "spring", stiffness: 460, damping: 40, mass: 0.85 },
+    x: { type: "spring", stiffness: 460, damping: 40, mass: 0.85 },
+    y: { type: "spring", stiffness: 460, damping: 40, mass: 0.85 }
   };
 }
 

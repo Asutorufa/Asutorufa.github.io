@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import type { MouseEvent } from "react";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { MotionPresets } from "../animation/motion-presets";
 import { preferredSiteLanguage, SITE_LANGUAGE_CHANGE_EVENT } from "../utils/language";
@@ -25,6 +25,7 @@ type SidebarProps = {
 export function Sidebar({ content, labels, route, currentRoute, post, toc, mobile = false }: SidebarProps) {
   const activeToc = toc ?? post?.toc ?? [];
   const hasToc = activeToc.length > 0;
+  const navIndicatorId = useId();
   const prefersReducedMotion = useReducedMotion();
   const [siteLanguage, setSiteLanguage] = useState(route.language);
   useEffect(() => {
@@ -34,34 +35,32 @@ export function Sidebar({ content, labels, route, currentRoute, post, toc, mobil
     return () => window.removeEventListener(SITE_LANGUAGE_CHANGE_EVENT, updateSiteLanguage);
   }, [route.route]);
   const navItems = menuItems(labels, threatListRoute(siteLanguage));
-  const activeNavIndex = navItems.findIndex((item) => isActive(currentRoute, item.href));
 
   return (
     <div className={clsx(mobile ? "mt-4 space-y-4" : "h-full space-y-3")}>
-      <section className="overflow-hidden rounded-2xl bg-blog-surface shadow-blog" data-sidebar-card="">
+      <section className="overflow-hidden rounded-2xl border border-blog-border-soft bg-blog-surface shadow-blog" data-sidebar-card="nav">
         <div className="px-4 py-5 text-center">
           <a
             href="/"
-            className="block text-[20px] font-normal leading-9 text-blog-strong transition-colors hover:text-blog-accent active:text-blog-accent-active"
+            className="block text-[20px] font-semibold leading-8 tracking-[-0.01em] text-blog-strong transition-colors hover:text-blog-accent active:text-blog-accent-active"
           >
             {content.config.title}
           </a>
-          <p className="mt-3 text-[13px] font-normal">{content.config.subtitle}</p>
+          <p className="mt-1.5 text-[13px] font-normal text-blog-muted">{content.config.subtitle}</p>
         </div>
         <nav className="pb-4">
           <div className={styles.navMenu}>
-            {activeNavIndex >= 0 ? (
-              <motion.span
-                className={styles.navIndicator}
-                animate={{ opacity: 1, y: activeNavIndex * NAV_ITEM_HEIGHT }}
-                initial={false}
-                transition={prefersReducedMotion ? MotionPresets.fast : MotionPresets.spring}
-              />
-            ) : null}
             {navItems.map((item) => {
               const active = isActive(currentRoute, item.href);
               return (
                 <a key={item.href} href={item.href} className={clsx(styles.navLink, active && styles.navLinkActive)}>
+                  {active ? (
+                    <motion.span
+                      className={styles.navIndicator}
+                      layoutId={`sidebar-nav-indicator-${navIndicatorId}`}
+                      transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.spring}
+                    />
+                  ) : null}
                   <span className={styles.navIcon}>
                     <Icon name={item.icon} className="w-[1.28571429em]" />
                   </span>
@@ -86,8 +85,6 @@ export function Sidebar({ content, labels, route, currentRoute, post, toc, mobil
   );
 }
 
-const NAV_ITEM_HEIGHT = 40;
-
 function TocCard({ content, labels, toc, mobile }: { content: ContentManifest; labels: UiLabels; toc: TocItem[]; mobile: boolean }) {
   const [activeTab, setActiveTab] = useState<"toc" | "overview">("toc");
   const [direction, setDirection] = useState(1);
@@ -96,6 +93,7 @@ function TocCard({ content, labels, toc, mobile }: { content: ContentManifest; l
   const activeTabIndex = activeTab === "toc" ? 0 : 1;
 
   const selectTab = (nextTab: "toc" | "overview") => {
+    if (nextTab === activeTab) return;
     const nextIndex = nextTab === "toc" ? 0 : 1;
     setDirection(nextIndex > activeTabIndex ? 1 : -1);
     setActiveTab(nextTab);
@@ -103,8 +101,11 @@ function TocCard({ content, labels, toc, mobile }: { content: ContentManifest; l
 
   return (
     <section
-      className={clsx("flex flex-col overflow-hidden rounded-2xl bg-blog-surface shadow-blog", !mobile && "sticky top-4 max-h-[calc(100vh-2rem)]")}
-      data-sidebar-card=""
+      className={clsx(
+        "flex flex-col overflow-hidden rounded-2xl border border-blog-border-soft bg-blog-surface shadow-blog",
+        !mobile && "sticky top-4 max-h-[calc(100vh-2rem)]"
+      )}
+      data-sidebar-card="toc"
     >
       <div className={styles.tocTabs}>
         {[
@@ -118,11 +119,15 @@ function TocCard({ content, labels, toc, mobile }: { content: ContentManifest; l
               type="button"
               className={clsx(styles.tocTab, active && styles.tocTabActive)}
               onClick={() => selectTab(tab as "toc" | "overview")}
-              whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
               transition={MotionPresets.fast}
             >
               {active ? (
-                <motion.span className={styles.tocTabIndicator} layoutId={`toc-tab-indicator-${indicatorId}`} transition={MotionPresets.spring} />
+                <motion.span
+                  className={styles.tocTabIndicator}
+                  layoutId={`toc-tab-indicator-${indicatorId}`}
+                  transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.spring}
+                />
               ) : null}
               <span className={styles.tocTabLabel}>{label}</span>
             </motion.button>
@@ -138,7 +143,7 @@ function TocCard({ content, labels, toc, mobile }: { content: ContentManifest; l
           initial="enter"
           animate="center"
           exit="exit"
-          transition={MotionPresets.fast}
+          transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.fast}
         >
           {activeTab === "toc" ? <TocList toc={toc} /> : <ProfileBody content={content} labels={labels} compact />}
         </motion.div>
@@ -154,16 +159,19 @@ const tocPanelVariants = {
   },
   enter: (direction: number) => ({
     opacity: 0,
-    x: direction * 12
+    x: direction * 8
   }),
   exit: (direction: number) => ({
     opacity: 0,
-    x: direction * -12
+    x: direction * -8
   })
 };
 
 function TocList({ toc }: { toc: TocItem[] }) {
   const [activeId, setActiveId] = useState(toc[0]?.id ?? "");
+  const indicatorId = useId();
+  const prefersReducedMotion = useReducedMotion();
+  const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     let headings: HTMLElement[] = [];
@@ -203,6 +211,18 @@ function TocList({ toc }: { toc: TocItem[] }) {
     };
   }, [toc]);
 
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav || !activeId) return;
+    const activeLink = nav.querySelector<HTMLElement>(`a[href="#${CSS.escape(activeId)}"]`);
+    if (!activeLink) return;
+    const navRect = nav.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+    if (linkRect.top < navRect.top + 16 || linkRect.bottom > navRect.bottom - 16) {
+      activeLink.scrollIntoView({ block: "nearest", behavior: "auto" });
+    }
+  }, [activeId]);
+
   const navigateToTocItem = (event: MouseEvent<HTMLAnchorElement>, id: string) => {
     const target = document.getElementById(id);
     if (!target) return;
@@ -220,13 +240,19 @@ function TocList({ toc }: { toc: TocItem[] }) {
   };
 
   return (
-    <nav className={clsx(styles.tocScroll, "min-h-0 flex-1 overflow-y-auto px-5 pb-5 pt-4")}>
+    <nav ref={navRef} className={clsx(styles.tocScroll, "min-h-0 flex-1 overflow-y-auto px-5 pb-5 pt-4")}>
       <ol className="space-y-2 text-[13px] font-normal leading-6 text-blog-text">
         {toc.map((item) => {
           const active = item.id === activeId;
           return (
             <li key={item.id} className={clsx(styles.tocItem, item.level > 2 && "ml-3 text-[12px]")}>
-              {active ? <motion.span layoutId="toc-indicator" className={styles.tocIndicator} transition={MotionPresets.spring} /> : null}
+              {active ? (
+                <motion.span
+                  layoutId={`toc-indicator-${indicatorId}`}
+                  className={styles.tocIndicator}
+                  transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.spring}
+                />
+              ) : null}
               <a className={clsx(styles.tocLink, active && styles.tocLinkActive)} href={`#${item.id}`} onClick={(event) => navigateToTocItem(event, item.id)}>
                 {item.text}
               </a>
@@ -256,7 +282,10 @@ function activeHeadingFromViewport(headings: HTMLElement[]) {
 
 function ProfileCard({ content, labels, sticky }: { content: ContentManifest; labels: UiLabels; sticky: boolean }) {
   return (
-    <section className={clsx("overflow-hidden rounded-2xl bg-blog-surface shadow-blog", sticky && "sticky top-4")} data-sidebar-card="">
+    <section
+      className={clsx("overflow-hidden rounded-2xl border border-blog-border-soft bg-blog-surface shadow-blog", sticky && "sticky top-4")}
+      data-sidebar-card="profile"
+    >
       <ProfileBody content={content} labels={labels} />
     </section>
   );
@@ -329,47 +358,21 @@ function Stat({
   value: number;
 }) {
   return (
-    <motion.a
-      className={styles.statLink}
-      href={href}
-      onFocus={onActivate}
-      onHoverStart={onActivate}
-      whileHover={prefersReducedMotion ? undefined : { y: -2 }}
-      whileTap={prefersReducedMotion ? undefined : { scale: 0.97, y: 0 }}
-      transition={MotionPresets.spring}
-    >
-      {active ? <motion.span className={styles.statHighlight} layoutId={`profile-stat-highlight-${indicatorId}`} transition={MotionPresets.spring} /> : null}
-      <motion.span className={styles.statContent} animate={active ? "active" : "idle"} initial={false}>
-        <motion.span className={styles.statValue} variants={statValueVariants} transition={MotionPresets.fast}>
-          {value}
-        </motion.span>
-        <motion.span className={styles.statLabel} variants={statLabelVariants} transition={MotionPresets.fast}>
-          {label}
-        </motion.span>
-      </motion.span>
-    </motion.a>
+    <a className={clsx(styles.statLink, active && styles.statLinkActive)} href={href} onFocus={onActivate} onMouseEnter={onActivate}>
+      {active ? (
+        <motion.span
+          className={styles.statHighlight}
+          layoutId={`profile-stat-highlight-${indicatorId}`}
+          transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.spring}
+        />
+      ) : null}
+      <span className={styles.statContent}>
+        <span className={styles.statValue}>{value}</span>
+        <span className={styles.statLabel}>{label}</span>
+      </span>
+    </a>
   );
 }
-
-const statValueVariants = {
-  active: {
-    color: "var(--blog-accent-strong)"
-  },
-  idle: {
-    color: "var(--blog-strong)"
-  }
-};
-
-const statLabelVariants = {
-  active: {
-    color: "var(--blog-accent-hover)",
-    y: -1
-  },
-  idle: {
-    color: "var(--blog-muted)",
-    y: 0
-  }
-};
 
 type SocialKind = "email" | "github" | "rss";
 

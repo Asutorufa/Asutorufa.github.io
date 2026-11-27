@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { MotionPresets } from "../animation/motion-presets";
 import { Icon } from "../components/Icon";
@@ -17,6 +17,7 @@ export function TimestampTool({ labels }: { labels: UiLabels }) {
   const [timestampMode, setTimestampMode] = useState<TimestampMode>("auto");
   const [dateInput, setDateInput] = useState("");
   const [error, setError] = useState("");
+  const indicatorId = useId();
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
@@ -94,12 +95,15 @@ export function TimestampTool({ labels }: { labels: UiLabels }) {
                   type="button"
                   className={clsx(TOOL_CLASS.segmentedButton, active && TOOL_CLASS.segmentedButtonActive)}
                   onClick={() => handleMode(mode)}
-                  whileHover={prefersReducedMotion ? undefined : { y: -1 }}
-                  whileTap={prefersReducedMotion ? undefined : { scale: 0.97, y: 0 }}
-                  transition={MotionPresets.fast}
+                  whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+                  transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.fast}
                 >
                   {active ? (
-                    <motion.span className={TOOL_CLASS.segmentedIndicator} layoutId="timestamp-unit-indicator" transition={MotionPresets.spring} />
+                    <motion.span
+                      className={TOOL_CLASS.segmentedIndicator}
+                      layoutId={`timestamp-unit-indicator-${indicatorId}`}
+                      transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.spring}
+                    />
                   ) : null}
                   <span className={TOOL_CLASS.segmentedContent}>{text[mode]}</span>
                 </motion.button>
@@ -118,9 +122,9 @@ export function TimestampTool({ labels }: { labels: UiLabels }) {
             type="button"
             className={toolButton("primary")}
             onClick={() => syncFromDate(new Date())}
-            whileHover={prefersReducedMotion ? undefined : { y: -1, scale: 1.02 }}
-            whileTap={prefersReducedMotion ? undefined : { y: 0, scale: 0.96 }}
-            transition={MotionPresets.fast}
+            whileHover={prefersReducedMotion ? undefined : { y: -1 }}
+            whileTap={prefersReducedMotion ? undefined : { y: 0, scale: 0.97 }}
+            transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.fast}
           >
             {text.now}
           </motion.button>
@@ -131,22 +135,22 @@ export function TimestampTool({ labels }: { labels: UiLabels }) {
         {error ? (
           <motion.p
             className={TOOL_CLASS.error}
-            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
-            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, height: "auto" }}
-            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
-            transition={MotionPresets.fast}
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -4 }}
+            transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.fast}
           >
             {error}
           </motion.p>
         ) : null}
       </AnimatePresence>
 
-      <motion.div className={TOOL_CLASS.outputGrid} layout transition={MotionPresets.fast}>
+      <div className={TOOL_CLASS.outputGrid}>
         <OutputItem label={text.unixSeconds} value={validOutputDate ? String(Math.floor(validOutputDate.getTime() / 1000)) : ""} />
         <OutputItem label={text.unixMilliseconds} value={validOutputDate ? String(validOutputDate.getTime()) : ""} />
         <OutputItem label={text.isoTime} value={validOutputDate ? validOutputDate.toISOString() : ""} />
         <OutputItem label={text.utcTime} value={validOutputDate ? validOutputDate.toUTCString() : ""} />
-      </motion.div>
+      </div>
     </section>
   );
 }

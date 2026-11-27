@@ -15,7 +15,7 @@ export function PostCard({ post }: PostCardProps) {
   return (
     <article className="content-card mb-3 px-4 py-8 [contain:paint] md:mb-5 md:px-8 md:py-14 lg:px-10" data-scroll-route={post.route}>
       <header className="text-center" data-post-transition={post.route}>
-        <h2 className="text-[1.7em] font-normal leading-normal text-blog-heading">
+        <h2 className="text-[1.65em] font-semibold leading-snug tracking-[-0.01em] text-blog-heading">
           <a className={`${styles.titleLink} transition-colors`} href={post.route}>
             {post.title}
           </a>
@@ -23,7 +23,7 @@ export function PostCard({ post }: PostCardProps) {
         <PostMeta post={post} />
       </header>
       {post.excerptHtml ? (
-        <div className="mt-8 md:mt-10" data-post-body-transition={post.route}>
+        <div className="mt-8 md:mt-10">
           <ArticleMarkdown html={post.excerptHtml ?? ""} />
         </div>
       ) : null}

@@ -27,7 +27,7 @@ export function TaxonomyPage({ content, route, type, name, page = 1 }: TaxonomyP
     return (
       <section className="content-card px-5 py-10 md:px-8 md:py-14 lg:px-10">
         <header className={type === "tag" ? "mb-7 text-center" : "mb-12 text-center"}>
-          <h1 className="text-[1.7em] font-normal text-blog-heading">{pluralTitle}</h1>
+          <h1 className="text-[1.65em] font-semibold tracking-[-0.01em] text-blog-heading">{pluralTitle}</h1>
         </header>
         {type === "tag" ? <TagCloud entries={entries} labels={labels} /> : <CategoryList entries={entries} labels={labels} />}
       </section>

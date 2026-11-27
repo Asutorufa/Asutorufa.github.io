@@ -32,7 +32,7 @@ export function ThreatReportPage({ content, route, id }: ThreatReportPageProps) 
             <Icon name="shield-alert" />
             <span>{labels.threatIntelligence}</span>
           </div>
-          <h1 className="mt-3 text-[1.7em] font-normal leading-normal text-blog-heading">{report.title}</h1>
+          <h1 className="mt-3 text-[1.65em] font-semibold leading-snug tracking-[-0.01em] text-blog-heading">{report.title}</h1>
           <div className={styles.reportMeta}>
             <time dateTime={report.date}>{formatDisplayDate(report.date)}</time>
             {report.updated && report.updated !== report.date ? (
@@ -68,7 +68,7 @@ export function ThreatReportPage({ content, route, id }: ThreatReportPageProps) 
           ) : null}
         </section>
 
-        <div className="mt-10" data-post-body-transition={report.route}>
+        <div className="mt-10">
           <ThreatArticleMarkdown html={report.bodyHtml} />
         </div>
 

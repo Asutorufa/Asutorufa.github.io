@@ -17,8 +17,8 @@ export function PageView({ content, route }: AppProps) {
   return (
     <>
       <article className="content-card px-5 py-10 md:px-8 md:py-14 lg:px-10">
-        <header className="mb-12 text-center">
-          <h1 className="text-[1.7em] font-normal leading-normal text-blog-heading">{page.title}</h1>
+        <header className="mb-10 text-center">
+          <h1 className="text-[1.65em] font-semibold leading-snug tracking-[-0.01em] text-blog-heading">{page.title}</h1>
         </header>
         <ArticleMarkdown html={page.bodyHtml} />
       </article>
