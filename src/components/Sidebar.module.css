@@ -6,7 +6,6 @@
 .navLink {
   align-items: center;
   border-bottom: 1px solid transparent;
-  border-left: 3px solid transparent;
   border-top: 1px solid transparent;
   color: var(--blog-strong);
   display: flex;
@@ -15,14 +14,14 @@
   gap: 0.75rem;
   height: 40px;
   line-height: 1.75rem;
-  overflow: hidden;
-  padding: 5px 1.25rem;
+  padding: 5px 1.25rem 5px calc(1.25rem + 3px);
   position: relative;
   transition:
     background-color var(--motion-hover) ease,
     border-color var(--motion-hover) ease,
     box-shadow var(--motion-hover) ease,
-    color var(--motion-hover) ease;
+    color var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
 }
 
 .navLink:hover,
@@ -44,11 +43,9 @@
 .navIndicator {
   background: var(--blog-accent-soft);
   border-left: 3px solid var(--blog-accent-line);
-  height: 40px;
-  left: 0;
+  inset: 0;
+  pointer-events: none;
   position: absolute;
-  right: 0;
-  top: 0;
   z-index: 0;
 }
 
@@ -262,15 +259,18 @@
 
 .statLink {
   align-items: center;
-  border-radius: 8px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   min-height: 4.25rem;
-  overflow: hidden;
   padding: 0.35rem 0.25rem;
   position: relative;
-  transform: translateZ(0);
+  transition: transform var(--motion-hover) ease;
   z-index: 1;
+}
+
+.statLink:active {
+  transform: scale(0.97);
 }
 
 .statLink:focus-visible {
@@ -288,6 +288,7 @@
   border: 1px solid rgb(255 122 69 / 0.24);
   border-radius: inherit;
   inset: 0.1rem;
+  pointer-events: none;
   position: absolute;
   z-index: 0;
 }
@@ -311,8 +312,10 @@
   color: var(--blog-strong);
   display: block;
   font-size: 20px;
+  font-variant-numeric: tabular-nums;
   font-weight: 700;
   line-height: 1.75rem;
+  transition: color var(--motion-hover) ease;
 }
 
 .statLabel {
@@ -324,7 +327,16 @@
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: color var(--motion-hover) ease;
   white-space: nowrap;
+}
+
+.statLinkActive .statValue {
+  color: var(--blog-accent-strong);
+}
+
+.statLinkActive .statLabel {
+  color: var(--blog-accent-hover);
 }
 
 .socialGrid {

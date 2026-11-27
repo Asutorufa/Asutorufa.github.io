@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { MotionPresets } from "../animation/motion-presets";
 import type { SiteLanguage, UiLabels } from "../types/content";
+import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
 import { useEscapeKey } from "../hooks/useEscapeKey";
 import { Icon } from "./Icon";
 import { IconButton } from "./IconButton";
@@ -47,6 +48,7 @@ export function SearchModal({ labels }: SearchModalProps) {
       .catch(() => setRecords([]));
   }, [open, records.length]);
 
+  useBodyScrollLock(open);
   useEscapeKey(open, closeSearch);
 
   const results = useMemo(() => {
@@ -61,7 +63,7 @@ export function SearchModal({ labels }: SearchModalProps) {
   }, [query, records]);
 
   function closeSearch() {
-    history.replaceState(null, "", window.location.pathname);
+    history.replaceState(window.history.state, "", `${window.location.pathname}${window.location.search}`);
     setOpen(false);
   }
 
@@ -69,21 +71,21 @@ export function SearchModal({ labels }: SearchModalProps) {
     <AnimatePresence>
       {open ? (
         <motion.div
-          className="fixed inset-0 z-50 bg-black/40 px-3 py-6"
+          className={styles.overlay}
           role="dialog"
           aria-modal="true"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={MotionPresets.normal}
+          transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.fast}
           onClick={closeSearch}
         >
           <motion.div
             className={styles.panel}
-            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.92, y: -14 }}
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.97, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96, y: -8 }}
-            transition={{ ...MotionPresets.normal, duration: 0.22 }}
+            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.98, y: -6 }}
+            transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.normal}
             onClick={(event) => event.stopPropagation()}
           >
             <div className={clsx(styles.header, hasQuery && styles.headerWithQuery)}>
@@ -104,8 +106,8 @@ export function SearchModal({ labels }: SearchModalProps) {
                   <div className="space-y-4">
                     {results.map((result) => (
                       <a key={result.url} href={result.url} className={styles.resultCard}>
-                            <h3 className={styles.resultTitle}>{result.title}</h3>
-                            <p className={styles.resultExcerpt}>{result.content.slice(0, 160)}</p>
+                        <h3 className={styles.resultTitle}>{result.title}</h3>
+                        <p className={styles.resultExcerpt}>{result.content.slice(0, 160)}</p>
                       </a>
                     ))}
                   </div>

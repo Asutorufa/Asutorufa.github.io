@@ -25,27 +25,22 @@
   min-width: 0;
   padding: 0.12rem 0.35rem;
   position: relative;
-  transition:
-    color var(--motion-hover) ease,
-    transform var(--motion-hover) ease;
+  transition: color var(--motion-hover) ease;
 }
 
 .button:hover {
   color: var(--blog-accent-hover);
 }
 
-.button:active {
-  transform: translateY(1px);
-}
-
 .active {
-  color: #b94720;
+  color: var(--blog-accent-strong);
 }
 
 .indicator {
-  background: #ffe2d4;
+  background: var(--blog-accent-soft);
+  border: 1px solid rgb(255 122 69 / 0.22);
   border-radius: inherit;
-  box-shadow: 0 4px 10px rgb(255 91 37 / 0.12);
+  box-shadow: 0 2px 8px rgb(255 91 37 / 0.1);
   inset: 0;
   position: absolute;
   z-index: 0;

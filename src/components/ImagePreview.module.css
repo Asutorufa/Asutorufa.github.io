@@ -10,7 +10,8 @@
 }
 
 .backdrop {
-  background: rgb(247 247 247 / 0.56);
+  backdrop-filter: blur(8px);
+  background: rgb(246 246 247 / 0.84);
   border: 0;
   cursor: zoom-out;
   inset: 0;
@@ -173,7 +174,7 @@
 }
 
 :global(html.dark-mode) .backdrop {
-  background: rgb(31 31 31 / 0.42);
+  background: rgb(20 20 22 / 0.82);
 }
 
 :global(html.dark-mode) .imageResting {

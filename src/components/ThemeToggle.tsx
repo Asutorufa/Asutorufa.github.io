@@ -67,11 +67,15 @@ export function ThemeToggle({ labels }: ThemeToggleProps) {
           aria-pressed={item.value === mode}
           title={labels[item.labelKey]}
           whileTap={prefersReducedMotion ? undefined : { scale: 0.96 }}
-          transition={MotionPresets.fast}
+          transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.fast}
           onClick={() => selectTheme(item.value)}
         >
           {item.value === mode ? (
-            <motion.span className={styles.indicator} layoutId={`theme-toggle-indicator-${indicatorId}`} transition={MotionPresets.spring} />
+            <motion.span
+              className={styles.indicator}
+              layoutId={`theme-toggle-indicator-${indicatorId}`}
+              transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.spring}
+            />
           ) : null}
           <Icon name={item.icon} />
           <span className={styles.label}>{labels[item.labelKey]}</span>

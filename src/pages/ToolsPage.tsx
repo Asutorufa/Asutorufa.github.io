@@ -24,7 +24,7 @@ export function ToolsPage({ route }: AppProps) {
   return (
     <article className="content-card px-5 py-10 text-blog-text md:px-8 md:py-14 lg:px-10">
       <header className="mb-10 text-center">
-        <h1 className="text-[1.7em] font-normal leading-normal text-blog-heading">{labels.tools}</h1>
+        <h1 className="text-[1.7em] font-semibold leading-normal tracking-[-0.01em] text-blog-heading">{labels.tools}</h1>
       </header>
 
       <div className={TOOL_CLASS.tabs} role="tablist" aria-label={labels.tools}>
@@ -38,11 +38,16 @@ export function ToolsPage({ route }: AppProps) {
               role="tab"
               aria-selected={active}
               onClick={() => setActiveTool(tool.id)}
-              whileHover={prefersReducedMotion ? undefined : { y: -1 }}
-              whileTap={prefersReducedMotion ? undefined : { scale: 0.97, y: 0 }}
-              transition={MotionPresets.fast}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+              transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.fast}
             >
-              {active ? <motion.span className={TOOL_CLASS.tabIndicator} layoutId={`tool-tab-${indicatorId}`} transition={MotionPresets.spring} /> : null}
+              {active ? (
+                <motion.span
+                  className={TOOL_CLASS.tabIndicator}
+                  layoutId={`tool-tab-${indicatorId}`}
+                  transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.spring}
+                />
+              ) : null}
               <span className={TOOL_CLASS.tabContent}>
                 {tool.icon === "clock" ? (
                   <Icon name="clock" />
@@ -61,10 +66,10 @@ export function ToolsPage({ route }: AppProps) {
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={activeTool}
-          initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+          initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -6 }}
-          transition={MotionPresets.normal}
+          exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -4 }}
+          transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.fast}
         >
           {activeTool === "time" ? <TimestampTool labels={labels} /> : <JsonFormatterTool labels={labels} />}
         </motion.div>

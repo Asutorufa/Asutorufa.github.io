@@ -10,7 +10,7 @@ export function WipPage({ content, route }: AppProps) {
   return (
     <section className="content-card px-4 py-8 md:px-8 md:py-12 lg:px-10">
       <header className="mb-8 text-center">
-        <h1 className="text-[1.7em] font-normal leading-normal text-blog-heading">Work in Progress</h1>
+        <h1 className="text-[1.65em] font-semibold leading-snug tracking-[-0.01em] text-blog-heading">Work in Progress</h1>
         <p className="mt-2 text-[13px] text-blog-muted">
           {posts.length} {labels.posts}
         </p>

@@ -49,7 +49,13 @@ export function SiteLanguageSwitcher({ content, route, labels }: SiteLanguageSwi
         const className = clsx(styles.button, active && styles.active);
         const content = (
           <>
-            {active ? <motion.span className={styles.indicator} layoutId={`site-language-indicator-${indicatorId}`} transition={MotionPresets.spring} /> : null}
+            {active ? (
+              <motion.span
+                className={styles.indicator}
+                layoutId={`site-language-indicator-${indicatorId}`}
+                transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.spring}
+              />
+            ) : null}
             <span className={styles.label}>{name}</span>
           </>
         );
@@ -67,7 +73,7 @@ export function SiteLanguageSwitcher({ content, route, labels }: SiteLanguageSwi
               data-background-post-link=""
               onClick={() => selectLanguage(language)}
               whileTap={prefersReducedMotion ? undefined : { scale: 0.96 }}
-              transition={MotionPresets.fast}
+              transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.fast}
             >
               {content}
             </motion.a>
@@ -82,7 +88,7 @@ export function SiteLanguageSwitcher({ content, route, labels }: SiteLanguageSwi
             aria-pressed={active}
             onClick={() => selectLanguage(language)}
             whileTap={prefersReducedMotion ? undefined : { scale: 0.96 }}
-            transition={MotionPresets.fast}
+            transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.fast}
           >
             {content}
           </motion.button>

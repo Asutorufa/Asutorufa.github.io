@@ -24,7 +24,7 @@ export function ThreatsPage({ content, route, page }: ThreatsPageProps) {
           <Icon name="shield-alert" />
           <span>{labels.threatIntelligence}</span>
         </div>
-        <h1 className="mt-3 text-[1.8em] font-normal text-blog-heading">{labels.threatIntelligence}</h1>
+        <h1 className="mt-3 text-[1.75em] font-semibold tracking-[-0.01em] text-blog-heading">{labels.threatIntelligence}</h1>
         <p className="mt-3 max-w-2xl text-[14px] leading-7 text-blog-muted">{labels.threatDescription}</p>
         <div className={styles.listToolbar}>
           <a className={styles.feedLink} href={threatFeedRoute(route.language)}>
@@ -71,7 +71,7 @@ function ThreatReportCard({ report, labels }: { report: ThreatReport; labels: Ui
         <time dateTime={report.date}>{formatDisplayDate(report.date)}</time>
       </div>
       <div className={styles.cardBody}>
-        <h2 className={styles.cardTitle} data-post-transition={report.route}>
+        <h2 className={styles.cardTitle}>
           <a href={report.route}>{report.title}</a>
         </h2>
         <p className={styles.cardSummary}>{report.summary}</p>

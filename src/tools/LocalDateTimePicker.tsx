@@ -26,9 +26,11 @@ export function LocalDateTimePicker({ labels, locale, onChange, value }: LocalDa
   const clockRef = useRef<HTMLDivElement>(null);
   const pickerId = useId();
   const [open, setOpen] = useState(false);
+  const [draggingClock, setDraggingClock] = useState(false);
   const [activeTimePart, setActiveTimePart] = useState<TimePart>("hour");
   const selectedDate = useMemo(() => parseLocalDateTime(value) ?? new Date(), [value]);
   const [visibleMonth, setVisibleMonth] = useState(() => startOfMonth(selectedDate));
+  const [clockAngle, setClockAngle] = useState(() => selectedDate.getHours() * 15);
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
@@ -102,7 +104,12 @@ export function LocalDateTimePicker({ labels, locale, onChange, value }: LocalDa
 
   const startClockDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
     event.currentTarget.setPointerCapture(event.pointerId);
+    setDraggingClock(true);
     selectTimeFromPointer(event);
+  };
+
+  const stopClockDrag = () => {
+    setDraggingClock(false);
   };
 
   const selectNow = () => {
@@ -124,7 +131,13 @@ export function LocalDateTimePicker({ labels, locale, onChange, value }: LocalDa
   };
   const activeTimeValue = timeValue(activeTimePart);
   const clockOptions = timeOptions(activeTimePart, activeTimeValue);
-  const clockHand = handStyle(activeTimePart, activeTimeValue);
+  const targetClockAngle = activeTimePart === "hour" ? activeTimeValue * 15 : activeTimeValue * 6;
+
+  useEffect(() => {
+    setClockAngle((previous) => shortestContinuousAngle(previous, targetClockAngle));
+  }, [targetClockAngle]);
+
+  const clockHand = handStyle(clockAngle);
   const monthKey = `${visibleMonth.getFullYear()}-${visibleMonth.getMonth()}`;
 
   return (
@@ -213,15 +226,14 @@ export function LocalDateTimePicker({ labels, locale, onChange, value }: LocalDa
                             selected && TOOL_CLASS.datePickerDaySelected
                           )}
                           onClick={() => selectDay(day.date)}
-                          whileHover={prefersReducedMotion ? undefined : { y: -1 }}
-                          whileTap={prefersReducedMotion ? undefined : { scale: 0.92, y: 0 }}
-                          transition={MotionPresets.fast}
+                          whileTap={prefersReducedMotion ? undefined : { scale: 0.94 }}
+                          transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.fast}
                         >
                           {selected ? (
                             <motion.span
                               className={TOOL_CLASS.datePickerDayIndicator}
                               layoutId={`date-picker-day-${pickerId}`}
-                              transition={MotionPresets.spring}
+                              transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.spring}
                             />
                           ) : null}
                           <span className={TOOL_CLASS.datePickerDayText}>{day.date.getDate()}</span>
@@ -268,7 +280,10 @@ export function LocalDateTimePicker({ labels, locale, onChange, value }: LocalDa
                 <div
                   ref={clockRef}
                   className={TOOL_CLASS.clockFace}
+                  data-dragging={draggingClock ? "true" : undefined}
                   onPointerDown={startClockDrag}
+                  onPointerUp={stopClockDrag}
+                  onPointerCancel={stopClockDrag}
                   onPointerMove={(event) => {
                     if (event.buttons !== 1) return;
                     selectTimeFromPointer(event);
@@ -283,7 +298,7 @@ export function LocalDateTimePicker({ labels, locale, onChange, value }: LocalDa
                       />
                     ))}
                   </div>
-                  <motion.span className={TOOL_CLASS.clockHand} style={clockHand} transition={MotionPresets.fast} />
+                  <span className={TOOL_CLASS.clockHand} style={clockHand} />
                   <AnimatePresence mode="wait" initial={false}>
                     <motion.div
                       key={activeTimePart}
@@ -372,8 +387,12 @@ function clockValueStyle(part: TimePart, value: number) {
   } as CSSProperties;
 }
 
-function handStyle(part: TimePart, value: number) {
-  const angle = part === "hour" ? value * 15 : value * 6;
+function shortestContinuousAngle(previous: number, target: number) {
+  const delta = ((((target - previous) % 360) + 540) % 360) - 180;
+  return previous + delta;
+}
+
+function handStyle(angle: number) {
   const length = 4.05;
   return {
     "--clock-angle": `${angle}deg`,

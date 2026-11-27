@@ -1,13 +1,31 @@
+.overlay {
+  backdrop-filter: blur(4px);
+  background: rgb(0 0 0 / 0.36);
+  inset: 0;
+  padding: 1.5rem 0.75rem;
+  position: fixed;
+  z-index: 50;
+}
+
 .panel {
   background: var(--blog-surface);
+  border: 1px solid var(--blog-border-soft);
   border-radius: 1rem;
-  box-shadow: var(--shadow-blog);
+  box-shadow: 0 20px 50px rgb(0 0 0 / 0.18);
   margin-left: auto;
   margin-right: auto;
   max-height: 88vh;
   max-width: 42rem;
   overflow: hidden;
   width: 100%;
+}
+
+:global(html.dark-mode) .overlay {
+  background: rgb(0 0 0 / 0.54);
+}
+
+:global(html.dark-mode) .panel {
+  box-shadow: 0 24px 60px rgb(0 0 0 / 0.45);
 }
 
 .header {

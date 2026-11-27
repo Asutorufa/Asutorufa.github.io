@@ -112,34 +112,27 @@ export function JsonFormatterTool({ labels }: { labels: UiLabels }) {
         <label className={TOOL_CLASS.field}>
           <span className={TOOL_CLASS.fieldLabel}>{text.jsonOutput}</span>
           <div className={TOOL_CLASS.jsonOutputShell}>
-            <AnimatePresence mode="wait" initial={false}>
-              {output ? (
-                <motion.pre
-                  key="preview"
-                  className={clsx(TOOL_CLASS.jsonPreview, "language-json")}
-                  aria-label={text.jsonOutput}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={MotionPresets.fast}
-                >
-                  <code className="language-json" dangerouslySetInnerHTML={{ __html: highlightedOutput }} />
-                </motion.pre>
-              ) : (
-                <motion.textarea
-                  key="empty"
-                  className={clsx(TOOL_CLASS.control, TOOL_CLASS.textarea)}
-                  value={output}
-                  readOnly
-                  placeholder={text.formattedResult}
-                  spellCheck={false}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={MotionPresets.fast}
-                />
-              )}
-            </AnimatePresence>
+            {output ? (
+              <motion.pre
+                key="preview"
+                className={clsx(TOOL_CLASS.jsonPreview, "language-json")}
+                aria-label={text.jsonOutput}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.fast}
+              >
+                <code className="language-json" dangerouslySetInnerHTML={{ __html: highlightedOutput }} />
+              </motion.pre>
+            ) : (
+              <textarea
+                key="empty"
+                className={clsx(TOOL_CLASS.control, TOOL_CLASS.textarea)}
+                value={output}
+                readOnly
+                placeholder={text.formattedResult}
+                spellCheck={false}
+              />
+            )}
           </div>
         </label>
       </div>
@@ -148,10 +141,10 @@ export function JsonFormatterTool({ labels }: { labels: UiLabels }) {
         {error ? (
           <motion.p
             className={TOOL_CLASS.error}
-            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
-            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, height: "auto" }}
-            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
-            transition={MotionPresets.fast}
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -4 }}
+            transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.fast}
           >
             {error}
           </motion.p>

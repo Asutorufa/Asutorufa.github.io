@@ -13,25 +13,8 @@ export function ScrollProgressButton() {
   const [hasComments, setHasComments] = useState(false);
   const [usesTouchInteraction, setUsesTouchInteraction] = useState(false);
   const prefersReducedMotion = useReducedMotion();
-  const rootVariants = prefersReducedMotion
-    ? undefined
-    : {
-        hover: { scale: 1.02, y: -3 },
-        tap: { scale: 0.97, y: 0 }
-      };
-  const topIconVariants = prefersReducedMotion
-    ? undefined
-    : {
-        hover: { y: -2 },
-        tap: { y: -5 }
-      };
-  const commentIconVariants = prefersReducedMotion
-    ? undefined
-    : {
-        hover: { rotate: -8, scale: 1.08 },
-        tap: { rotate: 0, scale: 0.92 }
-      };
-  const showCommentsButton = hasComments && expanded;
+  const isVisible = progress > 3;
+  const showCommentsButton = hasComments && expanded && isVisible;
 
   useEffect(() => {
     let frame = 0;
@@ -121,19 +104,10 @@ export function ScrollProgressButton() {
   return (
     <motion.div
       ref={rootRef}
-      layout
-      layoutRoot
-      className={clsx(styles.root, progress > 3 && styles.visible, expanded && styles.expanded)}
+      className={clsx(styles.root, isVisible && styles.visible, expanded && styles.expanded)}
       initial={false}
-      animate={
-        progress > 3
-          ? { opacity: 1, pointerEvents: "auto", y: 0, scale: 1 }
-          : { opacity: 0, pointerEvents: "none", y: prefersReducedMotion ? 0 : 8, scale: prefersReducedMotion ? 1 : 0.96 }
-      }
-      variants={rootVariants}
-      whileHover={prefersReducedMotion ? undefined : "hover"}
-      whileTap={prefersReducedMotion ? undefined : "tap"}
-      transition={MotionPresets.spring}
+      animate={isVisible ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: prefersReducedMotion ? 1 : 0.96, y: prefersReducedMotion ? 0 : 8 }}
+      transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.normal}
       style={{ "--scroll-progress": `${progress}%` } as CSSProperties}
       onMouseEnter={() => {
         if (!usesTouchInteraction) setExpanded(true);
@@ -144,31 +118,34 @@ export function ScrollProgressButton() {
       onFocus={() => setExpanded(true)}
       onBlur={collapseOnBlur}
     >
-      <motion.button layout type="button" className={clsx(styles.button, styles.progressButton)} onClick={handleBackToTop} aria-label="Back to top">
-        <motion.span className={styles.icon} variants={topIconVariants} transition={MotionPresets.fast}>
+      <button type="button" className={clsx(styles.button, styles.progressButton)} onClick={handleBackToTop} aria-label="Back to top">
+        <span className={clsx(styles.icon, styles.topIcon)}>
           <Icon name="arrow-up" />
-        </motion.span>
+        </span>
         <span className={styles.value}>{progress}%</span>
-      </motion.button>
+      </button>
       <AnimatePresence initial={false}>
         {showCommentsButton ? (
-          <motion.button
+          <motion.div
             key="comments"
-            layout
-            type="button"
-            className={clsx(styles.button, styles.commentButton)}
-            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9, width: 0 }}
-            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1, width: "2.25rem" }}
-            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9, width: 0 }}
-            transition={MotionPresets.fast}
-            onClick={scrollToComments}
-            aria-label="Jump to comments"
-            title="Comments"
+            className={styles.commentSlot}
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, width: 0 }}
+            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, width: "auto" }}
+            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, width: 0 }}
+            transition={prefersReducedMotion ? MotionPresets.instant : MotionPresets.fast}
           >
-            <motion.span className={styles.icon} variants={commentIconVariants} transition={MotionPresets.fast}>
-              <Icon name="message" />
-            </motion.span>
-          </motion.button>
+            <button
+              type="button"
+              className={clsx(styles.button, styles.commentButton)}
+              onClick={scrollToComments}
+              aria-label="Jump to comments"
+              title="Comments"
+            >
+              <span className={clsx(styles.icon, styles.commentIcon)}>
+                <Icon name="message" />
+              </span>
+            </button>
+          </motion.div>
         ) : null}
       </AnimatePresence>
     </motion.div>

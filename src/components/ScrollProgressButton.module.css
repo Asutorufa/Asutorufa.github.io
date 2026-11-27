@@ -1,12 +1,11 @@
 .root {
-  --scroll-button-bg: rgb(255 255 255 / 0.92);
+  --scroll-button-bg: rgb(255 255 255 / 0.94);
   --scroll-progress-color: var(--blog-accent);
 
   align-items: center;
   bottom: 1.25rem;
   display: inline-flex;
   flex-direction: row-reverse;
-  gap: 0.35rem;
   opacity: 0;
   pointer-events: none;
   position: fixed;
@@ -18,14 +17,23 @@
   pointer-events: auto;
 }
 
+.commentSlot {
+  display: inline-flex;
+  flex: 0 0 auto;
+  justify-content: flex-start;
+  margin-block: -12px;
+  overflow: hidden;
+  padding-block: 12px;
+}
+
 .button {
   appearance: none;
   align-items: center;
   backdrop-filter: blur(12px);
   background: var(--scroll-button-bg);
-  border: 1.5px solid transparent;
+  border: 1.5px solid var(--blog-border-soft);
   border-radius: 999px;
-  box-shadow: 0 12px 28px rgb(0 0 0 / 0.12);
+  box-shadow: 0 8px 22px rgb(0 0 0 / 0.1);
   color: var(--blog-text);
   cursor: pointer;
   display: inline-flex;
@@ -40,34 +48,40 @@
   overflow: hidden;
   transition:
     background var(--motion-hover) ease,
+    border-color var(--motion-hover) ease,
     box-shadow var(--motion-hover) ease,
-    color var(--motion-hover) ease;
+    color var(--motion-hover) ease,
+    transform var(--motion-hover) ease;
 }
 
 .progressButton {
   background:
     linear-gradient(var(--scroll-button-bg), var(--scroll-button-bg)) padding-box,
-    conic-gradient(from -90deg, var(--scroll-progress-color) var(--scroll-progress, 0%), transparent 0) border-box;
+    conic-gradient(from -90deg, var(--scroll-progress-color) var(--scroll-progress, 0%), var(--blog-border-soft) 0) border-box;
+  border-color: transparent;
   padding: 0 0.62rem 0 0.52rem;
 }
 
 .commentButton {
+  margin-right: 0.35rem;
   padding: 0;
   width: 2.25rem;
 }
 
-.root:hover .button,
-.expanded .button,
+.button:hover,
 .button:focus-visible {
-  --scroll-button-bg: color-mix(in srgb, var(--blog-accent-fill) 92%, transparent);
+  --scroll-button-bg: color-mix(in srgb, var(--blog-accent-fill) 94%, transparent);
   --scroll-progress-color: #fff;
 
-  box-shadow: 0 16px 32px rgb(255 91 37 / 0.2);
+  border-color: transparent;
+  box-shadow: 0 12px 26px rgb(255 91 37 / 0.22);
   color: #fff;
+  transform: translateY(-2px);
 }
 
 .button:active {
-  box-shadow: 0 8px 18px rgb(0 0 0 / 0.14);
+  box-shadow: 0 6px 14px rgb(0 0 0 / 0.14);
+  transform: scale(0.96);
 }
 
 .button:focus-visible {
@@ -79,7 +93,16 @@
   display: inline-flex;
   height: 1.3rem;
   justify-content: center;
+  transition: transform var(--motion-hover) ease;
   width: 1.3rem;
+}
+
+.progressButton:hover .topIcon {
+  transform: translateY(-1.5px);
+}
+
+.commentButton:hover .commentIcon {
+  transform: scale(1.06);
 }
 
 .value {
@@ -89,21 +112,34 @@
 }
 
 :global(html.dark-mode) .root {
-  --scroll-button-bg: rgb(40 40 40 / 0.92);
+  --scroll-button-bg: rgb(42 42 42 / 0.94);
   --scroll-progress-color: var(--blog-accent-line);
 }
 
 :global(html.dark-mode) .button {
-  box-shadow: 0 14px 30px rgb(0 0 0 / 0.34);
+  box-shadow: 0 10px 26px rgb(0 0 0 / 0.36);
   color: var(--blog-heading);
 }
 
-:global(html.dark-mode) .root:hover .button,
-:global(html.dark-mode) .expanded .button,
+:global(html.dark-mode) .button:hover,
 :global(html.dark-mode) .button:focus-visible {
-  --scroll-button-bg: color-mix(in srgb, var(--blog-accent-fill) 92%, transparent);
+  --scroll-button-bg: color-mix(in srgb, var(--blog-accent-fill) 94%, transparent);
   --scroll-progress-color: #fff;
 
-  box-shadow: 0 16px 34px rgb(0 0 0 / 0.42);
+  box-shadow: 0 12px 28px rgb(0 0 0 / 0.44);
   color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .icon {
+    transition: none;
+  }
+
+  .button:hover,
+  .button:active,
+  .progressButton:hover .topIcon,
+  .commentButton:hover .commentIcon {
+    transform: none;
+  }
 }
